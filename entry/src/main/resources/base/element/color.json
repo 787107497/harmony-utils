@@ -3,6 +3,14 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "main_background",
+      "value": "#FAFAFA"
+    },
+    {
+      "name": "color_line",
+      "value": "#EFEFEF"
     }
   ]
 }

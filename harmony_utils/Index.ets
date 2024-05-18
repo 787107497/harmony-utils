@@ -1,28 +1,24 @@
-export { ActionUtil } from './src/main/ets/action/ActionUtil';
-
-export { DialogUtil } from './src/main/ets/action/DialogUtil';
-
-export { ToastUtil } from './src/main/ets/action/ToastUtil';
-
 export { AppUtil } from './src/main/ets/utils/AppUtil';
 
-export { PreferencesUtil } from './src/main/ets/utils/PreferencesUtil';
+export { DeviceUtil } from './src/main/ets/utils/DeviceUtil';
+
+export { DisplayUtil } from './src/main/ets/utils/DisplayUtil';
 
 export { PermissionUtil } from './src/main/ets/utils/PermissionUtil';
 
-export { NotificationUtil } from './src/main/ets/utils/NotificationUtil';
-
 export { AuthUtil } from './src/main/ets/utils/AuthUtil';
 
-export { LocationUtil } from './src/main/ets/utils/LocationUtil';
+export { NotificationUtil } from './src/main/ets/utils/NotificationUtil';
 
-export { FilePickerUtil } from './src/main/ets/utils/FilePickerUtil';
+export { PreferencesUtil } from './src/main/ets/utils/PreferencesUtil';
 
 export { FileUtil } from './src/main/ets/utils/FileUtil';
 
-export { PasteboardUtil } from './src/main/ets/utils/PasteboardUtil';
+export { FilePickerUtil } from './src/main/ets/utils/FilePickerUtil';
 
-export { DisplayUtil } from './src/main/ets/utils/DisplayUtil';
+export { LocationUtil } from './src/main/ets/utils/LocationUtil';
+
+export { PasteboardUtil } from './src/main/ets/utils/PasteboardUtil';
 
 export { SnapshotUtil } from './src/main/ets/utils/SnapshotUtil';
 
@@ -48,6 +44,10 @@ export { ArrayUtil } from './src/main/ets/utils/ArrayUtil';
 
 export { RandomUtil } from './src/main/ets/utils/RandomUtil';
 
+export { ObjectUtil } from './src/main/ets/utils/ObjectUtil';
+
+export { JSONUtil } from './src/main/ets/utils/JSONUtil';
+
 export { CacheUtil } from './src/main/ets/utils/CacheUtil';
 
 export { ClickUtil } from './src/main/ets/utils/ClickUtil';
@@ -55,6 +55,12 @@ export { ClickUtil } from './src/main/ets/utils/ClickUtil';
 export { TempUtil } from './src/main/ets/utils/TempUtil';
 
 export { WindowUtil } from './src/main/ets/utils/WindowUtil';
+
+export { ActionUtil } from './src/main/ets/action/ActionUtil';
+
+export { DialogUtil } from './src/main/ets/action/DialogUtil';
+
+export { ToastUtil } from './src/main/ets/action/ToastUtil';
 
 export { AlertControlDialog } from './src/main/ets/dialog/AlertControlDialog';
 

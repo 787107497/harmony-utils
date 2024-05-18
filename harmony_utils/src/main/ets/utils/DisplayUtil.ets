@@ -1,5 +1,6 @@
 import { display } from '@kit.ArkUI';
 import { Callback } from '@kit.BasicServicesKit';
+import { LogUtil } from './LogUtil';
 
 /**
  * 屏幕相关工具类
@@ -7,6 +8,7 @@ import { Callback } from '@kit.BasicServicesKit';
 export class DisplayUtil {
 
   private constructor() {}
+
 
   /**
    * 获取当前默认的display对象。
@@ -68,22 +70,19 @@ export class DisplayUtil {
    * 获取挖孔屏、刘海屏、瀑布屏等不可用屏幕区域信息。使用Promise异步回调。建议应用布局规避该区域。
    * @returns
    */
-  static getCutoutInfo(): Promise<display.CutoutInfo> {
-    return DisplayUtil.getDefaultDisplaySync().getCutoutInfo()
+  static async getCutoutRect(): Promise<display.Rect> {
+    let cutoutInfo = await DisplayUtil.getDefaultDisplaySync().getCutoutInfo()
+    return cutoutInfo.boundingRects[0]
   }
 
-
   /**
-   * 获取挖孔屏、刘海屏等不可用屏幕区域的高度。
+   * 获取挖孔屏、刘海屏等不可用屏幕区域的高度。单位px。
    * @returns
    */
   static async getCutoutHeight(): Promise<number> {
-    let cutoutInfo = await DisplayUtil.getCutoutInfo();
-    if (cutoutInfo) {
-      let boundingRects = cutoutInfo.boundingRects;
-      if (boundingRects && boundingRects.length > 0) {
-        return boundingRects[0].height;
-      }
+    let rect = await DisplayUtil.getCutoutRect();
+    if (rect) {
+      return rect.height;
     }
     return 0;
   }
@@ -141,7 +140,11 @@ export class DisplayUtil {
    * @param callback
    */
   static offFoldStatusChange(callback: Callback<display.FoldStatus>) {
-    display.off('foldStatusChange', callback)
+    try {
+      display.off('foldStatusChange', callback)
+    } catch (err) {
+      LogUtil.error(`offFoldStatusChange-异常信息：${JSON.stringify(err)}`)
+    }
   }
 
 

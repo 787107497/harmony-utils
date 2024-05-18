@@ -1,5 +1,6 @@
 import { image } from '@kit.ImageKit';
 import { resourceManager } from '@kit.LocalizationKit';
+import { AppUtil } from './AppUtil';
 import { Base64Util } from './Base64Util';
 import { FileUtil } from './FileUtil';
 import { LogUtil } from './LogUtil';
@@ -232,6 +233,18 @@ export class ImageUtil {
     return imagePacker.packToFile(source, fd, options).finally(() => {
       imagePacker.release(); //释放
     });
+  }
+
+
+  /**
+   * 用户获取指定resource的PixelMap
+   * @param resource 例如：$r("app.media.icon_ring"
+   * @returns
+   */
+  static async getPixelMapFromMedia(resource: Resource): Promise<image.PixelMap> {
+    let resourceManager = AppUtil.getContext().resourceManager;
+    let uint8Array = resourceManager.getMediaContentSync(resource);
+    return await ImageUtil.createImageSource(uint8Array.buffer).createPixelMap();
   }
 
 

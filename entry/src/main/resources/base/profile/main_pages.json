@@ -1,6 +1,41 @@
 {
   "src": [
     "pages/Index",
-    "pages/Float"
-  ]
+    "pages/utils/AppUtilPage",
+    "pages/utils/DeviceUtilPage",
+    "pages/utils/DisplayUtilPage",
+    "pages/utils/PermissionUtilPage",
+    "pages/utils/AuthUtilPage",
+    "pages/utils/NotificationUtilPage",
+    "pages/utils/PreferencesUtilPage",
+    "pages/utils/FileUtilPage",
+    "pages/utils/FilePickerUtilPage",
+    "pages/utils/LocationUtilPage",
+    "pages/utils/PasteboardUtilPage",
+    "pages/utils/SnapshotUtilPage",
+    "pages/utils/ScanUtilPage",
+    "pages/utils/ImageUtilPage",
+    "pages/utils/KeyboardUtilPage",
+    "pages/utils/LogUtilPage",
+    "pages/utils/CrashUtilPage",
+    "pages/utils/StrUtilPage",
+    "pages/utils/Base64UtilPage",
+    "pages/utils/NumberUtilPage",
+    "pages/utils/DateUtilPage",
+    "pages/utils/ArrayUtilPage",
+    "pages/utils/RandomUtilPage",
+    "pages/utils/ObjectUtilPage",
+    "pages/utils/JSONUtilPage",
+    "pages/utils/CacheUtilPage",
+    "pages/utils/ClickUtilPage",
+    "pages/utils/TempUtilPage",
+    "pages/utils/ActionUtilPage",
+    "pages/utils/DialogUtilPage",
+    "pages/utils/ToastUtilPage",
+    "pages/utils/ControlDialogPage"
+  ],
+  "window": {
+    "designWidth": 750,
+    "autoDesignWidth": false
+  }
 }

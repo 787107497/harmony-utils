@@ -6,6 +6,7 @@ import { AppUtil } from 'harmony_utils';
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+
   }
 
   onDestroy(): void {
@@ -15,15 +16,13 @@ export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-    AppUtil.cacheWindowStage(windowStage)
+    AppUtil.init(this.context, windowStage)
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
-
-
     });
   }
 
@@ -40,5 +39,10 @@ export default class EntryAbility extends UIAbility {
   onBackground(): void {
     // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
+  }
+
+  //返回true表示UIAbility将会被移到后台不销毁，返回false表示UIAbility将正常销毁。
+  onBackPressed(): boolean {
+    return true;
   }
 }

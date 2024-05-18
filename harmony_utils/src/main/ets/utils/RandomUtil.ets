@@ -1,8 +1,8 @@
+import { util } from '@kit.ArkTS';
+
 /**
  * 随机工具类
  */
-
-
 export class RandomUtil {
 
   private constructor() {}
@@ -132,6 +132,27 @@ export class RandomUtil {
     return uuid.join('');
   }
 
+
+  /**
+   * 使用加密安全随机数生成器生成随机的RFC 4122版本4的string类型UUID。
+   * @param entropyCache 是否使用已缓存的UUID， 默认true。
+   * @returns
+   */
+  static generateRandomUUID(entropyCache: boolean = true): string {
+    let uuid = util.generateRandomUUID(entropyCache);
+    return uuid;
+  }
+
+
+  /**
+   * 使用加密安全随机数生成器生成随机的RFC 4122版本4的Uint8Array类型UUID。
+   * @param entropyCache
+   * @returns 是否使用已缓存的UUID， 默认true。
+   */
+  static generateRandomBinaryUUID(entropyCache: boolean = true): Uint8Array {
+    let uuid = util.generateRandomBinaryUUID(entropyCache);
+    return uuid;
+  }
 
 
 }

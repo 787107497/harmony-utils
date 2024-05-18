@@ -1,0 +1,24 @@
+{
+  "strarray": [
+    {
+      "name": "title",
+      "value": [
+        {
+          "value": "small1"
+        },
+        {
+          "value": "small2"
+        },
+        {
+          "value": "small3"
+        },
+        {
+          "value": "small4"
+        },
+        {
+          "value": "small41"
+        }
+      ]
+    }
+  ]
+}

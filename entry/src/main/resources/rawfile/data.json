@@ -1,0 +1,130 @@
+[
+  {
+    "name": "AppUtil",
+    "desc": "APP相关工具类"
+  },
+  {
+    "name": "DeviceUtil",
+    "desc": "设备相关工具类"
+  },
+  {
+    "name": "DisplayUtil",
+    "desc": "屏幕相关工具类"
+  },
+  {
+    "name": "PermissionUtil",
+    "desc": "申请授权工具类"
+  },
+  {
+    "name": "AuthUtil",
+    "desc": "手机的生物认证（指纹、人脸、密码）工具类"
+  },
+  {
+    "name": "NotificationUtil",
+    "desc": "通知工具类"
+  },
+  {
+    "name": "PreferencesUtil",
+    "desc": "Preferences（用户首选项）工具类"
+  },
+  {
+    "name": "FileUtil",
+    "desc": "文件操作相关工具类"
+  },
+  {
+    "name": "FilePickerUtil",
+    "desc": "拍照、文件(文件、图片、视频、音频)选择和保存,工具类"
+  },
+  {
+    "name": "LocationUtil",
+    "desc": "定位工具类(WGS-84坐标系)"
+  },
+  {
+    "name": "PasteboardUtil",
+    "desc": "剪贴板工具类"
+  },
+  {
+    "name": "SnapshotUtil",
+    "desc": "组件截图和窗口截图工具类"
+  },
+  {
+    "name": "ScanUtil",
+    "desc": "码工具类（扫码、码图生成、图片识码）"
+  },
+  {
+    "name": "ImageUtil",
+    "desc": "图片相关工具类"
+  },
+  {
+    "name": "KeyboardUtil",
+    "desc": "键盘工具类"
+  },
+  {
+    "name": "LogUtil",
+    "desc": "日志工具类"
+  },
+  {
+    "name": "CrashUtil",
+    "desc": "全局异常捕获，崩溃日志收集"
+  },
+  {
+    "name": "StrUtil",
+    "desc": "字符串工具类"
+  },
+  {
+    "name": "Base64Util",
+    "desc": "Base64工具类"
+  },
+  {
+    "name": "NumberUtil",
+    "desc": "number工具类"
+  },
+  {
+    "name": "DateUtil",
+    "desc": "日期工具类"
+  },
+  {
+    "name": "ArrayUtil",
+    "desc": "数组工具类"
+  },
+  {
+    "name": "RandomUtil",
+    "desc": "随机工具类"
+  },
+  {
+    "name": "ObjectUtil",
+    "desc": "对象工具类"
+  },
+  {
+    "name": "JSONUtil",
+    "desc": "JSON工具类"
+  },
+  {
+    "name": "CacheUtil",
+    "desc": "缓存工具类"
+  },
+  {
+    "name": "ClickUtil",
+    "desc": "节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）"
+  },
+  {
+    "name": "TempUtil",
+    "desc": "温度转换工具类，华氏度与摄氏度相互转换"
+  },
+  {
+    "name": "ActionUtil",
+    "desc": "弹窗工具类（promptAction）"
+  },
+  {
+    "name": "DialogUtil",
+    "desc": "弹窗工具类（AlertDialog）"
+  },
+  {
+    "name": "ToastUtil",
+    "desc": "土司工具类（promptAction）"
+  },
+  {
+    "name": "ControlDialog",
+    "desc": "自定义弹框组件"
+  }
+]

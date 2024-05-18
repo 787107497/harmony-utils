@@ -1,7 +1,8 @@
 import errorManager from '@ohos.app.ability.errorManager';
+import { appRecovery, common, Want } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { DateUtil } from './DateUtil';
 import { LogUtil } from './LogUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { FileUtil } from './FileUtil';
 import { FilePickerUtil } from './FilePickerUtil';
 import { StrUtil } from './StrUtil';
@@ -77,6 +78,62 @@ export class CrashUtil {
     }
   }
 
+
+  /**
+   * 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。
+   * @param restart RestartFlag 应用重启标志。
+   *    ALWAYS_RESTART  0  总是重启应用。
+   *    RESTART_WHEN_JS_CRASH  0x0001  发生JS_CRASH时重启应用。
+   *    RESTART_WHEN_APP_FREEZE  0x0002  发生APP_FREEZE时重启应用。
+   *    NO_RESTART  0xFFFF  总是不重启应用。
+   * @param saveOccasion SaveOccasionFlag 保存条件标志
+   *    SAVE_WHEN_ERROR  0x0001  当发生应用故障时保存。
+   *    SAVE_WHEN_BACKGROUND  0x0002  当应用切入后台时保存。
+   * @param saveMode SaveModeFlag  状态保存标志
+   *    SAVE_WITH_FILE  0x0001  每次状态保存都会写入到本地文件缓存。
+   *    SAVE_WITH_SHARED_MEMORY  0x0002  状态先保存在内存中，应用故障退出时写入到本地文件缓存。
+   */
+  static enableAppRecovery(restart: appRecovery.RestartFlag = appRecovery.RestartFlag.ALWAYS_RESTART,
+                           saveOccasion: appRecovery.SaveOccasionFlag = appRecovery.SaveOccasionFlag.SAVE_WHEN_ERROR,
+                           saveMode: appRecovery.SaveModeFlag.SAVE_WITH_FILE = appRecovery.SaveModeFlag.SAVE_WITH_FILE) {
+    appRecovery.enableAppRecovery(restart, saveOccasion, saveMode);
+  }
+
+
+  /**
+   * 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用。
+   * 如果该Ability存在已经保存的状态，这些状态数据会在Ability的OnCreate生命周期回调的want参数中作为wantParam属性传入。
+   * API10时将启动由setRestartWant指定的Ability。如果没有指定则按以下规则启动：
+   *   如果当前应用前台的Ability支持恢复，则重新拉起该Ability。
+   *   如果存在多个支持恢复的Ability处于前台，则只拉起最后一个。
+   *   如果没有Ability处于前台，则不拉起。
+   */
+  static restartApp() {
+    appRecovery.restartApp()
+  }
+
+
+  /**
+   * 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用
+   * @param context UIAbilityContext  需要保存状态的UIAbility所对应的context。
+   * @returns
+   */
+  static saveAppState(context?: common.UIAbilityContext): boolean {
+    if (context) {
+      return appRecovery.saveAppState(context) //主动保存Ability的状态
+    } else {
+      return appRecovery.saveAppState() //保存当前App状态
+    }
+  }
+
+
+  /**
+   * 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility。
+   * @param want 通过设置Want中"bundleName"和"abilityName"字段来指定恢复重启的Ability。
+   */
+  static setRestartWant(want: Want) {
+    appRecovery.setRestartWant(want);
+  }
 
 
 }

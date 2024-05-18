@@ -6,7 +6,7 @@ import { ToastUtil } from '../action/ToastUtil';
 
 /**
  * 手机的生物认证（指纹、人脸、密码）工具类
- * 需要先申请权限 ohos.permission.ACCESS_BIOMETRIC
+ * 需要权限 ohos.permission.ACCESS_BIOMETRIC
  */
 export class AuthUtil {
 
@@ -26,7 +26,7 @@ export class AuthUtil {
       return { status: true };
     } catch (error) {
       LogUtil.error("查询认证能力是否支持失败：" + JSON.stringify(error));
-      return { status: false, errorCode: error.code };
+      return { status: false, errorCode: error.code, errorMsg: AuthUtil.getErrorMsg(error.code) };
     }
   }
 
@@ -40,7 +40,7 @@ export class AuthUtil {
     let authParam: userAuth.AuthParam = {
       challenge: AuthUtil.getChallenge(), //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])
       authType: [userAuth.UserAuthType.FINGERPRINT, userAuth.UserAuthType.PIN], //认证类型列表，用来指定用户认证界面提供的认证方法。
-      authTrustLevel: userAuth.AuthTrustLevel.ATL3, //认证信任等级。
+      authTrustLevel: userAuth.AuthTrustLevel.ATL2, //认证信任等级。
     };
     try {
       // 获取认证对象
@@ -143,7 +143,7 @@ export class AuthUtil {
    * @param code
    * @param defaultMsg
    */
-  static getErrorMsg(code: number, defaultMsg: string = '') {
+  static getErrorMsg(code: number, defaultMsg: string = ''): string {
     if (201 == code) {
       return '权限校验失败！'
     } else if (202 == code) {
@@ -205,7 +205,7 @@ class AuthOptions {
   authTrustLevel: userAuth.AuthTrustLevel = userAuth.AuthTrustLevel.ATL3; //认证信任等级。
   title: string = '请验证身份'; //用户认证界面的标题，最大长度为500字符。
   navigationButtonText?: string; //导航按键的说明文本，最大长度为60字符。仅在单指纹、单人脸场景下支持。
-  showTip: boolean = false; //默认不显示提示语
+  showTip?: boolean = false; //默认不显示提示语
 }
 
 
@@ -215,4 +215,5 @@ class AuthOptions {
 interface StatusResult {
   status: boolean;
   errorCode?: number;
+  errorMsg?: string;
 }

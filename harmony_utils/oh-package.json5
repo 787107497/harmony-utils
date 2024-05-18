@@ -1,12 +1,16 @@
 {
   "version": "1.0.0",
   "name": "@pura/harmony-utils",
-  "author": "tongyuyan",
+  "author": "pura",
   "description": "一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。",
   "repository": "https://gitee.com",
   "main": "Index.ets",
   "license": "Apache-2.0",
-  "dependencies": {},
+  "dependencies": {
+    "class-transformer": "^0.5.1"
+  },
+  "devDependencies": {},
+  "dynamicDependencies": {},
   "keywords": [
     "OpenHarmony",
     "HarmonyOS",
@@ -26,4 +30,3 @@
     "弹框"
   ]
 }
-

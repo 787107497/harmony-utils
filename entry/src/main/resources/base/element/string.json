@@ -11,6 +11,30 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "permission_APP_TRACKING_CONSENT",
+      "value": "用于应用读取设备标识符"
+    },
+    {
+      "name": "permission_ACTIVITY_MOTION",
+      "value": "用于应用读取用户的运动状态"
+    },
+    {
+      "name": "permission_LOCATION",
+      "value": "用于应用获取设备位置信息"
+    },
+    {
+      "name": "permission_CAMERA",
+      "value": "用于应用使用相机"
+    },
+    {
+      "name": "permission_READ_MEDIA",
+      "value": "用于应用读取用户外部存储中的媒体文件信息"
+    },
+    {
+      "name": "permission_WRITE_MEDIA",
+      "value": "用于应用读写用户外部存储中的媒体文件信息"
     }
   ]
 }

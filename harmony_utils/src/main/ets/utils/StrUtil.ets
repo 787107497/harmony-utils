@@ -17,7 +17,7 @@ export class StrUtil {
    * @param str 被检测的字符串
    * @returns 是否为空
    */
-  static isNull(str: string): boolean {
+  static isNull(str: string | undefined | null): boolean {
     return str == undefined || str == null;
   }
 
@@ -26,7 +26,7 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isNotNull(str: string) {
+  static isNotNull(str: string | undefined | null) {
     return false == StrUtil.isNull(str);
   }
 
@@ -36,7 +36,7 @@ export class StrUtil {
    * @param str 被检测的字符串
    * @return 是否为空
    */
-  static isEmpty(str: string): boolean {
+  static isEmpty(str: string | undefined | null): boolean {
     return str == undefined || str == null || str.length == 0;
   }
 
@@ -45,7 +45,7 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isNotEmpty(str: string) {
+  static isNotEmpty(str: string | undefined | null) {
     return false == StrUtil.isEmpty(str);
   }
 
@@ -55,7 +55,7 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isBlank(str: string): boolean {
+  static isBlank(str: string | undefined | null): boolean {
     let length: number;
     if ((str == undefined) || (str == null) || ((length = str.length) == 0)) {
       return true;
@@ -74,8 +74,22 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isNotBlank(str: string): boolean {
+  static isNotBlank(str: string | undefined | null): boolean {
     return false == StrUtil.isBlank(str);
+  }
+
+
+  /**
+   * 格式化字符串
+   * @param source
+   * @param defaultValue
+   * @returns
+   */
+  static toStr(source: string | null | undefined, defaultValue = "") {
+    if (source == null || source == undefined) {
+      return defaultValue;
+    }
+    return String(source);
   }
 
 

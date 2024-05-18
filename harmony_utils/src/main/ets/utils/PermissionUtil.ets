@@ -3,6 +3,7 @@ import { bundleManager, common } from '@kit.AbilityKit';
 import { BusinessError } from '@ohos.base';
 import { ToastUtil } from '../action/ToastUtil';
 import Want from '@ohos.app.ability.Want';
+import { AppUtil } from './AppUtil';
 
 
 /**
@@ -51,7 +52,7 @@ export class PermissionUtil{
    */
   static async requestPermissions(permissions: Permissions): Promise<boolean> {
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    let context = getContext() as common.UIAbilityContext;
+    let context = AppUtil.getContext();
     // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
     let request = await atManager.requestPermissionsFromUser(context, [permissions]);
     let grantStatus: Array<number> = request.authResults;
@@ -72,7 +73,7 @@ export class PermissionUtil{
    */
   static async requestPermissionsList(permissions: Array<Permissions>): Promise<boolean> {
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    let context = getContext() as common.UIAbilityContext
+    let context = AppUtil.getContext();
     // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
     let request = await atManager.requestPermissionsFromUser(context, permissions);
     let grantStatus: Array<number> = request.authResults;
@@ -90,7 +91,7 @@ export class PermissionUtil{
    * 跳转应用设置页面（授权失败，调用此方法到设置，手动开启权限）
    */
   static async toAppSetting() {
-    const context = getContext() as common.UIAbilityContext;
+    let context = AppUtil.getContext();
     let bundleName = context.abilityInfo.bundleName;
     let want: Want = {
       bundleName: 'com.huawei.hmos.settings',

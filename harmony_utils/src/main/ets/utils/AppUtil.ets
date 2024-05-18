@@ -1,36 +1,50 @@
-import { vibrator } from '@kit.SensorServiceKit';
 import bundleManager from '@ohos.bundle.bundleManager';
 import { LogUtil } from './LogUtil';
 import { BusinessError } from '@ohos.base';
-import { appRecovery, common, Want } from '@kit.AbilityKit';
-import { display, KeyboardAvoidMode, window } from '@kit.ArkUI';
+import { KeyboardAvoidMode, window } from '@kit.ArkUI';
+import { DeviceUtil } from './DeviceUtil';
+import { resourceManager } from '@kit.LocalizationKit';
+import { common } from '@kit.AbilityKit';
 
 
 /**
- * App相关工具类(使用该工具前请在UIAbility的onWindowStageCreate方法中调用AppUtil的cacheWindowStage方法)
+ * App相关工具类(使用该工具前请在UIAbility的onWindowStageCreate方法中调用AppUtil的init方法初始化)
  */
 export class AppUtil{
 
   private constructor() {}
 
+  private static context: common.UIAbilityContext; //common.UIAbilityContext，上下文
   private static windowStage: window.WindowStage;
 
 
   /**
-   * 缓存窗口管理器，在UIAbility的onWindowStageCreate方法中初始化该方法。
+   * 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法。
    * @param windowStage 窗口管理器
    */
-  static cacheWindowStage(windowStage: window.WindowStage) {
+  static init(context: common.UIAbilityContext, windowStage: window.WindowStage) {
+    AppUtil.context = context;
     AppUtil.windowStage = windowStage;
   }
 
+  /**
+   * 获取上下文，common.UIAbilityContext
+   * @returns
+   */
+  static getContext(): common.UIAbilityContext {
+    if (!AppUtil.context) {
+      AppUtil.context = getContext() as common.UIAbilityContext; //兜底
+      LogUtil.error("context为空，请在UIAbility的onWindowStageCreate方法中调用AppUtil的init方法初始化！");
+    }
+    return AppUtil.context;
+  }
 
   /**
    * 获取主窗口
    */
   static getMainWindow(): window.Window {
     if (!AppUtil.windowStage) {
-      LogUtil.error("windowStage为空，请在UIAbility的onWindowStageCreate方法中调用cacheWindowStage方法缓存windowStage！");
+      LogUtil.error("windowStage为空，请在UIAbility的onWindowStageCreate方法中调用AppUtil的init方法初始化！");
     }
     return AppUtil.windowStage.getMainWindowSync();
   }
@@ -60,8 +74,15 @@ export class AppUtil{
    * 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）。
    */
   static getKeyboardAvoidMode(): KeyboardAvoidMode {
-    let keyboardAvoidMode = AppUtil.getUIContext().getKeyboardAvoidMode();
-    return keyboardAvoidMode;
+    let mode = AppUtil.getUIContext().getKeyboardAvoidMode();
+    if (typeof mode === 'string') {
+      if ('KeyBoardAvoidMode.RESIZE' === mode) {
+        return KeyboardAvoidMode.RESIZE;
+      } else {
+        return KeyboardAvoidMode.OFFSET;
+      }
+    }
+    return mode;
   }
 
   /**
@@ -74,19 +95,19 @@ export class AppUtil{
 
 
   /**
-   * 设备当前是否以竖屏方式显示（竖屏、反向竖屏）
+   * 设备当前是否以竖屏方式显示（竖屏）
    */
   static isPortrait(): Boolean {
-    let orientation = display.getDefaultDisplaySync().orientation;
-    return orientation == display.Orientation.PORTRAIT || orientation == display.Orientation.PORTRAIT_INVERTED;
+    let direction = DeviceUtil.getDirection();
+    return direction == resourceManager.Direction.DIRECTION_VERTICAL;
   }
 
   /**
-   * 设备当前是否以横屏方式显示（横屏、反向横屏）
+   * 设备当前是否以横屏方式显示（横屏）
    */
   static isLandscape(): Boolean {
-    let orientation = display.getDefaultDisplaySync().orientation;
-    return orientation == display.Orientation.LANDSCAPE || orientation == display.Orientation.LANDSCAPE_INVERTED;
+    let direction = DeviceUtil.getDirection();
+    return direction == resourceManager.Direction.DIRECTION_HORIZONTAL;
   }
 
 
@@ -191,12 +212,12 @@ export class AppUtil{
 
 
   /**
-   * 获取挖孔屏、刘海屏等不可用屏幕的状态栏的高度，单位为px。
+   * 获取状态栏的高度，单位为px。
    * @returns
    */
-  static getCutoutHeight(): number {
+  static getStatusBarHeight(): number {
     let windowClass = AppUtil.getMainWindow();
-    let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_CUTOUT);
+    let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
     return avoidArea.topRect.height;
   }
 
@@ -239,90 +260,6 @@ export class AppUtil{
     if (systemBarProperties) {
       windowClass.setWindowSystemBarProperties(systemBarProperties);
     }
-  }
-
-
-
-  /**
-   * 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。
-   * @param restart RestartFlag 应用重启标志。
-   *    ALWAYS_RESTART	0	总是重启应用。
-   *    RESTART_WHEN_JS_CRASH	0x0001	发生JS_CRASH时重启应用。
-   *    RESTART_WHEN_APP_FREEZE	0x0002	发生APP_FREEZE时重启应用。
-   *    NO_RESTART	0xFFFF	总是不重启应用。
-   * @param saveOccasion SaveOccasionFlag 保存条件标志
-   *    SAVE_WHEN_ERROR	0x0001	当发生应用故障时保存。
-   *    SAVE_WHEN_BACKGROUND	0x0002	当应用切入后台时保存。
-   * @param saveMode SaveModeFlag  状态保存标志
-   *    SAVE_WITH_FILE	0x0001	每次状态保存都会写入到本地文件缓存。
-   *    SAVE_WITH_SHARED_MEMORY	0x0002	状态先保存在内存中，应用故障退出时写入到本地文件缓存。
-   */
-  static enableAppRecovery(restart: appRecovery.RestartFlag = appRecovery.RestartFlag.ALWAYS_RESTART,
-                           saveOccasion: appRecovery.SaveOccasionFlag = appRecovery.SaveOccasionFlag.SAVE_WHEN_ERROR,
-                           saveMode: appRecovery.SaveModeFlag.SAVE_WITH_FILE = appRecovery.SaveModeFlag.SAVE_WITH_FILE) {
-    appRecovery.enableAppRecovery(restart, saveOccasion, saveMode);
-  }
-
-
-  /**
-   * 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用。
-   * 如果该Ability存在已经保存的状态，这些状态数据会在Ability的OnCreate生命周期回调的want参数中作为wantParam属性传入。
-   * API10时将启动由setRestartWant指定的Ability。如果没有指定则按以下规则启动：
-   *   如果当前应用前台的Ability支持恢复，则重新拉起该Ability。
-   *   如果存在多个支持恢复的Ability处于前台，则只拉起最后一个。
-   *   如果没有Ability处于前台，则不拉起。
-   */
-  static restartApp() {
-    appRecovery.restartApp()
-  }
-
-
-  /**
-   * 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用
-   * @param context UIAbilityContext  需要保存状态的UIAbility所对应的context。
-   * @returns
-   */
-  static saveAppState(context?: common.UIAbilityContext): boolean {
-    if (context) {
-      return appRecovery.saveAppState(context) //主动保存Ability的状态
-    } else {
-      return appRecovery.saveAppState() //保存当前App状态
-    }
-  }
-
-
-  /**
-   * 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility。
-   * @param want 通过设置Want中"bundleName"和"abilityName"字段来指定恢复重启的Ability。
-   */
-  static setRestartWant(want: Want) {
-    appRecovery.setRestartWant(want);
-  }
-
-
-  /**
-   * 开启振动
-   * @param duration
-   * @param usage
-   */
-  static startVibration(duration: number = 10000, usage: vibrator.Usage = 'media') {
-    vibrator.startVibration({ type: 'time', duration: duration }, { id: 0, usage: usage }, (error) => {
-      if (error) {
-        LogUtil.error("startVibration：" + JSON.stringify(error))
-      }
-    })
-  }
-
-
-  /**
-   * 停止振动（按照VIBRATOR_STOP_MODE_TIME模式）
-   */
-  static stopVibration() {
-    vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME, (error: BusinessError) => {
-      if (error) {
-        LogUtil.error("stopVibration：" + JSON.stringify(error))
-      }
-    })
   }
 
 

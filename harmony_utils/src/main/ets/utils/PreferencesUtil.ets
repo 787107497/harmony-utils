@@ -1,8 +1,9 @@
 import preferences from '@ohos.data.preferences'
 import dataPreferences from '@ohos.data.preferences'
+import { AppUtil } from './AppUtil'
 
 
-const defaultPreferenceName: string = "SP_EYE_PREFERENCES"
+const defaultPreferenceName: string = "SP_HARMONY_UTILS_PREFERENCES"
 
 /**
  * Preferences工具类
@@ -11,8 +12,6 @@ export class PreferencesUtil{
 
   private constructor() {}
 
-  static readonly context = getContext()
-
 
   /**
    * 获取Preferences实例
@@ -20,7 +19,7 @@ export class PreferencesUtil{
    * @returns
    */
   private static async getPreferences(name: string = defaultPreferenceName): Promise<preferences.Preferences> {
-    return dataPreferences.getPreferences(PreferencesUtil.context, name)
+    return dataPreferences.getPreferences(AppUtil.getContext(), name)
   }
 
   /**
@@ -52,12 +51,8 @@ export class PreferencesUtil{
    * @param key
    * @returns
    */
-  static getString(key: string, callback: (value: string) => void) {
-    PreferencesUtil.get(key, "").then((value) => {
-      if (callback) {
-        callback(value as string)
-      }
-    })
+  static async getString(key: string): Promise<string> {
+    return (await PreferencesUtil.get(key, "")) as string;
   }
 
   /**
@@ -65,12 +60,8 @@ export class PreferencesUtil{
    * @param key
    * @returns
    */
-  static async getNumber(key: string, callback: (value: number) => void) {
-    PreferencesUtil.get(key, 0).then((value) => {
-      if (callback) {
-        callback(value as number)
-      }
-    })
+  static async getNumber(key: string) {
+    return (await PreferencesUtil.get(key, 0)) as number;
   }
 
   /**
@@ -80,12 +71,8 @@ export class PreferencesUtil{
    * @param preferenceName
    * @returns
    */
-  static async getBoolean(key: string, callback: (value: boolean) => void) {
-    PreferencesUtil.get(key, false).then((value) => {
-      if (callback) {
-        callback(value as boolean)
-      }
-    })
+  static async getBoolean(key: string) {
+    return (await PreferencesUtil.get(key, false)) as boolean;
   }
 
   /**
