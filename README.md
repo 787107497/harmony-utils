@@ -57,12 +57,12 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | LoadingControlDialog | 进度加载类弹出框                    |
 | SelectControlDialog  | 选择类弹出框                      |
 | TipControlDialog     | 提示弹出框                       |
-<br><br>
+
 
 
 ## 📚API详解与示例代码
 
-### AppUtil（APP相关工具类）
+### AppUtil（APP相关工具类） [点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/Index.ets)
 | 方法                           | 介绍                                                                |
 |:-----------------------------|:------------------------------------------------------------------|
 | init                         | 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法              |
@@ -86,9 +86,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | setStatusBar                 | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用） |
 | getBundleInfo                | 获取当前应用的BundleInfo                                                 |
 | getAppInfo                   | 获取应用程序的配置信息                                                       |
- ```
-  点我见[AppUtil使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/Index.ets)
- ```
+
 
 ### DeviceUtil（设备相关工具类）
 | 方法                      | 介绍                                  |
@@ -104,9 +102,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | getScreenDensity        | 获取当前设备屏幕密度                          |
 | startVibration          | 开启设备振动                              |
 | stopVibration           | 停止设备振动（按照VIBRATOR_STOP_MODE_TIME模式） |
- ```
-    harmony-utils
- ```
+
 
 ### DisplayUtil（屏幕相关工具类）
 | 方法                    | 介绍                                   |
@@ -123,9 +119,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | getFoldDisplayMode    | 获取可折叠设备的显示模式                         |
 | onFoldStatusChange    | 开启折叠设备折叠状态变化的监听                      |
 | offFoldStatusChange   | 关闭折叠设备折叠状态变化的监听                      |
- ```
-    harmony-utils
- ```
+
 
 ### PermissionUtil（申请授权工具类）
 | 方法                      | 介绍           |
@@ -135,9 +129,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | requestPermissions      | 申请授权         |
 | requestPermissionsList  | 申请组合授权       |
 | toAppSetting            | 跳转应用设置页面     |
- ```
-    harmony-utils
- ```
+
 
 ### AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）
 | 方法                 | 介绍                 |
@@ -146,9 +138,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | onStartEasy        | 开始认证,使用指纹和密码认证     |
 | onStart            | 开始认证，用户指定类型认证      |
 | cancel             | 取消认证               |
- ```
-    harmony-utils
- ```
+
 
 ### NotificationUtil（通知工具类）
 | 方法                            | 介绍                                             |
@@ -165,9 +155,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | setBadgeFromNotificationCount | 设置桌面角标数量，来自于通知数量                               |
 | getActiveNotificationCount    | 获取当前应用未删除的通知数量                                 |
 | getActiveNotifications        | 获取当前应用未删除的通知列表                                 |
- ```
-    harmony-utils
- ```
+
 
 ### PreferencesUtil（Preferences工具类）
 | 方法         | 介绍                     |
@@ -180,9 +168,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | has        | 检查缓存实例中是否包含给定Key的存储键值对 |
 | delete     | 删除缓存值                  |
 | clear      | 清空缓存                   |
- ```
-    harmony-utils
- ```
+
 
 ### FileUtil（文件操作相关工具类）
 | 方法                       | 介绍                                     |
@@ -251,9 +237,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | getRawFileContent        | 获取resources/rawfile目录下对应的rawfile文件内容   |
 | getRawFileContentStrSync | 获取resources/rawfile目录下对应的rawfile文件内容   |
 | getRawFileContentStr     | 获取resources/rawfile目录下对应的rawfile文件内容   |
- ```
-    harmony-utils
- ```
+
 
 ### FilePickerUtil（拍照、文件(文件、图片、视频、音频)选择和保存,工具类）
 | 方法             | 介绍                                                  |
@@ -266,9 +250,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
 | saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件。              |
 | getPhotoAsset  | 获取对应uri的PhotoAsset对象,用于读取文件信息                       |
- ```
-    harmony-utils
- ```
+
 
 ### LocationUtil（定位工具类(WGS-84坐标系)）
 | 方法                            | 介绍                    |
@@ -285,9 +267,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | getAddressFromLocation        | 地理逆编码,将坐标转换为地理描述      |
 | getGeoAddressFromLocation     | 地理逆编码,将坐标转换为地理描述集合    |
 | getCountryCode                | 获取当前的国家码              |
- ```
-    harmony-utils
- ```
+
 
 ### PasteboardUtil（剪贴板工具类 ）
 | 方法             | 介绍            |
@@ -302,9 +282,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | clearData      | 清空系统剪贴板内容     |
 | hasData        | 判断系统剪贴板中是否有内容 |
 | hasDataSync    | 判断系统剪贴板中是否有内容 |
- ```
-    harmony-utils
- ```
+
 
 ### SnapshotUtil（组件截图和窗口截图工具类）
 | 方法                | 介绍                                             |
@@ -312,9 +290,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | get               | 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图。通过Promise返回结果 |
 | createFromBuilder | 在应用后台渲染CustomBuilder自定义组件，并输出其截图               |
 | snapshot          | 获取窗口截图，使用Promise异步回调                           |
- ```
-    harmony-utils
- ```
+
 
 ### ScanUtil（码工具类(扫码、码图生成、图片识码)）
 | 方法                    | 介绍                           |
@@ -323,9 +299,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
 | onPickerDetectBarCode | 通过picker拉起图库并选择图片,并调用图片识码    |
 | onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
- ```
-    harmony-utils
- ```
+
 
 ### ImageUtil（图片相关工具类 ）
 | 方法                        | 介绍                        |
@@ -340,9 +314,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | packingFromPixelMap       | 图片压缩或重新打包，使用Promise形式返回结果 |
 | packToFileFromPixelMap    | 将PixelMap图片源编码后直接打包进文件    |
 | packToFileFromImageSource | 将ImageSource图片源编码后直接打包进文件 |
- ```
-    harmony-utils
- ```
+
 
 ### KeyboardUtil（键盘工具类）
 | 方法                     | 介绍                |
@@ -352,9 +324,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | removeKeyboardListener | 取消订阅输入法软键盘显示或隐藏事件 |
 | onInputTextChanged     | 订阅文本内容变化          |
 | removeInputTextChanged | 取消订阅文本内容变化        |
- ```
-    harmony-utils
- ```
+
 
 ### LogUtil（日志工具类）
 | 方法         | 介绍                                           |
@@ -369,9 +339,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | error      | 打印ERROR级别日志                                  |
 | fatal      | 打印FATAL级别日志                                  |
 | print      | 打印JSON对象和JSON字符串（日志过滤tag为：JSAPP）             |
- ```
-    harmony-utils
- ```
+
 
 ### CrashUtil（全局异常捕获，崩溃日志收集）
 | 方法                | 介绍                                                                |
@@ -383,9 +351,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
 | saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
 | setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
- ```
-    harmony-utils
- ```
+
 
 ### StrUtil（字符串工具类）
 | 方法                 | 介绍                                    |
@@ -414,9 +380,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | bufferToStr        | ArrayBuffer转字符串                       |
 | bufferToUint8Array | ArrayBuffer转Uint8Array                |
 | unit8ArrayToBuffer | Uint8Array转ArrayBuffer                |
- ```
-    harmony-utils
- ```
+
 
 ### Base64Util（Base64工具类）
 | 方法              | 介绍                           |
@@ -427,9 +391,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | encode          | 编码，通过输入参数编码后输出Uint8Array对象   |
 | encodeToStr     | 编码，通过输入参数编码后输出对应文本           |
 | decode          | 解码，通过输入参数解码后输出对应Uint8Array对象 |
- ```
-    harmony-utils
- ```
+
 
 ### NumberUtil（number工具类）
 | 方法       | 介绍         |
@@ -437,9 +399,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | isNumber | 判断是否是数值    |
 | toInt    | 将字符串转换为整数  |
 | toFloat  | 将字符串转换为浮点数 |
- ```
-    harmony-utils
- ```
+
 
 ### DateUtil（日期工具类）
 | 方法               | 介绍                         |
@@ -451,9 +411,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | getFormatDateStr | 获取格式化日期，将传入的日期格式化为指定格式的字符串 |
 | getTipDateStr    | 格式化时间戳，获取提示性时间字符串          |
 | getDateDiff      | 获取两个Date的日期差单位为天           |
- ```
-    harmony-utils
- ```
+
 
 ### ArrayUtil（数组工具类）
 | 方法          | 介绍                                 |
@@ -470,9 +428,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | max         | 获取数组（数值、字符串、日期）最大值                 |
 | flatten     | 平铺二维数组                             |
 | union       | 平铺二维数组，并去重                         |
- ```
-    harmony-utils
- ```
+
 
 ### RandomUtil（随机工具类）
 | 方法                       | 介绍                                            |
@@ -488,9 +444,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | generateUUID32           | 生成32位UUID，带-                                  |
 | generateRandomUUID       | 使用加密安全随机数生成器生成随机的RFC 4122版本4的string类型UUID     |
 | generateRandomBinaryUUID | 使用加密安全随机数生成器生成随机的RFC 4122版本4的Uint8Array类型UUID |
- ```
-    harmony-utils
- ```
+
 
 ### ObjectUtil（对象工具类）
 | 方法       | 介绍          |
@@ -498,9 +452,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | isString | 判断是否是String |
 | isNull   | 判断对象是否为空    |
 | deepCopy | 深度拷贝对象      |
- ```
-    harmony-utils
- ```
+
 
 ### JSONUtil（JSON工具类）
 | 方法            | 介绍              |
@@ -510,36 +462,28 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | jsonToMap     | JSON转Map        |
 | beanToJsonStr | 对象转字符串          |
 | isJSONString  | 判断是否是字符串格式json  |
- ```
-    harmony-utils
- ```
+
 
 ### CacheUtil（缓存工具类 ）
 | 方法     | 介绍    |
 |:-------|:------|
 | save   | 存值    |
 | get    | 取值    |
- ```
-    harmony-utils
- ```
+
 
 ### ClickUtil（节流、防抖 工具类(可用于点击事件，防止按钮被重复点击)）
 | 方法       | 介绍                               |
 |:---------|:---------------------------------|
 | throttle | 节流：在一定时间内，只触发一次                  |
 | debounce | 防抖：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数 |
- ```
-   harmony-utils
- ```
+
 
 ### TempUtil(温度转换工具类)
 | 方法  | 介绍      |
 |:----|:--------|
 | F2C | 华氏度转摄氏度 |
 | C2F | 摄氏度转华氏度 |
- ```
-    harmony-utils
- ```
+
 
 ### ActionUtil（弹窗工具类）
 | 方法                 | 介绍           |
@@ -549,9 +493,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | showDialog         | 显示弹窗（多个按钮）   |
 | showActionMenuEasy | 显示操作菜单（简单易用） |
 | showActionMenu     | 显示操作菜单       |
- ```
-    harmony-utils
- ```
+
 
 ### DialogUtil（弹窗工具类）
 | 方法                  | 介绍               |
@@ -567,9 +509,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | showTimePicker      | 时间滑动选择器弹窗        |
 | showTextPicker      | 文本滑动选择器弹窗        |
 | showCalendarPicker  | 日历选择器弹窗          |
- ```
-    harmony-utils
- ```
+
 
 ### ToastUtil（土司工具类）
 | 方法        | 介绍               |
@@ -577,31 +517,23 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | showToast | 弹出土司，默认时长为2s     |
 | showShort | 弹出短土司，默认时长为:1.5s |
 | showLong  | 弹出长土司，默认时长为:10s  |
- ```
-    harmony-utils
- ```
-<br><br>
 
 
 ## 📚仓库地址
 `https://gitee.com/tongyuyan/harmony-utils`
-<br><br>
 
 
 ## 💖后续计划
 1、持续优化和添加更多的实用方法与功能（网络相关、语音、文字识别、router）。
 2、添加新的模块（悬浮窗、加载动画、JSBridge）。
-<br><br>
 
 
 ## 💖技术交流
 ![QQ群：569512366](harmony_utils/Picture/group_qrcode.jpg)
-<br><br>
 
 
 ## 🙏贡献代码
 使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。
-<br><br>
 
 
 ## 📚开源协议
