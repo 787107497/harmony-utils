@@ -32,7 +32,7 @@
     "desc": "文件操作相关工具类"
   },
   {
-    "name": "FilePickerUtil",
+    "name": "PickerUtil",
     "desc": "拍照、文件(文件、图片、视频、音频)选择和保存,工具类"
   },
   {

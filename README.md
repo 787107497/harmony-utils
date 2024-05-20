@@ -27,7 +27,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | NotificationUtil     | 通知工具类                       |
 | PreferencesUtil      | Preferences（用户首选项）工具类       |
 | FileUtil             | 文件操作相关工具类                   |
-| FilePickerUtil       | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类 |
+| PickerUtil           | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类 |
 | LocationUtil         | 定位工具类(WGS-84坐标系)            |
 | PasteboardUtil       | 剪贴板工具类                      |
 | SnapshotUtil         | 组件截图和窗口截图工具类                |
@@ -238,7 +238,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 | getRawFileContentStr     | 获取resources/rawfile目录下对应的rawfile文件内容   |
 
 
-### FilePickerUtil（拍照、文件选择和保存,工具类）[点我见使用详细]()
+### PickerUtil（拍照、文件选择和保存,工具类）[点我见使用详细]()
 | 方法             | 介绍                                                  |
 |:---------------|:----------------------------------------------------|
 | camera         | 调用系统相机，拍照、录视频                                       |

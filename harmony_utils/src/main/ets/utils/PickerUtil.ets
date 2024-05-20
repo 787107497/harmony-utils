@@ -11,7 +11,7 @@ const PHOTO_DEFAULT_SELECT_NUMBER: number = 9; //数量
 /**
  * 拍照、文件(文件、图片、视频、音频)选择和保存,工具类
  */
-export class FilePickerUtil {
+export class PickerUtil {
 
   private constructor() {}
 
@@ -47,7 +47,7 @@ export class FilePickerUtil {
         return pickerResult.resultUri;
       }
     } catch (err) {
-      LogUtil.error("FilePickerUtil-camera-异常：" + JSON.stringify(err))
+      LogUtil.error("PickerUtil-camera-异常：" + JSON.stringify(err))
     }
     return "";
   }
@@ -95,7 +95,7 @@ export class FilePickerUtil {
         return [];
       }
     } catch (err) {
-      LogUtil.error("FilePickerUtil-selectPhoto-异常：" + JSON.stringify(err))
+      LogUtil.error("PickerUtil-selectPhoto-异常：" + JSON.stringify(err))
       return [];
     }
   }
@@ -126,7 +126,7 @@ export class FilePickerUtil {
         }
       }
     } catch (error) {
-      LogUtil.error("FilePickerUtil-savePhoto-异常：" + JSON.stringify(error))
+      LogUtil.error("PickerUtil-savePhoto-异常：" + JSON.stringify(error))
       return [];
     }
   }
@@ -157,7 +157,7 @@ export class FilePickerUtil {
       let documentPicker = new picker.DocumentViewPicker();
       return await documentPicker.select(documentSelectOptions);
     } catch (error) {
-      LogUtil.error("FilePickerUtil-selectDocument-异常：" + JSON.stringify(error))
+      LogUtil.error("PickerUtil-selectDocument-异常：" + JSON.stringify(error))
       return [];
     }
   }
@@ -179,7 +179,7 @@ export class FilePickerUtil {
         return await documentPicker.save(documentSaveOptions);
       }
     } catch (error) {
-      LogUtil.error("FilePickerUtil-saveDocument-异常：" + JSON.stringify(error))
+      LogUtil.error("PickerUtil-saveDocument-异常：" + JSON.stringify(error))
       return [];
     }
   }
@@ -195,7 +195,7 @@ export class FilePickerUtil {
       let audioPicker = new picker.AudioViewPicker();
       return await audioPicker.select(AudioSelectOptions);
     } catch (error) {
-      LogUtil.error("FilePickerUtil-selectAudio-异常：" + JSON.stringify(error));
+      LogUtil.error("PickerUtil-selectAudio-异常：" + JSON.stringify(error));
       return [];
     }
   }
@@ -217,7 +217,7 @@ export class FilePickerUtil {
         return await audioPicker.save(AudioSaveOptions);
       }
     } catch (error) {
-      LogUtil.error("FilePickerUtil-saveAudio-异常：" + JSON.stringify(error))
+      LogUtil.error("PickerUtil-saveAudio-异常：" + JSON.stringify(error))
       return [];
     }
   }

@@ -9,7 +9,7 @@
     "pages/utils/NotificationUtilPage",
     "pages/utils/PreferencesUtilPage",
     "pages/utils/FileUtilPage",
-    "pages/utils/FilePickerUtilPage",
+    "pages/utils/PickerUtilPage",
     "pages/utils/LocationUtilPage",
     "pages/utils/PasteboardUtilPage",
     "pages/utils/SnapshotUtilPage",

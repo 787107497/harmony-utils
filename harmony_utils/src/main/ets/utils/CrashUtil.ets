@@ -4,7 +4,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { DateUtil } from './DateUtil';
 import { LogUtil } from './LogUtil';
 import { FileUtil } from './FileUtil';
-import { FilePickerUtil } from './FilePickerUtil';
+import { PickerUtil } from './PickerUtil';
 import { StrUtil } from './StrUtil';
 import { ToastUtil } from '../action/ToastUtil';
 import { GlobalContext } from './other/GlobalContext';
@@ -82,7 +82,7 @@ export class CrashUtil {
    */
   static onExportErrorLog() {
     if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
-      FilePickerUtil.saveDocument(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
+      PickerUtil.saveDocument(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
         if (documentSaveResult && documentSaveResult.length > 0) {
           let saveUri = documentSaveResult[0];
           FileUtil.copy(CrashUtil.ErrorFilePath, saveUri);

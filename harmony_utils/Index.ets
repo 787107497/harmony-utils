@@ -14,7 +14,7 @@ export { PreferencesUtil } from './src/main/ets/utils/PreferencesUtil';
 
 export { FileUtil } from './src/main/ets/utils/FileUtil';
 
-export { FilePickerUtil } from './src/main/ets/utils/FilePickerUtil';
+export { PickerUtil } from './src/main/ets/utils/PickerUtil';
 
 export { LocationUtil } from './src/main/ets/utils/LocationUtil';
 

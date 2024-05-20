@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { FilePickerUtil, LogUtil, PermissionUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { LogUtil, PermissionUtil, PickerUtil, StrUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Permissions } from '@kit.AbilityKit';
@@ -40,7 +40,7 @@ struct Index {
               let p: Permissions = 'ohos.permission.CAMERA';
               PermissionUtil.checkRequestPermissions(p).then((grant) => {
                 if (grant) {
-                  FilePickerUtil.camera().then((uri) => {
+                  PickerUtil.camera().then((uri) => {
                     this.uriStr = `调用相机，返回uri：\n${uri}`
                   }).catch((err: BusinessError) => {
                     this.uriStr = `调用相机，异常：\n${JSON.stringify(err)}`
@@ -57,7 +57,7 @@ struct Index {
               let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA'];
               PermissionUtil.requestPermissionsList(ps).then((result) => {
                 if (result) {
-                  FilePickerUtil.selectPhoto().then((uris) => {
+                  PickerUtil.selectPhoto().then((uris) => {
                     this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
                   }).catch((err: BusinessError) => {
                     this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`
@@ -75,7 +75,7 @@ struct Index {
               let ps: Permissions[] = ['ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA'];
               PermissionUtil.requestPermissionsList(ps).then((result) => {
                 if (result) {
-                  FilePickerUtil.savePhoto().then((uris) => {
+                  PickerUtil.savePhoto().then((uris) => {
                     this.uriStr = `调用保存图片，返回uris：\n${uris.join('\n')}`
                   }).catch((err: BusinessError) => {
                     this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`
@@ -89,7 +89,7 @@ struct Index {
           Button("selectDocument()")
             .btnStyle()
             .onClick(() => {
-              FilePickerUtil.selectDocument().then((uris) => {
+              PickerUtil.selectDocument().then((uris) => {
                 this.uriStr = `调用文件管理，返回uris：\n${uris.join('\n')}`
               }).catch((err: BusinessError) => {
                 this.uriStr = `调用文件管理，异常：\n${JSON.stringify(err)}`
@@ -98,7 +98,7 @@ struct Index {
           Button("saveDocument()")
             .btnStyle()
             .onClick(() => {
-              FilePickerUtil.saveDocument().then((uris) => {
+              PickerUtil.saveDocument().then((uris) => {
                 this.uriStr = `调用保存文件，返回uris：\n${uris.join('\n')}`
               }).catch((err: BusinessError) => {
                 this.uriStr = `调用保存文件，异常：\n${JSON.stringify(err)}`
@@ -110,9 +110,9 @@ struct Index {
               let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA'];
               PermissionUtil.requestPermissionsList(ps).then((result) => {
                 if (result) {
-                  FilePickerUtil.selectPhoto().then(async (uris) => {
+                  PickerUtil.selectPhoto().then(async (uris) => {
                     if (uris && uris.length > 0) {
-                      let photoAsset = await FilePickerUtil.getPhotoAsset(uris[0]);
+                      let photoAsset = await PickerUtil.getPhotoAsset(uris[0]);
                       let name = photoAsset?.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME);
                       let type = photoAsset?.get(photoAccessHelper.PhotoKeys.PHOTO_TYPE);
                       let size = photoAsset?.get(photoAccessHelper.PhotoKeys.SIZE);
