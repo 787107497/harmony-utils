@@ -11,7 +11,7 @@ struct Index {
 
   async aboutToAppear(): Promise<void> {
     this.getData()
-    this.startPage(this.data[9]);
+    this.startPage(this.data[31]);
   }
 
   onPageHide(): void {
@@ -19,8 +19,6 @@ struct Index {
   }
 
   onBackPress(): boolean {
-    // this.visibility(Visibility.Hidden)
-
     return false;
   }
 

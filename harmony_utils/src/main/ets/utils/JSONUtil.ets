@@ -78,7 +78,7 @@ export class JSONUtil {
    * @param str 待验证字符串
    * @returns
    */
-  private static isJSONString(str: string): boolean {
+  static isJSONStr(str: string): boolean {
     try {
       JSON.parse(str);
       return true;

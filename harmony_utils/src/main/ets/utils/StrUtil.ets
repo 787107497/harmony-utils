@@ -176,16 +176,6 @@ export class StrUtil {
 
 
   /**
-   * 去除传入集合的每个值的前后空格
-   * @param strs
-   * @returns
-   */
-  static trim(strs: String[]): String[] {
-    return strs.map((value) => value.trim());
-  }
-
-
-  /**
    * 判断两个传入的数值或者是字符串是否相等
    * @param source
    * @param target

@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { ClickUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -27,13 +28,25 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
+          Button("throttle()")
+            .btnStyle()
+            .onClick(() => {
+              ClickUtil.throttle(() => {
+                ToastUtil.showToast("你好啊！");
+              }, 1200)
+            })
+          Button("debounce()")
+            .btnStyle()
+            .onClick(() => {
+              ClickUtil.debounce(() => {
+                ToastUtil.showToast("点了我！");
+              }, 1200)
+            })
 
-
+          Text('').layoutWeight(1)
         }
-        .width('100%')
-        .height('100%')
+        .margin({ top: 5, bottom: 5 })
       }
-      .margin({ top: 5, bottom: 5 })
       .layoutWeight(1)
     }
     .width('100%')
@@ -41,4 +54,21 @@ struct Index {
     .justifyContent(FlexAlign.Start)
     .backgroundColor($r('app.color.main_background'))
   }
+}
+
+
+@Styles
+function btnStyle() {
+  .width('90%')
+  .margin({ top: 10, bottom: 5 })
+}
+
+@Styles
+function textStyle() {
+  .width('95%')
+  .padding(10)
+  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
+  .margin({ top: 5, bottom: 10 })
+  .backgroundColor(Color.White)
+  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

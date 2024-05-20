@@ -7,6 +7,7 @@ import { FileUtil } from './FileUtil';
 import { FilePickerUtil } from './FilePickerUtil';
 import { StrUtil } from './StrUtil';
 import { ToastUtil } from '../action/ToastUtil';
+import { GlobalContext } from './other/GlobalContext';
 
 
 /**
@@ -16,8 +17,9 @@ export class CrashUtil {
 
   private constructor() {}
 
-  private static observerId = -1;
-  private static ErrorFilePath = ''; //错误日志文件路径
+  private static readonly idKey: string = 'crash_observer_id_key'
+  private static observerId: number = -100;
+  private static ErrorFilePath: string = ''; //错误日志文件路径
 
 
   /**
@@ -25,6 +27,10 @@ export class CrashUtil {
    */
   static onError() {
     try {
+      let cacheId = GlobalContext.getContext().getObject(CrashUtil.idKey) as number;
+      if (cacheId !== undefined && cacheId !== -100) {
+        CrashUtil.offError(); //如果存在，就先注销错误观测器。
+      }
       CrashUtil.observerId = errorManager.on('error', {
         onUnhandledException(errMsg) {
           let errStr = `${DateUtil.getTodayStr()} - 异常信息：\n${errMsg}\n\n\n`;
@@ -40,6 +46,7 @@ export class CrashUtil {
           // let errStr = `${DateUtil.getTodayStr()} - 异常信息2：\n${JSON.stringify(errObject)}\n\n\n`;
         }
       });
+      GlobalContext.getContext().setObject(CrashUtil.idKey, CrashUtil.observerId);
     } catch (error) {
       LogUtil.error("CrashUtil：" + JSON.stringify(error))
     }
@@ -51,10 +58,18 @@ export class CrashUtil {
    */
   static offError() {
     try {
+      if (CrashUtil.observerId === -100) {
+        let cacheId = GlobalContext.getContext().getObject(CrashUtil.idKey) as number;
+        if (cacheId && cacheId != -100) {
+          CrashUtil.observerId = cacheId;
+        }
+      }
       errorManager.off('error', CrashUtil.observerId, (err: BusinessError) => {
         if (err) {
           LogUtil.error("CrashUtil：" + JSON.stringify(err))
+          return;
         }
+        GlobalContext.getContext().setObject(CrashUtil.idKey, -100);
       });
     } catch (error) {
       LogUtil.error("CrashUtil：" + JSON.stringify(error))
@@ -76,6 +91,19 @@ export class CrashUtil {
     } else {
       ToastUtil.showToast("暂无日志文件");
     }
+  }
+
+
+  /**
+   * 读取错误日志文件
+   */
+  static async readErrorText(): Promise<string> {
+    if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
+      if (FileUtil.accessSync(CrashUtil.ErrorFilePath)) {
+        return await FileUtil.readText(CrashUtil.ErrorFilePath);
+      }
+    }
+    return '';
   }
 
 

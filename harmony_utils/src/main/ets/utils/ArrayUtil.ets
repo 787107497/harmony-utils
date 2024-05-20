@@ -37,6 +37,16 @@ export class ArrayUtil {
 
 
   /**
+   * 去除传入集合的每个值的前后空格
+   * @param strs
+   * @returns
+   */
+  static trim(strs: String[]): String[] {
+    return strs.map((value) => value.trim());
+  }
+
+
+  /**
    * 数组去重，去重后生成新的数组，原数组不变。
    * @param array    数组
    * @return 去重后的数组

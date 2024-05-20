@@ -2,6 +2,7 @@ import { detectBarcode, generateBarcode, scanBarcode, scanCore } from '@kit.Scan
 import { image } from '@kit.ImageKit';
 import { picker } from '@kit.CoreFileKit';
 import { LogUtil } from './LogUtil';
+import { AppUtil } from './AppUtil';
 
 
 /**
@@ -27,7 +28,7 @@ export class ScanUtil {
     if (!options) {
       options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
     }
-    return scanBarcode.startScanForResult(getContext(), options); //启动扫码，拉起扫码界面
+    return scanBarcode.startScanForResult(AppUtil.getContext(), options); //启动扫码，拉起扫码界面
   }
 
 
@@ -57,7 +58,7 @@ export class ScanUtil {
    * @param options
    * @returns
    */
-  static async onPickerDetectBarCode(options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
+  static async onPickerScanForResult(options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
     try {
       let photoOption = new picker.PhotoSelectOptions();
       photoOption.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE;
@@ -92,6 +93,14 @@ export class ScanUtil {
     return detectBarcode.decode(inputImage, options);
   }
 
+
+  /**
+   * 判断当前设备是否支持码能力
+   * @returns
+   */
+  static canIUseScan() {
+    return canIUse('SystemCapability.Multimedia.Scan.ScanBarcode');
+  }
 
 
 }

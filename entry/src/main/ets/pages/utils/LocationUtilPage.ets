@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { LocationUtil, StrUtil } from 'harmony_utils';
+import { LocationUtil, LogUtil, PermissionUtil, StrUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -32,44 +32,78 @@ struct Index {
           Button("isLocationEnabled()")
             .btnStyle()
             .onClick(() => {
-              LocationUtil.isLocationEnabled()
-
+              let isLocationEnabled = LocationUtil.isLocationEnabled()
+              ToastUtil.showToast(`定位是否开启：${isLocationEnabled}`)
             })
           Button("requestLocationPermissions()")
             .btnStyle()
             .onClick(() => {
-
+              LocationUtil.requestLocationPermissions().then((grant) => {
+                if (grant) { //已授权
+                  ToastUtil.showToast("授权成功")
+                } else {
+                  ToastUtil.showToast("请在设置中开启定位权限")
+                  PermissionUtil.toAppSetting()
+                }
+              })
             })
           Button("getCurrentLocationEasy()")
             .btnStyle()
             .onClick(() => {
-
+              LocationUtil.requestLocationPermissions().then((grant) => {
+                if (grant) { //已授权
+                  LocationUtil.getCurrentLocationEasy((location) => {
+                    this.addrStr = `定位信息：\n${JSON.stringify(location, null, 2)}`
+                  })
+                } else {
+                  ToastUtil.showToast("请在设置中开启定位权限")
+                  PermissionUtil.toAppSetting()
+                }
+              })
             })
           Button("onLocationChangeEasy()")
             .btnStyle()
             .onClick(() => {
-
+              LocationUtil.requestLocationPermissions().then((grant) => {
+                if (grant) { //已授权
+                  LocationUtil.onLocationChangeEasy((location) => {
+                    this.addrStr = `开启位置变化订阅：\n${JSON.stringify(location, null, 2)}`
+                  })
+                } else {
+                  ToastUtil.showToast("请在设置中开启定位权限")
+                  PermissionUtil.toAppSetting()
+                }
+              })
             })
           Button("offLocationChange()")
             .btnStyle()
             .onClick(() => {
-
+              LocationUtil.offLocationChange()
+              ToastUtil.showToast("关闭位置变化订阅，成功")
             })
 
           Button("getAddressFromLocationName()")
             .btnStyle()
-            .onClick(() => {
-
+            .onClick(async () => {
+              let locationName: string = '上海市浦东新区'; //上海市浦东新区
+              let address = await LocationUtil.getAddressFromLocationName(locationName);
+              this.addrStr = `地理逆编码1：\n${JSON.stringify(address, null, 2)}`
+              LogUtil.error(JSON.stringify(address, null, 2))
             })
           Button("getAddressFromLocation()")
             .btnStyle()
-            .onClick(() => {
-
+            .onClick(async () => {
+              let latitude: number = 40;
+              let longitude: number = 117;
+              let address = await LocationUtil.getAddressFromLocation(latitude, longitude);
+              this.addrStr = `地理逆编码2：\n${JSON.stringify(address, null, 2)}`
+              LogUtil.error(JSON.stringify(address, null, 2))
             })
           Button("getCountryCode()")
             .btnStyle()
-            .onClick(() => {
-
+            .onClick(async () => {
+              let code = await LocationUtil.getCountryCode()
+              ToastUtil.showToast(`当前的国家码：${code}`)
             })
 
           Text(this.addrStr)

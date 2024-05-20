@@ -63,7 +63,7 @@ export class DateUtil {
    * @param formatStr 格式化字符串
    * @returns
    */
-  static getFormatDateStr(date?: number | string | Date, formatStr?: string): string {
+  static getFormatDateStr(date: number | string | Date, formatStr?: string): string {
     date = DateUtil.getFormatDate(date)
     if (formatStr === undefined || formatStr == '') {
       formatStr = "yyyy-MM-dd HH:mm:ss"; //yyyy-MM-dd HH:mm:ss.fff

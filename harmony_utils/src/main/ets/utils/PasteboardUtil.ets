@@ -57,9 +57,9 @@ export class PasteboardUtil {
    */
   static async getDataStr(): Promise<string> {
     let text = '';
-    if (await PasteboardUtil.hasData()) {
+    if (PasteboardUtil.hasDataSync()) {
       let data = await PasteboardUtil.getData()
-      let text = data.getPrimaryText();
+      text = data.getPrimaryText();
       if (StrUtil.isEmpty(text)) {
         text = data.getPrimaryHtml();
       }
@@ -130,6 +130,4 @@ export class PasteboardUtil {
     let systemPasteboard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
     return systemPasteboard;
   }
-
-
 }

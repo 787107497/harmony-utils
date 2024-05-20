@@ -182,8 +182,8 @@ export class ActionUtil {
       }
       if (options.buttons) {
         let btn = options.buttons[data.index]
-        if (btn.callBack) {
-          btn.callBack()
+        if (btn.action) {
+          btn.action()
         }
       }
     })
@@ -267,8 +267,8 @@ export class ActionUtil {
       });
       action.then(data => {
         let button = options.buttons[data.index]
-        if (button && button.callBack) {
-          button.callBack()
+        if (button && button.action) {
+          button.action()
         }
       })
     }
@@ -360,5 +360,5 @@ class MenuSelected {
 class DialogButton {
   text: string = ''; //按钮值
   color?: string; //按钮前景色
-  callBack?: () => void; //按钮事件
+  action?: () => void; //按钮事件
 }

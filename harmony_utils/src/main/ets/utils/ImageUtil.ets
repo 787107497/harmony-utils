@@ -39,7 +39,7 @@ export class ImageUtil {
    * @param format 目标格式,默认png,当前只支持jpg、webp和png。当传入的格式与文件格式不匹配，可能会导致生成错误的Base64字符串。
    * @returns
    */
-  static async pixelMapToBase64Str(pixelMap: image.PixelMap, format: string = 'image/png'): Promise<string | null> {
+  static async pixelMapToBase64Str(pixelMap: image.PixelMap, format: string = 'image/png'): Promise<string> {
     try {
       let packOpts: image.PackingOption = { format: format, quality: 100 }
       const arrayBuffer = await ImageUtil.packingFromPixelMap(pixelMap, packOpts);
@@ -51,7 +51,7 @@ export class ImageUtil {
       return base64Str;
     } catch (err) {
       LogUtil.error(`pixelMapToBase64Str-异常信息：${JSON.stringify(err)}`);
-      return null;
+      return '';
     }
   }
 
@@ -64,7 +64,7 @@ export class ImageUtil {
    * @param format 目标格式。默认png。当前只支持jpg（image/jpeg）、webp和png（image/png）。
    * @returns
    */
-  static async savePixelMap(pixelMap: image.PixelMap, path: string, name: string, format: string = 'image/png'): Promise<string | null> {
+  static async savePixelMap(pixelMap: image.PixelMap, path: string, name: string, format: string = 'image/png'): Promise<string> {
     try {
       if (!FileUtil.accessSync(path)) {
         FileUtil.mkdirSync(path) //如果文件夹不存在就创建
@@ -73,10 +73,11 @@ export class ImageUtil {
       let file = FileUtil.openSync(filePath)
       let packOpts: image.PackingOption = { format: format, quality: 100 }
       await ImageUtil.packToFileFromPixelMap(pixelMap, file.fd, packOpts)
+      FileUtil.closeSync(file.fd)  //关闭文件
       return filePath;
     } catch (err) {
       LogUtil.error(`savePixelMap-异常信息：${JSON.stringify(err)}`);
-      return null;
+      return '';
     }
   }
 
@@ -89,7 +90,7 @@ export class ImageUtil {
    * @param format 目标格式。默认png。当前只支持jpg（image/jpeg）、webp和png（image/png）。
    * @returns
    */
-  static async saveImageSource(source: image.ImageSource, path: string, name: string, format: string = 'image/png'): Promise<string | null> {
+  static async saveImageSource(source: image.ImageSource, path: string, name: string, format: string = 'image/png'): Promise<string> {
     try {
       if (!FileUtil.accessSync(path)) {
         FileUtil.mkdirSync(path) //如果文件夹不存在就创建
@@ -98,10 +99,11 @@ export class ImageUtil {
       let file = FileUtil.openSync(filePath)
       let packOpts: image.PackingOption = { format: format, quality: 100 }
       await ImageUtil.packToFileFromImageSource(source, file.fd, packOpts)
+      FileUtil.closeSync(file.fd) //关闭文件
       return filePath;
     } catch (err) {
       LogUtil.error(`saveImageSource-异常信息：${JSON.stringify(err)}`);
-      return null;
+      return '';
     }
   }
 
@@ -109,7 +111,7 @@ export class ImageUtil {
   /**
    * 创建图片源实例
    * @param src（联合类型: string、number、ArrayBuffer、resourceManager.RawFileDescriptor）
-   *   uri string 图片路径，当前仅支持应用沙箱路径。当前支持格式有：.jpg .png .gif .bmp .webp RAW SVG10+ .ico11+。
+   *   path string 图片路径，当前仅支持应用沙箱路径。当前支持格式有：.jpg .png .gif .bmp .webp RAW SVG10+ .ico11+。
    *   fd  number 文件描述符fd。
    *   buf  ArrayBuffer  图像缓冲区数组。
    *   rawfile resourceManager.RawFileDescriptor 图像资源文件的RawFileDescriptor。
@@ -237,8 +239,8 @@ export class ImageUtil {
 
 
   /**
-   * 用户获取指定resource的PixelMap
-   * @param resource 例如：$r("app.media.icon_ring"
+   * 用户获取resource目录下的media中的图片PixelMap
+   * @param resource 例如：$r("app.media.icon"
    * @returns
    */
   static async getPixelMapFromMedia(resource: Resource): Promise<image.PixelMap> {

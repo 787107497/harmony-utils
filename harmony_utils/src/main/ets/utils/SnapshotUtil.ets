@@ -1,12 +1,14 @@
 import { image } from '@kit.ImageKit';
 import { componentSnapshot, window } from '@kit.ArkUI';
+import { AppUtil } from './AppUtil';
 
 /**
  * 组件截图和窗口截图工具类
  */
 export class SnapshotUtil {
+  private constructor() {
+  }
 
-  private constructor() {}
 
   /**
    * 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图。通过Promise返回结果。
@@ -35,11 +37,8 @@ export class SnapshotUtil {
    */
   static async snapshot(windowClass?: window.Window): Promise<image.PixelMap> {
     if (!windowClass) {
-      windowClass = await window.getLastWindow(getContext())
+      windowClass = AppUtil.getMainWindow()
     }
     return windowClass.snapshot();
   }
-
-
-
 }
