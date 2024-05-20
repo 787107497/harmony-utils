@@ -61,15 +61,13 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 <br></br>  
 ## 📚API详解
 
-
->> 全局初始化方法，在UIAbility的onWindowStageCreate方法中初始化 AppUtil.init()
->   
-> onWindowStageCreate(windowStage: window.WindowStage): void {
-> 
->     AppUtil.init(this.context, windowStage);
-> 
-> }
-
+ ```
+全局初始化方法，在UIAbility的onWindowStageCreate方法中初始化 AppUtil.init()
+    
+onWindowStageCreate(windowStage: window.WindowStage): void {
+    AppUtil.init(this.context, windowStage);  
+}
+ ```
 
 ### AppUtil（APP相关工具类） [点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AppUtilPage.ets)
 | 方法                           | 介绍                                                                |
