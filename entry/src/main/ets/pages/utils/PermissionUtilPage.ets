@@ -68,10 +68,8 @@ struct Index {
           Button("toAppSetting()")
             .btnStyle()
             .onClick(() => {
+              ToastUtil.showToast("请在设置中开启权限！")
               PermissionUtil.toAppSetting();
-              ClickUtil.debounce(() => {
-                ToastUtil.showToast("请在设置中开启权限！")
-              }, 2000)
             })
 
           Text('').layoutWeight(1)

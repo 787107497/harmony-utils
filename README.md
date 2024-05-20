@@ -521,7 +521,7 @@ OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmon
 
 
 ## 📚仓库地址
-`https://gitee.com/tongyuyan/harmony-utils`
+[https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)
 
 
 ## 💖后续计划
