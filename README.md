@@ -10,7 +10,7 @@ harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工
 
 
 ## 📚下载安装
-`ohpm install @pura/harmony-utils`
+`ohpm i @pura/harmony-utils`
 
 OpenHarmony ohpm 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 <br><br>
@@ -148,20 +148,20 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 
 ### NotificationUtil（通知工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
-| 方法                            | 介绍                                             |
-|:------------------------------|:-----------------------------------------------|
-| authorizeNotification         | 校验是否已授权通知服务                                    |
-| publishBasic                  | 发布普通文本通知                                       |
-| publishMultiLine              | 发布多文本通知（该方法为OpenHarmony的API,目前暂不支持HarmonyOS）   |
-| publishLongText               | 发布长文本通知（该方法为OpenHarmony的API,目前暂不支持HarmonyOS）   |
-| publishPicture                | 发布带有图片的通知（该方法为OpenHarmony的API,目前暂不支持HarmonyOS） |
-| cancel                        | 取消通知                                           |
-| cancelAll                     | 取消所有通知                                         |
-| setBadge                      | 设置桌面角标个数                                       |
-| clearBadge                    | 清空桌面角标                                         |
-| setBadgeFromNotificationCount | 设置桌面角标数量，来自于通知数量                               |
-| getActiveNotificationCount    | 获取当前应用未删除的通知数量                                 |
-| getActiveNotifications        | 获取当前应用未删除的通知列表                                 |
+| 方法                            | 介绍               |
+|:------------------------------|:-----------------|
+| authorizeNotification         | 校验是否已授权通知服务      |
+| publishBasic                  | 发布普通文本通知         |
+| publishMultiLine              | 发布多文本通知          |
+| publishLongText               | 发布长文本通知          |
+| publishPicture                | 发布带有图片的通知        |
+| cancel                        | 取消通知             |
+| cancelAll                     | 取消所有通知           |
+| setBadge                      | 设置桌面角标个数         |
+| clearBadge                    | 清空桌面角标           |
+| setBadgeFromNotificationCount | 设置桌面角标数量，来自于通知数量 |
+| getActiveNotificationCount    | 获取当前应用未删除的通知数量   |
+| getActiveNotifications        | 获取当前应用未删除的通知列表   |
 
 
 ### PreferencesUtil（Preferences工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
