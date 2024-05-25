@@ -1,6 +1,6 @@
-import { FileUtil, JSONUtil } from 'harmony_utils';
+import { AppUtil, FileUtil, JSONUtil } from 'harmony_utils';
 import { DescribeBean } from '../entity/DescribeBean';
-import { router } from '@kit.ArkUI';
+import { componentUtils, ComponentUtils, DrawContext, FrameNode, NodeController, router, window } from '@kit.ArkUI';
 
 
 @Entry
@@ -11,12 +11,8 @@ struct Index {
 
   async aboutToAppear(): Promise<void> {
     this.getData()
-    this.startPage(this.data[31]);
   }
 
-  onPageHide(): void {
-
-  }
 
   onBackPress(): boolean {
     return false;

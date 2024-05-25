@@ -532,7 +532,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 
 ## 💖后续计划
-1、持续优化和添加更多的实用方法与功能（网络相关、语音、文字识别、router）。<br/>
+1、持续优化和添加更多的实用方法与功能（网络相关、语音、文字识别、文件预览）。<br/>
 2、添加新的模块（悬浮窗、加载动画、JSBridge）。
 
 

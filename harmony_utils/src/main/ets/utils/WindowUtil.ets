@@ -1,6 +1,7 @@
 import { display, window } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { LogUtil } from './LogUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
@@ -50,8 +51,9 @@ export class WindowUtil {
       windowClass.setWindowBackgroundColor(options.bgColor);
       //显示窗口
       await windowClass.showWindow();
-    } catch (exception) {
-      LogUtil.error('创建窗口失败,原因为:', JSON.stringify(exception))
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`WindowUtil-createWindow-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

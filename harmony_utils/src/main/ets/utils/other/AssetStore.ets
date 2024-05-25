@@ -1,6 +1,7 @@
 import { asset } from '@kit.AssetStoreKit';
 import { LogUtil } from '../LogUtil';
 import { StrUtil } from '../StrUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 关键资产存储服务
@@ -8,7 +9,7 @@ import { StrUtil } from '../StrUtil';
 export class AssetStore {
 
 
-  static async set(key: string, value: string, e10: boolean = true) {
+  static async set(key: string, value: string, e10: boolean = true): Promise<boolean> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
@@ -32,14 +33,15 @@ export class AssetStore {
         AppStorage.setOrCreate(key, value);
       }
       return result;
-    } catch (error) {
-      LogUtil.error(`set-异常信息：${JSON.stringify(error)}`);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-set-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
     return false;
   }
 
 
-  static async has(key: string) {
+  static async has(key: string): Promise<boolean> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
@@ -56,14 +58,15 @@ export class AssetStore {
         return false;
       }
       return true;
-    } catch (error) {
-      LogUtil.error(`has-异常信息：${JSON.stringify(error)}`)
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-has-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
 
 
-  static async get(key: string) {
+  static async get(key: string): Promise<string | null> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
@@ -85,25 +88,27 @@ export class AssetStore {
         let c10 = StrUtil.unit8ArrayToStr(b10);
         return c10
       }
-    } catch (error) {
-      LogUtil.error(`get-异常信息：${JSON.stringify(error)}`);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-get-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
     return null;
   }
 
 
-  static async setAssetMap(attr: asset.AssetMap) {
+  static async setAssetMap(attr: asset.AssetMap): Promise<boolean> {
     try {
       await asset.add(attr);
       return true;
-    } catch (error) {
-      LogUtil.error(`setAssetMap-异常信息：${JSON.stringify(error)}`);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-setAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
 
 
-  static async remove(key: string) {
+  static async remove(key: string): Promise<boolean> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
@@ -116,8 +121,9 @@ export class AssetStore {
         AppStorage.setOrCreate(key, '');
       }
       return result;
-    } catch (error) {
-      LogUtil.error(`remove-异常信息：${JSON.stringify(error)}`);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-remove-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
@@ -127,20 +133,22 @@ export class AssetStore {
     try {
       await asset.remove(attr);
       return true;
-    } catch (error) {
-      LogUtil.error(`removeAssetMap-异常信息：${JSON.stringify(error)}`);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-removeAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
 
 
-  static async getAssetMap(query: asset.AssetMap) {
+  static async getAssetMap(query: asset.AssetMap): Promise<Array<asset.AssetMap>> {
     try {
       const z9 = await asset.query(query);
       return z9;
-    } catch (error) {
-      LogUtil.error(`getAssetMap-异常信息：${JSON.stringify(error)}`);
-      return null;
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-getAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return [];
     }
   }
 
@@ -149,8 +157,9 @@ export class AssetStore {
     try {
       await asset.update(query, y9);
       return true;
-    } catch (error) {
-      LogUtil.error(`updateAssetMap-异常信息：${JSON.stringify(error)}`);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-updateAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }

@@ -2,6 +2,7 @@ import fileUri from '@ohos.file.fileuri';
 import fs, { ListFileOptions, ReadOptions, ReadTextOptions, WriteOptions } from '@ohos.file.fs';
 import { LogUtil } from './LogUtil';
 import { StrUtil } from './StrUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 文件操作相关工具类
@@ -357,7 +358,8 @@ export class FileUtil {
         FileUtil.close(file.fd); //关闭文件
       });
     } catch (err) {
-      LogUtil.error(`writeEasy-异常信息：${JSON.stringify(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`FileUtil-writeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return -1;
     }
   }

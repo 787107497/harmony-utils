@@ -1,7 +1,8 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { DeviceUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { DeviceUtil, LogUtil, StrUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { resourceManager } from '@kit.LocalizationKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 设备相关工具类
@@ -108,14 +109,20 @@ struct Index {
           Button("startVibration()")
             .btnStyle()
             .onClick(() => {
-              DeviceUtil.startVibration();
-              ToastUtil.showToast("开启设备振动")
+              DeviceUtil.startVibration().then(() => {
+                ToastUtil.showToast("开启设备振动")
+              }).catch((error: BusinessError) => {
+                LogUtil.error(`startVibration-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+              });
             })
           Button("stopVibration()")
             .btnStyle()
             .onClick(() => {
-              DeviceUtil.stopVibration();
-              ToastUtil.showToast("停止设备振动")
+              DeviceUtil.stopVibration().then(() => {
+                ToastUtil.showToast("停止设备振动")
+              }).catch((error: BusinessError) => {
+                LogUtil.error(`stopVibration-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+              });
             })
 
           Text('').layoutWeight(1)

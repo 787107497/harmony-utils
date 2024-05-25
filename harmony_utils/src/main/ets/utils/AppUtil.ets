@@ -127,7 +127,7 @@ export class AppUtil{
    *   AUTO_ROTATION_LANDSCAPE_RESTRICTED  10  表示受开关控制的自动横向旋转模式。
    *   LOCKED  11  表示锁定模式。
    */
-  static setPreferredOrientation(orientation: window.Orientation, windowClass?: window.Window) {
+  static setPreferredOrientation(orientation: window.Orientation, windowClass?: window.Window): Promise<void> {
     if (!windowClass) {
       windowClass = AppUtil.getMainWindow();
     }
@@ -249,16 +249,18 @@ export class AppUtil{
     let windowClass = AppUtil.getMainWindow();
     windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
       windowClass.setWindowBackgroundColor(color);
-    }).catch((err: BusinessError) => {
-      LogUtil.error('setWindowLayoutFullScreen异常信息:' + JSON.stringify(err));
+    }).catch((error: BusinessError) => {
+      LogUtil.error(`setWindowLayoutFullScreen-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     });
     windowClass.setWindowSystemBarEnable(enable ? ['status', 'navigation'] : []).then(() => {
       windowClass.setSpecificSystemBarEnabled("navigationIndicator", enable); //底部导航条。
-    }).catch((err: BusinessError) => {
-      LogUtil.error('setWindowSystemBarEnable异常信息:' + JSON.stringify(err));
+    }).catch((error: BusinessError) => {
+      LogUtil.error(`setWindowSystemBarEnable-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     });
     if (systemBarProperties) {
-      windowClass.setWindowSystemBarProperties(systemBarProperties);
+      windowClass.setWindowSystemBarProperties(systemBarProperties).catch((error: BusinessError) => {
+        LogUtil.error(`setWindowSystemBarProperties-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      });
     }
   }
 

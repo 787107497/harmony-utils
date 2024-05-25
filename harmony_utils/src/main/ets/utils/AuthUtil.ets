@@ -1,6 +1,6 @@
 import { RandomUtil } from './RandomUtil';
 import { userAuth } from '@kit.UserAuthenticationKit';
-import { Callback } from '@kit.BasicServicesKit';
+import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { LogUtil } from './LogUtil';
 import { ToastUtil } from '../action/ToastUtil';
 
@@ -24,8 +24,9 @@ export class AuthUtil {
     try {
       userAuth.getAvailableStatus(authType, authTrustLevel)
       return { status: true };
-    } catch (error) {
-      LogUtil.error("查询认证能力是否支持失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AuthUtil-getAvailableStatus-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return { status: false, errorCode: error.code, errorMsg: AuthUtil.getErrorMsg(error.code) };
     }
   }
@@ -58,8 +59,9 @@ export class AuthUtil {
       });
       //开始认证
       AuthUtil.userAuthInstance.start();
-    } catch (error) {
-      LogUtil.error("认证失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AuthUtil-onStartEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       ToastUtil.showToast(AuthUtil.getErrorMsg(error.code, '认证失败：' + error.message));
     }
   }
@@ -117,8 +119,9 @@ export class AuthUtil {
       });
       //开始认证
       AuthUtil.userAuthInstance.start();
-    } catch (error) {
-      LogUtil.error("认证失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AuthUtil-onStart-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       ToastUtil.showToast(AuthUtil.getErrorMsg(error.code, '认证失败：' + error.message));
     }
   }
@@ -132,8 +135,9 @@ export class AuthUtil {
       if (AuthUtil.userAuthInstance) {
         AuthUtil.userAuthInstance.cancel(); //取消认证
       }
-    } catch (error) {
-      LogUtil.error("取消认证失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AuthUtil-cancel-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

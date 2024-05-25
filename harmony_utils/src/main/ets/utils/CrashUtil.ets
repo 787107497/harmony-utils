@@ -47,8 +47,9 @@ export class CrashUtil {
         }
       });
       GlobalContext.getContext().setObject(CrashUtil.idKey, CrashUtil.observerId);
-    } catch (error) {
-      LogUtil.error("CrashUtil：" + JSON.stringify(error))
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`CrashUtil-onError-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -71,8 +72,9 @@ export class CrashUtil {
         }
         GlobalContext.getContext().setObject(CrashUtil.idKey, -100);
       });
-    } catch (error) {
-      LogUtil.error("CrashUtil：" + JSON.stringify(error))
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`CrashUtil-offError-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

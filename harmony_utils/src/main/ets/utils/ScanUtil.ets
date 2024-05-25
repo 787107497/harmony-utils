@@ -3,6 +3,7 @@ import { image } from '@kit.ImageKit';
 import { picker } from '@kit.CoreFileKit';
 import { LogUtil } from './LogUtil';
 import { AppUtil } from './AppUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
@@ -67,7 +68,8 @@ export class ScanUtil {
       let uris = await photoPicker.select(photoOption);
       return await ScanUtil.onDetectBarCode(uris[0], options);
     } catch (err) {
-      LogUtil.error(`onPickerDetectBarCode-异常信息：${JSON.parse(err)}`);
+      let error = err as BusinessError;
+      LogUtil.error(`ScanUtil-onPickerScanForResult-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }

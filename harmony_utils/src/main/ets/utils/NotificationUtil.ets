@@ -141,18 +141,18 @@ export class NotificationUtil {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+      let err = error as BusinessError;
+      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
 
   /**
-   * 发布多文本通知（该方法为OpenHarmony的API,目前暂不支持HarmonyOS）
+   * 发布多文本通知
    * @param options  通知实体
    * @returns
    */
@@ -266,18 +266,18 @@ export class NotificationUtil {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+      let err = error as BusinessError;
+      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
 
   /**
-   * 发布长文本通知（该方法为OpenHarmony的API,目前暂不支持HarmonyOS）
+   * 发布长文本通知
    * @param options  通知实体
    * @returns
    */
@@ -391,12 +391,12 @@ export class NotificationUtil {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+      let err = error as BusinessError;
+      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
@@ -517,12 +517,12 @@ export class NotificationUtil {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("发送通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+      let err = error as BusinessError;
+      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
@@ -533,64 +533,43 @@ export class NotificationUtil {
    * @param label 通知标签，默认为空。
    * @returns
    */
-  static async cancel(id: number, label?: string) {
-    try {
-      await notificationManager.cancel(id, label)
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("取消通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
-    }
+  static async cancel(id: number, label?: string): Promise<void> {
+    return await notificationManager.cancel(id, label);
   }
 
   /**
    * 取消所有通知,取消当前应用所有已发布的通知。
    * @returns
    */
-  static async cancelAll() {
-    try {
-      await notificationManager.cancelAll()
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("取消所有通知异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
-    }
+  static async cancelAll(): Promise<void> {
+    return await notificationManager.cancelAll()
   }
 
 
   /**
    * 设置桌面角标个数，在应用的桌面图标上呈现。
    */
-  static async setBadge(badgeNumber: number) {
-    try {
-      await notificationManager.setBadgeNumber(badgeNumber);
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("设置桌面角标异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
-    }
+  static async setBadge(badgeNumber: number): Promise<void> {
+    return await notificationManager.setBadgeNumber(badgeNumber);
   }
 
   /**
    * 清空桌面角标，在应用的桌面图标上呈现。
    */
-  static async clearBadge() {
-    try {
-      await notificationManager.setBadgeNumber(0);
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("清空桌面角标异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
-    }
+  static async clearBadge(): Promise<void> {
+    return await notificationManager.setBadgeNumber(0);
   }
 
   /**
    * 设置桌面角标数量，来自于通知数量。
    */
-  static setBadgeFromNotificationCount() {
+  static async setBadgeFromNotificationCount(): Promise<void> {
     try {
-      notificationManager.getActiveNotificationCount().then(num => {
-        notificationManager.setBadgeNumber(num); //设置角标
-      })
+      let count = await NotificationUtil.getActiveNotificationCount();
+      notificationManager.setBadgeNumber(count); //设置角标
     } catch (error) {
       const err = error as BusinessError;
-      LogUtil.error("设置桌面角标数量，来自于通知数量 异常：", NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message));
+      LogUtil.error(`NotificationUtil-setBadgeFromNotificationCount-异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 

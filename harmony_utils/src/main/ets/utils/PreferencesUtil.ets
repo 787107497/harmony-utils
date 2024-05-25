@@ -19,7 +19,7 @@ export class PreferencesUtil{
    * @returns
    */
   private static async getPreferences(name: string = defaultPreferenceName): Promise<preferences.Preferences> {
-    return dataPreferences.getPreferences(AppUtil.getContext(), name)
+    return dataPreferences.getPreferences(AppUtil.getContext(), name);
   }
 
   /**
@@ -29,9 +29,9 @@ export class PreferencesUtil{
    * @param preferenceName
    */
   static async put(key: string, value: preferences.ValueType, preferenceName: string = defaultPreferenceName) {
-    let preferences = await PreferencesUtil.getPreferences(preferenceName) //获取实例
-    await preferences.put(key, value)
-    await preferences.flush() //此处一定要flush，要不然不能永久序列化到本地
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
+    await preferences.put(key, value);
+    await preferences.flush(); //此处一定要flush，要不然不能永久序列化到本地
   }
 
   /**
@@ -42,8 +42,8 @@ export class PreferencesUtil{
    * @returns
    */
   static async get(key: string, defValue: preferences.ValueType, preferenceName: string = defaultPreferenceName) {
-    let preferences = await PreferencesUtil.getPreferences(preferenceName) //获取实例
-    return preferences.get(key, defValue)
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
+    return preferences.get(key, defValue);
   }
 
   /**
@@ -82,8 +82,8 @@ export class PreferencesUtil{
    * @returns
    */
   static async has(key: string, preferenceName: string = defaultPreferenceName) {
-    let preferences = await PreferencesUtil.getPreferences(preferenceName) //获取实例
-    return await preferences.has(key)
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
+    return await preferences.has(key);
   }
 
   /**
@@ -93,8 +93,9 @@ export class PreferencesUtil{
    * @returns
    */
   static async delete(key: string, preferenceName: string = defaultPreferenceName) {
-    let preferences = await PreferencesUtil.getPreferences(preferenceName) //获取实例
-    return await preferences.delete(key)
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
+    await preferences.delete(key);
+    return await preferences.flush() //此处一定要flush，要不然不能永久序列化到本地
   }
 
   /**
@@ -103,8 +104,9 @@ export class PreferencesUtil{
    * @returns
    */
   static async clear(preferenceName: string = defaultPreferenceName) {
-    let preferences = await PreferencesUtil.getPreferences(preferenceName) //获取实例
-    return await preferences.clear()
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
+    await preferences.clear();
+    return await preferences.flush() //此处一定要flush，要不然不能永久序列化到本地
   }
 
 

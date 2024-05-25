@@ -1,5 +1,6 @@
 import { inputMethodEngine } from '@kit.IMEKit';
 import { LogUtil } from './LogUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 输入法键盘工具类
@@ -34,7 +35,8 @@ export class KeyboardUtil {
         }
       });
     } catch (err) {
-      LogUtil.error(`订阅输入法软键盘显示或隐藏事件-异常： ${JSON.stringify(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`KeyboardUtil-onKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -47,7 +49,8 @@ export class KeyboardUtil {
       inputMethodEngine.getInputMethodAbility().off('keyboardShow');
       inputMethodEngine.getInputMethodAbility().off('keyboardHide');
     } catch (err) {
-      LogUtil.error(`取消订阅输入法软键盘显示或隐藏事件-异常： ${JSON.stringify(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`KeyboardUtil-removeKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -60,7 +63,8 @@ export class KeyboardUtil {
     try {
       inputMethodEngine.getKeyboardDelegate().on('textChange', callback);
     } catch (err) {
-      LogUtil.error(`订阅文本内容变化-异常： ${JSON.stringify(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`KeyboardUtil-onInputTextChanged-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -72,7 +76,8 @@ export class KeyboardUtil {
     try {
       inputMethodEngine.getKeyboardDelegate().off('textChange');
     } catch (err) {
-      LogUtil.error(`取消订阅文本内容变化-异常： ${JSON.stringify(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`KeyboardUtil-removeInputTextChanged-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

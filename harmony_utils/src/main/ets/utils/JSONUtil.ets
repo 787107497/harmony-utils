@@ -1,5 +1,6 @@
-import { ClassConstructor, instanceToPlain, plainToClass } from 'class-transformer'
-import { LogUtil } from './LogUtil'
+import { ClassConstructor, instanceToPlain, plainToClass } from 'class-transformer';
+import { LogUtil } from './LogUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * JSON工具类
@@ -17,11 +18,10 @@ export class JSONUtil {
    */
   static jsonToBean<T>(cls: ClassConstructor<T>, jsonStr: string): T | null {
     try {
-      return plainToClass(cls, JSON.parse(jsonStr), {
-        enableImplicitConversion: false, exposeDefaultValues: true
-      }) as T
+      return plainToClass(cls, JSON.parse(jsonStr), { enableImplicitConversion: false, exposeDefaultValues: true }) as T
     } catch (err) {
-      LogUtil.error(`jsonToBean-异常信息：${JSON.parse(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`JSONUtil-jsonToBean-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return null
     }
   }
@@ -35,11 +35,10 @@ export class JSONUtil {
    */
   static jsonToArray<T>(cls: ClassConstructor<T>, jsonStr: string): Array<T> {
     try {
-      return plainToClass(cls, JSON.parse(jsonStr), {
-        enableImplicitConversion: false, exposeDefaultValues: true
-      }) as Array<T>
+      return plainToClass(cls, JSON.parse(jsonStr), { enableImplicitConversion: false, exposeDefaultValues: true }) as Array<T>
     } catch (err) {
-      LogUtil.error(`jsonToList-异常信息：${JSON.parse(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`JSONUtil-jsonToArray-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return []
     }
   }
@@ -57,7 +56,8 @@ export class JSONUtil {
       }
       return JSON.stringify(instanceToPlain(data))
     } catch (err) {
-      LogUtil.error(`beanToJsonStr-异常信息：${JSON.parse(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`JSONUtil-beanToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return ""
     }
   }

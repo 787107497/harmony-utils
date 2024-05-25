@@ -1,6 +1,7 @@
 import { ComposeTitleBar, KeyboardAvoidMode, router, window } from '@kit.ArkUI';
-import { AppUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { AppUtil, LogUtil, StrUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * APP相关工具类
@@ -95,28 +96,43 @@ struct Index {
           Button("setPreferredOrientation()")
             .btnStyle()
             .onClick(() => {
-              AppUtil.setPreferredOrientation(AppUtil.isLandscape() ? window.Orientation.PORTRAIT : window.Orientation.LANDSCAPE);
+              AppUtil.setPreferredOrientation(AppUtil.isLandscape() ? window.Orientation.PORTRAIT : window.Orientation.LANDSCAPE)
+                .then(() => {
+                  ToastUtil.showToast(`设置成功！`)
+                })
+                .catch((err: BusinessError) => {
+                  LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
+                });
             })
           Button("setWindowBrightness()")
             .btnStyle()
             .onClick(() => {
               this.bright = this.bright === 1.0 ? 0.0 : 1.0;
-              AppUtil.setWindowBrightness(this.bright);
-              ToastUtil.showToast(`您已设置亮度: ${this.bright}`)
+              AppUtil.setWindowBrightness(this.bright).then(() => {
+                ToastUtil.showToast(`您已设置亮度: ${this.bright}`)
+              }).catch((err: BusinessError) => {
+                LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
+              });
             })
           Button("setWindowKeepScreenOn()")
             .btnStyle()
             .onClick(() => {
               this.isKeepScreenOn = this.isKeepScreenOn ? false : true;
-              AppUtil.setWindowKeepScreenOn(this.isKeepScreenOn)
-              ToastUtil.showToast(`${this.isKeepScreenOn ? "你已设置常亮" : "你已取消常亮"}`)
+              AppUtil.setWindowKeepScreenOn(this.isKeepScreenOn).then(() => {
+                ToastUtil.showToast(`${this.isKeepScreenOn ? "你已设置常亮" : "你已取消常亮"}`);
+              }).catch((err: BusinessError) => {
+                LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
+              });
             })
           Button("setWindowPrivacyMode()")
             .btnStyle()
             .onClick(() => {
               this.privacyMode = this.privacyMode ? false : true;
-              AppUtil.setWindowPrivacyMode(this.privacyMode)
-              ToastUtil.showToast(`${this.privacyMode ? "你已设置隐私模式，禁止截屏、录像" : "你已取消隐私模式"}`)
+              AppUtil.setWindowPrivacyMode(this.privacyMode).then(() => {
+                ToastUtil.showToast(`${this.privacyMode ? "你已设置隐私模式，禁止截屏、录像" : "你已取消隐私模式"}`);
+              }).catch((err: BusinessError) => {
+                LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
+              });
             })
           Button("setWindowBackgroundColor()")
             .btnStyle()

@@ -4,6 +4,7 @@ import { AppUtil } from './AppUtil';
 import { Base64Util } from './Base64Util';
 import { FileUtil } from './FileUtil';
 import { LogUtil } from './LogUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
@@ -50,7 +51,8 @@ export class ImageUtil {
       }
       return base64Str;
     } catch (err) {
-      LogUtil.error(`pixelMapToBase64Str-异常信息：${JSON.stringify(err)}`);
+      let error = err as BusinessError;
+      LogUtil.error(`ImageUtil-pixelMapToBase64Str-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return '';
     }
   }
@@ -76,7 +78,8 @@ export class ImageUtil {
       FileUtil.closeSync(file.fd)  //关闭文件
       return filePath;
     } catch (err) {
-      LogUtil.error(`savePixelMap-异常信息：${JSON.stringify(err)}`);
+      let error = err as BusinessError;
+      LogUtil.error(`ImageUtil-savePixelMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return '';
     }
   }
@@ -102,7 +105,8 @@ export class ImageUtil {
       FileUtil.closeSync(file.fd) //关闭文件
       return filePath;
     } catch (err) {
-      LogUtil.error(`saveImageSource-异常信息：${JSON.stringify(err)}`);
+      let error = err as BusinessError;
+      LogUtil.error(`ImageUtil-saveImageSource-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return '';
     }
   }

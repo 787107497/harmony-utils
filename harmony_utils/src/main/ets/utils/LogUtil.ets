@@ -1,4 +1,5 @@
 import hilog from '@ohos.hilog'
+import { BusinessError } from '@kit.BasicServicesKit'
 
 const LOGGER_DOMAIN: number = 0x0000
 const LOGGER_TAG: string = 'HarmonyLogUtil'
@@ -120,9 +121,9 @@ export class LogUtil {
           console.debug(arr[index])
         }
       }
-    } catch (e) {
-      //异常了，说明不是JSON字符串
-      console.debug(obj.toString())
+    } catch (err) {
+      let error = err as BusinessError; //异常了，说明不是JSON字符串
+      LogUtil.error(`LogUtil-print-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

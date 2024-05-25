@@ -4,6 +4,7 @@ import picker from '@ohos.file.picker';
 import { camera, cameraPicker } from '@kit.CameraKit';
 import { common } from '@kit.AbilityKit';
 import { dataSharePredicates } from '@kit.ArkData';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 const PHOTO_DEFAULT_SELECT_NUMBER: number = 9; //数量
@@ -26,28 +27,24 @@ export class PickerUtil {
       if (!options) {
         options = new CameraOptions();
       }
-      if (!options.cameraPosition) {
-        options.cameraPosition = camera.CameraPosition.CAMERA_POSITION_BACK;
-      }
       if (!options.mediaTypes || options.mediaTypes.length == 0) {
         options.mediaTypes = [cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO];
       }
-      let pickerProfile: cameraPicker.PickerProfile = new cameraPicker.PickerProfile();
-      pickerProfile.cameraPosition = options.cameraPosition;
-      if (options.saveUri) {
-        pickerProfile.saveUri = options.saveUri;
-      }
-      if (options.videoDuration) {
-        pickerProfile.videoDuration = options.videoDuration;
-      }
-      let context = getContext() as common.UIAbilityContext;
+      let pickerProfile: cameraPicker.PickerProfile = {
+        cameraPosition: options.cameraPosition ? options.cameraPosition : camera.CameraPosition.CAMERA_POSITION_BACK,
+        videoDuration: options.videoDuration,
+        saveUri: options.saveUri
+      };
+
+      let context = getContext() as common.Context;
       let pickerResult: cameraPicker.PickerResult = await cameraPicker.pick(context,
         options.mediaTypes, pickerProfile);
       if (pickerResult && pickerResult.resultUri) {
         return pickerResult.resultUri;
       }
     } catch (err) {
-      LogUtil.error("PickerUtil-camera-异常：" + JSON.stringify(err))
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-camera-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
     return "";
   }
@@ -95,7 +92,8 @@ export class PickerUtil {
         return [];
       }
     } catch (err) {
-      LogUtil.error("PickerUtil-selectPhoto-异常：" + JSON.stringify(err))
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-selectPhoto-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }
@@ -125,8 +123,9 @@ export class PickerUtil {
           return [];
         }
       }
-    } catch (error) {
-      LogUtil.error("PickerUtil-savePhoto-异常：" + JSON.stringify(error))
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-savePhoto-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }
@@ -156,8 +155,9 @@ export class PickerUtil {
       }
       let documentPicker = new picker.DocumentViewPicker();
       return await documentPicker.select(documentSelectOptions);
-    } catch (error) {
-      LogUtil.error("PickerUtil-selectDocument-异常：" + JSON.stringify(error))
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-selectDocument-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }
@@ -178,8 +178,9 @@ export class PickerUtil {
         documentSaveOptions.newFileNames = newFileNames;
         return await documentPicker.save(documentSaveOptions);
       }
-    } catch (error) {
-      LogUtil.error("PickerUtil-saveDocument-异常：" + JSON.stringify(error))
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-saveDocument-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }
@@ -194,8 +195,9 @@ export class PickerUtil {
       let AudioSelectOptions = new picker.AudioSelectOptions();
       let audioPicker = new picker.AudioViewPicker();
       return await audioPicker.select(AudioSelectOptions);
-    } catch (error) {
-      LogUtil.error("PickerUtil-selectAudio-异常：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-selectAudio-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }
@@ -216,8 +218,9 @@ export class PickerUtil {
         AudioSaveOptions.newFileNames = newFileNames;
         return await audioPicker.save(AudioSaveOptions);
       }
-    } catch (error) {
-      LogUtil.error("PickerUtil-saveAudio-异常：" + JSON.stringify(error))
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-saveAudio-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }
@@ -254,8 +257,9 @@ export class PickerUtil {
       // 得到uri对应的PhotoAsset对象，读取文件的部分信息
       const photoAsset: photoAccessHelper.PhotoAsset = await fetchResult.getFirstObject();
       return photoAsset;
-    } catch (error) {
-      console.error('getPhotoAssetFromUri-异常信息: ' + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`PickerUtil-getPhotoAssetFromUri-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return null;
     }
   }

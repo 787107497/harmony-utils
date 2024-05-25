@@ -60,7 +60,7 @@ export class LocationUtil {
   static getCurrentLocationEasy(callBack: Callback<geoLocationManager.Location>) {
     geoLocationManager.getCurrentLocation(LocationUtil.currentRequest, (error: BusinessError, location: geoLocationManager.Location): void => {
       if (error) {
-        LogUtil.error("获取当前位置失败：" + JSON.stringify(error));
+        LogUtil.error(`LocationUtil-getCurrentLocationEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
         ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '获取当前位置失败：' + error.message));
       }
       if (location && callBack) {
@@ -87,10 +87,10 @@ export class LocationUtil {
     try {
       LocationUtil.locationCallBack = callBack;
       geoLocationManager.on('locationChange', LocationUtil.locationRequest, callBack);
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("开启位置变化订阅失败：" + JSON.stringify(error));
-      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '开启位置变化订阅失败：' + err.message));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-onLocationChangeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '开启位置变化订阅失败：' + error.message));
     }
   }
 
@@ -107,10 +107,10 @@ export class LocationUtil {
       }
       LocationUtil.locationCallBack = callBack;
       geoLocationManager.on('locationChange', request, callBack);
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("开启位置变化订阅失败：" + JSON.stringify(error));
-      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '开启位置变化订阅失败：' + err.message));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-onLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '开启位置变化订阅失败：' + error.message));
     }
   }
 
@@ -130,10 +130,10 @@ export class LocationUtil {
           geoLocationManager.off('locationChange'); //callback:需要取消订阅的回调函数。若无此参数，则取消当前类型的所有订阅。
         }
       }
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error("关闭位置变化订阅失败：" + JSON.stringify(error));
-      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '关闭位置变化订阅失败：' + err.message));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-offLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '关闭位置变化订阅失败：' + error.message));
     }
   }
 
@@ -163,8 +163,9 @@ export class LocationUtil {
         ToastUtil.showToast("（逆）地理编码服务不可用！")
         return {};
       }
-    } catch (error) {
-      LogUtil.error("地理编码失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-getAddressFromLocationName-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
       return {};
     }
@@ -198,8 +199,9 @@ export class LocationUtil {
         ToastUtil.showToast("（逆）地理编码服务不可用！")
         return [];
       }
-    } catch (error) {
-      LogUtil.error("地理编码失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-getGeoAddressFromLocationName-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
       return [];
     }
@@ -233,8 +235,9 @@ export class LocationUtil {
         ToastUtil.showToast("（逆）地理编码服务不可用！")
         return {} as geoLocationManager.GeoAddress;
       }
-    } catch (error) {
-      LogUtil.error("地理编码失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-getAddressFromLocation-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
       return {}
     }
@@ -268,8 +271,9 @@ export class LocationUtil {
         ToastUtil.showToast("（逆）地理编码服务不可用！")
         return [];
       }
-    } catch (error) {
-      LogUtil.error("地理编码失败：" + JSON.stringify(error));
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-getGeoAddressFromLocation-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
       return [];
     }

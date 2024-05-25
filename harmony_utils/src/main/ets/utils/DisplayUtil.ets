@@ -1,5 +1,5 @@
 import { display } from '@kit.ArkUI';
-import { Callback } from '@kit.BasicServicesKit';
+import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { LogUtil } from './LogUtil';
 
 /**
@@ -143,7 +143,8 @@ export class DisplayUtil {
     try {
       display.off('foldStatusChange', callback)
     } catch (err) {
-      LogUtil.error(`offFoldStatusChange-异常信息：${JSON.stringify(err)}`)
+      let error = err as BusinessError;
+      LogUtil.error(`DisplayUtil-offFoldStatusChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

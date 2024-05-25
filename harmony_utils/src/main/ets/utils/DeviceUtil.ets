@@ -1,6 +1,5 @@
 import { vibrator } from '@kit.SensorServiceKit';
 import { LogUtil } from './LogUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { StrUtil } from './StrUtil';
 import { AssetStore } from './other/AssetStore';
@@ -161,23 +160,15 @@ export class DeviceUtil {
    * @param duration
    * @param usage
    */
-  static startVibration(duration: number = 10000, usage: vibrator.Usage = 'media') {
-    vibrator.startVibration({ type: 'time', duration: duration }, { id: 0, usage: usage }, (error) => {
-      if (error) {
-        LogUtil.error("startVibration：" + JSON.stringify(error))
-      }
-    })
+  static startVibration(duration: number = 10000, usage: vibrator.Usage = 'media'): Promise<void> {
+    return vibrator.startVibration({ type: 'time', duration: duration }, { id: 0, usage: usage });
   }
 
   /**
    * 停止振动（按照VIBRATOR_STOP_MODE_TIME模式）
    */
-  static stopVibration() {
-    vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME, (error: BusinessError) => {
-      if (error) {
-        LogUtil.error("stopVibration：" + JSON.stringify(error))
-      }
-    })
+  static stopVibration(): Promise<void> {
+    return vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
   }
 
 

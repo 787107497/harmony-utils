@@ -6,8 +6,8 @@ import { AppUtil } from './AppUtil';
  * 组件截图和窗口截图工具类
  */
 export class SnapshotUtil {
-  private constructor() {
-  }
+
+  private constructor() {}
 
 
   /**
@@ -41,4 +41,6 @@ export class SnapshotUtil {
     }
     return windowClass.snapshot();
   }
+
+
 }
