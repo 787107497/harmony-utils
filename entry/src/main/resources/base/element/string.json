@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "一款高效的OpenHarmony/HarmonyOS工具包"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "一款高效的OpenHarmony/HarmonyOS工具包"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "鸿蒙工具包"
     },
     {
       "name": "permission_APP_TRACKING_CONSENT",

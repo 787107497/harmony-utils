@@ -1,7 +1,7 @@
 {
   "name": "@pura/harmony-utils",
-  "version": "1.0.0",
-  "description": "一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。",
+  "version": "1.0.1",
+  "description": "一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。",
   "author": "tongyuyan",
   "homepage": "https://gitee.com/tongyuyan",
   "repository": "https://gitee.com/tongyuyan/harmony-utils",
