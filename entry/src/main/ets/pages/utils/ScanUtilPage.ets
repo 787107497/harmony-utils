@@ -20,7 +20,7 @@ struct Index {
   @State scanStr3: string = '';
 
   aboutToAppear(): void {
-    this.filePath = FileUtil.getFilesDirOrPath(this.fileName)
+    this.filePath = FileUtil.getFilesDirPath("",this.fileName)
   }
 
   onBackPress(): boolean {
@@ -55,7 +55,7 @@ struct Index {
             .onClick(async () => {
               if (ScanUtil.canIUseScan()) {
                 this.pixelMap = await ScanUtil.generateBarcode(this.txtStr);
-                ImageUtil.savePixelMap(this.pixelMap, FileUtil.getFilesDirOrPath(), this.fileName)
+                ImageUtil.savePixelMap(this.pixelMap, FileUtil.getFilesDirPath(""), this.fileName)
               } else {
                 ToastUtil.showToast("当前设备不支持码能力！")
               }

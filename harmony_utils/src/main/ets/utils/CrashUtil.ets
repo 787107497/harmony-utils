@@ -34,12 +34,7 @@ export class CrashUtil {
       CrashUtil.observerId = errorManager.on('error', {
         onUnhandledException(errMsg) {
           let errStr = `${DateUtil.getTodayStr()} - 异常信息：\n${errMsg}\n\n\n`;
-          let dirPath = FileUtil.getFilesDirOrPath("ErrorLog") //错误日志路径
-          let access = FileUtil.accessSync(dirPath)
-          if (!access) {
-            FileUtil.mkdir(dirPath)
-          }
-          CrashUtil.ErrorFilePath = `${dirPath}/errorLog.txt`
+          CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
           FileUtil.writeEasy(CrashUtil.ErrorFilePath, errStr);
         },
         onException(errObject) {

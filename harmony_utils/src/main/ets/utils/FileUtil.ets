@@ -15,51 +15,90 @@ export class FileUtil {
 
   /**
    * 获取文件目录下的文件夹路径或文件路径。
-   * @param dirOrName 相对文件夹路径（download/doc）或者文件名（test.text）
+   * @param dirPath 文件路径,支持完整路径 和 相对路径（download/wps/doc）。dirPath传空表示根目录
+   * @param fileName 文件名（test.text）
    * @returns
    */
-  static getFilesDirOrPath(dirOrName?: string): string {
-    if (dirOrName && StrUtil.isNotEmpty(dirOrName)) {
-      if (StrUtil.startsWith(dirOrName, FileUtil.separator)) {
-        return getContext().filesDir + dirOrName;
-      } else {
-        return getContext().filesDir + FileUtil.separator + dirOrName;
+  static getFilesDirPath(dirPath: string, fileName?: string): string {
+    let filePath = getContext().filesDir; //根目录
+    if (StrUtil.isNotEmpty(dirPath)) {
+      if (StrUtil.startsWith(dirPath, filePath)) { //路径中包含根目录，是完整路径。
+        filePath = dirPath;
+      } else { //路径中不包含根目录，拼接成完整路径。
+        filePath = filePath + FileUtil.separator + dirPath;
+      }
+      if (!FileUtil.accessSync(filePath)) {
+        FileUtil.mkdirSync(filePath) //如果文件夹不存在就创建
       }
     }
-    return getContext().filesDir;
+    if (StrUtil.isNotEmpty(fileName)) {
+      filePath = filePath + FileUtil.separator + fileName;
+    }
+    return filePath;
   }
+
 
   /**
    * 获取缓存目录下的文件夹路径或文件路径。
-   * @param dirOrName 相对文件夹路径（download/doc）或者文件名（test.text）
+   * @param dirPath 文件路径,支持完整路径 和 相对路径（download/wps/doc）。dirPath传空表示根目录
+   * @param fileName 文件名（test.text）
    * @returns
    */
-  static getCacheDirOrPath(dirOrName?: string): string {
-    if (dirOrName && StrUtil.isNotEmpty(dirOrName)) {
-      if (StrUtil.startsWith(dirOrName, FileUtil.separator)) {
-        return getContext().cacheDir + dirOrName;
-      } else {
-        return getContext().cacheDir + FileUtil.separator + dirOrName;
+  static getCacheDirPath(dirPath: string, fileName?: string): string {
+    let filePath = getContext().cacheDir; //根目录
+    if (StrUtil.isNotEmpty(dirPath)) {
+      if (FileUtil.hasDirPath(dirPath)) { //路径中包含根目录，是完整路径。
+        filePath = dirPath;
+      } else { //路径中不包含根目录，拼接成完整路径。
+        filePath = filePath + FileUtil.separator + dirPath;
+      }
+      if (!FileUtil.accessSync(filePath)) {
+        FileUtil.mkdirSync(filePath) //如果文件夹不存在就创建
       }
     }
-    return getContext().cacheDir;
+    if (StrUtil.isNotEmpty(fileName)) {
+      filePath = filePath + FileUtil.separator + fileName;
+    }
+    return filePath;
   }
+
 
   /**
    * 获取临时目录下的文件夹路径或文件路径。
-   * @param dirOrName 相对文件夹路径（download/doc）或者文件名（test.text）
+   * @param dirPath 文件路径,支持完整路径 和 相对路径（download/wps/doc）。dirPath传空表示根目录
+   * @param fileName 文件名（test.text）
    * @returns
    */
-  static getTempDirOrPath(dirOrName?: string): string {
-    if (dirOrName && StrUtil.isNotEmpty(dirOrName)) {
-      if (StrUtil.startsWith(dirOrName, FileUtil.separator)) {
-        return getContext().tempDir + dirOrName;
-      } else {
-        return getContext().tempDir + FileUtil.separator + dirOrName;
+  static getTempDirPath(dirPath: string, fileName?: string): string {
+    let filePath = getContext().tempDir; //根目录
+    if (StrUtil.isNotEmpty(dirPath)) {
+      if (FileUtil.hasDirPath(dirPath)) { //路径中包含根目录，是完整路径。
+        filePath = dirPath;
+      } else { //路径中不包含根目录，拼接成完整路径。
+        filePath = filePath + FileUtil.separator + dirPath;
+      }
+      if (!FileUtil.accessSync(filePath)) {
+        FileUtil.mkdirSync(filePath) //如果文件夹不存在就创建
       }
     }
-    return getContext().tempDir;
+    if (StrUtil.isNotEmpty(fileName)) {
+      filePath = filePath + FileUtil.separator + fileName;
+    }
+    return filePath;
   }
+
+
+  /**
+   * 判断是否是完整路径
+   * @param path 文件路径
+   */
+  static hasDirPath(path: string): boolean {
+    let filesDir = getContext().filesDir; //根目录
+    let cacheDir = getContext().cacheDir; //根目录
+    let tempDir = getContext().tempDir; //根目录
+    return StrUtil.startsWith(path, filesDir) || StrUtil.startsWith(path, cacheDir) || StrUtil.startsWith(path, tempDir);
+  }
+
 
   /**
    * 通过URI或路径，获取FileUri
@@ -113,6 +152,19 @@ export class FileUtil {
    */
   static getUriFromPath(path: string): string {
     return fileUri.getUriFromPath(path);
+  }
+
+
+  /**
+   * 根据文件名获取文件后缀
+   * @param fileName 例如: test.txt  test.doc
+   * @returns
+   */
+  static getFileExtention(fileName: string) {
+    if (StrUtil.isNotEmpty(fileName) && fileName.includes(".")) {
+      return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+    return '';
   }
 
 

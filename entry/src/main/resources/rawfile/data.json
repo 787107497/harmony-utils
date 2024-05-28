@@ -36,6 +36,14 @@
     "desc": "拍照、文件(文件、图片、视频、音频)选择和保存,工具类"
   },
   {
+    "name": "PreviewUtil",
+    "desc": "文件预览工具类"
+  },
+  {
+    "name": "NetworkUtil",
+    "desc": "网络相关工具类"
+  },
+  {
     "name": "LocationUtil",
     "desc": "定位工具类(WGS-84坐标系)"
   },

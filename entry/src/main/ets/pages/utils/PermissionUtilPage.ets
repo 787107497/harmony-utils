@@ -65,12 +65,6 @@ struct Index {
                 ToastUtil.showToast(`申请组合授权：${result}`)
               })
             })
-          Button("toAppSetting()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("请在设置中开启权限！")
-              PermissionUtil.toAppSetting();
-            })
 
           Text('').layoutWeight(1)
         }

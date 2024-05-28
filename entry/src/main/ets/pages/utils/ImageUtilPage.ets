@@ -23,7 +23,7 @@ struct Index {
 
   async aboutToAppear(): Promise<void> {
     let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))
-    this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirOrPath(), "漂亮小姐姐.png")
+    this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
     this.fileUri = FileUtil.getUriFromPath(this.filePath);
     LogUtil.error("filePath: " + this.filePath);
     LogUtil.error("fileUri: " + this.fileUri);
@@ -54,7 +54,7 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as3'))
-              this.imgPath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirOrPath(), "妹纸.png")
+              this.imgPath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "妹纸.png")
               this.imgUri = FileUtil.getUriFromPath(this.imgPath);
             })
           Image(this.imgUri)
@@ -74,7 +74,7 @@ struct Index {
             .onClick(async () => {
               let imageSource = await ImageUtil.createImageSource(this.filePath);
 
-              ImageUtil.saveImageSource(imageSource, FileUtil.getFilesDirOrPath(), `MZ_${DateUtil.getTodayStr()}.png`)
+              ImageUtil.saveImageSource(imageSource, FileUtil.getFilesDirPath(""), `MZ_${DateUtil.getTodayStr()}.png`)
                 .then(() => {
                   ToastUtil.showToast("保存成功")
                 })
@@ -106,7 +106,7 @@ struct Index {
             .onClick(async () => {
               let pixelMap = await ImageUtil.createImageSource(this.filePath).createPixelMap()
 
-              let filePath = FileUtil.getFilesDirOrPath(`MeiZi_${DateUtil.getTodayTime()}.png`);
+              let filePath = FileUtil.getFilesDirPath("", `MeiZi_${DateUtil.getTodayTime()}.png`);
               let file = FileUtil.openSync(filePath)
               let packOpts: image.PackingOption = { format: "image/png", quality: 100 }
               ImageUtil.packToFileFromPixelMap(pixelMap, file.fd, packOpts).then(() => {
@@ -119,7 +119,7 @@ struct Index {
             .onClick(async () => {
               let imageSource = await ImageUtil.createImageSource(this.filePath)
 
-              let filePath = FileUtil.getFilesDirOrPath(`MeiZi_${DateUtil.getTodayTime()}.png`);
+              let filePath = FileUtil.getFilesDirPath("", `MeiZi_${DateUtil.getTodayTime()}.png`);
               let file = FileUtil.openSync(filePath)
               let packOpts: image.PackingOption = { format: "image/png", quality: 100 }
               ImageUtil.packToFileFromImageSource(imageSource, file.fd, packOpts).then(() => {

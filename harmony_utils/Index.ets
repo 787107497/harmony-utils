@@ -16,6 +16,10 @@ export { FileUtil } from './src/main/ets/utils/FileUtil';
 
 export { PickerUtil } from './src/main/ets/utils/PickerUtil';
 
+export { PreviewUtil } from './src/main/ets/utils/PreviewUtil';
+
+export { NetworkUtil } from './src/main/ets/utils/NetworkUtil';
+
 export { LocationUtil } from './src/main/ets/utils/LocationUtil';
 
 export { PasteboardUtil } from './src/main/ets/utils/PasteboardUtil';

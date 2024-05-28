@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { LocationUtil, LogUtil, PermissionUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { AppUtil, LocationUtil, LogUtil, StrUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -43,7 +43,7 @@ struct Index {
                   ToastUtil.showToast("授权成功")
                 } else {
                   ToastUtil.showToast("请在设置中开启定位权限")
-                  PermissionUtil.toAppSetting()
+                  AppUtil.toAppSetting()
                 }
               })
             })
@@ -57,7 +57,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showToast("请在设置中开启定位权限")
-                  PermissionUtil.toAppSetting()
+                  AppUtil.toAppSetting()
                 }
               })
             })
@@ -71,7 +71,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showToast("请在设置中开启定位权限")
-                  PermissionUtil.toAppSetting()
+                  AppUtil.toAppSetting()
                 }
               })
             })

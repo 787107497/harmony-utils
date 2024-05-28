@@ -12,14 +12,15 @@ struct Index {
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State filePath: string = '' //文件路径
   @State txt: string = ''
+  @State paths: string = ''
+  @State resultStr: string = ''
   @State name_path_uri: string = ''
   @State bufferStr: string = ''
   @State listFileStr: string = ''
   @State jsonStr: string = ''
 
   aboutToAppear(): void {
-    let dirPath = FileUtil.getFilesDirOrPath('download/wps/txt')
-    this.filePath = dirPath + '/demo.txt';
+    this.filePath = FileUtil.getFilesDirPath('download/wps/txt', 'demo.txt');
   }
 
   onBackPress(): boolean {
@@ -35,21 +36,53 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("getFilesDirOrPath()\naccessSync()\nmkdirSync()\nwriteEasy()")
+          Button("accessSync()\nmkdirSync()\nwriteEasy()")
             .labelStyle({ maxLines: 5 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let dirPath = FileUtil.getFilesDirOrPath('download/wps/txt')
-              if (!FileUtil.accessSync(dirPath)) { //文件夹是否存在
-                FileUtil.mkdirSync(dirPath) //创建文件夹
-              }
-              this.filePath = dirPath + '/demo.txt';
+              this.filePath = FileUtil.getFilesDirPath('download/wps/txt', 'demo.txt')
               FileUtil.writeEasy(this.filePath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。")
-              ToastUtil.showToast('文件创建和写入成功')
+              ToastUtil.showToast('文件(demo.txt)创建和写入成功')
             })
+          Button("getFilesDirPath()\ngetCacheDirPath()\ngetTempDirPath()")
+            .labelStyle({ maxLines: 5 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let path1 = FileUtil.getFilesDirPath('');
+              let path2 = FileUtil.getFilesDirPath("", "zuPus.txt");
+              let path3 = FileUtil.getFilesDirPath('download/wps/ppt', 'dev.text');
+              let path4 = FileUtil.getFilesDirPath("download/wps/wps");
+              let path5 = FileUtil.getFilesDirPath(`${getContext().filesDir}/download/apk`, "app.apk");
+              let path6 = FileUtil.getFilesDirPath(`${getContext().filesDir}/download/wps/ppt`);
+              let path7 = FileUtil.getCacheDirPath('download/wps/ppt', 'dev_s.text');
+              let path8 = FileUtil.getTempDirPath('download/wps/ppt', 'dev_max.text');
+              this.paths = `${path1}\n\n${path2}\n\n${path3}\n\n${path4}\n\n${path5}\n\n${path6}\n\n${path7}\n\n${path8}`
+            })
+          Text(this.paths)
+            .visibility(StrUtil.isNotEmpty(this.paths) ? Visibility.Visible : Visibility.None)
+            .textStyle()
+          Button("hasDirPath()\ngetFileExtention()")
+            .labelStyle({ maxLines: 5 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let hasDirPath1 = FileUtil.hasDirPath("download/wps")
+              let hasDirPath2 = FileUtil.hasDirPath(`${getContext().filesDir}/download/wps`)
+              let fileExtention = FileUtil.getFileExtention("demo.txt")
+              let fileExtention2 = FileUtil.getFileExtention("妹纸.png")
+              this.resultStr = `hasDirPath1: ${hasDirPath1}\n\nhasDirPath2: ${hasDirPath2}\n\nfileExtention: ${fileExtention}\n\nfileExtention2: ${fileExtention2}`
+            })
+          Text(this.resultStr)
+            .visibility(StrUtil.isNotEmpty(this.resultStr) ? Visibility.Visible : Visibility.None)
+            .textStyle()
           Button("readTextSync()")
             .btnStyle()
             .onClick(() => {
@@ -62,8 +95,8 @@ struct Index {
           Text(this.txt)
             .visibility(StrUtil.isNotEmpty(this.txt) ? Visibility.Visible : Visibility.None)
             .textStyle()
-          Button("getFileName()\ngetParentPath()\ngetFileUri()\ngetUriFromPath()")
-            .labelStyle({ maxLines: 5 })
+          Button("getFileName()\ngetParentPath()\ngetFileUri()\ngetUriFromPath()\nisFile()\nisDirectory()")
+            .labelStyle({ maxLines: 6 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
@@ -91,7 +124,7 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let path = FileUtil.getFilesDirOrPath("test.txt");
+              let path = FileUtil.getFilesDirPath("", "test.txt");
               let file = FileUtil.openSync(path);
               FileUtil.writeSync(file.fd, `"HUAWEI MatePad 11.5"S 对应的API版本是多少？`)
               FileUtil.closeSync(file.fd); //关闭文件
@@ -107,7 +140,7 @@ struct Index {
           Button("copyFile()")
             .btnStyle()
             .onClick(() => {
-              let path = FileUtil.getFilesDirOrPath("test_cpoy.txt");
+              let path = FileUtil.getFilesDirPath("", "test_cpoy.txt");
               if (FileUtil.accessSync(this.filePath)) {
                 FileUtil.copyFile(this.filePath, path).then(() => {
                   ToastUtil.showToast("文件拷贝成功")
@@ -119,7 +152,7 @@ struct Index {
           Button("listFileSync()")
             .btnStyle()
             .onClick(() => {
-              let dirPath = FileUtil.getFilesDirOrPath();
+              let dirPath = FileUtil.getFilesDirPath("");
               let listFile = FileUtil.listFileSync(dirPath, { recursion: true });
               this.listFileStr = listFile.join('\n');
             })
@@ -136,7 +169,7 @@ struct Index {
           Button("rmdir()")
             .btnStyle()
             .onClick(() => {
-              let dirPath = FileUtil.getFilesDirOrPath();
+              let dirPath = FileUtil.getFilesDirPath("");
               FileUtil.rmdir(dirPath).then(() => {
                 ToastUtil.showToast("删除整个目录成功")
               })

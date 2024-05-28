@@ -177,6 +177,37 @@ struct Index {
               let appInfo = await AppUtil.getAppInfo();
               this.appInfoStr = JSON.stringify(appInfo, null, 2)
             })
+          Button("toAppSetting()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("请在设置中开启权限！")
+              AppUtil.toAppSetting();
+            })
+          Button("toNetworkSetting()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("请在设置中开启权限！")
+              AppUtil.toNetworkSetting();
+            })
+          Button("toNotificationSetting()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("请在设置中开启权限！")
+              AppUtil.toNotificationSetting();
+            })
+          Button("toBluetoothSetting()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("请在设置中开启权限！")
+              AppUtil.toBluetoothSetting();
+            })
+          Button("toNfcSetting()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("请在设置中开启权限！")
+              AppUtil.toNfcSetting();
+            })
+
           Text(this.appInfoStr)
             .visibility(StrUtil.isNotEmpty(this.appInfoStr) ? Visibility.Visible : Visibility.None)
             .textStyle()

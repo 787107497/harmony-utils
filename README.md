@@ -28,6 +28,8 @@ OpenHarmony ohpm
 | PreferencesUtil      | Preferences（用户首选项）工具类       |
 | FileUtil             | 文件操作相关工具类                   |
 | PickerUtil           | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类 |
+| PreviewUtil          | 文件预览工具类                     |
+| NetworkUtil          | 网络相关工具类                     |
 | LocationUtil         | 定位工具类(WGS-84坐标系)            |
 | PasteboardUtil       | 剪贴板工具类                      |
 | SnapshotUtil         | 组件截图和窗口截图工具类                |
@@ -94,6 +96,11 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | setStatusBar                 | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用） |
 | getBundleInfo                | 获取当前应用的BundleInfo                                                 |
 | getAppInfo                   | 获取应用程序的配置信息                                                       |
+| toAppSetting                 | 跳转应用设置页面                                                          |
+| toNetworkSetting             | 跳转移动网络设置页面                                                        |
+| toNotificationSetting        | 跳转通知设置页面                                                          |
+| toBluetoothSetting           | 跳转蓝牙设置页面                                                          |
+| toNfcSetting                 | 跳转NFC设置页面                                                         |
 
 ### DeviceUtil（设备相关工具类） [点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
@@ -136,7 +143,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | checkRequestPermissions | 校验是否授权后并申请授权 |
 | requestPermissions      | 申请授权         |
 | requestPermissionsList  | 申请组合授权       |
-| toAppSetting            | 跳转应用设置页面     |
 
 ### AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
@@ -181,15 +187,17 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 | 方法                       | 介绍                                     |
 |:-------------------------|:---------------------------------------|
-| getFilesDirOrPath        | 获取文件目录下的文件夹路径或文件路径                     |
-| getCacheDirOrPath        | 获取缓存目录下的文件夹路径或文件路径                     |
-| getTempDirOrPath         | 获取临时目录下的文件夹路径或文件路径                     |
+| getFilesDirPath          | 获取文件目录下的文件夹路径或文件路径                     |
+| getCacheDirPath          | 获取缓存目录下的文件夹路径或文件路径                     |
+| getTempDirPath           | 获取临时目录下的文件夹路径或文件路径                     |
+| hasDirPath               | 判断是否是完整路径                              |
 | getFileUri               | 通过URI或路径，获取FileUri                     |
 | getFileName              | 通过URI或路径，获取文件名                         |
 | getFilePath              | 通过URI或路径，获取文件路径                        |
 | getParentUri             | 通过URI或路径，获取对应文件父目录的URI                 |
 | getParentPath            | 通过URI或路径，获取对应文件父目录的路径名                 |
 | getUriFromPath           | 以同步方法获取文件URI                           |
+| getFileExtention         | 根据文件名获取文件后缀                            |
 | isFile                   | 判断文件是否是普通文件                            |
 | isDirectory              | 判断文件是否是目录                              |
 | rename                   | 重命名文件或文件夹，使用Promise异步回调                |
@@ -254,10 +262,39 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | selectPhoto    | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频              |
 | savePhoto      | 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无参数，则默认需要用户自行输入 |
 | selectDocument | 通过选择模式拉起documentPicker界面，用户可以选择一个或多个文件              |
-| saveDocument   | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件。             |
+| saveDocument   | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
 | selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
-| saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件。              |
+| saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
 | getPhotoAsset  | 获取对应uri的PhotoAsset对象,用于读取文件信息                       |
+
+### PreviewUtil（文件预览工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
+
+| 方法                  | 介绍                                   |
+|:--------------------|:-------------------------------------|
+| generatePreviewInfo | 根据文件uri构建PreviewInfo                 |
+| openPreview         | 通过传入文件预览信息，打开预览窗口。1秒内重复调用无效          |
+| openPreviewEasy     | 通过传入文件的uri，打开预览窗口。1秒内重复调用无效          |
+| canPreview          | 根据文件的uri判断文件是否可预览                    |
+| hasDisplayed        | 判断预览窗口是否已经存在                         |
+| closePreview        | 关闭预览窗口，仅当预览窗口存在时起效                   |
+| loadData            | 加载预览文件信息。仅当预览窗口存在时起效                 |
+| loadDataEasy        | 加载预览文件信息。仅当预览窗口存在时起效                 |
+| onSharePreview      | 调用其他应用预览文件                           |
+| onPreview           | 预览文件，默认先调用系统文件预览，当系统预览不支持时再调用第三方应用预览 |
+| getMimeType         | 根据文件后缀名获取文件mimeType                  |
+| getIconFileStr      | 根据文件后缀名获取对应文件类型的图标                   |
+| getMimeTypeMap      | filePreview支持的预览文件类型                 |
+
+### NetworkUtil（网络相关工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
+
+| 方法                | 介绍                         |
+|:------------------|:---------------------------|
+| hasDefaultNet     | 检查默认数据网络是否被激活              |
+| hasDefaultNetSync | 检查默认数据网络是否被激活              |
+| hasNetWiFi        | 判断当前网络是否是Wi-Fi，否则是移动流量热点网络 |
+| getIpAddress      | 获取当前设备的IP地址(设备连接Wi-Fi后)    |
+| register          | 订阅指定网络状态变化的通知，支持多事件监听回调    |
+| unregister        | 取消订阅默认网络状态变化的通知            |
 
 ### LocationUtil（定位工具类(WGS-84坐标系)）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
 

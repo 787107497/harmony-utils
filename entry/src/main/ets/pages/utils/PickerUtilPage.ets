@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { DateUtil, FileUtil, ImageUtil, LogUtil, PermissionUtil, PickerUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { AppUtil, DateUtil, FileUtil, ImageUtil, LogUtil, PermissionUtil, PickerUtil, StrUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Permissions } from '@kit.AbilityKit';
@@ -21,7 +21,7 @@ struct Index {
 
   async aboutToAppear(): Promise<void> {
     let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))
-    this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirOrPath(), "漂亮小姐姐.png")
+    this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
     LogUtil.error("filePath: " + this.filePath);
   }
 
@@ -51,7 +51,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  PermissionUtil.toAppSetting()
+                  AppUtil.toAppSetting()
                 }
               })
             })
@@ -68,7 +68,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  PermissionUtil.toAppSetting()
+                  AppUtil.toAppSetting()
                 }
               })
             })
@@ -102,7 +102,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  PermissionUtil.toAppSetting()
+                  AppUtil.toAppSetting()
                 }
               })
             })
@@ -118,7 +118,7 @@ struct Index {
           Button("saveDocument()")
             .btnStyle()
             .onClick(() => {
-              let fileName = `test_${DateUtil.getTodayTime()}.png`;
+              let fileName = `test_${DateUtil.getTodayTime()}.txt`;
               PickerUtil.saveDocument([fileName]).then((uris) => {
                 let uri = uris[0];
                 this.uriStr = `调用保存文件，返回uris：\n${uri}`
@@ -167,7 +167,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  PermissionUtil.toAppSetting()
+                  AppUtil.toAppSetting()
                 }
               })
             })
