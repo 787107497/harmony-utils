@@ -1,7 +1,8 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { FileUtil, ImageUtil, LogUtil, PreviewUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { FileUtil, ImageUtil, LogUtil, NetworkUtil, PreviewUtil, StrUtil, ToastUtil } from 'harmony_utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { User } from '../../entity/User';
 
 /**
  * 对象工具类
@@ -17,7 +18,6 @@ struct Index {
   @State infoStr: string = ''
   @State iconFileStr: string = ''
   @State resultStr: string = ''
-
 
   async aboutToAppear(): Promise<void> {
     this.textPath = FileUtil.getFilesDirPath('download/wps/txt', '文本文档.txt');
@@ -41,6 +41,12 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
+          Button("canIUsePreview()")
+            .btnStyle()
+            .onClick(() => {
+              let bl = PreviewUtil.canIUsePreview();
+              ToastUtil.showToast(`当前设备是否支持文件预览能力:${bl}`)
+            })
           Button("generatePreviewInfo()")
             .btnStyle()
             .onClick(() => {
@@ -56,7 +62,7 @@ struct Index {
             .onClick(() => {
               let uri = FileUtil.getUriFromPath(this.textPath);
               let info = PreviewUtil.generatePreviewInfo(uri);
-              PreviewUtil.openPreview(info).catch((error:BusinessError)=>{
+              PreviewUtil.openPreview(info).catch((error: BusinessError) => {
                 LogUtil.error(`onSharePreview-异常 ~ code: ${error.code} -·- message: ${error.message}`);
               });
             })
@@ -113,15 +119,10 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let uri = FileUtil.getUriFromPath(this.textPath);
-              PreviewUtil.onSharePreview(uri).catch((error:BusinessError)=>{
+              LogUtil.error("uri: "+ uri)
+              PreviewUtil.onSharePreview(uri).catch((error: BusinessError) => {
                 LogUtil.error(`onSharePreview-异常 ~ code: ${error.code} -·- message: ${error.message}`);
               });
-            })
-          Button("onPreview()")
-            .btnStyle()
-            .onClick(() => {
-              let uri = FileUtil.getUriFromPath(this.textPath);
-              PreviewUtil.onPreview(uri);
             })
           Button("getMimeType()")
             .btnStyle()
@@ -143,7 +144,11 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let map = PreviewUtil.getMimeTypeMap();
-              this.resultStr = JSON.stringify(map, null, 2);
+              let mapStr='';
+              map.forEach((value,key)=>{
+                mapStr= `${mapStr}\n\n${key} ---> ${value}`
+              })
+              this.resultStr = mapStr;
             })
           Text(this.resultStr)
             .visibility(StrUtil.isNotEmpty(this.resultStr) ? Visibility.Visible : Visibility.None)

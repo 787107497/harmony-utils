@@ -42,6 +42,12 @@ struct Index {
               let hasNetWiFi = await NetworkUtil.hasNetWiFi();
               ToastUtil.showToast(`手机是否是Wi-Fi：${hasNetWiFi}`)
             })
+          Button("getNetBearType()")
+            .btnStyle()
+            .onClick(async () => {
+              let type = await NetworkUtil.getNetBearType();
+              ToastUtil.showToast(`网络类型：${type}`)
+            })
           Button("getIpAddress()")
             .btnStyle()
             .onClick(() => {

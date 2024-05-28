@@ -45,6 +45,17 @@ export class NetworkUtil {
 
 
   /**
+   * 获取网络类型
+   */
+  static async getNetBearType(): Promise<connection.NetBearType> {
+    let net = await connection.getDefaultNet();
+    let netCapabilities = await connection.getNetCapabilities(net);
+    let netBearType = netCapabilities.bearerTypes[0];
+    return netBearType;
+  }
+
+
+  /**
    * 获取当前设备的IP地址(设备连接Wi-Fi后)
    */
   static getIpAddress() {
@@ -111,6 +122,7 @@ export class NetworkUtil {
       });
     }
   }
+
 
 
 }

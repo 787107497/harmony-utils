@@ -121,26 +121,6 @@ export class PreviewUtil {
 
 
   /**
-   * 预览文件，默认先调用系统文件预览，当系统预览不支持时在调用第三方应用预览。
-   * @param uri 文件的uri
-   * @returns
-   */
-  static async onPreview(uri: string): Promise<void> {
-    let canPreview = await PreviewUtil.canPreview(uri);
-    if (canPreview) { //是否可以系统预览
-      let has = await PreviewUtil.hasDisplayed();
-      if (has) { //系统预览窗口是否存在
-        return PreviewUtil.loadDataEasy(uri);
-      } else {
-        return PreviewUtil.openPreviewEasy(uri);
-      }
-    } else { //调用第三方应用预览
-      return PreviewUtil.onSharePreview(uri, false);
-    }
-  }
-
-
-  /**
    * 根据文件后缀名获取文件mimeType
    * @param fileExtention 文件后缀名，例如 html txt
    */
@@ -206,5 +186,13 @@ export class PreviewUtil {
     return map;
   }
 
+
+  /**
+   * 判断当前设备是否支持文件预览能力
+   * @returns
+   */
+  static canIUsePreview() {
+    return canIUse("SystemCapability.Filemanagement.FilePreview.Core")
+  }
 
 }

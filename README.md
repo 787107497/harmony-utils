@@ -280,7 +280,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | loadData            | 加载预览文件信息。仅当预览窗口存在时起效                 |
 | loadDataEasy        | 加载预览文件信息。仅当预览窗口存在时起效                 |
 | onSharePreview      | 调用其他应用预览文件                           |
-| onPreview           | 预览文件，默认先调用系统文件预览，当系统预览不支持时再调用第三方应用预览 |
 | getMimeType         | 根据文件后缀名获取文件mimeType                  |
 | getIconFileStr      | 根据文件后缀名获取对应文件类型的图标                   |
 | getMimeTypeMap      | filePreview支持的预览文件类型                 |
@@ -292,6 +291,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | hasDefaultNet     | 检查默认数据网络是否被激活              |
 | hasDefaultNetSync | 检查默认数据网络是否被激活              |
 | hasNetWiFi        | 判断当前网络是否是Wi-Fi，否则是移动流量热点网络 |
+| getNetBearType    | 获取网络类型                     |
 | getIpAddress      | 获取当前设备的IP地址(设备连接Wi-Fi后)    |
 | register          | 订阅指定网络状态变化的通知，支持多事件监听回调    |
 | unregister        | 取消订阅默认网络状态变化的通知            |
