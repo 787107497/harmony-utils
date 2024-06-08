@@ -1,4 +1,3 @@
-import { NetworkUtil } from 'harmony_utils/src/main/ets/utils/NetworkUtil';
 
 export class User {
   id: string = 'No_1060701';

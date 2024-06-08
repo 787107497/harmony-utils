@@ -1,6 +1,6 @@
-import { AppUtil, FileUtil, JSONUtil } from 'harmony_utils';
+import { FileUtil, JSONUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../entity/DescribeBean';
-import { componentUtils, ComponentUtils, DrawContext, FrameNode, NodeController, router, window } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 
 
 @Entry

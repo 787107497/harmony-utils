@@ -6,7 +6,7 @@ import {
   SelectControlDialog,
   TipControlDialog,
   ToastUtil
-} from 'harmony_utils';
+} from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**

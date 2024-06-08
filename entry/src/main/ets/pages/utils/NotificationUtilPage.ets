@@ -1,6 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { ImageUtil, StrUtil, ToastUtil } from 'harmony_utils';
-import { NotificationUtil } from 'harmony_utils/src/main/ets/utils/NotificationUtil';
+import { ImageUtil, NotificationUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**

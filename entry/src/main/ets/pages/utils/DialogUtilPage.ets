@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { DateUtil, DialogUtil, LogUtil, ToastUtil } from 'harmony_utils';
+import { DateUtil, DialogUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**

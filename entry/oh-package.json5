@@ -6,7 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "harmony_utils": "file:./libs/harmony_utils.har" //本地压缩包引用
+    "@pura/harmony-utils": "file:../harmony_utils"
   }
 }
 

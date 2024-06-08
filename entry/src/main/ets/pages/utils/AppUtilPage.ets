@@ -1,5 +1,5 @@
 import { ComposeTitleBar, KeyboardAvoidMode, router, window } from '@kit.ArkUI';
-import { AppUtil, LogUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { AppUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 

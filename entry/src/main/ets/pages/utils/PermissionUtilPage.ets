@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { ClickUtil, PermissionUtil, ToastUtil } from 'harmony_utils';
+import { PermissionUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { Permissions } from '@kit.AbilityKit';
 

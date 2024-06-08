@@ -1,7 +1,7 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { image } from '@kit.ImageKit';
-import { FileUtil, ImageUtil, ScanUtil, ToastUtil } from 'harmony_utils';
+import { FileUtil, ImageUtil, ScanUtil, ToastUtil } from '@pura/harmony-utils';
 
 /**
  * 码工具类（扫码、码图生成、图片识码）

@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { AuthUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { AuthUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import userIAM_userAuth from '@ohos.userIAM.userAuth';
 import userAuth from '@ohos.userIAM.userAuth';

@@ -1,8 +1,7 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { FileUtil, ImageUtil, LogUtil, NetworkUtil, PreviewUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { FileUtil, ImageUtil, LogUtil, PreviewUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { User } from '../../entity/User';
 
 /**
  * 对象工具类

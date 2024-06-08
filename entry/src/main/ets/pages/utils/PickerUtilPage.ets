@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { AppUtil, DateUtil, FileUtil, ImageUtil, LogUtil, PermissionUtil, PickerUtil, StrUtil, ToastUtil } from 'harmony_utils';
+import { AppUtil, DateUtil, FileUtil, ImageUtil, LogUtil, PermissionUtil, PickerUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Permissions } from '@kit.AbilityKit';
