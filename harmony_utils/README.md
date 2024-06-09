@@ -568,6 +568,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 ## 📚仓库地址
 
 [https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)
+[https://github.com/787107497](https://github.com/787107497)
 
 ## 💖后续计划
 
