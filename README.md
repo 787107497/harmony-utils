@@ -571,8 +571,8 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## 💖后续计划
 
-1、持续优化和添加更多的实用方法与功能（网络相关、语音、文字识别、文件预览）。<br/>
-2、添加新的模块（悬浮窗、加载动画、JSBridge）。
+1、持续优化和添加更多的实用方法与功能（语音、文字识别）。    
+2、添加新的模块（悬浮窗、JSBridge）。
 
 ## 💖技术交流
 
@@ -580,8 +580,8 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## 🙏贡献代码
 
-使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)
-给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。
+使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)    
+给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls)   
 
 ## 📚开源协议
 

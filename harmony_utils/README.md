@@ -567,12 +567,12 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## 📚仓库地址
 
-[https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)
+[https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)    
 [https://github.com/787107497](https://github.com/787107497)
 
 ## 💖后续计划
 
-1、持续优化和添加更多的实用方法与功能（语音、文字识别、）。   
+1、持续优化和添加更多的实用方法与功能（语音、文字识别）。   
 2、添加新的模块（悬浮窗、JSBridge）。
 
 ## 💖技术交流
