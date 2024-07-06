@@ -494,39 +494,8 @@ export class DialogUtil {
    *  onDateAccept:(value: Date) => void	点击弹窗中的“确定”按钮时触发该回调。
    *  onCancel:() => void	点击弹窗中的“取消”按钮时触发该回调。
    */
-  static showDatePicker(options: DatePickerOptions) {
-    DatePickerDialog.show({
-      start: options.start,
-      end: options.end,
-      selected: options.selected,
-      lunar: options.lunar,
-      lunarSwitch: options.lunarSwitch,
-      showTime: options.showTime,
-      useMilitaryTime: options.useMilitaryTime,
-      disappearTextStyle: options.disappearTextStyle,
-      textStyle: options.textStyle,
-      selectedTextStyle: options.selectedTextStyle,
-      onCancel: options.onCancel,
-      alignment: options.alignment,
-      offset: options.offset,
-      maskRect: options.maskRect,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
-      onDateAccept: options.onDateAccept,
-      onDateChange: options.onDateChange,
-      onAccept: (value: DatePickerResult) => { //抹平API差异（从API8开始支持，从API10开始废弃）
-        if (options.onDateAccept && value) {
-          let date = new Date(value.year + '-' + value.month + '-' + value.day);
-          options.onDateAccept(date)
-        }
-      },
-      onChange: (value: DatePickerResult) => { //抹平API差异（从API8开始支持，从API10开始废弃）
-        if (options.onDateChange && value) {
-          let date = new Date(value.year + '-' + value.month + '-' + value.day);
-          options.onDateChange(date)
-        }
-      }
-    });
+  static showDatePicker(options: DatePickerDialogOptions) {
+    DatePickerDialog.show(options);
   }
 
 
@@ -678,29 +647,4 @@ export class EasySheetOptions extends AlertDialogParam {
   select?: SelectSheet;  //选中配置参数
   callBack?: (index: number) => void; //回调事件
   confirm?: SheetConfirm;
-}
-
-
-/**
- *
- */
-export class DatePickerOptions {
-  start?: Date; //指定选择器的起始日期。默认值：Date(‘1970-1-1’)
-  end?: Date; //指定选择器的结束日期。默认值：Date(‘2100-12-31’)
-  selected?: Date; //设置选中项的日期。 默认值：当前系统日期。从API version 10开始，该参数支持$$双向绑定变量。
-  lunar?: boolean; // 日期是否显示为农历，true表示显示农历，false表示不显示农历。 默认值：false
-  lunarSwitch?: boolean; //是否展示切换农历的开关，true表示展示开关，false表示不展示开关。默认值：false
-  showTime?: boolean; //是否展示时间项，true表示显示时间，false表示不显示时间。默认值：false
-  useMilitaryTime?: boolean; //展示时间是否为24小时制，true表示显示24小时制，false表示显示12小时制。默认值：false。说明：当展示时间为12小时制时，上下午与小时无联动关系。
-  disappearTextStyle?: PickerTextStyle; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
-  textStyle?: PickerTextStyle; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
-  selectedTextStyle?: PickerTextStyle; //设置选中项的文本颜色、字号、字体粗细。
-  onDateAccept?: (value: Date) => void; //点击弹窗中的“确定”按钮时触发该回调
-  onDateChange?: (value: Date) => void; //点击弹窗中的“确定”按钮时触发该回调
-  onCancel?: () => void; //点击弹窗中的“取消”按钮时触发该回调。
-  alignment?: DialogAlignment; //弹窗的对齐方式。
-  offset?: Offset; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0 , dy: 0 }
-  maskRect?: Rectangle; //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
-  backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.Transparent
-  backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
 }

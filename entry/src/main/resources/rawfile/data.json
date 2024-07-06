@@ -1,5 +1,9 @@
 [
   {
+    "name": "Test",
+    "desc": "测试页面"
+  },
+  {
     "name": "AppUtil",
     "desc": "APP相关工具类"
   },

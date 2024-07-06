@@ -38,7 +38,7 @@ export class DateUtil {
    * @returns
    */
   static getFormatDate(date: number | string | Date | undefined): Date {
-    if (date == undefined) { //无参数
+    if (date == undefined || date == null) { //无参数
       date = new Date();
     } else if (typeof (date) == "string") { //字符串日期
       if (date.length == 0) {

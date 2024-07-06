@@ -34,7 +34,8 @@
     "pages/utils/ActionUtilPage",
     "pages/utils/DialogUtilPage",
     "pages/utils/ToastUtilPage",
-    "pages/utils/ControlDialogPage"
+    "pages/utils/ControlDialogPage",
+    "pages/utils/TestPage"
   ],
   "window": {
     "designWidth": 750,

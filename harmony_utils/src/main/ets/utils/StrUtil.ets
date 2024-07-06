@@ -280,7 +280,8 @@ export class StrUtil {
    * @returns
    */
   static unit8ArrayToBuffer(src: Uint8Array): ArrayBuffer {
-    return buffer.from(src).buffer;
+    // return buffer.from(src).buffer;
+    return src.buffer as ArrayBuffer;
   }
 
 

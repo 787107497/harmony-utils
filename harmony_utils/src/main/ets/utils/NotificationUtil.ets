@@ -427,8 +427,8 @@ export class NotificationUtil {
       }
       if (!options.picture) { //通知的图片内容(图像像素的总字节数不能超过2MB)。
         let ctx = getContext() as common.UIAbilityContext;
-        options.picture = await image.createImageSource(ctx.resourceManager.getMediaContentSync($r("app.media.icon_ring"))
-          .buffer).createPixelMap();
+        let buffer: ArrayBuffer = ctx.resourceManager.getMediaContentSync($r("app.media.icon_ring")).buffer as ArrayBuffer;
+        options.picture = await image.createImageSource(buffer).createPixelMap();
       }
 
       if (!options.id) {

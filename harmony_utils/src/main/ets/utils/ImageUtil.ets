@@ -25,7 +25,7 @@ export class ImageUtil {
     const reg = new RegExp('data:image/\\w+;base64,');
     const base64Str = base64.replace(reg, '');
     //将通用base64字符串转变为arrayBuffer
-    let arrayBuffer = Base64Util.decodeSync(base64Str).buffer;
+    let arrayBuffer = Base64Util.decodeSync(base64Str).buffer as ArrayBuffer;
     //将arrayBuffer转变为pixelMap
     let imageSource = image.createImageSource(arrayBuffer);
     let opts: image.DecodingOptions = { editable: false }
