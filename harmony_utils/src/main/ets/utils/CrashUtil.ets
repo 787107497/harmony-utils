@@ -78,11 +78,15 @@ export class CrashUtil {
    * 导出错误日志
    */
   static onExportErrorLog() {
+    CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
     if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
       PickerUtil.saveDocument(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
         if (documentSaveResult && documentSaveResult.length > 0) {
           let saveUri = documentSaveResult[0];
-          FileUtil.copy(CrashUtil.ErrorFilePath, saveUri);
+          let file = FileUtil.openSync(saveUri);
+          FileUtil.copyFile(CrashUtil.ErrorFilePath, file.fd).then(() => {
+            FileUtil.close(file.fd);
+          });
         }
       })
     } else {
@@ -95,6 +99,7 @@ export class CrashUtil {
    * 读取错误日志文件
    */
   static async readErrorText(): Promise<string> {
+    CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
     if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
       if (FileUtil.accessSync(CrashUtil.ErrorFilePath)) {
         return await FileUtil.readText(CrashUtil.ErrorFilePath);
