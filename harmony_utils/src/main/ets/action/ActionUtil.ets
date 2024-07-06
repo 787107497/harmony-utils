@@ -280,7 +280,7 @@ export class ActionUtil {
 /**
  * Action基本参数类
  */
-class ActionParam {
+export class ActionParam {
   maskRect?: Rectangle; //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。默认值：{ x: 0, y: 0, width: ‘100%’, height: ‘100%’ }
   alignment?: DialogAlignment; //弹窗的对齐方式
   offset?: Offset; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0 , dy: 0 }
@@ -291,7 +291,7 @@ class ActionParam {
 /**
  * ConfirmDialog弹框参数类
  */
-class ConfirmDialogOptions extends ActionParam {
+export class ConfirmDialogOptions extends ActionParam {
   title?: string | Resource; //标题文本
   message: string | Resource = ''; //内容文本
   buttonText?: string; //按钮文本
@@ -302,7 +302,7 @@ class ConfirmDialogOptions extends ActionParam {
 /**
  * PrimaryDialog弹框参数类
  */
-class PrimaryDialogOptions extends ActionParam {
+export class PrimaryDialogOptions extends ActionParam {
   title?: string | Resource; //标题文本
   message: string | Resource = ''; //内容文本
   cancelText?: string; //按钮文本
@@ -314,7 +314,7 @@ class PrimaryDialogOptions extends ActionParam {
 /**
  * Dialog弹框参数类
  */
-class DialogOptions extends ActionParam {
+export class DialogOptions extends ActionParam {
   title?: string | Resource; //标题文本
   message: string | Resource = ''; //内容文本
   buttons?: Array<DialogButton>; //按钮数组
@@ -324,7 +324,7 @@ class DialogOptions extends ActionParam {
 /**
  * 简易的actionMenu入参对象
  */
-class EasyActionOptions {
+export class EasyActionOptions {
   title: string | Resource = ''; //标题文本
   buttons: Array<string> = []; //支持1-6个按钮。按钮数量大于6个时，仅显示前6个按钮，之后的按钮不显示。
   selected?: MenuSelected; //选中参数
@@ -337,7 +337,7 @@ class EasyActionOptions {
 /**
  * actionMenu入参对象
  */
-class ActionOptions {
+export class ActionOptions {
   title:  string | Resource='';
   buttons: Array<DialogButton> = []; //支持1-6个按钮。按钮数量大于6个时，仅显示前6个按钮，之后的按钮不显示。
   showInSubWindow?: boolean;
@@ -348,7 +348,7 @@ class ActionOptions {
 /**
  * actionMenu选中项参数类
  */
-class MenuSelected {
+export class MenuSelected {
   position: number = 0; //选中位置
   color: string = DIALOG_BUTTON_COLOR; //按钮前景色
 }
@@ -357,7 +357,7 @@ class MenuSelected {
 /**
  * 弹窗按钮参数类
  */
-class DialogButton {
+export class DialogButton {
   text: string = ''; //按钮值
   color?: string; //按钮前景色
   action?: () => void; //按钮事件

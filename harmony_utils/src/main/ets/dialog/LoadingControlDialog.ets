@@ -66,7 +66,7 @@ export struct LoadingControlDialog {
 /**
  * CustomDialog基本参数类
  */
-class CustomDialogParam {
+export class CustomDialogParam {
   autoCancel?: boolean; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
   cancel?: () => void; //点击遮障层关闭dialog时的回调。
   alignment?: DialogAlignment; //弹窗的对齐方式。
@@ -85,7 +85,7 @@ class CustomDialogParam {
 /**
  * LoadingControlDialog参数类
  */
-class LoadingOptions extends CustomDialogParam {
+export class LoadingOptions extends CustomDialogParam {
   content?: ResourceStr; //提示弹出框内容。
   primaryButton?: ButtonOptions; //提示框左侧按钮。
   secondaryButton?: ButtonOptions; //提示框右侧按钮。
@@ -94,7 +94,7 @@ class LoadingOptions extends CustomDialogParam {
 /**
  * AlertDialog按钮参数类
  */
-class ButtonOptions {
+export class ButtonOptions {
   value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
   action: () => void = () => {}; //Button选中时的回调。
   fontColor?: ResourceColor; //Button的文本内容，若值为null，则该按钮不显示。

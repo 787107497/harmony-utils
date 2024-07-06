@@ -13,27 +13,27 @@
   "devDependencies": {},
   "dynamicDependencies": {},
   "keywords": [
-    "OpenHarmony",
-    "HarmonyOS",
-    "utils",
-    "JSON",
-    "工具类",
     "字符串",
     "日期",
     "图片",
     "弹框",
-    "随机"
+    "随机",
+    "工具类",
+    "JSON",
+    "OpenHarmony",
+    "HarmonyOS",
+    "utils"
   ],
   "tags": [
-    "OpenHarmony",
-    "HarmonyOS",
-    "utils",
-    "JSON",
-    "工具类",
     "字符串",
     "日期",
     "图片",
     "弹框",
-    "随机"
+    "随机",
+    "工具类",
+    "JSON",
+    "OpenHarmony",
+    "HarmonyOS",
+    "utils"
   ]
 }

@@ -81,7 +81,7 @@ export class ToastUtil {
 /**
  * Toast参数类
  */
-class ToastOptions {
+export class ToastOptions {
   duration?: number = TOAST_DURATION; //显示时长(1500ms-10000ms)
   bottom?: string | number = TOAST_BOTTOM; //距离屏幕底部的位置
   showMode?: number = TOAST_SHOW_MODE; //是否显示在应用之上
@@ -91,7 +91,7 @@ class ToastOptions {
 /**
  * 自定义Toast参数类
  */
-class CustomOptions {
+export class CustomOptions {
   bottom?: string | number = TOAST_BOTTOM; //距离屏幕底部的位置
   showMode?: number = TOAST_SHOW_MODE; //是否显示在应用之上
 }

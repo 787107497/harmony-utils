@@ -705,7 +705,7 @@ export class NotificationUtil {
 /**
  * 描述通知的请求参数。
  */
-class NotificationOptions {
+export class NotificationOptions {
   id?: number; //通知ID。
   isOngoing?: boolean; //是否进行时通知。
   isStopwatch?: boolean; //是否显示已用时间。
@@ -729,7 +729,7 @@ class NotificationOptions {
 /**
  * 描述普通文本通知
  */
-class NotificationBasicOptions extends NotificationOptions {
+export class NotificationBasicOptions extends NotificationOptions {
   title: string = ''; //通知标题（不可为空字符串）。
   text: string = ''; //通知内容（不可为空字符串）。
   additionalText?: string = ''; //通知附加内容，是对通知内容的补充。
@@ -740,7 +740,7 @@ class NotificationBasicOptions extends NotificationOptions {
 /**
  * 描述多行文本通知。
  */
-class NotificationMultiLineOptions extends NotificationBasicOptions {
+export class NotificationMultiLineOptions extends NotificationBasicOptions {
   briefText?: string = ''; //通知概要内容，是对通知内容的总结（不可为空字符串）。
   longTitle: string = ''; //通知展开时的标题（不可为空字符串）。
   lines: Array<string> = []; //通知的多行文本。
@@ -750,7 +750,7 @@ class NotificationMultiLineOptions extends NotificationBasicOptions {
 /**
  * 描述长文本通知
  */
-class NotificationLongTextOptions extends NotificationBasicOptions {
+export class NotificationLongTextOptions extends NotificationBasicOptions {
   briefText?: string = ''; //通知概要内容，是对通知内容的总结（不可为空字符串）。
   expandedTitle: string = ''; //通知展开时的标题（不可为空字符串）
   longText: string = ''; //通知的长文本（不可为空字符串）。
@@ -760,7 +760,7 @@ class NotificationLongTextOptions extends NotificationBasicOptions {
 /**
  * 描述附有图片的通知。
  */
-class NotificationPictureOptions extends NotificationBasicOptions {
+export class NotificationPictureOptions extends NotificationBasicOptions {
   briefText?: string = ''; //通知概要内容，是对通知内容的总结（不可为空字符串）。
   expandedTitle: string = ''; //通知展开时的标题（不可为空字符串）。
   picture?: image.PixelMap; //通知的图片内容(图像像素的总字节数不能超过2MB)。

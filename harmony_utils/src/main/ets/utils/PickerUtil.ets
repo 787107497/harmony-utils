@@ -272,7 +272,7 @@ export class PickerUtil {
 /**
  * 相机参数类
  */
-class CameraOptions {
+export class CameraOptions {
   mediaTypes: Array<cameraPicker.PickerMediaType> = [cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO]; //媒体类型。
   cameraPosition: camera.CameraPosition = camera.CameraPosition.CAMERA_POSITION_BACK; //相机的位置。
   saveUri?: string; //保存配置信息的uri。
@@ -282,7 +282,7 @@ class CameraOptions {
 /**
  * 相册选择参数类
  */
-class PhotoSelectOptions {
+export class PhotoSelectOptions {
   MIMEType?: photoAccessHelper.PhotoViewMIMETypes = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE; //可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
   maxSelectNumber?: number = PHOTO_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值(默认值为50，最大值为500)。
   isPhotoTakingSupported?: boolean = true; //支持拍照。
@@ -296,7 +296,7 @@ class PhotoSelectOptions {
 /**
  * 文档选择参数类
  */
-class DocumentSelectOptions {
+export class DocumentSelectOptions {
   maxSelectNumber?: number = PHOTO_DEFAULT_SELECT_NUMBER; //选择文件最大个数，上限500，有效值范围1-500（选择目录仅支持特定设备，且目录选择的最大个数为1）
   defaultFilePathUri?: string; //指定选择的文件或者目录路径
   fileSuffixFilters?: Array<string>; //选择文件的后缀类型，若选择项存在多个后缀名，则每一个后缀名之间用英文逗号进行分隔

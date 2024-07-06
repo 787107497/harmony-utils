@@ -107,7 +107,7 @@ export struct SelectControlDialog {
 /**
  * CustomDialog基本参数类
  */
-class CustomDialogParam {
+export class CustomDialogParam {
   autoCancel?: boolean; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
   cancel?: () => void; //点击遮障层关闭dialog时的回调。
   alignment?: DialogAlignment; //弹窗的对齐方式。
@@ -127,7 +127,7 @@ class CustomDialogParam {
 /**
  * SelectControlDialog参数类
  */
-class SelectOptions extends CustomDialogParam {
+export class SelectOptions extends CustomDialogParam {
   title: ResourceStr = ''; //提示弹出框标题。
   content?: ResourceStr; //提示弹出框内容。
   selectedIndex?: number; //选择弹出框的选中项。默认值：-1。
@@ -142,7 +142,7 @@ class SelectOptions extends CustomDialogParam {
 /**
  * AlertDialog按钮参数类
  */
-class ButtonOptions {
+export class ButtonOptions {
   value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
   action: () => void = () => {}; //Button选中时的回调。
   fontColor?: ResourceColor; //Button的文本内容，若值为null，则该按钮不显示。

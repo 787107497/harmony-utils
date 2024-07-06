@@ -5,6 +5,7 @@ import { LogUtil } from '../utils/LogUtil';
 /**
  * ConfirmDialog 信息确认类弹出框，操作未正确执行（如网络错误、电池电量过低），或未正确操作时（如指纹录入），反馈的错误或提示信息。
  */
+@Preview
 @Component
 export struct ConfirmControlDialog {
 
@@ -98,7 +99,7 @@ export struct ConfirmControlDialog {
 /**
  * CustomDialog基本参数类
  */
-class CustomDialogParam {
+export class CustomDialogParam {
   autoCancel?: boolean; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
   cancel?: () => void; //点击遮障层关闭dialog时的回调。
   alignment?: DialogAlignment; //弹窗的对齐方式。
@@ -117,7 +118,7 @@ class CustomDialogParam {
 /**
  * ConfirmControlDialog参数类
  */
-class ConfirmOptions extends CustomDialogParam {
+export class ConfirmOptions extends CustomDialogParam {
   title: ResourceStr = ''; //提示弹出框标题。
   content?: ResourceStr; //提示弹出框内容。
   checkTips?: ResourceStr; //	checkbox的提示内容。
@@ -129,7 +130,7 @@ class ConfirmOptions extends CustomDialogParam {
 /**
  * AlertDialog按钮参数类
  */
-class ButtonOptions {
+export class ButtonOptions {
   value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
   action: () => void = () => {}; //Button选中时的回调。
   fontColor?: ResourceColor; //Button的文本内容，若值为null，则该按钮不显示。

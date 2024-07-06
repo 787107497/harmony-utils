@@ -572,7 +572,7 @@ export class DialogUtil {
 /**
  * AlertDialog基本参数类
  */
-class AlertDialogParam {
+export class AlertDialogParam {
   title?: ResourceStr; //弹框标题
   subtitle?: ResourceStr; //弹框副标题
   message: ResourceStr = ''; //弹框内容
@@ -591,7 +591,7 @@ class AlertDialogParam {
 /**
  * AlertDialog按钮参数类
  */
-class ButtonOptions {
+export class ButtonOptions {
   value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
   action: () => void = () => {}; //Button选中时的回调。
   enabled?: boolean; //点击Button是否响应，默认值true。
@@ -605,7 +605,7 @@ class ButtonOptions {
 /**
  * 确认AlertDialog参数类
  */
-class ConfirmDialogOptions extends AlertDialogParam {
+export class ConfirmDialogOptions extends AlertDialogParam {
   gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
   confirm: ButtonOptions = new ButtonOptions();
 }
@@ -613,7 +613,7 @@ class ConfirmDialogOptions extends AlertDialogParam {
 /**
  * 两个按钮的AlertDialog参数类
  */
-class PrimaryDialogOptions extends AlertDialogParam {
+export class PrimaryDialogOptions extends AlertDialogParam {
   gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
   primaryButton: ButtonOptions = new ButtonOptions();
   secondaryButton: ButtonOptions = new ButtonOptions();
@@ -622,7 +622,7 @@ class PrimaryDialogOptions extends AlertDialogParam {
 /**
  * 多个按钮的AlertDialog参数类
  */
-class OptionDialogOptions extends AlertDialogParam {
+export class OptionDialogOptions extends AlertDialogParam {
   gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
   buttons: Array<ButtonOptions> = [] //弹窗容器中的多个按钮。
   buttonDirection?: DialogButtonDirection //按钮排布方向默认值为DialogButtonDirection.AUTO，建议3个以上按钮使用Auto模式（两个以上按钮会切换为纵向模式，通常能显示更多按钮），非Auto模式下，3个以上按钮可能会显示不全，超出显示范围的按钮会被截断。
@@ -631,7 +631,7 @@ class OptionDialogOptions extends AlertDialogParam {
 /**
  * 多个按钮的AlertDialog参数类
  */
-class EasyDialogOptions extends AlertDialogParam {
+export class EasyDialogOptions extends AlertDialogParam {
   gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
   buttons: Array<ResourceStr> = [] //弹窗容器中的多个按钮。
   buttonDirection?: DialogButtonDirection //按钮排布方向默认值为DialogButtonDirection.AUTO，建议3个以上按钮使用Auto模式（两个以上按钮会切换为纵向模式，通常能显示更多按钮），非Auto模式下，3个以上按钮可能会显示不全，超出显示范围的按钮会被截断。
@@ -642,7 +642,7 @@ class EasyDialogOptions extends AlertDialogParam {
 /**
  * ActionSheet,confirm按钮参数类
  */
-class SheetConfirm{
+export class SheetConfirm{
   value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
   action: () => void = () => {}; //Button选中时的回调。
   enabled?: boolean; //点击Button是否响应，默认值true。
@@ -654,7 +654,7 @@ class SheetConfirm{
 /**
  * ActionSheet参数类
  */
-class ActionSheetOptions extends AlertDialogParam {
+export class ActionSheetOptions extends AlertDialogParam {
   sheets: Array<SheetInfo>=[]; //title-选项的文本内容、icon-选项的图标、action-选项选中的回调。
   confirm?: SheetConfirm;
 }
@@ -663,7 +663,7 @@ class ActionSheetOptions extends AlertDialogParam {
 /**
  * 简单易用的ActionSheet的选中参数类
  */
-class SelectSheet {
+export class SelectSheet {
   position: number = 0; //选中位置
   defaultIcon: ResourceStr = ''; //默认显示的图标
   selectIcon: ResourceStr = ''; //选中显示的图标
@@ -673,7 +673,7 @@ class SelectSheet {
 /**
  * 简单易用的ActionSheet参数类
  */
-class EasySheetOptions extends AlertDialogParam {
+export class EasySheetOptions extends AlertDialogParam {
   sheets: Array<ResourceStr> = []; //title-选项的文本内容、icon-选项的图标、action-选项选中的回调。
   select?: SelectSheet;  //选中配置参数
   callBack?: (index: number) => void; //回调事件
@@ -684,7 +684,7 @@ class EasySheetOptions extends AlertDialogParam {
 /**
  *
  */
-class DatePickerOptions {
+export class DatePickerOptions {
   start?: Date; //指定选择器的起始日期。默认值：Date(‘1970-1-1’)
   end?: Date; //指定选择器的结束日期。默认值：Date(‘2100-12-31’)
   selected?: Date; //设置选中项的日期。 默认值：当前系统日期。从API version 10开始，该参数支持$$双向绑定变量。
