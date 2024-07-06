@@ -107,6 +107,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | 方法                      | 介绍                                  |
 |:------------------------|:------------------------------------|
 | getDeviceId             | 获取设备ID（卸载APP后依旧不变）                  |
+| deleteDeviceId          | 移除设备ID                              |
 | getConfiguration        | 获取设备的Configuration                  |
 | getConfigurationSync    | 获取设备的Configuration                  |
 | getDirection            | 获取当前设备屏幕方向                          |
@@ -567,7 +568,8 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## 📚仓库地址
 
-[https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)
+[https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)   
+[https://github.com/787107497](https://github.com/787107497)
 
 ## 💖后续计划
 

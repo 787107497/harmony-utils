@@ -38,12 +38,18 @@ struct Index {
           Button("getDeviceId()")
             .btnStyle()
             .onClick(async () => {
-              let id = await DeviceUtil.getDeviceId("",false);
+              let id = await DeviceUtil.getDeviceId(false,"");
               this.deviceIdStr = `当前设备号为：\n${id}`
             })
           Text(this.deviceIdStr)
             .visibility(StrUtil.isNotEmpty(this.deviceIdStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
+          Button("deleteDeviceId()")
+            .btnStyle()
+            .onClick(async () => {
+              DeviceUtil.deleteDeviceId();
+              ToastUtil.showToast("移除设备ID成功！")
+            })
           Button("getConfiguration()")
             .btnStyle()
             .onClick(() => {

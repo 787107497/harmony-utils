@@ -16,11 +16,11 @@ export class DeviceUtil {
 
   /**
    * 获取设备ID（卸载APP后依旧不变）
-   * @param generateId 自己生成的id，不传使用默认生成的id
    * @param rule 是否带-
+   * @param generateId 自己生成的id，不传使用默认生成的id
    * @returns
    */
-  static async getDeviceId(generateId?: string, rule: boolean = true): Promise<string> {
+  static async getDeviceId(rule: boolean = true, generateId?: string): Promise<string> {
     let deviceId = DeviceUtil.deviceId;
     if (StrUtil.isEmpty(deviceId)) {
       if (canIUse("SystemCapability.Security.Asset")) {
@@ -29,26 +29,39 @@ export class DeviceUtil {
         deviceId = StrUtil.toStr(await PreferencesUtil.get(DeviceUtil.deviceIdKey, "") as string)
         LogUtil.error(`当前设备不支持,关键资产存储服务`);
       }
+      if (StrUtil.isEmpty(deviceId)) {
+        if (generateId && StrUtil.isNotEmpty(generateId)) {
+          deviceId = generateId;
+        } else {
+          deviceId = RandomUtil.generateRandomUUID(true);
+        }
+        if (!rule) {
+          deviceId = deviceId.replace(/-/g, ''); //去除-
+        }
+        if (canIUse("SystemCapability.Security.Asset")) {
+          //将deviceId保存到关键资产（在应用卸载时保留）
+          AssetStore.set(DeviceUtil.deviceIdKey, deviceId);
+        } else {
+          PreferencesUtil.put(DeviceUtil.deviceIdKey, deviceId)
+          LogUtil.error(`当前设备不支持,关键资产存储服务`);
+        }
+      }
+      DeviceUtil.deviceId = deviceId;
     }
-    if (StrUtil.isEmpty(deviceId)) {
-      if (generateId && StrUtil.isNotEmpty(generateId)) {
-        deviceId = generateId;
-      } else {
-        deviceId = RandomUtil.generateRandomUUID(true);
-      }
-      if (!rule) {
-        deviceId = deviceId.replace('-', ''); //去除-
-      }
-      if (canIUse("SystemCapability.Security.Asset")) {
-        //将deviceId保存到关键资产（在应用卸载时保留）
-        AssetStore.set(DeviceUtil.deviceIdKey, deviceId);
-      } else {
-        PreferencesUtil.put(DeviceUtil.deviceIdKey, deviceId)
-        LogUtil.error(`当前设备不支持,关键资产存储服务`);
-      }
-    }
-    DeviceUtil.deviceId = deviceId;
     return deviceId;
+  }
+
+  /**
+   * 移除设备ID
+   */
+  static deleteDeviceId() {
+    DeviceUtil.deviceId = '';
+    if (canIUse("SystemCapability.Security.Asset")) {
+      AssetStore.remove(DeviceUtil.deviceIdKey);
+    } else {
+      PreferencesUtil.delete(DeviceUtil.deviceIdKey)
+      LogUtil.error(`当前设备不支持,关键资产存储服务`);
+    }
   }
 
 
