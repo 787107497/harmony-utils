@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { DateUtil, DialogUtil, LogUtil } from '@pura/harmony-utils';
+import { AppUtil, DateUtil, DialogUtil, LogUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -36,6 +36,25 @@ struct Index {
                 onDateAccept: (value: Date) => {
                   LogUtil.error("TimePickerResult2: " + DateUtil.getFormatDateStr(value))
                 }
+              })
+            })
+          Button("测试3")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setStatusBar()
+            })
+          Button("测试4")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setStatusBar(false, true, "#FF6666", {
+                statusBarContentColor: '#FFFFFF',
+              })
+            })
+          Button("测试5")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setStatusBar(false, true, '#FFFFFF', {
+                statusBarContentColor: '#FF6666',
               })
             })
 
