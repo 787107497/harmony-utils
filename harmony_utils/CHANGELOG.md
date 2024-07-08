@@ -13,3 +13,16 @@
 2. 添加PreviewUtil工具类。
 3. 在AppUtil添加跳转常用设置页面方法。
 4. 优化代码。
+
+## 1.0.3
+1. DeviceUtil：   
+    1、getDeviceId()，修复该方法Bug,并调整入参。   
+    2、添加删除设备ID方法，deleteDeviceId()。 
+2. CrashUtil：   
+    1、onExportErrorLog(),修复该方法，文件导出Bug。
+3. PickerUtil：   
+    1、Bug修复。  
+    2、拆分相册功能方法到PhotoHelper。  
+4. 新增PhotoHelper，后续会增加相册相关方法。  
+5. 优化代码，导出模块类。  
+6. 

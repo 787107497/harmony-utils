@@ -267,7 +267,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | saveDocument   | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
 | selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
 | saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
-| getPhotoAsset  | 获取对应uri的PhotoAsset对象,用于读取文件信息                       |
 
 ### PhotoHelper（相册相关,工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
 
