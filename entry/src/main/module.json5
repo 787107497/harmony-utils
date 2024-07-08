@@ -112,6 +112,24 @@
             "EntryAbility"
           ]
         }
+      },
+      {
+        "name": "ohos.permission.READ_IMAGEVIDEO",
+        "reason": "$string:permission_READ_IMAGEVIDEO",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        }
+      },
+      {
+        "name": "ohos.permission.WRITE_IMAGEVIDEO",
+        "reason": "$string:permission_WRITE_IMAGEVIDEO",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        }
       }
     ]
   }

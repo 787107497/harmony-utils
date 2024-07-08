@@ -1,9 +1,18 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { AppUtil, DateUtil, FileUtil, ImageUtil, LogUtil, PermissionUtil, PickerUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import {
+  AppUtil,
+  DateUtil,
+  FileUtil,
+  ImageUtil,
+  LogUtil,
+  PermissionUtil,
+  PickerUtil,
+  StrUtil,
+  ToastUtil
+} from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Permissions } from '@kit.AbilityKit';
-import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { image } from '@kit.ImageKit';
 
 
@@ -16,7 +25,7 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State uriStr: string = ''
-  @State pixelMap?: image.PixelMap = undefined
+  @State pixelMap?: image.PixelMap | string = undefined
   @State filePath: string = ''; //本地图片path
 
   async aboutToAppear(): Promise<void> {
@@ -58,7 +67,7 @@ struct Index {
           Button("selectPhoto()")
             .btnStyle()
             .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA'];
+              let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA', 'ohos.permission.READ_IMAGEVIDEO'];
               PermissionUtil.requestPermissionsList(ps).then((result) => {
                 if (result) {
                   PickerUtil.selectPhoto().then((uris) => {
@@ -131,34 +140,15 @@ struct Index {
                 this.uriStr = `调用保存文件，异常：\n${JSON.stringify(err)}`
               })
             })
-          Button("getPhotoAsset()")
+          Button("selectPhoto()")
             .btnStyle()
             .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA'];
+              let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA'];
               PermissionUtil.requestPermissionsList(ps).then((result) => {
                 if (result) {
-                  PickerUtil.selectPhoto().then(async (uris) => {
+                  PickerUtil.selectPhoto({ maxSelectNumber: 1 }).then(async (uris) => {
                     if (uris && uris.length > 0) {
-                      let photoAsset = await PickerUtil.getPhotoAsset(uris[0]);
-                      try {
-                        let name = photoAsset?.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME);
-                        let type = photoAsset?.get(photoAccessHelper.PhotoKeys.PHOTO_TYPE);
-                        let size = photoAsset?.get(photoAccessHelper.PhotoKeys.SIZE);
-                        let date = photoAsset?.get(photoAccessHelper.PhotoKeys.DATE_TAKEN);
-                        let with1 = photoAsset?.get(photoAccessHelper.PhotoKeys.WIDTH);
-                        let height = photoAsset?.get(photoAccessHelper.PhotoKeys.HEIGHT);
-                        let title = photoAsset?.get(photoAccessHelper.PhotoKeys.TITLE);
-                        this.uriStr = `图片信息：\n${name}\n${type}\n${size}\n${date}\n${with1}\n${height}\n${title}`
-                      } catch (err) {
-                        LogUtil.error("读取图片信息失败：" + JSON.stringify(err));
-                      }
-                      photoAsset?.getThumbnail((err, pixelMap,) => {
-                        if (err) {
-                          LogUtil.error("缩略图-异常：" + JSON.stringify(err))
-                          result;
-                        }
-                        this.pixelMap = pixelMap;
-                      })
+                      this.pixelMap = uris[0];
                     } else {
                       ToastUtil.showToast("请选择图片")
                     }

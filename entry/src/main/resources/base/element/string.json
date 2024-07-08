@@ -30,11 +30,19 @@
     },
     {
       "name": "permission_READ_MEDIA",
-      "value": "用于应用读取用户外部存储中的媒体文件信息"
+      "value": "用于应用读取外部存储中的媒体文件信息"
     },
     {
       "name": "permission_WRITE_MEDIA",
-      "value": "用于应用读写用户外部存储中的媒体文件信息"
+      "value": "用于应用读写外部存储中的媒体文件信息"
+    },
+    {
+      "name": "permission_READ_IMAGEVIDEO",
+      "value": "用于应用读取公共目录的图片或视频文件"
+    },
+    {
+      "name": "permission_WRITE_IMAGEVIDEO",
+      "value": "用于应用读写公共目录的图片或视频文件"
     }
   ]
 }

@@ -10,6 +10,7 @@
     "pages/utils/PreferencesUtilPage",
     "pages/utils/FileUtilPage",
     "pages/utils/PickerUtilPage",
+    "pages/utils/PhotoHelperPage",
     "pages/utils/PreviewUtilPage",
     "pages/utils/NetworkUtilPage",
     "pages/utils/LocationUtilPage",

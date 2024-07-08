@@ -66,6 +66,8 @@ export { DialogUtil } from './src/main/ets/action/DialogUtil';
 
 export { ToastUtil } from './src/main/ets/action/ToastUtil';
 
+export { PhotoHelper } from './src/main/ets/photo/PhotoHelper';
+
 export { AlertControlDialog } from './src/main/ets/dialog/AlertControlDialog';
 
 export { ConfirmControlDialog } from './src/main/ets/dialog/ConfirmControlDialog';

@@ -28,6 +28,7 @@ OpenHarmony ohpm
 | PreferencesUtil      | Preferences（用户首选项）工具类       |
 | FileUtil             | 文件操作相关工具类                   |
 | PickerUtil           | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类 |
+| PhotoHelper          | 相册相关工具类                     |
 | PreviewUtil          | 文件预览工具类                     |
 | NetworkUtil          | 网络相关工具类                     |
 | LocationUtil         | 定位工具类(WGS-84坐标系)            |
@@ -265,7 +266,14 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | saveDocument   | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
 | selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
 | saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
-| getPhotoAsset  | 获取对应uri的PhotoAsset对象,用于读取文件信息                       |
+
+### PhotoHelper（相册相关,工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
+
+| 方法            | 介绍                                     |
+|:--------------|:---------------------------------------|
+| select        | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频 |
+| save          | 保存图片或视频到相册                             |
+| getPhotoAsset | 获取对应uri的PhotoAsset对象,用于读取文件信息          |
 
 ### PreviewUtil（文件预览工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
 

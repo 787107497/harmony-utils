@@ -143,7 +143,8 @@ struct Index {
               let path = FileUtil.getFilesDirPath("", "test_cpoy.txt");
               if (FileUtil.accessSync(this.filePath)) {
                 FileUtil.copyFile(this.filePath, path).then(() => {
-                  ToastUtil.showToast("文件拷贝成功")
+                  let size = FileUtil.lstatSync(path).size;
+                  ToastUtil.showToast("文件拷贝成功：" + size);
                 })
               } else {
                 ToastUtil.showToast("文件不存在，请先创建和写入 目标文件")
