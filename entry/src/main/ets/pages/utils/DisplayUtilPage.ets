@@ -1,4 +1,5 @@
 import { ComposeTitleBar, display, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { DisplayUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -14,12 +15,9 @@ struct Index {
   @State cutoutInfoStr: string = ''
   @State foldStatusStr: string = ''
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("DisplayUtil", "屏幕相关工具类");
   }
 
   build() {

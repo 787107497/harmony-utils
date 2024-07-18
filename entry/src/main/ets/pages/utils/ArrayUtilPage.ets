@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { ArrayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -17,12 +18,9 @@ struct Index {
   private array4: number[] = [1, 100, 10, 0, 22, 68, 11]
   private array5: string[][] = [this.array1, this.array2, this.array3]
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("ArrayUtil", "数组工具类");
   }
 
   build() {

@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { TempUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -11,12 +12,9 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("TempUtil", "温度转换工具类，华氏度与摄氏度相互转换");
   }
 
   build() {

@@ -1,6 +1,8 @@
 import { FileUtil, JSONUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../entity/DescribeBean';
 import { router } from '@kit.ArkUI';
+import { Mock } from '../utils/Mock';
+import { MockSetup } from '@ohos/hamock';
 
 
 @Entry
@@ -9,19 +11,22 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State data: Array<DescribeBean> = [];
 
-  async aboutToAppear(): Promise<void> {
-    this.getData()
+  @MockSetup
+  mock() {
+    this.data = Mock.getData();
   }
 
+
+  async aboutToAppear(): Promise<void> {
+    let jsonStr = FileUtil.getRawFileContentStrSync('data.json');
+    let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
+    if (arr && arr.length > 0) {
+      this.data = arr;
+    }
+  }
 
   onBackPress(): boolean {
     return false;
-  }
-
-  getData() {
-    let jsonStr = FileUtil.getRawFileContentStrSync('data.json');
-    let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
-    this.data = arr;
   }
 
   /**
@@ -53,7 +58,12 @@ struct Index {
     .alignItems(HorizontalAlign.Start)
     .padding({ left: 18, top: 15, right: 18, bottom: 15 })
     .backgroundColor(Color.White)
-    .border({ width: 1, color: $r('app.color.color_line'), radius: 6, style: BorderStyle.Solid })
+    .border({
+      width: 1,
+      color: $r('app.color.color_line'),
+      radius: 6,
+      style: BorderStyle.Solid
+    })
     .shadow(ShadowStyle.OUTER_DEFAULT_SM)
     .margin({ left: 15, top: 10, right: 15, bottom: 10 })
     .onClick(() => {
@@ -75,7 +85,7 @@ struct Index {
         Column() {
           ForEach(this.data, (item: DescribeBean) => {
             this.itemBuilder(item)
-          }, (item: DescribeBean) => item.name)
+          }, (item: DescribeBean, index: number) => `${index}-${item.name}-${item.desc}`)
         }
         .margin({ top: 5, bottom: 5 })
       }.layoutWeight(1)

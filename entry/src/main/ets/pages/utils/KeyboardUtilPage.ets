@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { KeyboardUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -11,13 +12,11 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
 
-  aboutToAppear(): void {
-
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("KeyboardUtil", "键盘工具类");
   }
 
-  onBackPress(): boolean {
-    return false;
-  }
 
   build() {
     Column() {

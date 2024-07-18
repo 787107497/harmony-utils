@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { Base64Util, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -11,12 +12,9 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("Base64Util", "Base64工具类");
   }
 
   build() {

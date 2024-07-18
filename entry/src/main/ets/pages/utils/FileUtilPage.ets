@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { FileUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -19,12 +20,13 @@ struct Index {
   @State listFileStr: string = ''
   @State jsonStr: string = ''
 
-  aboutToAppear(): void {
-    this.filePath = FileUtil.getFilesDirPath('download/wps/txt', 'demo.txt');
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("FileUtil", "文件操作相关工具类");
   }
 
-  onBackPress(): boolean {
-    return false;
+  aboutToAppear(): void {
+    this.filePath = FileUtil.getFilesDirPath('download/wps/txt', 'demo.txt');
   }
 
   build() {

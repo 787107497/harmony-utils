@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import {
   AlertControlDialog,
   ConfirmControlDialog,
@@ -25,12 +26,9 @@ struct Index {
   @State visible4: boolean = false;
   @State visible5: boolean = false;
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("ControlDialog", "自定义弹框组件");
   }
 
   build() {

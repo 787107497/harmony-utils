@@ -1,6 +1,8 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { AppUtil, DateUtil, DialogUtil, LogUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
+import deviceInfo from '@ohos.deviceInfo';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 测试页面
@@ -10,6 +12,11 @@ import { DescribeBean } from '../../entity/DescribeBean';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("Test", "测试页面");
+  }
 
   build() {
     Column() {
@@ -57,6 +64,21 @@ struct Index {
                 statusBarContentColor: '#FF6666',
               })
             })
+          Button("测试6")
+            .btnStyle()
+            .onClick(() => {
+              LogUtil.error(`deviceType: ${deviceInfo.deviceType}`)
+              LogUtil.error(`brand: ${deviceInfo.brand}`)
+              LogUtil.error(`productModel: ${deviceInfo.productModel}`)
+              LogUtil.error(`osFullName: ${deviceInfo.osFullName}`)
+              LogUtil.error(`buildVersion: ${deviceInfo.buildVersion}`)
+              LogUtil.error(`sdkApiVersion: ${deviceInfo.sdkApiVersion}`)
+              LogUtil.error(`displayVersion: ${deviceInfo.displayVersion}`)
+              LogUtil.error(`osReleaseType: ${deviceInfo.osReleaseType}`)
+              LogUtil.error(`ODID12: ${deviceInfo.ODID}`)
+
+
+            })
 
           Text('').layoutWeight(1)
         }
@@ -84,5 +106,10 @@ function textStyle() {
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
   .backgroundColor(Color.White)
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
+  .border({
+    width: 1,
+    color: Color.Grey,
+    radius: 10,
+    style: BorderStyle.Dashed
+  })
 }

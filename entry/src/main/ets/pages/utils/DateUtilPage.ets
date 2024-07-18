@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { DateUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -12,12 +13,9 @@ struct Index {
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State txtStr: string = '';
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("DateUtil", "日期工具类");
   }
 
   build() {

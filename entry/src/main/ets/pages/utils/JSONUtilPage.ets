@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { FileUtil, JSONUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { User } from '../../entity/User';
@@ -14,6 +15,12 @@ struct Index {
   private readonly objStr: string = '{"id":"No_1060701","name":"张三","age":20,"addr":"乌市天山区","work":"工程师","user":{"id":"No_1060701","name":"张三","age":20,"addr":"乌市天山区","work":"工程师"}}';
   private readonly mapStr: string = '{"id":"NO_10000011","name":"王五五","age":"30","addr":"乌市天山区","work":"攻城狮"}';
   @State arrayStr: string = '';
+
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("JSONUtil", "JSON工具类");
+  }
+
 
   aboutToAppear(): void {
     FileUtil.getRawFileContentStr('data.json').then((result) => {

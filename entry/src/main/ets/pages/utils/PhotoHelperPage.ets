@@ -16,6 +16,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { Permissions } from '@kit.AbilityKit';
 import { image } from '@kit.ImageKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { MockSetup } from '@ohos/hamock';
 
 
 /**
@@ -29,6 +30,11 @@ struct Index {
   @State uriStr: string = ''
   @State pixelMap?: image.PixelMap = undefined
   @State filePath: string = ''; //本地图片path
+
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("PhotoHelper", "相册选择和保存,工具类");
+  }
 
   async aboutToAppear(): Promise<void> {
     let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))

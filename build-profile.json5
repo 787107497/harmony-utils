@@ -6,9 +6,9 @@
         "type": "HarmonyOS",
         "material": {
           "certpath": "C:\\Users\\Administrator\\.ohos\\config\\default_HarmonyUtils_CMdHBmfPiA_XUKbuKPjuQjwbq8ZkGKaaSQqm0yqzRtU=.cer",
-          "storePassword": "0000001B0375B1BB7263C4C5E2B50218244C10FA29B726EFBF87A17AA19F59D01FC938E9DCBD6BA67F3C2E",
+          "storePassword": "0000001B2D54D5011C36084BD58036A03D3F094AAB7CA8B8B636976EE2953376A004B0F6355688303A26A1",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001BFBA1AEA8491E60183034A926C715BE9DDA97E758B5F10E45C27D76E8C9054C9C94AE501FC13374",
+          "keyPassword": "0000001BFAD0DAC66695E4B6E2A3D1DF4A03DA06CD5BAC4AA3653AA52D8B7AFCE05A1F41FC3EAE9B7EB616",
           "profile": "C:\\Users\\Administrator\\.ohos\\config\\default_HarmonyUtils_CMdHBmfPiA_XUKbuKPjuQjwbq8ZkGKaaSQqm0yqzRtU=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "C:\\Users\\Administrator\\.ohos\\config\\default_HarmonyUtils_CMdHBmfPiA_XUKbuKPjuQjwbq8ZkGKaaSQqm0yqzRtU=.p12"
@@ -19,7 +19,6 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": "4.1.0(11)",
         "compatibleSdkVersion": "4.1.0(11)",
         "runtimeOS": "HarmonyOS",
       }

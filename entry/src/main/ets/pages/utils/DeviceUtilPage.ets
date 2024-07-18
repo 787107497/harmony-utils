@@ -3,6 +3,7 @@ import { DeviceUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { resourceManager } from '@kit.LocalizationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 设备相关工具类
@@ -18,12 +19,9 @@ struct Index {
   @State capabilityStr: string = '';
   @State capabilityStr2: string = '';
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("DeviceUtil", "设备相关工具类");
   }
 
   build() {

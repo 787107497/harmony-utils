@@ -3,6 +3,7 @@ import { LogUtil, SnapshotUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 组件截图和窗口截图工具类
@@ -16,13 +17,11 @@ struct Index {
   @State pixelMap2?: image.PixelMap = undefined;
   @State pixelMap3?: image.PixelMap = undefined;
 
-  aboutToAppear(): void {
-
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("SnapshotUtil", "组件截图和窗口截图工具类");
   }
 
-  onBackPress(): boolean {
-    return false;
-  }
 
   @Builder
   RandomBuilder() {

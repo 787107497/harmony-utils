@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { PasteboardUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -12,13 +13,11 @@ struct Index {
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State txtStr: string = ''
 
-  aboutToAppear(): void {
-
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("PasteboardUtil", "剪贴板工具类");
   }
 
-  onBackPress(): boolean {
-    return false;
-  }
 
   build() {
     Column() {

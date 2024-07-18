@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { LogUtil, ObjectUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { User } from '../../entity/User';
@@ -15,13 +16,11 @@ struct Index {
   @State obj: String = new String("abcd@1234");
   @State obj1: String = new String();
 
-  aboutToAppear(): void {
-
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("ObjectUtil", "对象工具类");
   }
 
-  onBackPress(): boolean {
-    return false;
-  }
 
   build() {
     Column() {

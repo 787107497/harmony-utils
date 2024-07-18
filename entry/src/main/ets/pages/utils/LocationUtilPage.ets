@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { AppUtil, LocationUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -12,13 +13,11 @@ struct Index {
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State addrStr: string = ''
 
-  aboutToAppear(): void {
-
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("LocationUtil", "定位工具类(WGS-84坐标系)");
   }
 
-  onBackPress(): boolean {
-    return false;
-  }
 
   build() {
     Column() {

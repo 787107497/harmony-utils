@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { ImageUtil, NotificationUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -13,13 +14,11 @@ struct Index {
   @State notificationIds: Array<number> = [];
   @State notificationStr: string = ''
 
-  aboutToAppear(): void {
-
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("NotificationUtil", "通知工具类");
   }
 
-  onBackPress(): boolean {
-    return false;
-  }
 
   build() {
     Column() {

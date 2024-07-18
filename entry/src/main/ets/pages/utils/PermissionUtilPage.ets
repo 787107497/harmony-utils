@@ -2,6 +2,7 @@ import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { PermissionUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { Permissions } from '@kit.AbilityKit';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 申请授权工具类
@@ -12,16 +13,9 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
 
-  aboutToAppear(): void {
-
-  }
-
-  onPageHide(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("PermissionUtil", "申请授权工具类");
   }
 
   build() {

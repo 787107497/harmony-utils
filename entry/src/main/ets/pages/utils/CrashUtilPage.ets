@@ -1,4 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { MockSetup } from '@ohos/hamock';
 import { CrashUtil, FileUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -12,12 +13,9 @@ struct Index {
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State errorTxt: string = '';
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("CrashUtil", "全局异常捕获，崩溃日志收集");
   }
 
   build() {

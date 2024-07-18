@@ -5,7 +5,6 @@ import { LogUtil } from '../utils/LogUtil';
 /**
  * ConfirmDialog 信息确认类弹出框，操作未正确执行（如网络错误、电池电量过低），或未正确操作时（如指纹录入），反馈的错误或提示信息。
  */
-@Preview
 @Component
 export struct ConfirmControlDialog {
 

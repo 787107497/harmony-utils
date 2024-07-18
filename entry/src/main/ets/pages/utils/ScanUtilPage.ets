@@ -2,6 +2,7 @@ import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { image } from '@kit.ImageKit';
 import { FileUtil, ImageUtil, ScanUtil, ToastUtil } from '@pura/harmony-utils';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 码工具类（扫码、码图生成、图片识码）
@@ -18,6 +19,12 @@ struct Index {
   @State scanStr1: string = '';
   @State scanStr2: string = '';
   @State scanStr3: string = '';
+
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("ScanUtil", "码工具类（扫码、码图生成、图片识码）");
+  }
+
 
   aboutToAppear(): void {
     this.filePath = FileUtil.getFilesDirPath("",this.fileName)

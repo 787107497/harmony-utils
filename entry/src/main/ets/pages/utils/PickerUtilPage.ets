@@ -1,19 +1,10 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import {
-  AppUtil,
-  DateUtil,
-  FileUtil,
-  ImageUtil,
-  LogUtil,
-  PermissionUtil,
-  PickerUtil,
-  StrUtil,
-  ToastUtil
-} from '@pura/harmony-utils';
+import {AppUtil,DateUtil,FileUtil,ImageUtil,LogUtil,PermissionUtil,PickerUtil,StrUtil,ToastUtil} from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Permissions } from '@kit.AbilityKit';
 import { image } from '@kit.ImageKit';
+import { MockSetup } from '@ohos/hamock';
 
 
 /**
@@ -28,14 +19,16 @@ struct Index {
   @State pixelMap?: image.PixelMap | string = undefined
   @State filePath: string = ''; //本地图片path
 
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("PickerUtil", "拍照、文件(文件、图片、视频、音频)选择和保存,工具类");
+  }
+
+
   async aboutToAppear(): Promise<void> {
     let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))
     this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
     LogUtil.error("filePath: " + this.filePath);
-  }
-
-  onBackPress(): boolean {
-    return false;
   }
 
   build() {
@@ -131,7 +124,7 @@ struct Index {
               PickerUtil.saveDocument([fileName]).then((uris) => {
                 let uri = uris[0];
                 this.uriStr = `调用保存文件，返回uris：\n${uri}`
-                FileUtil.writeEasy(uri, `“党中央作出重大决策、制定重要文件，都深入调研，广泛听取各方面意见，这是我们党的一贯做法和优良传统。对大家提出的进一步全面深化改革的意见和建议，有关方面要认真研究吸纳。”企业和专家座谈会上，习近平总书记这样阐明此行深意。\n\n`)
+                FileUtil.writeEasy(uri, `“harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。\n\n`)
                   .then(() => {
                     this.uriStr = `文件保存成功，返回uris：\n${uri}`
                     ToastUtil.showToast("文件保存成功");

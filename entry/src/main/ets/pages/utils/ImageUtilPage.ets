@@ -2,6 +2,7 @@ import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DateUtil, FileUtil, ImageUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { image } from '@kit.ImageKit';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 图片相关工具类
@@ -21,16 +22,18 @@ struct Index {
   @State imgPath: string = '';
   @State imgUri: string = '';
 
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("FileUtil", "文件操作相关工具类");
+  }
+
+
   async aboutToAppear(): Promise<void> {
     let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))
     this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
     this.fileUri = FileUtil.getUriFromPath(this.filePath);
     LogUtil.error("filePath: " + this.filePath);
     LogUtil.error("fileUri: " + this.fileUri);
-  }
-
-  onBackPress(): boolean {
-    return false;
   }
 
   build() {

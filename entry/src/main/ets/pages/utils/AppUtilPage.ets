@@ -2,6 +2,7 @@ import { ComposeTitleBar, KeyboardAvoidMode, router, window } from '@kit.ArkUI';
 import { AppUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * APP相关工具类
@@ -21,12 +22,9 @@ struct Index {
   @State bundleInfoStr: string = ''
   @State appInfoStr: string = ''
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("AppUtil", "APP相关工具类");
   }
 
   build() {

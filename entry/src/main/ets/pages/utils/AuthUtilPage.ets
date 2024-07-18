@@ -3,6 +3,7 @@ import { AuthUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import userIAM_userAuth from '@ohos.userIAM.userAuth';
 import userAuth from '@ohos.userIAM.userAuth';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 手机的生物认证（指纹、人脸、密码）工具类
@@ -15,12 +16,9 @@ struct Index {
   @State errorStr: string = ''
   @State resultStr: string = ''
 
-  aboutToAppear(): void {
-
-  }
-
-  onBackPress(): boolean {
-    return false;
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("AuthUtil", "手机的生物认证（指纹、人脸、密码）工具类");
   }
 
   build() {

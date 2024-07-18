@@ -2,6 +2,7 @@ import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { FileUtil, ImageUtil, LogUtil, PreviewUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { MockSetup } from '@ohos/hamock';
 
 /**
  * 对象工具类
@@ -17,6 +18,12 @@ struct Index {
   @State infoStr: string = ''
   @State iconFileStr: string = ''
   @State resultStr: string = ''
+
+  @MockSetup
+  mock() {
+    this.describe = new DescribeBean("PreviewUtil", "文件预览工具类");
+  }
+
 
   async aboutToAppear(): Promise<void> {
     this.textPath = FileUtil.getFilesDirPath('download/wps/txt', '文本文档.txt');
