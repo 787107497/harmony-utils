@@ -23,7 +23,7 @@ export class DisplayUtil {
    * 获取设备的屏幕宽度，单位为px。
    * @returns
    */
-  static getWidth(): display.FoldStatus {
+  static getWidth(): number {
     return DisplayUtil.getDefaultDisplaySync().width;
   }
 
@@ -31,9 +31,10 @@ export class DisplayUtil {
    * 获取设备的屏幕高度，单位为px。
    * @returns
    */
-  static getHeight(): display.FoldStatus {
+  static getHeight(): number {
     return DisplayUtil.getDefaultDisplaySync().height;
   }
+
 
   /**
    * 获取设备当前显示的方向
