@@ -25,3 +25,13 @@
     2、拆分相册功能方法到PhotoHelper。  
 4. 新增PhotoHelper，后续会增加相册相关方法。  
 5. 优化代码，导出模块类。
+
+## 1.0.4
+1. AppUtil：   
+   1、优化代码与Bug修复。      
+   2、新增方法，getBundleName()、getVersionCode()、getVersionName()、getTargetVersion()、toWebBrowser()、toAppGalleryDetail()、toFileManagement()、exit()。    
+2. DeviceUtil：      
+   1、新增方法，getBrand()、getProductModel()、getOsReleaseType()、getOsFullName()、getDisplayVersion()、getSdkApiVersion()、getBuildVersion()、getODID()。     
+3. DisplayUtil：    
+   1、优化代码与Bug修复。   
+4. 

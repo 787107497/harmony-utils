@@ -74,34 +74,42 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### AppUtil（APP相关工具类） [点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AppUtilPage.ets)
 
-| 方法                           | 介绍                                                                |
-|:-----------------------------|:------------------------------------------------------------------|
-| init                         | 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法              |
-| getContext                   | 获取上下文，common.UIAbilityContext                                     |
-| getMainWindow                | 获取主窗口                                                             |
-| getUIContext                 | 获取UIContext                                                       |
-| getWindowProperties          | 获取当前窗口的属性                                                         |
-| getKeyboardAvoidMode         | 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）                         |
-| setKeyboardAvoidMode         | 设置虚拟键盘弹出时，页面的避让模式                                                 |
-| isPortrait                   | 当前设备是否以竖屏方式显示                                                     |
-| isLandscape                  | 当前设备是否以横屏方式显示                                                     |
-| setPreferredOrientation      | 设置窗口的显示方向属性                                                       |
-| setWindowBrightness          | 设置屏幕亮度值                                                           |
-| setWindowKeepScreenOn        | 设置屏幕是否为常亮状态                                                       |
-| setWindowPrivacyMode         | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                              |
-| setWindowBackgroundColor     | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用       |
-| setWindowFocusable           | 设置点击时是否支持切换焦点窗口                                                   |
-| setWindowTouchable           | 设置窗口是否为可触状态                                                       |
-| getStatusBarHeight           | 获取状态栏的高度，单位为px                                                    |
-| getNavigationIndicatorHeight | 获取底部导航条的高度，单位为px。                                                 |
-| setStatusBar                 | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用） |
-| getBundleInfo                | 获取当前应用的BundleInfo                                                 |
-| getAppInfo                   | 获取应用程序的配置信息                                                       |
-| toAppSetting                 | 跳转应用设置页面                                                          |
-| toNetworkSetting             | 跳转移动网络设置页面                                                        |
-| toNotificationSetting        | 跳转通知设置页面                                                          |
-| toBluetoothSetting           | 跳转蓝牙设置页面                                                          |
-| toNfcSetting                 | 跳转NFC设置页面                                                         |
+| 方法                           | 介绍                                                                       |
+|:-----------------------------|:-------------------------------------------------------------------------|
+| init                         | 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法                     |
+| getContext                   | 获取上下文，common.UIAbilityContext                                            |
+| getMainWindow                | 获取主窗口                                                                    |
+| getUIContext                 | 获取UIContext                                                              |
+| getWindowProperties          | 获取当前窗口的属性                                                                |
+| getKeyboardAvoidMode         | 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）                                |
+| setKeyboardAvoidMode         | 设置虚拟键盘弹出时，页面的避让模式                                                        |
+| isPortrait                   | 当前设备是否以竖屏方式显示                                                            |
+| isLandscape                  | 当前设备是否以横屏方式显示                                                            |
+| setPreferredOrientation      | 设置窗口的显示方向属性                                                              |
+| setWindowBrightness          | 设置屏幕亮度值                                                                  |
+| setWindowKeepScreenOn        | 设置屏幕是否为常亮状态                                                              |
+| setWindowPrivacyMode         | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                                     |
+| setWindowBackgroundColor     | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用              |
+| setWindowFocusable           | 设置点击时是否支持切换焦点窗口                                                          |
+| setWindowTouchable           | 设置窗口是否为可触状态                                                              |
+| getStatusBarHeight           | 获取状态栏的高度，单位为px                                                           |
+| getNavigationIndicatorHeight | 获取底部导航条的高度，单位为px。                                                        |
+| setStatusBar                 | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用）        |
+| getBundleInfo                | 获取当前应用的BundleInfo                                                        |
+| getBundleName                | 获取应用包的名称                                                                 |
+| getVersionCode               | 获取应用版本号                                                                  |
+| getVersionName               | 获取应用版本名                                                                  |
+| getTargetVersion             | 获取运行应用包所需要最高SDK版本号                                                       |
+| getAppInfo                   | 获取应用程序的配置信息                                                              |
+| toAppSetting                 | 跳转应用设置页面                                                                 |
+| toNetworkSetting             | 跳转移动网络设置页面                                                               |
+| toNotificationSetting        | 跳转通知设置页面                                                                 |
+| toBluetoothSetting           | 跳转蓝牙设置页面                                                                 |
+| toNfcSetting                 | 跳转NFC设置页面                                                                |
+| toWebBrowser                 | 拉起系统浏览器                                                                  |
+| toAppGalleryDetail           | 拉起应用市场对应的应用详情界面                                                          |
+| toFileManagement             | 拉起系统文件管理器                                                                |
+| exit                         | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
 
 ### DeviceUtil（设备相关工具类） [点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
@@ -109,6 +117,14 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 |:------------------------|:------------------------------------|
 | getDeviceId             | 获取设备ID（卸载APP后依旧不变）                  |
 | deleteDeviceId          | 移除设备ID                              |
+| getBrand                | 获取设备品牌名称                            |
+| getProductModel         | 获取认证型号                              |
+| getOsReleaseType        | 获取系统的发布类型，取值为：Canary、Beta、Release   |
+| getOsFullName           | 获取系统版本                              |
+| getDisplayVersion       | 获取产品版本                              |
+| getSdkApiVersion        | 获取系统软件API版本                         |
+| getBuildVersion         | 获取Build版本号，标识编译构建的版本号               |
+| getODID                 | 获取开发者匿名设备标识符                        |
 | getConfiguration        | 获取设备的Configuration                  |
 | getConfigurationSync    | 获取设备的Configuration                  |
 | getDirection            | 获取当前设备屏幕方向                          |

@@ -1,7 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { AppUtil, DateUtil, DialogUtil, LogUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
-import deviceInfo from '@ohos.deviceInfo';
 import { MockSetup } from '@ohos/hamock';
 
 /**
@@ -12,11 +11,19 @@ import { MockSetup } from '@ohos/hamock';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+  @State str: string = "name";
+  @State res: Resource = $r(`app.string.lib_${this.str}`);
+
 
   @MockSetup
   mock() {
     this.describe = new DescribeBean("Test", "测试页面");
   }
+
+  aboutToAppear(): void {
+    $r(`app.string.lib_${this.str}`)
+  }
+
 
   build() {
     Column() {
@@ -66,21 +73,14 @@ struct Index {
             })
           Button("测试6")
             .btnStyle()
-            .onClick(() => {
-              LogUtil.error(`deviceType: ${deviceInfo.deviceType}`)
-              LogUtil.error(`brand: ${deviceInfo.brand}`)
-              LogUtil.error(`productModel: ${deviceInfo.productModel}`)
-              LogUtil.error(`osFullName: ${deviceInfo.osFullName}`)
-              LogUtil.error(`buildVersion: ${deviceInfo.buildVersion}`)
-              LogUtil.error(`sdkApiVersion: ${deviceInfo.sdkApiVersion}`)
-              LogUtil.error(`displayVersion: ${deviceInfo.displayVersion}`)
-              LogUtil.error(`osReleaseType: ${deviceInfo.osReleaseType}`)
-              LogUtil.error(`ODID12: ${deviceInfo.ODID}`)
-
+            .onClick(async () => {
+              let name = await AppUtil.getBundleName();
+              let versionCode = await AppUtil.getVersionCode();
+              let versionName = await AppUtil.getVersionName();
+              LogUtil.error("versionName: " + versionName + "\n\nversionCode: " + versionCode + "\n\nname: " + name);
 
             })
-
-          Text('').layoutWeight(1)
+          Text(this.res).layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

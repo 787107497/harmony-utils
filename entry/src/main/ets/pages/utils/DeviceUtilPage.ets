@@ -14,6 +14,7 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State deviceIdStr: string = ''
+  @State infoStr: string = '';
   @State configurationStr: string = '';
   @State configurationStr2: string = '';
   @State capabilityStr: string = '';
@@ -48,6 +49,27 @@ struct Index {
               DeviceUtil.deleteDeviceId();
               ToastUtil.showToast("移除设备ID成功！")
             })
+          Button("getBrand()\ngetProductModel()\ngetOsReleaseType()\ngetOsFullName()\ngetDisplayVersion()\ngetSdkApiVersion()\ngetBuildVersion()\ngetODID()")
+            .labelStyle({ maxLines: 5 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(async () => {
+              let brand = DeviceUtil.getBrand();
+              let productModel = DeviceUtil.getProductModel();
+              let osReleaseType = DeviceUtil.getOsReleaseType();
+              let osFullName = DeviceUtil.getOsFullName();
+              let displayVersion = DeviceUtil.getDisplayVersion();
+              let sdkApiVersion = DeviceUtil.getSdkApiVersion();
+              let buildVersion = DeviceUtil.getBuildVersion();
+              let ODID = DeviceUtil.getODID();
+              this.infoStr = `brand: ${brand}\nproductModel: ${productModel}\nosReleaseType: ${osReleaseType}\nosFullName: ${osFullName}` +
+                  `\ndisplayVersion: ${displayVersion}\nsdkApiVersion: ${sdkApiVersion}\nbuildVersion: ${buildVersion}\nODID: ${ODID}`;
+            })
+          Text(this.infoStr)
+            .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)
+            .textStyle()
           Button("getConfiguration()")
             .btnStyle()
             .onClick(() => {

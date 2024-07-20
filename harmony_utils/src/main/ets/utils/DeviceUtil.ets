@@ -5,6 +5,7 @@ import { StrUtil } from './StrUtil';
 import { AssetStore } from './other/AssetStore';
 import { PreferencesUtil } from './PreferencesUtil';
 import { RandomUtil } from './RandomUtil';
+import deviceInfo from '@ohos.deviceInfo';
 
 /**
  * 设备相关工具类
@@ -62,6 +63,63 @@ export class DeviceUtil {
       PreferencesUtil.delete(DeviceUtil.deviceIdKey)
       LogUtil.error(`当前设备不支持,关键资产存储服务`);
     }
+  }
+
+
+  /**
+   * 获取设备品牌名称。
+   */
+  static getBrand(): string {
+    return deviceInfo.brand
+  }
+
+  /**
+   * 获取认证型号。
+   */
+  static getProductModel(): string {
+    return deviceInfo.productModel
+  }
+
+  /**
+   * 获取系统的发布类型，取值为：Canary、Beta、Release
+   */
+  static getOsReleaseType(): string {
+    return deviceInfo.osReleaseType
+  }
+
+  /**
+   * 获取系统版本。
+   */
+  static getOsFullName(): string {
+    return deviceInfo.osFullName
+  }
+
+  /**
+   * 获取产品版本。
+   */
+  static getDisplayVersion(): string {
+    return deviceInfo.displayVersion
+  }
+
+  /**
+   * 获取系统软件API版本。
+   */
+  static getSdkApiVersion(): number {
+    return deviceInfo.sdkApiVersion;
+  }
+
+  /**
+   * 获取Build版本号，标识编译构建的版本号。
+   */
+  static getBuildVersion(): number {
+    return deviceInfo.buildVersion
+  }
+
+  /**
+   * 获取开发者匿名设备标识符。
+   */
+  static getODID(): string {
+    return deviceInfo.ODID
   }
 
 

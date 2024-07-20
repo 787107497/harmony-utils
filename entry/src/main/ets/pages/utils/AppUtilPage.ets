@@ -1,5 +1,5 @@
 import { ComposeTitleBar, KeyboardAvoidMode, router, window } from '@kit.ArkUI';
-import { AppUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { AppUtil, DialogUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';
@@ -20,6 +20,7 @@ struct Index {
   @State privacyMode: boolean = false; //是否隐私模式
   @State statusBar: boolean = false;
   @State bundleInfoStr: string = ''
+  @State infoStr: string = ''
   @State appInfoStr: string = ''
 
   @MockSetup
@@ -67,14 +68,17 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               this.mode = AppUtil.getKeyboardAvoidMode();
-              ToastUtil.showToast(`当前模式为: ${StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ? "上抬模式" : "压缩模式"}`)
+              ToastUtil.showToast(`当前模式为: ${StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ? "上抬模式" :
+                "压缩模式"}`)
             })
           Button("setKeyboardAvoidMode()")
             .btnStyle()
             .onClick(() => {
-              AppUtil.setKeyboardAvoidMode(StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ? KeyboardAvoidMode.RESIZE : KeyboardAvoidMode.OFFSET);
+              AppUtil.setKeyboardAvoidMode(StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ?
+              KeyboardAvoidMode.RESIZE : KeyboardAvoidMode.OFFSET);
               this.mode = AppUtil.getKeyboardAvoidMode();
-              ToastUtil.showToast(`设置模式为: ${StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ? "上抬模式" : "压缩模式"}`)
+              ToastUtil.showToast(`设置模式为: ${StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ? "上抬模式" :
+                "压缩模式"}`)
             })
           TextInput({ placeholder: '设置模式后点击输入框查看效果' })
             .width("95%")
@@ -94,7 +98,8 @@ struct Index {
           Button("setPreferredOrientation()")
             .btnStyle()
             .onClick(() => {
-              AppUtil.setPreferredOrientation(AppUtil.isLandscape() ? window.Orientation.PORTRAIT : window.Orientation.LANDSCAPE)
+              AppUtil.setPreferredOrientation(AppUtil.isLandscape() ? window.Orientation.PORTRAIT :
+              window.Orientation.LANDSCAPE)
                 .then(() => {
                   ToastUtil.showToast(`设置成功！`)
                 })
@@ -169,12 +174,32 @@ struct Index {
           Text(this.bundleInfoStr)
             .visibility(StrUtil.isNotEmpty(this.bundleInfoStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
+          Button("getBundleName()\ngetVersionCode()\ngetVersionName()\ngetTargetVersion()")
+            .labelStyle({ maxLines: 5 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(async () => {
+              let bundleName = await AppUtil.getBundleName();
+              let versionCode = await AppUtil.getVersionCode();
+              let versionName = await AppUtil.getVersionName();
+              let targetVersion = await AppUtil.getTargetVersion();
+              this.infoStr =
+                `bundleName: ${bundleName}\nversionCode: ${versionCode}\nversionName: ${versionName}\ntargetVersion: ${targetVersion}`;
+            })
+          Text(this.infoStr)
+            .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)
+            .textStyle()
           Button("getAppInfo()")
             .btnStyle()
             .onClick(async () => {
               let appInfo = await AppUtil.getAppInfo();
               this.appInfoStr = JSON.stringify(appInfo, null, 2)
             })
+          Text(this.appInfoStr)
+            .visibility(StrUtil.isNotEmpty(this.appInfoStr) ? Visibility.Visible : Visibility.None)
+            .textStyle()
           Button("toAppSetting()")
             .btnStyle()
             .onClick(() => {
@@ -205,10 +230,56 @@ struct Index {
               ToastUtil.showToast("请在设置中开启权限！")
               AppUtil.toNfcSetting();
             })
-
-          Text(this.appInfoStr)
-            .visibility(StrUtil.isNotEmpty(this.appInfoStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
+          Button("toWebBrowser()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("拉起系统浏览器中…")
+              AppUtil.toWebBrowser("https://developer.huawei.com/")
+                .catch((err: BusinessError) => {
+                  LogUtil.error(JSON.stringify(err));
+                  ToastUtil.showToast("拉起失败！");
+                });
+            })
+          Button("toAppGalleryDetail()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("拉起应用市场对应的应用详情界面中…")
+              AppUtil.toAppGalleryDetail("com.harmony.utils")
+                .catch((err: BusinessError) => {
+                  LogUtil.error(JSON.stringify(err));
+                  ToastUtil.showToast("拉起失败！");
+                });
+              ;
+            })
+          Button("toFileManagement()")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("拉起系统文件管理器中…")
+              AppUtil.toFileManagement()
+                .catch((err: BusinessError) => {
+                  LogUtil.error(JSON.stringify(err));
+                  ToastUtil.showToast("拉起失败！");
+                });
+              ;
+            })
+          Button("exit()")
+            .btnStyle()
+            .onClick(() => {
+              DialogUtil.showPrimaryDialog({
+                title: '提示',
+                message: '是否退出应用？',
+                primaryButton: {
+                  value: '取消',
+                  action: () => {}
+                },
+                secondaryButton: {
+                  value: '退出',
+                  action: () => {
+                    AppUtil.exit();
+                  }
+                }
+              })
+            })
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -235,5 +306,10 @@ function textStyle() {
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
   .backgroundColor(Color.White)
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
+  .border({
+    width: 1,
+    color: Color.Grey,
+    radius: 10,
+    style: BorderStyle.Dashed
+  })
 }

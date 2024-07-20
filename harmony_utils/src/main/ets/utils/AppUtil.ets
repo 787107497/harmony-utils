@@ -95,7 +95,11 @@ export class AppUtil{
    * @param value （OFFSET-上抬模式、RESIZE-压缩模式）
    */
   static setKeyboardAvoidMode(value: KeyboardAvoidMode) {
-    AppUtil.getUIContext().setKeyboardAvoidMode(value);
+    try {
+      AppUtil.getUIContext().setKeyboardAvoidMode(value);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err))
+    }
   }
 
 
@@ -132,11 +136,16 @@ export class AppUtil{
    *   AUTO_ROTATION_LANDSCAPE_RESTRICTED  10  表示受开关控制的自动横向旋转模式。
    *   LOCKED  11  表示锁定模式。
    */
-  static setPreferredOrientation(orientation: window.Orientation, windowClass?: window.Window): Promise<void> {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow();
+  static async setPreferredOrientation(orientation: window.Orientation, windowClass?: window.Window): Promise<void> {
+    try {
+      if (!windowClass) {
+        windowClass = AppUtil.getMainWindow();
+      }
+      return windowClass.setPreferredOrientation(orientation);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return;
     }
-    return windowClass.setPreferredOrientation(orientation);
   }
 
 
@@ -145,11 +154,16 @@ export class AppUtil{
    * @param brightness  屏幕亮度值。该参数为浮点数，取值范围为[0.0, 1.0]或-1.0。1.0表示最亮，-1.0表示默认亮度。
    * @returns
    */
-  static setWindowBrightness(brightness: number, windowClass?: window.Window): Promise<void> {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow();
+  static async setWindowBrightness(brightness: number, windowClass?: window.Window): Promise<void> {
+    try {
+      if (!windowClass) {
+        windowClass = AppUtil.getMainWindow();
+      }
+      return windowClass.setWindowBrightness(brightness);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return;
     }
-    return windowClass.setWindowBrightness(brightness);
   }
 
 
@@ -158,11 +172,16 @@ export class AppUtil{
    * @param isKeepScreenOn  true表示常亮；false表示不常亮。
    * @returns
    */
-  static setWindowKeepScreenOn(isKeepScreenOn: boolean, windowClass?: window.Window): Promise<void> {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow();
+  static async setWindowKeepScreenOn(isKeepScreenOn: boolean, windowClass?: window.Window): Promise<void> {
+    try {
+      if (!windowClass) {
+        windowClass = AppUtil.getMainWindow();
+      }
+      return windowClass.setWindowKeepScreenOn(isKeepScreenOn);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err))
+      return;
     }
-    return windowClass.setWindowKeepScreenOn(isKeepScreenOn);
   }
 
 
@@ -171,11 +190,16 @@ export class AppUtil{
    * @param isPrivacyMode 窗口是否为隐私模式。true表示模式开启；false表示模式关闭。
    * @returns
    */
-  static setWindowPrivacyMode(isPrivacyMode: boolean, windowClass?: window.Window): Promise<void> {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow();
+  static async setWindowPrivacyMode(isPrivacyMode: boolean, windowClass?: window.Window): Promise<void> {
+    try {
+      if (!windowClass) {
+        windowClass = AppUtil.getMainWindow();
+      }
+      return windowClass.setWindowPrivacyMode(isPrivacyMode);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return;
     }
-    return windowClass.setWindowPrivacyMode(isPrivacyMode);
   }
 
 
@@ -184,11 +208,16 @@ export class AppUtil{
    * @param color 需要设置的背景色，为十六进制RGB或ARGB颜色，不区分大小写，例如#00FF00或#FF00FF00。
    * @returns
    */
-  static setWindowBackgroundColor(color: string, windowClass?: window.Window) {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow();
+  static async setWindowBackgroundColor(color: string, windowClass?: window.Window) {
+    try {
+      if (!windowClass) {
+        windowClass = AppUtil.getMainWindow();
+      }
+      return windowClass.setWindowBackgroundColor(color);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return;
     }
-    return windowClass.setWindowBackgroundColor(color);
   }
 
   /**
@@ -196,11 +225,16 @@ export class AppUtil{
    * @param isFocusable 点击时是否支持切换焦点窗口。true表示支持；false表示不支持。
    * @returns
    */
-  static setWindowFocusable(isFocusable: boolean, windowClass?: window.Window): Promise<void> {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow();
+  static async setWindowFocusable(isFocusable: boolean, windowClass?: window.Window): Promise<void> {
+    try {
+      if (!windowClass) {
+        windowClass = AppUtil.getMainWindow();
+      }
+      return windowClass.setWindowFocusable(isFocusable);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return;
     }
-    return windowClass.setWindowFocusable(isFocusable);
   }
 
   /**
@@ -208,11 +242,16 @@ export class AppUtil{
    * @param isTouchable 窗口是否为可触状态。true表示可触；false表示不可触。
    * @returns
    */
-  static setWindowTouchable(isTouchable: boolean, windowClass?: window.Window): Promise<void> {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow();
+  static async setWindowTouchable(isTouchable: boolean, windowClass?: window.Window): Promise<void> {
+    try {
+      if (!windowClass) {
+        windowClass = AppUtil.getMainWindow();
+      }
+      return windowClass.setWindowTouchable(isTouchable);
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return;
     }
-    return windowClass.setWindowTouchable(isTouchable);
   }
 
 
@@ -221,9 +260,14 @@ export class AppUtil{
    * @returns
    */
   static getStatusBarHeight(): number {
-    let windowClass = AppUtil.getMainWindow();
-    let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-    return avoidArea.topRect.height;
+    try {
+      let windowClass = AppUtil.getMainWindow();
+      let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
+      return avoidArea.topRect.height;
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return 0;
+    }
   }
 
   /**
@@ -231,9 +275,14 @@ export class AppUtil{
    * @returns
    */
   static getNavigationIndicatorHeight(): number {
-    let windowClass = AppUtil.getMainWindow();
-    let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
-    return avoidArea.bottomRect.height;
+    try {
+      let windowClass = AppUtil.getMainWindow();
+      let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
+      return avoidArea.bottomRect.height;
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
+      return 0;
+    }
   }
 
 
@@ -251,31 +300,62 @@ export class AppUtil{
    *   isNavigationBarLightIcon 导航栏图标是否为高亮状态。true表示高亮；false表示不高亮。默认值：false。
    */
   static setStatusBar(isLayoutFullScreen: boolean = true, enable: boolean = true, color: string = '#FFFFFF', systemBarProperties?: window.SystemBarProperties) {
-    let windowClass = AppUtil.getMainWindow();
-    windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
-      windowClass.setWindowBackgroundColor(color);
-    }).catch((error: BusinessError) => {
-      LogUtil.error(`setWindowLayoutFullScreen-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-    });
-    windowClass.setWindowSystemBarEnable(enable ? ['status', 'navigation'] : []).then(() => {
-      windowClass.setSpecificSystemBarEnabled("navigationIndicator", enable); //底部导航条。
-    }).catch((error: BusinessError) => {
-      LogUtil.error(`setWindowSystemBarEnable-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-    });
-    if (systemBarProperties) {
-      windowClass.setWindowSystemBarProperties(systemBarProperties).catch((error: BusinessError) => {
-        LogUtil.error(`setWindowSystemBarProperties-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+    try {
+      let windowClass = AppUtil.getMainWindow();
+      windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
+        windowClass.setWindowBackgroundColor(color);
+      }).catch((error: BusinessError) => {
+        LogUtil.error(`setWindowLayoutFullScreen-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       });
+      windowClass.setWindowSystemBarEnable(enable ? ['status', 'navigation'] : []).then(() => {
+        windowClass.setSpecificSystemBarEnabled("navigationIndicator", enable); //底部导航条。
+      }).catch((error: BusinessError) => {
+        LogUtil.error(`setWindowSystemBarEnable-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      });
+      if (systemBarProperties) {
+        windowClass.setWindowSystemBarProperties(systemBarProperties).catch((error: BusinessError) => {
+          LogUtil.error(`setWindowSystemBarProperties-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+        });
+      }
+    } catch (err) {
+      LogUtil.error(JSON.stringify(err));
     }
   }
 
 
   /**
    * 获取当前应用的BundleInfo
-   * @returns
    */
   static async getBundleInfo(): Promise<bundleManager.BundleInfo> {
     return await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+  }
+
+  /**
+   * 获取应用包的名称。
+   */
+  static async getBundleName(): Promise<string> {
+    return (await AppUtil.getBundleInfo()).name;
+  }
+
+  /**
+   * 获取应用版本号。
+   */
+  static async getVersionCode(): Promise<number> {
+    return (await AppUtil.getBundleInfo()).versionCode;
+  }
+
+  /**
+   * 获取应用版本名。
+   */
+  static async getVersionName(): Promise<string> {
+    return (await AppUtil.getBundleInfo()).versionName;
+  }
+
+  /**
+   * 获取运行应用包所需要最高SDK版本号。
+   */
+  static async getTargetVersion(): Promise<number> {
+    return (await AppUtil.getBundleInfo()).targetVersion;
   }
 
 
@@ -284,7 +364,8 @@ export class AppUtil{
    * @returns
    */
   static async getAppInfo() {
-    let bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+    let bundleInfo: bundleManager.BundleInfo =
+      await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
     return bundleInfo.appInfo;
   }
 
@@ -303,7 +384,7 @@ export class AppUtil{
         pushParams: context.abilityInfo.bundleName, //拉起方应用包名
       }
     }
-    return await context.startAbility(want)
+    return await context.startAbility(want);
   }
 
   /**
@@ -332,6 +413,61 @@ export class AppUtil{
    */
   static toNfcSetting(): Promise<void> {
     return AppUtil.toAppSetting(AppUtil.uri_nfc);
+  }
+
+
+  /**
+   * 拉起系统浏览器
+   */
+  static async toWebBrowser(url: string): Promise<void> {
+    let context = AppUtil.getContext();
+    let want: Want = {
+      action: 'ohos.want.action.viewData',
+      entities: ['entity.system.browsable'],
+      uri: url,
+      parameters: {
+        bundleName: context.abilityInfo.bundleName, //拉起方应用包名
+        pushParams: context.abilityInfo.bundleName, //拉起方应用包名
+      }
+    }
+    return await context.startAbility(want);
+  }
+
+
+  /**
+   * 拉起应用市场对应的应用详情界面
+   * @param bundleName 需要打开应用详情的应用的包名。
+   * @returns
+   */
+  static async toAppGalleryDetail(bundleName: string): Promise<void> {
+    let context = AppUtil.getContext();
+    let want: Want = {
+      action: 'ohos.want.action.appdetail',
+      uri: 'store://appgallery.huawei.com/app/detail?id=' + bundleName,
+    };
+    return await context.startAbility(want);
+  }
+
+
+  /**
+   * 拉起系统文件管理器
+   */
+  static async toFileManagement(): Promise<void> {
+    let context = AppUtil.getContext();
+    let want: Want = {
+      bundleName: 'com.huawei.hmos.filemanager',
+      abilityName: 'MainAbility'
+    };
+    return await context.startAbility(want);
+  }
+
+
+  /**
+   * 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。
+   */
+  static exit() {
+    AppUtil.getContext().terminateSelf();
+    AppUtil.getContext().getApplicationContext().killAllProcesses();
   }
 
 
