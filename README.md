@@ -522,6 +522,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 | 方法       | 介绍          |
 |----------|:------------|
+| getHash  | 获取对象的Hash值  |
 | isString | 判断是否是String |
 | isNull   | 判断对象是否为空    |
 | deepCopy | 深度拷贝对象      |

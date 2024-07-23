@@ -1,4 +1,5 @@
 import { instanceToInstance } from 'class-transformer';
+import util from '@ohos.util';
 
 /**
  * 对象工具类
@@ -6,6 +7,16 @@ import { instanceToInstance } from 'class-transformer';
 export class ObjectUtil {
 
   private constructor() {}
+
+
+  /**
+   * 获取对象的Hash值。如果是第一次获取，则计算Hash值并保存到对象的Hash域（返回随机的Hash值）；如果不是第一次获取，则从Hash域中获取并返回Hash值（同一对象多次返回值保持不变）。
+   * @param object
+   * @returns
+   */
+  static getHash(object: object): number {
+    return util.getHash(object);
+  }
 
 
   /**

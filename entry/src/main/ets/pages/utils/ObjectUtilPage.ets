@@ -31,6 +31,14 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
+          Button("getHash()")
+            .btnStyle()
+            .onClick(() => {
+              let hash1 = ObjectUtil.getHash(this.user);
+              let hash2 = ObjectUtil.getHash(this.describe);
+              LogUtil.error(`hash1: ${hash1}\nhash2: ${hash2}`)
+              ToastUtil.showToast("请查看Log日志")
+            })
           Button("isString()")
             .btnStyle()
             .onClick(() => {

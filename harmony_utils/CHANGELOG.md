@@ -34,4 +34,6 @@
    1、新增方法，getBrand()、getProductModel()、getOsReleaseType()、getOsFullName()、getDisplayVersion()、getSdkApiVersion()、getBuildVersion()、getODID()。     
 3. DisplayUtil：    
    1、优化代码与Bug修复。   
-4. 
+4. ObjectUtil
+   1、新增方法，getHash()。
+5. 
