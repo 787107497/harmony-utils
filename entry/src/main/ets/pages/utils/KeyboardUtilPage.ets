@@ -10,6 +10,7 @@ import { DescribeBean } from '../../entity/DescribeBean';
 @Component
 struct Index {
   private scroller: Scroller = new Scroller();
+  private controller: TextInputController = new TextInputController()
   @State describe: DescribeBean = router.getParams() as DescribeBean;
 
   @MockSetup
@@ -30,7 +31,7 @@ struct Index {
           Button("hide()")
             .btnStyle()
             .onClick(() => {
-              KeyboardUtil.hide();
+              KeyboardUtil.hide(this.controller);
               ToastUtil.showToast("隐藏键盘")
             })
           Button("onKeyboardListener()")
@@ -57,7 +58,7 @@ struct Index {
             .onClick(() => {
               KeyboardUtil.removeInputTextChanged()
             })
-          TextInput({ placeholder: '请输入' })
+          TextInput({ placeholder: '请输入', controller: this.controller })
             .margin({ top: 30 })
             .width('90%')
 

@@ -26,7 +26,7 @@ export class ActionUtil {
       options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
     }
     if (!options.alignment) {
-      options.alignment = DialogAlignment.Bottom;
+      options.alignment = DialogAlignment.Center;
     }
     if (!options.offset) {
       if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
@@ -80,7 +80,7 @@ export class ActionUtil {
       options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
     }
     if (!options.alignment) {
-      options.alignment = DialogAlignment.Bottom;
+      options.alignment = DialogAlignment.Center;
     }
     if (!options.offset) {
       if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
@@ -141,7 +141,7 @@ export class ActionUtil {
       options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
     }
     if (!options.alignment) {
-      options.alignment = DialogAlignment.Bottom;
+      options.alignment = DialogAlignment.Center;
     }
     if (!options.offset) {
       if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {

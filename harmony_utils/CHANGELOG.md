@@ -40,4 +40,4 @@
       1、新增方法，replaceAll()、isPhone()、getPhoneFormat()、getPhoneLocationName()、isMatch()、isEmail()、getErrnoToString()。   
 6. DateUtil：   
    1、新增若干方法。   
-7. 
+7. 弹框Dialog调整为默认居中显示。   

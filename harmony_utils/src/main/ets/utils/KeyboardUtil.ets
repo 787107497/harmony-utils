@@ -12,9 +12,8 @@ export class KeyboardUtil {
   /**
    * 隐藏键盘
    */
-  static hide() {
-    let controller: TextInputController = new TextInputController()
-    controller.stopEditing()
+  static hide(controller: TextInputController) {
+    controller?.stopEditing()
   }
 
 
