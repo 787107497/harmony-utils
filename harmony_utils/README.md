@@ -39,6 +39,7 @@ OpenHarmony ohpm
 | KeyboardUtil         | 键盘工具类                       |
 | LogUtil              | 日志工具类                       |
 | CrashUtil            | 全局异常捕获，崩溃日志收集               |
+| CharUtil             | 字符工具类                       |
 | StrUtil              | 字符串工具类                      |
 | Base64Util           | Base64工具类                   |
 | NumberUtil           | number工具类                   |
