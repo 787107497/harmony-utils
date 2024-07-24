@@ -95,11 +95,11 @@ struct Index {
           Button("getDateDiff()")
             .btnStyle()
             .onClick(() => {
-              let d1 = DateUtil.getDateDiff("2024-05-21", "2024-05-27")
-              let d2 = DateUtil.getDateDiff("2024-05-20", DateUtil.getToday())
-              let d3 = DateUtil.getDateDiff("2024-05-20", DateUtil.getTodayTime())
-              LogUtil.error(`getDateDiff: \n${d1}\n${d2}\n${d3}`);
-              this.txtStr = `日期差单位为天:\n${d1}\n${d2}\n${d3}`;
+              // let d1 = DateUtil.getDateDiff("2024-05-21", "2024-05-27")
+              // let d2 = DateUtil.getDateDiff("2024-05-20", DateUtil.getToday())
+              // let d3 = DateUtil.getDateDiff("2024-05-20", DateUtil.getTodayTime())
+              // LogUtil.error(`getDateDiff: \n${d1}\n${d2}\n${d3}`);
+              // this.txtStr = `日期差单位为天:\n${d1}\n${d2}\n${d3}`;
             })
           Text(this.txtStr)
             .visibility(StrUtil.isNotEmpty(this.txtStr) ? Visibility.Visible : Visibility.None)

@@ -34,8 +34,10 @@
    1、新增方法，getBrand()、getProductModel()、getOsReleaseType()、getOsFullName()、getDisplayVersion()、getSdkApiVersion()、getBuildVersion()、getODID()。     
 3. DisplayUtil：    
    1、优化代码与Bug修复。     
-4. ObjectUtil   
+4. ObjectUtil：   
    1、新增方法，getHash()。   
-5. StrUtil   
+5. StrUtil：     
       1、新增方法，replaceAll()、isPhone()、getPhoneFormat()、getPhoneLocationName()、isMatch()、isEmail()、getErrnoToString()。   
-6. 
+6. DateUtil：   
+   1、新增若干方法。   
+7. 

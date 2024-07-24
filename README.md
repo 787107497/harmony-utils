@@ -481,15 +481,43 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### DateUtil（日期工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DateUtilPage.ets)
 
-| 方法               | 介绍                         |
-|:-----------------|:---------------------------|
-| getToday         | 获取今天的日期                    |
-| getTodayTime     | 获取今天的时间戳                   |
-| getTodayStr      | 获取今天的时间，字符串类型              |
-| getFormatDate    | 获取格式化日期，将传入的日期格式化为Date     |
-| getFormatDateStr | 获取格式化日期，将传入的日期格式化为指定格式的字符串 |
-| getTipDateStr    | 格式化时间戳，获取提示性时间字符串          |
-| getDateDiff      | 获取两个Date的日期差单位为天           |
+| 方法                    | 介绍                          |
+|:----------------------|:----------------------------|
+| getFormatDate         | 获取格式化日期，将传入的日期格式化为Date      |
+| getFormatDateStr      | 获取格式化日期，将传入的日期格式化为指定格式的字符串  |
+| getToday              | 获取今天的日期                     |
+| getTodayTime          | 获取今天的时间戳                    |
+| getTodayStr           | 获取今天的时间，字符串类型               |
+| isToday               | 判断日期是否是今天                   |
+| getNowYear            | 获取当前年                       |
+| getNowMonth           | 获取当前月                       |
+| getNowDay             | 获取当前日                       |
+| isLeapYear            | 判断是否是闰年                     |
+| getDaysByYear         | 获取指定年份的天数                   |
+| getDaysByMonth        | 获取指定月份的天数                   |
+| isSameYear            | 判断两个日期是否是同一年                |
+| isSameMonth           | 判断两个日期是否是同一月                |
+| isSameWeek            | 判断两个日期是否是同一周                |
+| isSameDay             | 判断是否是同一天                    |
+| getCalendar           | 获取日历对象,并设置日历对象内部的时间日期       |
+| getCalendarField      | 获取日历对象中与field相关联的值。         |
+| getCalendarAdd        | 在日历的给定字段进行加减操作              |
+| isWeekend             | 判断指定的日期在日历中是否为周末            |
+| compareDays           | 比较指定日期相差的天数                 |
+| compareDate           | 比较指定日期相差的毫秒数                |
+| getAmountDay          | 获取前几天日期或后几天日期               |
+| getAmountDayStr       | 获取前几天日期或后几天日期,返回字符串         |
+| getBeforeDay          | 获取前一天日期                     |
+| getBeforeDayStr       | 获取前一天日期,返回字符串               |
+| getAfterDay           | 获取后一天日期                     |
+| getAfterDayStr        | 获取后一天日期,返回字符串               |
+| getWeekOfMonth        | 获取给定日期是当月的第几周               |
+| getWeekDay            | 获取给定的日期是星期几                 |
+| getLastDayOfMonth     | 获取给定年份和月份的最后一天是几号           |
+| getFormatTime         | 格式化时间日期字符串（DateTimeFormat）  |
+| getFormatRange        | 格式化时间日期段字符串（DateTimeFormat） |
+| getFormatRelativeTime | 格式化相对时间                     |
+| getTipDateStr         | 格式化时间戳，获取提示性时间字符串           |
 
 ### ArrayUtil（数组工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ArrayUtilPage.ets)
 
