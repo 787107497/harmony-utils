@@ -68,10 +68,11 @@ export class AssetUtil {
 
   static async get(key: string): Promise<string | null> {
     try {
-      if (!canIUse("SystemCapability.Security.Asset")) {
+      if (!AssetUtil.canIUse()) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
         return null;
       }
+      // let challenge: Uint8Array = await AssetUtil.preQueryAsset(key);
       let query: asset.AssetMap = new Map();
       query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
       query.set(asset.Tag.RETURN_TYPE, asset.ReturnType.ALL);
@@ -84,6 +85,7 @@ export class AssetUtil {
       }
       let map: asset.AssetMap = a10[0]
       let b10 = map.get(asset.Tag.SECRET) as Uint8Array;
+      // AssetUtil.postQueryAsset(challenge)
       if (b10) {
         let c10 = StrUtil.unit8ArrayToStr(b10);
         return c10
@@ -140,7 +142,6 @@ export class AssetUtil {
     }
   }
 
-
   static async getAssetMap(query: asset.AssetMap): Promise<Array<asset.AssetMap>> {
     try {
       const z9 = await asset.query(query);
@@ -161,6 +162,37 @@ export class AssetUtil {
       let error = err as BusinessError;
       LogUtil.error(`AssetStore-updateAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
+    }
+  }
+
+
+  static async preQueryAsset(key: string): Promise<Uint8Array> {
+    return new Promise((resolve, reject) => {
+      try {
+        let query: asset.AssetMap = new Map();
+        query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
+        asset.preQuery(query).then((challenge: Uint8Array) => {
+          resolve(challenge);
+        }).catch(() => {
+          reject();
+        })
+      } catch (error) {
+        let err = error as BusinessError;
+        LogUtil.error(`AssetStore-preQueryAsset-异常 ~ ${err.code}, message is ${err.message}`);
+        reject();
+      }
+    });
+  }
+
+
+  static async postQueryAsset(challenge: Uint8Array) {
+    let handle: asset.AssetMap = new Map();
+    handle.set(asset.Tag.AUTH_CHALLENGE, challenge);
+    try {
+      await asset.postQuery(handle);
+    } catch (error) {
+      let err = error as BusinessError;
+      LogUtil.error(`AssetStore-postQueryAsset-异常 ~ ${err.code}, message is ${err.message}`);
     }
   }
 
