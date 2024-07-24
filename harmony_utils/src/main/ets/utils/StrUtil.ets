@@ -1,7 +1,8 @@
-import { CharUtil } from './other/CharUtil';
+import { CharUtil } from './CharUtil';
 import util from '@ohos.util';
 import { buffer } from '@kit.ArkTS';
 import { Base64Util } from './Base64Util';
+import { i18n } from '@kit.LocalizationKit';
 
 
 /**
@@ -61,9 +62,8 @@ export class StrUtil {
       return true;
     }
     for (let i = 0; i < length; i++) {
-      // 只要有一个非空字符即为非空字符串
       if (false == CharUtil.isBlankChar(str.charCodeAt(i))) {
-        return false;
+        return false;  //只要有一个非空字符即为非空字符串
       }
     }
     return true;
@@ -100,10 +100,20 @@ export class StrUtil {
    * @param replacement 替换的内容
    * @returns 返回替换后的字符串
    */
-  static replace(str: string = '', pattern: RegExp | string, replacement: string): string {
+  static replace(str: string, pattern: RegExp | string, replacement: string = ''): string {
     return str.replace(pattern, replacement);
   }
 
+  /**
+   * 替换字符串中所有匹配的正则为给定的字符串
+   * @param str   待替换的字符串
+   * @param pattern  要匹配的内容正则或字符串
+   * @param replacement 替换的内容
+   * @returns 返回替换后的字符串
+   */
+  static replaceAll(str: string, pattern: RegExp | string, replacement: string = ''): string {
+    return str.replaceAll(pattern, replacement);
+  }
 
   /**
    * 检查字符串是否以给定的字符串开头
@@ -282,6 +292,78 @@ export class StrUtil {
   static unit8ArrayToBuffer(src: Uint8Array): ArrayBuffer {
     // return buffer.from(src).buffer;
     return src.buffer as ArrayBuffer;
+  }
+
+
+  /**
+   * 判断传入的电话号码格式是否正确。
+   * @param phone
+   * country string 表示电话号码所属国家或地区代码。
+   * options PhoneNumberFormatOptions 电话号码格式化对象的相关选项。默认值：NATIONAL。
+   * @returns
+   */
+  static isPhone(phone: string, country: string = "CN", option?: i18n.PhoneNumberFormatOptions): boolean {
+    let phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
+    return phoneNumberFormat.isValidNumber(phone);
+  }
+
+  /**
+   * 对电话号码进行格式化
+   * @param phone
+   * country string 表示电话号码所属国家或地区代码。
+   * options PhoneNumberFormatOptions 电话号码格式化对象的相关选项。默认值：NATIONAL。
+   * @returns
+   */
+  static getPhoneFormat(phone: string, country: string = "CN", option?: i18n.PhoneNumberFormatOptions): string {
+    let phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
+    return phoneNumberFormat.format(phone);
+  }
+
+  /**
+   * 获取电话号码归属地
+   * @param phone
+   * @param locale string 区域ID
+   * country string 表示电话号码所属国家或地区代码。
+   * options PhoneNumberFormatOptions 电话号码格式化对象的相关选项。默认值：NATIONAL。
+   * @returns
+   */
+  static getPhoneLocationName(phone: string, locale: string = "zh-CN", country: string = "CN", option?: i18n.PhoneNumberFormatOptions): string {
+    let phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
+    return phoneNumberFormat.getLocationName(phone, locale);
+  }
+
+
+  /**
+   * 给定内容是否匹配正则
+   * @param content 内容
+   * @param regex   正则
+   */
+  static isMatch(content: string, pattern: string): boolean {
+    if (content == undefined || content == null) {
+      return false;
+    } else {
+      return new RegExp(pattern).test(content);
+    }
+  }
+
+  /**
+   * 判断传入的邮箱格式是否正确
+   * @param content
+   * @returns
+   */
+  static isEmail(content: string): boolean {
+    const pattern: string = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])"; //邮件，符合RFC 5322规范，正则来自：http://emailregex.com/
+    return StrUtil.isMatch(content, pattern);
+  }
+
+
+  /**
+   * 获取系统错误码对应的详细信息
+   * @param errno 错误码
+   * @returns
+   */
+  static getErrnoToString(errno: number): string {
+    return util.errnoToString(errno);
   }
 
 

@@ -427,31 +427,38 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### StrUtil（字符串工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
 
-| 方法                 | 介绍                                    |
-|:-------------------|:--------------------------------------|
-| isNull             | 字符串是否为空(undefined、null)               |
-| isNotNull          | 判断字符串是否为非空                            |
-| isEmpty            | 字符串是否为空(undefined、null、字符串长度为0)       |
-| isNotEmpty         | 判断字符串是否为非空                            |
-| isBlank            | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格) |
-| isNotBlank         | 判断字符串是否为非空                            |
-| replace            | 替换字符串中匹配的正则为给定的字符串                    |
-| startsWith         | 检查字符串是否以给定的字符串开头                      |
-| endsWith           | 检查字符串是否以给定的字符串结尾                      |
-| repeat             | 将字符串重复指定次数                            |
-| toLower            | 转换整个字符串的字符为小写                         |
-| toUpper            | 转换整个字符串的字符为大写                         |
-| capitalize         | 转换字符串首字母为大写，剩下为小写                     |
-| equal              | 判断两个传入的数值或者是字符串是否相等                   |
-| notEqual           | 判断两个传入的数值或者是字符串是否不相等                  |
-| strToUint8Array    | 字符串转Uint8Array                        |
-| unit8ArrayToStr    | Uint8Array转字符串                        |
-| strToBase64        | 字符串转Base64字符串                         |
-| base64ToStr        | Base64字符串转字符串                         |
-| strToBuffer        | 字符串转ArrayBuffer                       |
-| bufferToStr        | ArrayBuffer转字符串                       |
-| bufferToUint8Array | ArrayBuffer转Uint8Array                |
-| unit8ArrayToBuffer | Uint8Array转ArrayBuffer                |
+| 方法                   | 介绍                                    |
+|:---------------------|:--------------------------------------|
+| isNull               | 字符串是否为空(undefined、null)               |
+| isNotNull            | 判断字符串是否为非空                            |
+| isEmpty              | 字符串是否为空(undefined、null、字符串长度为0)       |
+| isNotEmpty           | 判断字符串是否为非空                            |
+| isBlank              | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格) |
+| isNotBlank           | 判断字符串是否为非空                            |
+| replace              | 替换字符串中匹配的正则为给定的字符串                    |
+| replaceAll           | 替换字符串中所有匹配的正则为给定的字符串                  |
+| startsWith           | 检查字符串是否以给定的字符串开头                      |
+| endsWith             | 检查字符串是否以给定的字符串结尾                      |
+| repeat               | 将字符串重复指定次数                            |
+| toLower              | 转换整个字符串的字符为小写                         |
+| toUpper              | 转换整个字符串的字符为大写                         |
+| capitalize           | 转换字符串首字母为大写，剩下为小写                     |
+| equal                | 判断两个传入的数值或者是字符串是否相等                   |
+| notEqual             | 判断两个传入的数值或者是字符串是否不相等                  |
+| strToUint8Array      | 字符串转Uint8Array                        |
+| unit8ArrayToStr      | Uint8Array转字符串                        |
+| strToBase64          | 字符串转Base64字符串                         |
+| base64ToStr          | Base64字符串转字符串                         |
+| strToBuffer          | 字符串转ArrayBuffer                       |
+| bufferToStr          | ArrayBuffer转字符串                       |
+| bufferToUint8Array   | ArrayBuffer转Uint8Array                |
+| unit8ArrayToBuffer   | Uint8Array转ArrayBuffer                |
+| isPhone              | 判断传入的电话号码格式是否正确                       |
+| getPhoneFormat       | 对电话号码进行格式化                            |
+| getPhoneLocationName | 获取电话号码归属地                             |
+| isMatch              | 给定内容是否匹配正则                            |
+| isEmail              | 判断传入的邮箱格式是否正确                         |
+| getErrnoToString     | 获取系统错误码对应的详细信息                        |
 
 ### Base64Util（Base64工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
 
@@ -591,18 +598,11 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showShort | 弹出短土司，默认时长为:1.5s |
 | showLong  | 弹出长土司，默认时长为:10s  |
 
-## 📚仓库地址
+## 📚仓库地址  与 💖技术交流
 
 [https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)   
 [https://github.com/787107497](https://github.com/787107497)
-
-## 💖后续计划
-
-1、持续优化和添加更多的实用方法与功能（语音、文字识别）。    
-2、添加新的模块（悬浮窗、JSBridge）。
-
-## 💖技术交流
-
+<br><br>
 ![QQ群：569512366](harmony_utils/Picture/group_qrcode.jpg)
 
 ## 🙏贡献代码

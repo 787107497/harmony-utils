@@ -28,12 +28,14 @@
 
 ## 1.0.4
 1. AppUtil：   
-   1、优化代码与Bug修复。      
+   1、优化代码与Bug修复，尽可能处理预览问题。     
    2、新增方法，getBundleName()、getVersionCode()、getVersionName()、getTargetVersion()、toWebBrowser()、toAppGalleryDetail()、toFileManagement()、exit()。    
 2. DeviceUtil：      
    1、新增方法，getBrand()、getProductModel()、getOsReleaseType()、getOsFullName()、getDisplayVersion()、getSdkApiVersion()、getBuildVersion()、getODID()。     
 3. DisplayUtil：    
-   1、优化代码与Bug修复。   
-4. ObjectUtil
-   1、新增方法，getHash()。
-5. 
+   1、优化代码与Bug修复。     
+4. ObjectUtil   
+   1、新增方法，getHash()。   
+5. StrUtil   
+      1、新增方法，replaceAll()、isPhone()、getPhoneFormat()、getPhoneLocationName()、isMatch()、isEmail()、getErrnoToString()。   
+6. 

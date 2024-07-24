@@ -77,20 +77,22 @@ struct Index {
               LogUtil.error(`bl3: ${bl3}  bn3: ${bn3}`)
               ToastUtil.showToast("请查看Log日志")
             })
-          Button("startsWith()\nendsWith()\nreplace()\nrepeat()")
-            .labelStyle({ maxLines: 4 })
+          Button("startsWith()\nendsWith()\nreplace()\nrepeat()\nreplaceAll()")
+            .labelStyle({ maxLines: 5 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let str1 = "阿超是一个好人";
+              let str1 = "阿超是一个好人,小阿超也是一个好人";
               let str2 = "千秋万代";
               let startsWith = StrUtil.startsWith(str1, "阿超");
               let endsWith = StrUtil.endsWith(str1, "好人");
               let str = StrUtil.replace(str1, "阿超", "张三");
               let strs = StrUtil.repeat(str2, 6);
+              let strAll = StrUtil.replaceAll(str1, "好人", " HAO-REN ");
               LogUtil.error(`startsWith: ${startsWith}\nendsWith: ${endsWith}\nstr: ${str}\nstrs: ${strs}`)
+              LogUtil.error(`replaceAll: ${strAll}`)
               ToastUtil.showToast("请查看Log日志")
             })
           Button("toLower()\ntoUpper()\ncapitalize()")
@@ -181,6 +183,50 @@ struct Index {
               let buff = StrUtil.unit8ArrayToBuffer(unit8Array);
               LogUtil.error(`buff: ${buff.byteLength}`)
               ToastUtil.showToast("请查看Log日志")
+            })
+          Button("isPhone()\ngetPhoneFormat()\ngetPhoneLocationName()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let phone: string = "13909626520";
+              let bl = StrUtil.isPhone(phone);
+              LogUtil.error(`isPhone: ${bl}`)
+              let format = StrUtil.getPhoneFormat(phone);
+              LogUtil.error(`getPhoneFormat: ${format}`)
+              let locationName = StrUtil.getPhoneLocationName(phone);
+              LogUtil.error(`getPhoneLocationName: ${locationName}`)
+              ToastUtil.showToast("请查看Log日志")
+            })
+          Button("isMatch()\nisEmail()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let rex="^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
+              let phone: string = "13909626520";
+              let email: string = "787107497@qq.com";
+              let bl1 = StrUtil.isMatch(phone,rex);
+              LogUtil.error(`是否是手机号: ${bl1}`)
+              let bl2 = StrUtil.isEmail(email);
+              LogUtil.error(`是否是邮件: ${bl2}`)
+            })
+
+          Button("getErrnoToString()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let errStr1 = StrUtil.getErrnoToString(202);
+              let errStr2 = StrUtil.getErrnoToString(1600004);
+              LogUtil.error(`错误码1: ${errStr1}`)
+              LogUtil.error(`错误码2: ${errStr2}`)
             })
 
           Text('').layoutWeight(1)
