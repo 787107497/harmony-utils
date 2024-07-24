@@ -1,12 +1,12 @@
 import { asset } from '@kit.AssetStoreKit';
-import { LogUtil } from '../LogUtil';
-import { StrUtil } from '../StrUtil';
+import { LogUtil } from './LogUtil';
+import { StrUtil } from './StrUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 关键资产存储服务
  */
-export class AssetStore {
+export class AssetUtil {
 
 
   static async set(key: string, value: string, e10: boolean = true): Promise<boolean> {
@@ -24,10 +24,10 @@ export class AssetStore {
         attr.set(asset.Tag.IS_PERSISTENT, e10);
       }
       let result: boolean;
-      if ((await AssetStore.has(key))) {
-        result = await AssetStore.updateAssetMap(attr, attr);
+      if ((await AssetUtil.has(key))) {
+        result = await AssetUtil.updateAssetMap(attr, attr);
       } else {
-        result = await AssetStore.setAssetMap(attr);
+        result = await AssetUtil.setAssetMap(attr);
       }
       if (result) {
         AppStorage.setOrCreate(key, value);
@@ -50,7 +50,7 @@ export class AssetStore {
       let query: asset.AssetMap = new Map();
       query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
       query.set(asset.Tag.RETURN_TYPE, asset.ReturnType.ALL);
-      const result = await AssetStore.getAssetMap(query);
+      const result = await AssetUtil.getAssetMap(query);
       if (!result) {
         return false;
       }
@@ -75,7 +75,7 @@ export class AssetStore {
       let query: asset.AssetMap = new Map();
       query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
       query.set(asset.Tag.RETURN_TYPE, asset.ReturnType.ALL);
-      const a10 = await AssetStore.getAssetMap(query);
+      const a10 = await AssetUtil.getAssetMap(query);
       if (!a10) {
         return null;
       }
@@ -116,7 +116,7 @@ export class AssetStore {
       }
       let query: asset.AssetMap = new Map();
       query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
-      let result = await AssetStore.removeAssetMap(query);
+      let result = await AssetUtil.removeAssetMap(query);
       if (result) {
         AppStorage.setOrCreate(key, '');
       }
@@ -162,6 +162,15 @@ export class AssetStore {
       LogUtil.error(`AssetStore-updateAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
+  }
+
+
+  /**
+   * 当前设备是否支持该模块
+   * @returns
+   */
+  static canIUse() {
+    return canIUse("SystemCapability.Security.Asset")
   }
 
 

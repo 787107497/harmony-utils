@@ -21,6 +21,7 @@
     "pages/utils/KeyboardUtilPage",
     "pages/utils/LogUtilPage",
     "pages/utils/CrashUtilPage",
+    "pages/utils/CharUtilPage",
     "pages/utils/StrUtilPage",
     "pages/utils/Base64UtilPage",
     "pages/utils/NumberUtilPage",

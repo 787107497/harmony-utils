@@ -36,6 +36,8 @@ export { LogUtil } from './src/main/ets/utils/LogUtil';
 
 export { CrashUtil } from './src/main/ets/utils/CrashUtil';
 
+export { CharUtil } from './src/main/ets/utils/CharUtil';
+
 export { StrUtil } from './src/main/ets/utils/StrUtil';
 
 export { Base64Util } from './src/main/ets/utils/Base64Util';
@@ -60,13 +62,17 @@ export { TempUtil } from './src/main/ets/utils/TempUtil';
 
 export { WindowUtil } from './src/main/ets/utils/WindowUtil';
 
+export { AssetUtil } from './src/main/ets/utils/AssetUtil';
+
+export { PhotoHelper } from './src/main/ets/photo/PhotoHelper';
+
+export { GlobalContext } from './src/main/ets/utils/GlobalContext';
+
 export { ActionUtil } from './src/main/ets/action/ActionUtil';
 
 export { DialogUtil } from './src/main/ets/action/DialogUtil';
 
 export { ToastUtil } from './src/main/ets/action/ToastUtil';
-
-export { PhotoHelper } from './src/main/ets/photo/PhotoHelper';
 
 export { AlertControlDialog } from './src/main/ets/dialog/AlertControlDialog';
 

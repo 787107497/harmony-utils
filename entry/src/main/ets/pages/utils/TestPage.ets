@@ -11,17 +11,11 @@ import { MockSetup } from '@ohos/hamock';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
-  @State str: string = "name";
-  @State res: Resource = $r(`app.string.lib_${this.str}`);
 
 
   @MockSetup
   mock() {
     this.describe = new DescribeBean("Test", "测试页面");
-  }
-
-  aboutToAppear(): void {
-    $r(`app.string.lib_${this.str}`)
   }
 
 
@@ -74,13 +68,10 @@ struct Index {
           Button("测试6")
             .btnStyle()
             .onClick(async () => {
-              let name = await AppUtil.getBundleName();
-              let versionCode = await AppUtil.getVersionCode();
-              let versionName = await AppUtil.getVersionName();
-              LogUtil.error("versionName: " + versionName + "\n\nversionCode: " + versionCode + "\n\nname: " + name);
+
 
             })
-          Text(this.res).layoutWeight(1)
+          Text().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

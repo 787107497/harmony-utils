@@ -2,7 +2,7 @@ import { vibrator } from '@kit.SensorServiceKit';
 import { LogUtil } from './LogUtil';
 import { resourceManager } from '@kit.LocalizationKit';
 import { StrUtil } from './StrUtil';
-import { AssetStore } from './other/AssetStore';
+import { AssetUtil } from './AssetUtil';
 import { PreferencesUtil } from './PreferencesUtil';
 import { RandomUtil } from './RandomUtil';
 import deviceInfo from '@ohos.deviceInfo';
@@ -25,7 +25,7 @@ export class DeviceUtil {
     let deviceId = DeviceUtil.deviceId;
     if (StrUtil.isEmpty(deviceId)) {
       if (canIUse("SystemCapability.Security.Asset")) {
-        deviceId = StrUtil.toStr(await AssetStore.get(DeviceUtil.deviceIdKey));
+        deviceId = StrUtil.toStr(await AssetUtil.get(DeviceUtil.deviceIdKey));
       } else {
         deviceId = StrUtil.toStr(await PreferencesUtil.get(DeviceUtil.deviceIdKey, "") as string)
         LogUtil.error(`当前设备不支持,关键资产存储服务`);
@@ -41,7 +41,7 @@ export class DeviceUtil {
         }
         if (canIUse("SystemCapability.Security.Asset")) {
           //将deviceId保存到关键资产（在应用卸载时保留）
-          AssetStore.set(DeviceUtil.deviceIdKey, deviceId);
+          AssetUtil.set(DeviceUtil.deviceIdKey, deviceId);
         } else {
           PreferencesUtil.put(DeviceUtil.deviceIdKey, deviceId)
           LogUtil.error(`当前设备不支持,关键资产存储服务`);
@@ -58,7 +58,7 @@ export class DeviceUtil {
   static deleteDeviceId() {
     DeviceUtil.deviceId = '';
     if (canIUse("SystemCapability.Security.Asset")) {
-      AssetStore.remove(DeviceUtil.deviceIdKey);
+      AssetUtil.remove(DeviceUtil.deviceIdKey);
     } else {
       PreferencesUtil.delete(DeviceUtil.deviceIdKey)
       LogUtil.error(`当前设备不支持,关键资产存储服务`);

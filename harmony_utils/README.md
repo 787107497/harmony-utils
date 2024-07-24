@@ -425,6 +425,22 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
 | setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
 
+### CharUtil（字符工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
+
+| 方法           | 介绍                           |
+|:-------------|:-----------------------------|
+| isDigit      | 判断字符串char是否是数字               |
+| isLetter     | 判断字符串char是否是字母               |
+| isLowerCase  | 判断字符串char是否是小写字母             |
+| isUpperCase  | 判断字符串char是否是大写字母             |
+| isSpaceChar  | 判断字符串char是否是空格符              |
+| isWhitespace | 判断字符串char是否是空白符              |
+| isRTL        | 判断字符串char是否是从右到左语言的字符        |
+| isIdeograph  | 判断字符串char是否是表意文字             |
+| isBlankChar  | 是否空白符 空白符包括空格、制表符、全角空格和不间断空格 |
+| isAscii      | 检查字符是否位于ASCII范围内（0~127）      |
+| isEmoji      | 判断是否为emoji表情符                |
+
 ### StrUtil（字符串工具类）[点我见使用详细](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
 
 | 方法                   | 介绍                                    |

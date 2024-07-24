@@ -7,7 +7,7 @@ import { FileUtil } from './FileUtil';
 import { PickerUtil } from './PickerUtil';
 import { StrUtil } from './StrUtil';
 import { ToastUtil } from '../action/ToastUtil';
-import { GlobalContext } from './other/GlobalContext';
+import { GlobalContext } from './GlobalContext';
 
 
 /**

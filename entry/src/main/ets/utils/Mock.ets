@@ -30,6 +30,7 @@ export class Mock {
     data.push(new DescribeBean("KeyboardUtil", "键盘工具类"));
     data.push(new DescribeBean("LogUtil", "日志工具类"));
     data.push(new DescribeBean("CrashUtil", "全局异常捕获，崩溃日志收集"));
+    data.push(new DescribeBean("CharUtil", "字符工具类"));
     data.push(new DescribeBean("StrUtil", "字符串工具类"));
     data.push(new DescribeBean("Base64Util", "Base64工具类"));
     data.push(new DescribeBean("NumberUtil", "number工具类"));
