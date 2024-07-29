@@ -132,6 +132,10 @@
     "desc": "温度转换工具类，华氏度与摄氏度相互转换"
   },
   {
+    "name": "AssetUtil",
+    "desc": "关键资产存储服务工具类"
+  },
+  {
     "name": "ActionUtil",
     "desc": "弹窗工具类（promptAction）"
   },

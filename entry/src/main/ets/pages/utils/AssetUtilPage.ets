@@ -1,24 +1,28 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { MockSetup } from '@ohos/hamock';
-import { AssetUtil, LogUtil, PreferencesUtil } from '@pura/harmony-utils';
+import { AssetUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 
 /**
- * 测试页面
+ * 关键资产存储服务工具类
  */
 @Entry
 @Component
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+  @State readonly rkey: string = "key_harmony"
+  @State readonly skey: string = "key_harmony_sync"
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("Test", "测试页面");
+    this.describe = new DescribeBean("AssetUtil", "关键资产存储服务工具类");
   }
 
-  aboutToAppear(): void {
-
+  async getFun() {
+    let rStr = await AssetUtil.get(this.rkey)
+    ToastUtil.showToast(`取值: ${rStr}`)
+    LogUtil.error(`取值: ${rStr}`)
   }
 
   build() {
@@ -30,24 +34,41 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("测试1")
-            .btnStyle()
-            .onClick(async () => {
-              let name =await AssetUtil.get("name")
-              LogUtil.error("name: " + name)
-            })
-          Button("测试2")
+          Button("add")
             .btnStyle()
             .onClick(() => {
-              AssetUtil.getSync("name")
-
+              AssetUtil.add(this.rkey, "我是异步知产X!")
             })
-          Button("测试3")
+          Button("addSync")
             .btnStyle()
             .onClick(() => {
-              AssetUtil.remove("name")
-
+              AssetUtil.addSync(this.skey, "我是同步知产X!")
             })
+          Button("get")
+            .btnStyle()
+            .onClick(() => {
+              this.getFun()
+            })
+          Button("getSync")
+            .btnStyle()
+            .onClick(() => {
+              let sStr = AssetUtil.getSync(this.skey)
+              ToastUtil.showToast(`同步：${sStr}`)
+            })
+          Button("remove")
+            .btnStyle()
+            .onClick(() => {
+              AssetUtil.remove(this.rkey).then(() => {
+                ToastUtil.showToast("移除成功！")
+              })
+            })
+          Button("removeSync")
+            .btnStyle()
+            .onClick(() => {
+              AssetUtil.removeSync(this.skey)
+              ToastUtil.showToast("移除成功!!!")
+            })
+
           Text().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })

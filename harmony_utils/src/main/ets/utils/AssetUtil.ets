@@ -4,14 +4,21 @@ import { StrUtil } from './StrUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
- * 关键资产存储服务
+ * 关键资产存储服务工具类
  */
 export class AssetUtil {
 
 
-  static async set(key: string, value: string, e10: boolean = true): Promise<boolean> {
+  /**
+   * 新增一条关键资产
+   * @param key 关键资产别名key
+   * @param value 关键资产明文
+   * @param e10 在应用卸载时是否需要保留关键资产
+   * @returns
+   */
+  static async add(key: string, value: string, e10: boolean = true): Promise<boolean> {
     try {
-      if (!canIUse("SystemCapability.Security.Asset")) {
+      if (!AssetUtil.canIUse()) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
         return false;
       }
@@ -19,110 +26,130 @@ export class AssetUtil {
       attr.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
       attr.set(asset.Tag.SECRET, StrUtil.strToUint8Array(value));
       attr.set(asset.Tag.SYNC_TYPE, asset.SyncType.THIS_DEVICE);
-      attr.set(asset.Tag.CONFLICT_RESOLUTION, asset.ConflictResolution.THROW_ERROR);
+      attr.set(asset.Tag.CONFLICT_RESOLUTION, asset.ConflictResolution.OVERWRITE); //新增关键资产时的冲突,覆盖原有的关键资产
       if (e10) {
-        attr.set(asset.Tag.IS_PERSISTENT, e10);
+        attr.set(asset.Tag.IS_PERSISTENT, e10); //在应用卸载时是否需要保留关键资产
       }
-      let result: boolean;
-      if ((await AssetUtil.has(key))) {
-        result = await AssetUtil.updateAssetMap(attr, attr);
-      } else {
-        result = await AssetUtil.setAssetMap(attr);
-      }
-      if (result) {
-        AppStorage.setOrCreate(key, value);
-      }
-      return result;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AssetStore-set-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-    }
-    return false;
-  }
-
-
-  static async has(key: string): Promise<boolean> {
-    try {
-      if (!canIUse("SystemCapability.Security.Asset")) {
-        LogUtil.error(`AssetStore-当前设备不支持该模块`);
-        return false;
-      }
-      let query: asset.AssetMap = new Map();
-      query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
-      query.set(asset.Tag.RETURN_TYPE, asset.ReturnType.ALL);
-      const result = await AssetUtil.getAssetMap(query);
-      if (!result) {
-        return false;
-      }
-      if (result.length < 1) {
-        return false;
-      }
+      await asset.add(attr);
       return true;
     } catch (err) {
       let error = err as BusinessError;
-      LogUtil.error(`AssetStore-has-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(`AssetStore-add-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
 
 
-  static async get(key: string): Promise<string | null> {
+  /**
+   * 新增一条关键资产,同步
+   * @param key 关键资产别名key
+   * @param value 关键资产明文
+   * @param e10 在应用卸载时是否需要保留关键资产
+   * @returns
+   */
+  static addSync(key: string, value: string, e10: boolean = true): boolean {
     try {
       if (!AssetUtil.canIUse()) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
-        return null;
+        return false;
       }
-      // let challenge: Uint8Array = await AssetUtil.preQueryAsset(key);
+      let attr: asset.AssetMap = new Map();
+      attr.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
+      attr.set(asset.Tag.SECRET, StrUtil.strToUint8Array(value));
+      attr.set(asset.Tag.SYNC_TYPE, asset.SyncType.THIS_DEVICE);
+      attr.set(asset.Tag.CONFLICT_RESOLUTION, asset.ConflictResolution.OVERWRITE); //新增关键资产时的冲突,覆盖原有的关键资产
+      if (e10) {
+        attr.set(asset.Tag.IS_PERSISTENT, e10); //在应用卸载时是否需要保留关键资产
+      }
+      asset.addSync(attr);
+      return true;
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-addSync-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return false;
+    }
+  }
+
+
+  /**
+   * 查询关键资产
+   * @param key
+   * @returns
+   */
+  static async get(key: string): Promise<string> {
+    try {
+      if (!AssetUtil.canIUse()) {
+        LogUtil.error(`AssetStore-当前设备不支持该模块`);
+        return "";
+      }
       let query: asset.AssetMap = new Map();
       query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
       query.set(asset.Tag.RETURN_TYPE, asset.ReturnType.ALL);
-      const a10 = await AssetUtil.getAssetMap(query);
-      if (!a10) {
-        return null;
-      }
-      if (a10.length < 1) {
-        return null;
+      const a10 = await asset.query(query);
+      if (!a10 || a10.length < 1) {
+        return "";
       }
       let map: asset.AssetMap = a10[0]
       let b10 = map.get(asset.Tag.SECRET) as Uint8Array;
-      // AssetUtil.postQueryAsset(challenge)
       if (b10) {
         let c10 = StrUtil.unit8ArrayToStr(b10);
-        return c10
+        return c10;
       }
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`AssetStore-get-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
-    return null;
+    return "";
   }
 
 
-  static async setAssetMap(attr: asset.AssetMap): Promise<boolean> {
+  /**
+   * 查询关键资产，同步
+   * @param key
+   * @returns
+   */
+  static getSync(key: string): string {
     try {
-      await asset.add(attr);
-      return true;
+      if (!AssetUtil.canIUse()) {
+        LogUtil.error(`AssetStore-当前设备不支持该模块`);
+        return "";
+      }
+      let query: asset.AssetMap = new Map();
+      query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
+      query.set(asset.Tag.RETURN_TYPE, asset.ReturnType.ALL);
+      const a10 = asset.querySync(query);
+      if (!a10 || a10.length < 1) {
+        return "";
+      }
+      let map: asset.AssetMap = a10[0]
+      let b10 = map.get(asset.Tag.SECRET) as Uint8Array;
+      if (b10) {
+        let c10 = StrUtil.unit8ArrayToStr(b10);
+        return c10;
+      }
     } catch (err) {
       let error = err as BusinessError;
-      LogUtil.error(`AssetStore-setAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return false;
+      LogUtil.error(`AssetStore-getSync-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
+    return "";
   }
 
 
+  /**
+   * 删除关键资产
+   * @param key
+   * @returns
+   */
   static async remove(key: string): Promise<boolean> {
     try {
-      if (!canIUse("SystemCapability.Security.Asset")) {
+      if (!AssetUtil.canIUse()) {
         LogUtil.error(`AssetStore-当前设备不支持该模块`);
         return false;
       }
       let query: asset.AssetMap = new Map();
       query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
-      let result = await AssetUtil.removeAssetMap(query);
-      if (result) {
-        AppStorage.setOrCreate(key, '');
-      }
-      return result;
+      await asset.remove(query);
+      return true;
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`AssetStore-remove-异常 ~ code: ${error.code} -·- message: ${error.message}`);
@@ -131,68 +158,25 @@ export class AssetUtil {
   }
 
 
-  static async removeAssetMap(attr: asset.AssetMap): Promise<boolean> {
+  /**
+   * 删除关键资产，同步
+   * @param key
+   * @returns
+   */
+  static removeSync(key: string): boolean {
     try {
-      await asset.remove(attr);
-      return true;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AssetStore-removeAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return false;
-    }
-  }
-
-  static async getAssetMap(query: asset.AssetMap): Promise<Array<asset.AssetMap>> {
-    try {
-      const z9 = await asset.query(query);
-      return z9;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AssetStore-getAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return [];
-    }
-  }
-
-
-  static async updateAssetMap(query: asset.AssetMap, y9: asset.AssetMap): Promise<boolean> {
-    try {
-      await asset.update(query, y9);
-      return true;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AssetStore-updateAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return false;
-    }
-  }
-
-
-  static async preQueryAsset(key: string): Promise<Uint8Array> {
-    return new Promise((resolve, reject) => {
-      try {
-        let query: asset.AssetMap = new Map();
-        query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
-        asset.preQuery(query).then((challenge: Uint8Array) => {
-          resolve(challenge);
-        }).catch(() => {
-          reject();
-        })
-      } catch (error) {
-        let err = error as BusinessError;
-        LogUtil.error(`AssetStore-preQueryAsset-异常 ~ ${err.code}, message is ${err.message}`);
-        reject();
+      if (!AssetUtil.canIUse()) {
+        LogUtil.error(`AssetStore-当前设备不支持该模块`);
+        return false;
       }
-    });
-  }
-
-
-  static async postQueryAsset(challenge: Uint8Array) {
-    let handle: asset.AssetMap = new Map();
-    handle.set(asset.Tag.AUTH_CHALLENGE, challenge);
-    try {
-      await asset.postQuery(handle);
-    } catch (error) {
-      let err = error as BusinessError;
-      LogUtil.error(`AssetStore-postQueryAsset-异常 ~ ${err.code}, message is ${err.message}`);
+      let query: asset.AssetMap = new Map();
+      query.set(asset.Tag.ALIAS, StrUtil.strToUint8Array(key));
+      asset.removeSync(query);
+      return true;
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`AssetStore-removeSync-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return false;
     }
   }
 

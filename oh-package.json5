@@ -1,7 +1,7 @@
 {
   "modelVersion": "5.0.0",
   "name": "harmonyutils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。",
   "main": "",
   "author": "",

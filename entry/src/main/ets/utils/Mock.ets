@@ -42,6 +42,7 @@ export class Mock {
     data.push(new DescribeBean("CacheUtil", "缓存工具类"));
     data.push(new DescribeBean("ClickUtil", "节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）"));
     data.push(new DescribeBean("TempUtil", "温度转换工具类，华氏度与摄氏度相互转换"));
+    data.push(new DescribeBean("AssetUtil", "关键资产存储服务工具类"));
     data.push(new DescribeBean("ActionUtil", "弹窗工具类（promptAction）"));
     data.push(new DescribeBean("DialogUtil", "弹窗工具类（AlertDialog）"));
     data.push(new DescribeBean("ToastUtil", "土司工具类（promptAction）"));

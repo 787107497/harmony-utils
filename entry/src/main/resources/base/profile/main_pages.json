@@ -33,6 +33,7 @@
     "pages/utils/CacheUtilPage",
     "pages/utils/ClickUtilPage",
     "pages/utils/TempUtilPage",
+    "pages/utils/AssetUtilPage",
     "pages/utils/ActionUtilPage",
     "pages/utils/DialogUtilPage",
     "pages/utils/ToastUtilPage",

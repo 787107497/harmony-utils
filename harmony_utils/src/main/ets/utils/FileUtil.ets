@@ -15,12 +15,13 @@ export class FileUtil {
 
   /**
    * 获取文件目录下的文件夹路径或文件路径。
-   * @param dirPath 文件路径,支持完整路径 和 相对路径（download/wps/doc）。dirPath传空表示根目录
-   * @param fileName 文件名（test.text）
+   * @param dirPath 文件路径；支持完整路径和相对路径（download/wps/doc）；dirPath传空字符串表示根目录
+   * @param fileName 文件名（test.text）；fileName传空字符串表示文件夹路径
+   * @param blHap true：HAP级别文件路径、 false：App级别文件路径
    * @returns
    */
-  static getFilesDirPath(dirPath: string, fileName?: string): string {
-    let filePath = getContext().filesDir; //根目录
+  static getFilesDirPath(dirPath: string = "", fileName: string = "", blHap: boolean = true): string {
+    let filePath = blHap ? getContext().filesDir : getContext().getApplicationContext().filesDir; //根目录
     if (StrUtil.isNotEmpty(dirPath)) {
       if (StrUtil.startsWith(dirPath, filePath)) { //路径中包含根目录，是完整路径。
         filePath = dirPath;
@@ -40,12 +41,13 @@ export class FileUtil {
 
   /**
    * 获取缓存目录下的文件夹路径或文件路径。
-   * @param dirPath 文件路径,支持完整路径 和 相对路径（download/wps/doc）。dirPath传空表示根目录
-   * @param fileName 文件名（test.text）
+   * @param dirPath 文件路径；支持完整路径和相对路径（download/wps/doc）；dirPath传空字符串表示根目录
+   * @param fileName 文件名（test.text）；fileName传空字符串表示文件夹路径
+   * @param blHap true：HAP级别文件路径、 false：App级别文件路径
    * @returns
    */
-  static getCacheDirPath(dirPath: string, fileName?: string): string {
-    let filePath = getContext().cacheDir; //根目录
+  static getCacheDirPath(dirPath: string = "", fileName: string = "", blHap: boolean = true): string {
+    let filePath = blHap ? getContext().cacheDir : getContext().getApplicationContext().cacheDir; //根目录
     if (StrUtil.isNotEmpty(dirPath)) {
       if (FileUtil.hasDirPath(dirPath)) { //路径中包含根目录，是完整路径。
         filePath = dirPath;
@@ -65,12 +67,13 @@ export class FileUtil {
 
   /**
    * 获取临时目录下的文件夹路径或文件路径。
-   * @param dirPath 文件路径,支持完整路径 和 相对路径（download/wps/doc）。dirPath传空表示根目录
-   * @param fileName 文件名（test.text）
+   * @param dirPath 文件路径；支持完整路径和相对路径（download/wps/doc）；dirPath传空字符串表示根目录
+   * @param fileName 文件名（test.text）；fileName传空字符串表示文件夹路径
+   * @param blHap true：HAP级别文件路径、 false：App级别文件路径
    * @returns
    */
-  static getTempDirPath(dirPath: string, fileName?: string): string {
-    let filePath = getContext().tempDir; //根目录
+  static getTempDirPath(dirPath: string = "", fileName: string = "", blHap: boolean = true): string {
+    let filePath = blHap ? getContext().tempDir : getContext().getApplicationContext().tempDir; //根目录
     if (StrUtil.isNotEmpty(dirPath)) {
       if (FileUtil.hasDirPath(dirPath)) { //路径中包含根目录，是完整路径。
         filePath = dirPath;
@@ -93,10 +96,7 @@ export class FileUtil {
    * @param path 文件路径
    */
   static hasDirPath(path: string): boolean {
-    let filesDir = getContext().filesDir; //根目录
-    let cacheDir = getContext().cacheDir; //根目录
-    let tempDir = getContext().tempDir; //根目录
-    return StrUtil.startsWith(path, filesDir) || StrUtil.startsWith(path, cacheDir) || StrUtil.startsWith(path, tempDir);
+    return StrUtil.startsWith(path, "/data/storage/el1/") || StrUtil.startsWith(path, "/data/storage/el2/");
   }
 
 
@@ -165,6 +165,26 @@ export class FileUtil {
       return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
     return '';
+  }
+
+
+  /**
+   * 获取指定文件夹下所有文件的大小或指定文件大小。
+   * @param path 文件夹路径 或 文件路径
+   */
+  static getFileDirSize(path: string): number {
+    if (FileUtil.accessSync(path)) { //path存在
+      if (FileUtil.isDirectory(path)) { //文件夹
+        let count: number = 0;
+        FileUtil.listFileSync(path, { recursion: true }).forEach((filePath) => {
+          count = count + FileUtil.lstatSync(path + filePath).size
+        })
+        return count;
+      } else { //文件
+        return FileUtil.lstatSync(path).size
+      }
+    }
+    return 0;
   }
 
 

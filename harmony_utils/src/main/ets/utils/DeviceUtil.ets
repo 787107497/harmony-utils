@@ -21,13 +21,13 @@ export class DeviceUtil {
    * @param generateId 自己生成的id，不传使用默认生成的id
    * @returns
    */
-  static async getDeviceId(rule: boolean = true, generateId?: string): Promise<string> {
+  static getDeviceId(rule: boolean = true, generateId?: string): string {
     let deviceId = DeviceUtil.deviceId;
     if (StrUtil.isEmpty(deviceId)) {
-      if (canIUse("SystemCapability.Security.Asset")) {
-        deviceId = StrUtil.toStr(await AssetUtil.get(DeviceUtil.deviceIdKey));
+      if (AssetUtil.canIUse()) {
+        deviceId = StrUtil.toStr(AssetUtil.getSync(DeviceUtil.deviceIdKey));
       } else {
-        deviceId = StrUtil.toStr(await PreferencesUtil.get(DeviceUtil.deviceIdKey, "") as string)
+        deviceId = StrUtil.toStr(PreferencesUtil.getStringSync(DeviceUtil.deviceIdKey))
         LogUtil.error(`当前设备不支持,关键资产存储服务`);
       }
       if (StrUtil.isEmpty(deviceId)) {
@@ -41,9 +41,9 @@ export class DeviceUtil {
         }
         if (canIUse("SystemCapability.Security.Asset")) {
           //将deviceId保存到关键资产（在应用卸载时保留）
-          AssetUtil.set(DeviceUtil.deviceIdKey, deviceId);
+          AssetUtil.addSync(DeviceUtil.deviceIdKey, deviceId);
         } else {
-          PreferencesUtil.put(DeviceUtil.deviceIdKey, deviceId)
+          PreferencesUtil.putSync(DeviceUtil.deviceIdKey, deviceId)
           LogUtil.error(`当前设备不支持,关键资产存储服务`);
         }
       }
@@ -58,9 +58,9 @@ export class DeviceUtil {
   static deleteDeviceId() {
     DeviceUtil.deviceId = '';
     if (canIUse("SystemCapability.Security.Asset")) {
-      AssetUtil.remove(DeviceUtil.deviceIdKey);
+      AssetUtil.removeSync(DeviceUtil.deviceIdKey);
     } else {
-      PreferencesUtil.delete(DeviceUtil.deviceIdKey)
+      PreferencesUtil.deleteSync(DeviceUtil.deviceIdKey)
       LogUtil.error(`当前设备不支持,关键资产存储服务`);
     }
   }
