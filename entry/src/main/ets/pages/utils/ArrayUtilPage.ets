@@ -12,8 +12,8 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   private array0: string[] = []
-  private array1: string[] = [" 张三 ", "习大大 ", "李四", " 阿超", "", "王五", "李四", "王五五", ""]
-  private array2: string[] = ["张三 ", "习大大 ", "李四", " 阿超", "李四", "王五", "李四", "王五"]
+  private array1: string[] = [" 张三 ", "马哒哒 ", "李四", " 阿超", "", "王五", "李四", "王五五", ""]
+  private array2: string[] = ["张三 ", "马哒哒 ", "李四", " 阿超", "李四", "王五", "李四", "王五"]
   private array3: string[] = ["黑龙江省", "哈尔滨市", "道里区", "砂山", "砀山", "高薪区"]
   private array4: number[] = [1, 100, 10, 0, 22, 68, 11]
   private array5: string[][] = [this.array1, this.array2, this.array3]
