@@ -1,5 +1,8 @@
 # 版本记录
 
+## 1.0.6 （API12 - Dev: 5.0.3.500）
+1. ToastUtil，调整Toast居中显示 和 修复Toast不显示Bug。
+
 ## 1.0.5 （API12 - Dev: 5.0.3.500）
 1. 升级和适配API12，Dev版本5.0.3.500。      
 2. 新增AssetUtil工具类。   

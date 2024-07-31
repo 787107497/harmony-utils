@@ -1,7 +1,8 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { MockSetup } from '@ohos/hamock';
-import { AssetUtil, LogUtil, PreferencesUtil } from '@pura/harmony-utils';
+import { AssetUtil, LogUtil, PreferencesUtil, ToastUtil } from '@pura/harmony-utils';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 测试页面
@@ -45,7 +46,12 @@ struct Index {
           Button("测试3")
             .btnStyle()
             .onClick(() => {
-              AssetUtil.remove("name")
+              new Promise<string>((resolve, reject) => {
+                ToastUtil.showToast("111111111111111111")
+              }).catch((err:BusinessError)=>{
+                LogUtil.error("异常信息: "+err)
+                LogUtil.error("异常信息: "+JSON.stringify(err))
+              })
 
             })
           Text().layoutWeight(1)

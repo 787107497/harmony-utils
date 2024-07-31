@@ -22,14 +22,13 @@ export class ToastUtil {
    */
   static showToast(message: string | Resource, options?: ToastOptions) {
     if ((typeof message === 'string' && message.length > 0) || message) {
-      if (!options) {
-        options = new ToastOptions()
-      }
       promptAction.showToast({
         message: message,
-        duration: options.duration,
-        bottom: options.bottom,
-        showMode: options.showMode
+        duration: options?.duration ?? TOAST_DURATION,
+        bottom: options?.bottom ?? TOAST_BOTTOM,
+        showMode: options?.showMode ?? promptAction.ToastShowMode.DEFAULT,
+        alignment: options?.alignment ?? Alignment.Center,
+        offset: options?.offset
       })
     }
   }
@@ -42,14 +41,13 @@ export class ToastUtil {
    */
   static showShort(message: string | Resource, options?: ToastOptions) {
     if ((typeof message === 'string' && message.length > 0) || message) {
-      if (!options) {
-        options = new ToastOptions()
-      }
       promptAction.showToast({
         message: message,
         duration: TOAST_DURATION_SHORT,
-        bottom: options.bottom,
-        showMode: options.showMode
+        bottom: options?.bottom ?? TOAST_BOTTOM,
+        showMode: options?.showMode ?? promptAction.ToastShowMode.DEFAULT,
+        alignment: options?.alignment ?? Alignment.Center,
+        offset: options?.offset
       })
     }
   }
@@ -62,18 +60,16 @@ export class ToastUtil {
    */
   static showLong(message: string | Resource, options?: ToastOptions) {
     if ((typeof message === 'string' && message.length > 0) || message) {
-      if (!options) {
-        options = new ToastOptions()
-      }
       promptAction.showToast({
         message: message,
         duration: TOAST_DURATION_LONG,
-        bottom: options.bottom,
-        showMode: options.showMode,
+        bottom: options?.bottom ?? TOAST_BOTTOM,
+        showMode: options?.showMode ?? promptAction.ToastShowMode.DEFAULT,
+        alignment: options?.alignment,
+        offset: options?.offset
       })
     }
   }
-
 }
 
 
@@ -83,5 +79,7 @@ export class ToastUtil {
 export class ToastOptions {
   duration?: number = TOAST_DURATION; //显示时长(1500ms-10000ms)
   bottom?: string | number = TOAST_BOTTOM; //距离屏幕底部的位置
-  showMode?: promptAction.ToastShowMode = promptAction.ToastShowMode.TOP_MOST; //是否显示在应用之上
+  showMode?: promptAction.ToastShowMode = promptAction.ToastShowMode.DEFAULT; //是否显示在应用之上
+  alignment?: Alignment; // 对齐方式。默认值：undefined，默认底部偏上位置。
+  offset?: Offset //在对齐方式上的偏移。 默认值：{dx:0, dy:0}，默认没有偏移。
 }
