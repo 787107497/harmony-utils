@@ -230,6 +230,25 @@ export class StrUtil {
 
 
   /**
+   * 16进制字符串转换unit8Array
+   * @param hexStr
+   * @returns
+   */
+  static strToHex(hexStr: string): Uint8Array {
+    return new Uint8Array(buffer.from(hexStr, 'hex').buffer);
+  }
+
+  /**
+   * 16进制unit8Array转字符串
+   * @param arr
+   * @returns
+   */
+  static hexToStr(arr: Uint8Array): string {
+    return buffer.from(arr).toString('hex');
+  }
+
+
+  /**
    * 字符串转Base64字符串
    * @param src 字符串
    * @returns
@@ -247,8 +266,8 @@ export class StrUtil {
    * @returns
    */
   static base64ToStr(base64Str: string): string {
-    let uint8Array = Base64Util.decodeSync(base64Str)
-    let result = StrUtil.unit8ArrayToStr(uint8Array)
+    let uint8Array = Base64Util.decodeSync(base64Str);
+    let result = StrUtil.unit8ArrayToStr(uint8Array);
     return result;
   }
 
@@ -260,7 +279,7 @@ export class StrUtil {
    */
   static strToBuffer(src: string, encoding: buffer.BufferEncoding = 'utf-8'): ArrayBuffer {
     let buf = buffer.from(src, encoding);
-    return buf.buffer
+    return buf.buffer;
   }
 
   /**
@@ -281,7 +300,7 @@ export class StrUtil {
    * @returns
    */
   static bufferToUint8Array(src: ArrayBuffer): Uint8Array {
-    return new Uint8Array(src)
+    return new Uint8Array(src);
   }
 
   /**
