@@ -1,9 +1,10 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../entity/DescribeBean';
 import { MockSetup } from '../../../../oh_modules/@ohos/hamock';
-import { AES, CryptoHelper, CryptoUtil, LogUtil } from '@pura/harmony-utils';
+
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { AES, CryptoHelper, CryptoUtil, LogUtil } from '@pura/harmony-utils';
 
 
 /**
@@ -50,9 +51,11 @@ struct Index {
           Button("测试1")
             .btnStyle()
             .onClick(() => {
+
+
               let iv = CryptoUtil.generateIvParamsSpec();
-              let symKey = CryptoUtil.generateSymKeySync("AES256");
-              // let symKey = CryptoUtil.getConvertSymKeySync('AES128', '294A2561FEFDF08D', 'utf-8')
+              // let symKey = CryptoUtil.generateSymKeySync("AES256");
+              let symKey = CryptoUtil.getConvertSymKeySync('AES128', '294A2561FEFDF08D', 'utf-8')
 
               let data = CryptoHelper.strToDataBlob("AES加解密CBC模式！", 'utf-8'); //待加密数据
               let encryptData = AES.encryptCBCSync(data, symKey, iv)
