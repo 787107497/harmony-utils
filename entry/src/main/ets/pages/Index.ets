@@ -16,7 +16,6 @@ struct Index {
     this.data = Mock.getData();
   }
 
-
   async aboutToAppear(): Promise<void> {
     let jsonStr = FileUtil.getRawFileContentStrSync('data.json');
     let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
@@ -34,8 +33,14 @@ struct Index {
    * @param describe
    */
   startPage(describe: DescribeBean) {
+    let url = `pages/${describe.name}Page`;
+    if (describe.type == 1) {
+      url = `pages/utils/${describe.name}Page`;
+    } else if (describe.type == 2) {
+      url = `pages/crypto/${describe.name}Page`;
+    }
     router.pushUrl({
-      url: `pages/utils/${describe.name}Page`,
+      url: url,
       params: describe
     })
   }
@@ -56,7 +61,12 @@ struct Index {
         .margin({ top: 8 })
     }
     .alignItems(HorizontalAlign.Start)
-    .padding({ left: 18, top: 15, right: 18, bottom: 15 })
+    .padding({
+      left: 18,
+      top: 15,
+      right: 18,
+      bottom: 15
+    })
     .backgroundColor(Color.White)
     .border({
       width: 1,
@@ -65,7 +75,12 @@ struct Index {
       style: BorderStyle.Solid
     })
     .shadow(ShadowStyle.OUTER_DEFAULT_SM)
-    .margin({ left: 15, top: 10, right: 15, bottom: 10 })
+    .margin({
+      left: 15,
+      top: 10,
+      right: 15,
+      bottom: 10
+    })
     .onClick(() => {
       this.startPage(describe)
     })

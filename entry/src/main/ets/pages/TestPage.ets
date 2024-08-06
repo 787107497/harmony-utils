@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { DescribeBean } from '../../entity/DescribeBean';
-import { MockSetup } from '@ohos/hamock';
+import { DescribeBean } from '../entity/DescribeBean';
+import { MockSetup } from '../../../../oh_modules/@ohos/hamock';
 import { CryptoHelper, CryptoUtil, LogUtil, MD5, SHA, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hash } from '@kit.CoreFileKit';

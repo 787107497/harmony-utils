@@ -1,6 +1,6 @@
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
-import { CryptoHelper } from './CryptoHelper';
 import { crypto } from './crypto';
+import { CryptoHelper } from './CryptoHelper';
 
 /**
  * 加解密公用工具类
@@ -76,7 +76,7 @@ export class CryptoUtil {
 
   /**
    * 生成对称密钥SymKey，异步
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
    * @returns
    */
   static async generateSymKey(algName: string): Promise<cryptoFramework.SymKey> {
@@ -87,7 +87,7 @@ export class CryptoUtil {
 
   /**
    * 生成对称密钥SymKey，同步
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
    * @returns
    */
   static generateSymKeySync(algName: string): cryptoFramework.SymKey {
@@ -100,7 +100,7 @@ export class CryptoUtil {
   /**
    * 获取转换的对称密钥SymKey，异步
    * @param key 字符串key
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
@@ -114,7 +114,7 @@ export class CryptoUtil {
   /**
    * 获取转换的对称密钥SymKey，同步
    * @param key 字符串key
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
@@ -477,7 +477,7 @@ export class CryptoUtil {
    * @param len 自定义的数据拆分长度
    * @returns
    */
-  static async digestSegment(data: string, algName: string, resultCoding: crypto.BhCoding = 'hex', len: number = 120): Promise<string> {
+  static async digestSegment(data: string, algName: string, resultCoding: crypto.BhCoding = 'hex', len: number = 128): Promise<string> {
     let md = cryptoFramework.createMd(algName);
     let messageData = CryptoHelper.strToUint8Array(data, 'utf-8');
     for (let i = 0; i < messageData.length; i += len) {
@@ -498,7 +498,7 @@ export class CryptoUtil {
    * @param len 自定义的数据拆分长度
    * @returns
    */
-  static digestSegmentSync(data: string, algName: string, resultCoding: crypto.BhCoding = 'hex', len: number = 120): string {
+  static digestSegmentSync(data: string, algName: string, resultCoding: crypto.BhCoding = 'hex', len: number = 128): string {
     let md = cryptoFramework.createMd(algName);
     let messageData = CryptoHelper.strToUint8Array(data, 'utf-8');
     for (let i = 0; i < messageData.length; i += len) {
@@ -564,7 +564,7 @@ export class CryptoUtil {
    * @param len 自定义的数据拆分长度
    */
   static async hmacSegment(data: string, algName: string, symKey: cryptoFramework.SymKey | string = 'AES256',
-    resultCoding: crypto.BhCoding = 'hex', len: number = 120): Promise<string> {
+    resultCoding: crypto.BhCoding = 'hex', len: number = 128): Promise<string> {
     if (typeof symKey === 'string') {
       symKey = await CryptoUtil.generateSymKey(symKey); //生成对称密钥
     }
@@ -590,7 +590,7 @@ export class CryptoUtil {
    * @param len 自定义的数据拆分长度
    */
   static hmacSegmentSync(data: string, algName: string, symKey: cryptoFramework.SymKey | string = 'AES256',
-    resultCoding: crypto.BhCoding = 'hex', len: number = 120): string {
+    resultCoding: crypto.BhCoding = 'hex', len: number = 128): string {
     if (typeof symKey === 'string') {
       symKey = CryptoUtil.generateSymKeySync(symKey); //生成对称密钥
     }

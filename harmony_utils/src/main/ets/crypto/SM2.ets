@@ -107,13 +107,14 @@ export class SM2 {
 
 
   /**
-   * 转换SM2公钥, 将服务器端生成的16进制的长度为130位的04开头的C1C2C3格式的SM2公钥转换为鸿蒙所需的ASN.1格式公钥字符串
-   * @param pubKey  04开头的16进制的130位的公钥字符串
+   * 获取转换SM2公钥, 将服务器端生成的16进制的C1C2C3格式的SM2公钥转换为鸿蒙所需的ASN.1格式公钥字符串
+   * @param pubKey 16进制的公钥字符串
    * @returns 转换后的公钥字符串
    */
-  static async getECCPubKey(strPubKey: string): Promise<cryptoFramework.PubKey> {
-    let px = strPubKey.substring(2, 66); //截取x参数
-    let py = strPubKey.substring(66); //截取y参数
+  static async getSM2PubKey(strPubKey: string): Promise<cryptoFramework.PubKey> {
+    strPubKey = strPubKey.startsWith("04") ? strPubKey.slice(2) : strPubKey;
+    let px = strPubKey.substring(2, strPubKey.length / 2); //截取x参数
+    let py = strPubKey.substring(strPubKey.length / 2); //截取y参数
     //转16进制放入对应的位置 04+x+y
     let pk: cryptoFramework.Point = {
       x: BigInt("0x" + px),
@@ -123,7 +124,7 @@ export class SM2 {
     let keyPair: cryptoFramework.ECCPubKeySpec = {
       params: cryptoFramework.ECCKeyUtil.genECCCommonParamsSpec('NID_sm2'),
       pk: pk,
-      algName: 'ECC',
+      algName: 'SM2',
       specType: cryptoFramework.AsyKeySpecType.PUBLIC_KEY_SPEC
     }
     //创建密钥生成器
@@ -135,11 +136,11 @@ export class SM2 {
 
 
   /**
-   * 转换SM2私钥
+   * 获取转换SM2私钥
    * @param key 传入的密钥数据，未序列化的原始裸数据
    * @returns
    */
-  static async getECCPriKey(key: string) {
+  static async getSM2PriKey(key: string) {
     let mode: number = 2;
     let sk: bigint = BigInt("");
     if ((mode & 0x02) != 0) {
@@ -148,7 +149,7 @@ export class SM2 {
     let priKey: cryptoFramework.ECCPriKeySpec = {
       params: cryptoFramework.ECCKeyUtil.genECCCommonParamsSpec('NID_sm2'),
       sk: sk,
-      algName: "ECC",
+      algName: "SM2",
       specType: cryptoFramework.AsyKeySpecType.PRIVATE_KEY_SPEC
     }
     let KeyPairGenerator = cryptoFramework.createAsyKeyGeneratorBySpec(priKey);

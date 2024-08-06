@@ -226,6 +226,118 @@ export class SM4 {
 
 
   /**
+   * 加密（GCM模式）分段，异步
+   * @param dataBlob 加密或者解密的数据。dataBlob不能为null。
+   * @param key 指定加密或解密的密钥。
+   * @param gcmParams 指定加密或解密的参数，对于ECB等没有参数的算法模式，可以传入null。API 10之前只支持ParamsSpec， API 10之后增加支持null。
+   * @param len 自定义的数据拆分长度。
+   * @returns
+   */
+  static async encryptGCMSegment(dataBlob: cryptoFramework.DataBlob, key: cryptoFramework.Key,
+    gcmParams: cryptoFramework.GcmParamsSpec, len: number = 128): Promise<cryptoFramework.DataBlob> {
+    let cipher = cryptoFramework.createCipher('SM4_128|GCM|PKCS7');
+    await cipher.init(cryptoFramework.CryptoMode.ENCRYPT_MODE, key, gcmParams);
+    let encryptData = new Uint8Array();
+    for (let i = 0; i < dataBlob.data.length; i += len) {
+      let updateData = dataBlob.data.subarray(i, i + len);
+      let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
+      let updateOutput = await cipher.update(updateDataBlob); //分段update
+      let mergeTData = new Uint8Array(encryptData.length + updateOutput.data.length);
+      mergeTData.set(encryptData);
+      mergeTData.set(updateOutput.data, encryptData.length);
+      encryptData = mergeTData;
+    }
+    gcmParams.authTag = await cipher.doFinal(null);
+    let encryptBlob: cryptoFramework.DataBlob = { data: encryptData };
+    return encryptBlob;
+  }
+
+  /**
+   * 加密（GCM模式）分段，同步
+   * @param dataBlob 加密或者解密的数据。dataBlob不能为null。
+   * @param key 指定加密或解密的密钥。
+   * @param gcmParams 指定加密或解密的参数，对于ECB等没有参数的算法模式，可以传入null。API 10之前只支持ParamsSpec， API 10之后增加支持null。
+   * @param len 自定义的数据拆分长度。
+   * @returns
+   */
+  static encryptGCMSegmentSync(dataBlob: cryptoFramework.DataBlob, key: cryptoFramework.Key,
+    gcmParams: cryptoFramework.GcmParamsSpec, len: number = 128): cryptoFramework.DataBlob {
+    let cipher = cryptoFramework.createCipher('SM4_128|GCM|PKCS7');
+    cipher.initSync(cryptoFramework.CryptoMode.ENCRYPT_MODE, key, gcmParams);
+    let encryptData = new Uint8Array();
+    for (let i = 0; i < dataBlob.data.length; i += len) {
+      let updateData = dataBlob.data.subarray(i, i + len);
+      let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
+      let updateOutput = cipher.updateSync(updateDataBlob); //分段update
+      let mergeTData = new Uint8Array(encryptData.length + updateOutput.data.length);
+      mergeTData.set(encryptData);
+      mergeTData.set(updateOutput.data, encryptData.length);
+      encryptData = mergeTData;
+    }
+    gcmParams.authTag = cipher.doFinalSync(null);
+    let encryptBlob: cryptoFramework.DataBlob = { data: encryptData };
+    return encryptBlob;
+  }
+
+
+  /**
+   * 解密（GCM模式）,异步
+   * @param data 加密或者解密的数据。data不能为null。
+   * @param symKey 指定加密或解密的密钥。
+   * @param gcmParams 指定加密或解密的参数，对于ECB等没有参数的算法模式，可以传入null。API 10之前只支持ParamsSpec， API 10之后增加支持null。
+   * @param len 自定义的数据拆分长度。
+   * @returns
+   */
+  static async decryptGCMSegment(dataBlob: cryptoFramework.DataBlob, symKey: cryptoFramework.SymKey,
+    gcmParams: cryptoFramework.GcmParamsSpec, len: number = 128): Promise<cryptoFramework.DataBlob> {
+    let decoder = cryptoFramework.createCipher('SM4_128|GCM|PKCS7');
+    await decoder.init(cryptoFramework.CryptoMode.DECRYPT_MODE, symKey, gcmParams);
+    let decryptData = new Uint8Array();
+    for (let i = 0; i < dataBlob.data.length; i += len) {
+      let updateData = dataBlob.data.subarray(i, i + len);
+      let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
+      let updateOutput = await decoder.update(updateDataBlob); //分段update
+      //把update的结果拼接起来，得到明文
+      let mergeTData = new Uint8Array(decryptData.length + updateOutput.data.length);
+      mergeTData.set(decryptData);
+      mergeTData.set(updateOutput.data, decryptData.length);
+      decryptData = mergeTData;
+    }
+    await decoder.doFinal(null);
+    let decryptBlob: cryptoFramework.DataBlob = { data: decryptData };
+    return decryptBlob;
+  }
+
+  /**
+   * 解密（GCM模式）,异步
+   * @param data 加密或者解密的数据。data不能为null。
+   * @param symKey 指定加密或解密的密钥。
+   * @param gcmParams 指定加密或解密的参数，对于ECB等没有参数的算法模式，可以传入null。API 10之前只支持ParamsSpec， API 10之后增加支持null。
+   * @param len 自定义的数据拆分长度。
+   * @returns
+   */
+  static decryptGCMSegmentSync(dataBlob: cryptoFramework.DataBlob, symKey: cryptoFramework.SymKey,
+    gcmParams: cryptoFramework.GcmParamsSpec, len: number = 128): cryptoFramework.DataBlob {
+    let decoder = cryptoFramework.createCipher('SM4_128|GCM|PKCS7');
+    decoder.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, symKey, gcmParams);
+    let decryptData = new Uint8Array();
+    for (let i = 0; i < dataBlob.data.length; i += len) {
+      let updateData = dataBlob.data.subarray(i, i + len);
+      let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
+      let updateOutput = decoder.updateSync(updateDataBlob); //分段update
+      //把update的结果拼接起来，得到明文
+      let mergeTData = new Uint8Array(decryptData.length + updateOutput.data.length);
+      mergeTData.set(decryptData);
+      mergeTData.set(updateOutput.data, decryptData.length);
+      decryptData = mergeTData;
+    }
+    decoder.doFinalSync(null);
+    let decryptBlob: cryptoFramework.DataBlob = { data: decryptData };
+    return decryptBlob;
+  }
+
+
+  /**
    * 生成对称密钥SymKey，异步
    * @param symAlgName 待生成对称密钥生成器的算法名称（SM4_128）
    * @returns
