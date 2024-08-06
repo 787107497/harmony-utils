@@ -183,6 +183,17 @@ export class CryptoUtil {
 
 
   /**
+   * 生成IvParamsSpec
+   * @returns
+   */
+  static generateIvParamsSpec() {
+    let dataIv = CryptoHelper.getRandomUint8Array(16);
+    let ivBlob: cryptoFramework.DataBlob = { data: dataIv };
+    let ivParamsSpec: cryptoFramework.IvParamsSpec = { algName: "IvParamsSpec", iv: ivBlob };
+    return ivParamsSpec;
+  }
+
+  /**
    * 获取生成IvParamsSpec
    * @param ivStr 字符串iv
    * @param ivCoding 编码方式(base64/hex/utf8/utf-8)

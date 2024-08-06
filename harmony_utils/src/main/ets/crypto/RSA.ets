@@ -159,6 +159,33 @@ export class RSA{
   }
 
   /**
+   * 加密,分段,同步
+   * @param data 加密或者解密的数据。data不能为null。
+   * @param pubKey 指定加密公钥。
+   * @param transformation 待生成Cipher的算法名称（含密钥长度）、加密模式以及填充方法的组合（RSA1024|PKCS1、RSA2048|PKCS1、等）。
+   * @param len 自定义的数据拆分长度。
+   * @returns
+   */
+  static encryptSegmentSync(dataBlob: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey,
+    transformation: string, len: number = 128): cryptoFramework.DataBlob {
+    let cipher = cryptoFramework.createCipher(transformation);
+    cipher.initSync(cryptoFramework.CryptoMode.ENCRYPT_MODE, pubKey, null);
+    let encryptData = new Uint8Array();
+    for (let i = 0; i < dataBlob.data.length; i += len) {
+      let updateData = dataBlob.data.subarray(i, i + len);
+      let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
+      let updateOutput = cipher.doFinalSync(updateDataBlob); //循环调用doFinal进行加密
+      let mergeData = new Uint8Array(encryptData.length + updateOutput.data.length);
+      mergeData.set(encryptData);
+      mergeData.set(updateOutput.data, encryptData.length);
+      encryptData = mergeData;
+    }
+    let cipherBlob: cryptoFramework.DataBlob = { data: encryptData };
+    return cipherBlob;
+  }
+
+
+  /**
    * 解密,分段,异步
    * @param data 加密或者解密的数据。data不能为null。
    * @param priKey 指定解密私钥。
@@ -174,6 +201,31 @@ export class RSA{
       let updateData = dataBlob.data.subarray(i, i + len);
       let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
       let updateOutput = await cipher.doFinal(updateDataBlob);
+      let mergeData = new Uint8Array(decryptData.length + updateOutput.data.length);
+      mergeData.set(decryptData);
+      mergeData.set(updateOutput.data, decryptData.length);
+      decryptData = mergeData;
+    }
+    let decryptBlob: cryptoFramework.DataBlob = { data: decryptData };
+    return decryptBlob;
+  }
+
+  /**
+   * 解密,分段,同步
+   * @param data 加密或者解密的数据。data不能为null。
+   * @param priKey 指定解密私钥。
+   * @param transformation 待生成Cipher的算法名称（含密钥长度）、加密模式以及填充方法的组合（RSA1024|PKCS1、RSA2048|PKCS1、等）。
+   * @param len 自定义的数据拆分长度。
+   */
+  static decryptSegmentSync(dataBlob: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey,
+    transformation: string, len: number = 128): cryptoFramework.DataBlob {
+    let cipher = cryptoFramework.createCipher(transformation);
+    cipher.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, priKey, null);
+    let decryptData = new Uint8Array();
+    for (let i = 0; i < dataBlob.data.length; i += len) {
+      let updateData = dataBlob.data.subarray(i, i + len);
+      let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
+      let updateOutput = cipher.doFinalSync(updateDataBlob);
       let mergeData = new Uint8Array(decryptData.length + updateOutput.data.length);
       mergeData.set(decryptData);
       mergeData.set(updateOutput.data, decryptData.length);

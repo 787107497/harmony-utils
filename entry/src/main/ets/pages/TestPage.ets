@@ -1,9 +1,10 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../entity/DescribeBean';
 import { MockSetup } from '../../../../oh_modules/@ohos/hamock';
-import { CryptoHelper, CryptoUtil, LogUtil, MD5, SHA, StrUtil, ToastUtil } from '@pura/harmony-utils';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { hash } from '@kit.CoreFileKit';
+import { AES, CryptoHelper, CryptoUtil, LogUtil } from '@pura/harmony-utils';
+import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { buffer } from '@kit.ArkTS';
+
 
 /**
  * 测试页面
@@ -23,6 +24,20 @@ struct Index {
 
   }
 
+  genKeyMaterialBlob(): cryptoFramework.DataBlob {
+    let arr = [
+      0xba, 0x3d, 0xc2, 0x71, 0x21, 0x1e, 0x30, 0x56,
+      0xad, 0x47, 0xfc, 0x5a, 0x46, 0x39, 0xee, 0x7c,
+      0xba, 0x3b, 0xc2, 0x71, 0xab, 0xa0, 0x30, 0x72]; // 密钥长度为192位，即24字节。
+    let keyMaterial = new Uint8Array(arr);
+    return { data: keyMaterial };
+  }
+
+  // 字符串转成字节流
+  stringToUint8Array(str: string) {
+    return new Uint8Array(buffer.from(str, 'utf-8').buffer);
+  }
+
   build() {
     Column() {
       ComposeTitleBar({
@@ -35,57 +50,25 @@ struct Index {
           Button("测试1")
             .btnStyle()
             .onClick(() => {
-              let dataStr = "123456-哈哈！";
+              let iv = CryptoUtil.generateIvParamsSpec();
+              let symKey = CryptoUtil.generateSymKeySync("AES256");
+              // let symKey = CryptoUtil.getConvertSymKeySync('AES128', '294A2561FEFDF08D', 'utf-8')
 
-              let str1 = MD5.digestSync(dataStr);
-              LogUtil.error("str1: " + str1);
+              let data = CryptoHelper.strToDataBlob("AES加解密CBC模式！", 'utf-8'); //待加密数据
+              let encryptData = AES.encryptCBCSync(data, symKey, iv)
+              LogUtil.error("encryptStr: " + CryptoHelper.dataBlobToStr(encryptData, "hex"))
 
-              let str2 = MD5.digestSync(dataStr,'base64');
-              LogUtil.error("str2: " + str2);
+              let decryptData = AES.decryptCBCSync(encryptData, symKey, iv);
+              let decryptStr = CryptoHelper.dataBlobToStr(decryptData, "hex")
+              LogUtil.error("decryptStr: " + decryptStr);
+              LogUtil.error("解密后的数据： " + CryptoHelper.uint8ArrayToString1(decryptData.data))
 
-              let str3 = StrUtil.strToBase64(dataStr);
-              LogUtil.error("str3: " + str3);
-
-              let str4 = SHA.digestSync(dataStr, 'SHA1');
-              LogUtil.error("str4: " + str4);
-
-              let str5 = SHA.digestSync(dataStr, 'SHA256');
-              LogUtil.error("str5: " + str5);
-
-              let str6 = SHA.digestSync(dataStr, 'SHA512');
-              LogUtil.error("str6: " + str6);
-
-              let symKey = CryptoUtil.generateSymKeySync("SM4_128");
-              let data = symKey.getEncoded().data;
-              LogUtil.error("symKey1: "+data);
-              LogUtil.error("symKey21: "+CryptoHelper.uint8ArrayToStr(data,'hex'))
-              LogUtil.error("symKey22: "+CryptoHelper.uint8ArrayToStr(data,'base64'))
-              LogUtil.error("symKey23: "+CryptoHelper.uint8ArrayToStr(data,'utf-8'))
 
             })
           Button("测试2")
             .btnStyle()
             .onClick(() => {
-              let dataStr1 = "123456-哈哈！";
-              let dataStr2 = 'MTIz';
-              let dataStr3 = "MTIzNDU2LeWTiOWTiO+8gQ==";
 
-              let arr1 = CryptoHelper.strToUint8Array(dataStr1, 'utf-8');
-              let str1 = CryptoHelper.uint8ArrayToStr(arr1, 'utf-8');
-              LogUtil.error("str1: " + str1);
-
-              let arr2 = CryptoHelper.strToUint8Array(dataStr2, 'base64');
-              let str2= CryptoHelper.uint8ArrayToStr(arr2, 'base64');
-              LogUtil.error("str2: " + str2);
-
-              let arr3 = CryptoHelper.strToUint8Array(dataStr3, 'base64');
-              let str3 = CryptoHelper.uint8ArrayToStr(arr3, 'base64');
-              LogUtil.error("str3: " + str3);
-
-              let arr4 = CryptoHelper.strToUint8Array(dataStr3,"utf-8");
-              LogUtil.error("arr4: " + arr4);
-              let str4 = CryptoHelper.uint8ArrayToStr(arr4,'utf-8');
-              LogUtil.error("str4: " + str4);
 
             })
           Button("测试3")
