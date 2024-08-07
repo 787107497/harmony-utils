@@ -57,28 +57,7 @@ export class CryptoHelper {
   }
 
 
-  /**
-   * Uint8Array补零操作
-   * @param size
-   * @returns
-   */
-  static getUint8ArrayPaddingZero(uint8Array: Uint8Array, size: number = 0): Uint8Array {
-    if (size > 0 && uint8Array.length < size) {
-      LogUtil.error("uint8Array-补零前: " + uint8Array);
-      let diff = size - uint8Array.length;
-      let randArray = new Array<number>();
-      for (let i = 0; i < diff; i++) {
-        randArray.push(0);
-      }
-      let diffUint8Array = new Uint8Array(diff);
-      let mergeData = new Uint8Array(size);
-      mergeData.set(uint8Array);
-      mergeData.set(diffUint8Array, uint8Array.length);
-      LogUtil.error("uint8Array-补零后: " + uint8Array);
-      return mergeData;
-    }
-    return uint8Array;
-  }
+
 
 
 
@@ -153,6 +132,29 @@ export class CryptoHelper {
   }
 
 
+  /**
+   * Uint8Array补零操作
+   * @param len 密钥规格长度
+   * @returns
+   */
+  static getUint8ArrayPaddingZero(uint8Array: Uint8Array, len: number = 0): Uint8Array {
+    if (len > 0 && uint8Array.length < len) {
+      LogUtil.error("uint8Array-补零前: " + uint8Array);
+      let diff = len - uint8Array.length;
+      let randArray = new Array<number>();
+      for (let i = 0; i < diff; i++) {
+        randArray.push(0);
+      }
+      let diffUint8Array = new Uint8Array(diff);
+      let mergeData = new Uint8Array(len);
+      mergeData.set(uint8Array);
+      mergeData.set(diffUint8Array, uint8Array.length);
+      LogUtil.error("uint8Array-补零后: " + mergeData);
+      return mergeData;
+    }
+    return uint8Array;
+  }
+
 
   /**
    * 补零操作
@@ -172,7 +174,7 @@ export class CryptoHelper {
   }
 
 
-  static  stringToHex(str: string) {
+  static stringToHex(str: string) {
     let hex = '';
     for (let i = 0; i < str.length; i++) {
       let hexCharCode = str.charCodeAt(i).toString(16);

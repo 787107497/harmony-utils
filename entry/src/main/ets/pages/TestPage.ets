@@ -51,19 +51,22 @@ struct Index {
           Button("测试1")
             .btnStyle()
             .onClick(() => {
-
-              let iv = CryptoUtil.generateIvParamsSpec();
-              // let symKey = CryptoUtil.generateSymKeySync("AES256"); //294A2561FEFDF08D
+              let ivData = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+              let ivBlob: cryptoFramework.DataBlob = { data: ivData };
+              let iv: cryptoFramework.IvParamsSpec = { algName: "IvParamsSpec", iv: ivBlob };
               let symKey = CryptoUtil.getConvertSymKeySync('AES256', 'test', 'utf-8')
 
               let data = CryptoHelper.strToDataBlob("AES加解密CBC模式！", 'utf-8'); //待加密数据
-              let encryptData = AES.encryptCBCSync(data, symKey, iv)
-              LogUtil.error("encryptStr: " + CryptoHelper.dataBlobToStr(encryptData, "hex"))
+              let encryptData = AES.encryptCBCSync(data, symKey, iv);
+              let base64Str = CryptoHelper.dataBlobToStr(encryptData, "base64");
+              LogUtil.error("encryptStr: " + base64Str);
 
-              let decryptData = AES.decryptCBCSync(encryptData, symKey, iv);
-              let decryptStr = CryptoHelper.dataBlobToStr(decryptData, "hex")
+              // base64Str="78rm+0TUAVtgMDnQTbIp840gSWT5YtI73sCag2Jc="
+              let dataBlob = CryptoHelper.strToDataBlob(base64Str, 'base64')
+              let decryptData = AES.decryptCBCSync(dataBlob, symKey, iv);
+              let decryptStr = CryptoHelper.dataBlobToStr(decryptData, "base64")
               LogUtil.error("decryptStr: " + decryptStr);
-              LogUtil.error("解密后的数据： " + CryptoHelper.uint8ArrayToString1(decryptData.data));
+              LogUtil.error("解码后的字符串: " + StrUtil.base64ToStr(decryptStr));
 
 
             })
