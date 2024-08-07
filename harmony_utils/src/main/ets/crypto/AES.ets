@@ -319,10 +319,10 @@ export class AES {
       let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
       let updateOutput = await decoder.update(updateDataBlob); //分段update
       //把update的结果拼接起来，得到明文
-      let mergeTData = new Uint8Array(decryptData.length + updateOutput.data.length);
-      mergeTData.set(decryptData);
-      mergeTData.set(updateOutput.data, decryptData.length);
-      decryptData = mergeTData;
+      let mergeData = new Uint8Array(decryptData.length + updateOutput.data.length);
+      mergeData.set(decryptData);
+      mergeData.set(updateOutput.data, decryptData.length);
+      decryptData = mergeData;
     }
     await decoder.doFinal(null);
     let decryptBlob: cryptoFramework.DataBlob = { data: decryptData };

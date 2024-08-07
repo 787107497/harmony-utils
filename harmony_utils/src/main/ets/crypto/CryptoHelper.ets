@@ -3,6 +3,7 @@ import { StrUtil } from '../utils/StrUtil';
 import { crypto } from './crypto';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { LogUtil } from '../utils/LogUtil';
 
 
 /**
@@ -39,15 +40,45 @@ export class CryptoHelper {
    * @param coding 编码方式(base64/hex/utf8/utf-8)。
    * @returns
    */
-  static strToUint8Array(str: string, coding: crypto.BhuCoding): Uint8Array {
+  static strToUint8Array(str: string, coding: crypto.BhuCoding, len: number = 0): Uint8Array {
     if (coding === 'base64') { //base64
       return Base64Util.decodeSync(str);
     } else if (coding === 'hex') { //hex-16进制类型
       return StrUtil.strToHex(str);
     } else {
-      return new Uint8Array(buffer.from(str,coding).buffer);
+      let uint8Array = new Uint8Array(buffer.from(str, coding).buffer);
+      if (uint8Array.length < len) { //密钥长度规格，后续优化
+        LogUtil.error("uint8Array-补零前: " + uint8Array)
+        uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
+        LogUtil.error("uint8Array-补零后: " + uint8Array)
+      }
+      return uint8Array;
     }
   }
+
+
+  /**
+   * Uint8Array补零操作
+   * @param size
+   * @returns
+   */
+  static getUint8ArrayPaddingZero(uint8Array: Uint8Array, size: number = 0): Uint8Array {
+    if (size > 0 && uint8Array.length < size) {
+      let diff = size - uint8Array.length;
+      let randArray = new Array<number>();
+      for (let i = 0; i < diff; i++) {
+        randArray.push(0);
+      }
+      let diffUint8Array = new Uint8Array(diff);
+      let mergeData = new Uint8Array(size);
+      mergeData.set(uint8Array);
+      mergeData.set(diffUint8Array, uint8Array.length);
+      return mergeData;
+    }
+    return uint8Array;
+  }
+
+
 
   /**
    * Uint8Array转字符串
@@ -118,6 +149,7 @@ export class CryptoHelper {
     }
     return new Uint8Array(randArray);
   }
+
 
 
   /**

@@ -119,7 +119,7 @@ export class CryptoUtil {
    * @returns
    */
   static getConvertSymKeySync(algName: string, key: string, keyCoding: crypto.BhuCoding): cryptoFramework.SymKey {
-    let symKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(key, keyCoding) };
+    let symKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(key, keyCoding, 32) };
     let aesGenerator = cryptoFramework.createSymKeyGenerator(algName);
     let symKey = aesGenerator.convertKeySync(symKeyBlob);
     return symKey;

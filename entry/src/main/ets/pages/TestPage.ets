@@ -4,7 +4,7 @@ import { MockSetup } from '../../../../oh_modules/@ohos/hamock';
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
-import { AES, CryptoHelper, CryptoUtil, LogUtil } from '@pura/harmony-utils';
+import { AES, CryptoHelper, CryptoUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
 
 
 /**
@@ -52,10 +52,9 @@ struct Index {
             .btnStyle()
             .onClick(() => {
 
-
               let iv = CryptoUtil.generateIvParamsSpec();
-              // let symKey = CryptoUtil.generateSymKeySync("AES256");
-              let symKey = CryptoUtil.getConvertSymKeySync('AES128', '294A2561FEFDF08D', 'utf-8')
+              // let symKey = CryptoUtil.generateSymKeySync("AES256"); //294A2561FEFDF08D
+              let symKey = CryptoUtil.getConvertSymKeySync('AES256', 'test', 'utf-8')
 
               let data = CryptoHelper.strToDataBlob("AES加解密CBC模式！", 'utf-8'); //待加密数据
               let encryptData = AES.encryptCBCSync(data, symKey, iv)
@@ -64,7 +63,7 @@ struct Index {
               let decryptData = AES.decryptCBCSync(encryptData, symKey, iv);
               let decryptStr = CryptoHelper.dataBlobToStr(decryptData, "hex")
               LogUtil.error("decryptStr: " + decryptStr);
-              LogUtil.error("解密后的数据： " + CryptoHelper.uint8ArrayToString1(decryptData.data))
+              LogUtil.error("解密后的数据： " + CryptoHelper.uint8ArrayToString1(decryptData.data));
 
 
             })
