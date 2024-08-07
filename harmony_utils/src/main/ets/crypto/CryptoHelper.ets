@@ -42,16 +42,16 @@ export class CryptoHelper {
    */
   static strToUint8Array(str: string, coding: crypto.BhuCoding, len: number = 0): Uint8Array {
     if (coding === 'base64') { //base64
-      return Base64Util.decodeSync(str);
+      let uint8Array = Base64Util.decodeSync(str);
+      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
+      return uint8Array;
     } else if (coding === 'hex') { //hex-16进制类型
-      return StrUtil.strToHex(str);
+      let uint8Array = StrUtil.strToHex(str);
+      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
+      return uint8Array;
     } else {
       let uint8Array = new Uint8Array(buffer.from(str, coding).buffer);
-      if (uint8Array.length < len) { //密钥长度规格，后续优化
-        LogUtil.error("uint8Array-补零前: " + uint8Array)
-        uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
-        LogUtil.error("uint8Array-补零后: " + uint8Array)
-      }
+      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
       return uint8Array;
     }
   }
@@ -64,6 +64,7 @@ export class CryptoHelper {
    */
   static getUint8ArrayPaddingZero(uint8Array: Uint8Array, size: number = 0): Uint8Array {
     if (size > 0 && uint8Array.length < size) {
+      LogUtil.error("uint8Array-补零前: " + uint8Array);
       let diff = size - uint8Array.length;
       let randArray = new Array<number>();
       for (let i = 0; i < diff; i++) {
@@ -73,6 +74,7 @@ export class CryptoHelper {
       let mergeData = new Uint8Array(size);
       mergeData.set(uint8Array);
       mergeData.set(diffUint8Array, uint8Array.length);
+      LogUtil.error("uint8Array-补零后: " + uint8Array);
       return mergeData;
     }
     return uint8Array;
