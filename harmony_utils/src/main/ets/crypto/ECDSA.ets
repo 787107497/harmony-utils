@@ -5,6 +5,13 @@ import { crypto } from './crypto';
 
 /**
  * ECDSA密钥对签名验签
+ * author: 桃花镇童长老ᥫ᭡
+ * since: 2024/07/01
+ * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
+ * github: https://github.com/787107497
+ * gitee: https://gitee.com/tongyuyan/harmony-utils
+ * CSDN: https://blog.csdn.net/qq_32922545
+ * QQ交流群: 569512366
  */
 export class ECDSA{
 
@@ -32,8 +39,8 @@ export class ECDSA{
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
-  static async genConvertKeyPair(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.KeyPair> {
-    return CryptoUtil.genConvertKeyPair('ECC256', pubKey, priKey, keyCoding);
+  static async getConvertKeyPair(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.KeyPair> {
+    return CryptoUtil.getConvertKeyPair('ECC256', pubKey, priKey, keyCoding);
   }
 
   /**
@@ -43,8 +50,8 @@ export class ECDSA{
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
-  static genConvertKeyPairSync(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): cryptoFramework.KeyPair {
-    return CryptoUtil.genConvertKeyPairSync('ECC256', pubKey, priKey, keyCoding);
+  static getConvertKeyPairSync(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): cryptoFramework.KeyPair {
+    return CryptoUtil.getConvertKeyPairSync('ECC256', pubKey, priKey, keyCoding);
   }
 
 

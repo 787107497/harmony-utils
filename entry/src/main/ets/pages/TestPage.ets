@@ -4,7 +4,7 @@ import { MockSetup } from '../../../../oh_modules/@ohos/hamock';
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
-import { AES, CryptoHelper, CryptoUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
+import { AES, CryptoHelper, CryptoUtil, LogUtil, SHA, StrUtil } from '@pura/harmony-utils';
 
 
 /**
@@ -54,14 +54,14 @@ struct Index {
               let ivData = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
               let ivBlob: cryptoFramework.DataBlob = { data: ivData };
               let iv: cryptoFramework.IvParamsSpec = { algName: "IvParamsSpec", iv: ivBlob };
-              let symKey = CryptoUtil.getConvertSymKeySync('AES256', 'test', 'utf-8')
+              let symKey = CryptoUtil.getConvertSymKeySync('AES256', SHA.digestSync('test',"SHA256",'hex') , 'hex')
 
               let data = CryptoHelper.strToDataBlob("AES加解密CBC模式！", 'utf-8'); //待加密数据
               let encryptData = AES.encryptCBCSync(data, symKey, iv);
               let base64Str = CryptoHelper.dataBlobToStr(encryptData, "base64");
               LogUtil.error("encryptStr: " + base64Str);
 
-              // base64Str="78rm+0TUAVtgMDnQTbIp840gSWT5YtI73sCag2Jc="
+              // let base64Str = "78rm+0TUAVtgMDnQTbIp840gSWT5YtI73sCag2Jc=";
               let dataBlob = CryptoHelper.strToDataBlob(base64Str, 'base64')
               let decryptData = AES.decryptCBCSync(dataBlob, symKey, iv);
               let decryptStr = CryptoHelper.dataBlobToStr(decryptData, "base64")

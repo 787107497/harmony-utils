@@ -2,8 +2,16 @@ import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { crypto } from './crypto';
 import { CryptoHelper } from './CryptoHelper';
 
+
 /**
  * 加解密公用工具类
+ * author: 桃花镇童长老ᥫ᭡
+ * since: 2024/07/01
+ * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
+ * github: https://github.com/787107497
+ * gitee: https://gitee.com/tongyuyan/harmony-utils
+ * CSDN: https://blog.csdn.net/qq_32922545
+ * QQ交流群: 569512366
  */
 export class CryptoUtil {
 
@@ -157,7 +165,7 @@ export class CryptoUtil {
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
-  static async genConvertKeyPair(algName: string, pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.KeyPair> {
+  static async getConvertKeyPair(algName: string, pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.KeyPair> {
     let pubKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(pubKey, keyCoding) };
     let priKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(priKey, keyCoding) };
     let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator(algName); //非对称密钥生成器的对象。
@@ -173,16 +181,44 @@ export class CryptoUtil {
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
-  static genConvertKeyPairSync(algName: string, pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): cryptoFramework.KeyPair {
-    let pubKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(pubKey, keyCoding) };
-    let priKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(priKey, keyCoding) };
+  static getConvertKeyPairSync(algName: string, pubKey: string | Uint8Array | null, priKey: string | Uint8Array | null,
+    keyCoding: crypto.BhuCoding): cryptoFramework.KeyPair {
     let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator(algName); //非对称密钥生成器的对象。
+    let pubKeyBlob: cryptoFramework.DataBlob | null = null;
+    let priKeyBlob: cryptoFramework.DataBlob | null = null;
+    if (pubKey != null) { //公钥
+      if (typeof pubKey === 'string') {
+        pubKeyBlob = { data: CryptoHelper.strToUint8Array(pubKey, keyCoding) };
+      } else {
+        pubKeyBlob = { data: pubKey };
+      }
+    }
+    if (priKey != null) { //私钥
+      if (typeof priKey === 'string') {
+        priKeyBlob = { data: CryptoHelper.strToUint8Array(priKey, keyCoding) };
+      } else {
+        priKeyBlob = { data: priKey };
+      }
+    }
     let keyPair = asyKeyGenerator.convertKeySync(pubKeyBlob, priKeyBlob); //获取该非对称密钥生成器随机生成的密钥
     return keyPair;
   }
 
 
-
+  /**
+   * 获取指定数据生成非对称密钥。
+   * @param algName
+   * @param pubKey 指定的公钥材料。如果公钥不需要转换，可直接传入null。
+   * @param priKey 指定的私钥材料。如果私钥不需要转换，可直接传入null。注：公钥和私钥材料不能同时为null。
+   * @returns
+   */
+  static async getPemKeyPair(algName: string, pubKey: string, priKey: string): Promise<cryptoFramework.KeyPair>  {
+    let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator(algName);
+    let keyPair = await asyKeyGenerator.convertPemKey(pubKey, priKey);
+    // let pubStr = keyPair.pubKey.getEncodedPem('X509');
+    // let priStr = keyPair.priKey.getEncodedPem('PKCS8');
+    return keyPair;
+  }
 
 
 

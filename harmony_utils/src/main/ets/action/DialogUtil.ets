@@ -1,4 +1,3 @@
-
 const DIALOG_TITLE: string = '温馨提示'; //标题
 const DIALOG_CONFIRM: string = '确定'; //确定文字
 const DIALOG_CANCEL: string = '取消'; //取消文字
@@ -6,8 +5,14 @@ const DIALOG_BUTTON_COLOR: string = '#666666' //按钮颜色
 
 /**
  * 弹窗工具类（AlertDialog）
+ * author: 桃花镇童长老ᥫ᭡
+ * since: 2024/05/01
+ * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
+ * github: https://github.com/787107497
+ * gitee: https://gitee.com/tongyuyan/harmony-utils
+ * CSDN: https://blog.csdn.net/qq_32922545
+ * QQ交流群: 569512366
  */
-
 export class DialogUtil {
 
   private constructor() {}

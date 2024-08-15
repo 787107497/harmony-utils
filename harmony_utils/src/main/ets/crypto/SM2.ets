@@ -8,6 +8,13 @@ import { LogUtil } from '../utils/LogUtil';
 
 /**
  * SM2加解密
+ * author: 桃花镇童长老ᥫ᭡
+ * since: 2024/07/01
+ * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
+ * github: https://github.com/787107497
+ * gitee: https://gitee.com/tongyuyan/harmony-utils
+ * CSDN: https://blog.csdn.net/qq_32922545
+ * QQ交流群: 569512366
  */
 export class SM2 {
 
@@ -87,9 +94,9 @@ export class SM2 {
    * @param algName 待生成对称密钥生成器的算法名称（SM2_256、SM2）
    * @returns
    */
-  static async genConvertKeyPair(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding,
+  static async getConvertKeyPair(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding,
     algName: string = 'SM2_256'): Promise<cryptoFramework.KeyPair> {
-    return CryptoUtil.genConvertKeyPair(algName, pubKey, priKey, keyCoding);
+    return CryptoUtil.getConvertKeyPair(algName, pubKey, priKey, keyCoding);
   }
 
   /**
@@ -100,9 +107,9 @@ export class SM2 {
    * @param algName 待生成对称密钥生成器的算法名称（SM2_256、SM2）
    * @returns
    */
-  static genConvertKeyPairSync(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding,
+  static getConvertKeyPairSync(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding,
     algName: string = 'SM2_256'): cryptoFramework.KeyPair {
-    return CryptoUtil.genConvertKeyPairSync(algName, pubKey, priKey, keyCoding);
+    return CryptoUtil.getConvertKeyPairSync(algName, pubKey, priKey, keyCoding);
   }
 
 

@@ -13,6 +13,14 @@ const DOCUMENT_DEFAULT_SELECT_NUMBER: number = 9; //数量
  *    ohos.permission.READ_MEDIA
  *    ohos.permission.WRITE_MEDIA
  *    ohos.permission.CAMERA
+ *
+ * author: 桃花镇童长老ᥫ᭡
+ * since: 2024/05/01
+ * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
+ * github: https://github.com/787107497
+ * gitee: https://gitee.com/tongyuyan/harmony-utils
+ * CSDN: https://blog.csdn.net/qq_32922545
+ * QQ交流群: 569512366
  */
 export class PickerUtil {
 
