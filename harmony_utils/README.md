@@ -662,7 +662,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showTimePicker      | 时间滑动选择器弹窗        |
 | showTextPicker      | 文本滑动选择器弹窗        |
 
-### <span id="jump_8">ToastUtil（土司工具类）</span>[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
+### <a id="jump_8">ToastUtil（土司工具类）</a>[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
 
 | 方法        | 介绍               |
 |:----------|:-----------------|
