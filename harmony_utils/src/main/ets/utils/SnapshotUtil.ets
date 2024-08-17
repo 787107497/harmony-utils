@@ -3,7 +3,7 @@ import { componentSnapshot, window } from '@kit.ArkUI';
 import { AppUtil } from './AppUtil';
 
 /**
- * 组件截图和窗口截图工具类
+ * TODO 组件截图和窗口截图工具类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils

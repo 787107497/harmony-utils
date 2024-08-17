@@ -1,7 +1,8 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { PasteboardUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { PasteboardUtil, PermissionUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
+import { Permissions } from '@kit.AbilityKit';
 
 /**
  * 剪贴板工具类
@@ -28,6 +29,15 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
+          Button("申请应用读取剪贴板权限")
+            .btnStyle()
+            .onClick(() => {
+              let p: Permissions = 'ohos.permission.READ_PASTEBOARD'; //允许应用读取剪贴板
+              PermissionUtil.checkRequestPermissions(p).then((result) => {
+                ToastUtil.showToast(`检测并申请授权，允许应用读取剪贴板：${result}`)
+              })
+
+            })
           Button("setDataText()")
             .btnStyle()
             .onClick(() => {

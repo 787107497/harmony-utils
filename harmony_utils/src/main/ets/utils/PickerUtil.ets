@@ -8,7 +8,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 const DOCUMENT_DEFAULT_SELECT_NUMBER: number = 9; //数量
 
 /**
- * 拍照、文件(文件、图片、视频、音频)选择和保存,工具类
+ * TODO 拍照、文件(文件、图片、视频、音频)选择和保存,工具类
  *  需要权限：
  *    ohos.permission.READ_MEDIA
  *    ohos.permission.WRITE_MEDIA
@@ -176,11 +176,16 @@ export class PickerUtil {
    * 通过选择模式拉起audioPicker界面（目前拉起的是documentPicker，audioPicker在规划中），用户可以选择一个或多个音频文件。
    * @returns
    */
-  static async selectAudio(): Promise<Array<string>> {
+  static async selectAudio(options?: picker.AudioSelectOptions): Promise<Array<string>> {
     try {
-      let AudioSelectOptions = new picker.AudioSelectOptions();
+      if (!options) {
+        options = new picker.AudioSelectOptions();
+      }
+      if (!options.maxSelectNumber) { //选择媒体文件数量的最大值,默认9
+        options.maxSelectNumber = DOCUMENT_DEFAULT_SELECT_NUMBER;
+      }
       let audioPicker = new picker.AudioViewPicker();
-      return await audioPicker.select(AudioSelectOptions);
+      return await audioPicker.select(options);
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`PickerUtil-selectAudio-异常 ~ code: ${error.code} -·- message: ${error.message}`);

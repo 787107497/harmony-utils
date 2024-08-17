@@ -672,7 +672,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 
 <br><br>
-## 🙏贡献代码 、仓库地址、技术交流
+## 🙏贡献代码与技术交流
 
 使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)。   
 给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。   

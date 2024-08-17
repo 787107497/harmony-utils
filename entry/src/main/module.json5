@@ -131,6 +131,15 @@
             "EntryAbility"
           ]
         }
+      },
+      {
+        "name": "ohos.permission.READ_PASTEBOARD",
+        "reason": "$string:permission_READ_PASTEBOARD",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        }
       }
     ]
   }

@@ -2,7 +2,10 @@ import { pasteboard } from '@kit.BasicServicesKit';
 import { StrUtil } from './StrUtil';
 
 /**
- * 剪贴板工具类
+ * TODO 剪贴板工具类
+ *  需要权限：
+ *   ohos.permission.READ_PASTEBOARD  //允许应用读取剪贴板。
+ *
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils

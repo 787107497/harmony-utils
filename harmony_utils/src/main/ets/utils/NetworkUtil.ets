@@ -5,7 +5,7 @@ import { LogUtil } from './LogUtil';
 
 
 /**
- * 网络相关工具类
+ * TODO 网络相关工具类
  * 需要ohos.permission.GET_NETWORK_INFO权限。
  *
  * author: 桃花镇童长老ᥫ᭡

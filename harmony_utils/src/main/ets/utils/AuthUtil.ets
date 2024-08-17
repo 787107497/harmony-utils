@@ -5,7 +5,7 @@ import { LogUtil } from './LogUtil';
 import { ToastUtil } from '../action/ToastUtil';
 
 /**
- * 手机的生物认证（指纹、人脸、密码）工具类
+ * TODO 手机的生物认证（指纹、人脸、密码）工具类
  * 需要权限 ohos.permission.ACCESS_BIOMETRIC
  *
  * author: 桃花镇童长老ᥫ᭡

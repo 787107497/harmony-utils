@@ -43,6 +43,10 @@
     {
       "name": "permission_WRITE_IMAGEVIDEO",
       "value": "用于应用读写公共目录的图片或视频文件"
+    },
+    {
+      "name": "permission_READ_PASTEBOARD",
+      "value": "用于应用读取剪贴板"
     }
   ]
 }

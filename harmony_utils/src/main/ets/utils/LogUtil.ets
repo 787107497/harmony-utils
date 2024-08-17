@@ -5,7 +5,7 @@ const LOGGER_DOMAIN: number = 0x0000
 const LOGGER_TAG: string = 'HarmonyLogUtil'
 
 /**
- * 日志工具类
+ * TODO 日志工具类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils

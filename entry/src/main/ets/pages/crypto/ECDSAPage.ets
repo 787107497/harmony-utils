@@ -32,7 +32,6 @@ struct Index {
   }
 
   async aboutToAppear(): Promise<void> {
-    this.describe = new DescribeBean("ECDSA", "ECDSA工具类");
     this.keyPair = await CryptoUtil.generateKeyPair('ECC256'); //生成密钥
   }
 

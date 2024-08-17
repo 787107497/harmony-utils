@@ -6,7 +6,7 @@ import { LogUtil } from '../utils/LogUtil';
 const PHOTO_DEFAULT_SELECT_NUMBER: number = 9; //数量
 
 /**
- * 相册选择和保存,工具类
+ * TODO 相册选择和保存,工具类
  *  需要权限：
  *    ohos.permission.READ_IMAGEVIDEO
  *    ohos.permission.WRITE_IMAGEVIDEO
