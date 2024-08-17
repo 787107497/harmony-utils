@@ -670,17 +670,17 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showShort | 弹出短土司，默认时长为:1.5s |
 | showLong  | 弹出长土司，默认时长为:10s  |
 
-## 📚仓库地址  与 💖技术交流
+
+<br><br>
+## 🙏贡献代码 、仓库地址、技术交流
+
+使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)。   
+给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。
 
 [https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)   
 [https://github.com/787107497](https://github.com/787107497)
-<br><br>
-![QQ群：569512366](harmony_utils/Picture/group_qrcode.jpg)
 
-## 🙏贡献代码
-
-使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)    
-给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls)   
+鸿蒙技术交流QQ群：569512366
 
 ## 📚开源协议
 

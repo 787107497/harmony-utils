@@ -14,6 +14,8 @@ import { cryptoFramework } from '@kit.CryptoArchitectureKit';
  */
 export class SM3 {
 
+  private static symKey = CryptoUtil.generateSymKeySync('HMAC|SM3'); //对称密钥SymKey
+
 
   /**
    * SM3摘要，同步
@@ -43,7 +45,7 @@ export class SM3 {
    * @param len 自定义的数据拆分长度
    * @returns
    */
-  static async digestSegment(data: string, resultCoding: crypto.BhCoding = 'hex', len: number = 120): Promise<string> {
+  static async digestSegment(data: string, resultCoding: crypto.BhCoding = 'hex', len: number = 128): Promise<string> {
     return CryptoUtil.digestSegment(data, 'SM3', resultCoding, len);
   }
 
@@ -54,7 +56,7 @@ export class SM3 {
    * @param len 自定义的数据拆分长度
    * @returns
    */
-  static digestSegmentSync(data: string, resultCoding: crypto.BhCoding = 'hex', len: number = 120): string {
+  static digestSegmentSync(data: string, resultCoding: crypto.BhCoding = 'hex', len: number = 128): string {
     return CryptoUtil.digestSegmentSync(data, 'SM3', resultCoding, len);
   }
 
@@ -62,10 +64,10 @@ export class SM3 {
   /**
    * 消息认证码计算，异步
    * @param data 传入的消息
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    */
-  static async hmac(data: string, symKey: cryptoFramework.SymKey | string = 'AES256',
+  static async hmac(data: string, symKey: cryptoFramework.SymKey = SM3.symKey,
     resultCoding: crypto.BhCoding = 'hex'): Promise<string> {
     return CryptoUtil.hmac(data, 'SM3', symKey, resultCoding);
   }
@@ -73,10 +75,10 @@ export class SM3 {
   /**
    * 消息认证码计算，同步
    * @param data 传入的消息
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    */
-  static hmacSync(data: string, symKey: cryptoFramework.SymKey | string = 'AES256',
+  static hmacSync(data: string, symKey: cryptoFramework.SymKey = SM3.symKey,
     resultCoding: crypto.BhCoding = 'hex'): string {
     return CryptoUtil.hmacSync(data, 'SM3', symKey, resultCoding);
   }
@@ -85,24 +87,24 @@ export class SM3 {
   /**
    * 消息认证码计算，分段，异步
    * @param data 传入的消息
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度
    */
-  static async hmacSegment(data: string, symKey: cryptoFramework.SymKey | string = 'AES256',
-    resultCoding: crypto.BhCoding = 'hex', len: number = 120): Promise<string> {
+  static async hmacSegment(data: string, symKey: cryptoFramework.SymKey = SM3.symKey,
+    resultCoding: crypto.BhCoding = 'hex', len: number = 128): Promise<string> {
     return CryptoUtil.hmacSegment(data, 'SM3', symKey, resultCoding, len);
   }
 
   /**
    * 消息认证码计算，分段，同步
    * @param data 传入的消息
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度
    */
-  static hmacSegmentSync(data: string, symKey: cryptoFramework.SymKey | string = 'AES256',
-    resultCoding: crypto.BhCoding = 'hex', len: number = 120): string {
+  static hmacSegmentSync(data: string, symKey: cryptoFramework.SymKey = SM3.symKey,
+    resultCoding: crypto.BhCoding = 'hex', len: number = 128): string {
     return CryptoUtil.hmacSegmentSync(data, 'SM3', symKey, resultCoding, len);
   }
 

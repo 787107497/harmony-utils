@@ -41,10 +41,17 @@ export class Mock {
     data.push(new DescribeBean("ClickUtil", "节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）", 1));
     data.push(new DescribeBean("TempUtil", "温度转换工具类，华氏度与摄氏度相互转换", 1));
     data.push(new DescribeBean("AssetUtil", "关键资产存储服务工具类", 1));
-    data.push(new DescribeBean("ActionUtil", "弹窗工具类（promptAction）", 1));
     data.push(new DescribeBean("DialogUtil", "弹窗工具类（AlertDialog）", 1));
     data.push(new DescribeBean("ToastUtil", "土司工具类（promptAction）", 1));
-    data.push(new DescribeBean("ControlDialog", "自定义弹框组件", 1));
+    data.push(new DescribeBean("SM2", "SM2加解密", 2));
+    data.push(new DescribeBean("SM3", "SM3工具类", 2));
+    data.push(new DescribeBean("SM4", "SM4加解密", 2));
+    data.push(new DescribeBean("MD5", "MD5工具类", 2));
+    data.push(new DescribeBean("SHA", "SHA工具类", 2));
+    data.push(new DescribeBean("AES", "AES加解密", 2));
+    data.push(new DescribeBean("DES", "DES加解密", 2));
+    data.push(new DescribeBean("RSA", "RSA加解密", 2));
+    data.push(new DescribeBean("ECDSA", "ECDSA工具类", 2));
     return data;
   }
 }

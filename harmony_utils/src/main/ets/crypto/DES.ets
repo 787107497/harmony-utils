@@ -51,7 +51,7 @@ export class DES {
    * @returns
    */
   static decryptECBSync(data: cryptoFramework.DataBlob, symKey: cryptoFramework.SymKey): cryptoFramework.DataBlob {
-    return DES.decryptSync(data, symKey, 'AES256|ECB|PKCS7');
+    return DES.decryptSync(data, symKey, '3DES192|ECB|PKCS7');
   }
 
 

@@ -5,6 +5,7 @@ import { CryptoUtil } from './CryptoUtil';
 import { crypto } from './crypto';
 import { CryptoHelper } from './CryptoHelper';
 import { LogUtil } from '../utils/LogUtil';
+import { StrUtil } from '../utils/StrUtil';
 
 /**
  * SM2加解密
@@ -94,7 +95,8 @@ export class SM2 {
    * @param algName 待生成对称密钥生成器的算法名称（SM2_256、SM2）
    * @returns
    */
-  static async getConvertKeyPair(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding,
+  static async getConvertKeyPair(pubKey: string | Uint8Array | cryptoFramework.DataBlob | null,
+    priKey: string | Uint8Array | cryptoFramework.DataBlob | null, keyCoding: crypto.BhuCoding,
     algName: string = 'SM2_256'): Promise<cryptoFramework.KeyPair> {
     return CryptoUtil.getConvertKeyPair(algName, pubKey, priKey, keyCoding);
   }
@@ -107,7 +109,8 @@ export class SM2 {
    * @param algName 待生成对称密钥生成器的算法名称（SM2_256、SM2）
    * @returns
    */
-  static getConvertKeyPairSync(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding,
+  static getConvertKeyPairSync(pubKey: string | Uint8Array | cryptoFramework.DataBlob | null,
+    priKey: string | Uint8Array | cryptoFramework.DataBlob | null, keyCoding: crypto.BhuCoding,
     algName: string = 'SM2_256'): cryptoFramework.KeyPair {
     return CryptoUtil.getConvertKeyPairSync(algName, pubKey, priKey, keyCoding);
   }
@@ -118,9 +121,9 @@ export class SM2 {
    * @param pubKey 16进制的公钥字符串
    * @returns 转换后的公钥字符串
    */
-  static async getSM2PubKey(strPubKey: string): Promise<cryptoFramework.PubKey> {
+  static getSM2PubKey(strPubKey: string): cryptoFramework.PubKey {
     strPubKey = strPubKey.startsWith("04") ? strPubKey.slice(2) : strPubKey;
-    let px = strPubKey.substring(2, strPubKey.length / 2); //截取x参数
+    let px = strPubKey.substring(0, strPubKey.length / 2); //截取x参数
     let py = strPubKey.substring(strPubKey.length / 2); //截取y参数
     //转16进制放入对应的位置 04+x+y
     let pk: cryptoFramework.Point = {
@@ -137,7 +140,7 @@ export class SM2 {
     //创建密钥生成器
     let keyPairGenerator = cryptoFramework.createAsyKeyGeneratorBySpec(keyPair);
     //生成uint8Array格式密钥
-    let pubKey: cryptoFramework.PubKey = await keyPairGenerator.generatePubKey();
+    let pubKey: cryptoFramework.PubKey = keyPairGenerator.generatePubKeySync();
     return pubKey; //转换成鸿蒙所需公钥
   }
 
@@ -147,12 +150,9 @@ export class SM2 {
    * @param key 传入的密钥数据，未序列化的原始裸数据
    * @returns
    */
-  static async getSM2PriKey(key: string) {
-    let mode: number = 2;
-    let sk: bigint = BigInt("");
-    if ((mode & 0x02) != 0) {
-      sk = BigInt("0x" + key);
-    }
+  static getSM2PriKey(key: string): cryptoFramework.PriKey {
+    key = StrUtil.startsWith(key, "0x") ? key : `0x${key}`;
+    let sk: bigint = BigInt(key);
     let priKey: cryptoFramework.ECCPriKeySpec = {
       params: cryptoFramework.ECCKeyUtil.genECCCommonParamsSpec('NID_sm2'),
       sk: sk,
@@ -160,9 +160,8 @@ export class SM2 {
       specType: cryptoFramework.AsyKeySpecType.PRIVATE_KEY_SPEC
     }
     let KeyPairGenerator = cryptoFramework.createAsyKeyGeneratorBySpec(priKey);
-    return await KeyPairGenerator.generatePriKey()
+    return KeyPairGenerator.generatePriKeySync();
   }
-
 
 
   /**
@@ -228,7 +227,7 @@ export class SM2 {
    * @returns
    */
   static async verify(dataBlob: cryptoFramework.DataBlob, signDataBlob: cryptoFramework.DataBlob,
-    pubKey: cryptoFramework.PubKey, algName: string = 'SM2_256'): Promise<boolean> {
+    pubKey: cryptoFramework.PubKey, algName: string = 'SM2_256|SM3'): Promise<boolean> {
     return CryptoUtil.verify(dataBlob, signDataBlob, pubKey, algName);
   }
 
@@ -251,11 +250,11 @@ export class SM2 {
    * @param data 待签名数据
    * @param priKey 私钥
    * @param algName 指定签名算法（SM2_256|SM3、SM2|SM3）。
-   * @param len 自定义的数据拆分长度，此处取64
+   * @param len 自定义的数据拆分长度，此处取128
    * @returns
    */
   static async signSegment(data: Uint8Array, priKey: cryptoFramework.PriKey, algName: string = 'SM2_256|SM3',
-    len: number = 64): Promise<cryptoFramework.DataBlob> {
+    len: number = 128): Promise<cryptoFramework.DataBlob> {
     return CryptoUtil.signSegment(data, priKey, algName, len);
   }
 
@@ -268,7 +267,7 @@ export class SM2 {
    * @returns
    */
   static signSegmentSync(data: Uint8Array, priKey: cryptoFramework.PriKey, algName: string = 'SM2_256|SM3',
-    len: number = 64): cryptoFramework.DataBlob {
+    len: number = 128): cryptoFramework.DataBlob {
     return CryptoUtil.signSegmentSync(data, priKey, algName, len);
   }
 
@@ -279,11 +278,11 @@ export class SM2 {
    * @param signDataBlob 签名数据
    * @param pubKey 公钥
    * @param algName 指定签名算法（SM2_256|SM3、SM2|SM3）。
-   * @param len 自定义的数据拆分长度，此处取64
+   * @param len 自定义的数据拆分长度，此处取128
    * @returns
    */
   static async verifySegment(data: Uint8Array, signDataBlob: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey,
-    algName: string = 'SM2_256|SM3', len: number = 64): Promise<boolean> {
+    algName: string = 'SM2_256|SM3', len: number = 128): Promise<boolean> {
     return CryptoUtil.verifySegment(data, signDataBlob, pubKey, algName, len);
   }
 
@@ -293,11 +292,11 @@ export class SM2 {
    * @param signDataBlob 签名数据
    * @param pubKey 公钥
    * @param algName 指定签名算法（SM2_256|SM3、SM2|SM3）。
-   * @param len 自定义的数据拆分长度，此处取64
+   * @param len 自定义的数据拆分长度，此处取128
    * @returns
    */
   static verifySegmentSync(data: Uint8Array, signDataBlob: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey,
-    algName: string = 'SM2_256|SM3', len: number = 64): boolean {
+    algName: string = 'SM2_256|SM3', len: number = 128): boolean {
     return CryptoUtil.verifySegmentSync(data, signDataBlob, pubKey, algName, len);
   }
 

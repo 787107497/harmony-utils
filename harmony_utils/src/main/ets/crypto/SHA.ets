@@ -12,7 +12,10 @@ import { cryptoFramework } from '@kit.CryptoArchitectureKit';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export class SHA{
+export class SHA {
+
+  private static symKey = CryptoUtil.generateSymKeySync('HMAC|SHA256'); //对称密钥SymKey
+
 
   /**
    * SHA摘要，同步
@@ -70,10 +73,10 @@ export class SHA{
    * 消息认证码计算，异步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    */
-  static async hmac(data: string, algName: crypto.SHA = 'SHA256', symKey: cryptoFramework.SymKey | string = 'AES256',
+  static async hmac(data: string, algName: crypto.SHA = 'SHA256', symKey: cryptoFramework.SymKey = SHA.symKey,
     resultCoding: crypto.BhCoding = 'hex'): Promise<string> {
     return CryptoUtil.hmac(data, algName, symKey, resultCoding);
   }
@@ -82,10 +85,10 @@ export class SHA{
    * 消息认证码计算，同步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    */
-  static hmacSync(data: string, algName: crypto.SHA = 'SHA256', symKey: cryptoFramework.SymKey | string = 'AES256',
+  static hmacSync(data: string, algName: crypto.SHA = 'SHA256', symKey: cryptoFramework.SymKey = SHA.symKey,
     resultCoding: crypto.BhCoding = 'hex'): string {
     return CryptoUtil.hmacSync(data, algName, symKey, resultCoding);
   }
@@ -95,13 +98,12 @@ export class SHA{
    * 消息认证码计算，分段，异步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度
    */
-  static async hmacSegment(data: string, algName: crypto.SHA = 'SHA256',
-    symKey: cryptoFramework.SymKey | string = 'AES256', resultCoding: crypto.BhCoding = 'hex',
-    len: number = 120): Promise<string> {
+  static async hmacSegment(data: string, algName: crypto.SHA = 'SHA256', symKey: cryptoFramework.SymKey = SHA.symKey,
+    resultCoding: crypto.BhCoding = 'hex', len: number = 120): Promise<string> {
     return CryptoUtil.hmacSegment(data, algName, symKey, resultCoding, len);
   }
 
@@ -109,13 +111,12 @@ export class SHA{
    * 消息认证码计算，分段，同步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度
    */
-  static hmacSegmentSync(data: string, algName: crypto.SHA = 'SHA256',
-    symKey: cryptoFramework.SymKey | string = 'AES256', resultCoding: crypto.BhCoding = 'hex',
-    len: number = 120): string {
+  static hmacSegmentSync(data: string, algName: crypto.SHA = 'SHA256', symKey: cryptoFramework.SymKey = SHA.symKey,
+    resultCoding: crypto.BhCoding = 'hex', len: number = 120): string {
     return CryptoUtil.hmacSegmentSync(data, algName, symKey, resultCoding, len);
   }
 

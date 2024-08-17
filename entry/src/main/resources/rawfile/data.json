@@ -170,11 +170,6 @@
     "type": 1
   },
   {
-    "name": "ActionUtil",
-    "desc": "弹窗工具类（promptAction）",
-    "type": 1
-  },
-  {
     "name": "DialogUtil",
     "desc": "弹窗工具类（AlertDialog）",
     "type": 1
@@ -185,8 +180,48 @@
     "type": 1
   },
   {
-    "name": "ControlDialog",
-    "desc": "自定义弹框组件",
-    "type": 1
+    "name": "SM2",
+    "desc": "SM2加解密",
+    "type": 2
+  },
+  {
+    "name": "SM3",
+    "desc": "SM3工具类",
+    "type": 2
+  },
+  {
+    "name": "SM4",
+    "desc": "SM4加解密",
+    "type": 2
+  },
+  {
+    "name": "MD5",
+    "desc": "MD5工具类",
+    "type": 2
+  },
+  {
+    "name": "SHA",
+    "desc": "SHA工具类",
+    "type": 2
+  },
+  {
+    "name": "AES",
+    "desc": "AES加解密",
+    "type": 2
+  },
+  {
+    "name": "DES",
+    "desc": "DES加解密",
+    "type": 2
+  },
+  {
+    "name": "RSA",
+    "desc": "RSA加解密",
+    "type": 2
+  },
+  {
+    "name": "ECDSA",
+    "desc": "ECDSA工具类",
+    "type": 2
   }
 ]

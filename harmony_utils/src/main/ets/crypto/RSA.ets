@@ -1,4 +1,5 @@
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { crypto } from './crypto';
 import { CryptoUtil } from './CryptoUtil';
 
 
@@ -13,88 +14,6 @@ import { CryptoUtil } from './CryptoUtil';
  * QQ交流群: 569512366
  */
 export class RSA{
-
-
-  /**
-   * 加密（RSA1024|PKCS1模式）,异步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param pubKey 指定加密公钥。
-   * @returns
-   */
-  static async encrypt1024(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey): Promise<cryptoFramework.DataBlob> {
-    return CryptoUtil.encrypt(data, pubKey, null, 'RSA1024|PKCS1');
-  }
-
-  /**
-   * 加密（RSA1024|PKCS1模式）,同步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param pubKey 指定加密公钥。
-   * @returns
-   */
-  static encrypt1024Sync(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey): cryptoFramework.DataBlob {
-    return CryptoUtil.encryptSync(data, pubKey, null, 'RSA1024|PKCS1');
-  }
-
-
-  /**
-   * 解密（RSA1024|PKCS1模式）,异步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param priKey 指定解密私钥。
-   */
-  static async decrypt1024(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey): Promise<cryptoFramework.DataBlob> {
-    return CryptoUtil.decrypt(data, priKey, null, 'RSA1024|PKCS1');
-  }
-
-  /**
-   * 解密（RSA1024|PKCS1模式）,同步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param priKey 指定解密私钥。
-   */
-  static decrypt1024Sync(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey): cryptoFramework.DataBlob {
-    return CryptoUtil.decryptSync(data, priKey, null, 'RSA1024|PKCS1');
-  }
-
-
-  /**
-   * 加密（RSA2048|PKCS1模式）,异步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param pubKey 指定加密公钥。
-   * @returns
-   */
-  static async encrypt2048(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey): Promise<cryptoFramework.DataBlob> {
-    return CryptoUtil.encrypt(data, pubKey, null, 'RSA2048|PKCS1');
-  }
-
-  /**
-   * 加密（RSA2048|PKCS1模式）,同步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param pubKey 指定加密公钥。
-   * @returns
-   */
-  static encrypt2048Sync(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey): cryptoFramework.DataBlob {
-    return CryptoUtil.encryptSync(data, pubKey, null, 'RSA2048|PKCS1');
-  }
-
-
-  /**
-   * 解密（RSA2048|PKCS1模式）,异步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param priKey 指定解密私钥。
-   */
-  static async decrypt2048(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey): Promise<cryptoFramework.DataBlob> {
-    return CryptoUtil.decrypt(data, priKey, null, 'RSA2048|PKCS1');
-  }
-
-  /**
-   * 解密（RSA2048|PKCS1模式）,同步
-   * @param data 加密或者解密的数据。data不能为null。
-   * @param priKey 指定解密私钥。
-   */
-  static decrypt2048Sync(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey): cryptoFramework.DataBlob {
-    return CryptoUtil.decryptSync(data, priKey, null, 'RSA2048|PKCS1');
-  }
-
-
   /**
    * 加密,异步
    * @param data 加密或者解密的数据。data不能为null。
@@ -102,7 +21,8 @@ export class RSA{
    * @param transformation 待生成Cipher的算法名称（含密钥长度）、加密模式以及填充方法的组合（RSA1024|PKCS1、RSA2048|PKCS1、等）。
    * @returns
    */
-  static async encrypt(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey, transformation: string): Promise<cryptoFramework.DataBlob> {
+  static async encrypt(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey,
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1'): Promise<cryptoFramework.DataBlob> {
     return CryptoUtil.encrypt(data, pubKey, null, transformation);
   }
 
@@ -113,7 +33,8 @@ export class RSA{
    * @param transformation 待生成Cipher的算法名称（含密钥长度）、加密模式以及填充方法的组合（RSA1024|PKCS1、RSA2048|PKCS1、等）。
    * @returns
    */
-  static encryptSync(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey, transformation: string): cryptoFramework.DataBlob {
+  static encryptSync(data: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey,
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1'): cryptoFramework.DataBlob {
     return CryptoUtil.encryptSync(data, pubKey, null, transformation);
   }
 
@@ -124,7 +45,8 @@ export class RSA{
    * @param priKey 指定解密私钥。
    * @param transformation 待生成Cipher的算法名称（含密钥长度）、加密模式以及填充方法的组合（RSA1024|PKCS1、RSA2048|PKCS1、等）。
    */
-  static async decrypt(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey, transformation: string): Promise<cryptoFramework.DataBlob> {
+  static async decrypt(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey,
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1'): Promise<cryptoFramework.DataBlob> {
     return CryptoUtil.decrypt(data, priKey, null, transformation);
   }
 
@@ -134,7 +56,8 @@ export class RSA{
    * @param priKey 指定解密私钥。
    * @param transformation 待生成Cipher的算法名称（含密钥长度）、加密模式以及填充方法的组合（RSA1024|PKCS1、RSA2048|PKCS1、等）。
    */
-  static decryptSync(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey, transformation: string): cryptoFramework.DataBlob {
+  static decryptSync(data: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey,
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1'): cryptoFramework.DataBlob {
     return CryptoUtil.decryptSync(data, priKey, null, transformation);
   }
 
@@ -148,7 +71,7 @@ export class RSA{
    * @returns
    */
   static async encryptSegment(dataBlob: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey,
-    transformation: string, len: number = 128): Promise<cryptoFramework.DataBlob> {
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1', len: number = 64): Promise<cryptoFramework.DataBlob> {
     let cipher = cryptoFramework.createCipher(transformation);
     await cipher.init(cryptoFramework.CryptoMode.ENCRYPT_MODE, pubKey, null);
     let encryptData = new Uint8Array();
@@ -156,10 +79,12 @@ export class RSA{
       let updateData = dataBlob.data.subarray(i, i + len);
       let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
       let updateOutput = await cipher.doFinal(updateDataBlob); //循环调用doFinal进行加密
-      let mergeData = new Uint8Array(encryptData.length + updateOutput.data.length);
-      mergeData.set(encryptData);
-      mergeData.set(updateOutput.data, encryptData.length);
-      encryptData = mergeData;
+      if (updateOutput != null && updateOutput.data != null) {
+        let mergeData = new Uint8Array(encryptData.length + updateOutput.data.length);
+        mergeData.set(encryptData);
+        mergeData.set(updateOutput.data, encryptData.length);
+        encryptData = mergeData;
+      }
     }
     let cipherBlob: cryptoFramework.DataBlob = { data: encryptData };
     return cipherBlob;
@@ -174,7 +99,7 @@ export class RSA{
    * @returns
    */
   static encryptSegmentSync(dataBlob: cryptoFramework.DataBlob, pubKey: cryptoFramework.PubKey,
-    transformation: string, len: number = 128): cryptoFramework.DataBlob {
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1', len: number = 64): cryptoFramework.DataBlob {
     let cipher = cryptoFramework.createCipher(transformation);
     cipher.initSync(cryptoFramework.CryptoMode.ENCRYPT_MODE, pubKey, null);
     let encryptData = new Uint8Array();
@@ -200,7 +125,7 @@ export class RSA{
    * @param len 自定义的数据拆分长度。
    */
   static async decryptSegment(dataBlob: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey,
-    transformation: string, len: number = 128): Promise<cryptoFramework.DataBlob> {
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1', len: number = 128): Promise<cryptoFramework.DataBlob> {
     let cipher = cryptoFramework.createCipher(transformation);
     await cipher.init(cryptoFramework.CryptoMode.DECRYPT_MODE, priKey, null);
     let decryptData = new Uint8Array();
@@ -208,10 +133,12 @@ export class RSA{
       let updateData = dataBlob.data.subarray(i, i + len);
       let updateDataBlob: cryptoFramework.DataBlob = { data: updateData };
       let updateOutput = await cipher.doFinal(updateDataBlob);
-      let mergeData = new Uint8Array(decryptData.length + updateOutput.data.length);
-      mergeData.set(decryptData);
-      mergeData.set(updateOutput.data, decryptData.length);
-      decryptData = mergeData;
+      if (updateOutput != null && updateOutput.data != null) {
+        let mergeData = new Uint8Array(decryptData.length + updateOutput.data.length);
+        mergeData.set(decryptData);
+        mergeData.set(updateOutput.data, decryptData.length);
+        decryptData = mergeData;
+      }
     }
     let decryptBlob: cryptoFramework.DataBlob = { data: decryptData };
     return decryptBlob;
@@ -225,7 +152,7 @@ export class RSA{
    * @param len 自定义的数据拆分长度。
    */
   static decryptSegmentSync(dataBlob: cryptoFramework.DataBlob, priKey: cryptoFramework.PriKey,
-    transformation: string, len: number = 128): cryptoFramework.DataBlob {
+    transformation: crypto.RSA_TRAN = 'RSA1024|PKCS1', len: number = 128): cryptoFramework.DataBlob {
     let cipher = cryptoFramework.createCipher(transformation);
     cipher.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, priKey, null);
     let decryptData = new Uint8Array();
@@ -248,7 +175,7 @@ export class RSA{
    * @param algName 待生成对称密钥生成器的算法名称（RSA1024、RSA2048、等）。
    * @returns
    */
-  static async generateKeyPair(algName: string = 'RSA1024'): Promise<cryptoFramework.KeyPair> {
+  static async generateKeyPair(algName: crypto.RSA_AlG = 'RSA1024|PRIMES_2'): Promise<cryptoFramework.KeyPair> {
     return CryptoUtil.generateKeyPair(algName);
   }
 
@@ -257,9 +184,38 @@ export class RSA{
    * @param algName 待生成对称密钥生成器的算法名称（RSA1024、RSA2048、等）。
    * @returns
    */
-  static generateKeyPairSync(algName: string = 'RSA1024'): cryptoFramework.KeyPair {
+  static generateKeyPairSync(algName: crypto.RSA_AlG = 'RSA1024|PRIMES_2'): cryptoFramework.KeyPair {
     return CryptoUtil.generateKeyPairSync(algName);
   }
+
+  /**
+   * 获取转换的非对称密钥KeyPair，异步
+   * @param pubKey 公钥字符串
+   * @param priKey 私钥字符串
+   * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
+   * @param algName 待生成对称密钥生成器的算法名称
+   * @returns
+   */
+  static async getConvertKeyPair(pubKey: string | Uint8Array | cryptoFramework.DataBlob | null,
+    priKey: string | Uint8Array | cryptoFramework.DataBlob | null, keyCoding: crypto.BhuCoding,
+    algName: crypto.RSA_AlG = 'RSA1024|PRIMES_2'): Promise<cryptoFramework.KeyPair> {
+    return CryptoUtil.getConvertKeyPair(algName, pubKey, priKey, keyCoding);
+  }
+
+  /**
+   * 获取转换的非对称密钥KeyPair，同步
+   * @param pubKey 公钥字符串
+   * @param priKey 私钥字符串
+   * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
+   * @param algName 待生成对称密钥生成器的算法名称
+   * @returns
+   */
+  static getConvertKeyPairSync(pubKey: string | Uint8Array | cryptoFramework.DataBlob | null,
+    priKey: string | Uint8Array | cryptoFramework.DataBlob | null, keyCoding: crypto.BhuCoding,
+    algName: crypto.RSA_AlG = 'RSA1024|PRIMES_2'): cryptoFramework.KeyPair {
+    return CryptoUtil.getConvertKeyPairSync(algName, pubKey, priKey, keyCoding);
+  }
+
 
 
   /**
@@ -389,10 +345,6 @@ export class RSA{
     let rawSignData = verifier.recoverSync(signDataBlob);
     return rawSignData;
   }
-
-
-
-
 
 
 }

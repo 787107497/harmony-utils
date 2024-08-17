@@ -84,7 +84,7 @@ export class CryptoUtil {
 
   /**
    * 生成对称密钥SymKey，异步
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC、HMAC|SHA1、HMAC|SHA256、HMAC|SHA512、HMAC|SM3、等）
    * @returns
    */
   static async generateSymKey(algName: string): Promise<cryptoFramework.SymKey> {
@@ -95,7 +95,7 @@ export class CryptoUtil {
 
   /**
    * 生成对称密钥SymKey，同步
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC、HMAC|SHA1、HMAC|SHA256、HMAC|SHA512、HMAC|SM3、等）
    * @returns
    */
   static generateSymKeySync(algName: string): cryptoFramework.SymKey {
@@ -108,12 +108,14 @@ export class CryptoUtil {
   /**
    * 获取转换的对称密钥SymKey，异步
    * @param key 字符串key
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC、HMAC|SHA1、HMAC|SHA256、HMAC|SHA512、HMAC|SM3、等）
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
+   * @param keyLen 密钥规格的最小长度，默认为0，为0时不补全。
    * @returns
    */
-  static async getConvertSymKey(algName: string, key: string, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.SymKey> {
-    let symKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(key, keyCoding) };
+  static async getConvertSymKey(algName: string, key: string | Uint8Array | cryptoFramework.DataBlob,
+    keyCoding: crypto.BhuCoding, keyLen: number = 0): Promise<cryptoFramework.SymKey> {
+    let symKeyBlob: cryptoFramework.DataBlob = CryptoHelper.getSymKeyDataBlob(key, keyCoding, keyLen);
     let aesGenerator = cryptoFramework.createSymKeyGenerator(algName);
     let symKey = await aesGenerator.convertKey(symKeyBlob);
     return symKey;
@@ -122,12 +124,14 @@ export class CryptoUtil {
   /**
    * 获取转换的对称密钥SymKey，同步
    * @param key 字符串key
-   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC|SHA1、等）
+   * @param algName 待生成对称密钥生成器的算法名称（AES128、AES192、AES256、3DES192、SM4_128、HMAC、HMAC|SHA1、HMAC|SHA256、HMAC|SHA512、HMAC|SM3、等）
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
+   * @param keyLen 密钥规格的最小长度，默认为0，为0时不补全。
    * @returns
    */
-  static getConvertSymKeySync(algName: string, key: string, keyCoding: crypto.BhuCoding): cryptoFramework.SymKey {
-    let symKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(key, keyCoding, 32) };
+  static getConvertSymKeySync(algName: string, key: string | Uint8Array | cryptoFramework.DataBlob,
+    keyCoding: crypto.BhuCoding, keyLen: number = 0): cryptoFramework.SymKey {
+    let symKeyBlob: cryptoFramework.DataBlob = CryptoHelper.getSymKeyDataBlob(key, keyCoding, keyLen);
     let aesGenerator = cryptoFramework.createSymKeyGenerator(algName);
     let symKey = aesGenerator.convertKeySync(symKeyBlob);
     return symKey;
@@ -136,7 +140,7 @@ export class CryptoUtil {
 
   /**
    * 生成非对称密钥KeyPair，异步
-   * @param algName 待生成对称密钥生成器的算法名称（RSA1024、RSA2048、SM2_256、ECC256、等）。
+   * @param algName 待生成对称密钥生成器的算法名称（SM2_256、RSA1024|PRIMES_2、RSA2048|PRIMES_2、ECC256、等）。
    * @returns
    */
   static async generateKeyPair(algName: string): Promise<cryptoFramework.KeyPair> {
@@ -147,7 +151,7 @@ export class CryptoUtil {
 
   /**
    * 生成非对称密钥KeyPair，同步
-   * @param algName 待生成对称密钥生成器的算法名称（RSA1024、RSA2048、SM2_256、ECC256、等）。
+   * @param algName 待生成对称密钥生成器的算法名称（SM2_256、RSA1024|PRIMES_2、RSA2048|PRIMES_2、ECC256、等）。
    * @returns
    */
   static generateKeyPairSync(algName: string): cryptoFramework.KeyPair {
@@ -159,15 +163,16 @@ export class CryptoUtil {
 
   /**
    * 获取转换的非对称密钥KeyPair，异步
-   * @param algName 待生成对称密钥生成器的算法名称（RSA1024、RSA2048、SM2_256、ECC256、HMAC|SHA1、等）
+   * @param algName 待生成对称密钥生成器的算法名称（SM2_256、RSA1024|PRIMES_2、RSA2048|PRIMES_2、ECC256、等）
    * @param pubKey 公钥字符串
    * @param priKey 私钥字符串
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
-  static async getConvertKeyPair(algName: string, pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.KeyPair> {
-    let pubKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(pubKey, keyCoding) };
-    let priKeyBlob: cryptoFramework.DataBlob = { data: CryptoHelper.strToUint8Array(priKey, keyCoding) };
+  static async getConvertKeyPair(algName: string, pubKey: string | Uint8Array | cryptoFramework.DataBlob | null,
+    priKey: string | Uint8Array | cryptoFramework.DataBlob | null, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.KeyPair> {
+    let pubKeyBlob: cryptoFramework.DataBlob | null = CryptoHelper.getKeyDataBlob(pubKey, keyCoding);
+    let priKeyBlob: cryptoFramework.DataBlob | null = CryptoHelper.getKeyDataBlob(priKey, keyCoding);
     let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator(algName); //非对称密钥生成器的对象。
     let keyPair = await asyKeyGenerator.convertKey(pubKeyBlob, priKeyBlob); //获取该非对称密钥生成器随机生成的密钥
     return keyPair;
@@ -175,31 +180,18 @@ export class CryptoUtil {
 
   /**
    * 获取转换的非对称密钥KeyPair，同步
-   * @param algName 待生成对称密钥生成器的算法名称（RSA1024、RSA2048、SM2_256、ECC256、HMAC|SHA1、等）
+   * @param algName 待生成对称密钥生成器的算法名称（SM2_256、RSA1024|PRIMES_2、RSA2048|PRIMES_2、ECC256、等）
    * @param pubKey 公钥字符串
    * @param priKey 私钥字符串
    * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
    * @returns
    */
-  static getConvertKeyPairSync(algName: string, pubKey: string | Uint8Array | null, priKey: string | Uint8Array | null,
+  static getConvertKeyPairSync(algName: string, pubKey: string | Uint8Array | cryptoFramework.DataBlob | null,
+    priKey: string | Uint8Array | cryptoFramework.DataBlob | null,
     keyCoding: crypto.BhuCoding): cryptoFramework.KeyPair {
+    let pubKeyBlob: cryptoFramework.DataBlob | null = CryptoHelper.getKeyDataBlob(pubKey, keyCoding);
+    let priKeyBlob: cryptoFramework.DataBlob | null = CryptoHelper.getKeyDataBlob(priKey, keyCoding);
     let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator(algName); //非对称密钥生成器的对象。
-    let pubKeyBlob: cryptoFramework.DataBlob | null = null;
-    let priKeyBlob: cryptoFramework.DataBlob | null = null;
-    if (pubKey != null) { //公钥
-      if (typeof pubKey === 'string') {
-        pubKeyBlob = { data: CryptoHelper.strToUint8Array(pubKey, keyCoding) };
-      } else {
-        pubKeyBlob = { data: pubKey };
-      }
-    }
-    if (priKey != null) { //私钥
-      if (typeof priKey === 'string') {
-        priKeyBlob = { data: CryptoHelper.strToUint8Array(priKey, keyCoding) };
-      } else {
-        priKeyBlob = { data: priKey };
-      }
-    }
     let keyPair = asyKeyGenerator.convertKeySync(pubKeyBlob, priKeyBlob); //获取该非对称密钥生成器随机生成的密钥
     return keyPair;
   }
@@ -226,7 +218,7 @@ export class CryptoUtil {
    * 生成IvParamsSpec
    * @returns
    */
-  static generateIvParamsSpec() {
+  static generateIvParamsSpec(): cryptoFramework.IvParamsSpec {
     let dataIv = CryptoHelper.getRandomUint8Array(16);
     let ivBlob: cryptoFramework.DataBlob = { data: dataIv };
     let ivParamsSpec: cryptoFramework.IvParamsSpec = { algName: "IvParamsSpec", iv: ivBlob };
@@ -268,14 +260,11 @@ export class CryptoUtil {
    * 获取生成GcmParamsSpec
    */
   static getGcmParamsSpec(iv: Uint8Array, aad: Uint8Array, authTag: Uint8Array): cryptoFramework.GcmParamsSpec {
-    let ivBlob: cryptoFramework.DataBlob = { data: iv };
-    let aadBlob: cryptoFramework.DataBlob = { data: aad };
-    let tagBlob: cryptoFramework.DataBlob = { data: authTag };
     //GCM的authTag在加密时从doFinal结果中获取，在解密时填入init函数的params参数中
     let gcmParamsSpec: cryptoFramework.GcmParamsSpec = {
-      iv: ivBlob,
-      aad: aadBlob,
-      authTag: tagBlob,
+      iv: { data: iv },
+      aad: { data: aad },
+      authTag: { data: authTag },
       algName: "GcmParamsSpec"
     };
     return gcmParamsSpec;
@@ -567,14 +556,11 @@ export class CryptoUtil {
    * 消息认证码计算，异步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512、MD5、SM3）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    */
-  static async hmac(data: string, algName: string, symKey: cryptoFramework.SymKey | string = 'AES256',
+  static async hmac(data: string, algName: string, symKey: cryptoFramework.SymKey,
     resultCoding: crypto.BhCoding = 'hex'): Promise<string> {
-    if (typeof symKey === 'string') {
-      symKey = await CryptoUtil.generateSymKey(symKey); //生成对称密钥
-    }
     let mac = cryptoFramework.createMac(algName);
     await mac.init(symKey); //使用对称密钥初始化Mac计算
     //数据量较少时，可以只做一次update，将数据全部传入，接口未对入参长度做限制
@@ -588,14 +574,11 @@ export class CryptoUtil {
    * 消息认证码计算，同步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512、MD5、SM3）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    */
-  static hmacSync(data: string, algName: string, symKey: cryptoFramework.SymKey | string = 'AES256',
+  static hmacSync(data: string, algName: string, symKey: cryptoFramework.SymKey,
     resultCoding: crypto.BhCoding = 'hex'): string {
-    if (typeof symKey === 'string') {
-      symKey = CryptoUtil.generateSymKeySync(symKey); //生成对称密钥
-    }
     let mac = cryptoFramework.createMac(algName);
     mac.initSync(symKey); //使用对称密钥初始化Mac计算
     //数据量较少时，可以只做一次update，将数据全部传入，接口未对入参长度做限制
@@ -610,15 +593,12 @@ export class CryptoUtil {
    * 消息认证码计算，分段，异步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512、MD5、SM3）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度
    */
-  static async hmacSegment(data: string, algName: string, symKey: cryptoFramework.SymKey | string = 'AES256',
+  static async hmacSegment(data: string, algName: string, symKey: cryptoFramework.SymKey,
     resultCoding: crypto.BhCoding = 'hex', len: number = 128): Promise<string> {
-    if (typeof symKey === 'string') {
-      symKey = await CryptoUtil.generateSymKey(symKey); //生成对称密钥
-    }
     let messageData = CryptoHelper.strToUint8Array(data, 'utf-8');
     let mac = cryptoFramework.createMac(algName);
     await mac.init(symKey); //使用对称密钥初始化Mac计算
@@ -636,11 +616,11 @@ export class CryptoUtil {
    * 消息认证码计算，分段，同步
    * @param data 传入的消息
    * @param algName 指定摘要算法（SHA1、SHA224、SHA256、SHA384、SHA512、MD5、SM3）。
-   * @param symKey 共享对称密钥, 当symKey为string时，生成对称密钥（AES128、AES256）。
+   * @param symKey 共享对称密钥（SymKey）。
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度
    */
-  static hmacSegmentSync(data: string, algName: string, symKey: cryptoFramework.SymKey | string = 'AES256',
+  static hmacSegmentSync(data: string, algName: string, symKey: cryptoFramework.SymKey,
     resultCoding: crypto.BhCoding = 'hex', len: number = 128): string {
     if (typeof symKey === 'string') {
       symKey = CryptoUtil.generateSymKeySync(symKey); //生成对称密钥

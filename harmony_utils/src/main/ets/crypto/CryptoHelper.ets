@@ -7,7 +7,7 @@ import { LogUtil } from '../utils/LogUtil';
 
 
 /**
- * 加解密数据类型转换
+ * TODO 加解密数据类型转换
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/07/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
@@ -45,28 +45,24 @@ export class CryptoHelper {
    * 字符串转Uint8Array
    * @param symKey 字符串
    * @param coding 编码方式(base64/hex/utf8/utf-8)。
+   * @param keyLen 密钥规格的最小长度，默认为0，为0时不补全。
    * @returns
    */
-  static strToUint8Array(str: string, coding: crypto.BhuCoding, len: number = 0): Uint8Array {
+  static strToUint8Array(str: string, coding: crypto.BhuCoding, keyLen: number = 0): Uint8Array {
     if (coding === 'base64') { //base64
       let uint8Array = Base64Util.decodeSync(str);
-      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
+      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, keyLen)
       return uint8Array;
     } else if (coding === 'hex') { //hex-16进制类型
       let uint8Array = StrUtil.strToHex(str);
-      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
+      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, keyLen)
       return uint8Array;
     } else {
       let uint8Array = new Uint8Array(buffer.from(str, coding).buffer);
-      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, len)
+      uint8Array = CryptoHelper.getUint8ArrayPaddingZero(uint8Array, keyLen)
       return uint8Array;
     }
   }
-
-
-
-
-
 
   /**
    * Uint8Array转字符串
@@ -85,43 +81,39 @@ export class CryptoHelper {
   }
 
 
-  // 字符串转成字节流
-  static stringToUint8Array(str: string) {
-    return new Uint8Array(buffer.from(str, 'utf-8').buffer);
+  /**
+   * 获取DataBlob类型的密钥
+   * @param data 待转换的密钥。
+   * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)，data为字符串时用到
+   * @param keyLen 密钥规格的最小长度，默认为0，为0时不补全。
+   */
+  static getSymKeyDataBlob(data: string | Uint8Array | cryptoFramework.DataBlob,
+    keyCoding: crypto.BhuCoding = 'utf-8', keyLen: number = 0): cryptoFramework.DataBlob {
+    if (typeof data === 'string') {
+      return { data: CryptoHelper.strToUint8Array(data, keyCoding, keyLen) };
+    } else if (data instanceof Uint8Array) {
+      return { data: data };
+    } else {
+      return data;
+    }
   }
 
-  // 字节流转成可理解的字符串
-  static uint8ArrayToString(array: Uint8Array) {
-    // 将UTF-8编码转换成Unicode编码
-    let out: string = '';
-    let index: number = 0;
-    let len: number = array.length;
-    while (index < len) {
-      let character = array[index++];
-      switch (character >> 4) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-          out += String.fromCharCode(character);
-          break;
-        case 12:
-        case 13:
-          out += String.fromCharCode(((character & 0x1F) << 6) | (array[index++] & 0x3F));
-          break;
-        case 14:
-          out += String.fromCharCode(((character & 0x0F) << 12) | ((array[index++] & 0x3F) << 6) |
-            ((array[index++] & 0x3F) << 0));
-          break;
-        default:
-          break;
-      }
+  /**
+   * 获取DataBlob类型的公钥或私钥
+   * @param data 待转换的公钥或私钥。
+   * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)，data为字符串时用到
+   */
+  static getKeyDataBlob(data: string | Uint8Array | cryptoFramework.DataBlob | null,
+    keyCoding: crypto.BhuCoding = 'utf-8'): cryptoFramework.DataBlob | null {
+    if (data === null) {
+      return null;
+    } else if (typeof data === 'string') {
+      return { data: CryptoHelper.strToUint8Array(data, keyCoding) };
+    } else if (data instanceof Uint8Array) {
+      return { data: data };
+    } else {
+      return data;
     }
-    return out;
   }
 
 
@@ -193,7 +185,7 @@ export class CryptoHelper {
 
 
   // 字节流转成可理解的字符串
-  static  uint8ArrayToString1(array: Uint8Array) {
+  static uint8ArrayToString(array: Uint8Array) {
     // 将UTF-8编码转换成Unicode编码
     let out: string = '';
     let index: number = 0;
@@ -226,10 +218,6 @@ export class CryptoHelper {
     return out;
   }
 
-  // 字符串转成字节流
-  static  stringToUint8Array1(str: string) {
-    return new Uint8Array(buffer.from(str, 'utf-8').buffer);
-  }
 
   //
   // function StringToUint8Array(str: String) {

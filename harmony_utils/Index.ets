@@ -60,29 +60,15 @@ export { ClickUtil } from './src/main/ets/utils/ClickUtil';
 
 export { TempUtil } from './src/main/ets/utils/TempUtil';
 
-export { WindowUtil } from './src/main/ets/utils/WindowUtil';
-
 export { AssetUtil } from './src/main/ets/utils/AssetUtil';
 
 export { PhotoHelper } from './src/main/ets/photo/PhotoHelper';
 
 export { GlobalContext } from './src/main/ets/utils/GlobalContext';
 
-export { ActionUtil } from './src/main/ets/action/ActionUtil';
-
 export { DialogUtil } from './src/main/ets/action/DialogUtil';
 
 export { ToastUtil } from './src/main/ets/action/ToastUtil';
-
-export { AlertControlDialog } from './src/main/ets/dialog/AlertControlDialog';
-
-export { ConfirmControlDialog } from './src/main/ets/dialog/ConfirmControlDialog';
-
-export { LoadingControlDialog } from './src/main/ets/dialog/LoadingControlDialog';
-
-export { SelectControlDialog } from './src/main/ets/dialog/SelectControlDialog';
-
-export { TipControlDialog } from './src/main/ets/dialog/TipControlDialog';
 
 export { CryptoUtil } from './src/main/ets/crypto/CryptoUtil';
 
@@ -107,3 +93,17 @@ export { DES } from './src/main/ets/crypto/DES';
 export { RSA } from './src/main/ets/crypto/RSA';
 
 export { ECDSA } from './src/main/ets/crypto/ECDSA';
+
+export { ActionUtil } from './src/main/ets/action/ActionUtil';
+
+export { WindowUtil } from './src/main/ets/utils/WindowUtil';
+
+export { AlertControlDialog } from './src/main/ets/dialog/AlertControlDialog';
+
+export { ConfirmControlDialog } from './src/main/ets/dialog/ConfirmControlDialog';
+
+export { LoadingControlDialog } from './src/main/ets/dialog/LoadingControlDialog';
+
+export { SelectControlDialog } from './src/main/ets/dialog/SelectControlDialog';
+
+export { TipControlDialog } from './src/main/ets/dialog/TipControlDialog';

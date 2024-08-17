@@ -15,45 +15,6 @@ import { crypto } from './crypto';
  */
 export class ECDSA{
 
-  /**
-   * 生成非对称密钥KeyPair，异步
-   * @returns
-   */
-  static async generateKeyPair(): Promise<cryptoFramework.KeyPair> {
-    return CryptoUtil.generateKeyPair('ECC256');
-  }
-
-  /**
-   * 生成非对称密钥KeyPair，同步
-   * @returns
-   */
-  static generateKeyPairSync(): cryptoFramework.KeyPair {
-    return CryptoUtil.generateKeyPairSync('ECC256');
-  }
-
-
-  /**
-   * 获取转换的非对称密钥KeyPair，异步
-   * @param pubKey 公钥字符串
-   * @param priKey 私钥字符串
-   * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
-   * @returns
-   */
-  static async getConvertKeyPair(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): Promise<cryptoFramework.KeyPair> {
-    return CryptoUtil.getConvertKeyPair('ECC256', pubKey, priKey, keyCoding);
-  }
-
-  /**
-   * 获取转换的非对称密钥KeyPair，同步
-   * @param pubKey 公钥字符串
-   * @param priKey 私钥字符串
-   * @param keyCoding 秘钥的编码方式(base64/hex/utf8/utf-8)
-   * @returns
-   */
-  static getConvertKeyPairSync(pubKey: string, priKey: string, keyCoding: crypto.BhuCoding): cryptoFramework.KeyPair {
-    return CryptoUtil.getConvertKeyPairSync('ECC256', pubKey, priKey, keyCoding);
-  }
-
 
   /**
    * 对数据进行签名，异步
