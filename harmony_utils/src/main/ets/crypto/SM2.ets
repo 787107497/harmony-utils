@@ -165,7 +165,7 @@ export class SM2 {
 
 
   /**
-   * 转换SM2密文格式，ASN.1格式转换为C1C2C3或C1C3C2
+   * 获取转换SM2密文格式，ASN.1格式转换为C1C2C3或C1C3C2
    * @param cipherText  ASN.1格式的SM2密文参数
    * @param cipherMode  0-C1C2C3 、1-C1C3C2，默认为0
    * @returns
