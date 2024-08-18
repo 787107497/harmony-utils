@@ -1,4 +1,13 @@
 # 版本记录
+## 1.0.7 （API12 - Dev: 5.0.3.500）
+1. 11
+2. 
+2. DialogUtil，适配API12和新增setDefaultConfig设置默认统一样式。
+2. ToastUtil,新增setDefaultConfig设置默认统一样式。
+3. 废弃模块（给大家带来不便，非常抱歉；后面弹框这块将单独成库）：   
+    1、WindowUtil。   
+    2、ActionUtil。   
+    3、自定义弹框,AlertControlDialog、ConfirmControlDialog、LoadingControlDialog、SelectControlDialog、TipControlDialog。   
 
 ## 1.0.6 （API12 - Dev: 5.0.3.500）
 1. ToastUtil，调整Toast居中显示 和 修复Toast不显示Bug。

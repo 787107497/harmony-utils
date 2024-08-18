@@ -28,6 +28,52 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
+          Button("设置默认样式(上)")
+            .btnStyle()
+            .onClick(() => {
+              DialogUtil.setDefaultConfig((config) => {
+                config.subtitle = "弹窗副标题"
+                config.alignment = DialogAlignment.Top
+                config.backgroundColor = '#00FF00'
+                config.borderWidth = 0
+                config.autoCancel = true
+                config.onWillDismiss = (dismissDialogAction: DismissDialogAction) => {
+                  LogUtil.error("onWillDismiss(上): " + JSON.stringify(dismissDialogAction))
+                  if (dismissDialogAction.reason == DismissReason.PRESS_BACK) {
+                    dismissDialogAction.dismiss()
+                  }
+                  if (dismissDialogAction.reason == DismissReason.TOUCH_OUTSIDE) {
+                    dismissDialogAction.dismiss()
+                  }
+                }
+              });
+              ToastUtil.showLong("样式设置成功");
+            })
+          Button("设置默认样式(中)")
+            .btnStyle()
+            .onClick(() => {
+              DialogUtil.setDefaultConfig((config) => {
+                config.alignment = DialogAlignment.Center
+                config.backgroundColor = Color.Red
+                config.onWillDismiss = undefined
+                config.borderWidth = 5
+                config.autoCancel = false
+              });
+              ToastUtil.showLong("样式设置成功");
+            })
+          Button("设置默认样式(下)")
+            .btnStyle()
+            .onClick(() => {
+              DialogUtil.setDefaultConfig((config) => {
+                config.alignment = DialogAlignment.Bottom
+                config.backgroundColor = Color.Brown
+                config.borderColor = Color.Blue
+                config.onWillDismiss = (dismissDialogAction: DismissDialogAction) => {
+                  LogUtil.error("onWillDismiss(下): " + JSON.stringify(dismissDialogAction))
+                }
+              });
+              ToastUtil.showLong("样式设置成功");
+            })
           Button("showConfirmDialog()")
             .btnStyle()
             .onClick(() => {
@@ -58,6 +104,15 @@ struct Index {
                   value: "更新",
                   action: () => {
                     ToastUtil.showToast("点击了”更新“按钮")
+                  }
+                },
+                onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
+                  LogUtil.error("showPrimaryDialog-onWillDismiss: " + JSON.stringify(dismissDialogAction))
+                  if (dismissDialogAction.reason == DismissReason.PRESS_BACK) {
+                    dismissDialogAction.dismiss()
+                  }
+                  if (dismissDialogAction.reason == DismissReason.TOUCH_OUTSIDE) {
+                    dismissDialogAction.dismiss()
                   }
                 }
               })

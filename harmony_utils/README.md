@@ -637,20 +637,11 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | removeSync | 删除关键资产，同步   |
 | canIUse    | 当前设备是否支持该模块 |
 
-### ActionUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ActionUtilPage.ets)
-
-| 方法                 | 介绍           |
-|:-------------------|:-------------|
-| showConfirmDialog  | 显示弹窗（一个按钮）   |
-| showPrimaryDialog  | 显示弹窗（两个按钮）   |
-| showDialog         | 显示弹窗（多个按钮）   |
-| showActionMenuEasy | 显示操作菜单（简单易用） |
-| showActionMenu     | 显示操作菜单       |
-
 ### DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
 
 | 方法                  | 介绍               |
 |:--------------------|:-----------------|
+| setDefaultConfig    | 设置默认统一样式         |
 | showConfirmDialog   | 显示弹窗（一个按钮）       |
 | showPrimaryDialog   | 显示弹窗（两个按钮）       |
 | showDialog          | 显示弹窗（可多个按钮）      |
@@ -664,11 +655,22 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### ToastUtil（土司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
 
-| 方法        | 介绍               |
-|:----------|:-----------------|
-| showToast | 弹出土司，默认时长为2s     |
-| showShort | 弹出短土司，默认时长为:1.5s |
-| showLong  | 弹出长土司，默认时长为:10s  |
+| 方法               | 介绍               |
+|:-----------------|:-----------------|
+| setDefaultConfig | 设置默认统一样式         |
+| showToast        | 弹出土司，默认时长为2s     |
+| showShort        | 弹出短土司，默认时长为:1.5s |
+| showLong         | 弹出长土司，默认时长为:10s  |
+
+### ActionUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ActionUtilPage.ets)
+
+| 方法                 | 介绍           |
+|:-------------------|:-------------|
+| showConfirmDialog  | 显示弹窗（一个按钮）   |
+| showPrimaryDialog  | 显示弹窗（两个按钮）   |
+| showDialog         | 显示弹窗（多个按钮）   |
+| showActionMenuEasy | 显示操作菜单（简单易用） |
+| showActionMenu     | 显示操作菜单       |
 
 
 <br><br>

@@ -1,10 +1,14 @@
-const DIALOG_TITLE: string = '温馨提示'; //标题
-const DIALOG_CONFIRM: string = '确定'; //确定文字
-const DIALOG_CANCEL: string = '取消'; //取消文字
-const DIALOG_BUTTON_COLOR: string = '#666666' //按钮颜色
+import { DialogConfig } from '../entity/DialogConfig';
+import { ButtonOptions,
+  ConfirmDialogOptions,
+  EasyDialogOptions,
+  EasySheetOptions,
+  OptionDialogOptions,
+  PrimaryDialogOptions} from '../entity/DialogOptions';
+
 
 /**
- * 弹窗工具类（AlertDialog）
+ * TODO 弹窗工具类（AlertDialog）
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
@@ -17,6 +21,17 @@ export class DialogUtil {
 
   private constructor() {}
 
+  private static defaultConfig: DialogConfig = new DialogConfig(); //默认样式
+
+
+  /**
+   * 设置默认统一样式
+   * @param configs
+   */
+  static setDefaultConfig(configs: (config: DialogConfig) => void): void {
+    configs(DialogUtil.defaultConfig);
+  }
+
 
   /**
    * 显示弹框（一个按钮的）
@@ -26,55 +41,32 @@ export class DialogUtil {
     if (options.message == undefined) {
       options.title = '';
     }
-    if (options.autoCancel == undefined) {
-      options.autoCancel = false;
-    }
-    if (!options.gridCount) {
-      options.gridCount = 4
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = Color.Transparent
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK
-    }
-    if (!options.maskRect) {
-      options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
-    }
-    if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
-    }
-    if (!options.offset) {
-      if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
-        options.offset = { dx: 0, dy: -20 };
-      } else if (options.alignment == DialogAlignment.Top || options.alignment == DialogAlignment.TopStart || options.alignment == DialogAlignment.TopEnd) {
-        options.offset = { dx: 0, dy: 20 };
-      } else {
-        options.offset = { dx: 0, dy: 0 };
-      }
-    }
-    if (options.showInSubWindow == undefined) {
-      options.showInSubWindow = false;
-    }
-    if (options.isModal == undefined) {
-      options.isModal = true;
-    }
     if (!options.confirm) {
       options.confirm = new ButtonOptions()
     }
     AlertDialog.show({
-      title: options.title,
-      subtitle: options.subtitle,
+      title: options.title ?? DialogUtil.defaultConfig.title,
+      subtitle: options.subtitle ?? DialogUtil.defaultConfig.subtitle,
       message: options.message,
-      autoCancel: options.autoCancel,
-      alignment: options.alignment,
-      offset: options.offset,
-      gridCount: options.gridCount,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
+      autoCancel: options.autoCancel ?? DialogUtil.defaultConfig.autoCancel,
+      alignment: options.alignment ?? DialogUtil.defaultConfig.alignment,
+      offset: options.offset ?? DialogUtil.defaultConfig.offset,
+      gridCount: options.gridCount ?? DialogUtil.defaultConfig.gridCount,
+      maskRect: options.maskRect ?? DialogUtil.defaultConfig.maskRect,
+      showInSubWindow: options.showInSubWindow ?? DialogUtil.defaultConfig.showInSubWindow,
+      isModal: options.isModal ?? DialogUtil.defaultConfig.isModal,
+      backgroundColor: options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor,
+      backgroundBlurStyle: options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle,
+      onWillDismiss: options.onWillDismiss ?? DialogUtil.defaultConfig.onWillDismiss,
+      cornerRadius: options.cornerRadius ?? DialogUtil.defaultConfig.cornerRadius,
+      transition: options.transition ?? DialogUtil.defaultConfig.transition,
+      width: options.width ?? DialogUtil.defaultConfig.width,
+      height: options.height ?? DialogUtil.defaultConfig.height,
+      borderWidth: options.borderWidth ?? DialogUtil.defaultConfig.borderWidth,
+      borderColor: options.borderColor ?? DialogUtil.defaultConfig.borderColor,
+      borderStyle: options.borderStyle ?? DialogUtil.defaultConfig.borderStyle,
+      shadow: options.shadow ?? DialogUtil.defaultConfig.shadow,
+      textStyle: options.textStyle ?? DialogUtil.defaultConfig.textStyle,
       confirm: options.confirm,
       cancel: () => {
         if (options.cancel) {
@@ -93,39 +85,6 @@ export class DialogUtil {
     if (options.message == undefined) {
       options.title = '';
     }
-    if (options.autoCancel == undefined) {
-      options.autoCancel = false;
-    }
-    if (!options.gridCount) {
-      options.gridCount = 4
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = Color.Transparent
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK
-    }
-    if (!options.maskRect) {
-      options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
-    }
-    if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
-    }
-    if (!options.offset) {
-      if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
-        options.offset = { dx: 0, dy: -20 };
-      } else if (options.alignment == DialogAlignment.Top || options.alignment == DialogAlignment.TopStart || options.alignment == DialogAlignment.TopEnd) {
-        options.offset = { dx: 0, dy: 20 };
-      } else {
-        options.offset = { dx: 0, dy: 0 };
-      }
-    }
-    if (options.showInSubWindow == undefined) {
-      options.showInSubWindow = false;
-    }
-    if (options.isModal == undefined) {
-      options.isModal = true;
-    }
     if (!options.primaryButton) {
       options.primaryButton = new ButtonOptions()
     }
@@ -133,18 +92,28 @@ export class DialogUtil {
       options.secondaryButton = new ButtonOptions()
     }
     AlertDialog.show({
-      title: options.title,
-      subtitle: options.subtitle,
+      title: options.title ?? DialogUtil.defaultConfig.title,
+      subtitle: options.subtitle ?? DialogUtil.defaultConfig.subtitle,
       message: options.message,
-      autoCancel: options.autoCancel,
-      alignment: options.alignment,
-      offset: options.offset,
-      gridCount: options.gridCount,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
+      autoCancel: options.autoCancel ?? DialogUtil.defaultConfig.autoCancel,
+      alignment: options.alignment ?? DialogUtil.defaultConfig.alignment,
+      offset: options.offset ?? DialogUtil.defaultConfig.offset,
+      gridCount: options.gridCount ?? DialogUtil.defaultConfig.gridCount,
+      maskRect: options.maskRect ?? DialogUtil.defaultConfig.maskRect,
+      showInSubWindow: options.showInSubWindow ?? DialogUtil.defaultConfig.showInSubWindow,
+      isModal: options.isModal ?? DialogUtil.defaultConfig.isModal,
+      backgroundColor: options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor,
+      backgroundBlurStyle: options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle,
+      onWillDismiss: options.onWillDismiss ?? DialogUtil.defaultConfig.onWillDismiss,
+      cornerRadius: options.cornerRadius ?? DialogUtil.defaultConfig.cornerRadius,
+      transition: options.transition ?? DialogUtil.defaultConfig.transition,
+      width: options.width ?? DialogUtil.defaultConfig.width,
+      height: options.height ?? DialogUtil.defaultConfig.height,
+      borderWidth: options.borderWidth ?? DialogUtil.defaultConfig.borderWidth,
+      borderColor: options.borderColor ?? DialogUtil.defaultConfig.borderColor,
+      borderStyle: options.borderStyle ?? DialogUtil.defaultConfig.borderStyle,
+      shadow: options.shadow ?? DialogUtil.defaultConfig.shadow,
+      textStyle: options.textStyle ?? DialogUtil.defaultConfig.textStyle,
       primaryButton:options.primaryButton,
       secondaryButton:options.secondaryButton,
       cancel: () => {
@@ -163,42 +132,6 @@ export class DialogUtil {
     if (options.message == undefined) {
       options.title = '';
     }
-    if (options.autoCancel == undefined) {
-      options.autoCancel = false;
-    }
-    if (!options.gridCount) {
-      options.gridCount = 4
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = Color.Transparent
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK
-    }
-    if (!options.maskRect) {
-      options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
-    }
-    if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
-    }
-    if (!options.offset) {
-      if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
-        options.offset = { dx: 0, dy: -20 };
-      } else if (options.alignment == DialogAlignment.Top || options.alignment == DialogAlignment.TopStart || options.alignment == DialogAlignment.TopEnd) {
-        options.offset = { dx: 0, dy: 20 };
-      } else {
-        options.offset = { dx: 0, dy: 0 };
-      }
-    }
-    if (options.showInSubWindow == undefined) {
-      options.showInSubWindow = false;
-    }
-    if (options.isModal == undefined) {
-      options.isModal = true;
-    }
-    if (options.buttonDirection == undefined) {
-      options.buttonDirection = DialogButtonDirection.AUTO
-    }
     let btns = new Array<AlertDialogButtonOptions>()
     if (options.buttons && options.buttons.length > 0) {
       options.buttons.forEach(item => {
@@ -214,18 +147,28 @@ export class DialogUtil {
       })
     }
     AlertDialog.show({
-      title: options.title,
-      subtitle: options.subtitle,
+      title: options.title ?? DialogUtil.defaultConfig.title,
+      subtitle: options.subtitle ?? DialogUtil.defaultConfig.subtitle,
       message: options.message,
-      autoCancel: options.autoCancel,
-      alignment: options.alignment,
-      offset: options.offset,
-      gridCount: options.gridCount,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
+      autoCancel: options.autoCancel ?? DialogUtil.defaultConfig.autoCancel,
+      alignment: options.alignment ?? DialogUtil.defaultConfig.alignment,
+      offset: options.offset ?? DialogUtil.defaultConfig.offset,
+      gridCount: options.gridCount ?? DialogUtil.defaultConfig.gridCount,
+      maskRect: options.maskRect ?? DialogUtil.defaultConfig.maskRect,
+      showInSubWindow: options.showInSubWindow ?? DialogUtil.defaultConfig.showInSubWindow,
+      isModal: options.isModal ?? DialogUtil.defaultConfig.isModal,
+      backgroundColor: options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor,
+      backgroundBlurStyle: options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle,
+      onWillDismiss: options.onWillDismiss ?? DialogUtil.defaultConfig.onWillDismiss,
+      cornerRadius: options.cornerRadius ?? DialogUtil.defaultConfig.cornerRadius,
+      transition: options.transition ?? DialogUtil.defaultConfig.transition,
+      width: options.width ?? DialogUtil.defaultConfig.width,
+      height: options.height ?? DialogUtil.defaultConfig.height,
+      borderWidth: options.borderWidth ?? DialogUtil.defaultConfig.borderWidth,
+      borderColor: options.borderColor ?? DialogUtil.defaultConfig.borderColor,
+      borderStyle: options.borderStyle ?? DialogUtil.defaultConfig.borderStyle,
+      shadow: options.shadow ?? DialogUtil.defaultConfig.shadow,
+      textStyle: options.textStyle ?? DialogUtil.defaultConfig.textStyle,
       buttons: btns,
       cancel: () => {
         if (options.cancel) {
@@ -243,42 +186,6 @@ export class DialogUtil {
     if (options.message == undefined) {
       options.title = '';
     }
-    if (options.autoCancel == undefined) {
-      options.autoCancel = false;
-    }
-    if (!options.gridCount) {
-      options.gridCount = 4
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = Color.Transparent
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK
-    }
-    if (!options.maskRect) {
-      options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
-    }
-    if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
-    }
-    if (!options.offset) {
-      if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
-        options.offset = { dx: 0, dy: -20 };
-      } else if (options.alignment == DialogAlignment.Top || options.alignment == DialogAlignment.TopStart || options.alignment == DialogAlignment.TopEnd) {
-        options.offset = { dx: 0, dy: 20 };
-      } else {
-        options.offset = { dx: 0, dy: 0 };
-      }
-    }
-    if (options.showInSubWindow == undefined) {
-      options.showInSubWindow = false;
-    }
-    if (options.isModal == undefined) {
-      options.isModal = true;
-    }
-    if (options.buttonDirection == undefined) {
-      options.buttonDirection = DialogButtonDirection.AUTO
-    }
     let btns = new Array<AlertDialogButtonOptions>()
     if (options.buttons && options.buttons.length > 0) {
       options.buttons.forEach((item, index) => {
@@ -293,18 +200,28 @@ export class DialogUtil {
       })
     }
     AlertDialog.show({
-      title: options.title,
-      subtitle: options.subtitle,
+      title: options.title ?? DialogUtil.defaultConfig.title,
+      subtitle: options.subtitle ?? DialogUtil.defaultConfig.subtitle,
       message: options.message,
-      autoCancel: options.autoCancel,
-      alignment: options.alignment,
-      offset: options.offset,
-      gridCount: options.gridCount,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
+      autoCancel: options.autoCancel ?? DialogUtil.defaultConfig.autoCancel,
+      alignment: options.alignment ?? DialogUtil.defaultConfig.alignment,
+      offset: options.offset ?? DialogUtil.defaultConfig.offset,
+      gridCount: options.gridCount ?? DialogUtil.defaultConfig.gridCount,
+      maskRect: options.maskRect ?? DialogUtil.defaultConfig.maskRect,
+      showInSubWindow: options.showInSubWindow ?? DialogUtil.defaultConfig.showInSubWindow,
+      isModal: options.isModal ?? DialogUtil.defaultConfig.isModal,
+      backgroundColor: options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor,
+      backgroundBlurStyle: options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle,
+      onWillDismiss: options.onWillDismiss ?? DialogUtil.defaultConfig.onWillDismiss,
+      cornerRadius: options.cornerRadius ?? DialogUtil.defaultConfig.cornerRadius,
+      transition: options.transition ?? DialogUtil.defaultConfig.transition,
+      width: options.width ?? DialogUtil.defaultConfig.width,
+      height: options.height ?? DialogUtil.defaultConfig.height,
+      borderWidth: options.borderWidth ?? DialogUtil.defaultConfig.borderWidth,
+      borderColor: options.borderColor ?? DialogUtil.defaultConfig.borderColor,
+      borderStyle: options.borderStyle ?? DialogUtil.defaultConfig.borderStyle,
+      shadow: options.shadow ?? DialogUtil.defaultConfig.shadow,
+      textStyle: options.textStyle ?? DialogUtil.defaultConfig.textStyle,
       buttons: btns,
       cancel: () => {
         if (options.cancel) {
@@ -323,36 +240,6 @@ export class DialogUtil {
     if (options.message == undefined) {
       options.title = '';
     }
-    if (options.autoCancel == undefined) {
-      options.autoCancel = false;
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = Color.Transparent
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK
-    }
-    if (!options.maskRect) {
-      options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
-    }
-    if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
-    }
-    if (!options.offset) {
-      if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
-        options.offset = { dx: 0, dy: -20 };
-      } else if (options.alignment == DialogAlignment.Top || options.alignment == DialogAlignment.TopStart || options.alignment == DialogAlignment.TopEnd) {
-        options.offset = { dx: 0, dy: 20 };
-      } else {
-        options.offset = { dx: 0, dy: 0 };
-      }
-    }
-    if (options.showInSubWindow == undefined) {
-      options.showInSubWindow = false;
-    }
-    if (options.isModal == undefined) {
-      options.isModal = true;
-    }
     let sheets = new Array<SheetInfo>()
     if (options.sheets && options.sheets.length > 0) {
       options.sheets.forEach(item => {
@@ -360,17 +247,26 @@ export class DialogUtil {
       })
     }
     ActionSheet.show({
-      title: options.title,
-      subtitle: options.subtitle,
+      title: options.title ?? DialogUtil.defaultConfig.title,
+      subtitle: options.subtitle ?? DialogUtil.defaultConfig.subtitle,
       message: options.message,
-      autoCancel: options.autoCancel,
-      alignment: options.alignment,
-      offset: options.offset,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
+      autoCancel: options.autoCancel ?? DialogUtil.defaultConfig.autoCancel,
+      alignment: options.alignment ?? DialogUtil.defaultConfig.alignment,
+      offset: options.offset ?? DialogUtil.defaultConfig.offset,
+      maskRect: options.maskRect ?? DialogUtil.defaultConfig.maskRect,
+      showInSubWindow: options.showInSubWindow ?? DialogUtil.defaultConfig.showInSubWindow,
+      isModal: options.isModal ?? DialogUtil.defaultConfig.isModal,
+      backgroundColor: options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor,
+      backgroundBlurStyle: options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle,
+      onWillDismiss: options.onWillDismiss ?? DialogUtil.defaultConfig.onWillDismiss,
+      cornerRadius: options.cornerRadius ?? DialogUtil.defaultConfig.cornerRadius,
+      transition: options.transition ?? DialogUtil.defaultConfig.transition,
+      width: options.width ?? DialogUtil.defaultConfig.width,
+      height: options.height ?? DialogUtil.defaultConfig.height,
+      borderWidth: options.borderWidth ?? DialogUtil.defaultConfig.borderWidth,
+      borderColor: options.borderColor ?? DialogUtil.defaultConfig.borderColor,
+      borderStyle: options.borderStyle ?? DialogUtil.defaultConfig.borderStyle,
+      shadow: options.shadow ?? DialogUtil.defaultConfig.shadow,
       sheets: sheets,
       confirm: options.confirm,
       cancel: () => {
@@ -389,36 +285,6 @@ export class DialogUtil {
   static showActionSheetEasy(options: EasySheetOptions) {
     if (options.message == undefined) {
       options.title = '';
-    }
-    if (options.autoCancel == undefined) {
-      options.autoCancel = false;
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = Color.Transparent
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK
-    }
-    if (!options.maskRect) {
-      options.maskRect = { x: 0, y: 0, width: '100%', height: '100%' };
-    }
-    if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
-    }
-    if (!options.offset) {
-      if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart || options.alignment == DialogAlignment.BottomEnd) {
-        options.offset = { dx: 0, dy: -20 };
-      } else if (options.alignment == DialogAlignment.Top || options.alignment == DialogAlignment.TopStart || options.alignment == DialogAlignment.TopEnd) {
-        options.offset = { dx: 0, dy: 20 };
-      } else {
-        options.offset = { dx: 0, dy: 0 };
-      }
-    }
-    if (options.showInSubWindow == undefined) {
-      options.showInSubWindow = false;
-    }
-    if (options.isModal == undefined) {
-      options.isModal = true;
     }
     let sheets = new Array<SheetInfo>()
     if (options.sheets && options.sheets.length > 0) {
@@ -449,17 +315,26 @@ export class DialogUtil {
       }
     }
     ActionSheet.show({
-      title: options.title,
-      subtitle: options.subtitle,
+      title: options.title ?? DialogUtil.defaultConfig.title,
+      subtitle: options.subtitle ?? DialogUtil.defaultConfig.subtitle,
       message: options.message,
-      autoCancel: options.autoCancel,
-      alignment: options.alignment,
-      offset: options.offset,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
+      autoCancel: options.autoCancel ?? DialogUtil.defaultConfig.autoCancel,
+      alignment: options.alignment ?? DialogUtil.defaultConfig.alignment,
+      offset: options.offset ?? DialogUtil.defaultConfig.offset,
+      maskRect: options.maskRect ?? DialogUtil.defaultConfig.maskRect,
+      showInSubWindow: options.showInSubWindow ?? DialogUtil.defaultConfig.showInSubWindow,
+      isModal: options.isModal ?? DialogUtil.defaultConfig.isModal,
+      backgroundColor: options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor,
+      backgroundBlurStyle: options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle,
+      onWillDismiss: options.onWillDismiss ?? DialogUtil.defaultConfig.onWillDismiss,
+      cornerRadius: options.cornerRadius ?? DialogUtil.defaultConfig.cornerRadius,
+      transition: options.transition ?? DialogUtil.defaultConfig.transition,
+      width: options.width ?? DialogUtil.defaultConfig.width,
+      height: options.height ?? DialogUtil.defaultConfig.height,
+      borderWidth: options.borderWidth ?? DialogUtil.defaultConfig.borderWidth,
+      borderColor: options.borderColor ?? DialogUtil.defaultConfig.borderColor,
+      borderStyle: options.borderStyle ?? DialogUtil.defaultConfig.borderStyle,
+      shadow: options.shadow ?? DialogUtil.defaultConfig.shadow,
       sheets: sheets,
       confirm: options.confirm,
       cancel: () => {
@@ -482,6 +357,15 @@ export class DialogUtil {
    *   onCancel:() => void 点击弹窗中的“取消”按钮时触发该回调。
    */
   static showCalendarPicker(options: CalendarDialogOptions) {
+    if (!options.backgroundColor) {
+      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
+    }
+    if (!options.backgroundBlurStyle) {
+      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
+    }
+    if (!options.shadow) {
+      options.shadow = DialogUtil.defaultConfig.shadow;
+    }
     CalendarPickerDialog.show(options)
   }
 
@@ -501,7 +385,22 @@ export class DialogUtil {
    */
   static showDatePicker(options: DatePickerDialogOptions) {
     if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
+      options.alignment = DialogUtil.defaultConfig.alignment;
+    }
+    if (!options.offset) {
+      options.offset = DialogUtil.defaultConfig.offset;
+    }
+    if (!options.maskRect) {
+      options.maskRect = DialogUtil.defaultConfig.maskRect;
+    }
+    if (!options.backgroundColor) {
+      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
+    }
+    if (!options.backgroundBlurStyle) {
+      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
+    }
+    if (!options.shadow) {
+      options.shadow = DialogUtil.defaultConfig.shadow;
     }
     DatePickerDialog.show(options);
   }
@@ -519,7 +418,22 @@ export class DialogUtil {
    */
   static showTimePicker(options: TimePickerDialogOptions) {
     if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
+      options.alignment = DialogUtil.defaultConfig.alignment;
+    }
+    if (!options.offset) {
+      options.offset = DialogUtil.defaultConfig.offset;
+    }
+    if (!options.maskRect) {
+      options.maskRect = DialogUtil.defaultConfig.maskRect;
+    }
+    if (!options.backgroundColor) {
+      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
+    }
+    if (!options.backgroundBlurStyle) {
+      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
+    }
+    if (!options.shadow) {
+      options.shadow = DialogUtil.defaultConfig.shadow;
     }
     TimePickerDialog.show(options);
   }
@@ -544,121 +458,25 @@ export class DialogUtil {
    */
   static showTextPicker(options: TextPickerDialogOptions) {
     if (!options.alignment) {
-      options.alignment = DialogAlignment.Center;
+      options.alignment = DialogUtil.defaultConfig.alignment;
+    }
+    if (!options.offset) {
+      options.offset = DialogUtil.defaultConfig.offset;
+    }
+    if (!options.maskRect) {
+      options.maskRect = DialogUtil.defaultConfig.maskRect;
+    }
+    if (!options.backgroundColor) {
+      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
+    }
+    if (!options.backgroundBlurStyle) {
+      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
+    }
+    if (!options.shadow) {
+      options.shadow = DialogUtil.defaultConfig.shadow;
     }
     TextPickerDialog.show(options);
   }
 
-}
 
-
-/**
- * AlertDialog基本参数类
- */
-export class AlertDialogParam {
-  title?: ResourceStr; //弹框标题
-  subtitle?: ResourceStr; //弹框副标题
-  message: ResourceStr = ''; //弹框内容
-  autoCancel?: boolean; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
-  cancel?: () => void; //点击遮障层关闭dialog时的回调。
-  alignment?: DialogAlignment; //弹窗的对齐方式。
-  offset?: Offset; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0 , dy: 0 }
-  maskRect?: Rectangle; //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
-  showInSubWindow?: boolean; //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
-  isModal?: boolean; //弹窗是否为模态窗口，模态窗口有蒙层，非模态窗口无蒙层。默认值：true，此时弹窗有蒙层。
-  backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.Transparent
-  backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
-}
-
-
-/**
- * AlertDialog按钮参数类
- */
-export class ButtonOptions {
-  value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
-  action: () => void = () => {}; //Button选中时的回调。
-  enabled?: boolean; //点击Button是否响应，默认值true。
-  defaultFocus?: boolean; //设置Button是否是默认焦点，默认值false。
-  style?: DialogButtonStyle; //设置Button的风格样式，默认值DialogButtonStyle.DEFAULT。
-  fontColor?: ResourceColor; //Button的文本内容，若值为null，则该按钮不显示。
-  backgroundColor?: ResourceColor; //Button背景颜色。
-}
-
-
-/**
- * 确认AlertDialog参数类
- */
-export class ConfirmDialogOptions extends AlertDialogParam {
-  gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
-  confirm: ButtonOptions = new ButtonOptions();
-}
-
-/**
- * 两个按钮的AlertDialog参数类
- */
-export class PrimaryDialogOptions extends AlertDialogParam {
-  gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
-  primaryButton: ButtonOptions = new ButtonOptions();
-  secondaryButton: ButtonOptions = new ButtonOptions();
-}
-
-/**
- * 多个按钮的AlertDialog参数类
- */
-export class OptionDialogOptions extends AlertDialogParam {
-  gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
-  buttons: Array<ButtonOptions> = [] //弹窗容器中的多个按钮。
-  buttonDirection?: DialogButtonDirection //按钮排布方向默认值为DialogButtonDirection.AUTO，建议3个以上按钮使用Auto模式（两个以上按钮会切换为纵向模式，通常能显示更多按钮），非Auto模式下，3个以上按钮可能会显示不全，超出显示范围的按钮会被截断。
-}
-
-/**
- * 多个按钮的AlertDialog参数类
- */
-export class EasyDialogOptions extends AlertDialogParam {
-  gridCount?: number; //弹窗容器宽度所占用栅格数。默认值：4
-  buttons: Array<ResourceStr> = [] //弹窗容器中的多个按钮。
-  buttonDirection?: DialogButtonDirection //按钮排布方向默认值为DialogButtonDirection.AUTO，建议3个以上按钮使用Auto模式（两个以上按钮会切换为纵向模式，通常能显示更多按钮），非Auto模式下，3个以上按钮可能会显示不全，超出显示范围的按钮会被截断。
-  callBack?: (index: number) => void; //回调事件
-}
-
-
-/**
- * ActionSheet,confirm按钮参数类
- */
-export class SheetConfirm{
-  value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
-  action: () => void = () => {}; //Button选中时的回调。
-  enabled?: boolean; //点击Button是否响应，默认值true。
-  defaultFocus?: boolean; //设置Button是否是默认焦点，默认值false。
-  style?: DialogButtonStyle; //设置Button的风格样式，默认值DialogButtonStyle.DEFAULT。
-}
-
-
-/**
- * ActionSheet参数类
- */
-export class ActionSheetOptions extends AlertDialogParam {
-  sheets: Array<SheetInfo>=[]; //title-选项的文本内容、icon-选项的图标、action-选项选中的回调。
-  confirm?: SheetConfirm;
-}
-
-
-/**
- * 简单易用的ActionSheet的选中参数类
- */
-export class SelectSheet {
-  position: number = 0; //选中位置
-  defaultIcon: ResourceStr = ''; //默认显示的图标
-  selectIcon: ResourceStr = ''; //选中显示的图标
-}
-
-
-/**
- * 简单易用的ActionSheet参数类
- */
-export class EasySheetOptions extends AlertDialogParam {
-  sheets: Array<ResourceStr> = []; //title-选项的文本内容、icon-选项的图标、action-选项选中的回调。
-  select?: SelectSheet;  //选中配置参数
-  callBack?: (index: number) => void; //回调事件
-  confirm?: SheetConfirm;
 }

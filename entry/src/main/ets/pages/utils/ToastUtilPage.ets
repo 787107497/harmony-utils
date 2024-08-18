@@ -1,4 +1,4 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { ComposeTitleBar, promptAction, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
@@ -30,20 +30,57 @@ struct Index {
           Button("showToast()")
             .btnStyle()
             .onClick(() => {
-              ToastUtil.showToast("弹出土司，默认时长为2s")
+              ToastUtil.showToast("弹出土司，默认时长为2s");
             })
           Button("showShort()")
             .btnStyle()
             .onClick(() => {
-              ToastUtil.showShort(" 弹出短土司，时长为:1.5s")
+              ToastUtil.showShort("弹出短土司，时长为:1.5s");
             })
           Button("showLong()")
             .btnStyle()
             .onClick(() => {
-              ToastUtil.showLong(" 弹出短土司，时长为:10s")
+              ToastUtil.showLong("弹出短土司，时长为:10s");
+            })
+          Button("showToast()，当前样式")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.showToast("弹出土司，当前样式", {
+                alignment: Alignment.Bottom,
+                offset: { dx: 0, dy: -300 }
+              });
+            })
+          Button("设置默认样式(一)")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.setDefaultConfig((config) => {
+                config.alignment = Alignment.Top
+                config.offset = { dx: 0, dy: 80 }
+              });
+              ToastUtil.showLong("样式(一)设置成功");
+            })
+          Button("设置默认样式(二)")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.setDefaultConfig((config) => {
+                config.alignment = Alignment.Center
+                config.offset = { dx: 0, dy: 0 }
+                config.showMode = promptAction.ToastShowMode.DEFAULT
+                config.duration = 2600
+              });
+              ToastUtil.showLong("样式(二)设置成功");
+            })
+          Button("设置默认样式(三)")
+            .btnStyle()
+            .onClick(() => {
+              ToastUtil.setDefaultConfig((config) => {
+                config.alignment = Alignment.Bottom
+                config.offset = { dx: 0, dy: -80 }
+              });
+              ToastUtil.showLong("样式(三)设置成功");
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

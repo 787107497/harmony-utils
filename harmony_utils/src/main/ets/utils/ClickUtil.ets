@@ -3,7 +3,7 @@ let throttleTimer: number //节流
 let debounceTimer: number //防抖
 
 /**
- * TODO 节流、防抖 工具类（用于点击事件，防止按钮被重复点击）
+ * TODO 节流、防抖 工具类（用于点击事件，防止按钮被重复点击） once
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
