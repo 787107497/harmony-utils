@@ -1,4 +1,5 @@
 import { i18n, intl } from '@kit.LocalizationKit';
+import { NumberUtil } from './NumberUtil';
 
 /**
  * TODO 日期工具类
@@ -177,7 +178,7 @@ export class DateUtil {
   static isSameYear(date1: number | string | Date, date2: number | string | Date) {
     date1 = DateUtil.getFormatDate(date1);
     date2 = DateUtil.getFormatDate(date2);
-    let blSameYear = date1.getFullYear() == date2.getFullYear();
+    let blSameYear = date1.getFullYear() === date2.getFullYear();
     return blSameYear;
   }
 
@@ -187,8 +188,8 @@ export class DateUtil {
   static isSameMonth(date1: number | string | Date, date2: number | string | Date) {
     date1 = DateUtil.getFormatDate(date1);
     date2 = DateUtil.getFormatDate(date2);
-    let blSameYear = date1.getFullYear() == date2.getFullYear();
-    let blSameMonth = date1.getMonth() == date2.getMonth();
+    let blSameYear = date1.getFullYear() === date2.getFullYear();
+    let blSameMonth = date1.getMonth() === date2.getMonth();
     return blSameYear && blSameMonth;
   }
 
@@ -196,12 +197,12 @@ export class DateUtil {
    * 判断两个日期是否是同一周
    */
   static isSameWeek(date1: number | string | Date, date2: number | string | Date) {
-    date1 = DateUtil.getFormatDate(date1);
-    date2 = DateUtil.getFormatDate(date2);
-    let blSameYear = date1.getFullYear() == date2.getFullYear();
-    let blSameMonth = date1.getMonth() == date2.getMonth();
-    let blSameWeek = date1.getDay() == date2.getDay();
-    return blSameYear && blSameMonth && blSameWeek;
+    let oneDayTime = 1000 * 60 * 60 * 24;
+    let dayCount1 = DateUtil.getFormatDate(date1).getTime() / oneDayTime;
+    let dayCount2 = DateUtil.getFormatDate(date2).getTime() / oneDayTime;
+    let i1 = NumberUtil.toInt(((dayCount1 + 4) / 7).toString())
+    let i2 = NumberUtil.toInt(((dayCount2 + 4) / 7).toString())
+    return i1 === i2;
   }
 
   /**
@@ -210,9 +211,9 @@ export class DateUtil {
   static isSameDay(date1: number | string | Date, date2: number | string | Date) {
     date1 = DateUtil.getFormatDate(date1);
     date2 = DateUtil.getFormatDate(date2);
-    let blSameYear = date1.getFullYear() == date2.getFullYear();
-    let blSameMonth = date1.getMonth() == date2.getMonth();
-    let blSameDay = date1.getDate() == date2.getDate();
+    let blSameYear = date1.getFullYear() === date2.getFullYear();
+    let blSameMonth = date1.getMonth() === date2.getMonth();
+    let blSameDay = date1.getDate() === date2.getDate();
     return blSameYear && blSameMonth && blSameDay;
   }
 
@@ -276,7 +277,7 @@ export class DateUtil {
     date = DateUtil.getFormatDate(date);
     let calendar: i18n.Calendar = i18n.getCalendar("zh-Hans");
     calendar.setTime(date);
-    return calendar.isWeekend();
+    return calendar.isWeekend(date);
   }
 
 
@@ -367,11 +368,7 @@ export class DateUtil {
    */
   static getWeekOfMonth(date: number | string | Date): number {
     date = DateUtil.getFormatDate(date);
-    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1); //获取本月的第一天
-    const daysSinceFirstDay = (date.getTime() - firstDayOfMonth.getTime()) / (1000 * 360 * 24); //计算该日期与本月第一天之间的天数
-    const firstDayOfWeek = firstDayOfMonth.getDay(); //计算本月的第一天是星期几
-    const weekOfMonth = Math.floor((daysSinceFirstDay + firstDayOfWeek) / 7) + 1; //计算该日期是本月的第几周,需要考虑到本月的第一天可能不是星期一
-    return weekOfMonth;
+    return DateUtil.getCalendarField('week_of_month', date); //一个月中的第几周，按照星期计算周;
   }
 
   /**
@@ -400,8 +397,7 @@ export class DateUtil {
    * @param locale 包含区域设置信息的字符串，包括语言以及可选的脚本和区域
    * @returns
    */
-  static getFormatTime(date: Date,
-    options: intl.DateTimeOptions = { dateStyle: "short", timeStyle: "short", hourCycle: "h24" },
+  static getFormatTime(date: Date, options: intl.DateTimeOptions = { dateStyle: "short", timeStyle: "short", hourCycle: "h24" },
     locale: string = "zh-CN"): string {
     const dateTimeFormat = new intl.DateTimeFormat(locale, options);
     return dateTimeFormat.format(date);

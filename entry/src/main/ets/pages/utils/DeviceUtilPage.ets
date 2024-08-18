@@ -50,7 +50,7 @@ struct Index {
               ToastUtil.showToast("移除设备ID成功！")
             })
           Button("getBrand()\ngetProductModel()\ngetOsReleaseType()\ngetOsFullName()\ngetDisplayVersion()\ngetSdkApiVersion()\ngetBuildVersion()\ngetODID()")
-            .labelStyle({ maxLines: 5 })
+            .labelStyle({ maxLines: 8 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
