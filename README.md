@@ -612,13 +612,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | throttle | 节流：在一定时间内，只触发一次                  |
 | debounce | 防抖：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数 |
 
-### TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
-
-| 方法  | 介绍      |
-|:----|:--------|
-| F2C | 华氏度转摄氏度 |
-| C2F | 摄氏度转华氏度 |
-
 ### AssetUtil(关键资产存储服务工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 
 | 方法         | 介绍          |
@@ -656,6 +649,13 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showShort        | 弹出短土司，默认时长为:1.5s |
 | showLong         | 弹出长土司，默认时长为:10s  |
 
+### TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
+
+| 方法  | 介绍      |
+|:----|:--------|
+| F2C | 华氏度转摄氏度 |
+| C2F | 摄氏度转华氏度 |
+
 ### ActionUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ActionUtilPage.ets)
 
 | 方法                 | 介绍           |
@@ -669,7 +669,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 
 <br><br>
-## 🙏贡献代码 、仓库地址、技术交流
+## 🙏贡献代码与技术交流
 
 使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)。   
 给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。

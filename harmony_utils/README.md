@@ -55,7 +55,6 @@ OpenHarmony ohpm
 | ToastUtil                                                                         | 土司工具类（promptAction）                                                      |
 | TempUtil                                                                          | 温度转换工具类，华氏度与摄氏度相互转换                                                      |
 | SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。 |
-
 <br></br>
 
 ## 📚API详解
@@ -612,13 +611,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | throttle | 节流：在一定时间内，只触发一次                  |
 | debounce | 防抖：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数 |
 
-### TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
-
-| 方法  | 介绍      |
-|:----|:--------|
-| F2C | 华氏度转摄氏度 |
-| C2F | 摄氏度转华氏度 |
-
 ### AssetUtil(关键资产存储服务工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 
 | 方法         | 介绍          |
@@ -656,7 +648,14 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showShort        | 弹出短土司，默认时长为:1.5s |
 | showLong         | 弹出长土司，默认时长为:10s  |
 
-### ActionUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ActionUtilPage.ets)
+### TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
+
+| 方法  | 介绍      |
+|:----|:--------|
+| F2C | 华氏度转摄氏度 |
+| C2F | 摄氏度转华氏度 |
+
+### SM2（SM2加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM2Page.ets)
 
 | 方法                 | 介绍           |
 |:-------------------|:-------------|
