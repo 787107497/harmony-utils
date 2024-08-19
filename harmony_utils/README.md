@@ -199,75 +199,51 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
-| 方法                       | 介绍                                     |
-|:-------------------------|:---------------------------------------|
-| getFilesDirPath          | 获取文件目录下的文件夹路径或文件路径                     |
-| getCacheDirPath          | 获取缓存目录下的文件夹路径或文件路径                     |
-| getTempDirPath           | 获取临时目录下的文件夹路径或文件路径                     |
-| hasDirPath               | 判断是否是完整路径                              |
-| getFileUri               | 通过URI或路径，获取FileUri                     |
-| getFileName              | 通过URI或路径，获取文件名                         |
-| getFilePath              | 通过URI或路径，获取文件路径                        |
-| getParentUri             | 通过URI或路径，获取对应文件父目录的URI                 |
-| getParentPath            | 通过URI或路径，获取对应文件父目录的路径名                 |
-| getUriFromPath           | 以同步方法获取文件URI                           |
-| getFileExtention         | 根据文件名获取文件后缀                            |
-| getFileDirSize           | 获取指定文件夹下所有文件的大小或指定文件大小                 |
-| isFile                   | 判断文件是否是普通文件                            |
-| isDirectory              | 判断文件是否是目录                              |
-| rename                   | 重命名文件或文件夹，使用Promise异步回调                |
-| renameSync               | 重命名文件或文件夹，以同步方法                        |
-| mkdir                    | 创建目录，当recursion指定为true，可多层级创建目录        |
-| mkdirSync                | 创建目录以同步方法，当recursion指定为true，可多层级创建目录   |
-| rmdir                    | 删除整个目录，使用Promise异步回调                   |
-| rmdirSync                | 删除整个目录，以同步方法                           |
-| unlink                   | 删除单个文件，使用Promise异步回调                   |
-| unlinkSync               | 删除单个文件，以同步方法                           |
-| access                   | 检查文件是否存在，使用Promise异步回调                 |
-| accessSync               | 检查文件是否存在，以同步方法                         |
-| open                     | 打开文件，支持使用URI打开文件                       |
-| openSync                 | 打开文件，支持使用URI打开文件                       |
-| read                     | 从文件读取数据                                |
-| readSync                 | 从文件读取数据                                |
-| readText                 | 基于文本方式读取文件（即直接读取文件的文本内容）               |
-| readTextSync             | 基于文本方式读取文件（即直接读取文件的文本内容）               |
-| write                    | 将数据写入文件                                |
-| writeSync                | 将数据写入文件                                |
-| writeEasy                | 将数据写入文件，并关闭文件                          |
-| close                    | 关闭文件                                   |
-| closeSync                | 关闭文件                                   |
-| listFile                 | 列出文件夹下所有文件名，支持递归列出所有文件名（包含子目录下），支持文件过滤 |
-| listFileSync             | 列出文件夹下所有文件名，支持递归列出所有文件名（包含子目录下），支持文件过滤 |
-| stat                     | 获取文件详细属性信息                             |
-| statSync                 | 获取文件详细属性信息                             |
-| copy                     | 拷贝文件或者目录，支持拷贝进度监听                      |
-| copyFile                 | 复制文件                                   |
-| copyFileSync             | 以同步方法复制文件                              |
-| moveFile                 | 移动文件                                   |
-| moveFileSync             | 移动文件，以同步方法                             |
-| moveDir                  | 移动源文件夹至目标路径下                           |
-| moveDirSync              | 以同步方法移动源文件夹至目标路径下                      |
-| truncate                 | 截断文件                                   |
-| truncateSync             | 截断文件，以同步方法                             |
-| lstat                    | 获取链接文件信息                               |
-| lstatSync                | 获取链接文件信息，以同步方法                         |
-| fsync                    | 同步文件数据                                 |
-| fsyncSync                | 同步文件数据，以同步方法                           |
-| fdatasync                | 实现文件内容数据同步                             |
-| fdatasyncSync            | 实现文件内容数据同步，以同步方法                       |
-| createStream             | 基于文件路径打开文件流                            |
-| createStreamSync         | 基于文件路径打开文件流，以同步方法                      |
-| fdopenStream             | 基于文件描述符打开文件流                           |
-| fdopenStreamSync         | 基于文件描述符打开文件流，以同步方法                     |
-| mkdtemp                  | 创建临时目录                                 |
-| mkdtempSync              | 创建临时目录，以同步的方法                          |
-| dup                      | 将文件描述符转化为File                          |
-| utimes                   | 修改文件最近访问时间属性                           |
-| getFormatFileSize        | 格式化文件大小                                |
-| getRawFileContentSync    | 获取resources/rawfile目录下对应的rawfile文件内容   |
-| getRawFileContent        | 获取resources/rawfile目录下对应的rawfile文件内容   |
-| getRawFileContentStrSync | 获取resources/rawfile目录下对应的rawfile文件内容   |
-| getRawFileContentStr     | 获取resources/rawfile目录下对应的rawfile文件内容   |
+| 方法                                                | 介绍                                     |
+|:--------------------------------------------------|:---------------------------------------|
+| getFilesDirPath                                   | 获取文件目录下的文件夹路径或文件路径                     |
+| getCacheDirPath                                   | 获取缓存目录下的文件夹路径或文件路径                     |
+| getTempDirPath                                    | 获取临时目录下的文件夹路径或文件路径                     |
+| hasDirPath                                        | 判断是否是完整路径                              |
+| getFileUri                                        | 通过URI或路径，获取FileUri                     |
+| getFileName                                       | 通过URI或路径，获取文件名                         |
+| getFilePath                                       | 通过URI或路径，获取文件路径                        |
+| getParentUri                                      | 通过URI或路径，获取对应文件父目录的URI                 |
+| getParentPath                                     | 通过URI或路径，获取对应文件父目录的路径名                 |
+| getUriFromPath                                    | 以同步方法获取文件URI                           |
+| getFileExtention                                  | 根据文件名获取文件后缀                            |
+| getFileDirSize                                    | 获取指定文件夹下所有文件的大小或指定文件大小                 |
+| isFile                                            | 判断文件是否是普通文件                            |
+| isDirectory                                       | 判断文件是否是目录                              |
+| rename<br/>renameSync                             | 重命名文件或文件夹，使用Promise异步回调                |
+| mkdir<br/>mkdirSync                               | 创建目录，当recursion指定为true，可多层级创建目录        |
+| rmdir<br/>rmdirSync                               | 删除整个目录，使用Promise异步回调                   |
+| unlink<br/>unlinkSync                             | 删除单个文件，使用Promise异步回调                   |
+| access<br/>accessSync                             | 检查文件是否存在，使用Promise异步回调                 |
+| open<br/>openSync                                 | 打开文件，支持使用URI打开文件                       |
+| read<br/>readSync                                 | 从文件读取数据                                |
+| readText<br/>readTextSync                         | 基于文本方式读取文件（即直接读取文件的文本内容）               |
+| write<br/>writeSync                               | 将数据写入文件                                |
+| writeEasy                                         | 将数据写入文件，并关闭文件                          |
+| close<br/>closeSync                               | 关闭文件                                   |
+| listFile<br/>listFileSync                         | 列出文件夹下所有文件名，支持递归列出所有文件名（包含子目录下），支持文件过滤 |
+| stat<br/>statSync                                 | 获取文件详细属性信息                             |
+| copy                                              | 拷贝文件或者目录，支持拷贝进度监听                      |
+| copyFile<br/>copyFileSync                         | 复制文件                                   |
+| moveFile<br/>moveFileSync                         | 移动文件                                   |
+| moveDir<br/>moveDirSync                           | 移动源文件夹至目标路径下                           |
+| truncate<br/>truncateSync                         | 截断文件                                   |
+| lstat<br/>lstatSync                               | 获取链接文件信息                               |
+| fsync<br/>fsyncSync                               | 同步文件数据                                 |
+| fdatasync<br/>fdatasyncSync                       | 实现文件内容数据同步                             |
+| createStream<br/>createStreamSync                 | 基于文件路径打开文件流                            |
+| fdopenStream<br/>fdopenStreamSync                 | 基于文件描述符打开文件流                           |
+| mkdtemp<br/>mkdtempSync                           | 创建临时目录                                 |
+| dup                                               | 将文件描述符转化为File                          |
+| utimes                                            | 修改文件最近访问时间属性                           |
+| getFormatFileSize                                 | 格式化文件大小                                |
+| getRawFileContent<br/>getRawFileContentSync       | 获取resources/rawfile目录下对应的rawfile文件内容   |
+| getRawFileContentStr<br/>getRawFileContentStrSync | 获取resources/rawfile目录下对应的rawfile文件内容   |
 
 ### PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
 
@@ -337,18 +313,15 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 
-| 方法             | 介绍            |
-|:---------------|:--------------|
-| setDataText    | 将纯文本数据写入系统剪贴板 |
-| setDataHtml    | 将Htm数据写入系统剪贴板 |
-| setDataUri     | 将Uri数据写入系统剪贴板 |
-| getData        | 读取系统剪贴板内容     |
-| getDataSync    | 读取系统剪贴板内容     |
-| getDataStr     | 读取系统剪贴板里的字符串  |
-| getDataSyncStr | 读取系统剪贴板里的字符串  |
-| clearData      | 清空系统剪贴板内容     |
-| hasData        | 判断系统剪贴板中是否有内容 |
-| hasDataSync    | 判断系统剪贴板中是否有内容 |
+| 方法                            | 介绍            |
+|:------------------------------|:--------------|
+| setDataText                   | 将纯文本数据写入系统剪贴板 |
+| setDataHtml                   | 将Htm数据写入系统剪贴板 |
+| setDataUri                    | 将Uri数据写入系统剪贴板 |
+| getData<br/>getDataSync       | 读取系统剪贴板内容     |
+| getDataStr<br/>getDataSyncStr | 读取系统剪贴板里的字符串  |
+| hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
+| clearData                     | 清空系统剪贴板内容     |
 
 ### SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
 
@@ -476,14 +449,11 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
 
-| 方法              | 介绍                           |
-|:----------------|:-----------------------------|
-| encodeSync      | 编码，通过输入参数编码后输出Uint8Array对象   |
-| encodeToStrSync | 编码，通过输入参数编码后输出对应文本           |
-| decodeSync      | 解码，通过输入参数解码后输出对应Uint8Array对象 |
-| encode          | 编码，通过输入参数编码后输出Uint8Array对象   |
-| encodeToStr     | 编码，通过输入参数编码后输出对应文本           |
-| decode          | 解码，通过输入参数解码后输出对应Uint8Array对象 |
+| 方法                              | 介绍                           |
+|:--------------------------------|:-----------------------------|
+| decode<br/>encodeSync           | 解码，通过输入参数解码后输出对应Uint8Array对象 |
+| encodeToStr<br/>encodeToStrSync | 编码，通过输入参数编码后输出对应文本           |
+| encode<br/>decodeSync           | 编码，通过输入参数编码后输出Uint8Array对象   |
 
 ### NumberUtil（number工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NumberUtilPage.ets)
 
@@ -602,15 +572,12 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### AssetUtil(关键资产存储服务工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 
-| 方法         | 介绍          |
-|:-----------|:------------|
-| add        | 新增一条关键资产    |
-| addSync    | 新增一条关键资产,同步 |
-| get        | 查询关键资产      |
-| getSync    | 查询关键资产，同步   |
-| remove     | 删除关键资产      |
-| removeSync | 删除关键资产，同步   |
-| canIUse    | 当前设备是否支持该模块 |
+| 方法                    | 介绍          |
+|:----------------------|:------------|
+| add<br/>addSync       | 新增一条关键资产    |
+| get<br/>getSync       | 查询关键资产      |
+| remove<br/>removeSync | 删除关键资产      |
+| canIUse               | 当前设备是否支持该模块 |
 
 ### DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
 
