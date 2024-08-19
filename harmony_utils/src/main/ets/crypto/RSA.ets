@@ -13,7 +13,7 @@ import { CryptoUtil } from './CryptoUtil';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export class RSA{
+export class RSA {
   /**
    * 加密,异步
    * @param data 加密或者解密的数据。data不能为null。

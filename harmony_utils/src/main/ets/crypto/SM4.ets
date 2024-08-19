@@ -288,7 +288,7 @@ export class SM4 {
 
 
   /**
-   * 解密（GCM模式）,异步
+   * 解密（GCM模式）分段，异步
    * @param data 加密或者解密的数据。data不能为null。
    * @param symKey 指定加密或解密的密钥。
    * @param gcmParams 指定加密或解密的参数，对于ECB等没有参数的算法模式，可以传入null。API 10之前只支持ParamsSpec， API 10之后增加支持null。
@@ -316,7 +316,7 @@ export class SM4 {
   }
 
   /**
-   * 解密（GCM模式）,异步
+   * 解密（GCM模式）分段,异步
    * @param data 加密或者解密的数据。data不能为null。
    * @param symKey 指定加密或解密的密钥。
    * @param gcmParams 指定加密或解密的参数，对于ECB等没有参数的算法模式，可以传入null。API 10之前只支持ParamsSpec， API 10之后增加支持null。

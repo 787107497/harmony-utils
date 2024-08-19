@@ -173,7 +173,12 @@ export class CryptoHelper {
   }
 
 
-  static stringToHex(str: string) {
+  /**
+   * 字符串转Hex
+   * @param str
+   * @returns
+   */
+  static stringToHex(str: string): string {
     let hex = '';
     for (let i = 0; i < str.length; i++) {
       let hexCharCode = str.charCodeAt(i).toString(16);
@@ -184,7 +189,11 @@ export class CryptoHelper {
   }
 
 
-  // 字节流转成可理解的字符串
+  /**
+   * 字节流转成可理解的字符串
+   * @param array
+   * @returns
+   */
   static uint8ArrayToString(array: Uint8Array) {
     // 将UTF-8编码转换成Unicode编码
     let out: string = '';

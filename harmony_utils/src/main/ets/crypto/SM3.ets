@@ -39,7 +39,7 @@ export class SM3 {
 
 
   /**
-   * SM3摘要，分段，同步
+   * SM3分段摘要，同步
    * @param data 待摘要的数据
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度
@@ -50,7 +50,7 @@ export class SM3 {
   }
 
   /**
-   * SM3摘要，分段，同步
+   * SM3分段摘要，同步
    * @param data 待摘要的数据
    * @param resultCoding 摘要的编码方式（base64/hex），默认不传为hex。
    * @param len 自定义的数据拆分长度

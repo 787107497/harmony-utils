@@ -213,7 +213,6 @@ export class CryptoUtil {
   }
 
 
-
   /**
    * 生成IvParamsSpec
    * @returns
@@ -226,7 +225,7 @@ export class CryptoUtil {
   }
 
   /**
-   * 获取生成IvParamsSpec
+   * 获取转换IvParamsSpec
    * @param ivStr 字符串iv
    * @param ivCoding 编码方式(base64/hex/utf8/utf-8)
    * @returns
@@ -257,7 +256,7 @@ export class CryptoUtil {
 
 
   /**
-   * 获取生成GcmParamsSpec
+   * 获取转换GcmParamsSpec
    */
   static getGcmParamsSpec(iv: Uint8Array, aad: Uint8Array, authTag: Uint8Array): cryptoFramework.GcmParamsSpec {
     //GCM的authTag在加密时从doFinal结果中获取，在解密时填入init函数的params参数中
