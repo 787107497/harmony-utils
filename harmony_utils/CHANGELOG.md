@@ -1,7 +1,7 @@
 # 版本记录
 ## 1.0.7 （API12 - Dev: 5.0.3.500）
 1. 新增加解密，SM2、SM3、SM4、AES、DES、RSA、MD5、SHA、ECDSA、CryptoUtil、CryptoHelper。   
-2. 
+2. 新增EmitterUtil工具类。
 3. DialogUtil，适配API12新增支持拦截系统返回键和新增setDefaultConfig设置默认统一样式。     
 4. ToastUtil，新增setDefaultConfig设置默认统一样式。   
 5. DateUtil，Bug修复。 

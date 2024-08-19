@@ -580,6 +580,15 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | remove<br/>removeSync | 删除关键资产      |
 | canIUse               | 当前设备是否支持该模块 |
 
+### EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
+
+| 方法            | 介绍       |
+|:--------------|:---------|
+| post          | 发送事件     |
+| onSubscribe   | 订阅事件     |
+| onceSubscribe | 单次订阅指定事件 |
+| unSubscribe   | 取消事件订阅   |
+
 ### DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
 
 | 方法                  | 介绍               |

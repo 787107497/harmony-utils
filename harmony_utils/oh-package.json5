@@ -1,6 +1,6 @@
 {
   "name": "@pura/harmony-utils",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",
@@ -18,11 +18,11 @@
     "字符串",
     "日期",
     "图片",
+    "文件",
     "弹框",
     "随机",
-    "JSON",
-    "HarmonyOS",
-    "utils"
+    "通知",
+    "picker"
   ],
   "tags": [
     "工具类",
@@ -30,10 +30,10 @@
     "字符串",
     "日期",
     "图片",
+    "文件",
     "弹框",
     "随机",
-    "JSON",
-    "HarmonyOS",
-    "utils"
+    "通知",
+    "picker"
   ]
 }
