@@ -1,6 +1,6 @@
-import preferences from '@ohos.data.preferences'
-import dataPreferences from '@ohos.data.preferences'
-import { AppUtil } from './AppUtil'
+import preferences from '@ohos.data.preferences';
+import dataPreferences from '@ohos.data.preferences';
+import { AppUtil } from './AppUtil';
 
 
 /**
@@ -14,46 +14,49 @@ import { AppUtil } from './AppUtil'
  * QQ交流群: 569512366
  */
 export class PreferencesUtil {
-
   private constructor() {}
 
-  private static defaultPreferenceName: string = "SP_HARMONY_UTILS_PREFERENCES"
-  private static preferences: preferences.Preferences
-
-
-  /**
-   * 获取Preferences实例
-   * @param name
-   * @returns
-   */
-  private static getPreferencesSync(): preferences.Preferences {
-    if (!PreferencesUtil.preferences) {
-      PreferencesUtil.preferences = dataPreferences.getPreferencesSync(AppUtil.getContext(),
-        { name: PreferencesUtil.defaultPreferenceName });
-    }
-    return PreferencesUtil.preferences;
-  }
-
-  /**
-   * 获取Preferences实例
-   * @param name
-   * @returns
-   */
-  private static async getPreferences(): Promise<preferences.Preferences> {
-    if (!PreferencesUtil.preferences) {
-      PreferencesUtil.preferences =
-        await dataPreferences.getPreferences(AppUtil.getContext(), PreferencesUtil.defaultPreferenceName);
-    }
-    return PreferencesUtil.preferences;
-  }
-
+  private static defaultPreferenceName: string = "SP_HARMONY_UTILS_PREFERENCES";
+  private static preferences: preferences.Preferences;
 
   /**
    * 初始化
    * @param name Preferences实例的名称。
    */
-  static init(name: string) {
-    PreferencesUtil.defaultPreferenceName = name;
+  static init(preferenceName: string) {
+    if (!PreferencesUtil.preferences || preferenceName !== PreferencesUtil.defaultPreferenceName) {
+      PreferencesUtil.defaultPreferenceName = preferenceName;
+      PreferencesUtil.preferences = dataPreferences.getPreferencesSync(AppUtil.getContext(), { name: preferenceName });
+    }
+  }
+
+
+  /**
+   * 获取Preferences实例
+   * @param name
+   * @returns
+   */
+  private static getPreferencesSync(preferenceName: string = PreferencesUtil.defaultPreferenceName): preferences.Preferences {
+    if (preferenceName !== PreferencesUtil.defaultPreferenceName) {
+      return dataPreferences.getPreferencesSync(AppUtil.getContext(), { name: preferenceName });
+    } else if (!PreferencesUtil.preferences) {
+      PreferencesUtil.preferences = dataPreferences.getPreferencesSync(AppUtil.getContext(), { name: preferenceName });
+    }
+    return PreferencesUtil.preferences;
+  }
+
+  /**
+   * 获取Preferences实例
+   * @param name
+   * @returns
+   */
+  private static async getPreferences(preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<preferences.Preferences> {
+    if (preferenceName !== PreferencesUtil.defaultPreferenceName) {
+      return await dataPreferences.getPreferences(AppUtil.getContext(), preferenceName);
+    } else if (!PreferencesUtil.preferences) {
+      PreferencesUtil.preferences = await dataPreferences.getPreferences(AppUtil.getContext(), preferenceName);
+    }
+    return PreferencesUtil.preferences;
   }
 
 
@@ -62,8 +65,9 @@ export class PreferencesUtil {
    * @param key
    * @param value
    */
-  static putSync(key: string, value: preferences.ValueType) {
-    let preferences = PreferencesUtil.getPreferencesSync(); //获取实例
+  static putSync(key: string, value: preferences.ValueType,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    let preferences = PreferencesUtil.getPreferencesSync(preferenceName); //获取实例
     preferences.putSync(key, value);
     preferences.flush(); //此处一定要flush，要不然不能永久序列化到本地
   }
@@ -73,8 +77,9 @@ export class PreferencesUtil {
    * @param key
    * @param value
    */
-  static async put(key: string, value: preferences.ValueType) {
-    let preferences = await PreferencesUtil.getPreferences(); //获取实例
+  static async put(key: string, value: preferences.ValueType,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
     await preferences.put(key, value);
     await preferences.flush(); //此处一定要flush，要不然不能永久序列化到本地
   }
@@ -86,8 +91,9 @@ export class PreferencesUtil {
    * @param defValue
    * @returns
    */
-  static getSync(key: string, defValue: preferences.ValueType): preferences.ValueType {
-    let preferences = PreferencesUtil.getPreferencesSync(); //获取实例
+  static getSync(key: string, defValue: preferences.ValueType,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): preferences.ValueType {
+    let preferences = PreferencesUtil.getPreferencesSync(preferenceName); //获取实例
     return preferences.getSync(key, defValue);
   }
 
@@ -97,8 +103,9 @@ export class PreferencesUtil {
    * @param defValue
    * @returns
    */
-  static async get(key: string, defValue: preferences.ValueType): Promise<preferences.ValueType> {
-    let preferences = await PreferencesUtil.getPreferences(); //获取实例
+  static async get(key: string, defValue: preferences.ValueType,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<preferences.ValueType> {
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
     return preferences.get(key, defValue);
   }
 
@@ -108,8 +115,8 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static getStringSync(key: string): string {
-    return PreferencesUtil.getSync(key, "") as string;
+  static getStringSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): string {
+    return PreferencesUtil.getSync(key, "", preferenceName) as string;
   }
 
   /**
@@ -117,8 +124,8 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static async getString(key: string): Promise<string> {
-    return (await PreferencesUtil.get(key, "")) as string;
+  static async getString(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<string> {
+    return (await PreferencesUtil.get(key, "", preferenceName)) as string;
   }
 
 
@@ -127,8 +134,8 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static getNumberSync(key: string): number {
-    return PreferencesUtil.getSync(key, 0) as number;
+  static getNumberSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): number {
+    return PreferencesUtil.getSync(key, 0, preferenceName) as number;
   }
 
   /**
@@ -136,8 +143,8 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static async getNumber(key: string): Promise<number> {
-    return (await PreferencesUtil.get(key, 0)) as number;
+  static async getNumber(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<number> {
+    return (await PreferencesUtil.get(key, 0, preferenceName)) as number;
   }
 
 
@@ -146,8 +153,8 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static getBooleanSync(key: string): boolean {
-    return PreferencesUtil.getSync(key, false) as boolean;
+  static getBooleanSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): boolean {
+    return PreferencesUtil.getSync(key, false, preferenceName) as boolean;
   }
 
   /**
@@ -155,8 +162,9 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static async getBoolean(key: string): Promise<boolean> {
-    return (await PreferencesUtil.get(key, false)) as boolean;
+  static async getBoolean(key: string,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<boolean> {
+    return (await PreferencesUtil.get(key, false, preferenceName)) as boolean;
   }
 
 
@@ -165,8 +173,8 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static hasSync(key: string) {
-    return PreferencesUtil.getPreferencesSync().hasSync(key);
+  static hasSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    return PreferencesUtil.getPreferencesSync(preferenceName).hasSync(key);
   }
 
   /**
@@ -174,8 +182,8 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static async has(key: string) {
-    let preferences = await PreferencesUtil.getPreferences(); //获取实例
+  static async has(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
     return await preferences.has(key);
   }
 
@@ -186,8 +194,8 @@ export class PreferencesUtil {
    * @param preferenceName
    * @returns
    */
-  static deleteSync(key: string) {
-    let preferences = PreferencesUtil.getPreferencesSync(); //获取实例
+  static deleteSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    let preferences = PreferencesUtil.getPreferencesSync(preferenceName); //获取实例
     preferences.deleteSync(key);
     preferences.flush() //此处一定要flush，要不然不能永久序列化到本地
   }
@@ -198,8 +206,8 @@ export class PreferencesUtil {
    * @param preferenceName
    * @returns
    */
-  static async delete(key: string) {
-    let preferences = await PreferencesUtil.getPreferences(); //获取实例
+  static async delete(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
     await preferences.delete(key);
     return await preferences.flush() //此处一定要flush，要不然不能永久序列化到本地
   }
@@ -210,8 +218,8 @@ export class PreferencesUtil {
    * @param preferenceName
    * @returns
    */
-  static clearSync() {
-    let preferences = PreferencesUtil.getPreferencesSync(); //获取实例
+  static clearSync(preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    let preferences = PreferencesUtil.getPreferencesSync(preferenceName); //获取实例
     preferences.clearSync();
     preferences.flush() //此处一定要flush，要不然不能永久序列化到本地
   }
@@ -221,8 +229,8 @@ export class PreferencesUtil {
    * @param preferenceName
    * @returns
    */
-  static async clear() {
-    let preferences = await PreferencesUtil.getPreferences(); //获取实例
+  static async clear(preferenceName: string = PreferencesUtil.defaultPreferenceName) {
+    let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
     await preferences.clear();
     return await preferences.flush() //此处一定要flush，要不然不能永久序列化到本地
   }
@@ -236,6 +244,4 @@ export class PreferencesUtil {
   static deletePreferences(context: Context, name: string) {
     dataPreferences.deletePreferences(context, name);
   }
-
-
 }
