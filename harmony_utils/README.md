@@ -51,10 +51,12 @@ OpenHarmony ohpm
 | CacheUtil                                                                         | 缓存工具类                                                                    |
 | ClickUtil                                                                         | 节流、防抖 工具类（用于点击事件，防止按钮被重复点击）                                              |
 | AssetUtil                                                                         | 关键资产存储服务工具类                                                              |
+| EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                      |
 | DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                       |
 | ToastUtil                                                                         | 土司工具类（promptAction）                                                      |
 | TempUtil                                                                          | 温度转换工具类，华氏度与摄氏度相互转换                                                      |
 | SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。 |
+
 <br></br>
 
 ## 📚API详解
