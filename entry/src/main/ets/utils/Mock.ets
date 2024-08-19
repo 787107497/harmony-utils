@@ -7,7 +7,6 @@ export class Mock {
   //获取模拟数据
   static getData(): Array<DescribeBean> {
     let data: Array<DescribeBean> = new Array<DescribeBean>();
-    data.push(new DescribeBean("Test", "测试页面", 0));
     data.push(new DescribeBean("AppUtil", "APP相关工具类", 1));
     data.push(new DescribeBean("DeviceUtil", "设备相关工具类", 1));
     data.push(new DescribeBean("DisplayUtil", "屏幕相关工具类", 1));
@@ -41,6 +40,7 @@ export class Mock {
     data.push(new DescribeBean("ClickUtil", "节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）", 1));
     data.push(new DescribeBean("TempUtil", "温度转换工具类，华氏度与摄氏度相互转换", 1));
     data.push(new DescribeBean("AssetUtil", "关键资产存储服务工具类", 1));
+    data.push(new DescribeBean("EmitterUtil", "Emitter工具类（进行线程间通信）", 1));
     data.push(new DescribeBean("DialogUtil", "弹窗工具类（AlertDialog）", 1));
     data.push(new DescribeBean("ToastUtil", "土司工具类（promptAction）", 1));
     data.push(new DescribeBean("SM2", "SM2加解密", 2));

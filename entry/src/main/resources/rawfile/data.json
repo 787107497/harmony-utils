@@ -1,10 +1,5 @@
 [
   {
-    "name": "Test",
-    "desc": "测试页面",
-    "type": 0
-  },
-  {
     "name": "AppUtil",
     "desc": "APP相关工具类",
     "type": 1
@@ -167,6 +162,11 @@
   {
     "name": "AssetUtil",
     "desc": "关键资产存储服务工具类",
+    "type": 1
+  },
+  {
+    "name": "EmitterUtil",
+    "desc": "Emitter工具类（进行线程间通信）",
     "type": 1
   },
   {

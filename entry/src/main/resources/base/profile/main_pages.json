@@ -34,6 +34,7 @@
     "pages/utils/ClickUtilPage",
     "pages/utils/TempUtilPage",
     "pages/utils/AssetUtilPage",
+    "pages/utils/EmitterUtilPage",
     "pages/utils/DialogUtilPage",
     "pages/utils/ToastUtilPage",
     "pages/crypto/SM2Page",
@@ -44,8 +45,7 @@
     "pages/crypto/AESPage",
     "pages/crypto/DESPage",
     "pages/crypto/RSAPage",
-    "pages/crypto/ECDSAPage",
-    "pages/TestPage"
+    "pages/crypto/ECDSAPage"
   ],
   "window": {
     "designWidth": 750,

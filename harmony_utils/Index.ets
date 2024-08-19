@@ -66,6 +66,8 @@ export { PhotoHelper } from './src/main/ets/photo/PhotoHelper';
 
 export { GlobalContext } from './src/main/ets/utils/GlobalContext';
 
+export { EmitterUtil } from './src/main/ets/utils/EmitterUtil';
+
 export { DialogUtil } from './src/main/ets/action/DialogUtil';
 
 export { ToastUtil } from './src/main/ets/action/ToastUtil';
