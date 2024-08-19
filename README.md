@@ -110,28 +110,26 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
-| 方法                      | 介绍                                  |
-|:------------------------|:------------------------------------|
-| getDeviceId             | 获取设备ID（卸载APP后依旧不变）                  |
-| deleteDeviceId          | 移除设备ID                              |
-| getBrand                | 获取设备品牌名称                            |
-| getProductModel         | 获取认证型号                              |
-| getOsReleaseType        | 获取系统的发布类型，取值为：Canary、Beta、Release   |
-| getOsFullName           | 获取系统版本                              |
-| getDisplayVersion       | 获取产品版本                              |
-| getSdkApiVersion        | 获取系统软件API版本                         |
-| getBuildVersion         | 获取Build版本号，标识编译构建的版本号               |
-| getODID                 | 获取开发者匿名设备标识符                        |
-| getConfiguration        | 获取设备的Configuration                  |
-| getConfigurationSync    | 获取设备的Configuration                  |
-| getDirection            | 获取当前设备屏幕方向                          |
-| getDeviceCapability     | 获取设备的DeviceCapability               |
-| getDeviceCapabilitySync | 获取设备的DeviceCapability               |
-| getDeviceType           | 获取当前设备类型                            |
-| getDeviceTypeStr        | 获取当前设备类型，返回字符串                      |
-| getScreenDensity        | 获取当前设备屏幕密度                          |
-| startVibration          | 开启设备振动                              |
-| stopVibration           | 停止设备振动（按照VIBRATOR_STOP_MODE_TIME模式） |
+| 方法                                              | 介绍                                  |
+|:------------------------------------------------|:------------------------------------|
+| getDeviceId                                     | 获取设备ID（卸载APP后依旧不变）                  |
+| deleteDeviceId                                  | 移除设备ID                              |
+| getBrand                                        | 获取设备品牌名称                            |
+| getProductModel                                 | 获取认证型号                              |
+| getOsReleaseType                                | 获取系统的发布类型，取值为：Canary、Beta、Release   |
+| getOsFullName                                   | 获取系统版本                              |
+| getDisplayVersion                               | 获取产品版本                              |
+| getSdkApiVersion                                | 获取系统软件API版本                         |
+| getBuildVersion                                 | 获取Build版本号，标识编译构建的版本号               |
+| getODID                                         | 获取开发者匿名设备标识符                        |
+| getConfiguration<br/>getConfigurationSync       | 获取设备的Configuration                  |
+| getDirection                                    | 获取当前设备屏幕方向                          |
+| getDeviceCapability<br/>getDeviceCapabilitySync | 获取设备的DeviceCapability               |
+| getDeviceType                                   | 获取当前设备类型                            |
+| getDeviceTypeStr                                | 获取当前设备类型，返回字符串                      |
+| getScreenDensity                                | 获取当前设备屏幕密度                          |
+| startVibration                                  | 开启设备振动                              |
+| stopVibration                                   | 停止设备振动（按照VIBRATOR_STOP_MODE_TIME模式） |
 
 ### DisplayUtil（屏幕相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DisplayUtilPage.ets)
 
@@ -187,28 +185,19 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
 
-| 方法                | 介绍                                                          |
-|:------------------|:------------------------------------------------------------|
-| init              | 初始化                                                         |
-| put               | 将数据缓存                                                       |
-| putSync           | 将数据缓存，同步                                                    |
-| get               | 获取缓存值                                                       |
-| getSync           | 获取缓存值，同步                                                    |
-| getString         | 获取string类型的缓存值                                              |
-| getStringSync     | 获取string类型的缓存值，同步                                           |
-| getNumber         | 获取number类型的缓存值                                              |
-| getNumberSync     | 获取number类型的缓存值，同步                                           |
-| getBoolean        | 获取boolean类型的缓存值                                             |
-| getBooleanSync    | 获取boolean类型的缓存值，同步                                          |
-| has               | 检查缓存实例中是否包含给定Key的存储键值对                                      |
-| hasSync           | 检查缓存实例中是否包含给定Key的存储键值对，同步                                   |
-| getBoolean        | 获取boolean类型的缓存值                                             |
-| getBooleanSync    | 获取boolean类型的缓存值，同步                                          |
-| delete            | 删除缓存值                                                       |
-| deleteSync        | 删除缓存值，同步                                                    |
-| clear             | 清空缓存                                                        |
-| clearSync         | 清空缓存 ，同步                                                    |
-| deletePreferences | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
+| 方法                            | 介绍                                                          |
+|:------------------------------|:------------------------------------------------------------|
+| init                          | 初始化                                                         |
+| put<br/>putSync               | 将数据缓存                                                       |
+| get<br/>getSync               | 获取缓存值                                                       |
+| getString<br/>getStringSync   | 获取string类型的缓存值                                              |
+| getNumber<br/>getNumberSync   | 获取number类型的缓存值                                              |
+| getBoolean<br/>getBooleanSync | 获取boolean类型的缓存值                                             |
+| has<br/>hasSync               | 检查缓存实例中是否包含给定Key的存储键值对                                      |
+| getBoolean<br/>getBooleanSync | 获取boolean类型的缓存值                                             |
+| delete<br/>deleteSync         | 删除缓存值                                                       |
+| clear<br/>clearSync           | 清空缓存                                                        |
+| deletePreferences             | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
 
 ### FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
