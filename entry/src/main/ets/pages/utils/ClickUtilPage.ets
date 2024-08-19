@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { ClickUtil, ToastUtil } from '@pura/harmony-utils';
+import { ClickUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -30,18 +30,40 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               ClickUtil.throttle(() => {
-                ToastUtil.showToast("你好啊！");
+                ToastUtil.showToast("你好啊！X1");
               }, 1200)
             })
-          Button("debounce()")
+          Button("throttle()")
+            .btnStyle()
+            .onClick(() => {
+              ClickUtil.throttle(() => {
+                ToastUtil.showToast("你好啊！X2");
+              })
+            })
+
+          Button("debounce()，单点击")
             .btnStyle()
             .onClick(() => {
               ClickUtil.debounce(() => {
-                ToastUtil.showToast("点了我！");
+                ToastUtil.showToast("点了我！D1");
               }, 1200)
             })
+          Button("debounce()，多点击事件")
+            .btnStyle()
+            .onClick(() => {
+              ClickUtil.debounce(() => {
+                ToastUtil.showToast("点了我！D2S");
+              }, 1200, "1000001")
+            })
+          Button("debounce()，多点击事件")
+            .btnStyle()
+            .onClick(() => {
+              ClickUtil.debounce(() => {
+                ToastUtil.showToast("点了我！D3S");
+              }, 1200, "1000002")
+            })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -68,5 +90,10 @@ function textStyle() {
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
   .backgroundColor(Color.White)
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
+  .border({
+    width: 1,
+    color: Color.Grey,
+    radius: 10,
+    style: BorderStyle.Dashed
+  })
 }
