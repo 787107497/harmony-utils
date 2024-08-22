@@ -55,6 +55,11 @@ struct Index {
               let path = 'null';
               FileUtil.openSync(path)
             })
+          Button("重启APP")
+            .btnStyle()
+            .onClick(() => {
+              CrashUtil.restartApp();
+            })
           Text(this.errorTxt)
             .visibility(StrUtil.isNotEmpty(this.errorTxt) ? Visibility.Visible : Visibility.None)
             .textStyle()

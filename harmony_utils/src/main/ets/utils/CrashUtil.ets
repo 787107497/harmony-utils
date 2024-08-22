@@ -151,6 +151,15 @@ export class CrashUtil {
 
 
   /**
+   * 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility。
+   * @param want 通过设置Want中"bundleName"和"abilityName"字段来指定恢复重启的Ability。
+   */
+  static setRestartWant(want: Want) {
+    appRecovery.setRestartWant(want);
+  }
+
+
+  /**
    * 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用
    * @param context UIAbilityContext  需要保存状态的UIAbility所对应的context。
    * @returns
@@ -161,15 +170,6 @@ export class CrashUtil {
     } else {
       return appRecovery.saveAppState() //保存当前App状态
     }
-  }
-
-
-  /**
-   * 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility。
-   * @param want 通过设置Want中"bundleName"和"abilityName"字段来指定恢复重启的Ability。
-   */
-  static setRestartWant(want: Want) {
-    appRecovery.setRestartWant(want);
   }
 
 

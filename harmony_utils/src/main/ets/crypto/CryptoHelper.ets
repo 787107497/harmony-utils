@@ -228,21 +228,4 @@ export class CryptoHelper {
   }
 
 
-  //
-  // function StringToUint8Array(str: String) {
-  //   let arr:number[]=new Array();
-  //   for (let i = 0, j = str.length; i < j; ++i) {
-  //     arr.push(str.charCodeAt(i));
-  //   }
-  //   return new Uint8Array(arr);
-  // }
-  // function Uint8ArrayToString(fileData:Uint8Array) {
-  //   let dataString = '';
-  //   for (let i = 0; i < fileData.length; i++) {
-  //     dataString += String.fromCharCode(fileData[i]);
-  //   }
-  //   return dataString;
-  // }
-
-
 }

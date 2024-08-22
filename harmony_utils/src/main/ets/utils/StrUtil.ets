@@ -256,6 +256,34 @@ export class StrUtil {
 
 
   /**
+   * Bytes转字符串
+   * @param bytes
+   * @returns
+   */
+  public static bytesToStr(bytes: Uint8Array): string {
+    let str = ""
+    for (let i = 0; i < bytes.length; i++) {
+      str += String.fromCharCode(bytes[i]);
+
+    }
+    return str;
+  }
+
+  /**
+   * 字符串转Bytes
+   * @param str
+   * @returns
+   */
+  public static strToBytes(str: string): Uint8Array {
+    let bytes: number[] = new Array();
+    for (let i = 0; i < str.length; i++) {
+      bytes.push(str.charCodeAt(i))
+    }
+    return new Uint8Array(bytes);
+  }
+
+
+  /**
    * 字符串转Base64字符串
    * @param src 字符串
    * @returns

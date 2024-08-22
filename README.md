@@ -4,9 +4,7 @@
 ## 📚简介
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
-一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。 
-
-***近期发现有三方库引用harmony-utils的源码但未注明出处，还请大家在引用时注明出处，万分感谢。***
+一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。
 
 ## 📚下载安装
 
@@ -789,5 +787,5 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## 📚开源协议
 
-本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，拷贝和借鉴代码请标注来源。
-
+本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，请自由地享受和参与开源。   
+拷贝和借鉴代码，还请大家在引用时注明出处，万分感谢。

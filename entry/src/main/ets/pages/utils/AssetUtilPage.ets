@@ -19,11 +19,6 @@ struct Index {
     this.describe = new DescribeBean("AssetUtil", "关键资产存储服务工具类");
   }
 
-  async getFun() {
-    let rStr = await AssetUtil.get(this.rkey)
-    ToastUtil.showToast(`取值: ${rStr}`)
-    LogUtil.error(`取值: ${rStr}`)
-  }
 
   build() {
     Column() {
@@ -39,15 +34,17 @@ struct Index {
             .onClick(() => {
               AssetUtil.add(this.rkey, "我是异步知产X!")
             })
+          Button("get")
+            .btnStyle()
+            .onClick(async () => {
+              let rStr = await AssetUtil.get(this.rkey)
+              ToastUtil.showToast(`取值: ${rStr}`)
+              LogUtil.error(`取值: ${rStr}`)
+            })
           Button("addSync")
             .btnStyle()
             .onClick(() => {
               AssetUtil.addSync(this.skey, "我是同步知产X!")
-            })
-          Button("get")
-            .btnStyle()
-            .onClick(() => {
-              this.getFun()
             })
           Button("getSync")
             .btnStyle()

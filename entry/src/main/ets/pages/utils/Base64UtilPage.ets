@@ -59,7 +59,7 @@ struct Index {
               ToastUtil.showToast("请查看Log日志")
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -86,5 +86,10 @@ function textStyle() {
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
   .backgroundColor(Color.White)
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
+  .border({
+    width: 1,
+    color: Color.Grey,
+    radius: 10,
+    style: BorderStyle.Dashed
+  })
 }
