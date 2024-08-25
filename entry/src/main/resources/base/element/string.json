@@ -29,12 +29,12 @@
       "value": "用于应用使用相机"
     },
     {
-      "name": "permission_READ_MEDIA",
-      "value": "用于应用读取外部存储中的媒体文件信息"
+      "name": "permission_READ_AUDIO",
+      "value": "用于应用读取用户公共目录的音频文件"
     },
     {
-      "name": "permission_WRITE_MEDIA",
-      "value": "用于应用读写外部存储中的媒体文件信息"
+      "name": "permission_WRITE_AUDIO",
+      "value": "用于应用读写用户公共目录的音频文件"
     },
     {
       "name": "permission_READ_IMAGEVIDEO",

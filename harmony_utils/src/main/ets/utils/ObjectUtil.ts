@@ -1,4 +1,3 @@
-import { instanceToInstance } from 'class-transformer';
 import util from '@ohos.util';
 
 /**
@@ -47,12 +46,22 @@ export class ObjectUtil {
 
 
   /**
-   * 深度拷贝对象
+   * 深度拷贝对象(对于undefined等无法序列化的数据会丢失,这个后期优化，也可先使用三方库lodash的_.cloneDeep方法。)
    * @param obj 被拷贝对象
    * @returns
    */
   static deepCopy(obj: Object) {
-    return instanceToInstance(obj);
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+
+  /**
+   * obj转class ，解决obj as class后丢失方法的问题。
+   */
+  static objToClass<T>(clazz: new (...args: any[]) => T, obj: any): T {
+    const instance = new clazz();
+    Object.assign(instance, obj);
+    return instance;
   }
 
 

@@ -2,10 +2,18 @@ import notificationManager from '@ohos.notificationManager';
 import Base, { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
 import wantAgent from '@ohos.app.ability.wantAgent';
-import image from '@ohos.multimedia.image';
 import { WantAgent } from '@ohos.wantAgent';
 import { LogUtil } from './LogUtil';
 import { DateUtil } from './DateUtil';
+import {
+    NotificationBasicOptions,
+    NotificationLongTextOptions,
+    NotificationMultiLineOptions,
+    NotificationOptions,
+    NotificationPictureOptions,
+    NotificationTemplateOptions
+} from '../entity/NotificationOptions';
+import { NotificationConfig } from '../entity/NotificationConfig';
 
 
 /**
@@ -22,26 +30,78 @@ export class NotificationUtil {
 
   private constructor() {}
 
+  private static defaultConfig: NotificationConfig = new NotificationConfig(); //默认配置
+
+
   /**
-   * 校验是否已授权通知服务
-   * @param callBack  回调函数
+   * 设置通知的默认统一配置
+   * @param configs
+   */
+  static setDefaultConfig(configs: (config: NotificationConfig) => void): void {
+    configs(NotificationUtil.defaultConfig);
+  }
+
+
+  /**
+   * 查询通知是否授权
+   */
+  static async isNotificationEnabled(): Promise<boolean> {
+    return await notificationManager.isNotificationEnabled(); //查询通知是否授权。
+  }
+
+  /**
+   * 查询通知是否授权
+   */
+  static isNotificationEnabledSync(): boolean {
+    return notificationManager.isNotificationEnabledSync(); //查询通知是否授权。
+  }
+
+
+  /**
+   * 请求通知授权，第一次调用会弹窗让用户选择。
    * @returns
    */
-  static async authorizeNotification(callBack: (grant: boolean) => void): Promise<void> {
-    let isAuth = await notificationManager.isNotificationEnabled(); //获取通知使能状态。
-    let context = getContext() as common.UIAbilityContext
-    if (!isAuth) {
-      //未授权，拉起授权,应用请求通知使能模态弹窗。
-      notificationManager.requestEnableNotification(context, (err: Base.BusinessError) => {
-        if (err) {
-          callBack(false);
-        } else {
+  static async authorizeNotification(callBack?: (grant: boolean) => void): Promise<boolean> {
+    let isEnabled = await NotificationUtil.isNotificationEnabled(); //查询通知是否授权
+    if (!isEnabled) { //未授权，拉起授权
+      try {
+        let context = getContext() as common.UIAbilityContext;
+        await notificationManager.requestEnableNotification(context);
+        if (callBack) {
           callBack(true);
         }
-      })
+        return true;
+      } catch (e) {
+        if (callBack) {
+          callBack(false);
+        }
+        return false;
+      }
     } else {
-      callBack(true);
+      if (callBack) {
+        callBack(true);
+      }
+      return true;
     }
+  }
+
+
+  /**
+   * 查询模板是否存在，目前仅支持进度条模板。
+   * @param templateName 模板名称。当前仅支持'downloadTemplate'。
+   * @returns
+   */
+  static async isSupportTemplate(templateName: string = 'downloadTemplate'): Promise<boolean> {
+    return await notificationManager.isSupportTemplate(templateName);
+  }
+
+
+  /**
+   * 查询设备是否支持分布式通知
+   * @returns
+   */
+  static async isDistributedEnabled(): Promise<boolean> {
+    return await notificationManager.isDistributedEnabled()
   }
 
 
@@ -50,225 +110,27 @@ export class NotificationUtil {
    * @param options  通知实体
    * @returns
    */
-  static async publishBasic(options: NotificationBasicOptions): Promise<void> {
+  static publishBasic(options: NotificationBasicOptions) {
     try {
-      if (!options) {
-        options = new NotificationBasicOptions();
+      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+      let basicContent: notificationManager.NotificationBasicContent = {
+        title: options.title,
+        text: options.text
       }
-      if (!options.title) {
-        options.title = NotificationUtil.getNotificationTitle(); //通知标题（不可为空字符串）。
+      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+        basicContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
       }
-      if (!options.text) {
-        options.text = options.title; //通知内容（不可为空字符串）。
+      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+        basicContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
       }
-      if (!options.additionalText) {
-        options.additionalText = ''; //通知附加内容，是对通知内容的补充。
+      let notificationContent: notificationManager.NotificationContent = {
+        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+        normal: basicContent
       }
-
-      if (!options.id) {
-        options.id = NotificationUtil.getNotificationId(); //通知ID。
-      }
-      if (options.isOngoing == undefined) {
-        options.isOngoing = true; //是否进行时通知。
-      }
-      if (options.isStopwatch == undefined) {
-        options.isStopwatch = true; //是否显示已用时间。
-      }
-      if (options.isAlertOnce == undefined) {
-        options.isAlertOnce = false; //设置是否仅有一次此通知提醒。
-      }
-      if (options.tapDismissed == undefined) {
-        options.tapDismissed = true; //通知是否自动清除。
-      }
-      if (options.isCountDown == undefined) {
-        options.isCountDown = false; //是否显示倒计时时间。
-      }
-      if (options.isFloatingIcon == undefined) {
-        options.isFloatingIcon = true; //是否显示状态栏图标。
-      }
-      if (options.showDeliveryTime == undefined) {
-        options.showDeliveryTime = false; //是否显示分发时间。
-      }
-      if (!options.badgeNumber) {
-        options.badgeNumber = 1; //应用程序图标上显示的通知数。
-      }
-      if (!options.deliveryTime) {
-        options.deliveryTime = 0; //通知发送时间。。
-      }
-      if (!options.autoDeletedTime) {
-        options.autoDeletedTime = 1; //自动清除的时间(大于0，否者不显示角标)。
-      }
-      if (!options.label) {
-        options.label = NotificationUtil.getNotificationLabel(); //通知标签。。
-      }
-      if (!options.creatorBundleName) {
-        options.creatorBundleName = NotificationUtil.getCreatorBundleName(); //创建通知的包名。
-      }
-      if (!options.notificationSlotType) {
-        options.notificationSlotType = notificationManager.SlotType.SERVICE_INFORMATION; //通道类型(服务提醒。)。
-      }
-      let actionButtons = new Array<notificationManager.NotificationActionButton>();
-      if (options.actionButtons && options.actionButtons.length > 0) {
-        actionButtons = options.actionButtons //通知按钮，最多三个按钮。
-      }
-
-      //创建wantAgent
-      let wantAgentObj = await NotificationUtil.getWantAgent(options.id);
       //通知Request对象
-      let notificationRequest: notificationManager.NotificationRequest = {
-        id: options.id,
-        content: {
-          notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
-          normal: {
-            title: options.title,
-            text: options.text,
-            additionalText: options.additionalText
-          }
-        },
-        isOngoing: options.isOngoing, //是否进行时通知。
-        isStopwatch: options.isStopwatch, //是否显示已用时间。
-        isAlertOnce: options.isAlertOnce, //设置是否仅有一次此通知提醒。
-        badgeNumber: options.badgeNumber, //应用程序图标上显示的通知数。
-        label: options.label, //通知标签。
-        notificationSlotType: options.notificationSlotType, //通道类型。
-        deliveryTime: options.deliveryTime, //通知发送时间。
-        tapDismissed: options.tapDismissed, //通知是否自动清除。
-        autoDeletedTime: options.autoDeletedTime, //自动清除的时间。
-        isCountDown: options.isCountDown, //是否显示倒计时时间。
-        isFloatingIcon: options.isFloatingIcon, //是否显示状态栏图标。
-        showDeliveryTime: options.showDeliveryTime, //是否显示分发时间。
-        creatorBundleName: options.creatorBundleName, //创建通知的包名。
-        wantAgent: wantAgentObj, //WantAgent封装了应用的行为意图，点击通知时触发该行为。
-        removalWantAgent: wantAgentObj, //当移除通知时，通知将被重定向到的WantAgent实例。
-        actionButtons: actionButtons //通知按钮，最多三个按钮。
-      };
+      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
       //发送通知
       notificationManager.publish(notificationRequest, (err: BusinessError) => {
-        if (!err && options.callBack && options.id) {
-          options.callBack(options.id); //执行回调
-        }
-        if (err) {
-          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-        }
-      });
-    } catch (error) {
-      let err = error as BusinessError;
-      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-    }
-  }
-
-
-  /**
-   * 发布多文本通知
-   * @param options  通知实体
-   * @returns
-   */
-  static async publishMultiLine(options: NotificationMultiLineOptions): Promise<void> {
-    try {
-      if (!options) {
-        options = new NotificationMultiLineOptions();
-      }
-      if (!options.title) {
-        options.title = NotificationUtil.getNotificationTitle(); //通知标题（不可为空字符串）。
-      }
-      if (!options.text) {
-        options.text = options.title; //通知内容（不可为空字符串）。
-      }
-      if (!options.additionalText) {
-        options.additionalText = ''; //通知附加内容，是对通知内容的补充。
-      }
-      if (!options.briefText) {
-        options.briefText = options.title; //通知概要内容，是对通知内容的总结（不可为空字符串）。
-      }
-      if (!options.longTitle) {
-        options.longTitle = options.title; //通知展开时的标题（不可为空字符串）。
-      }
-      if (!options.lines) {
-        options.lines = [options.text]; //通知的多行文本。
-      }
-
-      if (!options.id) {
-        options.id = NotificationUtil.getNotificationId(); //通知ID。
-      }
-      if (options.isOngoing == undefined) {
-        options.isOngoing = true; //是否进行时通知。
-      }
-      if (options.isStopwatch == undefined) {
-        options.isStopwatch = false; //是否显示已用时间。
-      }
-      if (options.isAlertOnce == undefined) {
-        options.isAlertOnce = false; //设置是否仅有一次此通知提醒。
-      }
-      if (options.tapDismissed == undefined) {
-        options.tapDismissed = true; //通知是否自动清除。
-      }
-      if (options.isCountDown == undefined) {
-        options.isCountDown = false; //是否显示倒计时时间。
-      }
-      if (options.isFloatingIcon == undefined) {
-        options.isFloatingIcon = true; //是否显示状态栏图标。
-      }
-      if (options.showDeliveryTime == undefined) {
-        options.showDeliveryTime = false; //是否显示分发时间。
-      }
-      if (!options.badgeNumber) {
-        options.badgeNumber = 1; //应用程序图标上显示的通知数。
-      }
-      if (!options.deliveryTime) {
-        options.deliveryTime = 0; //通知发送时间。。
-      }
-      if (!options.autoDeletedTime) {
-        options.autoDeletedTime = 1; //自动清除的时间(大于0，否者不显示角标)。
-      }
-      if (!options.label) {
-        options.label = NotificationUtil.getNotificationLabel(); //通知标签。。
-      }
-      if (!options.creatorBundleName) {
-        options.creatorBundleName = NotificationUtil.getCreatorBundleName(); //创建通知的包名。
-      }
-      if (!options.notificationSlotType) {
-        options.notificationSlotType = notificationManager.SlotType.SERVICE_INFORMATION; //通道类型(服务提醒。)。
-      }
-      let actionButtons = new Array<notificationManager.NotificationActionButton>();
-      if (options.actionButtons && options.actionButtons.length > 0) {
-        actionButtons = options.actionButtons //通知按钮，最多三个按钮。
-      }
-
-      //创建wantAgent
-      let wantAgentObj = await NotificationUtil.getWantAgent(options.id);
-      //通知Request对象
-      let notificationRequest: notificationManager.NotificationRequest = {
-        id: options.id,
-        content: {
-          notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_MULTILINE,
-          multiLine: {
-            title: options.title,
-            text: options.text,
-            additionalText: options.additionalText,
-            briefText: options.briefText,
-            longTitle: options.longTitle,
-            lines: options.lines
-          }
-        },
-        isOngoing: options.isOngoing, //是否进行时通知。
-        isStopwatch: options.isStopwatch, //是否显示已用时间。
-        isAlertOnce: options.isAlertOnce, //设置是否仅有一次此通知提醒。
-        badgeNumber: options.badgeNumber, //应用程序图标上显示的通知数。
-        label: options.label, //通知标签。
-        notificationSlotType: options.notificationSlotType, //通道类型。
-        deliveryTime: options.deliveryTime, //通知发送时间。
-        tapDismissed: options.tapDismissed, //通知是否自动清除。
-        autoDeletedTime: options.autoDeletedTime, //自动清除的时间。
-        isCountDown: options.isCountDown, //是否显示倒计时时间。
-        isFloatingIcon: options.isFloatingIcon, //是否显示状态栏图标。
-        showDeliveryTime: options.showDeliveryTime, //是否显示分发时间。
-        creatorBundleName: options.creatorBundleName, //创建通知的包名。
-        wantAgent: wantAgentObj, //WantAgent封装了应用的行为意图，点击通知时触发该行为。
-        removalWantAgent: wantAgentObj, //当移除通知时，通知将被重定向到的WantAgent实例。
-        actionButtons: actionButtons //通知按钮，最多三个按钮。
-      };
-      //发送通知
-      notificationManager.publish(notificationRequest, (err: Base.BusinessError) => {
         if (!err && options.callBack && options.id) {
           options.callBack(options.id); //执行回调
         }
@@ -288,110 +150,28 @@ export class NotificationUtil {
    * @param options  通知实体
    * @returns
    */
-  static async publishLongText(options: NotificationLongTextOptions): Promise<void> {
+  static publishLongText(options: NotificationLongTextOptions) {
     try {
-      if (!options) {
-        options = new NotificationLongTextOptions();
+      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+      let longTextContent: notificationManager.NotificationLongTextContent = {
+        title: options.title,
+        text: options.text,
+        briefText: options.briefText,
+        longText: options.longText,
+        expandedTitle: options.expandedTitle
       }
-      if (!options.title) {
-        options.title = NotificationUtil.getNotificationTitle(); //通知标题（不可为空字符串）。
+      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+        longTextContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
       }
-      if (!options.text) {
-        options.text = options.title; //通知内容（不可为空字符串）。
+      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+        longTextContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
       }
-      if (!options.additionalText) {
-        options.additionalText = ''; //通知附加内容，是对通知内容的补充。
+      let notificationContent: notificationManager.NotificationContent = {
+        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_LONG_TEXT,
+        longText: longTextContent
       }
-      if (!options.briefText) {
-        options.briefText = options.title; //通知概要内容，是对通知内容的总结（不可为空字符串）。
-      }
-      if (!options.expandedTitle) {
-        options.expandedTitle = options.title; //通知展开时的标题（不可为空字符串）
-      }
-      if (!options.longText) {
-        options.longText = options.text; //通知的长文本（不可为空字符串）。
-      }
-
-      if (!options.id) {
-        options.id = NotificationUtil.getNotificationId(); //通知ID。
-      }
-      if (options.isOngoing == undefined) {
-        options.isOngoing = true; //是否进行时通知。
-      }
-      if (options.isStopwatch == undefined) {
-        options.isStopwatch = true; //是否显示已用时间。
-      }
-      if (options.isAlertOnce == undefined) {
-        options.isAlertOnce = false; //设置是否仅有一次此通知提醒。
-      }
-      if (options.tapDismissed == undefined) {
-        options.tapDismissed = true; //通知是否自动清除。
-      }
-      if (options.isCountDown == undefined) {
-        options.isCountDown = false; //是否显示倒计时时间。
-      }
-      if (options.isFloatingIcon == undefined) {
-        options.isFloatingIcon = true; //是否显示状态栏图标。
-      }
-      if (options.showDeliveryTime == undefined) {
-        options.showDeliveryTime = false; //是否显示分发时间。
-      }
-      if (!options.badgeNumber) {
-        options.badgeNumber = 1; //应用程序图标上显示的通知数。
-      }
-      if (!options.deliveryTime) {
-        options.deliveryTime = 0; //通知发送时间。。
-      }
-      if (!options.autoDeletedTime) {
-        options.autoDeletedTime = 1; //自动清除的时间(大于0，否者不显示角标)。
-      }
-      if (!options.label) {
-        options.label = NotificationUtil.getNotificationLabel(); //通知标签。。
-      }
-      if (!options.creatorBundleName) {
-        options.creatorBundleName = NotificationUtil.getCreatorBundleName(); //创建通知的包名。
-      }
-      if (!options.notificationSlotType) {
-        options.notificationSlotType = notificationManager.SlotType.SERVICE_INFORMATION; //通道类型(服务提醒。)。
-      }
-      let actionButtons = new Array<notificationManager.NotificationActionButton>();
-      if (options.actionButtons && options.actionButtons.length > 0) {
-        actionButtons = options.actionButtons //通知按钮，最多三个按钮。
-      }
-
-      //创建wantAgent
-      let wantAgentObj = await NotificationUtil.getWantAgent(options.id);
       //通知Request对象
-      let notificationRequest: notificationManager.NotificationRequest = {
-        id: options.id,
-        content: {
-          notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_LONG_TEXT,
-          longText: {
-            title: options.title,
-            text: options.text,
-            additionalText: options.additionalText,
-            briefText: options.briefText,
-            longText: options.longText,
-            expandedTitle: options.expandedTitle
-          }
-        },
-        isOngoing: options.isOngoing, //是否进行时通知。
-        isStopwatch: options.isStopwatch, //是否显示已用时间。
-        isAlertOnce: options.isAlertOnce, //设置是否仅有一次此通知提醒。
-        badgeNumber: options.badgeNumber, //应用程序图标上显示的通知数。
-        label: options.label, //通知标签。
-        notificationSlotType: options.notificationSlotType, //通道类型。
-        deliveryTime: options.deliveryTime, //通知发送时间。
-        tapDismissed: options.tapDismissed, //通知是否自动清除。
-        autoDeletedTime: options.autoDeletedTime, //自动清除的时间。
-        isCountDown: options.isCountDown, //是否显示倒计时时间。
-        isFloatingIcon: options.isFloatingIcon, //是否显示状态栏图标。
-        showDeliveryTime: options.showDeliveryTime, //是否显示分发时间。
-        creatorBundleName: options.creatorBundleName, //创建通知的包名。
-        wantAgent: wantAgentObj, //WantAgent封装了应用的行为意图，点击通知时触发该行为。
-        removalWantAgent: wantAgentObj, //当移除通知时，通知将被重定向到的WantAgent实例。
-        actionButtons: actionButtons //通知按钮，最多三个按钮。
-      };
+      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
       //发送通知
       notificationManager.publish(notificationRequest, (err: Base.BusinessError) => {
         if (!err && options.callBack && options.id) {
@@ -407,119 +187,123 @@ export class NotificationUtil {
     }
   }
 
+
   /**
-   * 发布带有图片的通知（该方法为OpenHarmony的API,目前暂不支持HarmonyOS）
+   * 发布多文本通知
    * @param options  通知实体
    * @returns
    */
-  static async publishPicture(options: NotificationPictureOptions): Promise<void> {
+  static publishMultiLine(options: NotificationMultiLineOptions) {
     try {
-      if (!options) {
-        options = new NotificationPictureOptions();
+      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+      let multiLineContent: notificationManager.NotificationMultiLineContent = {
+        title: options.title,
+        text: options.text,
+        briefText: options.briefText,
+        longTitle: options.longTitle,
+        lines: options.lines
       }
-      if (!options.title) {
-        options.title = NotificationUtil.getNotificationTitle(); //通知标题（不可为空字符串）。
+      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+        multiLineContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
       }
-      if (!options.text) {
-        options.text = options.title; //通知内容（不可为空字符串）。
+      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+        multiLineContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
       }
-      if (!options.additionalText) {
-        options.additionalText = ''; //通知附加内容，是对通知内容的补充。
+      let notificationContent: notificationManager.NotificationContent = {
+        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_MULTILINE,
+        multiLine: multiLineContent
       }
-      if (!options.briefText) {
-        options.briefText = options.title; //通知概要内容，是对通知内容的总结（不可为空字符串）。
-      }
-      if (!options.expandedTitle) {
-        options.expandedTitle = options.title; //通知展开时的标题（不可为空字符串）。
-      }
-      if (!options.picture) { //通知的图片内容(图像像素的总字节数不能超过2MB)。
-        let ctx = getContext() as common.UIAbilityContext;
-        let buffer: ArrayBuffer = ctx.resourceManager.getMediaContentSync($r("app.media.icon_ring")).buffer as ArrayBuffer;
-        options.picture = await image.createImageSource(buffer).createPixelMap();
-      }
-
-      if (!options.id) {
-        options.id = NotificationUtil.getNotificationId(); //通知ID。
-      }
-      if (options.isOngoing == undefined) {
-        options.isOngoing = true; //是否进行时通知。
-      }
-      if (options.isStopwatch == undefined) {
-        options.isStopwatch = false; //是否显示已用时间。
-      }
-      if (options.isAlertOnce == undefined) {
-        options.isAlertOnce = false; //设置是否仅有一次此通知提醒。
-      }
-      if (options.tapDismissed == undefined) {
-        options.tapDismissed = true; //通知是否自动清除。
-      }
-      if (options.isCountDown == undefined) {
-        options.isCountDown = false; //是否显示倒计时时间。
-      }
-      if (options.isFloatingIcon == undefined) {
-        options.isFloatingIcon = true; //是否显示状态栏图标。
-      }
-      if (options.showDeliveryTime == undefined) {
-        options.showDeliveryTime = false; //是否显示分发时间。
-      }
-      if (!options.badgeNumber) {
-        options.badgeNumber = 1; //应用程序图标上显示的通知数。
-      }
-      if (!options.deliveryTime) {
-        options.deliveryTime = 0; //通知发送时间。。
-      }
-      if (!options.autoDeletedTime) {
-        options.autoDeletedTime = 1; //自动清除的时间(大于0，否者不显示角标)。
-      }
-      if (!options.label) {
-        options.label = NotificationUtil.getNotificationLabel(); //通知标签。。
-      }
-      if (!options.creatorBundleName) {
-        options.creatorBundleName = NotificationUtil.getCreatorBundleName(); //创建通知的包名。
-      }
-      if (!options.notificationSlotType) {
-        options.notificationSlotType = notificationManager.SlotType.SERVICE_INFORMATION; //通道类型(服务提醒。)。
-      }
-      let actionButtons = new Array<notificationManager.NotificationActionButton>();
-      if (options.actionButtons && options.actionButtons.length > 0) {
-        actionButtons = options.actionButtons //通知按钮，最多三个按钮。
-      }
-
-      //创建wantAgent
-      let wantAgentObj = await NotificationUtil.getWantAgent(options.id);
       //通知Request对象
-      let notificationRequest: notificationManager.NotificationRequest = {
-        id: options.id,
-        content: {
-          notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_PICTURE,
-          picture: {
-            title: options.title,
-            text: options.text,
-            additionalText: options.additionalText,
-            briefText: options.briefText,
-            expandedTitle: options.expandedTitle,
-            picture: options.picture
-          }
-        },
-        isOngoing: options.isOngoing, //是否进行时通知。
-        isStopwatch: options.isStopwatch, //是否显示已用时间。
-        isAlertOnce: options.isAlertOnce, //设置是否仅有一次此通知提醒。
-        badgeNumber: options.badgeNumber, //应用程序图标上显示的通知数。
-        label: options.label, //通知标签。
-        notificationSlotType: options.notificationSlotType, //通道类型。
-        deliveryTime: options.deliveryTime, //通知发送时间。
-        tapDismissed: options.tapDismissed, //通知是否自动清除。
-        autoDeletedTime: options.autoDeletedTime, //自动清除的时间。
-        isCountDown: options.isCountDown, //是否显示倒计时时间。
-        isFloatingIcon: options.isFloatingIcon, //是否显示状态栏图标。
-        showDeliveryTime: options.showDeliveryTime, //是否显示分发时间。
-        creatorBundleName: options.creatorBundleName, //创建通知的包名。
-        wantAgent: wantAgentObj, //WantAgent封装了应用的行为意图，点击通知时触发该行为。
-        removalWantAgent: wantAgentObj, //当移除通知时，通知将被重定向到的WantAgent实例。
-        actionButtons: actionButtons //通知按钮，最多三个按钮。
-      };
+      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
       //发送通知
       notificationManager.publish(notificationRequest, (err: Base.BusinessError) => {
+        if (!err && options.callBack && options.id) {
+          options.callBack(options.id); //执行回调
+        }
+        if (err) {
+          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+        }
+      });
+    } catch (error) {
+      let err = error as BusinessError;
+      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+    }
+  }
+
+
+  /**
+   * 发布带有图片的通知
+   * @param options  通知实体
+   * @returns
+   */
+  static publishPicture(options: NotificationPictureOptions) {
+    try {
+      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+      let pictureContent: notificationManager.NotificationPictureContent = {
+        title: options.title,
+        text: options.text,
+        briefText: options.briefText,
+        expandedTitle: options.expandedTitle,
+        picture: options.picture
+      }
+      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+        pictureContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
+      }
+      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+        pictureContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
+      }
+      let notificationContent: notificationManager.NotificationContent = {
+        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_PICTURE,
+        picture: pictureContent
+      }
+      //通知Request对象
+      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
+      //发送通知
+      notificationManager.publish(notificationRequest, (err: Base.BusinessError) => {
+        if (!err && options.callBack && options.id) {
+          options.callBack(options.id); //执行回调
+        }
+        if (err) {
+          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+        }
+      });
+    } catch (error) {
+      let err = error as BusinessError;
+      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+    }
+  }
+
+
+  /**
+   * 发布模板的通知
+   * @param options
+   */
+  static publishTemplate(options: NotificationTemplateOptions){
+    try {
+      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+      let basicContent: notificationManager.NotificationBasicContent = {
+        title: options.title,
+        text: options.text
+      }
+      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+        basicContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
+      }
+      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+        basicContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
+      }
+      let notificationContent: notificationManager.NotificationContent = {
+        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+        normal: basicContent
+      }
+      //模板对象
+      let template: notificationManager.NotificationTemplate = {
+        name: 'downloadTemplate',
+        data: { title: options.title, fileName: options.fileName, progressValue: options.progressValue }
+      }
+      //通知Request对象
+      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent, template);
+      //发送通知
+      notificationManager.publish(notificationRequest, (err: BusinessError) => {
         if (!err && options.callBack && options.id) {
           options.callBack(options.id); //执行回调
         }
@@ -545,6 +329,15 @@ export class NotificationUtil {
   }
 
   /**
+   * 取消本应用指定组下的通知
+   * @param groupName 通知组名称，此名称需要在发布通知时通过NotificationRequest对象指定。
+   * @returns
+   */
+  static async cancelGroup(groupName: string): Promise<void> {
+    return await notificationManager.cancelGroup(groupName);
+  }
+
+  /**
    * 取消所有通知,取消当前应用所有已发布的通知。
    * @returns
    */
@@ -567,6 +360,15 @@ export class NotificationUtil {
     return await notificationManager.setBadgeNumber(0);
   }
 
+
+  /**
+   * 获取当前应用未删除的通知数量。
+   */
+  static async getActiveNotificationCount(): Promise<number> {
+    return await notificationManager.getActiveNotificationCount();
+  }
+
+
   /**
    * 设置桌面角标数量，来自于通知数量。
    */
@@ -576,16 +378,9 @@ export class NotificationUtil {
       notificationManager.setBadgeNumber(count); //设置角标
     } catch (error) {
       const err = error as BusinessError;
-      LogUtil.error(`NotificationUtil-setBadgeFromNotificationCount-异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+      LogUtil.error(`NotificationUtil-setBadgeFromNotificationCount-异常：${NotificationUtil.getErrorMsg(err.code,
+        err.code + " - " + err.message)}`);
     }
-  }
-
-
-  /**
-   * 获取当前应用未删除的通知数量。
-   */
-  static async getActiveNotificationCount(): Promise<number> {
-    return await notificationManager.getActiveNotificationCount();
   }
 
 
@@ -598,44 +393,62 @@ export class NotificationUtil {
 
 
   /**
-   * 获取默认通知title
-   * @returns
+   * 创建指定类型的通知渠道。
+   * @param type 要创建的通知渠道的类型
    */
-  private static getNotificationTitle(): string {
-    let context = getContext() as common.UIAbilityContext
-    return '来自' + context.applicationInfo.label + '通知'
+  static async addSlot(type: notificationManager.SlotType) {
+    return await notificationManager.addSlot(type);
   }
 
   /**
-   * 获取默认通知label
-   * @returns
+   * 获取一个指定类型的通知渠道。
+   * @param type 要创建的通知渠道的类型
    */
-  private static getNotificationLabel(): string {
-    let context = getContext() as common.UIAbilityContext
-    return context.applicationInfo.label
+  static async getSlot(type: notificationManager.SlotType): Promise<notificationManager.NotificationSlot> {
+    return await notificationManager.getSlot(type);
   }
 
   /**
-   * 创建通知的包名
+   * 获取此应用程序的所有通知渠道
+   * @returns
    */
-  private static getCreatorBundleName() {
-    let context = getContext() as common.UIAbilityContext
-    return context.abilityInfo.bundleName
+  static async getSlots(): Promise<Array<notificationManager.NotificationSlot>> {
+    return await notificationManager.getSlots();
   }
+
+
+  /**
+   * 删除此应用程序指定类型的通知渠道
+   * @param type 通知渠道类型，例如社交通信、服务提醒、内容咨询等类型。
+   * @returns
+   */
+  static async removeSlot(type: notificationManager.SlotType) {
+    return await notificationManager.removeSlot(type);
+  }
+
+  /**
+   * 删除此应用程序所有通知渠道
+   * @returns
+   */
+  static async removeAllSlots() {
+    return await notificationManager.removeAllSlots();
+  }
+
 
   /**
    * 生成通知id（用时间戳当id）
    * @returns
    */
-  private static getNotificationId(): number {
+  static generateNotificationId(): number {
     return DateUtil.getTodayTime();
   }
+
 
   /**
    * 创建一个可拉起Ability的Want
    * @returns
    */
-  private static async getWantAgent(noticeId: number): Promise<WantAgent> {
+  static async getDefaultWantAgent(): Promise<WantAgent> {
     let context = getContext() as common.UIAbilityContext; //获取当前上下文对象
     let wantAgentInfo: wantAgent.WantAgentInfo = {
       wants: [
@@ -647,9 +460,9 @@ export class NotificationUtil {
           action: 'action_notice',
           entities: [],
           uri: '',
-          parameters: {
-            'params_notice': noticeId
-          }
+          // parameters: {
+          //   'params_notice': noticeId
+          // }
         }
       ],
       actionType: wantAgent.OperationType.START_ABILITY | wantAgent.OperationType.SEND_COMMON_EVENT,
@@ -657,6 +470,91 @@ export class NotificationUtil {
       actionFlags: [wantAgent.WantAgentFlags.CONSTANT_FLAG]
     };
     return await wantAgent.getWantAgent(wantAgentInfo);
+  }
+
+
+  /**
+   * 构建NotificationRequest对象
+   * @param notificationId 通知ID
+   * @param options 描述通知的请求参数
+   * @param content 通知内容
+   * @param template 模板
+   * @returns
+   */
+  private static getNotificationRequest(notificationId: number, options: NotificationOptions,
+    content: notificationManager.NotificationContent, template?: notificationManager.NotificationTemplate): notificationManager.NotificationRequest {
+    let request: notificationManager.NotificationRequest = { content: content };
+    request.id = notificationId; //通知ID。
+    if (template) {
+      request.template = template; //模板
+    }
+    if (options.notificationSlotType || NotificationUtil.defaultConfig.notificationSlotType) {
+      request.notificationSlotType = options.notificationSlotType ?? NotificationUtil.defaultConfig.notificationSlotType; //通道类型。
+    }
+    if (options.deliveryTime || NotificationUtil.defaultConfig.deliveryTime) {
+      request.deliveryTime = options.deliveryTime ?? NotificationUtil.defaultConfig.deliveryTime; //通知发送时间。
+    }
+    if (options.tapDismissed || NotificationUtil.defaultConfig.tapDismissed) {
+      request.tapDismissed = options.tapDismissed ?? NotificationUtil.defaultConfig.tapDismissed; //通知是否自动清除。
+    }
+    if (options.autoDeletedTime || NotificationUtil.defaultConfig.autoDeletedTime) {
+      request.autoDeletedTime = options.autoDeletedTime ?? NotificationUtil.defaultConfig.autoDeletedTime; //自动清除的时间。
+    }
+    if (options.isAlertOnce || NotificationUtil.defaultConfig.isAlertOnce) {
+      request.isAlertOnce = options.isAlertOnce ?? NotificationUtil.defaultConfig.isAlertOnce; //设置是否仅有一次此通知提醒。
+    }
+    if (options.isStopwatch || NotificationUtil.defaultConfig.isStopwatch) {
+      request.isStopwatch = options.isStopwatch ?? NotificationUtil.defaultConfig.isStopwatch; //是否显示已用时间。
+    }
+    if (options.isCountDown || NotificationUtil.defaultConfig.isCountDown) {
+      request.isCountDown = options.isCountDown ?? NotificationUtil.defaultConfig.isCountDown; //是否显示倒计时时间。
+    }
+    if (options.isFloatingIcon || NotificationUtil.defaultConfig.isFloatingIcon) {
+      request.isFloatingIcon = options.isFloatingIcon ?? NotificationUtil.defaultConfig.isFloatingIcon; //是否显示状态栏图标。
+    }
+    if (options.label || NotificationUtil.defaultConfig.label) {
+      request.label = options.label ?? NotificationUtil.defaultConfig.label; //通知标签。
+    }
+    if (options.showDeliveryTime || NotificationUtil.defaultConfig.showDeliveryTime) {
+      request.showDeliveryTime = options.showDeliveryTime ?? NotificationUtil.defaultConfig.showDeliveryTime; //是否显示分发时间。
+    }
+    if (options.actionButtons || NotificationUtil.defaultConfig.actionButtons) {
+      request.actionButtons = options.actionButtons ?? NotificationUtil.defaultConfig.actionButtons; //通知按钮，最多三个按钮。
+    }
+    if (options.smallIcon || NotificationUtil.defaultConfig.smallIcon) {
+      request.smallIcon = options.smallIcon ?? NotificationUtil.defaultConfig.smallIcon; //通知小图标。可选字段，图像像素的总字节数不超过100KB。实际显示效果依赖于设备能力和通知中心UI样式。
+    }
+    if (options.largeIcon || NotificationUtil.defaultConfig.largeIcon) {
+      request.largeIcon = options.largeIcon ?? NotificationUtil.defaultConfig.largeIcon; //通知大图标。可选字段，图像像素的总字节数不超过100KB。实际显示效果依赖于设备能力和通知中心UI样式。
+    }
+    if (options.groupName || NotificationUtil.defaultConfig.groupName) {
+      request.groupName = options.groupName ?? NotificationUtil.defaultConfig.groupName; //组通知名称。
+    }
+    if (options.template || NotificationUtil.defaultConfig.template) {
+      request.template = options.template ?? NotificationUtil.defaultConfig.template; //通知模板。
+    }
+    if (options.distributedOption || NotificationUtil.defaultConfig.distributedOption) {
+      request.distributedOption = options.distributedOption ?? NotificationUtil.defaultConfig.distributedOption; //分布式通知的选项。
+    }
+    if (options.appMessageId || NotificationUtil.defaultConfig.appMessageId) {
+      request.appMessageId = options.appMessageId ?? NotificationUtil.defaultConfig.appMessageId; //应用发送通知携带的唯一标识字段, 用于通知去重。如果同一应用通过本地和云端等不同途径发布携带相同appMessageId的通知，设备只展示一条消息，之后收到的重复通知会被静默去重，不展示、不提醒。去重标识仅在通知发布的24小时内有效，超过24小时或者设备重启失效。。
+    }
+    if (options.sound || NotificationUtil.defaultConfig.sound) {
+      request.sound = options.sound ?? NotificationUtil.defaultConfig.sound; //应用通知自定义铃声，需要通过Push云侧获取自定义发送铃声权限后，该字段才会生效。
+    }
+    if (options.badgeNumber || NotificationUtil.defaultConfig.badgeNumber) {
+      request.badgeNumber = options.badgeNumber ?? NotificationUtil.defaultConfig.badgeNumber; //应用程序图标上显示的通知数。
+    }
+    if (options.extraInfo || NotificationUtil.defaultConfig.extraInfo) {
+      request.extraInfo = options.extraInfo ?? NotificationUtil.defaultConfig.extraInfo; //扩展参数。
+    }
+    if (options.wantAgent || NotificationUtil.defaultConfig.wantAgent) {
+      request.wantAgent = options.wantAgent ?? NotificationUtil.defaultConfig.wantAgent; //WantAgent封装了应用的行为意图，点击通知时触发该行为。
+    }
+    if (options.removalWantAgent || NotificationUtil.defaultConfig.removalWantAgent) {
+      request.removalWantAgent = options.removalWantAgent ?? NotificationUtil.defaultConfig.removalWantAgent; //当移除通知时，通知将被重定向到的WantAgent实例。
+    }
+    return request;
   }
 
 
@@ -706,69 +604,4 @@ export class NotificationUtil {
   }
 
 
-}
-
-
-/**
- * 描述通知的请求参数。
- */
-export class NotificationOptions {
-  id?: number; //通知ID。
-  isOngoing?: boolean; //是否进行时通知。
-  isStopwatch?: boolean; //是否显示已用时间。
-  isAlertOnce?: boolean; //设置是否仅有一次此通知提醒。
-  badgeNumber?: number; //应用程序图标上显示的通知数。
-  label?: string; //通知标签。
-  wantAgent?: WantAgent; //WantAgent封装了应用的行为意图，点击通知时触发该行为。
-  notificationSlotType?: notificationManager.SlotType; //通道类型。
-  actionButtons?: Array<notificationManager.NotificationActionButton>; //通知按钮，最多三个按钮。
-  deliveryTime?: number; //通知发送时间。
-  tapDismissed?: boolean; //通知是否自动清除。
-  autoDeletedTime?: number; //自动清除的时间。
-  isCountDown?: boolean; //是否显示倒计时时间。
-  isFloatingIcon?: boolean; //是否显示状态栏图标。
-  showDeliveryTime?: boolean; //是否显示分发时间。
-  creatorBundleName?: string; //创建通知的包名。
-  removalWantAgent?: WantAgent; //当移除通知时，通知将被重定向到的WantAgent实例。当前不支持跳转UIAbility，只支持发布公共事件及跳转系统Service能力（WantAgent的OperationType >= 3）。
-}
-
-
-/**
- * 描述普通文本通知
- */
-export class NotificationBasicOptions extends NotificationOptions {
-  title: string = ''; //通知标题（不可为空字符串）。
-  text: string = ''; //通知内容（不可为空字符串）。
-  additionalText?: string = ''; //通知附加内容，是对通知内容的补充。
-  callBack?: (noticeId: number) => void; //业务回调函数
-}
-
-
-/**
- * 描述多行文本通知。
- */
-export class NotificationMultiLineOptions extends NotificationBasicOptions {
-  briefText?: string = ''; //通知概要内容，是对通知内容的总结（不可为空字符串）。
-  longTitle: string = ''; //通知展开时的标题（不可为空字符串）。
-  lines: Array<string> = []; //通知的多行文本。
-}
-
-
-/**
- * 描述长文本通知
- */
-export class NotificationLongTextOptions extends NotificationBasicOptions {
-  briefText?: string = ''; //通知概要内容，是对通知内容的总结（不可为空字符串）。
-  expandedTitle: string = ''; //通知展开时的标题（不可为空字符串）
-  longText: string = ''; //通知的长文本（不可为空字符串）。
-}
-
-
-/**
- * 描述附有图片的通知。
- */
-export class NotificationPictureOptions extends NotificationBasicOptions {
-  briefText?: string = ''; //通知概要内容，是对通知内容的总结（不可为空字符串）。
-  expandedTitle: string = ''; //通知展开时的标题（不可为空字符串）。
-  picture?: image.PixelMap; //通知的图片内容(图像像素的总字节数不能超过2MB)。
 }

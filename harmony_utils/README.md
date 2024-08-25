@@ -166,20 +166,33 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### NotificationUtil（通知工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
 
-| 方法                            | 介绍               |
-|:------------------------------|:-----------------|
-| authorizeNotification         | 校验是否已授权通知服务      |
-| publishBasic                  | 发布普通文本通知         |
-| publishMultiLine              | 发布多文本通知          |
-| publishLongText               | 发布长文本通知          |
-| publishPicture                | 发布带有图片的通知        |
-| cancel                        | 取消通知             |
-| cancelAll                     | 取消所有通知           |
-| setBadge                      | 设置桌面角标个数         |
-| clearBadge                    | 清空桌面角标           |
-| setBadgeFromNotificationCount | 设置桌面角标数量，来自于通知数量 |
-| getActiveNotificationCount    | 获取当前应用未删除的通知数量   |
-| getActiveNotifications        | 获取当前应用未删除的通知列表   |
+| 方法                                                  | 介绍                    |
+|:----------------------------------------------------|:----------------------|
+| setDefaultConfig                                    | 设置通知的默认统一配置           |
+| isNotificationEnabled<br/>isNotificationEnabledSync | 查询通知是否授权              |
+| authorizeNotification                               | 请求通知授权，第一次调用会弹窗让用户选择。 |
+| isSupportTemplate                                   | 查询模板是否存在，目前仅支持进度条模板。  |
+| isDistributedEnabled                                | 查询设备是否支持分布式通知         |
+| publishBasic                                        | 发布普通文本通知              |
+| publishMultiLine                                    | 发布多文本通知               |
+| publishLongText                                     | 发布长文本通知               |
+| publishPicture                                      | 发布带有图片的通知             |
+| publishTemplate                                     | 发布模板通知                |
+| cancel                                              | 取消通知                  |
+| cancelGroup                                         | 取消本应用指定组下的通知          |
+| cancelAll                                           | 取消所有通知                |
+| setBadge                                            | 设置桌面角标个数              |
+| clearBadge                                          | 清空桌面角标                |
+| setBadgeFromNotificationCount                       | 设置桌面角标数量，来自于通知数量      |
+| getActiveNotificationCount                          | 获取当前应用未删除的通知数量        |
+| getActiveNotifications                              | 获取当前应用未删除的通知列表        |
+| addSlot                                             | 创建指定类型的通知渠道           |
+| getSlot                                             | 获取一个指定类型的通知渠道         |
+| getSlots                                            | 获取此应用程序的所有通知渠道        |
+| removeSlot                                          | 删除此应用程序指定类型的通知渠道      |
+| removeAllSlots                                      | 删除此应用程序所有通知渠道         |
+| generateNotificationId                              | 生成通知id（用时间戳当id）       |
+| getDefaultWantAgent                                 | 创建一个可拉起Ability的Want   |
 
 ### PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
 
@@ -539,12 +552,13 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### ObjectUtil（对象工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets)
 
-| 方法       | 介绍          |
-|----------|:------------|
-| getHash  | 获取对象的Hash值  |
-| isString | 判断是否是String |
-| isNull   | 判断对象是否为空    |
-| deepCopy | 深度拷贝对象      |
+| 方法         | 介绍                                |
+|------------|:----------------------------------|
+| getHash    | 获取对象的Hash值                        |
+| isString   | 判断是否是String                       |
+| isNull     | 判断对象是否为空                          |
+| deepCopy   | 深度拷贝对象                            |
+| objToClass | obj转class，解决obj as class后丢失方法的问题。 |
 
 ### JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
 

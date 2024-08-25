@@ -1,3 +1,4 @@
+
 export { AppUtil } from './src/main/ets/utils/AppUtil';
 
 export { DeviceUtil } from './src/main/ets/utils/DeviceUtil';
@@ -95,3 +96,15 @@ export { DES } from './src/main/ets/crypto/DES';
 export { RSA } from './src/main/ets/crypto/RSA';
 
 export { ECDSA } from './src/main/ets/crypto/ECDSA';
+
+export { ToastOptions } from './src/main/ets/entity/ToastOptions';
+
+export { DialogOptions } from './src/main/ets/entity/DialogOptions';
+
+export { NotificationOptions,
+  NotificationBasicOptions,
+  NotificationLongTextOptions,
+  NotificationMultiLineOptions,
+  NotificationPictureOptions,
+  NotificationTemplateOptions
+} from './src/main/ets/entity/NotificationOptions';

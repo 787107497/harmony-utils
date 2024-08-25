@@ -15,12 +15,12 @@ struct Index {
   @State user: User = new User();
   @State obj: String = new String("abcd@1234");
   @State obj1: String = new String();
+  readonly userJsonStr = '{"id":"No_1060701","name":"张三","age":20}';
 
   @MockSetup
   mock() {
     this.describe = new DescribeBean("ObjectUtil", "对象工具类");
   }
-
 
   build() {
     Column() {
@@ -59,14 +59,24 @@ struct Index {
           Button("deepCopy()")
             .btnStyle()
             .onClick(() => {
-              this.user.user = new User();
-              let obj = ObjectUtil.deepCopy(this.user)
-              LogUtil.error(`${JSON.stringify(obj)}`)
-              LogUtil.error(`${JSON.stringify(obj, null, 2)}`)
-              ToastUtil.showToast("请查看Log日志")
+              let user :User= JSON.parse(this.userJsonStr);
+              LogUtil.error(`user1: ${JSON.stringify(user)}`);
+              let user2:User = ObjectUtil.deepCopy(user);
+              LogUtil.error(`user2: ${JSON.stringify(user2)}`);
+              ToastUtil.showToast("请查看Log日志");
+            })
+          Button("objToClass()")
+            .btnStyle()
+            .onClick(() => {
+              let user :User= JSON.parse(this.userJsonStr);
+              LogUtil.error(`user3: ${JSON.stringify(user)}`);
+              let user4 = ObjectUtil.objToClass(User, user);
+              LogUtil.error(`user4: ${JSON.stringify(user4)}`);
+              user4.say("小奶子......");
+              ToastUtil.showToast("请查看Log日志");
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -93,5 +103,10 @@ function textStyle() {
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
   .backgroundColor(Color.White)
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
+  .border({
+    width: 1,
+    color: Color.Grey,
+    radius: 10,
+    style: BorderStyle.Dashed
+  })
 }

@@ -1,4 +1,31 @@
 # 版本记录
+
+## 1.0.8（API12 - Beta5 - 5.0.3.700）
+1.  NotificationUtil:
+    1、新增
+    2、新增
+    3、新增
+    4、新增
+    5、新增
+    6、新增
+    7、新增
+    8、新增
+2. NotificationUtil:
+   1、新增setDefaultConfig，设置通知的默认统一配置。    
+   2、新增isNotificationEnabled，查询通知是否授权。    
+   3、新增isSupportTemplate，查询模板是否存在，目前仅支持进度条模板。    
+   4、新增isDistributedEnabled，查询设备是否支持分布式通知。    
+   5、新增publishTemplate，发布模板通知。    
+   6、新增cancelGroup，取消本应用指定组下的通知。
+   7、新增addSlot，创建指定类型的通知渠道。    
+   8、新增getSlot，获取一个指定类型的通知渠道。    
+   9、新增getSlots，获取此应用程序的所有通知渠道。        
+   10、新增removeSlot，删除此应用程序指定类型的通知渠道。    
+   11、新增removeAllSlots，删除此应用程序所有通知渠道。        
+   12、新增generateNotificationId，生成通知id（用时间戳当id）。    
+   13、新增getDefaultWantAgent，创建一个可拉起Ability的Want。   
+3. ObjectUtil新增objToClass（obj转class，解决obj as class后丢失方法的问题）。    
+
 ## 1.0.7 （API12 - Dev: 5.0.3.500）
 1. 新增加解密，SM2、SM3、SM4、AES、DES、RSA、MD5、SHA、ECDSA、CryptoUtil、CryptoHelper。   
 2. 新增EmitterUtil工具类。

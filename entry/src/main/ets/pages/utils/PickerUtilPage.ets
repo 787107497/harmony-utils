@@ -43,69 +43,63 @@ struct Index {
           Button("camera()")
             .btnStyle()
             .onClick(async () => {
-              let p: Permissions = 'ohos.permission.CAMERA';
-              PermissionUtil.checkRequestPermissions(p).then(async (grant) => {
-                if (grant) {
-                  PickerUtil.camera().then((uri) => {
-                    this.uriStr = `调用相机，返回uri：\n${uri}`
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `调用相机，异常：\n${JSON.stringify(err)}`
-                  })
-                } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
-                }
+              // let p: Permissions = 'ohos.permission.CAMERA';
+              // PermissionUtil.checkRequestPermissions(p).then(async (grant) => {
+              //   if (grant) {
+              //
+              //   } else {
+              //     ToastUtil.showLong("请在设置中打开权限")
+              //     AppUtil.toAppSetting()
+              //   }
+              // })
+              PickerUtil.camera().then((uri) => {
+                this.uriStr = `调用相机，返回uri：\n${uri}`
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用相机，异常：\n${JSON.stringify(err)}`
               })
             })
           Button("selectPhoto()")
             .btnStyle()
             .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA', 'ohos.permission.READ_IMAGEVIDEO'];
-              PermissionUtil.requestPermissionsList(ps).then((result) => {
-                if (result) {
-                  PickerUtil.selectPhoto().then((uris) => {
-                    this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`
-                  })
-                } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
-                }
+              // let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA', 'ohos.permission.READ_IMAGEVIDEO'];
+              // PermissionUtil.requestPermissionsList(ps).then((result) => {
+              //   if (result) {
+              //
+              //   } else {
+              //     ToastUtil.showLong("请在设置中打开权限")
+              //     AppUtil.toAppSetting()
+              //   }
+              // })
+              PickerUtil.selectPhoto().then((uris) => {
+                this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`
               })
             })
 
           Button("savePhoto()")
             .btnStyle()
             .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA'];
-              PermissionUtil.requestPermissionsList(ps).then((result) => {
-                if (result) {
-                  let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}.png`;
-                  let imgName1 = `漂亮小妹妹_${DateUtil.getTodayTime()}.png`;
-                  PickerUtil.savePhoto([imgName, imgName1]).then(async (uris) => {
-                    let uri = uris[0];
-                    this.uriStr = `调用保存图片，返回uris：\n${uri}`
-                    let file = FileUtil.openSync(uri);
-                    FileUtil.copyFile(this.filePath, file.fd).then(() => {
-                      this.uriStr = `保存图片，返回uris：\n${uri}`
-                      ToastUtil.showToast("图片保存成功");
-                    })
+              let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}.png`;
+              let imgName1 = `漂亮小妹妹_${DateUtil.getTodayTime()}.png`;
+              PickerUtil.savePhoto([imgName, imgName1]).then(async (uris) => {
+                let uri = uris[0];
+                this.uriStr = `调用保存图片，返回uris：\n${uri}`
+                let file = FileUtil.openSync(uri);
+                FileUtil.copyFile(this.filePath, file.fd).then(() => {
+                  this.uriStr = `保存图片，返回uris：\n${uri}`
+                  ToastUtil.showToast("图片保存成功");
+                })
 
-                    let file1 = FileUtil.openSync(uris[1]);
-                    let pixelMap1 = await ImageUtil.getPixelMapFromMedia($r('app.media.as3'))
-                    let packOpts: image.PackingOption = { format: 'image/png', quality: 100 }
-                    ImageUtil.packToFileFromPixelMap(pixelMap1, file1.fd, packOpts).then(() => {
-                      this.uriStr = `保存图片，返回uris：\n${uris[1]}`
-                      ToastUtil.showToast("图片保存成功");
-                    })
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`
-                  })
-                } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
-                }
+                let file1 = FileUtil.openSync(uris[1]);
+                let pixelMap1 = await ImageUtil.getPixelMapFromMedia($r('app.media.as3'))
+                let packOpts: image.PackingOption = { format: 'image/png', quality: 100 }
+                ImageUtil.packToFileFromPixelMap(pixelMap1, file1.fd, packOpts).then(() => {
+                  this.uriStr = `保存图片，返回uris：\n${uris[1]}`
+                  ToastUtil.showToast("图片保存成功");
+                })
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`
               })
             })
           Button("selectDocument()")
@@ -136,22 +130,14 @@ struct Index {
           Button("selectPhoto()")
             .btnStyle()
             .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA'];
-              PermissionUtil.requestPermissionsList(ps).then((result) => {
-                if (result) {
-                  PickerUtil.selectPhoto({ maxSelectNumber: 1 }).then(async (uris) => {
-                    if (uris && uris.length > 0) {
-                      this.pixelMap = uris[0];
-                    } else {
-                      ToastUtil.showToast("请选择图片")
-                    }
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `异常：\n${JSON.stringify(err)}`
-                  })
+              PickerUtil.selectPhoto({ maxSelectNumber: 1 }).then(async (uris) => {
+                if (uris && uris.length > 0) {
+                  this.pixelMap = uris[0];
                 } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
+                  ToastUtil.showToast("请选择图片")
                 }
+              }).catch((err: BusinessError) => {
+                this.uriStr = `异常：\n${JSON.stringify(err)}`
               })
             })
           Text(this.uriStr)

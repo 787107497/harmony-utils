@@ -59,7 +59,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let ps: Permissions[] = ['ohos.permission.READ_IMAGEVIDEO'];
-              PermissionUtil.requestPermissionsList(ps).then((result) => {
+              PermissionUtil.requestPermissions(ps).then((result) => {
                 if (result) {
                   PhotoHelper.select().then((uris) => {
                     this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
@@ -77,7 +77,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let ps: Permissions[] = ['ohos.permission.WRITE_IMAGEVIDEO'];
-              PermissionUtil.requestPermissionsList(ps).then((result) => {
+              PermissionUtil.requestPermissions(ps).then((result) => {
                 if (result) {
                   let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}`;
                   PhotoHelper.save(photoAccessHelper.PhotoType.IMAGE, 'jpg', { title: imgName }).then(async (uri) => {
@@ -103,7 +103,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let ps: Permissions[] = ['ohos.permission.WRITE_IMAGEVIDEO'];
-              PermissionUtil.requestPermissionsList(ps).then((result) => {
+              PermissionUtil.requestPermissions(ps).then((result) => {
                 if (result) {
                   let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}`;
                   PhotoHelper.save(photoAccessHelper.PhotoType.IMAGE, 'png', { title: imgName }).then(async (uri) => {
@@ -131,7 +131,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let ps: Permissions[] = ['ohos.permission.READ_IMAGEVIDEO'];
-              PermissionUtil.requestPermissionsList(ps).then((result) => {
+              PermissionUtil.requestPermissions(ps).then((result) => {
                 if (result) {
                   PickerUtil.selectPhoto().then(async (uris) => {
                     if (uris && uris.length > 0) {
