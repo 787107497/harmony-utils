@@ -1,8 +1,7 @@
 import abilityAccessCtrl, { Permissions } from '@ohos.abilityAccessCtrl';
-import { bundleManager } from '@kit.AbilityKit';
+import { bundleManager, common, PermissionRequestResult } from '@kit.AbilityKit';
 import { BusinessError } from '@ohos.base';
 import { ToastUtil } from '../action/ToastUtil';
-import { AppUtil } from './AppUtil';
 
 
 /**
@@ -15,7 +14,7 @@ import { AppUtil } from './AppUtil';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export class PermissionUtil{
+export class PermissionUtil {
 
   private constructor() {}
 
@@ -36,7 +35,7 @@ export class PermissionUtil{
 
 
   /**
-   * 校验是否授权后并申请授权,以Promise方式返回
+   * 校验是否授权后并申请授权。
    * @param permissions 需要授权的权限
    * @returns true表示授权成功继续业务操作,false表示用户拒绝授权
    */
@@ -45,48 +44,90 @@ export class PermissionUtil{
     if (checkStatus) {
       return checkStatus;
     } else {
-      let grantStatus = await PermissionUtil.requestPermissions(permissions)
-      return grantStatus;
+      return await PermissionUtil.requestPermissions(permissions);
     }
   }
 
 
   /**
-   * 申请授权,以Promise方式返回
+   * 申请授权（支持权限组合）
    * @param permissions 需要授权的权限
    * @returns true表示授权成功继续业务操作,false表示用户拒绝授权
    */
-  static async requestPermissions(permissions: Permissions): Promise<boolean> {
+  static async requestPermissions(permissions: Permissions | Array<Permissions>): Promise<boolean> {
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    let context = AppUtil.getContext();
-    // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
-    let request = await atManager.requestPermissionsFromUser(context, [permissions]);
-    let grantStatus: Array<number> = request.authResults;
-    let result: boolean = true; //鉴权结果
-    for (let i = 0; i < grantStatus.length; i++) {
-      if (grantStatus[i] !== 0) {
-        result = false; //用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
-      }
+    let context: Context = getContext() as common.UIAbilityContext;
+    //requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
+    let request = await atManager.requestPermissionsFromUser(context,
+      Array.isArray(permissions) ? [...permissions] : [permissions]);
+    let requestGrant: boolean = PermissionUtil.getGrantSuccess(request); //鉴权结果
+    return requestGrant;
+  }
+
+
+  /**
+   * 申请授权,拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。
+   * @param permissions
+   * @returns
+   */
+  static async requestPermissionsEasy(permissions: Permissions | Array<Permissions>): Promise<boolean> {
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    let context: Context = getContext() as common.UIAbilityContext;
+    let ps: Array<Permissions> = Array.isArray(permissions) ? [...permissions] : [permissions];
+    //requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
+    let request = await atManager.requestPermissionsFromUser(context, ps);
+    let requestGrant: boolean = PermissionUtil.getGrantSuccess(request); //鉴权结果
+    if (requestGrant) {
+      return requestGrant;
+    } else {
+      return await PermissionUtil.requestPermissionOnSettingEasy(ps); //二次向用户申请授权
     }
+  }
+
+
+  /**
+   * 二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。
+   * @param permissions 需要授权的权限集合
+   * @returns true表示授权成功继续业务操作,false表示用户拒绝授权
+   */
+  static async requestPermissionOnSetting(permissions: Permissions | Array<Permissions>): Promise<boolean> {
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    let context: Context = getContext() as common.UIAbilityContext;
+    //requestPermissionOnSetting会判断权限的授权状态来决定是否唤起弹窗
+    let grantStatus = await atManager.requestPermissionOnSetting(context,
+      Array.isArray(permissions) ? [...permissions] : [permissions]);
+    let result: boolean = PermissionUtil.getGrantSuccess(grantStatus); //鉴权结果
     return result;
   }
 
 
   /**
-   * 申请组合授权,以Promise方式返回
+   * 二次向用户申请授权（多个权限建议使用该方法）。
    * @param permissions 需要授权的权限集合
-   * @returns true表示授权成功继续业务操作,false表示用户拒绝授权
    */
-  static async requestPermissionsList(permissions: Array<Permissions>): Promise<boolean> {
-    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    let context = AppUtil.getContext();
-    // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗
-    let request = await atManager.requestPermissionsFromUser(context, permissions);
-    let grantStatus: Array<number> = request.authResults;
+  static async requestPermissionOnSettingEasy(permissions: Array<Permissions>): Promise<boolean> {
+    for (let i = 0; i < permissions.length; i++) {
+      let check = await PermissionUtil.checkPermissions(permissions[i]); //判断是否授权。
+      if (!check) { //未授权，二次向用户申请授权。
+        let grant = await PermissionUtil.requestPermissionOnSetting(permissions[i]);
+        if (!grant) { //二次向用户申请授权，拒绝后，直接返回false。
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+
+  /**
+   * 判断是否授权成功
+   */
+  private static getGrantSuccess(data: PermissionRequestResult | Array<abilityAccessCtrl.GrantStatus>): boolean {
     let result: boolean = true; //鉴权结果
+    let grantStatus: Array<number> = Array.isArray(data) ? data : data.authResults;
     for (let i = 0; i < grantStatus.length; i++) {
-      if (grantStatus[i] !== 0) {
-        result = false; //用户未授权授权
+      if (grantStatus[i] !== abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
+        result = false; //用户未授权授权 或 拒绝授权。
       }
     }
     return result;

@@ -51,13 +51,11 @@ export class LocationUtil {
    * @returns
    */
   static async requestLocationPermissions(): Promise<boolean> {
-    let isAuth = await PermissionUtil.checkPermissions('ohos.permission.APPROXIMATELY_LOCATION') && await PermissionUtil.checkPermissions('ohos.permission.LOCATION');
-    if (!isAuth) {
-      let grant = await PermissionUtil.requestPermissions(['ohos.permission.APPROXIMATELY_LOCATION', 'ohos.permission.LOCATION']);
-      return grant
-    } else {
-      return true;
+    let grant = await PermissionUtil.requestPermissions(['ohos.permission.LOCATION', 'ohos.permission.APPROXIMATELY_LOCATION']);
+    if (!grant) {
+      grant = await PermissionUtil.requestPermissionOnSetting(['ohos.permission.LOCATION', 'ohos.permission.APPROXIMATELY_LOCATION']);
     }
+    return grant;
   }
 
 
