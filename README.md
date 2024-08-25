@@ -1,4 +1,4 @@
-# <center>harmony-utils (API12 - Dev: 5.0.3.500)</center>
+# <center>harmony-utils (API12 - Beta5 - 5.0.3.700)</center>
 
 
 ## 📚简介
