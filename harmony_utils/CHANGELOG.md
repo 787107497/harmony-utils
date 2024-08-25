@@ -1,15 +1,12 @@
 # 版本记录
 
 ## 1.0.8（API12 - Beta5 - 5.0.3.700）
-1.  NotificationUtil:
-    1、新增
-    2、新增
-    3、新增
-    4、新增
-    5、新增
-    6、新增
-    7、新增
-    8、新增
+1.  PermissionUtil:
+    1、新增requestPermissionsEasy，申请授权，拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。    
+    2、新增requestPermissionOnSetting，二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。    
+    3、新增requestPermissionOnSettingEasy，二次向用户申请授权（多个权限建议使用该方法）。    
+    4、废弃requestPermissionsList。   
+    5、温馨提示，废弃requestPermissionsList方法，使用新增的requestPermissionsEasy方法替代。
 2. NotificationUtil:
    1、新增setDefaultConfig，设置通知的默认统一配置。    
    2、新增isNotificationEnabled，查询通知是否授权。    
@@ -23,8 +20,8 @@
    10、新增removeSlot，删除此应用程序指定类型的通知渠道。    
    11、新增removeAllSlots，删除此应用程序所有通知渠道。        
    12、新增generateNotificationId，生成通知id（用时间戳当id）。    
-   13、新增getDefaultWantAgent，创建一个可拉起Ability的Want。   
-3. ObjectUtil新增objToClass（obj转class，解决obj as class后丢失方法的问题）。    
+   13、新增getDefaultWantAgent，创建一个可拉起Ability的Want。
+3. ObjectUtil新增objToClass（obj转class，解决obj as class后丢失方法的问题）。
 
 ## 1.0.7 （API12 - Dev: 5.0.3.500）
 1. 新增加解密，SM2、SM3、SM4、AES、DES、RSA、MD5、SHA、ECDSA、CryptoUtil、CryptoHelper。   
