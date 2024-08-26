@@ -1,19 +1,19 @@
 # 版本记录
 
 ## 1.0.8（API12 - Beta5 - 5.0.3.700）
-1.  PermissionUtil:
+1.  PermissionUtil:    
     1、新增requestPermissionsEasy，申请授权，拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。    
     2、新增requestPermissionOnSetting，二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。    
     3、新增requestPermissionOnSettingEasy，二次向用户申请授权（多个权限建议使用该方法）。    
     4、废弃requestPermissionsList。   
     5、温馨提示，废弃requestPermissionsList方法，使用新增的requestPermissionsEasy方法替代。
-2. NotificationUtil:
+2. NotificationUtil:    
    1、新增setDefaultConfig，设置通知的默认统一配置。    
    2、新增isNotificationEnabled，查询通知是否授权。    
    3、新增isSupportTemplate，查询模板是否存在，目前仅支持进度条模板。    
    4、新增isDistributedEnabled，查询设备是否支持分布式通知。    
    5、新增publishTemplate，发布模板通知。    
-   6、新增cancelGroup，取消本应用指定组下的通知。
+   6、新增cancelGroup，取消本应用指定组下的通知。    
    7、新增addSlot，创建指定类型的通知渠道。    
    8、新增getSlot，获取一个指定类型的通知渠道。    
    9、新增getSlots，获取此应用程序的所有通知渠道。        

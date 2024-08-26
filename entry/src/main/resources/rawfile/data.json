@@ -1,9 +1,5 @@
 [
   {
-    "name": "PermissionUtil",
-    "desc": "测试",
-    "type": 1
-  }, {
     "name": "AppUtil",
     "desc": "APP相关工具类",
     "type": 1
