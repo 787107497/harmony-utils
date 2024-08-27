@@ -26,7 +26,7 @@ struct Index {
 
 
   async aboutToAppear(): Promise<void> {
-    let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))
+    let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"))
     this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
     LogUtil.error("filePath: " + this.filePath);
   }
@@ -92,7 +92,7 @@ struct Index {
                 })
 
                 let file1 = FileUtil.openSync(uris[1]);
-                let pixelMap1 = await ImageUtil.getPixelMapFromMedia($r('app.media.as3'))
+                let pixelMap1 = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as3"))
                 let packOpts: image.PackingOption = { format: 'image/png', quality: 100 }
                 ImageUtil.packToFileFromPixelMap(pixelMap1, file1.fd, packOpts).then(() => {
                   this.uriStr = `保存图片，返回uris：\n${uris[1]}`

@@ -1,7 +1,9 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { KeyboardUtil, ToastUtil } from '@pura/harmony-utils';
+import { KeyboardUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
+import { inputMethod } from '@kit.IMEKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 键盘工具类
@@ -58,11 +60,21 @@ struct Index {
             .onClick(() => {
               KeyboardUtil.removeInputTextChanged()
             })
+          Button("测试")
+            .btnStyle()
+            .onClick(() => {
+              inputMethod.getController().showSoftKeyboard().then(() => {
+                LogUtil.error("show keyboard success")
+              }).catch((error:BusinessError) => {
+                LogUtil.error("show keyboard failure: " + JSON.stringify(error));
+              })
+            })
+
           TextInput({ placeholder: '请输入', controller: this.controller })
             .margin({ top: 30 })
             .width('90%')
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

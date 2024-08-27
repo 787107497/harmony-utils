@@ -31,7 +31,7 @@ struct Index {
         .fontWeight(FontWeight.Bold)
         .fontStyle(FontStyle.Italic)
         .margin({ top: 20 })
-      Image($r('app.media.as4'))
+      Image($r("app.media.test_as4"))
         .margin({ top: 30, bottom: 10 })
         .padding(10)
         .width('95%')
@@ -91,7 +91,7 @@ struct Index {
               .fontWeight(FontWeight.Bold)
               .fontStyle(FontStyle.Italic)
               .margin({ top: 10 })
-            Image($r('app.media.as3'))
+            Image($r("app.media.test_as3"))
               .margin({ top: 10, bottom: 10 })
           }
           .backgroundColor(Color.Pink)

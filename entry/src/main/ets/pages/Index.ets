@@ -1,111 +1,85 @@
-import { FileUtil, JSONUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../entity/DescribeBean';
-import { router } from '@kit.ArkUI';
-import { Mock } from '../utils/Mock';
-import { MockSetup } from '@ohos/hamock';
+import { UtilsPage } from './index/UtilsPage';
+import { DialogPage } from './index/DialogPage';
+import { RcpPage } from './index/RcpPage';
+import { RoomPage } from './index/RoomPage';
+import { OtherPage } from './index/OtherPage';
 
-
+/**
+ * 主页面
+ */
 @Entry
 @Component
 struct Index {
-  private scroller: Scroller = new Scroller();
-  @State data: Array<DescribeBean> = [];
-
-  @MockSetup
-  mock() {
-    this.data = Mock.getData();
-  }
-
-  async aboutToAppear(): Promise<void> {
-    let jsonStr = FileUtil.getRawFileContentStrSync('data.json');
-    let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
-    if (arr && arr.length > 0) {
-      this.data = arr;
-    }
-  }
+  private tabsController: TabsController = new TabsController();
+  @State index: number = 0;
 
   onBackPress(): boolean {
     return false;
   }
 
-  /**
-   * 跳转到详情页
-   * @param describe
-   */
-  startPage(describe: DescribeBean) {
-    let url = `pages/${describe.name}Page`;
-    if (describe.type == 1) {
-      url = `pages/utils/${describe.name}Page`;
-    } else if (describe.type == 2) {
-      url = `pages/crypto/${describe.name}Page`;
-    }
-    router.pushUrl({
-      url: url,
-      params: describe
-    })
-  }
-
-  @Builder
-  itemBuilder(describe: DescribeBean) {
-    Column() {
-      Text(describe.name)
-        .width('100%')
-        .fontSize(26)
-        .fontColor(Color.Black)
-        .fontWeight(FontWeight.Bold)
-      Text(describe.desc)
-        .width('100%')
-        .fontSize(16)
-        .fontColor(Color.Brown)
-        .fontStyle(FontStyle.Italic)
-        .margin({ top: 8 })
-    }
-    .alignItems(HorizontalAlign.Start)
-    .padding({
-      left: 18,
-      top: 15,
-      right: 18,
-      bottom: 15
-    })
-    .backgroundColor(Color.White)
-    .border({
-      width: 1,
-      color: $r('app.color.color_line'),
-      radius: 6,
-      style: BorderStyle.Solid
-    })
-    .shadow(ShadowStyle.OUTER_DEFAULT_SM)
-    .margin({
-      left: 15,
-      top: 10,
-      right: 15,
-      bottom: 10
-    })
-    .onClick(() => {
-      this.startPage(describe)
-    })
-  }
-
   build() {
-    Column() {
-      Text("鸿蒙工具包")
-        .height(50)
-        .width('100%')
-        .backgroundColor(Color.White)
-        .textAlign(TextAlign.Center)
-        .fontWeight(FontWeight.Bold)
-        .fontSize(24)
-      Divider()
-      Scroll(this.scroller) {
-        Column() {
-          ForEach(this.data, (item: DescribeBean) => {
-            this.itemBuilder(item)
-          }, (item: DescribeBean, index: number) => `${index}-${item.name}-${item.desc}`)
-        }
-        .margin({ top: 5, bottom: 5 })
-      }.layoutWeight(1)
-    }.width('100%')
-    .height('100%')
+    Tabs({ barPosition: BarPosition.End, index: 0, controller: this.tabsController }) {
+      TabContent() {
+        UtilsPage().margin({ bottom: 60 })
+      }
+      .tabBar(this.tabBuilder(0, $r('app.media.icon_tab_utils'), "工具类"))
+
+      TabContent() {
+        DialogPage().margin({ bottom: 60 })
+      }
+      .tabBar(this.tabBuilder(1, $r('app.media.icon_tab_dialog'), "弹框"))
+
+      TabContent() {
+        RcpPage().margin({ bottom: 60 })
+      }
+      .tabBar(this.tabBuilder(2, $r('app.media.icon_tab_rcp'), "RCP"))
+
+      TabContent() {
+        RoomPage().margin({ bottom: 60 })
+      }
+      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_room'), "ROOM"))
+
+      TabContent() {
+        OtherPage()
+      }
+      .tabBar(this.tabBuilder(4, $r('app.media.icon_tab_other'), "艺术"))
+    }
+    .divider({ strokeWidth: 1, color: $r('app.color.color_line') })
+    .barBackgroundColor(Color.White)
+    .vertical(false)
+    .barOverlap(true)
+    .barMode(BarMode.Fixed)
     .backgroundColor($r('app.color.main_background'))
+    .width('100%')
+    .height('100%')
+    .onChange((index: number) => { //页面切换回调
+      this.index = index;
+    })
+  }
+
+  /**
+   *
+   * @param index
+   * @param icon
+   * @param text
+   */
+  @Builder
+  tabBuilder(index: number, icon: string | Resource, text: string | Resource) {
+    Column() {
+      Image(icon)
+        .width(26)
+        .height(26)
+        .objectFit(ImageFit.Auto)
+        .fillColor(index == this.index ? Color.Brown : Color.Gray)
+      Text(text)
+        .fontSize(12)
+        .fontColor(index == this.index ? Color.Brown : Color.Gray)
+        .fontStyle(FontStyle.Normal)
+        .margin({ top: 5 })
+    }
+    .backgroundColor(Color.White)
+    .alignItems(HorizontalAlign.Center)
+    .justifyContent(FlexAlign.Center)
+    .alignSelf(ItemAlign.Center)
   }
 }

@@ -38,7 +38,7 @@ struct Index {
               let wantAgent = await NotificationUtil.getDefaultWantAgent();
               let smallIcon = await ImageUtil.getPixelMapFromMedia($r('app.media.ic_launcher_round'));
               let largeIcon = await ImageUtil.getPixelMapFromMedia($r('app.media.ic_launcher'));
-              let lPicture = await ImageUtil.getPixelMapFromMedia($r('app.media.as1'));
+              let lPicture = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as1"));
 
               NotificationUtil.setDefaultConfig((config) => {
                 config.wantAgent = wantAgent
@@ -111,7 +111,7 @@ struct Index {
           Button("publishPicture()")
             .btnStyle()
             .onClick(async () => {
-              let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as1'))
+              let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as1"))
               NotificationUtil.publishPicture({
                 title: "鸿蒙工具包",
                 text: "HarmonyOS工具包，封装了常用工具类。帮助开发者快速构建鸿蒙应用",

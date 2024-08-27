@@ -150,7 +150,7 @@ struct Index {
             options: {
               title: "温馨提示",
               content: "提示弹出框-弹出框",
-              imageRes: $r('app.media.as3'),
+              imageRes: $r("app.media.test_as3"),
               imageSize: { width: '100%' },
               checkTips: "记住密码",
               primaryButton: {

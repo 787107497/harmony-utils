@@ -48,6 +48,10 @@
     {
       "name": "harmony_utils",
       "srcPath": "./harmony_utils"
+    },
+    {
+      "name": "harmony_dialog",
+      "srcPath": "./harmony_dialog",
     }
   ]
 }

@@ -30,7 +30,7 @@ struct Index {
     FileUtil.writeEasy(this.textPath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。")
     this.docPath = FileUtil.getFilesDirPath('download/wps/doc', '测试DOC文件.doc');
     FileUtil.writeEasy(this.docPath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。")
-    let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))
+    let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"))
     this.imgPath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小妹纸.png")
   }
 

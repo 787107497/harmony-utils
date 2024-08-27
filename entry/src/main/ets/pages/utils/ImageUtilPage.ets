@@ -29,7 +29,7 @@ struct Index {
 
 
   async aboutToAppear(): Promise<void> {
-    let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as4'))
+    let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"))
     this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
     this.fileUri = FileUtil.getUriFromPath(this.filePath);
     LogUtil.error("filePath: " + this.filePath);
@@ -56,7 +56,7 @@ struct Index {
           Button("savePixelMap()")
             .btnStyle()
             .onClick(async () => {
-              let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as3'))
+              let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as3"))
               this.imgPath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "妹纸.png")
               this.imgUri = FileUtil.getUriFromPath(this.imgPath);
             })
@@ -133,7 +133,7 @@ struct Index {
           Button("getPixelMapFromMedia()")
             .btnStyle()
             .onClick(async () => {
-              this.pixelMap3 = await ImageUtil.getPixelMapFromMedia($r('app.media.as2'))
+              this.pixelMap3 = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as2"))
             })
           Image(this.pixelMap3)
             .visibility(this.pixelMap3 ? Visibility.Visible : Visibility.None)
@@ -141,7 +141,7 @@ struct Index {
           Button("pixelMapToBase64Str()")
             .btnStyle()
             .onClick(async () => {
-              let pixelMap = await ImageUtil.getPixelMapFromMedia($r('app.media.as3'))
+              let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as3"))
               this.base64Str = await ImageUtil.pixelMapToBase64Str(pixelMap)
             })
           Text(this.base64Str)
