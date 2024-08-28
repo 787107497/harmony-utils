@@ -11,18 +11,18 @@ import { OtherPage } from './index/OtherPage';
 @Component
 struct Index {
   private tabsController: TabsController = new TabsController();
-  @State index: number = 0;
+  @State index: number = 1;
 
   onBackPress(): boolean {
     return false;
   }
 
   build() {
-    Tabs({ barPosition: BarPosition.End, index: 0, controller: this.tabsController }) {
+    Tabs({ barPosition: BarPosition.End, index: this.index, controller: this.tabsController }) {
       TabContent() {
         UtilsPage().margin({ bottom: 60 })
       }
-      .tabBar(this.tabBuilder(0, $r('app.media.icon_tab_utils'), "工具类"))
+      .tabBar(this.tabBuilder(0, $r('app.media.icon_tab_utils'), "工具"))
 
       TabContent() {
         DialogPage().margin({ bottom: 60 })

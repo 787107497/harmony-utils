@@ -1,9 +1,25 @@
 {
-  "name": "harmony_dialog",
+  "name": "@pura/harmony-dialog",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "简单易用的弹框",
+  "author": "桃花镇童长老",
+  "homepage": "https://gitee.com/tongyuyan",
+  "repository": "https://gitee.com/tongyuyan/harmony-utils",
   "main": "Index.ets",
-  "author": "",
   "license": "Apache-2.0",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {},
+  "dynamicDependencies": {},
+  "keywords": [
+    "弹框",
+    "dialog",
+    "日期",
+    "picker"
+  ],
+  "tags": [
+    "弹框",
+    "dialog",
+    "日期",
+    "picker"
+  ]
 }

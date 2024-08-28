@@ -7,6 +7,7 @@
   "license": "",
   "dependencies": {
     "@pura/harmony-utils": "file:../harmony_utils",
+    "@pura/harmony-dialog": "file:../harmony_dialog",
     // 版本号需根据hvigor及SDK的配套关系进行修改
     "@ohos/hamock": "1.0.0",
   }
