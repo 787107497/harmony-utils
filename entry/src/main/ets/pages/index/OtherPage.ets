@@ -20,15 +20,7 @@ export struct OtherPage {
             .width('98%')
             .margin({ top: 10, bottom: 10 })
 
-          Image('https://i.ebayimg.com/images/g/x9MAAOSwBERmuRqE/s-l1600.webp')
-            .objectFit(ImageFit.Auto)
-            .width('98%')
-            .margin({ top: 10, bottom: 10 })
-
-          Image("https://i.ebayimg.com/images/g/LcIAAOSwWV5mfpsR/s-l1600.webp")
-            .objectFit(ImageFit.Auto)
-            .width('98%')
-            .margin({ top: 10, bottom: 10 })
+          Blank().layoutWeight(1)
         }
       }
       .layoutWeight(1)

@@ -15,11 +15,6 @@ export struct RoomPage {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Image('https://n.sinaimg.cn/sinacn10113/332/w1024h1708/20190806/29ae-iatixpm8624904.jpg')
-            .objectFit(ImageFit.Auto)
-            .width('98%')
-            .margin({ top: 10, bottom: 10 })
-
           Image('https://photo.4305.net.cn/upload/image/20230319/6381486004561976509381023.jpg')
             .objectFit(ImageFit.Auto)
             .width('98%')
