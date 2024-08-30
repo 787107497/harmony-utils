@@ -198,7 +198,7 @@ export class AuthUtil {
   private static getChallenge() {
     let array = new Array<number>();
     for (let index = 0; index < 30; index++) {
-      let num = RandomUtil.randomNumber(1, 100);
+      let num = RandomUtil.getRandomNumber(1, 100);
       array.push(num)
     }
     return new Uint8Array(array);

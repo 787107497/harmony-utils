@@ -1,26 +1,28 @@
-import { ComponentContent, PromptAction } from '@kit.ArkUI';
-import { DialogParams } from '../model/DialogParams';
+import { DialogParams } from '../model/DialogParams'
+import { TipsDialog } from '@kit.ArkUI'
 
-export class Dialog {
-  private uiContext: UIContext;
-  private promptAction?: PromptAction;
-  private componentContent?: ComponentContent<DialogParams>
-
-  constructor(uiContext: UIContext) {
-    this.uiContext = uiContext;
-  }
-
-
-  show(param: DialogParams) {
-    this.promptAction=this.uiContext.getPromptAction();
-    // this.componentContent=new ComponentContent(this.uiContext,wrapBuilder())
-  }
+@Builder
+export function tipsDialogBuilder(param: DialogParams) {
+  TipsDialog(
+    {
+      title:"111",
+      content:"22222",
+      secondaryButton:{
+        value:"取消"
+      },
+      primaryButton:{
+        value:"确定"
+      }
+    }
+  )
+    .backgroundColor(Color.White)
 
 }
 
 
+
 @Builder
-function buildAlertDialogView(param:DialogParams){
+export function buildAlertDialogView(param: DialogParams) {
   Column() {
     if (param.title) {
       Text(param.title)

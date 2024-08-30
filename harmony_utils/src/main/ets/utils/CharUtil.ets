@@ -101,7 +101,7 @@ export class CharUtil {
 
 
   /**
-   * 检查字符是否位于ASCII范围内（0~127）
+   * 检查字符是否位于ASCII范围内（其中0-31是控制字符，32-127表示从A到Z的字母字符）
    * @param ch 被检查的字符
    * @returns `true`表示为ASCII字符，否则为`false`
    */
@@ -111,18 +111,6 @@ export class CharUtil {
     } else {
       return false;
     }
-  }
-
-
-  /**
-   * 判断是否为emoji表情符
-   * @param c 字符
-   * @returns 是否为emoji
-   */
-  static isEmoji(c: number): boolean {
-    const isNotEmoji = (c === 0x0) || (c === 0x9) || (c === 0xA) || (c === 0xD) ||
-      (c >= 0x20 && c == 0xD7FF) || (c >= 0xE000 && c == 0xFFFD) || (c >= 0x100000 && c == 0x10FFFF);
-    return !isNotEmoji;
   }
 
 

@@ -16,77 +16,104 @@ export class RandomUtil {
 
 
   /**
-   * 生成随机数number值
-   * @return 随机数
+   * 生成随机Boolean值
+   * @return true or false
    */
-  static randomInt(): number {
-    return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+  static getRandomBoolean(): boolean {
+    return Math.random() >= 0.5;
   }
 
+
+  /**
+   * 生成随机整数（可指定范围）
+   * @return 随机数
+   */
+  static getRandomInt(min: number = 0, max: number = Number.MAX_SAFE_INTEGER): number {
+    min = Math.ceil(min); //向上取整
+    max = Math.floor(max); //向下取整
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  /**
+   * 生成指定范围内的随机数
+   * @return 随机数
+   */
+  static getRandomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 
   /**
    * 生成指定范围内的随机数 [0,limit)
    * @param limit 限制随机数的范围，不包括这个数
    * @return 随机数
    */
-  static randomLimit(limit: number): number {
+  static getRandomLimit(limit: number): number {
     return Math.floor(Math.random() * limit);
   }
 
 
   /**
-   * 生成指定范围内的随机数
-   * @param min 最小数（包含）
-   * @param max 最大数（不包含）
-   * @return 随机数
+   * 生成一个随机汉字（'\u4E00'-'\u9FFF'）
+   * @return 随机的汉字字符
    */
-  static randomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min) + min);
+  static getRandomChineseChar() {
+    let start = 0x4E00; //汉字起始Unicode编码,'\u4E00'
+    let end = 0x9FFF; //汉字结束Unicode编码,'\u9FFF'
+    let randomCode = start + Math.floor(Math.random() * (end - start + 1)); //生成一个随机码点
+    return String.fromCharCode(randomCode); //将随机码点转换为对应的汉字字符
   }
 
-
   /**
-   * 生成随机Boolean值
-   * @return true or false
+   * 生成随机汉字
+   * @param length 目标长度
+   * @return 随机的汉字字符串
    */
-  static randomBoolean(): boolean {
-    return Math.random() < 0.5;
+  static getRandomChinese(length: number): string {
+    length = Math.floor(length);
+    let chineseArray = new Array<string>(length);
+    for (let i = 0; i < length; i++) {
+      chineseArray[i] = RandomUtil.getRandomChineseChar();
+    }
+    return chineseArray.join('');
   }
 
 
   /**
    * 根据指定字符串，随机生成 指定长度的字符串
-   * @param num
-   * @param chars
+   * @param length 目标长度
+   * @param chars 字符池
    * @returns
    */
-  static randomStr(num: number, chars: string): string {
-    let maxPos = chars.length;
-    let pwd = '';
-    for (let i = 0; i < num; i++) {
-      pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+  static getRandomStr(length: number, strPool: string): string {
+    let strPoolLength = strPool.length;
+    let randomStr = '';
+    for (let i = 0; i < length; i++) {
+      let randomIndex = Math.floor(Math.random() * strPoolLength); //生成一个随机索引
+      randomStr += strPool[randomIndex]; //从字符池中取出随机索引对应的字符，并拼接到结果字符串
     }
-    return pwd;
+    return randomStr;
   }
 
 
   /**
-   * 生成随机汉字（'\u4E00'-'\u9FFF'）
-   * @return 随机的汉字字符
+   * 生成随机指定长度的Uint8Array
+   * @param length 目标长度
+   * @returns
    */
-  static randomChinese(): string {
-    const start = parseInt('4e00', 16); // 第一个汉字的 Unicode 编码
-    const end = parseInt('9fa5', 16); // 最后一个汉字的 Unicode 编码
-    const randomCode = Math.floor(Math.random() * (end - start) + start);
-    return String.fromCharCode(randomCode);
+  static getRandomUint8Array(length: number) {
+    let array = new Uint8Array(length);
+    for (let i = 0; i < length; i++) {
+      array[i] = Math.floor(Math.random() * 256); //生成一个0到255之间的随机整数
+    }
+    return array;
   }
 
 
   /**
-   * 生成随机颜色，十六进制
+   * 生成一个随机颜色，十六进制
    * @returns color
    */
-  static randomColor(): string {
+  static getRandomColor(): string {
     const color = Math.floor(Math.random() * 16777215).toString(16)
     return `#${color}`
   }

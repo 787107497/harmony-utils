@@ -83,7 +83,7 @@ struct Index {
               LogUtil.error('array2: ' + array2.join(','))
               ToastUtil.showToast("请查看Log日志")
             })
-          Button("append()\nsetOrAppend()")
+          Button("append()")
             .labelStyle({ maxLines: 2 })
             .type(ButtonType.Normal)
             .borderRadius(10)
@@ -92,8 +92,6 @@ struct Index {
             .onClick(() => {
               let array1 = ArrayUtil.append(this.array2, this.array3);
               LogUtil.error('array1: ' + array1.join(','))
-              let array2 = ArrayUtil.setOrAppend(this.array2, 10, "我尼玛")
-              LogUtil.error('array2: ' + array2.join(','))
               ToastUtil.showToast("请查看Log日志")
             })
           Button("min()\nmax()")

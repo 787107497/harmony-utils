@@ -1,1 +1,2 @@
-export { MainPage } from './src/main/ets/components/MainPage'
+
+export { DialogHelper } from './src/main/ets/utils/DialogHelper'

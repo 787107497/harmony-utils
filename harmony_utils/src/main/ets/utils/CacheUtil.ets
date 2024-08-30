@@ -8,30 +8,39 @@
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export namespace CacheUtil {
-
-  /**
-   * 私有缓存对象
-   */
-  const cache: Record<string, Object> = {};
+export class CacheUtil {
+  private static cache: Record<string, Object> = {}; //私有缓存对象
 
 
   /**
-   * 存值
-   * @param key 存入key
-   * @param value 存入数据
-   */
-  export function save<T>(key: string, value: T): void {
-    cache[key] = value as Object;
-  }
-
-  /**
-   * 取值
+   * 缓存中的数据是否存在
    * @param key 存入的key
    * @returns
    */
-  export function get<T>(key: string): T {
-    return cache[key] as T;
+  static has(key: string): boolean {
+    let value = CacheUtil.cache[key];
+    return value != null && value != undefined;
   }
+
+
+  /**
+   * 将数据存入缓存中
+   * @param key 存入key
+   * @param value 存入数据
+   */
+  static put<T>(key: string, value: T): void {
+    CacheUtil.cache[key] = value as Object;
+  }
+
+
+  /**
+   * 获取缓存中的数据
+   * @param key 存入的key
+   * @returns
+   */
+  static get<T>(key: string): T {
+    return CacheUtil.cache[key] as T;
+  }
+
 
 }

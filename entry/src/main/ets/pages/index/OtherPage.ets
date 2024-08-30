@@ -15,6 +15,8 @@ export struct OtherPage {
       Divider()
       Scroll(this.scroller) {
         Column() {
+          Blank().layoutWeight(1)
+
           Image('https://i.ebayimg.com/images/g/TqoAAOSwXBlmOfcs/s-l1600.webp')
             .objectFit(ImageFit.Auto)
             .width('98%')

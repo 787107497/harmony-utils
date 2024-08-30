@@ -15,12 +15,9 @@ export struct RcpPage {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Image($r('app.media.test_as2'))
-            .objectFit(ImageFit.Fill)
-            .width('98%')
-            .margin({ top: 10, bottom: 10 })
+          Blank().layoutWeight(1)
 
-          Image($r('app.media.test_as1'))
+          Image($r('app.media.test_as2'))
             .objectFit(ImageFit.Fill)
             .width('98%')
             .margin({ top: 10, bottom: 10 })

@@ -144,7 +144,7 @@ export class LocationUtil {
 
 
   /**
-   * 地理逆编码,将地理描述转换为具体坐标-无需申请定位权限
+   * 地理编码,将地理描述转换为具体坐标（无需申请定位权限）
    * @param locationName  地理位置中文描述
    * @returns 编码后location对象
    */
@@ -178,7 +178,7 @@ export class LocationUtil {
 
 
   /**
-   * 地理逆编码,将地理描述转换为具体坐标-无需申请定位权限
+   * 地理编码,将地理描述转换为具体坐标（无需申请定位权限）
    * @param locationName  地理位置中文描述
    * @param maxItems 表示返回位置信息的最大个数。
    * @returns
@@ -214,7 +214,7 @@ export class LocationUtil {
 
 
   /**
-   * 地理逆编码,将坐标转换为地理描述-无需申请定位权限
+   * 逆地理编码,将坐标转换为地理描述（无需申请定位权限）
    * @param latitude  维度
    * @param longitude 经度
    * @returns 逆编码后对象
@@ -250,7 +250,7 @@ export class LocationUtil {
 
 
   /**
-   * 地理逆编码,将坐标转换为地理描述集合-无需申请定位权限
+   * 逆地理编码,将坐标转换为地理描述集合（无需申请定位权限）
    * @param latitude  维度
    * @param longitude 经度
    * @returns 逆编码后集合

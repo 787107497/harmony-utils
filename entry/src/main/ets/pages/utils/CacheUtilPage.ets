@@ -26,10 +26,10 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("save()")
+          Button("put()")
             .btnStyle()
             .onClick(() => {
-              CacheUtil.save("pwd", "ABCD@12345")
+              CacheUtil.put("pwd", "ABCD@12345")
               ToastUtil.showToast("缓存密码成功");
             })
           Button("get()")

@@ -117,7 +117,7 @@ export class SM2 {
 
 
   /**
-   * 获取转换SM2公钥, 将服务器端生成的16进制的C1C2C3格式的SM2公钥转换为鸿蒙所需的ASN.1格式公钥字符串
+   * 获取转换SM2公钥, 将16进制的C1C2C3格式的SM2公钥转换为鸿蒙所需的ASN.1格式公钥字符串
    * @param pubKey 16进制的公钥字符串
    * @returns 转换后的公钥字符串
    */
@@ -137,11 +137,9 @@ export class SM2 {
       algName: 'SM2',
       specType: cryptoFramework.AsyKeySpecType.PUBLIC_KEY_SPEC
     }
-    //创建密钥生成器
-    let keyPairGenerator = cryptoFramework.createAsyKeyGeneratorBySpec(keyPair);
-    //生成uint8Array格式密钥
-    let pubKey: cryptoFramework.PubKey = keyPairGenerator.generatePubKeySync();
-    return pubKey; //转换成鸿蒙所需公钥
+    let keyPairGenerator = cryptoFramework.createAsyKeyGeneratorBySpec(keyPair); //创建密钥生成器
+    let pubKey: cryptoFramework.PubKey = keyPairGenerator.generatePubKeySync(); //生成uint8Array格式密钥,转换成鸿蒙所需公钥
+    return pubKey;
   }
 
 

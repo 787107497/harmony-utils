@@ -1,44 +1,43 @@
-import { common } from '@kit.AbilityKit';
-import { ComponentContent, promptAction, window } from '@kit.ArkUI';
+import { DialogParams } from '../model/DialogParams';
+import { buildAlertDialogView, tipsDialogBuilder } from './DialogView';
+import { BasePromptAction } from './BasePromptAction';
 
+/**
+ * TODO Dialog帮助工具类
+ * author: 桃花镇童长老ᥫ᭡
+ * since: 2024/08/01
+ * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
+ * github: https://github.com/787107497
+ * gitee: https://gitee.com/tongyuyan/harmony-utils
+ * QQ交流群: 569512366
+ */
 export class DialogHelper {
-
-  private static context: common.UIAbilityContext; //common.UIAbilityContext，上下文
-  private static windowStage: window.WindowStage;
-  private static uiContext: UIContext; //UIContext
-
-
-  /**
-   * 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法。
-   * @param windowStage 窗口管理器
-   */
-  static init(context: common.UIAbilityContext, windowStage: window.WindowStage) {
-    DialogHelper.context = context;
-    DialogHelper.windowStage = windowStage;
-    DialogHelper.uiContext = DialogHelper.windowStage.getMainWindowSync().getUIContext();
-  }
-
-  /**
-   * 获取UIContext
-   * @returns
-   */
-  static getUIContext(): UIContext {
-    DialogHelper.context.windowStage.getMainWindowSync().getUIContext()
-    return DialogHelper.uiContext;
+  static showTipsDialog(param: DialogParams) {
+    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(tipsDialogBuilder), param);
   }
 
 
-  static show<T extends object>(builder: WrappedBuilder<[T]>, args: T, options?: promptAction.BaseDialogOptions){
-    let promptAction = DialogHelper.uiContext.getPromptAction();
-    let componentContent = new ComponentContent(DialogHelper.uiContext,builder, args);
-    promptAction.openCustomDialog(componentContent, {
-      onWillDismiss: (action: DismissDialogAction) => {
-        // LogUtil.error(`点击返回：${JSON.stringify(action)}`);
-
-      }
-    });
+  static show1(param: DialogParams) {
+    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(buildAlertDialogView), param);
   }
 
+
+  // static show(confirmInfo: ConfirmInfo, delay: number = -1,): string {
+  //   let confirmSettings = new ConfirmSettings(confirmInfo)
+  //   PromptActionUtils.getInstance()
+  //     .openCustomDialog<ConfirmSettings>(wrapBuilder(ConfirmDialogBuilder), confirmSettings,
+  //       {
+  //         alignment: DialogAlignment.Center,
+  //         onWillDismiss: () => {
+  //         }
+  //       })
+  //   if (delay > 0) {
+  //     setTimeout(() => {
+  //       ConfirmDialogUtils.dismiss(confirmSettings.dialogId)
+  //     }, delay)
+  //   }
+  //   return confirmSettings.dialogId
+  // }
 
 
 }

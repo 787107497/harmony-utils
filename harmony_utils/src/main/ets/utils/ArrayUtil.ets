@@ -8,6 +8,8 @@
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
+import { StrUtil } from './StrUtil';
+
 export class ArrayUtil {
 
   private constructor() {}
@@ -34,17 +36,17 @@ export class ArrayUtil {
 
 
   /**
-   * 去除集合中的空值
+   * 去除字符串数组中的空值
    * @param arr 待处理的集合
    * @returns 处理后的集合
    */
   static removeEmpty(arr: string[]): string[] {
-    return arr.filter((value) => value !== null && value !== undefined && value !== '');
+    return arr.filter((value) => StrUtil.isNotEmpty(value));
   }
 
 
   /**
-   * 去除传入集合的每个值的前后空格
+   * 去除字符串数组的每个值的前后空格
    * @param strs
    * @returns
    */
@@ -64,7 +66,7 @@ export class ArrayUtil {
 
 
   /**
-   * 反转数组，会修改原始数组。
+   * 将数组反转，会修改原始数组。
    * @param <T>  数组元素类型
    * @param array  数组
    * @return 变更后的原数组
@@ -75,7 +77,7 @@ export class ArrayUtil {
 
 
   /**
-   * 通过传入的filter实现来过滤返回需要的元素
+   * 数组过滤，filter函数
    * @param array
    * @param filter  过滤函数
    * @returns
@@ -86,7 +88,7 @@ export class ArrayUtil {
 
 
   /**
-   * 将新元素添加到已有数组中 添加新元素会生成一个新的数组，不影响原数组。
+   * 将新元素添加到已有数组中，使用扩展运算符，不影响原数组。
    * @param source
    * @param item
    * @returns
@@ -96,25 +98,6 @@ export class ArrayUtil {
       return [...source, ...item];
     } else {
       return [...source, item];
-    }
-  }
-
-
-  /**
-   * 将元素值设置为数组的某个位置，当给定的index大于数组长度，则追加。
-   * @param <T>    数组元素类型
-   * @param buffer 已有数组
-   * @param index  位置，大于长度追加，否则替换
-   * @param value  新值
-   * @return 新数组或原有数组
-   */
-  static setOrAppend<T>(buffer: T[], index: number, value: T): T[] {
-    if (index < 0) {
-      return [value, ...buffer];
-    } else if (index >= buffer.length) {
-      return [...buffer, value];
-    } else {
-      return buffer.map((item, i) => (i === index ? value : item));
     }
   }
 

@@ -64,7 +64,7 @@ export class ClickUtil {
       typeof func === 'function' && func();
       clearTimeout(timeoutID);
     }, wait);
-    CacheUtil.save<number>(`ClickUtil_debounce_timeoutID_${clickId}`, timeoutID); //缓存id
+    CacheUtil.put<number>(`ClickUtil_debounce_timeoutID_${clickId}`, timeoutID); //缓存id
   }
 
 

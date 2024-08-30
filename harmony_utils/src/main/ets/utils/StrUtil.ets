@@ -21,7 +21,7 @@ export class StrUtil {
 
 
   /**
-   * 字符串是否为空(undefined、null)
+   * 判断字符串是否为空(undefined、null)
    * @param str 被检测的字符串
    * @returns 是否为空
    */
@@ -40,7 +40,7 @@ export class StrUtil {
 
 
   /**
-   * 字符串是否为空(undefined、null、字符串长度为0)
+   * 判断字符串是否为空(undefined、null、字符串长度为0)
    * @param str 被检测的字符串
    * @return 是否为空
    */
@@ -53,7 +53,7 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isNotEmpty(str: string | undefined | null) {
+  static isNotEmpty(str: string | undefined | null):boolean {
     return false == StrUtil.isEmpty(str);
   }
 
@@ -104,30 +104,30 @@ export class StrUtil {
    * 替换字符串中匹配的正则为给定的字符串
    * @param str   待替换的字符串
    * @param pattern  要匹配的内容正则或字符串
-   * @param replacement 替换的内容
-   * @returns 返回替换后的字符串
+   * @param replaceValue 替换的内容
+   * @returns
    */
-  static replace(str: string, pattern: RegExp | string, replacement: string = ''): string {
-    return str.replace(pattern, replacement);
+  static replace(str: string, pattern: RegExp | string, replaceValue: string = ''): string {
+    return str.replace(pattern, replaceValue);
   }
 
   /**
    * 替换字符串中所有匹配的正则为给定的字符串
-   * @param str   待替换的字符串
+   * @param str  待替换的字符串
    * @param pattern  要匹配的内容正则或字符串
-   * @param replacement 替换的内容
+   * @param replaceValue 替换的内容
    * @returns 返回替换后的字符串
    */
-  static replaceAll(str: string, pattern: RegExp | string, replacement: string = ''): string {
-    return str.replaceAll(pattern, replacement);
+  static replaceAll(str: string, pattern: RegExp | string, replaceValue: string = ''): string {
+    return str.replaceAll(pattern, replaceValue);
   }
 
   /**
-   * 检查字符串是否以给定的字符串开头
+   * 判断字符串是否以给定的字符串开头
    * @param string 要检索的字符串
    * @param target 要检索字符
    * @param position 检索的位置
-   * @returns 如果字符串以字符串开头，那么返回 true，否则返回 false
+   * @returns
    */
   static startsWith(string: string = '', target: string, position: number = 0): boolean {
     return string.startsWith(target, position);
@@ -135,11 +135,11 @@ export class StrUtil {
 
 
   /**
-   * 检查字符串是否以给定的字符串结尾
+   * 判断字符串是否以给定的字符串结尾
    * @param str 要检索的字符串
    * @param target 要检索字符
    * @param position 检索的位置
-   * @returns 如果字符串以字符串结尾，那么返回 true，否则返回 false
+   * @returns
    */
   static endsWith(str: string = '', target: string, position: number = str.length): boolean {
     return str.endsWith(target, position);
@@ -158,7 +158,7 @@ export class StrUtil {
 
 
   /**
-   * 转换整个字符串的字符为小写
+   * 将整个字符串转换为小写
    * @param str 要转换的字符串
    * @returns 返回小写的字符串
    */
@@ -168,7 +168,7 @@ export class StrUtil {
 
 
   /**
-   * 转换整个字符串的字符为大写
+   * 将整个字符串转换为大写
    * @param str 要转换的字符串
    * @returns 返回小写的字符串
    */
@@ -178,17 +178,17 @@ export class StrUtil {
 
 
   /**
-   * 转换字符串首字母为大写，剩下为小写
+   * 将字符串首字母转换为大写，剩下为小写
    * @param str 待转换的字符串
    * @returns 转换后的
    */
   static capitalize(str: string = ''): string {
-    if (!str) {
-      return '';
+    if (StrUtil.isNotEmpty(str)) {
+      const firstChar = str.charAt(0).toUpperCase();
+      const restChars = str.slice(1).toLowerCase();
+      return firstChar + restChars;
     }
-    const firstChar = str.charAt(0).toUpperCase();
-    const restChars = str.slice(1).toLowerCase();
-    return firstChar + restChars;
+    return '';
   }
 
 
@@ -408,6 +408,18 @@ export class StrUtil {
   static isEmail(content: string): boolean {
     const pattern: string = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])"; //邮件，符合RFC 5322规范，正则来自：http://emailregex.com/
     return StrUtil.isMatch(content, pattern);
+  }
+
+
+  /**
+   * 判断字符串是否包含表情（匹配单个emoji或多个组合emoji的正则表达式）
+   * 注意：这个正则表达式可能不是完美的，因为新的emoji不断被添加到Unicode标准中
+   * @param content
+   * @returns
+   */
+  static isEmoji(content: string): boolean {
+    const regex: string = "/(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g";
+    return StrUtil.isMatch(content, regex);
   }
 
 

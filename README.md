@@ -1,6 +1,5 @@
 # <center>harmony-utils (API12 - Beta5 - 5.0.3.700)</center>
 
-
 ## 📚简介
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
@@ -22,37 +21,37 @@ OpenHarmony ohpm
 | DeviceUtil                                                                        | 设备相关工具类                                                                  |
 | DisplayUtil                                                                       | 屏幕相关工具类                                                                  |
 | PermissionUtil                                                                    | 申请授权工具类                                                                  |
-| AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                     |
 | NotificationUtil                                                                  | 通知工具类                                                                    |
+| EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                      |
+| DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                       |
+| ToastUtil                                                                         | 土司工具类（promptAction）                                                      |
+| AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                     |
 | PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                    |
+| CacheUtil                                                                         | 缓存工具类                                                                    |
 | FileUtil                                                                          | 文件操作相关工具类                                                                |
 | PickerUtil                                                                        | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类                                              |
 | PhotoHelper                                                                       | 相册相关工具类                                                                  |
-| PreviewUtil                                                                       | 文件预览工具类                                                                  |
-| NetworkUtil                                                                       | 网络相关工具类                                                                  |
-| LocationUtil                                                                      | 定位工具类(WGS-84坐标系)                                                         |
-| PasteboardUtil                                                                    | 剪贴板工具类                                                                   |
+| ImageUtil                                                                         | 图片相关工具类                                                                  |
 | SnapshotUtil                                                                      | 组件截图和窗口截图工具类                                                             |
 | ScanUtil                                                                          | 码工具类（扫码、码图生成、图片识码）                                                       |
-| ImageUtil                                                                         | 图片相关工具类                                                                  |
-| KeyboardUtil                                                                      | 键盘工具类                                                                    |
+| PreviewUtil                                                                       | 文件预览工具类                                                                  |
+| LocationUtil                                                                      | 定位工具类(WGS-84坐标系)                                                         |
 | LogUtil                                                                           | 日志工具类                                                                    |
-| CrashUtil                                                                         | 全局异常捕获，崩溃日志收集                                                            |
-| CharUtil                                                                          | 字符工具类                                                                    |
+| DateUtil                                                                          | 日期工具类                                                                    |
 | StrUtil                                                                           | 字符串工具类                                                                   |
+| CharUtil                                                                          | 字符工具类                                                                    |
 | Base64Util                                                                        | Base64工具类                                                                |
 | NumberUtil                                                                        | number工具类                                                                |
-| DateUtil                                                                          | 日期工具类                                                                    |
 | ArrayUtil                                                                         | 数组工具类                                                                    |
 | RandomUtil                                                                        | 随机工具类                                                                    |
 | ObjectUtil                                                                        | 对象工具类                                                                    |
 | JSONUtil                                                                          | JSON工具类                                                                  |
-| CacheUtil                                                                         | 缓存工具类                                                                    |
 | ClickUtil                                                                         | 节流、防抖 工具类（用于点击事件，防止按钮被重复点击）                                              |
+| CrashUtil                                                                         | 全局异常捕获，崩溃日志收集                                                            |
+| KeyboardUtil                                                                      | 键盘工具类                                                                    |
+| PasteboardUtil                                                                    | 剪贴板工具类                                                                   |
+| NetworkUtil                                                                       | 网络相关工具类                                                                  |
 | AssetUtil                                                                         | 关键资产存储服务工具类                                                              |
-| EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                      |
-| DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                       |
-| ToastUtil                                                                         | 土司工具类（promptAction）                                                      |
 | TempUtil                                                                          | 温度转换工具类，华氏度与摄氏度相互转换                                                      |
 | SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。 |
 
@@ -158,15 +157,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | requestPermissionOnSetting     | 二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。  |
 | requestPermissionOnSettingEasy | 二次向用户申请授权（多个权限建议使用该方法）。           |
 
-### AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
-
-| 方法                 | 介绍                 |
-|:-------------------|:-------------------|
-| getAvailableStatus | 查询指定类型和等级的认证能力是否支持 |
-| onStartEasy        | 开始认证,使用指纹和密码认证     |
-| onStart            | 开始认证，用户指定类型认证      |
-| cancel             | 取消认证               |
-
 ### NotificationUtil（通知工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
 
 | 方法                                                  | 介绍                    |
@@ -197,6 +187,49 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | generateNotificationId                              | 生成通知id（用时间戳当id）       |
 | getDefaultWantAgent                                 | 创建一个可拉起Ability的Want   |
 
+### EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
+
+| 方法            | 介绍       |
+|:--------------|:---------|
+| post          | 发送事件     |
+| onSubscribe   | 订阅事件     |
+| onceSubscribe | 单次订阅指定事件 |
+| unSubscribe   | 取消事件订阅   |
+
+### DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
+
+| 方法                  | 介绍               |
+|:--------------------|:-----------------|
+| setDefaultConfig    | 设置默认统一样式         |
+| showConfirmDialog   | 显示弹窗（一个按钮）       |
+| showPrimaryDialog   | 显示弹窗（两个按钮）       |
+| showDialog          | 显示弹窗（可多个按钮）      |
+| showDialogEasy      | 显示弹窗（可多个按钮,简单易用） |
+| showActionSheet     | 列表选择弹窗           |
+| showActionSheetEasy | 列表选择弹窗（简单易用）     |
+| showCalendarPicker  | 日历选择器弹窗          |
+| showDatePicker      | 日期滑动选择器弹窗        |
+| showTimePicker      | 时间滑动选择器弹窗        |
+| showTextPicker      | 文本滑动选择器弹窗        |
+
+### ToastUtil（土司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
+
+| 方法               | 介绍               |
+|:-----------------|:-----------------|
+| setDefaultConfig | 设置默认统一样式         |
+| showToast        | 弹出土司，默认时长为2s     |
+| showShort        | 弹出短土司，默认时长为:1.5s |
+| showLong         | 弹出长土司，默认时长为:10s  |
+
+### AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
+
+| 方法                 | 介绍                 |
+|:-------------------|:-------------------|
+| getAvailableStatus | 查询指定类型和等级的认证能力是否支持 |
+| onStartEasy        | 开始认证,使用指纹和密码认证     |
+| onStart            | 开始认证，用户指定类型认证      |
+| cancel             | 取消认证               |
+
 ### PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
 
 | 方法                            | 介绍                                                          |
@@ -212,6 +245,13 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | delete<br/>deleteSync         | 删除缓存值                                                       |
 | clear<br/>clearSync           | 清空缓存                                                        |
 | deletePreferences             | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
+
+### CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
+
+| 方法   | 介绍 |
+|:-----|:---|
+| save | 存值 |
+| get  | 取值 |
 
 ### FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
@@ -281,63 +321,21 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | save          | 保存图片或视频到相册                             |
 | getPhotoAsset | 获取对应uri的PhotoAsset对象,用于读取文件信息          |
 
-### PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
+### ImageUtil（图片相关工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ImageUtilPage.ets)
 
-| 方法                  | 介绍                                   |
-|:--------------------|:-------------------------------------|
-| generatePreviewInfo | 根据文件uri构建PreviewInfo                 |
-| openPreview         | 通过传入文件预览信息，打开预览窗口。1秒内重复调用无效          |
-| openPreviewEasy     | 通过传入文件的uri，打开预览窗口。1秒内重复调用无效          |
-| canPreview          | 根据文件的uri判断文件是否可预览                    |
-| hasDisplayed        | 判断预览窗口是否已经存在                         |
-| closePreview        | 关闭预览窗口，仅当预览窗口存在时起效                   |
-| loadData            | 加载预览文件信息。仅当预览窗口存在时起效                 |
-| loadDataEasy        | 加载预览文件信息。仅当预览窗口存在时起效                 |
-| onSharePreview      | 调用其他应用预览文件                           |
-| getMimeType         | 根据文件后缀名获取文件mimeType                  |
-| getIconFileStr      | 根据文件后缀名获取对应文件类型的图标                   |
-| getMimeTypeMap      | filePreview支持的预览文件类型                 |
-
-### NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
-
-| 方法                | 介绍                         |
-|:------------------|:---------------------------|
-| hasDefaultNet     | 检查默认数据网络是否被激活              |
-| hasDefaultNetSync | 检查默认数据网络是否被激活              |
-| hasNetWiFi        | 判断当前网络是否是Wi-Fi，否则是移动流量热点网络 |
-| getNetBearType    | 获取网络类型                     |
-| getIpAddress      | 获取当前设备的IP地址(设备连接Wi-Fi后)    |
-| register          | 订阅指定网络状态变化的通知，支持多事件监听回调    |
-| unregister        | 取消订阅默认网络状态变化的通知            |
-
-### LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
-
-| 方法                            | 介绍                    |
-|:------------------------------|:----------------------|
-| isLocationEnabled             | 判断位置服务是否已经使能(定位是否开启)。 |
-| requestLocationPermissions    | 申请定位权限                |
-| getCurrentLocationEasy        | 获取当前位置                |
-| getCurrentLocation            | 获取当前位置                |
-| onLocationChangeEasy          | 开启位置变化订阅，并发起定位请求。     |
-| onLocationChange              | 开启位置变化订阅，并发起定位请求      |
-| offLocationChange             | 关闭位置变化订阅，并删除对应的定位请求。  |
-| getAddressFromLocationName    | 地理逆编码,将地理描述转换为具体坐标    |
-| getGeoAddressFromLocationName | 地理逆编码,将地理描述转换为具体坐标    |
-| getAddressFromLocation        | 地理逆编码,将坐标转换为地理描述      |
-| getGeoAddressFromLocation     | 地理逆编码,将坐标转换为地理描述集合    |
-| getCountryCode                | 获取当前的国家码              |
-
-### PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
-
-| 方法                            | 介绍            |
-|:------------------------------|:--------------|
-| setDataText                   | 将纯文本数据写入系统剪贴板 |
-| setDataHtml                   | 将Htm数据写入系统剪贴板 |
-| setDataUri                    | 将Uri数据写入系统剪贴板 |
-| getData<br/>getDataSync       | 读取系统剪贴板内容     |
-| getDataStr<br/>getDataSyncStr | 读取系统剪贴板里的字符串  |
-| hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
-| clearData                     | 清空系统剪贴板内容     |
+| 方法                        | 介绍                                |
+|:--------------------------|:----------------------------------|
+| base64ToPixelMap          | 图片base64字符串转PixelMap              |
+| pixelMapToBase64Str       | PixelMap转图片base64字符串              |
+| savePixelMap              | 保存pixelMap到本地                     |
+| saveImageSource           | 保存ImageSource到本地                  |
+| createImageSource         | 创建图片源实例                           |
+| createIncrementalSource   | 以增量的方式创建图片源实例                     |
+| packingFromPixelMap       | 图片压缩或重新打包，使用Promise形式返回结果         |
+| packingFromImageSource    | 图片压缩或重新打包，使用Promise形式返回结果         |
+| packToFileFromPixelMap    | 将PixelMap图片源编码后直接打包进文件            |
+| packToFileFromImageSource | 将ImageSource图片源编码后直接打包进文件         |
+| getPixelMapFromMedia      | 用户获取resource目录下的media中的图片PixelMap |
 
 ### SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
 
@@ -357,31 +355,39 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
 | canIUseScan           | 判断当前设备是否支持码能力                |
 
-### ImageUtil（图片相关工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ImageUtilPage.ets)
+### PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
 
-| 方法                        | 介绍                                |
-|:--------------------------|:----------------------------------|
-| base64ToPixelMap          | 图片base64字符串转PixelMap              |
-| pixelMapToBase64Str       | PixelMap转图片base64字符串              |
-| savePixelMap              | 保存pixelMap到本地                     |
-| saveImageSource           | 保存ImageSource到本地                  |
-| createImageSource         | 创建图片源实例                           |
-| createIncrementalSource   | 以增量的方式创建图片源实例                     |
-| packingFromPixelMap       | 图片压缩或重新打包，使用Promise形式返回结果         |
-| packingFromImageSource    | 图片压缩或重新打包，使用Promise形式返回结果         |
-| packToFileFromPixelMap    | 将PixelMap图片源编码后直接打包进文件            |
-| packToFileFromImageSource | 将ImageSource图片源编码后直接打包进文件         |
-| getPixelMapFromMedia      | 用户获取resource目录下的media中的图片PixelMap |
+| 方法                  | 介绍                          |
+|:--------------------|:----------------------------|
+| generatePreviewInfo | 根据文件uri构建PreviewInfo        |
+| openPreview         | 通过传入文件预览信息，打开预览窗口。1秒内重复调用无效 |
+| openPreviewEasy     | 通过传入文件的uri，打开预览窗口。1秒内重复调用无效 |
+| canPreview          | 根据文件的uri判断文件是否可预览           |
+| hasDisplayed        | 判断预览窗口是否已经存在                |
+| closePreview        | 关闭预览窗口，仅当预览窗口存在时起效          |
+| loadData            | 加载预览文件信息。仅当预览窗口存在时起效        |
+| loadDataEasy        | 加载预览文件信息。仅当预览窗口存在时起效        |
+| onSharePreview      | 调用其他应用预览文件                  |
+| getMimeType         | 根据文件后缀名获取文件mimeType         |
+| getIconFileStr      | 根据文件后缀名获取对应文件类型的图标          |
+| getMimeTypeMap      | filePreview支持的预览文件类型        |
 
-### KeyboardUtil（键盘工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets)
+### LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
 
-| 方法                     | 介绍                |
-|:-----------------------|:------------------|
-| hide                   | 隐藏键盘              |
-| onKeyboardListener     | 订阅输入法软键盘显示和隐藏事件   |
-| removeKeyboardListener | 取消订阅输入法软键盘显示或隐藏事件 |
-| onInputTextChanged     | 订阅文本内容变化          |
-| removeInputTextChanged | 取消订阅文本内容变化        |
+| 方法                            | 介绍                    |
+|:------------------------------|:----------------------|
+| isLocationEnabled             | 判断位置服务是否已经使能(定位是否开启)。 |
+| requestLocationPermissions    | 申请定位权限                |
+| getCurrentLocationEasy        | 获取当前位置                |
+| getCurrentLocation            | 获取当前位置                |
+| onLocationChangeEasy          | 开启位置变化订阅，并发起定位请求。     |
+| onLocationChange              | 开启位置变化订阅，并发起定位请求      |
+| offLocationChange             | 关闭位置变化订阅，并删除对应的定位请求。  |
+| getAddressFromLocationName    | 地理逆编码,将地理描述转换为具体坐标    |
+| getGeoAddressFromLocationName | 地理逆编码,将地理描述转换为具体坐标    |
+| getAddressFromLocation        | 地理逆编码,将坐标转换为地理描述      |
+| getGeoAddressFromLocation     | 地理逆编码,将坐标转换为地理描述集合    |
+| getCountryCode                | 获取当前的国家码              |
 
 ### LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)
 
@@ -397,86 +403,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | error      | 打印ERROR级别日志                                  |
 | fatal      | 打印FATAL级别日志                                  |
 | print      | 打印JSON对象和JSON字符串（日志过滤tag为：JSAPP）             |
-
-### CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
-
-| 方法                | 介绍                                                                |
-|:------------------|:------------------------------------------------------------------|
-| onError           | 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件             |
-| offError          | 注销错误观测器                                                           |
-| readErrorText     | 读取错误日志文件                                                          |
-| onExportErrorLog  | 导出错误日志文件                                                          |
-| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                  |
-| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
-| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
-| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
-
-### CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
-
-| 方法           | 介绍                           |
-|:-------------|:-----------------------------|
-| isDigit      | 判断字符串char是否是数字               |
-| isLetter     | 判断字符串char是否是字母               |
-| isLowerCase  | 判断字符串char是否是小写字母             |
-| isUpperCase  | 判断字符串char是否是大写字母             |
-| isSpaceChar  | 判断字符串char是否是空格符              |
-| isWhitespace | 判断字符串char是否是空白符              |
-| isRTL        | 判断字符串char是否是从右到左语言的字符        |
-| isIdeograph  | 判断字符串char是否是表意文字             |
-| isBlankChar  | 是否空白符 空白符包括空格、制表符、全角空格和不间断空格 |
-| isAscii      | 检查字符是否位于ASCII范围内（0~127）      |
-| isEmoji      | 判断是否为emoji表情符                |
-
-### StrUtil（字符串工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
-
-| 方法                   | 介绍                                    |
-|:---------------------|:--------------------------------------|
-| isNull               | 字符串是否为空(undefined、null)               |
-| isNotNull            | 判断字符串是否为非空                            |
-| isEmpty              | 字符串是否为空(undefined、null、字符串长度为0)       |
-| isNotEmpty           | 判断字符串是否为非空                            |
-| isBlank              | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格) |
-| isNotBlank           | 判断字符串是否为非空                            |
-| replace              | 替换字符串中匹配的正则为给定的字符串                    |
-| replaceAll           | 替换字符串中所有匹配的正则为给定的字符串                  |
-| startsWith           | 检查字符串是否以给定的字符串开头                      |
-| endsWith             | 检查字符串是否以给定的字符串结尾                      |
-| repeat               | 将字符串重复指定次数                            |
-| toLower              | 转换整个字符串的字符为小写                         |
-| toUpper              | 转换整个字符串的字符为大写                         |
-| capitalize           | 转换字符串首字母为大写，剩下为小写                     |
-| equal                | 判断两个传入的数值或者是字符串是否相等                   |
-| notEqual             | 判断两个传入的数值或者是字符串是否不相等                  |
-| strToUint8Array      | 字符串转Uint8Array                        |
-| unit8ArrayToStr      | Uint8Array转字符串                        |
-| strToBase64          | 字符串转Base64字符串                         |
-| base64ToStr          | Base64字符串转字符串                         |
-| strToBuffer          | 字符串转ArrayBuffer                       |
-| bufferToStr          | ArrayBuffer转字符串                       |
-| bufferToUint8Array   | ArrayBuffer转Uint8Array                |
-| unit8ArrayToBuffer   | Uint8Array转ArrayBuffer                |
-| isPhone              | 判断传入的电话号码格式是否正确                       |
-| getPhoneFormat       | 对电话号码进行格式化                            |
-| getPhoneLocationName | 获取电话号码归属地                             |
-| isMatch              | 给定内容是否匹配正则                            |
-| isEmail              | 判断传入的邮箱格式是否正确                         |
-| getErrnoToString     | 获取系统错误码对应的详细信息                        |
-
-### Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
-
-| 方法                              | 介绍                           |
-|:--------------------------------|:-----------------------------|
-| decode<br/>encodeSync           | 解码，通过输入参数解码后输出对应Uint8Array对象 |
-| encodeToStr<br/>encodeToStrSync | 编码，通过输入参数编码后输出对应文本           |
-| encode<br/>decodeSync           | 编码，通过输入参数编码后输出Uint8Array对象   |
-
-### NumberUtil（number工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NumberUtilPage.ets)
-
-| 方法       | 介绍         |
-|:---------|:-----------|
-| isNumber | 判断是否是数值    |
-| toInt    | 将字符串转换为整数  |
-| toFloat  | 将字符串转换为浮点数 |
 
 ### DateUtil（日期工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DateUtilPage.ets)
 
@@ -517,6 +443,73 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getFormatRange        | 格式化时间日期段字符串（DateTimeFormat） |
 | getFormatRelativeTime | 格式化相对时间                     |
 | getTipDateStr         | 格式化时间戳，获取提示性时间字符串           |
+
+### StrUtil（字符串工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
+
+| 方法                   | 介绍                                    |
+|:---------------------|:--------------------------------------|
+| isNull               | 字符串是否为空(undefined、null)               |
+| isNotNull            | 判断字符串是否为非空                            |
+| isEmpty              | 字符串是否为空(undefined、null、字符串长度为0)       |
+| isNotEmpty           | 判断字符串是否为非空                            |
+| isBlank              | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格) |
+| isNotBlank           | 判断字符串是否为非空                            |
+| replace              | 替换字符串中匹配的正则为给定的字符串                    |
+| replaceAll           | 替换字符串中所有匹配的正则为给定的字符串                  |
+| startsWith           | 检查字符串是否以给定的字符串开头                      |
+| endsWith             | 检查字符串是否以给定的字符串结尾                      |
+| repeat               | 将字符串重复指定次数                            |
+| toLower              | 转换整个字符串的字符为小写                         |
+| toUpper              | 转换整个字符串的字符为大写                         |
+| capitalize           | 转换字符串首字母为大写，剩下为小写                     |
+| equal                | 判断两个传入的数值或者是字符串是否相等                   |
+| notEqual             | 判断两个传入的数值或者是字符串是否不相等                  |
+| strToUint8Array      | 字符串转Uint8Array                        |
+| unit8ArrayToStr      | Uint8Array转字符串                        |
+| strToBase64          | 字符串转Base64字符串                         |
+| base64ToStr          | Base64字符串转字符串                         |
+| strToBuffer          | 字符串转ArrayBuffer                       |
+| bufferToStr          | ArrayBuffer转字符串                       |
+| bufferToUint8Array   | ArrayBuffer转Uint8Array                |
+| unit8ArrayToBuffer   | Uint8Array转ArrayBuffer                |
+| isPhone              | 判断传入的电话号码格式是否正确                       |
+| getPhoneFormat       | 对电话号码进行格式化                            |
+| getPhoneLocationName | 获取电话号码归属地                             |
+| isMatch              | 给定内容是否匹配正则                            |
+| isEmail              | 判断传入的邮箱格式是否正确                         |
+| getErrnoToString     | 获取系统错误码对应的详细信息                        |
+
+### CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
+
+| 方法           | 介绍                           |
+|:-------------|:-----------------------------|
+| isDigit      | 判断字符串char是否是数字               |
+| isLetter     | 判断字符串char是否是字母               |
+| isLowerCase  | 判断字符串char是否是小写字母             |
+| isUpperCase  | 判断字符串char是否是大写字母             |
+| isSpaceChar  | 判断字符串char是否是空格符              |
+| isWhitespace | 判断字符串char是否是空白符              |
+| isRTL        | 判断字符串char是否是从右到左语言的字符        |
+| isIdeograph  | 判断字符串char是否是表意文字             |
+| isBlankChar  | 是否空白符 空白符包括空格、制表符、全角空格和不间断空格 |
+| isAscii      | 检查字符是否位于ASCII范围内（0~127）      |
+| isEmoji      | 判断是否为emoji表情符                |
+
+### Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
+
+| 方法                              | 介绍                           |
+|:--------------------------------|:-----------------------------|
+| decode<br/>encodeSync           | 解码，通过输入参数解码后输出对应Uint8Array对象 |
+| encodeToStr<br/>encodeToStrSync | 编码，通过输入参数编码后输出对应文本           |
+| encode<br/>decodeSync           | 编码，通过输入参数编码后输出Uint8Array对象   |
+
+### NumberUtil（number工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NumberUtilPage.ets)
+
+| 方法       | 介绍         |
+|:---------|:-----------|
+| isNumber | 判断是否是数值    |
+| toInt    | 将字符串转换为整数  |
+| toFloat  | 将字符串转换为浮点数 |
 
 ### ArrayUtil（数组工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ArrayUtilPage.ets)
 
@@ -572,13 +565,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | beanToJsonStr | 对象转字符串          |
 | isJSONStr     | 判断是否是字符串格式json  |
 
-### CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
-
-| 方法   | 介绍  |
-|:-----|:----|
-| save | 存值  |
-| get  | 取值  |
-
 ### ClickUtil（节流、防抖 工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ClickUtilPage.ets)
 
 | 方法       | 介绍                               |
@@ -586,7 +572,54 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | throttle | 节流：在一定时间内，只触发一次                  |
 | debounce | 防抖：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数 |
 
-### AssetUtil(关键资产存储服务工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
+### CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
+
+| 方法                | 介绍                                                                |
+|:------------------|:------------------------------------------------------------------|
+| onError           | 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件             |
+| offError          | 注销错误观测器                                                           |
+| readErrorText     | 读取错误日志文件                                                          |
+| onExportErrorLog  | 导出错误日志文件                                                          |
+| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                  |
+| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
+| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
+| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
+
+### PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
+
+| 方法                            | 介绍            |
+|:------------------------------|:--------------|
+| setDataText                   | 将纯文本数据写入系统剪贴板 |
+| setDataHtml                   | 将Htm数据写入系统剪贴板 |
+| setDataUri                    | 将Uri数据写入系统剪贴板 |
+| getData<br/>getDataSync       | 读取系统剪贴板内容     |
+| getDataStr<br/>getDataSyncStr | 读取系统剪贴板里的字符串  |
+| hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
+| clearData                     | 清空系统剪贴板内容     |
+
+### KeyboardUtil（键盘工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets)
+
+| 方法                     | 介绍                |
+|:-----------------------|:------------------|
+| hide                   | 隐藏键盘              |
+| onKeyboardListener     | 订阅输入法软键盘显示和隐藏事件   |
+| removeKeyboardListener | 取消订阅输入法软键盘显示或隐藏事件 |
+| onInputTextChanged     | 订阅文本内容变化          |
+| removeInputTextChanged | 取消订阅文本内容变化        |
+
+### NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
+
+| 方法                | 介绍                         |
+|:------------------|:---------------------------|
+| hasDefaultNet     | 检查默认数据网络是否被激活              |
+| hasDefaultNetSync | 检查默认数据网络是否被激活              |
+| hasNetWiFi        | 判断当前网络是否是Wi-Fi，否则是移动流量热点网络 |
+| getNetBearType    | 获取网络类型                     |
+| getIpAddress      | 获取当前设备的IP地址(设备连接Wi-Fi后)    |
+| register          | 订阅指定网络状态变化的通知，支持多事件监听回调    |
+| unregister        | 取消订阅默认网络状态变化的通知            |
+
+### AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 
 | 方法                    | 介绍          |
 |:----------------------|:------------|
@@ -594,40 +627,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | get<br/>getSync       | 查询关键资产      |
 | remove<br/>removeSync | 删除关键资产      |
 | canIUse               | 当前设备是否支持该模块 |
-
-### EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
-
-| 方法            | 介绍       |
-|:--------------|:---------|
-| post          | 发送事件     |
-| onSubscribe   | 订阅事件     |
-| onceSubscribe | 单次订阅指定事件 |
-| unSubscribe   | 取消事件订阅   |
-
-### DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
-
-| 方法                  | 介绍               |
-|:--------------------|:-----------------|
-| setDefaultConfig    | 设置默认统一样式         |
-| showConfirmDialog   | 显示弹窗（一个按钮）       |
-| showPrimaryDialog   | 显示弹窗（两个按钮）       |
-| showDialog          | 显示弹窗（可多个按钮）      |
-| showDialogEasy      | 显示弹窗（可多个按钮,简单易用） |
-| showActionSheet     | 列表选择弹窗           |
-| showActionSheetEasy | 列表选择弹窗（简单易用）     |
-| showCalendarPicker  | 日历选择器弹窗          |
-| showDatePicker      | 日期滑动选择器弹窗        |
-| showTimePicker      | 时间滑动选择器弹窗        |
-| showTextPicker      | 文本滑动选择器弹窗        |
-
-### ToastUtil（土司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
-
-| 方法               | 介绍               |
-|:-----------------|:-----------------|
-| setDefaultConfig | 设置默认统一样式         |
-| showToast        | 弹出土司，默认时长为2s     |
-| showShort        | 弹出短土司，默认时长为:1.5s |
-| showLong         | 弹出长土司，默认时长为:10s  |
 
 ### TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
 

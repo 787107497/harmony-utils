@@ -1,5 +1,7 @@
-import { AppUtil, LogUtil } from '@pura/harmony-utils';
+import { AppUtil, Base64Util, LogUtil } from '@pura/harmony-utils';
 import { ComponentContent } from '@kit.ArkUI';
+import { DialogHelper } from '@pura/harmony-dialog';
+import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 
 @Preview
 @Component
@@ -38,18 +40,30 @@ export struct DialogPage {
 
               setTimeout(() => {
                 promptAction.closeCustomDialog(this.contentNode);
-              }, 20000)
+              }, 2000)
 
 
             })
           Button("测试2")
             .btnStyle()
             .onClick(() => {
+              DialogHelper.show1({
+                title: "温馨提示",
+                content: "呵呵呵呵，嘿嘿-xxxx",
+                leftText: "确定",
+                rightText: "取消",
+              })
 
             })
           Button("测试3")
             .btnStyle()
             .onClick(() => {
+DialogHelper.showTipsDialog({
+  title: "温馨提示",
+  content: "呵呵呵呵，嘿嘿-xxxx",
+  leftText: "确定",
+  rightText: "取消",
+})
 
             })
 
