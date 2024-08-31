@@ -231,7 +231,7 @@ export class LocationUtil {
 
 
   /**
-   * 获取当前的国家码-无需申请定位权限
+   * 获取当前的国家码（无需申请定位权限）
    * @returns 返回当前位置中文描述
    */
   static async getCountryCode(): Promise<string> {
