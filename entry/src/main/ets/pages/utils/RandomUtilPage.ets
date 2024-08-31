@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil, RandomUtil, StrUtil } from '@pura/harmony-utils';
+import { LogUtil, RandomUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -27,7 +27,7 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("randomInt()\nrandomLimit()\nrandomNumber()")
+          Button("getRandomInt()\ngetRandomLimit()\ngetRandomNumber()")
             .labelStyle({ maxLines: 3 })
             .type(ButtonType.Normal)
             .borderRadius(10)
@@ -40,7 +40,19 @@ struct Index {
               this.txtStr = `随机数1：${n1}\n随机数2：${n2}\n随机数3：${n3}`;
               LogUtil.error(this.txtStr);
             })
-          Button("randomBoolean()\nrandomChinese()\nrandomColor()")
+          Button("getRandomChineseChar()\ngetRandomChinese()")
+            .labelStyle({ maxLines: 3 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let str1 = RandomUtil.getRandomChineseChar();
+              let str2 = RandomUtil.getRandomChinese(12);
+              this.txtStr = `随机汉字：${str1}\n随机汉字：${str2}`;
+              LogUtil.error(this.txtStr);
+            })
+          Button("getRandomBoolean()\ngetRandomColor()")
             .labelStyle({ maxLines: 3 })
             .type(ButtonType.Normal)
             .borderRadius(10)
@@ -48,9 +60,9 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let b1 = RandomUtil.getRandomBoolean();
-              let z2 = RandomUtil.getRandomChinese(6);
+              let b2 = RandomUtil.getRandomBoolean();
               let c3 = RandomUtil.getRandomColor();
-              this.txtStr = `随机Boolean值：${b1}\n随机汉字：${z2}\n随机颜色：${c3}`;
+              this.txtStr = `随机Boolean值1：${b1}\n随机Boolean值2：${b2}\n随机颜色：${c3}`;
               LogUtil.error(this.txtStr);
             })
           Button("randomStr()")
@@ -84,15 +96,15 @@ struct Index {
             .onClick(() => {
               let uuid1 = RandomUtil.generateRandomUUID();
               let uuid2 = RandomUtil.generateRandomBinaryUUID();
-              this.txtStr =
-                `使用加密安全随机数生成器生成随机的string类型UUID：\n${uuid1}\n\n使用加密安全随机数生成器生成随机的Uint8Array类型UUID：\n${uuid2}`;
+              this.txtStr = `使用加密安全随机数生成器生成随机的string类型UUID：\n${uuid1}\n\n使用加密安全随机数生成器生成随机的Uint8Array类型UUID：\n${uuid2}`;
               LogUtil.error(this.txtStr);
             })
+
           Text(this.txtStr)
             .visibility(StrUtil.isNotEmpty(this.txtStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

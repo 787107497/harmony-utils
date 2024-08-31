@@ -46,7 +46,7 @@ struct Index {
               LogUtil.error(`b1: ${b1}\nb2: ${b2}\nb3: ${b3}\nb4: ${b4}`)
               ToastUtil.showToast("请查看Log日志")
             })
-          Button("removeEmpty()\ntrim()")
+          Button("trim()")
             .labelStyle({ maxLines: 2 })
             .type(ButtonType.Normal)
             .borderRadius(10)

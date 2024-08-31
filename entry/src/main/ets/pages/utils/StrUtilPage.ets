@@ -193,12 +193,12 @@ struct Index {
             .onClick(() => {
               let phone: string = "13909626520";
               let bl = StrUtil.isPhone(phone);
-              LogUtil.error(`isPhone: ${bl}`)
+              LogUtil.error(`isPhone: ${bl}`);
               let format = StrUtil.getPhoneFormat(phone);
-              LogUtil.error(`getPhoneFormat: ${format}`)
+              LogUtil.error(`getPhoneFormat: ${format}`);
               let locationName = StrUtil.getPhoneLocationName(phone);
-              LogUtil.error(`getPhoneLocationName: ${locationName}`)
-              ToastUtil.showToast("请查看Log日志")
+              LogUtil.error(`getPhoneLocationName: ${locationName}`);
+              ToastUtil.showToast("请查看Log日志");
             })
           Button("isMatch()\nisEmail()")
             .labelStyle({ maxLines: 4 })
@@ -211,11 +211,23 @@ struct Index {
               let phone: string = "13909626520";
               let email: string = "787107497@qq.com";
               let bl1 = StrUtil.isMatch(phone,rex);
-              LogUtil.error(`是否是手机号: ${bl1}`)
+              LogUtil.error(`是否是手机号: ${bl1}`);
               let bl2 = StrUtil.isEmail(email);
-              LogUtil.error(`是否是邮件: ${bl2}`)
+              LogUtil.error(`是否是邮件: ${bl2}`);
+              ToastUtil.showToast("请查看Log日志");
             })
-
+          Button("isEmoji()")
+            .labelStyle({ maxLines: 2 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let str = "hdc shell aa start -a EntryAbility -b com.harmony.utils in 253 ms";
+              let isEmoji = StrUtil.isEmoji(str);
+              LogUtil.error(`判断字符串是否包含表情: ${isEmoji}`);
+              ToastUtil.showToast("请查看Log日志");
+            })
           Button("getErrnoToString()")
             .labelStyle({ maxLines: 4 })
             .type(ButtonType.Normal)
@@ -225,11 +237,12 @@ struct Index {
             .onClick(() => {
               let errStr1 = StrUtil.getErrnoToString(202);
               let errStr2 = StrUtil.getErrnoToString(1600004);
-              LogUtil.error(`错误码1: ${errStr1}`)
-              LogUtil.error(`错误码2: ${errStr2}`)
+              LogUtil.error(`错误码1: ${errStr1}`);
+              LogUtil.error(`错误码2: ${errStr2}`);
+              ToastUtil.showToast("请查看Log日志");
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

@@ -1,6 +1,5 @@
 import geoLocationManager from '@ohos.geoLocationManager';
 import { BusinessError, Callback } from '@ohos.base';
-import { ToastUtil } from '../action/ToastUtil';
 import { LogUtil } from './LogUtil';
 import { PermissionUtil } from './PermissionUtil';
 
@@ -66,7 +65,6 @@ export class LocationUtil {
     geoLocationManager.getCurrentLocation(LocationUtil.currentRequest, (error: BusinessError, location: geoLocationManager.Location): void => {
       if (error) {
         LogUtil.error(`LocationUtil-getCurrentLocationEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-        ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '获取当前位置失败：' + error.message));
       }
       if (location && callBack) {
         callBack(location)
@@ -95,7 +93,6 @@ export class LocationUtil {
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-onLocationChangeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '开启位置变化订阅失败：' + error.message));
     }
   }
 
@@ -115,7 +112,6 @@ export class LocationUtil {
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-onLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '开启位置变化订阅失败：' + error.message));
     }
   }
 
@@ -138,47 +134,21 @@ export class LocationUtil {
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-offLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(LocationUtil.getErrorMsg(err.code, '关闭位置变化订阅失败：' + error.message));
     }
   }
 
 
   /**
-   * 地理编码,将地理描述转换为具体坐标（无需申请定位权限）
-   * @param locationName  地理位置中文描述
-   * @returns 编码后location对象
+   * 判断地理编码与逆地理编码服务是否可用
+   * @returns
    */
-  static async getAddressFromLocationName(locationName: string): Promise<geoLocationManager.GeoAddress> {
-    try {
-      let isAvailable = geoLocationManager.isGeocoderAvailable(); //（逆）地理编码服务是否可用
-      if (isAvailable) {
-        let geocodeRequest: geoLocationManager.GeoCodeRequest = {
-          description: locationName, //表示位置描述信息的语言，“zh”代表中文，“en”代表英文。
-          maxItems: 1, //表示返回位置信息的最大个数。取值范围为大于等于0，推荐该值小于10。
-          locale: 'zh' //表示位置信息描述，如“上海市浦东新区xx路xx号”。
-        };
-        let result = await geoLocationManager.getAddressesFromLocationName(geocodeRequest);
-        if (result && result.length > 0) {
-          return result[0];
-        } else {
-          ToastUtil.showToast('地理编码失败!');
-          return {};
-        }
-      } else {
-        ToastUtil.showToast("（逆）地理编码服务不可用！")
-        return {};
-      }
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-getAddressFromLocationName-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
-      return {};
-    }
+  static isGeocoderAvailable() {
+    return geoLocationManager.isGeocoderAvailable();
   }
 
 
   /**
-   * 地理编码,将地理描述转换为具体坐标（无需申请定位权限）
+   * 地理编码,将地理描述转换为具体坐标集合（无需申请定位权限）
    * @param locationName  地理位置中文描述
    * @param maxItems 表示返回位置信息的最大个数。
    * @returns
@@ -186,102 +156,77 @@ export class LocationUtil {
    */
   static async getGeoAddressFromLocationName(locationName: string, maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
     try {
-      let isAvailable = geoLocationManager.isGeocoderAvailable(); //（逆）地理编码服务是否可用
-      if (isAvailable) {
-        let geocodeRequest: geoLocationManager.GeoCodeRequest = {
-          description: locationName, //表示位置描述信息的语言，“zh”代表中文，“en”代表英文。
-          maxItems: maxItems, //表示返回位置信息的最大个数。取值范围为大于等于0，推荐该值小于10。
-          locale: 'zh' //表示位置信息描述，如“上海市浦东新区xx路xx号”。
-        };
-        let result = await geoLocationManager.getAddressesFromLocationName(geocodeRequest);
-        if (result && result.length > 0) {
-          return result;
-        } else {
-          ToastUtil.showToast('地理编码失败!');
-          return [];
-        }
+      let geocodeRequest: geoLocationManager.GeoCodeRequest = {
+        description: locationName, //表示位置描述信息的语言，“zh”代表中文，“en”代表英文。
+        maxItems: maxItems, //表示返回位置信息的最大个数。取值范围为大于等于0，推荐该值小于10。
+        locale: 'zh' //表示位置信息描述，如“上海市浦东新区xx路xx号”。
+      };
+      let result = await geoLocationManager.getAddressesFromLocationName(geocodeRequest);
+      if (result && result.length > 0) {
+        return result;
       } else {
-        ToastUtil.showToast("（逆）地理编码服务不可用！")
         return [];
       }
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-getGeoAddressFromLocationName-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
       return [];
     }
   }
 
-
   /**
-   * 逆地理编码,将坐标转换为地理描述（无需申请定位权限）
-   * @param latitude  维度
-   * @param longitude 经度
-   * @returns 逆编码后对象
+   * 地理编码,将地理描述转换为具体坐标（无需申请定位权限）
+   * @param locationName  地理位置中文描述
+   * @returns 编码后location对象
    */
-  static async getAddressFromLocation(latitude: number, longitude: number): Promise<geoLocationManager.GeoAddress> {
-    try {
-      let isAvailable = geoLocationManager.isGeocoderAvailable(); //校验是否逆编码可用
-      if (isAvailable) {
-        let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
-          latitude: latitude,
-          longitude: longitude,
-          maxItems: 1,
-          locale: 'zh'
-        };
-        let result = await geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest);
-        if (result && result.length > 0) {
-          return result[0];
-        } else {
-          ToastUtil.showToast('地理编码失败!');
-          return {} as geoLocationManager.GeoAddress;
-        }
-      } else {
-        ToastUtil.showToast("（逆）地理编码服务不可用！")
-        return {} as geoLocationManager.GeoAddress;
-      }
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-getAddressFromLocation-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
-      return {}
+  static async getAddressFromLocationName(locationName: string): Promise<geoLocationManager.GeoAddress> {
+    let geoAddress = await LocationUtil.getGeoAddressFromLocationName(locationName, 1);
+    if (geoAddress != null && geoAddress.length == 1) {
+      return geoAddress[0];
     }
+    return {};
   }
 
 
   /**
    * 逆地理编码,将坐标转换为地理描述集合（无需申请定位权限）
-   * @param latitude  维度
+   * @param latitude 纬度
    * @param longitude 经度
    * @returns 逆编码后集合
    */
   static async getGeoAddressFromLocation(latitude: number, longitude: number, maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
     try {
-      let isAvailable = geoLocationManager.isGeocoderAvailable(); //校验是否逆编码可用
-      if (isAvailable) {
-        let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
-          latitude: latitude,
-          longitude: longitude,
-          maxItems: maxItems,
-          locale: 'zh'
-        };
-        let result = await geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest);
-        if (result && result.length > 0) {
-          return result;
-        } else {
-          ToastUtil.showToast('地理编码失败!');
-          return [];
-        }
+      let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
+        latitude: latitude,
+        longitude: longitude,
+        maxItems: maxItems,
+        locale: 'zh'
+      };
+      let result = await geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest);
+      if (result && result.length > 0) {
+        return result;
       } else {
-        ToastUtil.showToast("（逆）地理编码服务不可用！")
         return [];
       }
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-getGeoAddressFromLocation-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(LocationUtil.getErrorMsg(error.code, '地理编码失败：' + error.message));
       return [];
     }
+  }
+
+  /**
+   * 逆地理编码,将坐标转换为地理描述（无需申请定位权限）
+   * @param latitude 纬度
+   * @param longitude 经度
+   * @returns 逆编码后对象
+   */
+  static async getAddressFromLocation(latitude: number, longitude: number): Promise<geoLocationManager.GeoAddress> {
+    let geoAddress = await LocationUtil.getGeoAddressFromLocation(latitude, longitude, 1);
+    if (geoAddress != null && geoAddress.length == 1) {
+      return geoAddress[0];
+    }
+    return {};
   }
 
 

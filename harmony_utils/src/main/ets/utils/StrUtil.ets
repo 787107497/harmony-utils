@@ -64,7 +64,7 @@ export class StrUtil {
    * @returns
    */
   static isBlank(str: string | undefined | null): boolean {
-    let length: number;
+    let length: number = 0;
     if ((str == undefined) || (str == null) || ((length = str.length) == 0)) {
       return true;
     }

@@ -81,13 +81,21 @@ struct Index {
               ToastUtil.showToast("关闭位置变化订阅，成功")
             })
 
+          Button("isGeocoderAvailable")
+            .btnStyle()
+            .onClick(() => {
+              let isGeocoderAvailable = LocationUtil.isGeocoderAvailable();
+              LogUtil.error(`地理编码与逆地理编码服务是否可用：${isGeocoderAvailable}`);
+              ToastUtil.showToast("请查看Log日志");
+            })
           Button("getAddressFromLocationName()")
             .btnStyle()
             .onClick(async () => {
               let locationName: string = '上海市浦东新区'; //上海市浦东新区
               let address = await LocationUtil.getAddressFromLocationName(locationName);
-              this.addrStr = `地理逆编码1：\n${JSON.stringify(address, null, 2)}`
-              LogUtil.error(JSON.stringify(address, null, 2))
+              this.addrStr = `地理编码：\n${JSON.stringify(address, null, 2)}`;
+              LogUtil.error(JSON.stringify(address, null, 2));
+              ToastUtil.showToast("请查看Log日志");
             })
           Button("getAddressFromLocation()")
             .btnStyle()
@@ -95,21 +103,22 @@ struct Index {
               let latitude: number = 40;
               let longitude: number = 117;
               let address = await LocationUtil.getAddressFromLocation(latitude, longitude);
-              this.addrStr = `地理逆编码2：\n${JSON.stringify(address, null, 2)}`
-              LogUtil.error(JSON.stringify(address, null, 2))
+              this.addrStr = `逆地理编码：\n${JSON.stringify(address, null, 2)}`;
+              LogUtil.error(JSON.stringify(address, null, 2));
+              ToastUtil.showToast("请查看Log日志");
             })
           Button("getCountryCode()")
             .btnStyle()
             .onClick(async () => {
-              let code = await LocationUtil.getCountryCode()
-              ToastUtil.showToast(`当前的国家码：${code}`)
+              let code = await LocationUtil.getCountryCode();
+              ToastUtil.showToast(`当前的国家码：${code}`);
             })
 
           Text(this.addrStr)
             .visibility(StrUtil.isNotEmpty(this.addrStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

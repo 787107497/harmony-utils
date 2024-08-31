@@ -1,6 +1,13 @@
 # 版本记录
 
 ## 1.0.8（API12 - Beta5 - 5.0.3.700）
+1.  规避代码风险:    
+    1、重构CacheUtil        
+    2、重构RandomUtil    
+    3、优化部分方法    
+2. 优化文档。    
+
+## 1.0.8（API12 - Beta5 - 5.0.3.700）
 1.  PermissionUtil:    
     1、新增requestPermissionsEasy，申请授权，拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。    
     2、新增requestPermissionOnSetting，二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。    

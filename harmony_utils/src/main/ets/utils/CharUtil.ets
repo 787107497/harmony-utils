@@ -89,7 +89,7 @@ export class CharUtil {
 
 
   /**
-   * 是否空白符 空白符包括空格、制表符、全角空格和不间断空格
+   * 判断是否空白符 空白符包括空格、制表符、全角空格和不间断空格
    * @param c
    * @returns
    */
@@ -101,12 +101,12 @@ export class CharUtil {
 
 
   /**
-   * 检查字符是否位于ASCII范围内（其中0-31是控制字符，32-127表示从A到Z的字母字符）
-   * @param ch 被检查的字符
-   * @returns `true`表示为ASCII字符，否则为`false`
+   * 判断字符是否位于ASCII范围内（其中0-31是控制字符，32-127表示从A到Z的字母字符）
+   * @param char 字符
+   * @returns
    */
   static isAscii(char: string): boolean {
-    if (char.length === 1) { //确保输入的是单个字符
+    if (char.length == 1) { //确保输入的是单个字符
       return char.charCodeAt(0) < 128;
     } else {
       return false;

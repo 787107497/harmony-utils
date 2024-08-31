@@ -16,7 +16,7 @@ export class ArrayUtil {
 
 
   /**
-   * 集合是否为非空集合，不空为true否则false。
+   * 判断集合是否为非空集合。
    * @param array
    * @returns
    */
@@ -26,7 +26,7 @@ export class ArrayUtil {
 
 
   /**
-   * 集合是否为空集合,空为true否则false
+   * 判断集合是否为空集合。
    * @param array
    * @returns
    */
@@ -56,7 +56,7 @@ export class ArrayUtil {
 
 
   /**
-   * 数组去重，去重后生成新的数组，原数组不变。
+   * 将数组去重，去重后生成新的数组，原数组不变。
    * @param array    数组
    * @return 去重后的数组
    */
@@ -77,7 +77,7 @@ export class ArrayUtil {
 
 
   /**
-   * 数组过滤，filter函数
+   * 数组过滤，通过filter函数实现来过滤返回需要的元素
    * @param array
    * @param filter  过滤函数
    * @returns
@@ -88,7 +88,7 @@ export class ArrayUtil {
 
 
   /**
-   * 将新元素添加到已有数组中，使用扩展运算符，不影响原数组。
+   * 拼接数据，使用扩展运算符，不影响原数组。
    * @param source
    * @param item
    * @returns
@@ -103,7 +103,7 @@ export class ArrayUtil {
 
 
   /**
-   * 获取数组（数值、字符串、日期）最小值。
+   * 获取数组最小值（数值、字符串、日期）。
    * @param array
    * @returns
    */
@@ -122,7 +122,7 @@ export class ArrayUtil {
 
 
   /**
-   * 获取数组（数值、字符串、日期）最大值。
+   * 获取数组最大值（数值、字符串、日期）。
    * @param array
    * @returns
    */

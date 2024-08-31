@@ -248,10 +248,11 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
 
-| 方法   | 介绍 |
-|:-----|:---|
-| save | 存值 |
-| get  | 取值 |
+| 方法  | 介绍         |
+|:----|:-----------|
+| has | 缓存中的数据是否存在 |
+| put | 将数据存入缓存中   |
+| get | 获取缓存中的数据   |
 
 ### FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
@@ -382,11 +383,12 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getCurrentLocation            | 获取当前位置                |
 | onLocationChangeEasy          | 开启位置变化订阅，并发起定位请求。     |
 | onLocationChange              | 开启位置变化订阅，并发起定位请求      |
-| offLocationChange             | 关闭位置变化订阅，并删除对应的定位请求。  |
-| getAddressFromLocationName    | 地理逆编码,将地理描述转换为具体坐标    |
-| getGeoAddressFromLocationName | 地理逆编码,将地理描述转换为具体坐标    |
-| getAddressFromLocation        | 地理逆编码,将坐标转换为地理描述      |
-| getGeoAddressFromLocation     | 地理逆编码,将坐标转换为地理描述集合    |
+| offLocationChange             | 关闭位置变化订阅，并删除对应的定位请求   |
+| isGeocoderAvailable           | 判断地理编码与逆地理编码服务是否可用    |
+| getAddressFromLocationName    | 地理编码,将地理描述转换为具体坐标     |
+| getGeoAddressFromLocationName | 地理编码,将地理描述转换为具体坐标集合   |
+| getAddressFromLocation        | 逆地理编码,将坐标转换为地理描述      |
+| getGeoAddressFromLocation     | 逆地理编码,将坐标转换为地理描述集合    |
 | getCountryCode                | 获取当前的国家码              |
 
 ### LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)
@@ -446,54 +448,54 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### StrUtil（字符串工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
 
-| 方法                   | 介绍                                    |
-|:---------------------|:--------------------------------------|
-| isNull               | 字符串是否为空(undefined、null)               |
-| isNotNull            | 判断字符串是否为非空                            |
-| isEmpty              | 字符串是否为空(undefined、null、字符串长度为0)       |
-| isNotEmpty           | 判断字符串是否为非空                            |
-| isBlank              | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格) |
-| isNotBlank           | 判断字符串是否为非空                            |
-| replace              | 替换字符串中匹配的正则为给定的字符串                    |
-| replaceAll           | 替换字符串中所有匹配的正则为给定的字符串                  |
-| startsWith           | 检查字符串是否以给定的字符串开头                      |
-| endsWith             | 检查字符串是否以给定的字符串结尾                      |
-| repeat               | 将字符串重复指定次数                            |
-| toLower              | 转换整个字符串的字符为小写                         |
-| toUpper              | 转换整个字符串的字符为大写                         |
-| capitalize           | 转换字符串首字母为大写，剩下为小写                     |
-| equal                | 判断两个传入的数值或者是字符串是否相等                   |
-| notEqual             | 判断两个传入的数值或者是字符串是否不相等                  |
-| strToUint8Array      | 字符串转Uint8Array                        |
-| unit8ArrayToStr      | Uint8Array转字符串                        |
-| strToBase64          | 字符串转Base64字符串                         |
-| base64ToStr          | Base64字符串转字符串                         |
-| strToBuffer          | 字符串转ArrayBuffer                       |
-| bufferToStr          | ArrayBuffer转字符串                       |
-| bufferToUint8Array   | ArrayBuffer转Uint8Array                |
-| unit8ArrayToBuffer   | Uint8Array转ArrayBuffer                |
-| isPhone              | 判断传入的电话号码格式是否正确                       |
-| getPhoneFormat       | 对电话号码进行格式化                            |
-| getPhoneLocationName | 获取电话号码归属地                             |
-| isMatch              | 给定内容是否匹配正则                            |
-| isEmail              | 判断传入的邮箱格式是否正确                         |
-| getErrnoToString     | 获取系统错误码对应的详细信息                        |
+| 方法                   | 介绍                                     |
+|:---------------------|:---------------------------------------|
+| isNull               | 判断字符串是否为空(undefined、null)              |
+| isNotNull            | 判断字符串是否为非空                             |
+| isEmpty              | 判断字符串是否为空(undefined、null、字符串长度为0)      |
+| isNotEmpty           | 判断字符串是否为非空                             |
+| isBlank              | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格)  |
+| isNotBlank           | 判断字符串是否为非空                             |
+| replace              | 替换字符串中匹配的正则为给定的字符串                     |
+| replaceAll           | 替换字符串中所有匹配的正则为给定的字符串                   |
+| startsWith           | 判断字符串是否以给定的字符串开头                       |
+| endsWith             | 判断字符串是否以给定的字符串结尾                       |
+| repeat               | 将字符串重复指定次数                             |
+| toLower              | 将整个字符串转换为小写                            |
+| toUpper              | 将整个字符串转换为大写                            |
+| capitalize           | 将字符串首字母转换为大写，剩下为小写                     |
+| equal                | 判断两个传入的数值或者是字符串是否相等                    |
+| notEqual             | 判断两个传入的数值或者是字符串是否不相等                   |
+| strToUint8Array      | 字符串转Uint8Array                         |
+| unit8ArrayToStr      | Uint8Array转字符串                         |
+| strToBase64          | 字符串转Base64字符串                          |
+| base64ToStr          | Base64字符串转字符串                          |
+| strToBuffer          | 字符串转ArrayBuffer                        |
+| bufferToStr          | ArrayBuffer转字符串                        |
+| bufferToUint8Array   | ArrayBuffer转Uint8Array                 |
+| unit8ArrayToBuffer   | Uint8Array转ArrayBuffer                 |
+| isPhone              | 判断传入的电话号码格式是否正确                        |
+| getPhoneFormat       | 对电话号码进行格式化                             |
+| getPhoneLocationName | 获取电话号码归属地                              |
+| isMatch              | 给定内容是否匹配正则                             |
+| isEmail              | 判断传入的邮箱格式是否正确                          |
+| isEmoji              | 判断字符串是否包含表情（匹配单个emoji或多个组合emoji的正则表达式） |
+| getErrnoToString     | 获取系统错误码对应的详细信息                         |
 
 ### CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
 
-| 方法           | 介绍                           |
-|:-------------|:-----------------------------|
-| isDigit      | 判断字符串char是否是数字               |
-| isLetter     | 判断字符串char是否是字母               |
-| isLowerCase  | 判断字符串char是否是小写字母             |
-| isUpperCase  | 判断字符串char是否是大写字母             |
-| isSpaceChar  | 判断字符串char是否是空格符              |
-| isWhitespace | 判断字符串char是否是空白符              |
-| isRTL        | 判断字符串char是否是从右到左语言的字符        |
-| isIdeograph  | 判断字符串char是否是表意文字             |
-| isBlankChar  | 是否空白符 空白符包括空格、制表符、全角空格和不间断空格 |
-| isAscii      | 检查字符是否位于ASCII范围内（0~127）      |
-| isEmoji      | 判断是否为emoji表情符                |
+| 方法           | 介绍                             |
+|:-------------|:-------------------------------|
+| isDigit      | 判断字符串char是否是数字                 |
+| isLetter     | 判断字符串char是否是字母                 |
+| isLowerCase  | 判断字符串char是否是小写字母               |
+| isUpperCase  | 判断字符串char是否是大写字母               |
+| isSpaceChar  | 判断字符串char是否是空格符                |
+| isWhitespace | 判断字符串char是否是空白符                |
+| isRTL        | 判断字符串char是否是从右到左语言的字符          |
+| isIdeograph  | 判断字符串char是否是表意文字               |
+| isBlankChar  | 判断是否空白符 空白符包括空格、制表符、全角空格和不间断空格 |
+| isAscii      | 判断字符是否位于ASCII范围内（0~127）        |
 
 ### Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
 
@@ -513,33 +515,34 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ### ArrayUtil（数组工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ArrayUtilPage.ets)
 
-| 方法          | 介绍                                 |
-|:------------|:-----------------------------------|
-| isNotEmpty  | 集合是否为非空集合                          |
-| isEmpty     | 集合是否为空集合                           |
-| removeEmpty | 去除集合中的空值                           |
-| trim        | 去除传入集合的每个值的前后空格                    |
-| distinct    | 数组去重，去重后生成新的数组，原数组不变               |
-| reverse     | 反转数组，会修改原始数组                       |
-| filter      | 通过传入的filter实现来过滤返回需要的元素            |
-| append      | 将新元素添加到已有数组中 添加新元素会生成一个新的数组，不影响原数组 |
-| setOrAppend | 将元素值设置为数组的某个位置，当给定的index大于数组长度，则追加 |
-| min         | 获取数组（数值、字符串、日期）最小值                 |
-| max         | 获取数组（数值、字符串、日期）最大值                 |
-| flatten     | 平铺二维数组                             |
-| union       | 平铺二维数组，并去重                         |
+| 方法          | 介绍                          |
+|:------------|:----------------------------|
+| isNotEmpty  | 判断集合是否为非空集合                 |
+| isEmpty     | 判断集合是否为空集合                  |
+| removeEmpty | 去除字符串数组中的空值                 |
+| trim        | 去除字符串数组的每个值的前后空格            |
+| distinct    | 将数组去重，去重后生成新的数组，原数组不变       |
+| reverse     | 将数组反转，会修改原始数组               |
+| filter      | 数组过滤，通过filter函数实现来过滤返回需要的元素 |
+| append      | 拼接数据，使用扩展运算符，不影响原数组。        |
+| min         | 获取数组最小值（数值、字符串、日期）          |
+| max         | 获取数组最大值（数值、字符串、日期）          |
+| flatten     | 平铺二维数组                      |
+| union       | 平铺二维数组，并去重                  |
 
 ### RandomUtil（随机工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RandomUtilPage.ets)
 
 | 方法                       | 介绍                                            |
 |:-------------------------|:----------------------------------------------|
-| randomInt                | 生成随机数number值                                  |
-| randomLimit              | 生成指定范围内的随机数 [0,limit)                         |
-| randomNumber             | 生成指定范围内的随机数                                   |
-| randomBoolean            | 生成随机Boolean值                                  |
-| randomStr                | 根据指定字符串，随机生成指定长度的字符串                          |
-| randomChinese            | 生成随机汉字                                        |
-| randomColor              | 生成随机颜色，十六进制                                   |
+| getRandomBoolean         | 生成随机Boolean值                                  |
+| getRandomInt             | 生成随机整数（可指定范围）                                 |
+| getRandomNumber          | 生成指定范围内的随机数                                   |
+| getRandomLimit           | 生成指定范围内的随机数 [0,limit)                         |
+| getRandomChineseChar     | 生成一个随机汉字                                      |
+| getRandomChinese         | 生成随机汉字                                        |
+| getRandomStr             | 根据指定字符串，随机生成 指定长度的字符串                         |
+| getRandomUint8Array      | 生成随机指定长度的Uint8Array                           |
+| getRandomColor           | 生成随机颜色，十六进制                                   |
 | generateUUID36           | 生成36位UUID，带-                                  |
 | generateUUID32           | 生成32位UUID，带-                                  |
 | generateRandomUUID       | 使用加密安全随机数生成器生成随机的RFC 4122版本4的string类型UUID     |
