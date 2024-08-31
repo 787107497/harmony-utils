@@ -1,11 +1,11 @@
 # <center>harmony-utils (API12 - Beta5 - 5.0.3.700)</center>
 
-## 📚简介
+## 🏆简介
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
 一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。
 
-## 📚下载安装
+## 🌞下载安装
 
 `ohpm i @pura/harmony-utils`
 
@@ -13,7 +13,7 @@ OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 <br><br>
 
-## 📚模块介绍
+## 📂模块介绍
 
 | 模块                                                                                | 介绍                                                                       |
 |:----------------------------------------------------------------------------------|:-------------------------------------------------------------------------|
@@ -793,7 +793,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 <br><br>
 
-## 🙏贡献代码与技术交流
+## 🍎贡献代码与技术交流
 
 使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)。   
 给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。
@@ -803,7 +803,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 鸿蒙技术交流QQ群：569512366
 
-## 📚开源协议
+## 🌏开源协议
 
 本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，请自由地享受和参与开源。   
 拷贝和借鉴代码，还请大家在引用时注明出处，万分感谢。
