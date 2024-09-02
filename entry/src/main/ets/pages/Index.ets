@@ -37,7 +37,7 @@ struct Index {
       TabContent() {
         RoomPage().margin({ bottom: 60 })
       }
-      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_room'), "ROOM"))
+      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_room'), "DB"))
 
       TabContent() {
         OtherPage()
