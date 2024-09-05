@@ -32,7 +32,7 @@ export class Mock {
     data.push(new DescribeBean("Base64Util", "Base64工具类", 1));
     data.push(new DescribeBean("NumberUtil", "number工具类", 1));
     data.push(new DescribeBean("DateUtil", "日期工具类", 1));
-    data.push(new DescribeBean("ArrayUtil", "数组工具类", 1));
+    data.push(new DescribeBean("ArrayUtil", "集合工具类", 1));
     data.push(new DescribeBean("RandomUtil", "随机工具类", 1));
     data.push(new DescribeBean("ObjectUtil", "对象工具类", 1));
     data.push(new DescribeBean("JSONUtil", "JSON工具类", 1));

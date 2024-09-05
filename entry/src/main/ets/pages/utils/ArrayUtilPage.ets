@@ -4,7 +4,7 @@ import { ArrayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
- * 数组工具类
+ * 集合工具类
  */
 @Entry
 @Component
@@ -20,7 +20,7 @@ struct Index {
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("ArrayUtil", "数组工具类");
+    this.describe = new DescribeBean("ArrayUtil", "集合工具类");
   }
 
   build() {

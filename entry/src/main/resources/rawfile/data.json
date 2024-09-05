@@ -126,7 +126,7 @@
   },
   {
     "name": "ArrayUtil",
-    "desc": "数组工具类",
+    "desc": "集合工具类",
     "type": 1
   },
   {
