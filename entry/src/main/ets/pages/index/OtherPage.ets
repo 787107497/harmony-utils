@@ -17,12 +17,28 @@ export struct OtherPage {
         Column() {
           Blank().layoutWeight(1)
 
-          Image('https://i.ebayimg.com/images/g/TqoAAOSwXBlmOfcs/s-l1600.webp')
-            .objectFit(ImageFit.Auto)
-            .width('98%')
-            .margin({ top: 10, bottom: 10 })
+          // Image('https://i.ebayimg.com/images/g/TqoAAOSwXBlmOfcs/s-l1600.webp')
+          //   .objectFit(ImageFit.Auto)
+          //   .width('98%')
+          //   .margin({ top: 10, bottom: 10 })
+          //
+          // Image('https://i.ebayimg.com/images/g/x9MAAOSwBERmuRqE/s-l1600.webp')
+          //   .objectFit(ImageFit.Auto)
+          //   .width('98%')
+          //   .margin({ top: 10, bottom: 10 })
+          //
+          // Image("https://i.ebayimg.com/images/g/LcIAAOSwWV5mfpsR/s-l1600.webp")
+          //   .objectFit(ImageFit.Auto)
+          //   .width('98%')
+          //   .margin({ top: 10, bottom: 10 })
+
+          Text("更多组件向您赶来...")
+            .fontSize(24)
+            .fontColor(Color.Black)
+            .fontWeight(FontWeight.Bold)
 
           Blank().layoutWeight(1)
+
         }
       }
       .layoutWeight(1)
