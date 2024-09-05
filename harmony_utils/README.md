@@ -2,8 +2,7 @@
 
 ## 🏆简介
 
-[harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
-一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。
+[harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils) 是一个功能丰富且易用的HarmonyOS工具库，通过诸多实用工具类的使用，旨在帮助开发者快速构建鸿蒙应用。这些封装的工具涵盖了APP、设备、屏幕、授权、通知、线程间通信、弹框、吐司、生物认证、用户首选项、拍照、相册、扫码、文件、日志，异常捕获、字符、字符串、数字、集合、日期、随机、base64、加密、解密、JSON等一系列操作，可以满足各种不同的开发需求。
 
 ## 🌞下载安装
 
@@ -24,7 +23,7 @@ OpenHarmony ohpm
 | NotificationUtil                                                                  | 通知工具类                                                                    |
 | EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                      |
 | DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                       |
-| ToastUtil                                                                         | 土司工具类（promptAction）                                                      |
+| ToastUtil                                                                         | 吐司工具类（promptAction）                                                      |
 | AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                     |
 | PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                    |
 | CacheUtil                                                                         | 缓存工具类                                                                    |
@@ -212,14 +211,14 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showTimePicker      | 时间滑动选择器弹窗        |
 | showTextPicker      | 文本滑动选择器弹窗        |
 
-### ToastUtil（土司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
+### ToastUtil（吐司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
 
 | 方法               | 介绍               |
 |:-----------------|:-----------------|
 | setDefaultConfig | 设置默认统一样式         |
-| showToast        | 弹出土司，默认时长为2s     |
-| showShort        | 弹出短土司，默认时长为:1.5s |
-| showLong         | 弹出长土司，默认时长为:10s  |
+| showToast        | 弹出吐司，默认时长为2s     |
+| showShort        | 弹出短吐司，默认时长为:1.5s |
+| showLong         | 弹出长吐司，默认时长为:10s  |
 
 ### AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
