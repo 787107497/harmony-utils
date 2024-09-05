@@ -1,0 +1,19 @@
+import { HmDialogOptions } from './base/HmDialogOptions';
+
+/**
+ * TODO 信息确认类弹出框，参数类
+ * author: 桃花镇童长老ᥫ᭡
+ * since: 2024/08/18
+ * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
+ * github: https://github.com/787107497
+ * gitee: https://gitee.com/tongyuyan/harmony-utils
+ * CSDN: https://blog.csdn.net/qq_32922545
+ * QQ交流群: 569512366
+ */
+export interface ConfirmOptions extends HmDialogOptions {
+
+  checkTips?: ResourceStr; //checkbox的提示内容。
+  isChecked?: boolean; //@Prop-value为true时，表示checkbox已选中，value为false时，表示未选中。默认值：false
+  onCheckedChange?: Callback<boolean>; //checkbox的选中状态改变事件。
+
+}

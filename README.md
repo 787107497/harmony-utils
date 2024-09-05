@@ -2,9 +2,7 @@
 
 ## 📚简介
 
-[harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
-一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。
-
+[harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils) 是一个功能丰富且易用的HarmonyOS工具库，通过诸多实用工具类的使用，旨在帮助开发者快速构建鸿蒙应用。这些封装的工具涵盖了APP、设备、屏幕、授权、通知、线程间通信、弹框、吐司、生物认证、用户首选项、拍照、相册、扫码、文件、日志，异常捕获、字符、字符串、数字、集合、日期、随机、base64、加密、解密、JSON等一系列操作，可以满足各种不同的开发需求。
 ## 📚下载安装
 
 `ohpm i @pura/harmony-utils`
