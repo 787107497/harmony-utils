@@ -16,4 +16,4 @@ AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、
 
 ## 📚开源协议
 
-本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，拷贝和借鉴代码，还请大家在引用时注明出处，万分感谢。
+本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。

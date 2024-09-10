@@ -800,8 +800,8 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## 🍎贡献代码与技术交流
 
-使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)。   
-给我们，当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。
+使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)给我们；   
+当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。
 
 [https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)   
 [https://github.com/787107497](https://github.com/787107497)
@@ -810,5 +810,4 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## 🌏开源协议
 
-本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，请自由地享受和参与开源。   
-拷贝和借鉴代码，还请大家在引用时注明出处，万分感谢。
+本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。
