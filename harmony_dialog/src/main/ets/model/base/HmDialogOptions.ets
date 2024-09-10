@@ -1,5 +1,6 @@
 import { DialogOptions } from './DialogOptions';
 import { ButtonOptions } from '../ButtonOptions';
+import { ActionCallBack } from '../../utils/constraint';
 
 /**
  * TODO 确认弹出框，Base参数类
@@ -13,8 +14,9 @@ import { ButtonOptions } from '../ButtonOptions';
  */
 export interface HmDialogOptions extends DialogOptions {
 
-  content: ResourceStr; //弹框内容。
+  content?: ResourceStr; //弹框内容。
   primaryButton?: ButtonOptions | ResourceStr; //弹框左侧按钮。
   secondaryButton?: ButtonOptions | ResourceStr; //弹框右侧按钮。
+  onAction: ActionCallBack; //按钮的CallBack事件。
 
 }

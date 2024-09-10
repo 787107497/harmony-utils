@@ -1,7 +1,7 @@
 {
   "name": "@pura/harmony-utils",
   "version": "1.0.9",
-  "description": "一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。",
+  "description": "一款功能丰富且极易上手的HarmonyOS工具库，借助众多实用工具类，致力于助力开发者迅速构建鸿蒙应用。其封装的工具涵盖了APP、设备、屏幕、授权、通知、线程间通信、弹框、吐司、生物认证、用户首选项、拍照、相册、扫码、文件、日志，异常捕获、字符、字符串、数字、集合、日期、随机、base64、加密、解密、JSON等一系列的功能和操作，能够满足各种不同的开发需求。",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",
   "repository": "https://gitee.com/tongyuyan/harmony-utils",

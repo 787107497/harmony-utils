@@ -139,6 +139,16 @@
             "EntryAbility"
           ]
         }
+      },{
+        "name": "ohos.permission.SYSTEM_FLOAT_WINDOW",
+        "reason": "$string:permission_READ_PASTEBOARD",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        },
+
+
       }
     ]
   }

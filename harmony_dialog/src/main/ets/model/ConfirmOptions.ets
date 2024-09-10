@@ -12,8 +12,8 @@ import { HmDialogOptions } from './base/HmDialogOptions';
  */
 export interface ConfirmOptions extends HmDialogOptions {
 
-  checkTips?: ResourceStr; //checkbox的提示内容。
+  checkTips: ResourceStr; //checkbox的提示内容。
   isChecked?: boolean; //@Prop-value为true时，表示checkbox已选中，value为false时，表示未选中。默认值：false
-  onCheckedChange?: Callback<boolean>; //checkbox的选中状态改变事件。
+  onCheckedChange: Callback<boolean>; //checkbox的选中状态改变事件。
 
 }

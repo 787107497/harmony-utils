@@ -1,7 +1,7 @@
-import { LoadingOptions } from '../model/LoadingOptions';
+import { LoadingProgressOptions } from '../model/LoadingProgressOptions';
 
 /**
- * TODO Loading组件
+ * TODO LoadingProgress组件
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
@@ -10,8 +10,8 @@ import { LoadingOptions } from '../model/LoadingOptions';
  * QQ交流群: 569512366
  */
 @Component
-export default struct LoadingView {
-  @Prop options: LoadingOptions;
+export default struct LoadingProgressView {
+  @Prop options: LoadingProgressOptions;
   @State content: string = '';
 
   aboutToAppear(): void {
@@ -26,13 +26,29 @@ export default struct LoadingView {
 
   build() {
     Column() {
-      LoadingProgress()
-        .height(this.options.loadSize)
-        .width(this.options.loadSize)
-        .color(this.options.loadColor)
+      Stack() {
+        Progress({ value: this.options.progress, total: 100, type: ProgressType.Ring })
+          .width('100%')
+          .height('100%')
+          .color(this.options.loadColor)
+          .backgroundColor("#66FFFFFF")
+          .style({ strokeWidth: 6, enableSmoothEffect: false })
+
+        Text(`${this.options.progress > 100 ? 100 : this.options.progress}%`)
+          .width('100%')
+          .height('100%')
+          .fontSize(15)
+          .fontWeight(FontWeight.Bold)
+          .fontColor(this.options.loadColor)
+          .textAlign(TextAlign.Center)
+      }
+      .height((this.options.loadSize))
+      .width((this.options.loadSize))
+      .margin({ top: this.content.length > 0 ? 2 : 0 })
+
       Text(this.options.content)
         .textAlign(TextAlign.Center)
-        .margin({ top: 5 })
+        .margin({ top: 12 })
         .fontSize(this.options.fontSize)
         .fontColor(this.options.fontColor)
         .visibility(this.content.length > 0 ? Visibility.Visible : Visibility.None)
@@ -40,7 +56,10 @@ export default struct LoadingView {
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
     .margin(12)
-    .constraintSize({ minWidth: 100, minHeight: 100 })
+    .constraintSize({
+      minWidth: (this.content.length > 0 ? 130 : 120),
+      minHeight: (this.content.length > 0 ? 130 : 120)
+    })
     .padding(20)
     .backgroundColor(this.options.backgroundColor)
     .borderRadius(this.options.borderRadius)

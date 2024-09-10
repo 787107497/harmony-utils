@@ -13,8 +13,8 @@ import { BaseDialogOptions } from './base/BaseDialogOptions';
  */
 export interface LoadingOptions extends BaseDialogOptions {
 
-  spinSize?: number; //加载动画的大小
-  spinColor?: ResourceColor; //加载动画的颜色
+  loadSize?: number; //加载动画或进度条的大小
+  loadColor?: ResourceColor; //加载动画的颜色
   content?: ResourceStr; //加载动画的提示文字
   fontSize?: number | string | Resource; //加载动画的文字大小
   fontColor?: ResourceColor; //加载动画的文字颜色

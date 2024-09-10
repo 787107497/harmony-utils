@@ -1,9 +1,8 @@
-import { BaseDialogOptions } from './base/BaseDialogOptions';
 import { LoadingOptions } from './LoadingOptions';
 
 
 /**
- * TODO 加载框，参数类
+ * TODO 进度加载框，参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
@@ -14,12 +13,6 @@ import { LoadingOptions } from './LoadingOptions';
  */
 export interface LoadingProgressOptions extends LoadingOptions {
 
-  spinSize?: number; //加载动画的大小
-  spinColor?: ResourceColor; //加载动画的颜色
-  content?: ResourceStr; //加载动画的提示文字
-  fontSize?: number | string | Resource; //加载动画的文字大小
-  fontColor?: ResourceColor; //加载动画的文字颜色
-  backgroundColor?: ResourceColor; //加载动画背景颜色，建议八位色值前两位为透明度
-  borderRadius?: Length | BorderRadiuses; //加载动画背景圆角
+  progress: number //设置当前进度值。设置小于0的数值时置为0，设置大于total的数值时置为total。非法数值不生效。
 
 }

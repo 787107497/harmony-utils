@@ -2,6 +2,7 @@ import { ComponentContent, promptAction, window } from '@kit.ArkUI';
 import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
 import { PromptActionArg } from '../model/base/PromptActionArg';
 
+
 /**
  * TODO PromptAction基类
  * author: 桃花镇童长老ᥫ᭡
@@ -14,7 +15,8 @@ import { PromptActionArg } from '../model/base/PromptActionArg';
 export class BasePromptAction {
   private static instance: BasePromptAction;
   private uiContext?: UIContext;
-  private caches: PromptActionArg[] = new Array<PromptActionArg>();
+  private cacheWindow?: window.Window;
+  private caches: Array<PromptActionArg> = new Array<PromptActionArg>();
 
   private constructor() {
 
@@ -37,10 +39,11 @@ export class BasePromptAction {
     if (!options.dialogId) {
       options.dialogId = this.generateDialogId();
     }
-    if (this.uiContext) {
-      this.openBaseCustomDialog(this.uiContext, contentView, options);
+    if (this.isWindowFocused(this.cacheWindow)) {
+      this.openBaseCustomDialog(this.uiContext!, contentView, options);
     } else {
       window.getLastWindow(getContext()).then((result: window.Window) => {
+        this.cacheWindow = result;
         this.uiContext = result.getUIContext();
         this.openBaseCustomDialog(this.uiContext, contentView, options);
       })
@@ -56,7 +59,7 @@ export class BasePromptAction {
    * @param options 弹窗样式。
    */
   private openBaseCustomDialog<T extends BaseDialogOptions>(uiContext: UIContext, wrappedBuilder: WrappedBuilder<[T]>, options: T) {
-    if (!this.exists(options.dialogId ?? "")) { //判断dialogId是否存在
+    if (!this.exist(options.dialogId ?? "")) { //判断dialogId是否存在
       let componentContent = new ComponentContent(uiContext, wrappedBuilder, options);
       let option: promptAction.BaseDialogOptions = {
         alignment: options.alignment, //弹窗的对齐方式。
@@ -76,7 +79,7 @@ export class BasePromptAction {
             options.onDidDisappear();
           }
         },
-        //交互式关闭回调函数。
+         //交互式关闭回调函数。
         onWillDismiss: (action: DismissDialogAction) => {
           if (options.onWillDismiss) {
             options.onWillDismiss(action);
@@ -116,7 +119,7 @@ export class BasePromptAction {
   /**
    * 刷新自定义弹窗
    */
-  update<T extends Object>(dialogId: string, params: T) {
+  update<T extends BaseDialogOptions>(dialogId: string, params: T) {
     let promptActionArg: PromptActionArg | undefined = this.getArgById(dialogId);
     if (promptActionArg) {
       promptActionArg.componentContent.update(params);
@@ -127,7 +130,7 @@ export class BasePromptAction {
   /**
    * 是否存在自定义弹窗
    */
-  exists(dialogId: string): boolean {
+  exist(dialogId: string): boolean {
     let arg = this.getArgById(dialogId);
     return arg != undefined;
   }
@@ -140,6 +143,7 @@ export class BasePromptAction {
   generateDialogId(): string {
     return `${new Date().getTime()}${Math.floor(Math.random() * (1000 - 100) + 100)}`;
   }
+
 
   /**
    * 根据dialogId获取PromptActionArg
@@ -175,5 +179,33 @@ export class BasePromptAction {
   }
 
 
+  /**
+   * 判断当前窗口是否已获焦。
+   * @param window
+   * @returns
+   */
+  private isWindowFocused(window?: window.Window): boolean {
+    try {
+      let isFocused = window?.isFocused() ?? false;
+      return isFocused;
+    } catch (e) {
+      return false;
+    }
+  }
+
+
+  /**
+   * 判断当前窗口是否已显示
+   * @param window
+   * @returns
+   */
+  private isWindowShowing(window?: window.Window): boolean {
+    try {
+      let isFocused = window?.isWindowShowing() ?? false;
+      return isFocused;
+    } catch (e) {
+      return false;
+    }
+  }
 
 }

@@ -1,10 +1,19 @@
-import { AlertDialog,ConfirmDialog, CustomContentDialog, SelectDialog, TipsDialog } from '@kit.ArkUI'
+import { AlertDialog, ConfirmDialog, CustomContentDialog, SelectDialog, TipsDialog } from '@kit.ArkUI'
+import TextInputDialogView from '../component/TextInputDialogView'
+import TextAreaDialogView from '../component/TextAreaDialogView'
+import LoadingProgressView from '../component/LoadingProgressView'
 import LoadingView from '../component/LoadingView'
-import { BaseCustomContentOptions } from '../model/base/BaseCustomContentOptions'
+import { BaseContentOptions } from '../model/base/BaseContentOptions'
 import { DialogOptions } from '../model/base/DialogOptions'
+import { TextInputOptions } from '../model/TextInputOptions'
+import { TextAreaOptions } from '../model/TextAreaOptions'
 import { LoadingOptions } from '../model/LoadingOptions'
+import { LoadingProgressOptions } from '../model/LoadingProgressOptions'
 import { ToastOptions } from '../model/ToastOptions'
 import { ToastTipOptions } from '../model/ToastTipOptions'
+import { BottomSheetOptions } from '../model/BottomSheetOptions'
+import BottomSheetDialogView from '../component/BottomSheetDialogView'
+import ActionSheetDialogView from '../component/ActionSheetDialogView'
 
 
 /**
@@ -79,7 +88,7 @@ export function SelectDialogBuilder(options: DialogOptions) {
  * CustomContentDialog
  */
 @Builder
-export function CustomContentDialogBuilder(options: BaseCustomContentOptions) {
+export function CustomContentDialogBuilder(options: BaseContentOptions) {
   CustomContentDialog(options)
     .height(options.height)
     .width(options.width)
@@ -93,19 +102,60 @@ export function CustomContentDialogBuilder(options: BaseCustomContentOptions) {
 
 
 /**
+ * TextInputDialog
+ * @param options
+ */
+@Builder
+export function TextInputDialogBuilder(options: TextInputOptions) {
+  TextInputDialogView({ options: options });
+}
+
+
+/**
+ * TextAreaDialog
+ * @param options
+ */
+@Builder
+export function TextAreaDialogBuilder(options: TextAreaOptions) {
+  TextAreaDialogView({ options: options });
+}
+
+
+/**
+ * BottomSheetDialog
+ * @param options
+ */
+@Builder
+export function BottomSheetDialogBuilder(options: BottomSheetOptions) {
+  BottomSheetDialogView({ options: options });
+}
+
+
+/**
+ * ActionSheetDialog
+ * @param options
+ */
+@Builder
+export function ActionSheetDialogBuilder(options: BottomSheetOptions) {
+  ActionSheetDialogView({ options: options });
+}
+
+
+/**
  * LoadingDialog
  */
 @Builder
 export function LoadingBuilder(options: LoadingOptions) {
-  LoadingView({ options: options })
+  LoadingView({ options: options });
 }
+
 
 /**
  * LoadingProgress
  */
 @Builder
-export function LoadingProgressBuilder(options: LoadingOptions) {
-  LoadingView({ options: options })
+export function LoadingProgressBuilder(options: LoadingProgressOptions) {
+  LoadingProgressView({ options: options });
 }
 
 
@@ -128,6 +178,7 @@ export function ToastBuilder(options: ToastOptions) {
   .padding(options.padding)
   .backgroundColor(options.backgroundColor)
   .borderRadius(options.borderRadius)
+  .shadow(ShadowStyle.OUTER_DEFAULT_SM)
 }
 
 
@@ -154,4 +205,5 @@ export function ToastTipBuilder(options: ToastTipOptions) {
   .constraintSize({ minWidth: 120 })
   .backgroundColor(options.backgroundColor)
   .borderRadius(options.borderRadius)
+  .shadow(ShadowStyle.OUTER_DEFAULT_SM)
 }

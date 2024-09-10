@@ -32,8 +32,8 @@ export class DialogConfig {
 
 
   //--------------------------------------加载框Loading------------------------------------------------------------------
-  loading_spinSize: number = 60; //加载动画的大小
-  loading_spinColor: ResourceColor = Color.White; //加载动画的颜色
+  loading_loadSize: number = 60; //加载动画或进度条的大小
+  loading_loadColor: ResourceColor = Color.White; //加载动画或进度条的颜色
   loading_content: ResourceStr = ''; //加载动画的提示文字
   loading_fontSize: number | string | Resource = 16; //文字大小
   loading_fontColor: ResourceColor = Color.White; //文字颜色

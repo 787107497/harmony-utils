@@ -13,6 +13,18 @@
       "value": "鸿蒙工具包"
     },
     {
+      "name": "btn_sure",
+      "value": "确定"
+    },
+    {
+      "name": "btn_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "btn_save",
+      "value": "保存"
+    },
+    {
       "name": "permission_APP_TRACKING_CONSENT",
       "value": "用于应用读取设备标识符"
     },

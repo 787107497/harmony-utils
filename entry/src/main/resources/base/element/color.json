@@ -10,11 +10,15 @@
     },
     {
       "name": "color_line",
-      "value": "#EEEEEE"
+      "value": "#ECECEC"
     },
     {
       "name": "color_red",
       "value": "#FF0000"
+    },
+    {
+      "name": "color_main",
+      "value": "#0A59F7"
     }
   ]
 }

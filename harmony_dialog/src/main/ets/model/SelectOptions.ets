@@ -1,6 +1,6 @@
 import { DialogOptions } from './base/DialogOptions';
 import { ButtonOptions } from '../model/ButtonOptions';
-import { NumberCalBack } from '../utils/CallBack';
+import { ActionCallBack, NumberCalBack } from '../utils/constraint';
 
 
 /**
@@ -17,6 +17,8 @@ export interface SelectOptions extends DialogOptions {
 
   content?: ResourceStr; //弹框内容。
   confirm?: ButtonOptions | ResourceStr; //选择弹出框底部按钮。
-  radioContent: Array<SheetInfo> | Array<string>; //选择弹出框的子项内容列表，每个选择项支持设置文本和选中的回调事件。
+  radioContent: Array<SheetInfo> | Array<ResourceStr>; //选择弹出框的子项内容列表，每个选择项支持设置文本和选中的回调事件。
   onCheckedChanged: NumberCalBack; //选择回调
+  onAction: ActionCallBack; //按钮的CallBack事件。
+
 }

@@ -21,8 +21,8 @@ struct Index {
   build() {
     Column() {
       ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
+        title: this.describe?.name ?? "",
+        subtitle: this.describe?.desc ?? "",
       })
       Divider()
       Scroll(this.scroller) {
