@@ -221,7 +221,6 @@ OpenHarmony ohpm
     
     //吐司
     DialogHelper.showToast("这是一个自定义吐司");
-    
     DialogHelper.showToastLong("这是一个自定义的长吐司呀");
     
     
