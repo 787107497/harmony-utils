@@ -197,15 +197,15 @@ OpenHarmony ohpm
     })
     
     
-    //自定义弹窗
+   //自定义弹窗
     let drawer: DrawerOptions = {
       width: 260,
       msg: "这是一个自定义弹框，DrawerLayout",
       alignment: DialogAlignment.CenterStart,
       offset: { dx: 0, dy: 0 },
       transition: AnimationHelper.transitionInLeft(250)
-    };
-    DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer);
+    }
+    DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer)
     
     
     //进度加载类弹出框
@@ -216,12 +216,12 @@ OpenHarmony ohpm
     
     
     //进度条加载弹框
-    DialogHelper.showLoadingProgress({ progress: this.progress });
+    DialogHelper.showLoadingProgress({ progress: this.progress })
     
     
     //吐司
-    DialogHelper.showToast("这是一个自定义吐司");
-    DialogHelper.showToastLong("这是一个自定义的长吐司呀");
+    DialogHelper.showToast("这是一个自定义吐司")
+    DialogHelper.showToastLong("这是一个自定义的长吐司呀")
     
     
     //吐司Tip
