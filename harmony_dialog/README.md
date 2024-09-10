@@ -228,7 +228,17 @@ OpenHarmony ohpm
     })
  ```
 
-<br><br>
+ ```
+   //自定义弹窗
+    let drawer: DrawerOptions = {
+      width: 260,
+      msg: "这是一个自定义弹框，DrawerLayout",
+      alignment: DialogAlignment.CenterStart,
+      offset: { dx: 0, dy: 0 },
+      transition: AnimationHelper.transitionInLeft(250)
+    }
+    DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer)
+ ```
 
 ## 🍎贡献代码与技术交流
 
