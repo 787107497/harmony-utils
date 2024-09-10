@@ -94,8 +94,9 @@ OpenHarmony ohpm
       config.toast_duration = 2000; //显示时长(1500ms-10000ms)
       config.toast_durationLong = 10000; //显示时长(10000ms)
     });
-    
-    
+ ```
+
+ ```
     //操作确认类弹出框
     DialogHelper.showAlertDialog({
       content: "确定保存该WPS文件吗？",
@@ -203,7 +204,7 @@ OpenHarmony ohpm
  ```
 
  ```
-    //自定义弹窗
+   //自定义弹窗
     let drawer: DrawerOptions = {
       width: 260,
       msg: "这是一个自定义弹框，DrawerLayout",
