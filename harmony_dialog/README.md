@@ -142,8 +142,9 @@ OpenHarmony ohpm
         ToastUtil.showToast(`${action} --- ${value}`);
       }
     })
-    
-    
+ ```
+
+ ```
     //单行文本输入弹出框
     DialogHelper.showTextInputDialog({
       text: this.inputText,
@@ -181,8 +182,9 @@ OpenHarmony ohpm
         ToastUtil.showToast(`${action}`);
       }
     })
-    
-    
+ ```
+
+ ```
     //动作面板
     DialogHelper.showBottomSheetDialog({
       title: "请选择上传方式",
