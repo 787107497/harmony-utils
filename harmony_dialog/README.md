@@ -53,7 +53,7 @@ OpenHarmony ohpm
 
 ## 📚示例代码
 
- ```
+ ``````
     //设置默认的统一配置
     DialogHelper.setDefaultConfig((config) => {
       config.autoCancel = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
@@ -197,7 +197,7 @@ OpenHarmony ohpm
     })
     
     
-   //自定义弹窗
+    //自定义弹窗
     let drawer: DrawerOptions = {
       width: 260,
       msg: "这是一个自定义弹框，DrawerLayout",
@@ -213,7 +213,7 @@ OpenHarmony ohpm
       content: "努力加载中",
       autoCancel: false
     })
-    
+
     
     //进度条加载弹框
     DialogHelper.showLoadingProgress({ progress: this.progress })
@@ -230,7 +230,7 @@ OpenHarmony ohpm
       imageRes: $r('sys.media.ohos_ic_public_ok')
     })
     
- ```
+ ``````
 
 <br><br>
 
