@@ -58,7 +58,7 @@ OpenHarmony ohpm
 
 ## 📚示例代码
 
- ``````
+ ```
     //设置默认的统一配置
     DialogHelper.setDefaultConfig((config) => {
       config.autoCancel = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
@@ -200,8 +200,9 @@ OpenHarmony ohpm
         ToastUtil.showToast(`您点击了，${this.menuArray[index]}`);
       }
     })
-    
-    
+ ```
+
+ ```
     //自定义弹窗
     let drawer: DrawerOptions = {
       width: 260,
@@ -211,8 +212,9 @@ OpenHarmony ohpm
       transition: AnimationHelper.transitionInLeft(250)
     }
     DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer)
-    
-    
+ ```
+
+ ```
     //进度加载类弹出框
     DialogHelper.showLoadingDialog({
       content: "努力加载中",
@@ -222,8 +224,9 @@ OpenHarmony ohpm
     
     //进度条加载弹框
     DialogHelper.showLoadingProgress({ progress: this.progress })
-    
-    
+ ```
+
+ ```  
     //吐司
     DialogHelper.showToast("这是一个自定义吐司")
     DialogHelper.showToastLong("这是一个自定义的长吐司呀")
@@ -234,8 +237,7 @@ OpenHarmony ohpm
       message: "操作成功",
       imageRes: $r('sys.media.ohos_ic_public_ok')
     })
-    
- ``````
+ ```
 
 <br><br>
 
