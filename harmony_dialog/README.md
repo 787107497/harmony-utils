@@ -204,18 +204,6 @@ OpenHarmony ohpm
  ```
 
  ```
-   //自定义弹窗
-    let drawer: DrawerOptions = {
-      width: 260,
-      msg: "这是一个自定义弹框，DrawerLayout",
-      alignment: DialogAlignment.CenterStart,
-      offset: { dx: 0, dy: 0 },
-      transition: AnimationHelper.transitionInLeft(250)
-    }
-    DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer)
- ```
-
- ```
     //进度加载类弹出框
     DialogHelper.showLoadingDialog({
       content: "努力加载中",
