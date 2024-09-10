@@ -56,7 +56,7 @@ OpenHarmony ohpm
 | transitionInLeft  | InLeft动画  |
 | transitionInRight | InRight动画 |
 
-## 📚示例代码
+## 📚示例代码 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
 
  ```
     //设置默认的统一配置
