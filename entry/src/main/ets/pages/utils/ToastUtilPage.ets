@@ -1,5 +1,6 @@
 import { ComposeTitleBar, promptAction, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
+import { DialogHelper } from '@pura/harmony-dialog';
 import { ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -78,6 +79,12 @@ struct Index {
                 config.offset = { dx: 0, dy: -80 }
               });
               ToastUtil.showLong("样式(三)设置成功");
+              DialogHelper.showAlertDialog({
+                uiContext: this.getUIContext(),
+                onAction: (action) => {
+
+                }
+              })
             })
 
           Blank().layoutWeight(1)

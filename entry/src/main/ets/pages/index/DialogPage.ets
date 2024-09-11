@@ -27,6 +27,7 @@ export struct DialogPage {
    */
   customConfig1() {
     DialogHelper.setDefaultConfig((config) => {
+      config.uiContext = this.getUIContext()
       config.autoCancel = false; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。
       config.backCancel = false; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。
       config.actionCancel = true; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。
@@ -61,6 +62,11 @@ export struct DialogPage {
       config.toast_durationLong = 5000; //显示时长
     });
     ToastUtil.showToast("统一配置设置成功！");
+
+    // WindowUtil.createWindow({
+    //   contentRouter:"pages/utils/ToastUtilPage"
+    // })
+
   }
 
   /**
@@ -286,7 +292,9 @@ export struct DialogPage {
     if (index == 0) {
       //简单使用
       DialogHelper.showTipsDialog({
+        uiContext:this.getUIContext(),
         content: '想要卸载这个APP嘛?',
+        showInSubWindow:false,
         onAction: (action) => {
           ToastUtil.showToast(`${action}`);
         }

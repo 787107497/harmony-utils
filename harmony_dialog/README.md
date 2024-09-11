@@ -56,11 +56,33 @@ OpenHarmony ohpm
 | transitionInLeft  | InLeft动画  |
 | transitionInRight | InRight动画 |
 
+
+## 📚使用说明🙏
+ ```
+  在有子窗口的情况下并且子窗口没有占满全屏的情况下，必须按照下面代码代码初始化和调用
+ 
+    //必须在UIAbility的onCreate方法里初始化context。
+    DialogHelper.setDefaultConfig((config) => {
+      config.uiContext = this.context;
+    })
+    
+    //在子窗口 使用弹框需要传入uiContext
+    DialogHelper.showTipsDialog({
+      uiContext:this.getUIContext(), //子窗口需要传入UIContext
+      content: '想要卸载这个APP嘛?',
+      showInSubWindow:false,
+      onAction: (action) => {
+        ToastUtil.showToast(`${action}`);
+      }
+    })
+ ```
+
 ## 📚示例代码 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
 
  ```
-    //设置默认的统一配置
+    //设置默认的统一配置，在UIAbility的onCreate方法里初始化
     DialogHelper.setDefaultConfig((config) => {
+      config.uiContext = this.context  //必须初始化上下文
       config.autoCancel = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
       config.backCancel = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
       config.actionCancel = true; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
@@ -242,7 +264,7 @@ OpenHarmony ohpm
     DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer)
  ```
 
-## 🍎贡献代码与技术交流
+## 🍎沟通与交流🙏
 
 使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues) 给我们；   
 当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。

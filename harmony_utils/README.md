@@ -72,7 +72,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 }
  ```
 
-### AppUtil（APP相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AppUtilPage.ets)
+## AppUtil（APP相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AppUtilPage.ets)
 
 | 方法                           | 介绍                                                                       |
 |:-----------------------------|:-------------------------------------------------------------------------|
@@ -111,7 +111,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | toFileManagement             | 拉起系统文件管理器                                                                |
 | exit                         | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
 
-### DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
+## DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
 | 方法                                              | 介绍                                  |
 |:------------------------------------------------|:------------------------------------|
@@ -134,7 +134,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | startVibration                                  | 开启设备振动                              |
 | stopVibration                                   | 停止设备振动（按照VIBRATOR_STOP_MODE_TIME模式） |
 
-### DisplayUtil（屏幕相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DisplayUtilPage.ets)
+## DisplayUtil（屏幕相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DisplayUtilPage.ets)
 
 | 方法                    | 介绍                                   |
 |:----------------------|:-------------------------------------|
@@ -151,7 +151,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onFoldStatusChange    | 开启折叠设备折叠状态变化的监听                      |
 | offFoldStatusChange   | 关闭折叠设备折叠状态变化的监听                      |
 
-### PermissionUtil（申请授权工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PermissionUtilPage.ets)
+## PermissionUtil（申请授权工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PermissionUtilPage.ets)
 
 | 方法                             | 介绍                                |
 |:-------------------------------|:----------------------------------|
@@ -162,7 +162,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | requestPermissionOnSetting     | 二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。  |
 | requestPermissionOnSettingEasy | 二次向用户申请授权（多个权限建议使用该方法）。           |
 
-### NotificationUtil（通知工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
+## NotificationUtil（通知工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
 
 | 方法                                                  | 介绍                    |
 |:----------------------------------------------------|:----------------------|
@@ -192,7 +192,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | generateNotificationId                              | 生成通知id（用时间戳当id）       |
 | getDefaultWantAgent                                 | 创建一个可拉起Ability的Want   |
 
-### EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
+## EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
 
 | 方法            | 介绍       |
 |:--------------|:---------|
@@ -201,7 +201,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onceSubscribe | 单次订阅指定事件 |
 | unSubscribe   | 取消事件订阅   |
 
-### DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
+## DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
 
 | 方法                  | 介绍               |
 |:--------------------|:-----------------|
@@ -217,7 +217,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showTimePicker      | 时间滑动选择器弹窗        |
 | showTextPicker      | 文本滑动选择器弹窗        |
 
-### ToastUtil（吐司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
+## ToastUtil（吐司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
 
 | 方法               | 介绍               |
 |:-----------------|:-----------------|
@@ -226,7 +226,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showShort        | 弹出短吐司，默认时长为:1.5s |
 | showLong         | 弹出长吐司，默认时长为:10s  |
 
-### AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
+## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
 | 方法                 | 介绍                 |
 |:-------------------|:-------------------|
@@ -235,7 +235,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onStart            | 开始认证，用户指定类型认证      |
 | cancel             | 取消认证               |
 
-### PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
+## PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
 
 | 方法                            | 介绍                                                          |
 |:------------------------------|:------------------------------------------------------------|
@@ -251,7 +251,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | clear<br/>clearSync           | 清空缓存                                                        |
 | deletePreferences             | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
 
-### CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
+## CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
 
 | 方法  | 介绍         |
 |:----|:-----------|
@@ -259,7 +259,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | put | 将数据存入缓存中   |
 | get | 获取缓存中的数据   |
 
-### FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
+## FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
 | 方法                                                | 介绍                                     |
 |:--------------------------------------------------|:---------------------------------------|
@@ -307,7 +307,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getRawFileContent<br/>getRawFileContentSync       | 获取resources/rawfile目录下对应的rawfile文件内容   |
 | getRawFileContentStr<br/>getRawFileContentStrSync | 获取resources/rawfile目录下对应的rawfile文件内容   |
 
-### PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
+## PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
 
 | 方法             | 介绍                                                  |
 |:---------------|:----------------------------------------------------|
@@ -319,7 +319,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
 | saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
 
-### PhotoHelper（相册相关,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
+## PhotoHelper（相册相关,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
 
 | 方法            | 介绍                                     |
 |:--------------|:---------------------------------------|
@@ -327,7 +327,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | save          | 保存图片或视频到相册                             |
 | getPhotoAsset | 获取对应uri的PhotoAsset对象,用于读取文件信息          |
 
-### ImageUtil（图片相关工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ImageUtilPage.ets)
+## ImageUtil（图片相关工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ImageUtilPage.ets)
 
 | 方法                        | 介绍                                |
 |:--------------------------|:----------------------------------|
@@ -343,7 +343,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | packToFileFromImageSource | 将ImageSource图片源编码后直接打包进文件         |
 | getPixelMapFromMedia      | 用户获取resource目录下的media中的图片PixelMap |
 
-### SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
+## SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
 
 | 方法                | 介绍                                             |
 |:------------------|:-----------------------------------------------|
@@ -351,7 +351,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | createFromBuilder | 在应用后台渲染CustomBuilder自定义组件，并输出其截图               |
 | snapshot          | 获取窗口截图，使用Promise异步回调                           |
 
-### ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
+## ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
 
 | 方法                    | 介绍                           |
 |:----------------------|:-----------------------------|
@@ -361,7 +361,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
 | canIUseScan           | 判断当前设备是否支持码能力                |
 
-### PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
+## PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
 
 | 方法                  | 介绍                          |
 |:--------------------|:----------------------------|
@@ -378,7 +378,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getIconFileStr      | 根据文件后缀名获取对应文件类型的图标          |
 | getMimeTypeMap      | filePreview支持的预览文件类型        |
 
-### LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
+## LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
 
 | 方法                            | 介绍                    |
 |:------------------------------|:----------------------|
@@ -396,7 +396,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getGeoAddressFromLocation     | 逆地理编码,将坐标转换为地理描述集合    |
 | getCountryCode                | 获取当前的国家码              |
 
-### LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)
+## LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)
 
 | 方法         | 介绍                                           |
 |:-----------|:---------------------------------------------|
@@ -411,7 +411,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | fatal      | 打印FATAL级别日志                                  |
 | print      | 打印JSON对象和JSON字符串（日志过滤tag为：JSAPP）             |
 
-### DateUtil（日期工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DateUtilPage.ets)
+## DateUtil（日期工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DateUtilPage.ets)
 
 | 方法                    | 介绍                          |
 |:----------------------|:----------------------------|
@@ -451,7 +451,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getFormatRelativeTime | 格式化相对时间                     |
 | getTipDateStr         | 格式化时间戳，获取提示性时间字符串           |
 
-### StrUtil（字符串工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
+## StrUtil（字符串工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
 
 | 方法                   | 介绍                                     |
 |:---------------------|:---------------------------------------|
@@ -487,7 +487,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | isEmoji              | 判断字符串是否包含表情（匹配单个emoji或多个组合emoji的正则表达式） |
 | getErrnoToString     | 获取系统错误码对应的详细信息                         |
 
-### CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
+## CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
 
 | 方法           | 介绍                             |
 |:-------------|:-------------------------------|
@@ -502,7 +502,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | isBlankChar  | 判断是否空白符 空白符包括空格、制表符、全角空格和不间断空格 |
 | isAscii      | 判断字符是否位于ASCII范围内（0~127）        |
 
-### Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
+## Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
 
 | 方法                              | 介绍                           |
 |:--------------------------------|:-----------------------------|
@@ -510,7 +510,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | encodeToStr<br/>encodeToStrSync | 编码，通过输入参数编码后输出对应文本           |
 | encode<br/>decodeSync           | 编码，通过输入参数编码后输出Uint8Array对象   |
 
-### NumberUtil（number工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NumberUtilPage.ets)
+## NumberUtil（number工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NumberUtilPage.ets)
 
 | 方法       | 介绍         |
 |:---------|:-----------|
@@ -518,7 +518,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | toInt    | 将字符串转换为整数  |
 | toFloat  | 将字符串转换为浮点数 |
 
-### ArrayUtil（集合工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ArrayUtilPage.ets)
+## ArrayUtil（集合工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ArrayUtilPage.ets)
 
 | 方法          | 介绍                          |
 |:------------|:----------------------------|
@@ -535,7 +535,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | flatten     | 平铺二维数组                      |
 | union       | 平铺二维数组，并去重                  |
 
-### RandomUtil（随机工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RandomUtilPage.ets)
+## RandomUtil（随机工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RandomUtilPage.ets)
 
 | 方法                       | 介绍                                            |
 |:-------------------------|:----------------------------------------------|
@@ -553,7 +553,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | generateRandomUUID       | 使用加密安全随机数生成器生成随机的RFC 4122版本4的string类型UUID     |
 | generateRandomBinaryUUID | 使用加密安全随机数生成器生成随机的RFC 4122版本4的Uint8Array类型UUID |
 
-### ObjectUtil（对象工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets)
+## ObjectUtil（对象工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets)
 
 | 方法         | 介绍                                |
 |------------|:----------------------------------|
@@ -563,7 +563,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | deepCopy   | 深度拷贝对象                            |
 | objToClass | obj转class，解决obj as class后丢失方法的问题。 |
 
-### JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
+## JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
 
 | 方法            | 介绍              |
 |:--------------|:----------------|
@@ -573,14 +573,14 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | beanToJsonStr | 对象转字符串          |
 | isJSONStr     | 判断是否是字符串格式json  |
 
-### ClickUtil（节流、防抖 工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ClickUtilPage.ets)
+## ClickUtil（节流、防抖 工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ClickUtilPage.ets)
 
 | 方法       | 介绍                               |
 |:---------|:---------------------------------|
 | throttle | 节流：在一定时间内，只触发一次                  |
 | debounce | 防抖：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数 |
 
-### CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
+## CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
 
 | 方法                | 介绍                                                                |
 |:------------------|:------------------------------------------------------------------|
@@ -593,7 +593,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
 | setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
 
-### PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
+## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 
 | 方法                            | 介绍            |
 |:------------------------------|:--------------|
@@ -605,7 +605,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
 | clearData                     | 清空系统剪贴板内容     |
 
-### KeyboardUtil（键盘工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets)
+## KeyboardUtil（键盘工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets)
 
 | 方法                     | 介绍                |
 |:-----------------------|:------------------|
@@ -615,7 +615,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onInputTextChanged     | 订阅文本内容变化          |
 | removeInputTextChanged | 取消订阅文本内容变化        |
 
-### NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
+## NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
 
 | 方法                | 介绍                         |
 |:------------------|:---------------------------|
@@ -627,7 +627,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | register          | 订阅指定网络状态变化的通知，支持多事件监听回调    |
 | unregister        | 取消订阅默认网络状态变化的通知            |
 
-### AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
+## AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 
 | 方法                    | 介绍          |
 |:----------------------|:------------|
@@ -636,14 +636,14 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | remove<br/>removeSync | 删除关键资产      |
 | canIUse               | 当前设备是否支持该模块 |
 
-### TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
+## TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
 
 | 方法  | 介绍      |
 |:----|:--------|
 | F2C | 华氏度转摄氏度 |
 | C2F | 摄氏度转华氏度 |
 
-### SM2（SM2加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM2Page.ets)
+## SM2（SM2加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM2Page.ets)
 
 | 方法                                          | 介绍                                        |
 |:--------------------------------------------|:------------------------------------------|
@@ -659,7 +659,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | signSegment<br/>signSegmentSync             | 对数据进行分段签名                                 |
 | verifySegment<br/>verifySegmentSync         | 对数据进行分段验签                                 |
 
-### SM3（SM3工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM3Page.ets)
+## SM3（SM3工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM3Page.ets)
 
 | 方法                                  | 介绍            |
 |:------------------------------------|:--------------|
@@ -668,7 +668,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | hmac<br/>hmacSync                   | SM3消息认证码计算    |
 | hmacSegment<br/>hmacSegmentSync     | SM3消息认证码计算，分段 |
 
-### SM4（SM4加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM4Page.ets)
+## SM4（SM4加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM4Page.ets)
 
 | 方法                                          | 介绍           |
 |:--------------------------------------------|:-------------|
@@ -684,7 +684,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | decryptGCMSegment<br/>decryptGCMSegmentSync | 解密（GCM模式）分段  |
 | generateSymKey<br/>generateSymKeySync       | 生成对称密钥SymKey |
 
-### AES（AES加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/AESPage.ets)
+## AES（AES加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/AESPage.ets)
 
 | 方法                                          | 介绍           |
 |:--------------------------------------------|:-------------|
@@ -700,7 +700,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | decryptGCMSegment<br/>decryptGCMSegmentSync | 解密（GCM模式）分段  |
 | generateSymKey<br/>generateSymKeySync       | 生成对称密钥SymKey |
 
-### DES（DES加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/DESPage.ets)
+## DES（DES加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/DESPage.ets)
 
 | 方法                                    | 介绍           |
 |:--------------------------------------|:-------------|
@@ -712,7 +712,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | decryptCBC<br/>decryptCBCSync         | 解密（CBC模式）    |
 | generateSymKey<br/>generateSymKeySync | 生成对称密钥SymKey |
 
-### RSA（RSA加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/RSAPage.ets)
+## RSA（RSA加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/RSAPage.ets)
 
 | 方法                                          | 介绍                     |
 |:--------------------------------------------|:-----------------------|
@@ -728,7 +728,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | verifySegment<br/>verifySegmentSync         | 对数据进行分段验签              |
 | recover<br/>recoverSync                     | 对数据进行签名恢复原始数据，目前仅RSA支持 |
 
-### MD5（MD5工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/MD5Page.ets)
+## MD5（MD5工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/MD5Page.ets)
 
 | 方法                                  | 介绍         |
 |:------------------------------------|:-----------|
@@ -737,7 +737,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | hmac<br/>hmacSync                   | 消息认证码计算    |
 | hmacSegment<br/>hmacSegmentSync     | 消息认证码计算，分段 |
 
-### SHA（SHA工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SHAPage.ets)
+## SHA（SHA工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SHAPage.ets)
 
 | 方法                                  | 介绍         |
 |:------------------------------------|:-----------|
@@ -746,7 +746,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | hmac<br/>hmacSync                   | 消息认证码计算    |
 | hmacSegment<br/>hmacSegmentSync     | 消息认证码计算，分段 |
 
-### ECDSA（ECDSA工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/ECDSAPage.ets)
+## ECDSA（ECDSA工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/ECDSAPage.ets)
 
 | 方法                                  | 介绍        |
 |:------------------------------------|:----------|
@@ -755,7 +755,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | signSegment<br/>signSegmentSync     | 对数据进行分段签名 |
 | verifySegment<br/>verifySegmentSync | 对数据进行分段验签 |
 
-### CryptoUtil（加解密公用工具类，配合各个加密模块使用）
+## CryptoUtil（加解密公用工具类，配合各个加密模块使用）
 
 | 方法                                          | 介绍                |
 |:--------------------------------------------|:------------------|
@@ -780,7 +780,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | hmac<br/>hmacSync                           | 消息认证码计算           |
 | hmacSegment<br/>hmacSegmentSync             | 消息认证码计算，分段        |
 
-### CryptoHelper（加解密数据类型转换，配合各个加密模块使用）
+## CryptoHelper（加解密数据类型转换，配合各个加密模块使用）
 
 | 方法                       | 介绍                    |
 |:-------------------------|:----------------------|

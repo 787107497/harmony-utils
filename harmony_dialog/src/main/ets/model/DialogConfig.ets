@@ -8,6 +8,8 @@
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
+import { common } from '@kit.AbilityKit';
+
 export class DialogConfig {
 
   //---------------------------------------弹框Dialog--------------------------------------------------------------------
@@ -55,6 +57,7 @@ export class DialogConfig {
 
 
   //------------------------------------公共参数---promptAction.BaseDialogOptions----------------------------------------
+  uiContext?: common.UIAbilityContext | UIContext; //UIContext或者UIAbilityContext，建议设置UIAbilityContext
   backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
   alignment: DialogAlignment = DialogAlignment.Center; //弹窗的对齐方式。
   offset: Offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }

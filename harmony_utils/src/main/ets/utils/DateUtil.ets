@@ -21,6 +21,9 @@ export class DateUtil {
    * @returns
    */
   static getFormatDate(date: number | string | Date | undefined): Date {
+    if (date && typeof date == 'string' && (date.toString().length == 10 || date.toString().length == 13)) {
+      date = DateUtil.toNumber(date); //将字符串时间戳 转为 number
+    }
     if (date == undefined || date == null) { //无参数
       date = new Date();
     } else if (typeof (date) == "string") { //字符串日期
@@ -468,6 +471,25 @@ export class DateUtil {
    */
   private static padZero(num: number): string {
     return num.toString().padStart(2, "0");
+  }
+
+
+  /**
+   * 格式化字符串时间戳。
+   * @param value
+   * @param defaultValue
+   * @returns
+   */
+  private static toNumber(value: string): number|string {
+    try {
+      const parsedValue = parseFloat(value);
+      if (isNaN(parsedValue)) {
+        return value;
+      }
+      return parsedValue;
+    } catch (e) {
+      return value
+    }
   }
 
 

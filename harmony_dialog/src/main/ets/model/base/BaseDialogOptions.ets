@@ -12,6 +12,7 @@ import { ActionCallBack } from '../../utils/constraint';
  * QQ交流群: 569512366
  */
 export interface BaseDialogOptions {
+  uiContext?: UIContext; //UIContext上下文
   onAction?: ActionCallBack; //按钮的CallBack事件。
   backCancel?: boolean; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
 

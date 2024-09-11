@@ -35,6 +35,7 @@ import { CacheUtil } from '../utils/CacheUtil';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
 import { DialogAction } from '../utils/constraint';
+import { UIContext } from '@kit.ArkUI';
 
 
 /**
@@ -48,6 +49,7 @@ import { DialogAction } from '../utils/constraint';
  */
 export class DialogHelper {
   private static config: DialogConfig = new DialogConfig(); //默认样式
+  private static mainUIContext: UIContext | undefined; //MainWindow的UIContext
   private static loadingDialogId: string = "harmony_dialog_LoadingDialog_id"; //加载弹框id
   private static cacheOptions: LoadingProgressOptions | null = null; //缓存进度加载框参数
 
@@ -58,6 +60,21 @@ export class DialogHelper {
    */
   static setDefaultConfig(configs: (config: DialogConfig) => void): void {
     configs(DialogHelper.config);
+  }
+
+
+  /**
+   * 获取MainWindow的UIContext
+   * @returns
+   */
+  static getMainUIContext(): UIContext | undefined {
+    if (DialogHelper.mainUIContext) {
+      return DialogHelper.mainUIContext;
+    }
+    if (DialogHelper.config?.uiContext instanceof UIContext) {
+      return DialogHelper.config.uiContext;
+    }
+    return DialogHelper.config?.uiContext?.windowStage?.getMainWindowSync()?.getUIContext();
   }
 
 
@@ -330,6 +347,7 @@ export class DialogHelper {
    * @param options
    */
   private static initBaseDefault(options: BaseDialogOptions) {
+    options.uiContext = options.uiContext ?? DialogHelper.getMainUIContext();
     options.isModal = options.isModal ?? DialogHelper.config.isModal; //弹窗是否为模态窗口。
     options.showInSubWindow = options.showInSubWindow ?? DialogHelper.config.showInSubWindow; //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
     options.autoCancel = options.autoCancel ?? DialogHelper.config.autoCancel; //点击遮障层时，是否关闭弹窗。
@@ -704,6 +722,7 @@ export class DialogHelper {
    * @param options
    */
   private static initLoadingDefault(options: LoadingOptions) {
+    options.uiContext = options.uiContext ?? DialogHelper.getMainUIContext();
     options.dialogId = DialogHelper.loadingDialogId; //加载框id
     options.alignment = DialogAlignment.Center; //弹窗的对齐方式。
     options.isModal = options.isModal ?? DialogHelper.config.isModal; //弹窗是否为模态窗口。
@@ -752,6 +771,7 @@ export class DialogHelper {
    * @param options
    */
   private static initToastDefault(options: ToastOptions) {
+    options.uiContext = options.uiContext ?? DialogHelper.getMainUIContext();
     options.maskColor = Color.Transparent; //弹框自定义蒙层颜色。
     options.autoCancel = false; //点击遮障层时，是否关闭弹窗。
     options.isModal = false; //弹窗是否为模态窗口。

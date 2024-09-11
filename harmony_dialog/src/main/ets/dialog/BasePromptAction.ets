@@ -39,14 +39,18 @@ export class BasePromptAction {
     if (!options.dialogId) {
       options.dialogId = this.generateDialogId();
     }
-    if (this.isWindowFocused(this.cacheWindow)) {
-      this.openBaseCustomDialog(this.uiContext!, contentView, options);
+    if (options.uiContext) {
+      this.openBaseCustomDialog(options.uiContext, contentView, options);
     } else {
-      window.getLastWindow(getContext()).then((result: window.Window) => {
-        this.cacheWindow = result;
-        this.uiContext = result.getUIContext();
-        this.openBaseCustomDialog(this.uiContext, contentView, options);
-      })
+      if (this.isWindowFocused(this.cacheWindow)) {
+        this.openBaseCustomDialog(this.uiContext!, contentView, options);
+      } else {
+        window.getLastWindow(getContext()).then((result: window.Window) => {
+          this.cacheWindow = result;
+          this.uiContext = result.getUIContext();
+          this.openBaseCustomDialog(this.uiContext, contentView, options);
+        })
+      }
     }
     return options.dialogId;
   }
@@ -193,19 +197,5 @@ export class BasePromptAction {
     }
   }
 
-
-  /**
-   * 判断当前窗口是否已显示
-   * @param window
-   * @returns
-   */
-  private isWindowShowing(window?: window.Window): boolean {
-    try {
-      let isFocused = window?.isWindowShowing() ?? false;
-      return isFocused;
-    } catch (e) {
-      return false;
-    }
-  }
 
 }

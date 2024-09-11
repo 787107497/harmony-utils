@@ -31,7 +31,7 @@ export class WindowUtil {
       options = new WinOptions();
     }
     if (!options.name) {
-      options.name = 'utils0111111';
+      options.name = 'utils001';
     }
     if (options.windowType == undefined) {
       options.windowType = window.WindowType.TYPE_DIALOG;
@@ -51,7 +51,7 @@ export class WindowUtil {
       WindowUtil.cacheWindow = windowClass; //将窗口缓存
       await windowClass.setUIContent(options.contentRouter);
       let d = display.getDefaultDisplaySync();
-      await windowClass.resize(d.width, d.height);
+      await windowClass.resize(d.width/2, d.height/2);
       windowClass.setWindowBackgroundColor(options.bgColor);
       await windowClass.showWindow();
     } catch (err) {
