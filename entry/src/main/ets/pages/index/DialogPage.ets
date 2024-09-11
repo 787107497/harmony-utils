@@ -3,6 +3,7 @@ import { ToastUtil } from '@pura/harmony-utils';
 import { LabelButton } from '../../component/LabelButton';
 import { DrawerOptions } from '../../utils/DrawerOptions';
 import { MyCustomOptions } from '../../utils/MyCustomOptions';
+import { WindowUtil } from '../../utils/WindowUtil';
 
 /**
  * TODO 弹窗工具

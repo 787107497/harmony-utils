@@ -70,7 +70,6 @@ OpenHarmony ohpm
     DialogHelper.showTipsDialog({
       uiContext:this.getUIContext(), //子窗口需要传入UIContext
       content: '想要卸载这个APP嘛?',
-      showInSubWindow:false,
       onAction: (action) => {
         ToastUtil.showToast(`${action}`);
       }

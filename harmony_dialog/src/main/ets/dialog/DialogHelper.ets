@@ -573,6 +573,7 @@ export class DialogHelper {
           value: primaryValue,
           action: () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
+              console.error("1111111111111111111111111111111:点击操作按钮时，是否关闭弹窗")
               DialogHelper.closeDialog(options.dialogId ?? "");
             }
             if (options.onAction) {
@@ -585,6 +586,7 @@ export class DialogHelper {
         let primaryAction = primaryButton.action;
         primaryButton.action = () => {
           if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
+            console.error("1111111111111111111111111111111:点击操作按钮时，是否关闭弹窗")
             DialogHelper.closeDialog(options.dialogId ?? "");
           }
           if (primaryAction) {
@@ -603,6 +605,7 @@ export class DialogHelper {
           value: secondaryValue,
           action: () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
+              console.error("21111111111111111111111111111111:点击操作按钮时，是否关闭弹窗")
               DialogHelper.closeDialog(options.dialogId ?? "");
             }
             if (options.onAction) {
@@ -615,6 +618,7 @@ export class DialogHelper {
         let secondaryAction = secondaryButton.action;
         secondaryButton.action = () => {
           if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
+            console.error("21111111111111111111111111111111:点击操作按钮时，是否关闭弹窗")
             DialogHelper.closeDialog(options.dialogId ?? "");
           }
           if (secondaryAction) {

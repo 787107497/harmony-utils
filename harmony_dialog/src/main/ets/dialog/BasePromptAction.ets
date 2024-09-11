@@ -96,7 +96,7 @@ export class BasePromptAction {
           }
         },
       }
-      this.addArg(options.dialogId ?? "", componentContent); //显示弹框时，添加
+      this.addArg(options.dialogId ?? "", uiContext, componentContent); //显示弹框时，添加
       let promptAction = uiContext.getPromptAction();
       promptAction.openCustomDialog(componentContent, option);
     } else {
@@ -110,12 +110,10 @@ export class BasePromptAction {
    * @param dialogId
    */
   closeCustomDialog(dialogId: string) {
-    if (this.uiContext) {
-      let promptActionArg: PromptActionArg | undefined = this.getArgById(dialogId);
-      if (promptActionArg) {
-        let promptAction = this.uiContext.getPromptAction();
-        promptAction.closeCustomDialog(promptActionArg.componentContent);
-      }
+    let promptActionArg: PromptActionArg | undefined = this.getArgById(dialogId);
+    if (promptActionArg && promptActionArg.uiContext) {
+      let promptAction = promptActionArg.uiContext.getPromptAction();
+      promptAction.closeCustomDialog(promptActionArg.componentContent);
     }
   }
 
@@ -164,8 +162,8 @@ export class BasePromptAction {
    * @param dialogId
    * @param componentContent
    */
-  private addArg(dialogId: string, componentContent: ComponentContent<Object>) {
-    let arg: PromptActionArg = { dialogId: dialogId, componentContent: componentContent }
+  private addArg(dialogId: string, uiContext: UIContext, componentContent: ComponentContent<Object>) {
+    let arg: PromptActionArg = { dialogId: dialogId, uiContext: uiContext, componentContent: componentContent }
     this.caches.unshift(arg);
   }
 

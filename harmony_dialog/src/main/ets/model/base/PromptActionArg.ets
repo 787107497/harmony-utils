@@ -9,5 +9,6 @@
  */
 export interface PromptActionArg {
   dialogId: string;
+  uiContext: UIContext;
   componentContent: ComponentContent<Object>;
 }

@@ -1,3 +1,6 @@
+import { common } from '@kit.AbilityKit';
+
+
 /**
  * TODO 弹窗工具类，默认样式参数
  * author: 桃花镇童长老ᥫ᭡
@@ -8,8 +11,6 @@
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-import { common } from '@kit.AbilityKit';
-
 export class DialogConfig {
 
   //---------------------------------------弹框Dialog--------------------------------------------------------------------
@@ -59,13 +60,13 @@ export class DialogConfig {
   //------------------------------------公共参数---promptAction.BaseDialogOptions----------------------------------------
   uiContext?: common.UIAbilityContext | UIContext; //UIContext或者UIAbilityContext，建议设置UIAbilityContext
   backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
+  autoCancel: boolean = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
   alignment: DialogAlignment = DialogAlignment.Center; //弹窗的对齐方式。
   offset: Offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
   maskRect: Rectangle = { x: 0, y: 0, width: '100%', height: '100%' }; //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
   maskColor: ResourceColor = 0x33000000; //自定义蒙层颜色。默认值 0x33000000
   isModal: boolean = true; //弹窗是否为模态窗口，模态窗口有蒙层，非模态窗口无蒙层。默认值：true，此时弹窗有蒙层。
   showInSubWindow: boolean = false; //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
-  autoCancel: boolean = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
   transition?: TransitionEffect; //设置弹窗显示和退出的过渡效果。
   onWillDismiss?: Callback<DismissDialogAction>; //交互式关闭回调函数。
   onDidDisappear?: VoidCallback; //弹窗消失时的事件回调。
