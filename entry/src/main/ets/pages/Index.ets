@@ -11,7 +11,7 @@ import { OtherPage } from './index/OtherPage';
 @Component
 struct Index {
   private tabsController: TabsController = new TabsController();
-  @State index: number = 1;
+  @State index: number = 0;
 
   onBackPress(): boolean {
     return false;

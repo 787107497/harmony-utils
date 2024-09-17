@@ -1,5 +1,5 @@
 import geoLocationManager from '@ohos.geoLocationManager';
-import { BusinessError, Callback } from '@ohos.base';
+import { AsyncCallback, BusinessError, Callback } from '@ohos.base';
 import { LogUtil } from './LogUtil';
 import { PermissionUtil } from './PermissionUtil';
 
@@ -18,22 +18,7 @@ export class LocationUtil {
 
   private constructor() {}
 
-
-  private static locationRequest: geoLocationManager.LocationRequest = {
-    'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
-    'scenario': geoLocationManager.LocationRequestScenario.UNSET, //表示未设置优先级，表示LocationRequestPriority无效。
-    'timeInterval': 10, //表示上报位置信息的时间间隔，单位是秒。默认值为1，取值范围为大于等于0。10秒钟获取一下位置
-    'distanceInterval': 0, //表示上报位置信息的距离间隔。单位是米，默认值为0，取值范围为大于等于0。
-    'maxAccuracy': 0 //表示精度信息，单位是米。
-  }; //开启位置变化订阅，默认Request参数
-  private static currentRequest: geoLocationManager.CurrentLocationRequest = {
-    // 'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
-    'scenario': geoLocationManager.LocationRequestScenario.DAILY_LIFE_SERVICE, //表示日常服务使用场景。适用于不需要定位用户精确位置的使用场景。此场景默认以最小1秒间隔上报定位结果。
-    'maxAccuracy': 0, //表示精度信息，单位是米。
-    'timeoutMs': 1000 //表示超时时间，单位是毫秒，最小为1000毫秒。取值范围为大于等于1000。
-  } //当前位置，默认Request参数
   private static locationCallBack: Callback<geoLocationManager.Location> //开启位置变化订阅，监听回调
-
 
 
   /**
@@ -41,7 +26,7 @@ export class LocationUtil {
    * @returns
    */
   static isLocationEnabled(): boolean {
-    return geoLocationManager.isLocationEnabled()
+    return geoLocationManager.isLocationEnabled();
   }
 
 
@@ -60,16 +45,24 @@ export class LocationUtil {
 
   /**
    * 获取当前位置，通过callback方式异步返回结果。
+   * @param callBack
+   * @returns 失败返回错误码，成功返回0。
    */
-  static getCurrentLocationEasy(callBack: Callback<geoLocationManager.Location>) {
-    geoLocationManager.getCurrentLocation(LocationUtil.currentRequest, (error: BusinessError, location: geoLocationManager.Location): void => {
-      if (error) {
-        LogUtil.error(`LocationUtil-getCurrentLocationEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      }
-      if (location && callBack) {
-        callBack(location)
-      }
-    });
+  static getCurrentLocationEasy(callBack: AsyncCallback<geoLocationManager.Location>): number {
+    try {
+      let request: geoLocationManager.CurrentLocationRequest = {
+        // 'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
+        'scenario': geoLocationManager.LocationRequestScenario.DAILY_LIFE_SERVICE, //表示日常服务使用场景。适用于不需要定位用户精确位置的使用场景。此场景默认以最小1秒间隔上报定位结果。
+        'maxAccuracy': 0, //表示精度信息，单位是米。
+        'timeoutMs': 1000 //表示超时时间，单位是毫秒，最小为1000毫秒。取值范围为大于等于1000。
+      } //当前位置，默认Request参数
+      geoLocationManager.getCurrentLocation(request, callBack);
+      return 0; //成功返回-0
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`LocationUtil-getCurrentLocationEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return error.code; //失败返回-错误码
+    }
   }
 
 
@@ -78,6 +71,14 @@ export class LocationUtil {
    * @param request
    */
   static async getCurrentLocation(request?: geoLocationManager.CurrentLocationRequest) :Promise<geoLocationManager.Location>{
+    if (!request) {
+      request = {
+        // 'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
+        'scenario': geoLocationManager.LocationRequestScenario.DAILY_LIFE_SERVICE, //表示日常服务使用场景。适用于不需要定位用户精确位置的使用场景。此场景默认以最小1秒间隔上报定位结果。
+        'maxAccuracy': 0, //表示精度信息，单位是米。
+        'timeoutMs': 1000 //表示超时时间，单位是毫秒，最小为1000毫秒。取值范围为大于等于1000。
+      } //当前位置，默认Request参数
+    }
    return await geoLocationManager.getCurrentLocation(request);
   }
 
@@ -85,14 +86,24 @@ export class LocationUtil {
   /**
    * 开启位置变化订阅，并发起定位请求。
    * @param callBack
+   * @returns 失败返回错误码，成功返回0。
    */
-  static onLocationChangeEasy(callBack: Callback<geoLocationManager.Location>) {
+  static onLocationChangeEasy(callBack: Callback<geoLocationManager.Location>): number {
     try {
+      let locationRequest: geoLocationManager.LocationRequest = {
+        'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
+        'scenario': geoLocationManager.LocationRequestScenario.UNSET, //表示未设置优先级，表示LocationRequestPriority无效。
+        'timeInterval': 10, //表示上报位置信息的时间间隔，单位是秒。默认值为1，取值范围为大于等于0。10秒钟获取一下位置
+        'distanceInterval': 0, //表示上报位置信息的距离间隔。单位是米，默认值为0，取值范围为大于等于0。
+        'maxAccuracy': 0 //表示精度信息，单位是米。
+      }; //开启位置变化订阅，默认Request参数
       LocationUtil.locationCallBack = callBack;
-      geoLocationManager.on('locationChange', LocationUtil.locationRequest, callBack);
+      geoLocationManager.on('locationChange', locationRequest, callBack);
+      return 0; //成功返回-0
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-onLocationChangeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return error.code; //失败返回-错误码
     }
   }
 
@@ -101,26 +112,27 @@ export class LocationUtil {
    * 开启位置变化订阅，并发起定位请求。
    * @param request
    * @param callBack
+   * @returns 失败返回错误码，成功返回0。
    */
-  static onLocationChange(request: geoLocationManager.LocationRequest, callBack: Callback<geoLocationManager.Location>) {
+  static onLocationChange(request: geoLocationManager.LocationRequest, callBack: Callback<geoLocationManager.Location>): number {
     try {
-      if (!request) {
-        request = LocationUtil.locationRequest;
-      }
       LocationUtil.locationCallBack = callBack;
       geoLocationManager.on('locationChange', request, callBack);
+      return 0; //成功返回-0
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-onLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return error.code; //失败返回-错误码
     }
   }
 
 
   /**
-   * 关闭位置变化订阅，并删除对应的定位请求。
+   *  关闭位置变化订阅，并删除对应的定位请求。
    * @param all 取消当前类型的所有订阅。
+   * @returns 失败返回错误码，成功返回0。
    */
-  static offLocationChange(all: boolean = false) {
+  static offLocationChange(all: boolean = false): number {
     try {
       if (all) {
         geoLocationManager.off('locationChange');
@@ -131,9 +143,11 @@ export class LocationUtil {
           geoLocationManager.off('locationChange'); //callback:需要取消订阅的回调函数。若无此参数，则取消当前类型的所有订阅。
         }
       }
+      return 0; //成功返回-0
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`LocationUtil-offLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return error.code; //失败返回-错误码
     }
   }
 
@@ -155,21 +169,15 @@ export class LocationUtil {
    * @returns 编码后集合
    */
   static async getGeoAddressFromLocationName(locationName: string, maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
-    try {
-      let geocodeRequest: geoLocationManager.GeoCodeRequest = {
-        description: locationName, //表示位置描述信息的语言，“zh”代表中文，“en”代表英文。
-        maxItems: maxItems, //表示返回位置信息的最大个数。取值范围为大于等于0，推荐该值小于10。
-        locale: 'zh' //表示位置信息描述，如“上海市浦东新区xx路xx号”。
-      };
-      let result = await geoLocationManager.getAddressesFromLocationName(geocodeRequest);
-      if (result && result.length > 0) {
-        return result;
-      } else {
-        return [];
-      }
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-getGeoAddressFromLocationName-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+    let geocodeRequest: geoLocationManager.GeoCodeRequest = {
+      description: locationName, //表示位置描述信息的语言，“zh”代表中文，“en”代表英文。
+      maxItems: maxItems, //表示返回位置信息的最大个数。取值范围为大于等于0，推荐该值小于10。
+      locale: 'zh' //表示位置信息描述，如“上海市浦东新区xx路xx号”。
+    };
+    let result = await geoLocationManager.getAddressesFromLocationName(geocodeRequest);
+    if (result && result.length > 0) {
+      return result;
+    } else {
       return [];
     }
   }
@@ -181,7 +189,7 @@ export class LocationUtil {
    */
   static async getAddressFromLocationName(locationName: string): Promise<geoLocationManager.GeoAddress> {
     let geoAddress = await LocationUtil.getGeoAddressFromLocationName(locationName, 1);
-    if (geoAddress != null && geoAddress.length == 1) {
+    if (geoAddress != null && geoAddress.length >= 1) {
       return geoAddress[0];
     }
     return {};
@@ -195,22 +203,16 @@ export class LocationUtil {
    * @returns 逆编码后集合
    */
   static async getGeoAddressFromLocation(latitude: number, longitude: number, maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
-    try {
-      let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
-        latitude: latitude,
-        longitude: longitude,
-        maxItems: maxItems,
-        locale: 'zh'
-      };
-      let result = await geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest);
-      if (result && result.length > 0) {
-        return result;
-      } else {
-        return [];
-      }
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-getGeoAddressFromLocation-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+    let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
+      latitude: latitude,
+      longitude: longitude,
+      maxItems: maxItems,
+      locale: 'zh'
+    };
+    let result = await geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest);
+    if (result && result.length > 0) {
+      return result;
+    } else {
       return [];
     }
   }
@@ -223,7 +225,7 @@ export class LocationUtil {
    */
   static async getAddressFromLocation(latitude: number, longitude: number): Promise<geoLocationManager.GeoAddress> {
     let geoAddress = await LocationUtil.getGeoAddressFromLocation(latitude, longitude, 1);
-    if (geoAddress != null && geoAddress.length == 1) {
+    if (geoAddress != null && geoAddress.length >= 1) {
       return geoAddress[0];
     }
     return {};
@@ -248,7 +250,7 @@ export class LocationUtil {
    * @param code
    * @param defaultMsg
    */
-  private static getErrorMsg(code: number, defaultMsg: string) {
+  static getErrorMsg(code: number, defaultMsg: string) {
     if (201 == code) {
       return '权限校验失败！'
     } else if (202 == code) {

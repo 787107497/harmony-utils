@@ -1,8 +1,7 @@
 import { DescribeBean } from '../../entity/DescribeBean';
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { ECDSA } from '@pura/harmony-utils/src/main/ets/crypto/ECDSA';
-import { CryptoHelper, CryptoUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { CryptoHelper, CryptoUtil, ECDSA, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 
 /**

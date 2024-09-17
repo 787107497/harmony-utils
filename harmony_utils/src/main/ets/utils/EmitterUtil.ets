@@ -20,10 +20,11 @@ export class EmitterUtil {
    * 发送事件
    * @param eventId 事件ID，string类型的eventId不支持空字符串。
    * @param data 发送的数据
+   * @param EventPriority 事件被发送的优先级
    */
-  static post<T>(eventId: string, data: T) {
-    let eventData: emitter.EventData = { data: { "msg": data } };
-    let options: emitter.Options = { priority: emitter.EventPriority.HIGH };
+  static post<T>(eventId: string, data: T, priority: emitter.EventPriority = emitter.EventPriority.HIGH) {
+    let eventData: emitter.EventData = { data: { "eventData": data } };
+    let options: emitter.Options = { priority: priority };
     emitter.emit(eventId, options, eventData);
   }
 
@@ -35,7 +36,7 @@ export class EmitterUtil {
    */
   static onSubscribe<T>(eventId: string, callback: (data: T) => void) {
     emitter.on(eventId, (eventData: emitter.EventData) => {
-      callback(eventData.data?.msg);
+      callback(eventData.data?.eventData);
     });
   }
 
@@ -47,7 +48,7 @@ export class EmitterUtil {
    */
   static onceSubscribe<T>(eventId: string, callback: (data: T) => void) {
     emitter.once(eventId, (eventData: emitter.EventData) => {
-      callback(eventData.data?.msg);
+      callback(eventData.data?.eventData);
     });
   }
 

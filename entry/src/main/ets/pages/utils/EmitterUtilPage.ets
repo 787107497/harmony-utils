@@ -1,8 +1,8 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { MockSetup } from '../../../../../oh_modules/@ohos/hamock';
-
 import { EmitterUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
+import { emitter } from '@kit.BasicServicesKit';
 
 
 /**
@@ -64,7 +64,7 @@ struct Index {
           Button("发送事件（string）")
             .btnStyle()
             .onClick(() => {
-              EmitterUtil.post<string>("S123456", "哈哈哈哈哈哈哈哈哈哈");
+              EmitterUtil.post<string>("S123456", "哈哈哈哈哈哈哈哈哈哈",emitter.EventPriority.LOW);
             })
           Button("发送事件（number）")
             .btnStyle()

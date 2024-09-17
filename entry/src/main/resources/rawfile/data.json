@@ -1,5 +1,10 @@
 [
   {
+    "name": "LocationUtil",
+    "desc": "定位工具类(WGS-84坐标系)",
+    "type": 1
+  },
+  {
     "name": "AppUtil",
     "desc": "APP相关工具类",
     "type": 1
