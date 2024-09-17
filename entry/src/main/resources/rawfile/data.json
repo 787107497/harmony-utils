@@ -1,7 +1,7 @@
 [
   {
-    "name": "LocationUtil",
-    "desc": "定位工具类(WGS-84坐标系)",
+    "name": "DateUtil",
+    "desc": "Date工具类",
     "type": 1
   },
   {

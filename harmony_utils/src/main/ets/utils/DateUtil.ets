@@ -20,16 +20,20 @@ export class DateUtil {
    * @param date
    * @returns
    */
-  static getFormatDate(date: number | string | Date | undefined): Date {
-    if (date && typeof date == 'string' && (date.toString().length == 10 || date.toString().length == 13)) {
-      date = DateUtil.toNumber(date); //将字符串时间戳 转为 number
-    }
+  static getFormatDate(date?: number | string | Date): Date {
     if (date == undefined || date == null) { //无参数
       date = new Date();
-    } else if (typeof (date) == "string") { //字符串日期
+    } else if (typeof date == "string") { //字符串日期
       if (date.length == 0) {
         date = new Date();
       } else {
+        if (date.toString().length == 10 || date.toString().length == 13) {
+          date = DateUtil.toNumber(date); //将字符串时间戳 转为 number
+          if (typeof date == 'number') {
+            date = new Date(date);
+            return date;
+          }
+        }
         let dateStr = date.replaceAll("-", '/')
           .replace("年", '/')
           .replace("月", '/')
@@ -480,10 +484,13 @@ export class DateUtil {
    * @param defaultValue
    * @returns
    */
-  private static toNumber(value: string): number|string {
+  private static toNumber(value: string): number | string {
     try {
-      const parsedValue = parseFloat(value);
+      let parsedValue = parseFloat(value);
       if (isNaN(parsedValue)) {
+        return value;
+      }
+      if (parsedValue.toString().length != value.length) {
         return value;
       }
       return parsedValue;

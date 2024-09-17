@@ -200,6 +200,7 @@ struct Index {
               let date2 = DateUtil.getAmountDay("2024-8-08", -2);
               let date3 = DateUtil.getAmountDayStr("2024-8-8", 3);
               let date4 = DateUtil.getAmountDayStr(DateUtil.getToday(), -3);
+              LogUtil.error("date2: "+date2);
               this.txtStr = `获取前几天日期或后几天日期:\ndate1: ${DateUtil.getFormatDateStr(date1)}\ndate2: ${DateUtil.getFormatDateStr(date2)}\ndate3: ${date3}\ndate4: ${date4}`;
               LogUtil.error(this.txtStr);
             })
@@ -242,7 +243,7 @@ struct Index {
               this.txtStr = `提示性时间字符串:\n${tip1}\n${tip2}\n${tip3}\n${tip4}\n${tip5}`;
               LogUtil.error(this.txtStr);
             })
-          Button("getFormatTime()\ngetFormatRange()\ngetFormatRelativeTime()")
+          Button("getFormatTime()\ngetFormatRange()")
             .labelStyle({ maxLines: 4 })
             .type(ButtonType.Normal)
             .borderRadius(10)
@@ -250,7 +251,20 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let n1 = DateUtil.getFormatTime(DateUtil.getToday());
-              let n2 = DateUtil.getFormatRange(DateUtil.getAfterDay("2024-05-01"),DateUtil.getToday());
+              let n2 = DateUtil.getFormatTime(DateUtil.getToday(), { dateStyle: "full", timeStyle: "medium", hourCycle: "h24" });
+              let n3 = DateUtil.getFormatTime(DateUtil.getToday(), { dateStyle: "full", timeStyle: "medium", hourCycle: "h12" });
+              let n4 = DateUtil.getFormatTime(DateUtil.getToday(), { weekday: "short" });
+              let fr = DateUtil.getFormatRange(DateUtil.getAfterDay("2024-05-01"),DateUtil.getToday());
+              this.txtStr = `格式化时间日期字符串（DateTimeFormat）: \n${n1}\n${n2}\n${n3}\n${n4}\n\n格式化时间日期段字符串（DateTimeFormat）: \n${fr}`;
+              LogUtil.error(this.txtStr);
+            })
+          Button("getFormatRelativeTime()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
               let frt1 = DateUtil.getFormatRelativeTime(2, 'year');
               let frt2 = DateUtil.getFormatRelativeTime(-1, 'year');
               let frt3 = DateUtil.getFormatRelativeTime(-1, 'quarter');
@@ -260,7 +274,7 @@ struct Index {
               let frt7 = DateUtil.getFormatRelativeTime(-6, 'hour');
               let frt8 = DateUtil.getFormatRelativeTime(-7, 'minute');
               let frt9 = DateUtil.getFormatRelativeTime(-8, 'second');
-              this.txtStr = `格式化时间日期字符串（DateTimeFormat）: ${n1}\n格式化时间日期段字符串（DateTimeFormat）: ${n2}\n\n格式化相对时间: \n${frt1} \n${frt2} \n${frt3} \n${frt4}\n${frt5} \n${frt6} \n${frt7} \n${frt8} \n${frt9}`;
+              this.txtStr = `格式化相对时间: \n${frt1} \n${frt2} \n${frt3} \n${frt4}\n${frt5} \n${frt6} \n${frt7} \n${frt8} \n${frt9}`;
               LogUtil.error(this.txtStr);
             })
         }
