@@ -17,7 +17,8 @@
 # -keep-property-name: specifies property names that you want to keep
 # -keep-global-name: specifies names that you want to keep in the global scope
 
--enable-property-obfuscation
--enable-toplevel-obfuscation
--enable-filename-obfuscation
--enable-export-obfuscation
+# 注释混淆:
+#-enable-property-obfuscation
+#-enable-toplevel-obfuscation
+#-enable-filename-obfuscation
+#-enable-export-obfuscation
