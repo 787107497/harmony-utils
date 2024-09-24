@@ -13,9 +13,9 @@
 ## 🌞下载安装
 
 `ohpm i @pura/harmony-utils`
-
 OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
+
 <br><br>
 
 ## 📂模块介绍
@@ -251,6 +251,12 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | clear<br/>clearSync           | 清空缓存                                                        |
 | deletePreferences             | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
 
+| delete<br/>deleteSync         | 删除缓存值                                                       |
+| delete<br/>deleteSync         | 删除缓存值                                                       |
+| delete<br/>deleteSync         | 删除缓存值                                                       |
+| delete<br/>deleteSync         | 删除缓存值                                                       |
+
+
 ## CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
 
 | 方法  | 介绍         |
@@ -345,11 +351,13 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
 
-| 方法                | 介绍                                             |
-|:------------------|:-----------------------------------------------|
-| get               | 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图。通过Promise返回结果 |
-| createFromBuilder | 在应用后台渲染CustomBuilder自定义组件，并输出其截图               |
-| snapshot          | 获取窗口截图，使用Promise异步回调                           |
+| 方法                             | 介绍                               |
+|:-------------------------------|:---------------------------------|
+| get<br/>getSync                | 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图 |
+| createFromBuilder              | 在应用后台渲染CustomBuilder自定义组件，并输出其截图 |
+| snapshot                       | 获取窗口截图，使用Promise异步回调             |
+| onSnapshotListener             | 开启系统截屏事件的监听                      |
+| removeSnapshotListener         | 关闭系统截屏事件的监听                      |
 
 ## ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
 

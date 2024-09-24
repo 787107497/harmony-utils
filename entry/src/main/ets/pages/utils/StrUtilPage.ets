@@ -191,7 +191,7 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let phone: string = "13909626520";
+              let phone: string = "18969062528";
               let bl = StrUtil.isPhone(phone);
               LogUtil.error(`isPhone: ${bl}`);
               let format = StrUtil.getPhoneFormat(phone);

@@ -7,10 +7,11 @@ import { DialogHelper } from '@pura/harmony-dialog';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    AppUtil.init(this.context);
     DialogHelper.setDefaultConfig((config) => {
       config.uiContext = this.context;
     })
+
   }
 
   onDestroy(): void {
@@ -18,15 +19,19 @@ export default class EntryAbility extends UIAbility {
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    AppUtil.init(this.context, windowStage)
     WindowUtil.init(windowStage)
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
+      // WindowUtil.createWindow({contentRouter:'pages/Index'}).then(()=>{
+      //   AppUtil.setGrayScale();
+      // })
+
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
     });
+
   }
 
   onWindowStageDestroy(): void {

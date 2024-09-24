@@ -1,5 +1,18 @@
 # 版本记录
 
+## 1.1.1（API12 - 5.0.3.806）
+1. DateUtil，修复1.1.0版本中的日期格式化异常的Bug。   
+2. NotificationUtil，修复boolean默认参数可能异常的Bug。    
+3. SnapshotUtil，添加同步方法getSync，适配新的API；以及添加系统截图监听。    
+4. PreferencesUtil，适配新的API，添加订阅数据变更。    
+5. 新增KvUtil，键值型数据库工具库。    
+6. ImageUtil，添加图片压缩。    
+7. KeyboardUtil，添加show方法 主动拉起键盘；适配新的API，重构其他方法；废弃。    
+8. DialogUtil，优化代码，适配新的API，重构方法；废弃。    
+9. AppUtil:    
+    1、优化init方法，1.1.0版本后，在UIAbility的onCreate方法中初始化该方法。    
+    2、新增setGrayScale方法，设置灰阶，APP一键置灰。    
+
 ## 1.1.0（API12 - 5.0.3.800）
 1. DateUtil，代码优化，兼容支持字符串时间戳。
 2. EmitterUtil，新增参数，支持事件被发送的优先级。

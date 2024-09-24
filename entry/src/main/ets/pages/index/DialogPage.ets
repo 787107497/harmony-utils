@@ -3,7 +3,6 @@ import { ToastUtil } from '@pura/harmony-utils';
 import { LabelButton } from '../../component/LabelButton';
 import { DrawerOptions } from '../../utils/DrawerOptions';
 import { MyCustomOptions } from '../../utils/MyCustomOptions';
-import { WindowUtil } from '../../utils/WindowUtil';
 
 /**
  * TODO 弹窗工具
@@ -568,7 +567,10 @@ export struct DialogPage {
         contentBuilder: () => {
           this.customText2Builder("我是一个自定义弹框呀！")
         },
-        buttons: ['知道了'],
+        buttons: [
+          { value: '知道了', fontColor: Color.Red },
+          { value: '取消', fontColor: Color.Black }
+        ],
         onAction: (action) => {
           ToastUtil.showToast(`${action}`);
         }
@@ -823,6 +825,7 @@ export struct DialogPage {
       DialogHelper.showToast("这是一个自定义吐司", {
         fontColor: Color.White,
         backgroundColor: "#99FF0000",
+        alignment:DialogAlignment.Bottom,
         borderRadius: 5,
         fontSize: 18,
       });

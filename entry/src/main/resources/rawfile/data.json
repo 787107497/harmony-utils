@@ -1,7 +1,7 @@
 [
   {
-    "name": "DateUtil",
-    "desc": "Date工具类",
+    "name": "PreferencesUtil",
+    "desc": "测试",
     "type": 1
   },
   {
@@ -25,18 +25,43 @@
     "type": 1
   },
   {
-    "name": "AuthUtil",
-    "desc": "手机的生物认证（指纹、人脸、密码）工具类",
-    "type": 1
-  },
-  {
     "name": "NotificationUtil",
     "desc": "通知工具类",
     "type": 1
   },
   {
+    "name": "EmitterUtil",
+    "desc": "Emitter工具类（进行线程间通信）",
+    "type": 1
+  },
+  {
+    "name": "DialogUtil",
+    "desc": "弹窗工具类（AlertDialog）",
+    "type": 1
+  },
+  {
+    "name": "ToastUtil",
+    "desc": "土司工具类（promptAction）",
+    "type": 1
+  },
+  {
+    "name": "AuthUtil",
+    "desc": "手机的生物认证（指纹、人脸、密码）工具类",
+    "type": 1
+  },
+  {
     "name": "PreferencesUtil",
     "desc": "Preferences（用户首选项）工具类",
+    "type": 1
+  },
+  {
+    "name": "KvUtil",
+    "desc": "键值型数据库工具库",
+    "type": 1
+  },
+  {
+    "name": "CacheUtil",
+    "desc": "缓存工具类",
     "type": 1
   },
   {
@@ -55,23 +80,8 @@
     "type": 1
   },
   {
-    "name": "PreviewUtil",
-    "desc": "文件预览工具类",
-    "type": 1
-  },
-  {
-    "name": "NetworkUtil",
-    "desc": "网络相关工具类",
-    "type": 1
-  },
-  {
-    "name": "LocationUtil",
-    "desc": "定位工具类(WGS-84坐标系)",
-    "type": 1
-  },
-  {
-    "name": "PasteboardUtil",
-    "desc": "剪贴板工具类",
+    "name": "ImageUtil",
+    "desc": "图片相关工具类",
     "type": 1
   },
   {
@@ -85,13 +95,13 @@
     "type": 1
   },
   {
-    "name": "ImageUtil",
-    "desc": "图片相关工具类",
+    "name": "PreviewUtil",
+    "desc": "文件预览工具类",
     "type": 1
   },
   {
-    "name": "KeyboardUtil",
-    "desc": "键盘工具类",
+    "name": "LocationUtil",
+    "desc": "定位工具类(WGS-84坐标系)",
     "type": 1
   },
   {
@@ -100,18 +110,18 @@
     "type": 1
   },
   {
-    "name": "CrashUtil",
-    "desc": "全局异常捕获，崩溃日志收集",
-    "type": 1
-  },
-  {
-    "name": "CharUtil",
-    "desc": "字符工具类",
+    "name": "DateUtil",
+    "desc": "日期工具类",
     "type": 1
   },
   {
     "name": "StrUtil",
     "desc": "字符串工具类",
+    "type": 1
+  },
+  {
+    "name": "CharUtil",
+    "desc": "字符工具类",
     "type": 1
   },
   {
@@ -122,11 +132,6 @@
   {
     "name": "NumberUtil",
     "desc": "number工具类",
-    "type": 1
-  },
-  {
-    "name": "DateUtil",
-    "desc": "日期工具类",
     "type": 1
   },
   {
@@ -150,18 +155,28 @@
     "type": 1
   },
   {
-    "name": "CacheUtil",
-    "desc": "缓存工具类",
-    "type": 1
-  },
-  {
     "name": "ClickUtil",
     "desc": "节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）",
     "type": 1
   },
   {
-    "name": "TempUtil",
-    "desc": "温度转换工具类，华氏度与摄氏度相互转换",
+    "name": "CrashUtil",
+    "desc": "全局异常捕获，崩溃日志收集",
+    "type": 1
+  },
+  {
+    "name": "KeyboardUtil",
+    "desc": "键盘工具类",
+    "type": 1
+  },
+  {
+    "name": "PasteboardUtil",
+    "desc": "剪贴板工具类",
+    "type": 1
+  },
+  {
+    "name": "NetworkUtil",
+    "desc": "网络相关工具类",
     "type": 1
   },
   {
@@ -170,18 +185,8 @@
     "type": 1
   },
   {
-    "name": "EmitterUtil",
-    "desc": "Emitter工具类（进行线程间通信）",
-    "type": 1
-  },
-  {
-    "name": "DialogUtil",
-    "desc": "弹窗工具类（AlertDialog）",
-    "type": 1
-  },
-  {
-    "name": "ToastUtil",
-    "desc": "土司工具类（promptAction）",
+    "name": "TempUtil",
+    "desc": "温度转换工具类，华氏度与摄氏度相互转换",
     "type": 1
   },
   {

@@ -1,12 +1,10 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil, PreferencesUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { PreferencesUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
-import { Callback } from '@kit.BasicServicesKit';
-import { preferences } from '@kit.ArkData';
 
 /**
- * Preferences（用户首选项）工具类
+ * KvUtil，键值型数据库工具库
  */
 @Entry
 @Component
@@ -14,18 +12,10 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State pStr: string = ''
-  private callback: Callback<string> = (value) => {
-    LogUtil.error("onChange: " + value);
-  }
-  private dataCallback = (data: Record<string, preferences.ValueType>) => {
-    for (const keyValue of Object.entries(data)) {
-      LogUtil.error("onDataChange: " + keyValue);
-    }
-  }
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("PreferencesUtil", "Preferences（用户首选项）工具类");
+    this.describe = new DescribeBean("KvUtil", "键值型数据库工具库");
   }
 
   build() {
@@ -110,16 +100,17 @@ struct Index {
               PreferencesUtil.clearSync();
               ToastUtil.showToast('清空缓存成功')
             })
-          Button("putSync()，其他使用\ngetStringSync()，其他使用")
-            .labelStyle({ maxLines: 2 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
+          Button("putSync()，其他使用")
             .btnStyle()
             .onClick(() => {
               PreferencesUtil.putSync("msg",
                 "Harmony_utils，一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。",
                 "SP_PREFERENCES_MSG");
+              ToastUtil.showToast("数据缓存成功");
+            })
+          Button("getStringSync()，其他使用")
+            .btnStyle()
+            .onClick(() => {
               let cacheMsg = PreferencesUtil.getStringSync("msg", "SP_PREFERENCES_MSG");
               this.pStr = `缓存：\n${cacheMsg}`;
             })
@@ -128,26 +119,6 @@ struct Index {
             .onClick(() => {
               PreferencesUtil.deletePreferences(getContext(), "SP_PREFERENCES_MSG");
               ToastUtil.showToast('移出指定的Preferences实例，成功')
-            })
-          Button("onChange()")
-            .btnStyle()
-            .onClick(() => {
-              PreferencesUtil.onChange(this.callback);
-            })
-          Button("offChange()")
-            .btnStyle()
-            .onClick(() => {
-              PreferencesUtil.offChange(this.callback);
-            })
-          Button("onDataChange()")
-            .btnStyle()
-            .onClick(() => {
-              PreferencesUtil.onDataChange(["id", "name"], this.dataCallback);
-            })
-          Button("offDataChange()")
-            .btnStyle()
-            .onClick(() => {
-              PreferencesUtil.offDataChange(["id", "name"], this.dataCallback);
             })
 
           Blank().layoutWeight(1)
