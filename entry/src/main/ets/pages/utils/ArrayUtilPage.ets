@@ -53,7 +53,7 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let array:string[] = [" 张三 ", "null", "习大大 ", "李四", "undefined", " 阿超", '', "王五 ", ""];
+              let array:string[] = [" 张三 ", "null", "希大大 ", "李四", "undefined", " 阿超", '', "王五 ", ""];
               let arr1 = ArrayUtil.removeEmpty(array); //去空
               LogUtil.error("arr1: " + arr1.join(','))
               let arr2 = ArrayUtil.trim(arr1); //去空格
