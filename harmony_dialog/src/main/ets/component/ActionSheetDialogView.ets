@@ -106,6 +106,7 @@ export default struct ActionSheetDialogView {
     .alignItems(HorizontalAlign.Center)
     .width(this.options.width)
     .height(this.options.height)
+    .constraintSize({ maxWidth: this.options.maxWidth })
     .margin({ bottom: 30 })
   }
 

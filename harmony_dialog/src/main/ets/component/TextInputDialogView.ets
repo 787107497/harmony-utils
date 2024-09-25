@@ -57,6 +57,7 @@ export default struct TextInputDialogView {
     CustomContentDialog(this.content as BaseContentOptions)
       .height(this.options.height)
       .width(this.options.width)
+      .constraintSize({ maxWidth: this.options.maxWidth })
       .backgroundColor(this.options.backgroundColor)
       .backgroundBlurStyle(this.options.backgroundBlurStyle)
       .borderRadius(this.options.cornerRadius)

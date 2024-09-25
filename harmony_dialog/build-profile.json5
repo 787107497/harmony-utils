@@ -2,7 +2,7 @@
   "apiType": "stageMode",
   "buildOption": {
     "arkOptions": {
-      "byteCodeHar": true
+      "byteCodeHar": false
     }
   },
   "buildOptionSet": [

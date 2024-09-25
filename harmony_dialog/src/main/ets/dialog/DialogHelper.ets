@@ -408,6 +408,9 @@ export class DialogHelper {
     if (options.height || DialogHelper.config.height) {
       options.height = options.height ?? DialogHelper.config.height; //弹窗的高度。
     }
+    if (options.maxWidth || DialogHelper.config.maxWidth) {
+      options.maxWidth = options.maxWidth ?? DialogHelper.config.maxWidth; //弹窗的高度最大宽度。
+    }
     if (options.backgroundColor || DialogHelper.config.backgroundColor) {
       options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
     }
@@ -443,6 +446,9 @@ export class DialogHelper {
     }
     if (options.height || DialogHelper.config.height) {
       options.height = options.height ?? DialogHelper.config.height; //弹窗的高度。
+    }
+    if (options.maxWidth || DialogHelper.config.maxWidth) {
+      options.maxWidth = options.maxWidth ?? DialogHelper.config.maxWidth; //弹窗的高度最大宽度。
     }
     if (options.backgroundColor || DialogHelper.config.backgroundColor) {
       options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。

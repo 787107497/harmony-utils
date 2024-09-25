@@ -32,8 +32,9 @@ export interface DialogOptions extends BaseDialogOptions {
   title?: ResourceStr; //弹框标题
   actionCancel?: boolean; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
 
-  height?: Dimension; //设置弹窗的高度。
-  width?: Dimension; //设置弹窗的宽度。弹窗宽度默认最大值：400vp。
+  height?: Dimension | Length; //设置弹窗的高度。
+  width?: Dimension | Length; //设置弹窗的宽度，弹窗宽度默认值：'calc(100% - 32vp)'。
+  maxWidth?: Length; //弹窗宽度默认最大值：360vp。
   backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.White
   backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
   cornerRadius?: Length | BorderRadiuses | LocalizedBorderRadiuses; //设置背板的圆角半径。可分别设置4个圆角的半径。

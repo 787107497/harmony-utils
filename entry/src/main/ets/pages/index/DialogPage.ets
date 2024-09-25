@@ -245,7 +245,7 @@ export struct DialogPage {
       DialogHelper.showConfirmDialog({
         checkTips: "是否记住密码？",
         content: "您是否退出当前应用",
-        primaryButton: "取消",
+        primaryButton: { value: "取消", fontColor: Color.Orange },
         secondaryButton: "退出",
         onCheckedChange: (check) => {
           ToastUtil.showToast(`${check}`);

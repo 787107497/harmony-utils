@@ -101,6 +101,7 @@ export default struct BottomSheetDialogView {
     .alignItems(HorizontalAlign.Center)
     .width('100%')
     .height(this.options.height)
+    .constraintSize({ maxWidth: this.options.maxWidth })
   }
 
   @Builder
