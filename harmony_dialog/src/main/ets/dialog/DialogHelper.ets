@@ -69,6 +69,7 @@ export class DialogHelper {
   private static mainUIContext: UIContext | undefined; //MainWindow的UIContext
   private static loadingDialogId: string = "harmony_dialog_LoadingDialog_id"; //加载弹框id
   private static cacheOptions: LoadingProgressOptions | null = null; //缓存进度加载框参数
+  private static cacheToast: Array<ToastOptions> = new Array<ToastOptions>(); //缓存吐司
 
 
   /**
@@ -308,10 +309,11 @@ export class DialogHelper {
     options = options ?? {};
     options.message = message;
     DialogHelper.initToastDefault(options);
+    options.dialogId = DialogHelper.generateId();
     options.duration = options.duration ?? DialogHelper.config.toast_duration;
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastBuilder), options);
+    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastBuilder), options);
     let timeID = setTimeout(() => {
-      DialogHelper.closeDialog(dialogId);
+      DialogHelper.closeDialog(options?.dialogId ?? "");
       clearTimeout(timeID);
     }, options.duration);
   }
@@ -325,10 +327,11 @@ export class DialogHelper {
     options = options ?? {};
     options.message = message;
     DialogHelper.initToastDefault(options);
+    options.dialogId = DialogHelper.generateId();
     options.duration = options.duration ?? DialogHelper.config.toast_durationLong;
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastBuilder), options);
+    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastBuilder), options);
     let timeID = setTimeout(() => {
-      DialogHelper.closeDialog(dialogId);
+      DialogHelper.closeDialog(options?.dialogId ?? "");
       clearTimeout(timeID);
     }, options.duration);
   }
@@ -340,12 +343,13 @@ export class DialogHelper {
    */
   static showToastTip(options: ToastTipOptions) {
     DialogHelper.initToastDefault(options);
+    options.dialogId = DialogHelper.generateId();
     options.alignment = DialogAlignment.Center; //前置居中
     options.imageSize = options.imageSize ?? DialogHelper.config.toast_imageSize;
     options.duration = options.duration ?? DialogHelper.config.toast_duration;
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastTipBuilder), options);
+    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastTipBuilder), options);
     let timeID = setTimeout(() => {
-      DialogHelper.closeDialog(dialogId);
+      DialogHelper.closeDialog(options.dialogId ?? "");
       clearTimeout(timeID);
     }, options.duration);
   }
@@ -541,8 +545,23 @@ export class DialogHelper {
       options.buttons = [DialogHelper.config.primaryButton, DialogHelper.config.secondaryButton]
     }
     if (options.buttons && options.buttons.length > 0) {
-      if (options.buttons[0] instanceof ButtonOptions) {
-        for (let index = 0; index < options.buttons.length; index++) {
+      let buttons = new Array<ButtonOptions>();
+      for (let index = 0; index < options.buttons.length; index++) {
+        let btnValue = DialogHelper.getResourceStr(options.buttons[index]);
+        if (btnValue) {
+          let button: ButtonOptions = {
+            value: options.buttons[index] as ResourceStr,
+            action: () => {
+              if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
+                DialogHelper.closeDialog(options.dialogId ?? "");
+              }
+              if (options.onAction) {
+                options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
+              }
+            }
+          };
+          buttons.push(button);
+        } else {
           let btn = options.buttons[index] as ButtonOptions;
           let btnAction = btn.action;
           btn.action = () => {
@@ -555,26 +574,11 @@ export class DialogHelper {
             if (options.onAction) {
               options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
             }
-          }
+          };
+          buttons.push(btn);
         }
-      } else {
-        let buttons = new Array<ButtonOptions>()
-        for (let index = 0; index < options.buttons.length; index++) {
-          let button: ButtonOptions = {
-            value: options.buttons[index] as ResourceStr,
-            action: () => {
-              if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
-                DialogHelper.closeDialog(options.dialogId ?? "");
-              }
-              if (options.onAction) {
-                options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
-              }
-            }
-          }
-          buttons.push(button);
-        }
-        options.buttons = buttons;
       }
+      options.buttons = buttons;
     }
   }
 
@@ -798,7 +802,7 @@ export class DialogHelper {
     options.maskColor = Color.Transparent; //弹框自定义蒙层颜色。
     options.autoCancel = false; //点击遮障层时，是否关闭弹窗。
     options.isModal = false; //弹窗是否为模态窗口。
-    options.backCancel = false; //点击返回键或手势返回时，是否关闭弹窗。
+    options.backCancel = options.backCancel ?? DialogHelper.config.backCancel; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。
     if (options.alignment || DialogHelper.config.alignment) {
       options.alignment = options.alignment ?? DialogHelper.config.alignment; //弹窗的对齐方式。
     }

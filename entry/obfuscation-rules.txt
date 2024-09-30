@@ -22,3 +22,7 @@
 #-enable-toplevel-obfuscation
 #-enable-filename-obfuscation
 #-enable-export-obfuscation
+-enable-property-obfuscation
+-enable-toplevel-obfuscation
+-enable-filename-obfuscation
+-enable-export-obfuscation

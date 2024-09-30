@@ -557,6 +557,10 @@ export struct DialogPage {
         contentBuilder: () => {
           this.customTextImgBuilder("我是一个自定义弹框！")
         },
+        buttons: [
+          { value: '取消', fontColor: Color.Black },
+          { value: '知道了', fontColor: Color.Red }
+        ],
         onAction: (action) => {
           ToastUtil.showToast(`${action}`);
         }
@@ -568,8 +572,8 @@ export struct DialogPage {
           this.customText2Builder("我是一个自定义弹框呀！")
         },
         buttons: [
-          { value: '知道了', fontColor: Color.Red },
-          { value: '取消', fontColor: Color.Black }
+          '取消',
+          { value: '知道了', fontColor: Color.Red }
         ],
         onAction: (action) => {
           ToastUtil.showToast(`${action}`);
@@ -833,7 +837,8 @@ export struct DialogPage {
       //自定义的长吐司
       DialogHelper.showToastLong("这是一个自定义的长吐司呀~~~", {
         fontColor: Color.White,
-        backgroundColor: "#990066FF",
+        backgroundColor: "#AA0066FF",
+        backCancel: true,
       });
     }
   }
@@ -1017,16 +1022,18 @@ export struct DialogPage {
   //自定义文本和图片
   @Builder
   customTextImgBuilder(content: string) {
-    Column() {
-      Text(content)
-        .fontColor(Color.Pink)
-        .fontSize(16)
-      Image($r('app.media.test_as2'))
-        .width("100%")
-        .margin({ top: 5 })
+    Scroll() {
+      Column() {
+        Text(content)
+          .fontColor(Color.Pink)
+          .fontSize(16)
+        Image($r('app.media.test_as2'))
+          .width("100%")
+      }
+      .width("100%")
+      .backgroundColor(Color.White)
+      .padding(10)
     }
-    .width("100%")
-    .padding(10)
   }
 
   //自定义文本2

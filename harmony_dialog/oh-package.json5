@@ -1,6 +1,6 @@
 {
   "name": "@pura/harmony-dialog",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "一款极为简单易用的零侵入弹窗，仅需一行代码即可轻松实现，无论在何处都能够轻松弹出。其涵盖了 AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、CustomDialog、LoadingDialog、LoadingProgress、Toast、ToastTip 等多种类型，能够满足各种不同的弹窗开发需求。",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",

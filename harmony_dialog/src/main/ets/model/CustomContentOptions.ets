@@ -30,6 +30,6 @@ import { ButtonOptions } from './ButtonOptions';
  */
 export interface CustomContentOptions extends BaseContentOptions {
 
-  buttons?: Array<ButtonOptions> | Array<ResourceStr>; //弹出框操作区按钮，最多支持4个按钮。
+  buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。
 
 }
