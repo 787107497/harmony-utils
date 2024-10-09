@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
-import { MockSetup } from '../../../../../oh_modules/@ohos/hamock';
+import { MockSetup } from '@ohos/hamock';
 import { EmitterUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
 import { emitter } from '@kit.BasicServicesKit';
 

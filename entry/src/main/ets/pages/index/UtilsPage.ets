@@ -1,6 +1,6 @@
 import { FileUtil, JSONUtil } from '@pura/harmony-utils';
 import { router } from '@kit.ArkUI';
-import { MockSetup } from '../../../../../oh_modules/@ohos/hamock';
+import { MockSetup } from '@ohos/hamock';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { Mock } from '../../utils/Mock';
 
