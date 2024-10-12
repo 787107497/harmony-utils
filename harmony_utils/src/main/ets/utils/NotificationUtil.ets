@@ -31,6 +31,8 @@ import {
     NotificationTemplateOptions
 } from '../entity/NotificationOptions';
 import { NotificationConfig } from '../entity/NotificationConfig';
+import { image } from '@kit.ImageKit';
+import { ImageUtil } from './ImageUtil';
 
 
 /**
@@ -458,6 +460,46 @@ export class NotificationUtil {
    */
   static generateNotificationId(): number {
     return DateUtil.getTodayTime();
+  }
+
+
+  /**
+   * 压缩通知的图片（图像像素的总字节数不能超过2MB）
+   * @param pixelMap：原始待压缩图片的PixelMap对象
+   * @returns 返回压缩后的图片数据
+   */
+  static async getCompressedPicture(src: Resource | image.PixelMap): Promise<PixelMap> {
+    if (typeof (src as Resource).bundleName === 'string') {
+      src = await ImageUtil.getPixelMapFromMedia((src as Resource));
+    }
+    let pixelMap = src as image.PixelMap;
+    let pictureMaxSize = 2 * 1024 * 1024; //通知的图片内容(图像像素的总字节数不能超过2MB)。
+    let pixelBytes = pixelMap.getPixelBytesNumber(); //图像像素的总字节数
+    while (pixelBytes > pictureMaxSize) {
+      await pixelMap.scale(0.7, 0.7, image.AntiAliasingLevel.LOW); //缩放
+      pixelBytes = pixelMap.getPixelBytesNumber(); //图像像素的总字节数
+    }
+    return pixelMap;
+  }
+
+
+  /**
+   * 获取压缩通知图标（图标像素的总字节数不超过192KB）
+   * @param pixelMap：原始待压缩图片的PixelMap对象
+   * @returns
+   */
+  static async getCompressedIcon(src: Resource | image.PixelMap): Promise<PixelMap> {
+    if (typeof (src as Resource).bundleName === 'string') {
+      src = await ImageUtil.getPixelMapFromMedia((src as Resource));
+    }
+    let pixelMap = src as image.PixelMap;
+    let pictureMaxSize = 192 * 1024; //通知图标(图标像素的总字节数不超过192KB)。
+    let pixelBytes = pixelMap.getPixelBytesNumber(); //图像像素的总字节数
+    while (pixelBytes > pictureMaxSize) {
+      await pixelMap.scale(0.7, 0.7, image.AntiAliasingLevel.LOW); //缩放
+      pixelBytes = pixelMap.getPixelBytesNumber(); //图像像素的总字节数
+    }
+    return pixelMap;
   }
 
 

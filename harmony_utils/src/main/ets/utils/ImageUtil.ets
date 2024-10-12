@@ -279,7 +279,7 @@ export class ImageUtil {
 
 
   /**
-   * 图片压缩，保存
+   * 图片压缩
    * @param sourcePixelMap：原始待压缩图片的PixelMap对象
    * @param maxCompressedImageSize：指定图片的压缩目标大小，单位kb
    * @param imageFormat：目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）

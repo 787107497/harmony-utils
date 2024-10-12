@@ -1,8 +1,11 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import {
-    AppUtil, ImageUtil,
-    NotificationBasicOptions, NotificationMultiLineOptions,
+    AppUtil,
+  FileUtil,
+  ImageUtil,
+  LogUtil,
+  NotificationBasicOptions, NotificationMultiLineOptions,
     NotificationUtil, StrUtil, ToastUtil
 } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
@@ -36,9 +39,9 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let wantAgent = await NotificationUtil.getDefaultWantAgent();
-              let smallIcon = await ImageUtil.getPixelMapFromMedia($r('app.media.ic_launcher_round'));
-              let largeIcon = await ImageUtil.getPixelMapFromMedia($r('app.media.ic_launcher'));
-              let lPicture = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as1"));
+              let smallIcon = await NotificationUtil.getCompressedIcon($r('app.media.test_as5'));
+              let largeIcon = await NotificationUtil.getCompressedIcon($r('app.media.test_as1'));
+              let lPicture = await NotificationUtil.getCompressedPicture($r("app.media.test_as1"));
 
               NotificationUtil.setDefaultConfig((config) => {
                 config.wantAgent = wantAgent
@@ -111,7 +114,9 @@ struct Index {
           Button("publishPicture()")
             .btnStyle()
             .onClick(async () => {
-              let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as1"))
+             let media= await ImageUtil.getPixelMapFromMedia($r('app.media.test_as5'))
+              let pixelMap = await NotificationUtil.getCompressedPicture(media);
+              LogUtil.error("图片大小3："+(pixelMap.getPixelBytesNumber()/1024))
               NotificationUtil.publishPicture({
                 title: "鸿蒙工具包",
                 text: "HarmonyOS工具包，封装了常用工具类。帮助开发者快速构建鸿蒙应用",

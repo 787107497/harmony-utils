@@ -11,7 +11,9 @@
 8. DialogUtil，优化代码，适配新的API，重构方法；废弃。    
 9. AppUtil:    
     1、优化init方法，1.1.0版本后，在UIAbility的onCreate方法中初始化该方法。    
-    2、新增setGrayScale方法，设置灰阶，APP一键置灰。    
+    2、新增setGrayScale方法，设置灰阶，APP一键置灰。 
+10. ArrayUtil: 添加chunk。
+11. 
 
 ## 1.1.0（API12 - 5.0.3.800）
 1. DateUtil，代码优化，兼容支持字符串时间戳。

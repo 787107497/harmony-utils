@@ -178,5 +178,26 @@ export class ArrayUtil {
   }
 
 
+  /**
+   * 数组分块
+   * @param array
+   * @param size
+   * @returns
+   */
+  static chunk<T>(array: T[], size: number): T[][] {
+    let length = array.length;
+    if (length < 1 || size < 1) {
+      return [];
+    }
+    let index = 0;
+    let resIndex = 0;
+    let result = new Array<Array<T>>(Math.ceil(length / size));
+    while (index < length) {
+      result[resIndex++] = array.slice(index, (index += size));
+    }
+    return result;
+  }
+
+
 }
 

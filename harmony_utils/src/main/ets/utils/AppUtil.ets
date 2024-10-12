@@ -54,6 +54,7 @@ export class AppUtil {
     AppUtil.context = context;
   }
 
+
   /**
    * 获取上下文，common.UIAbilityContext
    * @returns
@@ -66,11 +67,20 @@ export class AppUtil {
     return AppUtil.context;
   }
 
+
+  /**
+   * 获取WindowStage
+   * @returns
+   */
+  static getWindowStage(): window.WindowStage {
+    return AppUtil.getContext().windowStage;
+  }
+
   /**
    * 获取主窗口
    */
   static getMainWindow(): window.Window {
-    return AppUtil.context.windowStage.getMainWindowSync();
+    return AppUtil.getContext().windowStage.getMainWindowSync();
   }
 
   /**
@@ -127,16 +137,19 @@ export class AppUtil {
     return mode;
   }
 
+
   /**
    * 设置虚拟键盘弹出时，页面的避让模式。
    * @param value （OFFSET-上抬模式、RESIZE-压缩模式）
    */
-  static setKeyboardAvoidMode(value: KeyboardAvoidMode) {
+  static setKeyboardAvoidMode(value: KeyboardAvoidMode): boolean {
     try {
       AppUtil.getUIContext().setKeyboardAvoidMode(value);
     } catch (err) {
-      LogUtil.error(JSON.stringify(err))
+      LogUtil.error(JSON.stringify(err));
+      return false;
     }
+    return true;
   }
 
 
