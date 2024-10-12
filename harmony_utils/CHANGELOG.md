@@ -12,6 +12,7 @@
 9. AppUtil:    
     1、优化init方法，1.1.0版本后，在UIAbility的onCreate方法中初始化该方法。    
     2、新增setGrayScale方法，设置灰阶，APP一键置灰。 
+    3、新增getWindowStage方法。
 10. ArrayUtil: 添加chunk。
 11. 
 
