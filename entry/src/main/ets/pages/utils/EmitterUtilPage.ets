@@ -81,7 +81,7 @@ struct Index {
             .onClick(() => {
               let student: Student = {
                 id: "NO_1234567809",
-                name: "小奶子",
+                name: "小宝子",
                 age: 18,
                 sex: "男"
               }
