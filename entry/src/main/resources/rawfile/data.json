@@ -35,13 +35,8 @@
     "type": 1
   },
   {
-    "name": "DialogUtil",
-    "desc": "弹窗工具类（AlertDialog）",
-    "type": 1
-  },
-  {
-    "name": "ToastUtil",
-    "desc": "土司工具类（promptAction）",
+    "name": "WantUtil",
+    "desc": "Want工具类",
     "type": 1
   },
   {
@@ -90,13 +85,13 @@
     "type": 1
   },
   {
-    "name": "ScanUtil",
-    "desc": "码工具类（扫码、码图生成、图片识码）",
+    "name": "PreviewUtil",
+    "desc": "文件预览工具类",
     "type": 1
   },
   {
-    "name": "PreviewUtil",
-    "desc": "文件预览工具类",
+    "name": "ScanUtil",
+    "desc": "码工具类（扫码、码图生成、图片识码）",
     "type": 1
   },
   {
@@ -110,6 +105,11 @@
     "type": 1
   },
   {
+    "name": "ResUtil",
+    "desc": "资源工具类",
+    "type": 1
+  },
+  {
     "name": "DateUtil",
     "desc": "日期工具类",
     "type": 1
@@ -120,13 +120,18 @@
     "type": 1
   },
   {
-    "name": "CharUtil",
-    "desc": "字符工具类",
+    "name": "RegUtil",
+    "desc": "正则工具类",
     "type": 1
   },
   {
-    "name": "Base64Util",
-    "desc": "Base64工具类",
+    "name": "FormatUtil",
+    "desc": "格式化工具类",
+    "type": 1
+  },
+  {
+    "name": "CharUtil",
+    "desc": "字符工具类",
     "type": 1
   },
   {
@@ -147,6 +152,11 @@
   {
     "name": "ObjectUtil",
     "desc": "对象工具类",
+    "type": 1
+  },
+  {
+    "name": "Base64Util",
+    "desc": "Base64工具类",
     "type": 1
   },
   {
@@ -187,6 +197,16 @@
   {
     "name": "TempUtil",
     "desc": "温度转换工具类，华氏度与摄氏度相互转换",
+    "type": 1
+  },
+  {
+    "name": "DialogUtil",
+    "desc": "弹窗工具类（AlertDialog）",
+    "type": 1
+  },
+  {
+    "name": "ToastUtil",
+    "desc": "土司工具类（promptAction）",
     "type": 1
   },
   {

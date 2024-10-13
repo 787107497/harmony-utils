@@ -15,6 +15,7 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
+
 import { vibrator } from '@kit.SensorServiceKit';
 import { LogUtil } from './LogUtil';
 import { resourceManager } from '@kit.LocalizationKit';
@@ -23,6 +24,8 @@ import { AssetUtil } from './AssetUtil';
 import { PreferencesUtil } from './PreferencesUtil';
 import { RandomUtil } from './RandomUtil';
 import deviceInfo from '@ohos.deviceInfo';
+import { ResUtil } from './ResUtil';
+
 
 /**
  * TODO 设备相关工具类
@@ -151,8 +154,8 @@ export class DeviceUtil {
    * 获取设备的Configuration
    * @returns
    */
-  static getConfiguration(): Promise<resourceManager.Configuration> {
-    return getContext().resourceManager.getConfiguration();
+  static async getConfiguration(): Promise<resourceManager.Configuration> {
+    return await ResUtil.getConfiguration();
   }
 
   /**
@@ -160,7 +163,7 @@ export class DeviceUtil {
    * @returns
    */
   static getConfigurationSync(): resourceManager.Configuration {
-    return getContext().resourceManager.getConfigurationSync();
+    return ResUtil.getConfigurationSync();
   }
 
   /**
@@ -179,8 +182,8 @@ export class DeviceUtil {
    * 获取设备的DeviceCapability
    * @returns
    */
-  static getDeviceCapability(): Promise<resourceManager.DeviceCapability> {
-    return getContext().resourceManager.getDeviceCapability();
+  static async getDeviceCapability(): Promise<resourceManager.DeviceCapability> {
+    return await ResUtil.getDeviceCapability();
   }
 
   /**
@@ -188,7 +191,7 @@ export class DeviceUtil {
    * @returns
    */
   static getDeviceCapabilitySync(): resourceManager.DeviceCapability {
-    return getContext().resourceManager.getDeviceCapabilitySync();
+    return ResUtil.getDeviceCapabilitySync();
   }
 
   /**

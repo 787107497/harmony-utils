@@ -200,68 +200,6 @@ struct Index {
           Text(this.appInfoStr)
             .visibility(StrUtil.isNotEmpty(this.appInfoStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
-          Button("toAppSetting()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("请在设置中开启权限！")
-              AppUtil.toAppSetting();
-            })
-          Button("toNetworkSetting()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("请在设置中开启权限！")
-              AppUtil.toNetworkSetting();
-            })
-          Button("toNotificationSetting()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("请在设置中开启权限！")
-              AppUtil.toNotificationSetting();
-            })
-          Button("toBluetoothSetting()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("请在设置中开启权限！")
-              AppUtil.toBluetoothSetting();
-            })
-          Button("toNfcSetting()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("请在设置中开启权限！")
-              AppUtil.toNfcSetting();
-            })
-          Button("toWebBrowser()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("拉起系统浏览器中…")
-              AppUtil.toWebBrowser("https://developer.huawei.com/")
-                .catch((err: BusinessError) => {
-                  LogUtil.error(JSON.stringify(err));
-                  ToastUtil.showToast("拉起失败！");
-                });
-            })
-          Button("toAppGalleryDetail()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("拉起应用市场对应的应用详情界面中…")
-              AppUtil.toAppGalleryDetail("com.harmony.utils")
-                .catch((err: BusinessError) => {
-                  LogUtil.error(JSON.stringify(err));
-                  ToastUtil.showToast("拉起失败！");
-                });
-              ;
-            })
-          Button("toFileManagement()")
-            .btnStyle()
-            .onClick(() => {
-              ToastUtil.showToast("拉起系统文件管理器中…")
-              AppUtil.toFileManagement()
-                .catch((err: BusinessError) => {
-                  LogUtil.error(JSON.stringify(err));
-                  ToastUtil.showToast("拉起失败！");
-                });
-              ;
-            })
           Button("exit()")
             .btnStyle()
             .onClick(() => {

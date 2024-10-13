@@ -1,12 +1,11 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import {
-    AppUtil,
-  FileUtil,
-  ImageUtil,
-  LogUtil,
-  NotificationBasicOptions, NotificationMultiLineOptions,
-    NotificationUtil, StrUtil, ToastUtil
+    ImageUtil,
+    LogUtil,
+    NotificationBasicOptions, NotificationMultiLineOptions,
+    NotificationUtil, StrUtil, ToastUtil,
+    WantUtil
 } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -66,7 +65,7 @@ struct Index {
               NotificationUtil.authorizeNotification((grant) => {
                 ToastUtil.showToast(`授权通知服务: ${grant ? '成功' : '失败'}`);
                 if (!grant) {
-                  AppUtil.toNotificationSetting(); //跳转通知设置页面
+                  WantUtil.toNotificationSetting(); //跳转通知设置页面
                 }
               })
             })

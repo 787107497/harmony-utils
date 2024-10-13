@@ -14,7 +14,7 @@
     2、新增setGrayScale方法，设置灰阶，APP一键置灰。 
     3、新增getWindowStage方法。
 10. ArrayUtil: 添加chunk。
-11. 
+11. 新增WantUtil
 
 ## 1.1.0（API12 - 5.0.3.800）
 1. DateUtil，代码优化，兼容支持字符串时间戳。

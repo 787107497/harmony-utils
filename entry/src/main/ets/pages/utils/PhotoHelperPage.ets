@@ -1,15 +1,15 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import {
-  AppUtil,
-  DateUtil,
-  FileUtil,
-  ImageUtil,
-  LogUtil,
-  PermissionUtil,
-  PhotoHelper,
-  PickerUtil,
-  StrUtil,
-  ToastUtil
+    DateUtil,
+    FileUtil,
+    ImageUtil,
+    LogUtil,
+    PermissionUtil,
+    PhotoHelper,
+    PickerUtil,
+    StrUtil,
+    ToastUtil,
+    WantUtil
 } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -68,7 +68,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
+                  WantUtil.toAppSetting()
                 }
               })
             })
@@ -94,7 +94,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
+                  WantUtil.toAppSetting()
                 }
               })
             })
@@ -122,7 +122,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
+                  WantUtil.toAppSetting()
                 }
               })
             })
@@ -164,7 +164,7 @@ struct Index {
                   })
                 } else {
                   ToastUtil.showLong("请在设置中打开权限")
-                  AppUtil.toAppSetting()
+                  WantUtil.toAppSetting()
                 }
               })
             })

@@ -10,9 +10,7 @@ export { NotificationUtil } from './src/main/ets/utils/NotificationUtil';
 
 export { EmitterUtil } from './src/main/ets/utils/EmitterUtil';
 
-export { DialogUtil } from './src/main/ets/action/DialogUtil';
-
-export { ToastUtil } from './src/main/ets/action/ToastUtil';
+export { WantUtil } from './src/main/ets/utils/WantUtil';
 
 export { AuthUtil } from './src/main/ets/utils/AuthUtil';
 
@@ -40,9 +38,15 @@ export { LocationUtil } from './src/main/ets/utils/LocationUtil';
 
 export { LogUtil } from './src/main/ets/utils/LogUtil';
 
+export { ResUtil } from './src/main/ets/utils/ResUtil';
+
 export { DateUtil } from './src/main/ets/utils/DateUtil';
 
 export { StrUtil } from './src/main/ets/utils/StrUtil';
+
+export { RegUtil } from './src/main/ets/utils/RegUtil';
+
+export { FormatUtil } from './src/main/ets/utils/FormatUtil';
 
 export { CharUtil } from './src/main/ets/utils/CharUtil';
 
@@ -71,6 +75,10 @@ export { NetworkUtil } from './src/main/ets/utils/NetworkUtil';
 export { AssetUtil } from './src/main/ets/utils/AssetUtil';
 
 export { TempUtil } from './src/main/ets/utils/TempUtil';
+
+export { DialogUtil } from './src/main/ets/action/DialogUtil';
+
+export { ToastUtil } from './src/main/ets/action/ToastUtil';
 
 export { CryptoUtil } from './src/main/ets/crypto/CryptoUtil';
 

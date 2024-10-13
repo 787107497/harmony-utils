@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { AppUtil, LocationUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { LocationUtil, LogUtil, StrUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { geoLocationManager } from '@kit.LocationKit';
@@ -43,7 +43,7 @@ struct Index {
                   ToastUtil.showToast("授权成功");
                 } else {
                   ToastUtil.showToast("请在设置中开启定位权限");
-                  AppUtil.toAppSetting();
+                  WantUtil.toAppSetting();
                 }
               })
             })

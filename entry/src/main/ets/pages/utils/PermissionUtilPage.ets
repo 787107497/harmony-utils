@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { AppUtil, PermissionUtil, ToastUtil } from '@pura/harmony-utils';
+import { PermissionUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { Permissions } from '@kit.AbilityKit';
 import { MockSetup } from '@ohos/hamock';
@@ -42,7 +42,7 @@ struct Index {
               PermissionUtil.checkRequestPermissions(p).then((grant) => {
                 ToastUtil.showToast(`检测并申请授权，结果：${grant}`);
                 if (!grant) {
-                  AppUtil.toAppSetting(); //拒绝权限，跳转APP设置页面
+                  WantUtil.toAppSetting(); //拒绝权限，跳转APP设置页面
                 }
               })
             })

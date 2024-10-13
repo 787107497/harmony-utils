@@ -38,11 +38,6 @@ export class AppUtil {
 
   private constructor() {}
 
-  private static readonly uri_info: string = 'application_info_entry' //应用设置页面
-  private static readonly uri_network: string = "mobile_network_entry"; //移动网络设置页面
-  private static readonly uri_notification: string = "systemui_notification_settings"; //通知设置页面
-  private static readonly uri_bluetooth: string = "bluetooth_entry"; //蓝牙设置页面
-  private static readonly uri_nfc: string = "nfc_settings"; //NFC设置页面
   private static context: common.UIAbilityContext; //common.UIAbilityContext，上下文
 
 
@@ -431,98 +426,6 @@ export class AppUtil {
    */
   static async getAppInfoSync() {
     return AppUtil.getBundleInfoSync().appInfo;
-  }
-
-
-  /**
-   * 跳转应用设置页面（调用此方法到设置，手动开启权限）
-   */
-  static async toAppSetting(uri: string = AppUtil.uri_info): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
-      bundleName: 'com.huawei.hmos.settings', //设置应用bundleName
-      abilityName: 'com.huawei.hmos.settings.MainAbility', //设置应用abilityName
-      uri: uri, //目标页面
-      parameters: {
-        bundleName: context.abilityInfo.bundleName, //拉起方应用包名
-        pushParams: context.abilityInfo.bundleName, //拉起方应用包名
-      }
-    }
-    return await context.startAbility(want);
-  }
-
-  /**
-   * 跳转移动网络设置页面
-   */
-  static toNetworkSetting(): Promise<void> {
-    return AppUtil.toAppSetting(AppUtil.uri_network);
-  }
-
-  /**
-   * 跳转通知设置页面
-   */
-  static toNotificationSetting(): Promise<void> {
-    return AppUtil.toAppSetting(AppUtil.uri_notification);
-  }
-
-  /**
-   * 跳转蓝牙设置页面
-   */
-  static toBluetoothSetting(): Promise<void> {
-    return AppUtil.toAppSetting(AppUtil.uri_bluetooth);
-  }
-
-  /**
-   * 跳转NFC设置页面
-   */
-  static toNfcSetting(): Promise<void> {
-    return AppUtil.toAppSetting(AppUtil.uri_nfc);
-  }
-
-
-  /**
-   * 拉起系统浏览器
-   */
-  static async toWebBrowser(url: string): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
-      action: 'ohos.want.action.viewData',
-      entities: ['entity.system.browsable'],
-      uri: url,
-      parameters: {
-        bundleName: context.abilityInfo.bundleName, //拉起方应用包名
-        pushParams: context.abilityInfo.bundleName, //拉起方应用包名
-      }
-    }
-    return await context.startAbility(want);
-  }
-
-
-  /**
-   * 拉起应用市场对应的应用详情界面
-   * @param bundleName 需要打开应用详情的应用的包名。
-   * @returns
-   */
-  static async toAppGalleryDetail(bundleName: string): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
-      action: 'ohos.want.action.appdetail',
-      uri: 'store://appgallery.huawei.com/app/detail?id=' + bundleName,
-    };
-    return await context.startAbility(want);
-  }
-
-
-  /**
-   * 拉起系统文件管理器
-   */
-  static async toFileManagement(): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
-      bundleName: 'com.huawei.hmos.filemanager',
-      abilityName: 'MainAbility'
-    };
-    return await context.startAbility(want);
   }
 
 

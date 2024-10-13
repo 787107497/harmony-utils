@@ -838,47 +838,4 @@ export class FileUtil {
   }
 
 
-  /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用同步形式返回
-   * @param path rawfile文件路径
-   * @returns
-   */
-  static getRawFileContentSync(path: string): Uint8Array {
-    let resourceManager = getContext().resourceManager;
-    return resourceManager.getRawFileContentSync(path);
-  }
-
-  /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用Promise异步回调
-   * @param path
-   * @returns
-   */
-  static getRawFileContent(path: string): Promise<Uint8Array> {
-    let resourceManager = getContext().resourceManager;
-    return resourceManager.getRawFileContent(path);
-  }
-
-  /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用同步形式返回
-   * @param path rawfile文件路径
-   * @returns
-   */
-  static getRawFileContentStrSync(path: string): string {
-    let resourceManager = getContext().resourceManager;
-    let uint8Array = resourceManager.getRawFileContentSync(path);
-    return StrUtil.unit8ArrayToStr(uint8Array);
-  }
-
-  /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用Promise异步回调
-   * @param path
-   * @returns
-   */
-  static async getRawFileContentStr(path: string): Promise<string> {
-    let resourceManager = getContext().resourceManager;
-    let uint8Array = await resourceManager.getRawFileContent(path);
-    return StrUtil.unit8ArrayToStr(uint8Array);
-  }
-
-
 }

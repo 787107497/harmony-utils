@@ -26,6 +26,7 @@ import {
   PrimaryDialogOptions,
   SheetConfirm
 } from '../entity/DialogOptions';
+import { ResUtil } from '../utils/ResUtil';
 
 
 /**
@@ -646,7 +647,7 @@ export class DialogUtil {
       if (typeof resource === 'string') {
         return resource;
       } else {
-        return getContext().resourceManager.getStringSync((resource as Resource).id);
+        return ResUtil.getStringSync((resource as Resource).id);
       }
     } catch (e) {
       return null
