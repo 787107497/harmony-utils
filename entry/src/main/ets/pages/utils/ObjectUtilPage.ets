@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil, ObjectUtil, ToastUtil } from '@pura/harmony-utils';
+import { LogUtil, ObjectUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { User } from '../../entity/User';
 
@@ -12,6 +12,7 @@ import { User } from '../../entity/User';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+  @State resultStr: string = ""
   @State user: User = new User();
   @State obj: String = new String("abcd@1234");
   @State obj1: String = new String();
@@ -36,7 +37,8 @@ struct Index {
             .onClick(() => {
               let hash1 = ObjectUtil.getHash(this.user);
               let hash2 = ObjectUtil.getHash(this.describe);
-              LogUtil.error(`hash1: ${hash1}\nhash2: ${hash2}`)
+              this.resultStr = `hash1: ${hash1}\n\nhash2: ${hash2}`
+              LogUtil.error(this.resultStr)
               ToastUtil.showToast("请查看Log日志")
             })
           Button("isString()")
@@ -44,7 +46,8 @@ struct Index {
             .onClick(() => {
               let bl1 = ObjectUtil.isString(this.user);
               let bl2 = ObjectUtil.isString(this.obj);
-              LogUtil.error(`bls1: ${bl1}\nbls2: ${bl2}`)
+              this.resultStr = `bls1: ${bl1}\nbls2: ${bl2}`
+              LogUtil.error(this.resultStr)
               ToastUtil.showToast("请查看Log日志")
             })
           Button("isNull()")
@@ -53,28 +56,43 @@ struct Index {
               let bl1 = ObjectUtil.isNull(this.user);
               let bl2 = ObjectUtil.isNull(this.obj);
               let bl3 = ObjectUtil.isNull(this.obj1);
-              LogUtil.error(`bl1: ${bl1}\nbl2: ${bl2}\nbl3: ${bl3}`)
+              this.resultStr = `bl1: ${bl1}\nbl2: ${bl2}\nbl3: ${bl3}`
+              LogUtil.error(this.resultStr)
+              ToastUtil.showToast("请查看Log日志")
+            })
+          Button("isEmpty()")
+            .btnStyle()
+            .onClick(() => {
+              let bl1 = ObjectUtil.isEmpty(this.user);
+              let bl2 = ObjectUtil.isEmpty(this.obj);
+              let bl3 = ObjectUtil.isEmpty(this.obj1);
+              this.resultStr = `bl1: ${bl1}\nbl2: ${bl2}\nbl3: ${bl3}`
+              LogUtil.error(this.resultStr)
               ToastUtil.showToast("请查看Log日志")
             })
           Button("deepCopy()")
             .btnStyle()
             .onClick(() => {
-              let user :User= JSON.parse(this.userJsonStr);
-              LogUtil.error(`user1: ${JSON.stringify(user)}`);
-              let user2:User = ObjectUtil.deepCopy(user);
-              LogUtil.error(`user2: ${JSON.stringify(user2)}`);
+              let user: User = JSON.parse(this.userJsonStr);
+              let user2: User = ObjectUtil.deepCopy(user);
+              this.resultStr = `user1:\n${JSON.stringify(user)}\n\nuser2:\n${JSON.stringify(user2)}`
+              LogUtil.error(this.resultStr);
               ToastUtil.showToast("请查看Log日志");
             })
           Button("objToClass()")
             .btnStyle()
             .onClick(() => {
-              let user :User= JSON.parse(this.userJsonStr);
-              LogUtil.error(`user3: ${JSON.stringify(user)}`);
+              let user: User = JSON.parse(this.userJsonStr);
               let user4 = ObjectUtil.objToClass(User, user);
-              LogUtil.error(`user4: ${JSON.stringify(user4)}`);
-              user4.say("小奶子......");
+              this.resultStr = `user3:\n${JSON.stringify(user)}\n\nuser4:\n${JSON.stringify(user4)}`
+              LogUtil.error(this.resultStr);
+              user4.say("小日子......");
               ToastUtil.showToast("请查看Log日志");
             })
+
+          Text(this.resultStr)
+            .visibility(StrUtil.isNotEmpty(this.resultStr) ? Visibility.Visible : Visibility.None)
+            .textStyle()
 
           Blank().layoutWeight(1)
         }

@@ -5,7 +5,7 @@ import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
- * 字符工具类
+ * Want工具类
  */
 @Entry
 @Component
@@ -15,7 +15,7 @@ struct Index {
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("CharUtil", "字符工具类");
+    this.describe = new DescribeBean("WantUtil", "Want工具类");
   }
 
   build() {

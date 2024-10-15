@@ -44,7 +44,7 @@ export { DateUtil } from './src/main/ets/utils/DateUtil';
 
 export { StrUtil } from './src/main/ets/utils/StrUtil';
 
-export { RegUtil } from './src/main/ets/utils/RegUtil';
+export { RegexUtil } from './src/main/ets/utils/RegexUtil';
 
 export { FormatUtil } from './src/main/ets/utils/FormatUtil';
 

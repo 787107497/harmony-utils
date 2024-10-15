@@ -1,7 +1,7 @@
 [
   {
-    "name": "PreferencesUtil",
-    "desc": "测试",
+    "name": "ResUtil",
+    "desc": "测试入口",
     "type": 1
   },
   {
@@ -51,7 +51,7 @@
   },
   {
     "name": "KvUtil",
-    "desc": "键值型数据库工具库",
+    "desc": "键值型数据库工具类",
     "type": 1
   },
   {
@@ -120,7 +120,7 @@
     "type": 1
   },
   {
-    "name": "RegUtil",
+    "name": "RegexUtil",
     "desc": "正则工具类",
     "type": 1
   },

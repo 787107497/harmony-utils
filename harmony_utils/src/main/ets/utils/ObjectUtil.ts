@@ -16,6 +16,7 @@
  */
 
 import util from '@ohos.util';
+import { ArrayList, HashMap, List } from '@kit.ArkTS';
 
 /**
  * TODO 对象工具类
@@ -28,6 +29,8 @@ import util from '@ohos.util';
  * QQ交流群: 569512366
  */
 export class ObjectUtil {
+
+
 
   private constructor() {}
 
@@ -47,7 +50,7 @@ export class ObjectUtil {
    * @param source
    * @returns
    */
-  static isString(source: string | Object | ArrayBuffer | undefined | null) {
+  static isString(source: string | Object | ArrayBuffer | undefined | null): boolean {
     return typeof source === 'string' || source instanceof String;
   }
 
@@ -59,6 +62,27 @@ export class ObjectUtil {
    */
   static isNull(source: Object) {
     return source === null || source === undefined;
+  }
+
+
+  /**
+   * 判断属性内容是否为空
+   * @param property
+   * @returns
+   */
+  static isEmpty(property: CommonAllType): Boolean {
+    if (ObjectUtil.isNull(property)) {
+      return true
+    } else if (Array.isArray(property) || property instanceof Array) {
+      return property.length == 0
+    } else if (property instanceof List) {
+      return property.isEmpty()
+    } else if (property instanceof ArrayList) {
+      return property.isEmpty()
+    } else if (property instanceof HashMap) {
+      return property.isEmpty()
+    }
+    return property == '';
   }
 
 
@@ -83,3 +107,8 @@ export class ObjectUtil {
 
 
 }
+
+
+export type CommonSingleType = Object | String | Number | Boolean | null | undefined; //通用单个联合类型
+
+export type CommonAllType = CommonSingleType | Array<CommonSingleType> | ArrayList<CommonSingleType> | HashMap<CommonSingleType, CommonSingleType>; //通用所有联合类型

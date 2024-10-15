@@ -31,7 +31,7 @@ OpenHarmony ohpm
 | WantUtil                                                                          | Want工具类                                                                  |
 | AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                     |
 | PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                    |
-| KvUtil                                                                            | 键值型数据库工具库                                                                |
+| KvUtil                                                                            | 键值型数据库工具类                                                                |
 | CacheUtil                                                                         | 缓存工具类                                                                    |
 | FileUtil                                                                          | 文件操作相关工具类                                                                |
 | PickerUtil                                                                        | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类                                              |
@@ -208,6 +208,14 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onceSubscribe | 单次订阅指定事件 |
 | unSubscribe   | 取消事件订阅   |
 
+## WantUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets)
+
+| 方法            | 介绍       |
+|:--------------|:---------|
+| post          | 发送事件     |
+| onSubscribe   | 订阅事件     |
+| onceSubscribe | 单次订阅指定事件 |
+| unSubscribe   | 取消事件订阅   |
 
 ## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
@@ -239,6 +247,13 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | delete<br/>deleteSync         | 删除缓存值                                                       |
 | delete<br/>deleteSync         | 删除缓存值                                                       |
 
+## KvUtil（键值型数据库工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets)
+
+| 方法  | 介绍         |
+|:----|:-----------|
+| has | 缓存中的数据是否存在 |
+| put | 将数据存入缓存中   |
+| get | 获取缓存中的数据   |
 
 ## CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
 
@@ -342,16 +357,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onSnapshotListener             | 开启系统截屏事件的监听                      |
 | removeSnapshotListener         | 关闭系统截屏事件的监听                      |
 
-## ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
-
-| 方法                    | 介绍                           |
-|:----------------------|:-----------------------------|
-| startScanForResult    | 调用默认界面扫码，使用Promise方式异步返回解码结果 |
-| generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
-| onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码    |
-| onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
-| canIUseScan           | 判断当前设备是否支持码能力                |
-
 ## PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
 
 | 方法                  | 介绍                          |
@@ -368,6 +373,16 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getMimeType         | 根据文件后缀名获取文件mimeType         |
 | getIconFileStr      | 根据文件后缀名获取对应文件类型的图标          |
 | getMimeTypeMap      | filePreview支持的预览文件类型        |
+
+## ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
+
+| 方法                    | 介绍                           |
+|:----------------------|:-----------------------------|
+| startScanForResult    | 调用默认界面扫码，使用Promise方式异步返回解码结果 |
+| generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
+| onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码    |
+| onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
+| canIUseScan           | 判断当前设备是否支持码能力                |
 
 ## LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
 
@@ -401,6 +416,12 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | error      | 打印ERROR级别日志                                  |
 | fatal      | 打印FATAL级别日志                                  |
 | print      | 打印JSON对象和JSON字符串（日志过滤tag为：JSAPP）             |
+
+## ResUtil（资源工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ResUtilPage.ets)
+
+| 方法         | 介绍                                           |
+|:-----------|:---------------------------------------------|
+| init       | 初始化日志参数（该方法建议在Ability里调用）                    |
 
 ## DateUtil（日期工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DateUtilPage.ets)
 
@@ -477,6 +498,18 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | isEmail              | 判断传入的邮箱格式是否正确                          |
 | isEmoji              | 判断字符串是否包含表情（匹配单个emoji或多个组合emoji的正则表达式） |
 | getErrnoToString     | 获取系统错误码对应的详细信息                         |
+
+## RegexUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets)
+
+| 方法           | 介绍                             |
+|:-------------|:-------------------------------|
+| isDigit      | 判断字符串char是否是数字                 |
+
+## CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
+
+| 方法           | 介绍                             |
+|:-------------|:-------------------------------|
+| isDigit      | 判断字符串char是否是数字                 |
 
 ## CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
 

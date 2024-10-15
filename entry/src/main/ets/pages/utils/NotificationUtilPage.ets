@@ -34,7 +34,11 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("设置通知的默认统一配置")
+          Button("设置通知的默认统一配置\ngetCompressedIcon()\ngetCompressedPicture()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(async () => {
               let wantAgent = await NotificationUtil.getDefaultWantAgent();

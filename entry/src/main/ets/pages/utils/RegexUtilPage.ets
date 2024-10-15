@@ -1,10 +1,10 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { CharUtil, FormatUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { LogUtil, RegexUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
- * 字符工具类
+ * 正则工具类
  */
 @Entry
 @Component
@@ -14,7 +14,7 @@ struct Index {
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("CharUtil", "字符工具类");
+    this.describe = new DescribeBean("RegexUtil", "正则工具类");
   }
 
   build() {
@@ -26,24 +26,36 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("isPhone()\ngetPhoneFormat()\ngetPhoneLocationName()")
+          Button("isMatch()\nisEmail()")
             .labelStyle({ maxLines: 4 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let phone: string = "18969062528";
-              let bl = FormatUtil.isPhone(phone);
-              LogUtil.error(`isPhone: ${bl}`);
-              let format = FormatUtil.getPhoneFormat(phone);
-              LogUtil.error(`getPhoneFormat: ${format}`);
-              let locationName = FormatUtil.getPhoneLocationName(phone);
-              LogUtil.error(`getPhoneLocationName: ${locationName}`);
+              let rex="^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
+              let phone: string = "13909626520";
+              let email: string = "787107497@qq.com";
+              let bl1 = RegexUtil.isMatch(phone,rex);
+              LogUtil.error(`是否是手机号: ${bl1}`);
+              let bl2 = RegexUtil.isEmail(email);
+              LogUtil.error(`是否是邮件: ${bl2}`);
+              ToastUtil.showToast("请查看Log日志");
+            })
+          Button("isEmoji()")
+            .labelStyle({ maxLines: 2 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let str = "hdc shell aa start -a EntryAbility -b com.harmony.utils in 253 ms";
+              let isEmoji = RegexUtil.isEmoji(str);
+              LogUtil.error(`判断字符串是否包含表情: ${isEmoji}`);
               ToastUtil.showToast("请查看Log日志");
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

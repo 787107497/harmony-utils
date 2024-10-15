@@ -16,7 +16,7 @@ export class Mock {
     data.push(new DescribeBean("WantUtil", "Want工具类", 1));
     data.push(new DescribeBean("AuthUtil", "手机的生物认证（指纹、人脸、密码）工具类", 1));
     data.push(new DescribeBean("PreferencesUtil", "Preferences（用户首选项）工具类", 1));
-    data.push(new DescribeBean("KvUtil", "键值型数据库工具库", 1));
+    data.push(new DescribeBean("KvUtil", "键值型数据库工具类", 1));
     data.push(new DescribeBean("CacheUtil", "缓存工具类", 1));
     data.push(new DescribeBean("FileUtil", "文件操作相关工具类", 1));
     data.push(new DescribeBean("PickerUtil", "拍照、文件(文件、图片、视频、音频)选择和保存,工具类", 1));
@@ -30,7 +30,7 @@ export class Mock {
     data.push(new DescribeBean("ResUtil", "资源工具类", 1));
     data.push(new DescribeBean("DateUtil", "日期工具类", 1));
     data.push(new DescribeBean("StrUtil", "字符串工具类", 1));
-    data.push(new DescribeBean("RegUtil", "正则工具类", 1));
+    data.push(new DescribeBean("RegexUtil", "正则工具类", 1));
     data.push(new DescribeBean("FormatUtil", "格式化工具类", 1));
     data.push(new DescribeBean("CharUtil", "字符工具类", 1));
     data.push(new DescribeBean("NumberUtil", "number工具类", 1));

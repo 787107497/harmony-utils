@@ -21,7 +21,7 @@ import { Want } from '@kit.AbilityKit';
 
 
 /**
- * TODO WantUtil工具类
+ * TODO Want工具类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
@@ -94,7 +94,7 @@ export class WantUtil {
 
 
   /**
-   * 跳转系统设置页面
+   * 跳转系统设置页面（配合WantUtil里的URI常量一起使用，可跳转更多的设置页面）
    * @param uri: 传入WantUtil的URI常量，不传默认为设置页面
    * @returns
    */
@@ -113,12 +113,11 @@ export class WantUtil {
 
 
   /**
-   * 跳转应用设置页面（调用此方法到设置，手动开启权限）
+   * 跳转应用设置页面
    */
   static async toAppSetting(): Promise<void> {
     return WantUtil.toSetting(WantUtil.URI_APPLICATION_INFO);
   }
-
 
   /**
    * 跳转通知设置页面
@@ -127,7 +126,6 @@ export class WantUtil {
     return WantUtil.toSetting(WantUtil.URI_NOTIFICATION);
   }
 
-
   /**
    * 跳转移动网络设置页面
    */
@@ -135,14 +133,12 @@ export class WantUtil {
     return WantUtil.toSetting(WantUtil.URI_NETWORK);
   }
 
-
   /**
    * 跳转WLAN设置页面
    */
   static toWifiSetting(): Promise<void> {
     return WantUtil.toSetting(WantUtil.URI_WIFI);
   }
-
 
   /**
    * 跳转蓝牙设置页面
@@ -158,7 +154,6 @@ export class WantUtil {
     return WantUtil.toSetting(WantUtil.URI_NFC);
   }
 
-
   /**
    * 跳转声音和振动设置页面
    */
@@ -172,7 +167,6 @@ export class WantUtil {
   static toStorageSetting(): Promise<void> {
     return WantUtil.toSetting(WantUtil.URI_STORAGE);
   }
-
 
   /**
    * 跳转电池设置页面

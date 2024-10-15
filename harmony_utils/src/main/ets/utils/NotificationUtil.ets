@@ -464,12 +464,12 @@ export class NotificationUtil {
 
 
   /**
-   * 压缩通知的图片（图像像素的总字节数不能超过2MB）
+   * 获取压缩通知的图片（图像像素的总字节数不能超过2MB）
    * @param pixelMap：原始待压缩图片的PixelMap对象
    * @returns 返回压缩后的图片数据
    */
   static async getCompressedPicture(src: Resource | image.PixelMap): Promise<PixelMap> {
-    if (typeof (src as Resource).bundleName === 'string') {
+    if (typeof (src as Resource).bundleName == 'string') {
       src = await ImageUtil.getPixelMapFromMedia((src as Resource));
     }
     let pixelMap = src as image.PixelMap;
@@ -489,7 +489,7 @@ export class NotificationUtil {
    * @returns
    */
   static async getCompressedIcon(src: Resource | image.PixelMap): Promise<PixelMap> {
-    if (typeof (src as Resource).bundleName === 'string') {
+    if (typeof (src as Resource).bundleName == 'string') {
       src = await ImageUtil.getPixelMapFromMedia((src as Resource));
     }
     let pixelMap = src as image.PixelMap;
@@ -519,9 +519,6 @@ export class NotificationUtil {
           action: 'action_notice',
           entities: [],
           uri: '',
-          // parameters: {
-          //   'params_notice': noticeId
-          // }
         }
       ],
       actionType: wantAgent.OperationType.START_ABILITY | wantAgent.OperationType.SEND_COMMON_EVENT,

@@ -177,14 +177,7 @@ struct Index {
                 ToastUtil.showToast("删除整个目录成功")
               })
             })
-          Button("getRawFileContentStr()")
-            .btnStyle()
-            .onClick(() => {
-              FileUtil.getRawFileContentStr('data.json').then((result) => {
-                this.jsonStr = result;
-                ToastUtil.showToast("RawFile文件读取成功")
-              })
-            })
+
           Text(this.jsonStr)
             .visibility(StrUtil.isNotEmpty(this.jsonStr) ? Visibility.Visible : Visibility.None)
             .textStyle()

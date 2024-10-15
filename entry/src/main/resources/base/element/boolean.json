@@ -1,0 +1,16 @@
+{
+  "boolean": [
+    {
+      "name": "bl_debug",
+      "value": true
+    },
+    {
+      "name": "bl_agree",
+      "value": false
+    },
+    {
+      "name": "bl_big",
+      "value": true
+    }
+  ]
+}

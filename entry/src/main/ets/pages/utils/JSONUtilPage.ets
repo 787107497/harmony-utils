@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { FileUtil, JSONUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { JSONUtil, LogUtil, ResUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { User } from '../../entity/User';
 
@@ -23,7 +23,7 @@ struct Index {
 
 
   aboutToAppear(): void {
-    FileUtil.getRawFileContentStr('data.json').then((result) => {
+    ResUtil.getRawFileContentStr('data.json').then((result) => {
       this.arrayStr = result;
     })
   }

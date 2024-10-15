@@ -45,5 +45,4 @@ export declare namespace crypto {
   type RSA_TRAN = RSA_TRAN_SOME | string;
 
 
-
 }

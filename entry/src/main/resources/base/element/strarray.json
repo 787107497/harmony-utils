@@ -1,0 +1,21 @@
+{
+  "strarray": [
+    {
+      "name": "font_size",
+      "value": [
+        {
+          "value": "mini"
+        },
+        {
+          "value": "small"
+        },
+        {
+          "value": "normal"
+        },
+        {
+          "value": "medium"
+        }
+      ]
+    }
+  ]
+}

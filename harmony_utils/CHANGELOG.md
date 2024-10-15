@@ -1,20 +1,31 @@
 # 版本记录
 
-## 1.1.1（API12 - 5.0.3.806）
-1. DateUtil，修复1.1.0版本中的日期格式化异常的Bug。   
-2. NotificationUtil，修复boolean默认参数可能异常的Bug。    
-3. SnapshotUtil，添加同步方法getSync，适配新的API；以及添加系统截图监听。    
-4. PreferencesUtil，适配新的API，添加订阅数据变更。    
-5. 新增KvUtil，键值型数据库工具库。    
-6. ImageUtil，添加图片压缩。    
-7. KeyboardUtil，添加show方法 主动拉起键盘；适配新的API，重构其他方法；废弃。    
-8. DialogUtil，优化代码，适配新的API，重构方法；废弃。    
-9. AppUtil:    
-    1、优化init方法，1.1.0版本后，在UIAbility的onCreate方法中初始化该方法。    
-    2、新增setGrayScale方法，设置灰阶，APP一键置灰。 
-    3、新增getWindowStage方法。
-10. ArrayUtil: 添加chunk。
-11. 新增WantUtil
+## 1.2.0（API12 - 5.0.3.900）
+1. DateUtil，修复1.1.0版本中的日期格式化异常的Bug。
+2. NotificationUtil：       
+   1、修复boolean默认参数可能异常的Bug。       
+   2、新增getCompressedPicture方法，压缩通知的图片（图像像素的总字节数不能超过2MB）。       
+   3、新增getCompressedIcon方法，获取压缩通知图标（图标像素的总字节数不超过192KB）。
+3. SnapshotUtil，添加同步方法getSync，适配新的API；以及添加系统截图监听。
+4. PreferencesUtil，适配新的API，添加订阅数据变更。
+5. ImageUtil，添加图片压缩方法。
+6. ArrayUtil，添加chunk方法。
+7. KeyboardUtil，添加show方法 主动拉起键盘；适配新的API，重构其他方法；废弃部分方法。
+8. DialogUtil，优化代码，适配新的API，重构方法；废弃部分方法。
+9. AppUtil:       
+   1、优化init方法，1.1.0版本后，在UIAbility的onCreate方法中初始化该方法。    
+   2、新增setGrayScale方法，设置灰阶，APP一键置灰。       
+   3、新增getWindowStage方法。    
+   4、等方法迁移到WantUtil。
+10. FileUtil，等方法迁移到ResUtil。
+11. StrUtil：    
+    1、等方法迁移到RegexUtil。    
+    2、等方法迁移到FormatUtil。
+12. 新增KvUtil，键值型数据库工具类。
+13. 新增WantUtil，Want相关工具类。
+14. 新增ResUtil，资源相关工具类。
+15. 新增RegexUtil，正则相关工具类。
+16. 新增FormatUtil，格式化相关工具类。    
 
 ## 1.1.0（API12 - 5.0.3.800）
 1. DateUtil，代码优化，兼容支持字符串时间戳。

@@ -17,7 +17,6 @@
 
 import { image } from '@kit.ImageKit';
 import { resourceManager } from '@kit.LocalizationKit';
-import { AppUtil } from './AppUtil';
 import { Base64Util } from './Base64Util';
 import { FileUtil } from './FileUtil';
 import { LogUtil } from './LogUtil';
@@ -273,7 +272,7 @@ export class ImageUtil {
    * @returns
    */
   static async getPixelMapFromMedia(resource: Resource, options?: image.DecodingOptions): Promise<image.PixelMap> {
-    let uint8Array = ResUtil.getMediaContentSync(resource);
+    let uint8Array = await ResUtil.getMediaContent(resource);
     return await ImageUtil.createImageSource(uint8Array.buffer).createPixelMap(options);
   }
 

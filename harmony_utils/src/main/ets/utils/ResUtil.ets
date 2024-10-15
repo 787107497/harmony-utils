@@ -46,7 +46,7 @@ export class ResUtil {
 
 
   /**
-   * 获取指定资源ID对应的布尔结果
+   * 获取指定资源对应的布尔结果
    * @param resId 资源ID值/资源信息
    * @returns
    */
@@ -69,7 +69,7 @@ export class ResUtil {
 
 
   /**
-   * 获取指定资源ID对应的integer数值或者float数值
+   * 获取指定资源对应的integer数值或者float数值
    * @param resId 资源ID值/资源信息
    * @returns
    */
@@ -92,23 +92,31 @@ export class ResUtil {
 
 
   /**
-   * 获取指定资源ID对应的字符串
+   * 获取指定资源对应的字符串
    * @param resId 资源ID值
    * @param args 格式化字符串资源参数。
    *   支持参数类型：%d、%f、%s、%%、%数字\$d、%数字\$f、%数字\$s；
    *   说明：%%转义为%; %数字\$d表示使用第几个参数；
    *   举例：%%d格式化后为%d字符串; %1\$d表示使用第一个参数
    */
-  static getStringSync(resId: number, args?: Array<string | number>) {
+  static getStringSync(resId: number | Resource, args?: Array<string | number>) {
     if (args != null && args != undefined) {
-      return ResUtil.getResourceManager().getStringSync(resId, ...args);
+      if (typeof resId === 'number') {
+        return ResUtil.getResourceManager().getStringSync(resId, ...args);
+      } else {
+        return ResUtil.getResourceManager().getStringSync(resId, ...args);
+      }
     } else {
-      return ResUtil.getResourceManager().getStringSync(resId);
+      if (typeof resId === 'number') {
+        return ResUtil.getResourceManager().getStringSync(resId);
+      } else {
+        return ResUtil.getResourceManager().getStringSync(resId);
+      }
     }
   }
 
   /**
-   * 获取指定资源ID对应的字符串
+   * 获取指定资源对应的字符串
    * @param resId 资源ID值/资源信息
    */
   static async getStringValue(resId: number | Resource): Promise<string> {
@@ -182,6 +190,51 @@ export class ResUtil {
    */
   static async getStringArrayByName(resName: string): Promise<Array<string>> {
     return await ResUtil.getResourceManager().getStringArrayByName(resName);
+  }
+
+
+  /**
+   * 根据指定数量获取指定resource对象表示的单复数字符串
+   * @param resId 资源ID值/资源信息
+   * @param num 数量值
+   */
+  static getPluralStringValueSync(resId: number | Resource, num: number): string {
+    if (typeof resId === 'number') {
+      return ResUtil.getResourceManager().getPluralStringValueSync(resId, num);
+    } else {
+      return ResUtil.getResourceManager().getPluralStringValueSync(resId, num);
+    }
+  }
+
+  /**
+   * 根据指定数量获取指定resource对象表示的单复数字符串
+   * @param resId 资源ID值/资源信息
+   * @param num 数量值
+   */
+  static async getPluralStringValue(resId: number | Resource, num: number): Promise<string> {
+    if (typeof resId === 'number') {
+      return await ResUtil.getResourceManager().getPluralStringValue(resId, num);
+    } else {
+      return await ResUtil.getResourceManager().getPluralStringValue(resId, num);
+    }
+  }
+
+  /**
+   * 根据指定数量获取指定资源名称表示的单复数字符串
+   * @param resName 资源名称
+   * @param num 数量值
+   */
+  static getPluralStringByNameSync(resName: string, num: number): string {
+    return ResUtil.getResourceManager().getPluralStringByNameSync(resName, num);
+  }
+
+  /**
+   * 根据指定数量获取指定资源名称表示的单复数字符串
+   * @param resName 资源名称
+   * @param num 数量值
+   */
+  static async getPluralStringByName(resName: string, num: number): Promise<string> {
+    return await ResUtil.getResourceManager().getPluralStringByName(resName, num);
   }
 
 
@@ -377,7 +430,7 @@ export class ResUtil {
 
 
   /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用同步形式返回
+   * 获取resources/rawfile目录下对应的rawfile文件内容
    * @param path rawfile文件路径
    * @returns
    */
@@ -386,7 +439,7 @@ export class ResUtil {
   }
 
   /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用Promise异步回调
+   * 获取resources/rawfile目录下对应的rawfile文件内容
    * @param path rawfile文件路径
    * @returns
    */
@@ -395,7 +448,7 @@ export class ResUtil {
   }
 
   /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用同步形式返回
+   * 获取resources/rawfile目录下对应的rawfile文件内容
    * @param path rawfile文件路径
    * @returns
    */
@@ -405,7 +458,7 @@ export class ResUtil {
   }
 
   /**
-   * 获取resources/rawfile目录下对应的rawfile文件内容，使用Promise异步回调
+   * 获取resources/rawfile目录下对应的rawfile文件内容
    * @param path rawfile文件路径
    * @returns
    */

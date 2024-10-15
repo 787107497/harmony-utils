@@ -4,7 +4,7 @@ import { PreferencesUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
- * KvUtil，键值型数据库工具库
+ * KvUtil，键值型数据库工具类
  */
 @Entry
 @Component
@@ -15,7 +15,7 @@ struct Index {
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("KvUtil", "键值型数据库工具库");
+    this.describe = new DescribeBean("KvUtil", "键值型数据库工具类");
   }
 
   build() {

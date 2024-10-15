@@ -184,50 +184,7 @@ struct Index {
               LogUtil.error(`buff: ${buff.byteLength}`)
               ToastUtil.showToast("请查看Log日志")
             })
-          Button("isPhone()\ngetPhoneFormat()\ngetPhoneLocationName()")
-            .labelStyle({ maxLines: 4 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
-            .btnStyle()
-            .onClick(() => {
-              let phone: string = "18969062528";
-              let bl = StrUtil.isPhone(phone);
-              LogUtil.error(`isPhone: ${bl}`);
-              let format = StrUtil.getPhoneFormat(phone);
-              LogUtil.error(`getPhoneFormat: ${format}`);
-              let locationName = StrUtil.getPhoneLocationName(phone);
-              LogUtil.error(`getPhoneLocationName: ${locationName}`);
-              ToastUtil.showToast("请查看Log日志");
-            })
-          Button("isMatch()\nisEmail()")
-            .labelStyle({ maxLines: 4 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
-            .btnStyle()
-            .onClick(() => {
-              let rex="^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
-              let phone: string = "13909626520";
-              let email: string = "787107497@qq.com";
-              let bl1 = StrUtil.isMatch(phone,rex);
-              LogUtil.error(`是否是手机号: ${bl1}`);
-              let bl2 = StrUtil.isEmail(email);
-              LogUtil.error(`是否是邮件: ${bl2}`);
-              ToastUtil.showToast("请查看Log日志");
-            })
-          Button("isEmoji()")
-            .labelStyle({ maxLines: 2 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
-            .btnStyle()
-            .onClick(() => {
-              let str = "hdc shell aa start -a EntryAbility -b com.harmony.utils in 253 ms";
-              let isEmoji = StrUtil.isEmoji(str);
-              LogUtil.error(`判断字符串是否包含表情: ${isEmoji}`);
-              ToastUtil.showToast("请查看Log日志");
-            })
+
           Button("getErrnoToString()")
             .labelStyle({ maxLines: 4 })
             .type(ButtonType.Normal)

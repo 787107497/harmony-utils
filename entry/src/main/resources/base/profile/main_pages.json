@@ -24,7 +24,7 @@
     "pages/utils/ResUtilPage",
     "pages/utils/DateUtilPage",
     "pages/utils/StrUtilPage",
-    "pages/utils/RegUtilPage",
+    "pages/utils/RegexUtilPage",
     "pages/utils/FormatUtilPage",
     "pages/utils/CharUtilPage",
     "pages/utils/NumberUtilPage",

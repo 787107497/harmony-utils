@@ -1,0 +1,8 @@
+{
+  "plural": [
+    {
+      "name": "eat_apple",
+      "value": [{"quantity":"one","value":"%d apple"},{"quantity":"other","value":"%d apples"}]
+    }
+  ]
+}

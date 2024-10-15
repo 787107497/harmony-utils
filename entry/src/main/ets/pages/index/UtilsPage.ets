@@ -1,4 +1,4 @@
-import { FileUtil, JSONUtil } from '@pura/harmony-utils';
+import { JSONUtil, ResUtil } from '@pura/harmony-utils';
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { DescribeBean } from '../../entity/DescribeBean';
@@ -18,7 +18,7 @@ export struct UtilsPage {
   }
 
   async aboutToAppear(): Promise<void> {
-    let jsonStr = FileUtil.getRawFileContentStrSync('data.json');
+    let jsonStr = ResUtil.getRawFileContentStrSync('data.json');
     let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
     if (arr && arr.length > 0) {
       this.data = arr;

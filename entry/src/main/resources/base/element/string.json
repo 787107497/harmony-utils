@@ -59,6 +59,10 @@
     {
       "name": "permission_READ_PASTEBOARD",
       "value": "用于应用读取剪贴板"
+    },
+    {
+      "name": "str_desc",
+      "value": "张三%d岁，工资%d米"
     }
   ]
 }
