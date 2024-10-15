@@ -49,11 +49,33 @@ struct Index {
               let uiContext = AppUtil.getUIContext();
               ToastUtil.showToast("成功获取UIContext")
             })
+          Button("getWindowStage()")
+            .btnStyle()
+            .onClick(() => {
+              let windowStage = AppUtil.getWindowStage();
+              ToastUtil.showToast("成功获取UIContext")
+            })
           Button("getMainWindow()")
             .btnStyle()
             .onClick(() => {
               let mainWindow = AppUtil.getMainWindow();
-              ToastUtil.showToast("成功获取主窗口")
+              ToastUtil.showToast("成功获取主窗口");
+            })
+          Button("setGrayScale()")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setGrayScale(1);
+              ToastUtil.showToast("APP一键置灰成功");
+            })
+          Button("setStatusBar()")
+            .btnStyle()
+            .onClick(() => {
+              this.statusBar = this.statusBar ? false : true;
+              if (this.statusBar) {
+                AppUtil.setStatusBar()
+              } else {
+                AppUtil.setStatusBar(false, true)
+              }
             })
           Button("getWindowProperties()")
             .btnStyle()
@@ -155,16 +177,6 @@ struct Index {
               let indicatorHeight = AppUtil.getNavigationIndicatorHeight();
               ToastUtil.showToast(`底部导航条的高度为：${indicatorHeight}px`)
             })
-          Button("setStatusBar()")
-            .btnStyle()
-            .onClick(() => {
-              this.statusBar = this.statusBar ? false : true;
-              if (this.statusBar) {
-                AppUtil.setStatusBar()
-              } else {
-                AppUtil.setStatusBar(false, true)
-              }
-            })
           Button("getBundleInfo()")
             .btnStyle()
             .onClick(async () => {
@@ -208,7 +220,8 @@ struct Index {
                 message: '是否退出应用？',
                 primaryButton: {
                   value: '取消',
-                  action: () => {}
+                  action: () => {
+                  }
                 },
                 secondaryButton: {
                   value: '退出',

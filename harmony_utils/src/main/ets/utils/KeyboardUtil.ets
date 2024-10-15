@@ -71,7 +71,6 @@ export class KeyboardUtil {
         let keyboardCallBack: NumberCallBack = (height: number) => {
           if (callback) {
             callback(height > 0, height); //键盘显示
-            LogUtil.error("height: " + height);
           }
         }
         CacheUtil.put<NumberCallBack>(`keyboard_num_x_id_${listenerId}`, keyboardCallBack);

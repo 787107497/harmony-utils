@@ -83,8 +83,11 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 |:-----------------------------|:-------------------------------------------------------------------------|
 | init                         | 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法                     |
 | getContext                   | 获取上下文，common.UIAbilityContext                                            |
+| getWindowStage               | 获取WindowStage                                                            |
 | getMainWindow                | 获取主窗口                                                                    |
 | getUIContext                 | 获取UIContext                                                              |
+| setGrayScale                 | 设置灰阶，APP一键置灰                                                             |
+| setStatusBar                 | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用）        |
 | getWindowProperties          | 获取当前窗口的属性                                                                |
 | getKeyboardAvoidMode         | 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）                                |
 | setKeyboardAvoidMode         | 设置虚拟键盘弹出时，页面的避让模式                                                        |
@@ -99,21 +102,12 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | setWindowTouchable           | 设置窗口是否为可触状态                                                              |
 | getStatusBarHeight           | 获取状态栏的高度，单位为px                                                           |
 | getNavigationIndicatorHeight | 获取底部导航条的高度，单位为px。                                                        |
-| setStatusBar                 | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用）        |
 | getBundleInfo                | 获取当前应用的BundleInfo                                                        |
 | getBundleName                | 获取应用包的名称                                                                 |
 | getVersionCode               | 获取应用版本号                                                                  |
 | getVersionName               | 获取应用版本名                                                                  |
 | getTargetVersion             | 获取运行应用包所需要最高SDK版本号                                                       |
 | getAppInfo                   | 获取应用程序的配置信息                                                              |
-| toAppSetting                 | 跳转应用设置页面                                                                 |
-| toNetworkSetting             | 跳转移动网络设置页面                                                               |
-| toNotificationSetting        | 跳转通知设置页面                                                                 |
-| toBluetoothSetting           | 跳转蓝牙设置页面                                                                 |
-| toNfcSetting                 | 跳转NFC设置页面                                                                |
-| toWebBrowser                 | 拉起系统浏览器                                                                  |
-| toAppGalleryDetail           | 拉起应用市场对应的应用详情界面                                                          |
-| toFileManagement             | 拉起系统文件管理器                                                                |
 | exit                         | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
 
 ## DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
@@ -208,14 +202,25 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onceSubscribe | 单次订阅指定事件 |
 | unSubscribe   | 取消事件订阅   |
 
-## WantUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets)
+## WantUtil（Want工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets)
 
-| 方法            | 介绍       |
-|:--------------|:---------|
-| post          | 发送事件     |
-| onSubscribe   | 订阅事件     |
-| onceSubscribe | 单次订阅指定事件 |
-| unSubscribe   | 取消事件订阅   |
+| 方法                    | 介绍                                         |
+|:----------------------|:-------------------------------------------|
+| toSetting             | 跳转系统设置页面（配合WantUtil里的URI常量一起使用，可跳转更多的设置页面） |
+| toAppSetting          | 跳转应用设置页面                                   |
+| toNotificationSetting | 跳转通知设置页面                                   |
+| toNetworkSetting      | 跳转移动网络设置页面                                 |
+| toWifiSetting         | 跳转WLAN设置页面                                 |
+| toBluetoothSetting    | 跳转蓝牙设置页面                                   |
+| toNfcSetting          | 跳转NFC设置页面                                  |
+| toVolumeSetting       | 跳转声音和振动设置页面                                |
+| toStorageSetting      | 跳转存储设置页面                                   |
+| toBatterySetting      | 跳转电池设置页面                                   |
+| toWebBrowser          | 拉起系统浏览器                                    |
+| toAppGalleryDetail    | 拉起应用市场对应的应用详情界面                            |
+| toFileManagement      | 拉起系统文件管理器                                  |
+| startMMS              | 拉起短信界面并指定联系人                               |
+
 
 ## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
@@ -241,11 +246,10 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | delete<br/>deleteSync         | 删除缓存值                                                       |
 | clear<br/>clearSync           | 清空缓存                                                        |
 | deletePreferences             | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
-
-| delete<br/>deleteSync         | 删除缓存值                                                       |
-| delete<br/>deleteSync         | 删除缓存值                                                       |
-| delete<br/>deleteSync         | 删除缓存值                                                       |
-| delete<br/>deleteSync         | 删除缓存值                                                       |
+| onChange                      | 订阅数据变更，订阅的Key的值发生变更后，在执行flush方法后，触发callback回调               |
+| offChange                     | 取消订阅数据变更                                                    |
+| onDataChange                  | 精确订阅数据变更，只有被订阅的key值发生变更后，在执行flush方法后，触发callback回调           |
+| offDataChange                 | 取消精确订阅数据变更                                                  |
 
 ## KvUtil（键值型数据库工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets)
 
@@ -308,8 +312,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | dup                                               | 将文件描述符转化为File                          |
 | utimes                                            | 修改文件最近访问时间属性                           |
 | getFormatFileSize                                 | 格式化文件大小                                |
-| getRawFileContent<br/>getRawFileContentSync       | 获取resources/rawfile目录下对应的rawfile文件内容   |
-| getRawFileContentStr<br/>getRawFileContentStrSync | 获取resources/rawfile目录下对应的rawfile文件内容   |
 
 ## PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
 
@@ -346,6 +348,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | packToFileFromPixelMap    | 将PixelMap图片源编码后直接打包进文件            |
 | packToFileFromImageSource | 将ImageSource图片源编码后直接打包进文件         |
 | getPixelMapFromMedia      | 用户获取resource目录下的media中的图片PixelMap |
+| compressedImage           | 图片压缩                              |
 
 ## SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
 
@@ -419,9 +422,35 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## ResUtil（资源工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ResUtilPage.ets)
 
-| 方法         | 介绍                                           |
-|:-----------|:---------------------------------------------|
-| init       | 初始化日志参数（该方法建议在Ability里调用）                    |
+| 方法                                                  | 介绍                                                                 |
+|:----------------------------------------------------|:-------------------------------------------------------------------|
+| getResourceManager                                  | 获取提供访问应用资源的能力                                                      |
+| getBoolean                                          | 获取指定资源对应的布尔结果                                                      |
+| getBooleanByName                                    | 获取指定资源名称对应的布尔结果                                                    |
+| getNumber                                           | 获取指定资源对应的integer数值或者float数值                                        |
+| getNumberByName                                     | 获取指定资源名称对应的integer数值或者float数值                                      |
+| getStringValue<br/>getStringSync                    | 获取指定资源对应的字符串                                                       |
+| getStringByName<br/>getStringByNameSync             | 获取指定资源名称对应的字符串                                                     |
+| getStringArrayValue<br/>getStringArrayValueSync     | 获取指定资源对应的字符串数组                                                     |
+| getStringArrayByName<br/>getStringArrayByNameSync   | 获取指定资源名称对应的字符串数组                                                   |
+| getPluralStringValue<br/>getPluralStringValueSync   | 根据指定数量获取指定resource对象表示的单复数字符串                                      |
+| getPluralStringByName<br/>getPluralStringByNameSync | 根据指定数量获取指定资源名称表示的单复数字符串                                            |
+| getColor<br/>getColorSync                           | 获取指定资源对应的颜色值（十进制）                                                  |
+| getColorByName<br/>getColorByNameSync               | 获取指定资源名称对应的颜色值（十进制）                                                |
+| getMediaContent<br/>getMediaContentSync             | 获取指定资源对应的默认或指定的屏幕密度媒体文件内容                                          |
+| getMediaByName<br/>getMediaByNameSync               | 获取指定资源名称对应的默认或指定的屏幕密度媒体文件内容                                        |
+| getMediaContentBase64<br/>getMediaContentBase64Sync | 获取指定资源ID对应的默认或指定的屏幕密度图片资源Base64编码                                  |
+| getMediaBase64ByName<br/>getMediaBase64ByNameSync   | 获取指定资源名称对应的默认或指定的屏幕密度图片资源Base64编码                                  |
+| getRawFileContent<br/>getRawFileContentSync         | 获取resources/rawfile目录下对应的rawfile文件内容                               |
+| getRawFileContentStr<br/>getRawFileContentStrSync   | 获取resources/rawfile目录下对应的rawfile文件内容（字符串）                          |
+| getRawFileList<br/>getRawFileListSync               | 获取resources/rawfile目录下文件夹及文件列表（若文件夹中无文件，则不返回；若文件夹中有文件，则返回文件夹及文件列表） |
+| getRawFd                                            | 用户获取resources/rawfile目录下对应rawfile文件所在hap的descriptor信息              |
+| closeRawFd<br/>closeRawFdSync                       | 用户关闭resources/rawfile目录下rawfile文件所在hap的descriptor信息                |
+| addResource                                         | 应用运行时，加载指定的资源路径，实现资源覆盖                                             |
+| removeResource                                      | 用户运行时，移除指定的资源路径，还原被覆盖前的资源                                          |
+| isRawDir                                            | 用户判断指定路径是否是rawfile下的目录（true：表示是rawfile下的目录，false：表示不是rawfile下的目录）  |
+| getConfiguration<br/>getConfigurationSync           | 获取设备的Configuration                                                 |
+| getDeviceCapability<br/>getDeviceCapabilitySync     | 获取设备的DeviceCapability                                              |
 
 ## DateUtil（日期工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DateUtilPage.ets)
 
@@ -491,25 +520,23 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | bufferToStr          | ArrayBuffer转字符串                        |
 | bufferToUint8Array   | ArrayBuffer转Uint8Array                 |
 | unit8ArrayToBuffer   | Uint8Array转ArrayBuffer                 |
-| isPhone              | 判断传入的电话号码格式是否正确                        |
-| getPhoneFormat       | 对电话号码进行格式化                             |
-| getPhoneLocationName | 获取电话号码归属地                              |
-| isMatch              | 给定内容是否匹配正则                             |
-| isEmail              | 判断传入的邮箱格式是否正确                          |
-| isEmoji              | 判断字符串是否包含表情（匹配单个emoji或多个组合emoji的正则表达式） |
 | getErrnoToString     | 获取系统错误码对应的详细信息                         |
 
 ## RegexUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets)
 
 | 方法           | 介绍                             |
 |:-------------|:-------------------------------|
-| isDigit      | 判断字符串char是否是数字                 |
+| isMatch              | 给定内容是否匹配正则                             |
+| isEmail              | 判断传入的邮箱格式是否正确                          |
+| isEmoji              | 判断字符串是否包含表情（匹配单个emoji或多个组合emoji的正则表达式） |
 
-## CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
+## FormatUtil（格式化工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets)
 
 | 方法           | 介绍                             |
 |:-------------|:-------------------------------|
-| isDigit      | 判断字符串char是否是数字                 |
+| isPhone              | 判断传入的电话号码格式是否正确                        |
+| getPhoneFormat       | 对电话号码进行格式化                             |
+| getPhoneLocationName | 获取电话号码归属地                              |
 
 ## CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
 
@@ -558,6 +585,8 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | max         | 获取数组最大值（数值、字符串、日期）          |
 | flatten     | 平铺二维数组                      |
 | union       | 平铺二维数组，并去重                  |
+| chunk       | 数组分块                        |
+
 
 ## RandomUtil（随机工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RandomUtilPage.ets)
 
@@ -634,11 +663,10 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 | 方法                     | 介绍                |
 |:-----------------------|:------------------|
+| show                   | 拉起键盘              |
 | hide                   | 隐藏键盘              |
 | onKeyboardListener     | 订阅输入法软键盘显示和隐藏事件   |
 | removeKeyboardListener | 取消订阅输入法软键盘显示或隐藏事件 |
-| onInputTextChanged     | 订阅文本内容变化          |
-| removeInputTextChanged | 取消订阅文本内容变化        |
 
 ## NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
 
@@ -676,9 +704,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | showConfirmDialog   | 显示弹窗（一个按钮）       |
 | showPrimaryDialog   | 显示弹窗（两个按钮）       |
 | showDialog          | 显示弹窗（可多个按钮）      |
-| showDialogEasy      | 显示弹窗（可多个按钮,简单易用） |
 | showActionSheet     | 列表选择弹窗           |
-| showActionSheetEasy | 列表选择弹窗（简单易用）     |
 | showCalendarPicker  | 日历选择器弹窗          |
 | showDatePicker      | 日期滑动选择器弹窗        |
 | showTimePicker      | 时间滑动选择器弹窗        |

@@ -1,5 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
+import { DialogAction } from '@pura/harmony-dialog';
 import { DateUtil, DialogUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -35,17 +36,8 @@ struct Index {
                 config.subtitle = "弹窗副标题"
                 config.alignment = DialogAlignment.Top
                 config.backgroundColor = '#00FF00'
-                config.borderWidth = 0
+                config.borderWidth = 2
                 config.autoCancel = true
-                // config.onWillDismiss = (dismissDialogAction: DismissDialogAction) => {
-                //   LogUtil.error("onWillDismiss(上): " + JSON.stringify(dismissDialogAction))
-                //   if (dismissDialogAction.reason == DismissReason.PRESS_BACK) {
-                //     dismissDialogAction.dismiss()
-                //   }
-                //   if (dismissDialogAction.reason == DismissReason.TOUCH_OUTSIDE) {
-                //     dismissDialogAction.dismiss()
-                //   }
-                // }
               });
               ToastUtil.showLong("样式设置成功");
             })
@@ -54,9 +46,8 @@ struct Index {
             .onClick(() => {
               DialogUtil.setDefaultConfig((config) => {
                 config.alignment = DialogAlignment.Center
-                config.backgroundColor = Color.Red
-                // config.onWillDismiss = undefined
-                config.borderWidth = 5
+                config.backgroundColor = Color.Transparent
+                config.borderWidth = 0
                 config.autoCancel = false
               });
               ToastUtil.showLong("样式设置成功");
@@ -68,11 +59,20 @@ struct Index {
                 config.alignment = DialogAlignment.Bottom
                 config.backgroundColor = Color.Brown
                 config.borderColor = Color.Blue
-                // config.onWillDismiss = (dismissDialogAction: DismissDialogAction) => {
-                //   LogUtil.error("onWillDismiss(下): " + JSON.stringify(dismissDialogAction))
-                // }
               });
               ToastUtil.showLong("样式设置成功");
+            })
+          Button("showConfirmDialog()")
+            .btnStyle()
+            .onClick(() => {
+              DialogUtil.showConfirmDialog({
+                title: "温馨提示",
+                message: 'APP已更新最新版本！',
+                confirm: "确定",
+                onAction: () => {
+                  ToastUtil.showToast("点击了“确定”按钮")
+                }
+              })
             })
           Button("showConfirmDialog()")
             .btnStyle()
@@ -83,7 +83,7 @@ struct Index {
                 confirm: {
                   value: "确定",
                   action: () => {
-                    ToastUtil.showToast("点击了”确定“按钮")
+                    ToastUtil.showToast("点击了“确定”按钮")
                   }
                 }
               })
@@ -93,36 +93,53 @@ struct Index {
             .onClick(() => {
               DialogUtil.showPrimaryDialog({
                 message: '最新版本可提供更多的工具和功能，欢迎下载更新！！！',
+                // primaryButton: "取消",
+                // secondaryButton: "更新",
                 onAction: (action) => {
-                  ToastUtil.showToast("点击了: " + action);
+                  if (action == DialogAction.ONE) {
+                    ToastUtil.showToast("点击了“取消”按钮")
+                  } else if (action == DialogAction.TWO) {
+                    ToastUtil.showToast("点击了“更新”按钮")
+                  }
                 }
               })
-
-              // DialogUtil.showPrimaryDialog({
-              //   title: "温馨提示",
-              //   message: '最新版本可提供更多的工具和功能，欢迎下载更新！',
-              //   primaryButton: {
-              //     value: "取消",
-              //     action: () => {
-              //       ToastUtil.showToast("点击了”取消“按钮")
-              //     }
-              //   },
-              //   secondaryButton: {
-              //     value: "更新",
-              //     action: () => {
-              //       ToastUtil.showToast("点击了”更新“按钮")
-              //     }
-              //   },
-              //   onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
-              //     LogUtil.error("showPrimaryDialog-onWillDismiss: " + JSON.stringify(dismissDialogAction))
-              //     if (dismissDialogAction.reason == DismissReason.PRESS_BACK) {
-              //       dismissDialogAction.dismiss()
-              //     }
-              //     if (dismissDialogAction.reason == DismissReason.TOUCH_OUTSIDE) {
-              //       dismissDialogAction.dismiss()
-              //     }
-              //   }
-              // })
+            })
+          Button("showPrimaryDialog()")
+            .btnStyle()
+            .onClick(() => {
+              DialogUtil.showPrimaryDialog({
+                title: "温馨提示",
+                message: '最新版本可提供更多的工具和功能，欢迎下载更新！',
+                primaryButton: {
+                  value: "取消",
+                  action: () => {
+                    ToastUtil.showToast("点击了“取消”按钮")
+                  }
+                },
+                secondaryButton: {
+                  value: "更新",
+                  fontColor: Color.Red,
+                  action: () => {
+                    ToastUtil.showToast("点击了“更新”按钮")
+                  }
+                },
+                onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
+                  LogUtil.error("showPrimaryDialog-onWillDismiss: " + JSON.stringify(dismissDialogAction))
+                }
+              })
+            })
+          Button("showDialog()")
+            .btnStyle()
+            .onClick(() => {
+              let buttons = ["取消", "稍后", "更新", "升级"];
+              DialogUtil.showDialog({
+                title: "温馨提示",
+                message: "最新版本可提供更多的工具和功能",
+                buttons: buttons,
+                onAction: (action) => {
+                  ToastUtil.showToast(`点击了：${buttons[Math.abs(action)-1]}`);
+                }
+              })
             })
           Button("showDialog()")
             .btnStyle()
@@ -130,44 +147,28 @@ struct Index {
               DialogUtil.showDialog({
                 title: "温馨提示",
                 message: "最新版本可提供更多的工具和功能",
-                buttonDirection:DialogButtonDirection.HORIZONTAL,
+                buttonDirection: DialogButtonDirection.HORIZONTAL,
                 buttons: [{
-                  value: "按钮1",
+                  value: "取消",
+                  fontColor: Color.Yellow,
                   action: () => {
-                    ToastUtil.showToast(`点击了"按钮1"`)
+                    ToastUtil.showToast(`点击了"取消"`)
                   }
                 }, {
-                  value: "按钮2",
+                  value: "稍后",
+                  fontColor: Color.Green,
                   action: () => {
-                    ToastUtil.showToast(`点击了"按钮2"`)
+                    ToastUtil.showToast(`点击了"稍后"`)
                   }
                 }, {
-                  value: "按钮3",
+                  value: "更新",
+                  fontColor: Color.Red,
                   action: () => {
-                    ToastUtil.showToast(`点击了"按钮3"`)
+                    ToastUtil.showToast(`点击了"更新"`)
                   }
-                },
-                //   {
-                //   value: "按钮4",
-                //   action: () => {
-                //     ToastUtil.showToast(`点击了"按钮4"`)
-                //   }
-                // }
-                ]
+                }]
               })
             })
-          // Button("showDialogEasy()")
-          //   .btnStyle()
-          //   .onClick(() => {
-          //     DialogUtil.showDialogEasy({
-          //       title: "温馨提示",
-          //       message: "最新版本可提供更多的工具和功能",
-          //       buttons: ["按钮1", "按钮2", "按钮3", "按钮4"],
-          //       callBack: (index) => {
-          //         ToastUtil.showToast(`点击了"按钮${(index + 1)}"`)
-          //       }
-          //     })
-          //   })
           Button("showActionSheet()")
             .btnStyle()
             .onClick(() => {
@@ -178,61 +179,7 @@ struct Index {
                   ToastUtil.showToast("index: " + index);
                 }
               })
-              // DialogUtil.showActionSheet({
-              //   title: "温馨提示",
-              //   message: "最新版本可提供更多的工具和功能",
-              //   sheets: [{
-              //     title: "功能菜单一",
-              //     action: () => {
-              //       ToastUtil.showToast(`点击了"功能菜单一"`)
-              //     }
-              //   }, {
-              //     title: "功能菜单二",
-              //     action: () => {
-              //       ToastUtil.showToast(`点击了"功能菜单二"`)
-              //     }
-              //   }, {
-              //     title: "功能菜单三",
-              //     action: () => {
-              //       ToastUtil.showToast(`点击了"功能菜单三"`)
-              //     }
-              //   }, {
-              //     title: "功能菜单四",
-              //     action: () => {
-              //       ToastUtil.showToast(`点击了"功能菜单四"`)
-              //     }
-              //   }, {
-              //     title: "功能菜单五",
-              //     action: () => {
-              //       ToastUtil.showToast(`点击了"功能菜单五"`)
-              //     }
-              //   }],
-              //   confirm: {
-              //     value: "确认",
-              //     action: () => {
-              //       ToastUtil.showToast(`点击了"确认"`)
-              //     }
-              //   },
-              //   cancel: () => {
-              //     ToastUtil.showToast(`取消了`)
-              //   }
-              // })
             })
-          // Button("showActionSheetEasy()")
-          //   .btnStyle()
-          //   .onClick(() => {
-          //     DialogUtil.showActionSheetEasy({
-          //       title: "温馨提示",
-          //       message: "最新版本可提供更多的工具和功能",
-          //       sheets: ["功能菜单一", "功能菜单二", "功能菜单三", "功能菜单四", "功能菜单五"],
-          //       callBack: (index) => {
-          //         ToastUtil.showToast(`点击了"${index}"`)
-          //       },
-          //       cancel: () => {
-          //         ToastUtil.showToast(`取消了`)
-          //       }
-          //     });
-          //   })
           Button("showCalendarPicker()")
             .btnStyle()
             .onClick(() => {
@@ -298,7 +245,7 @@ struct Index {
               })
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -325,5 +272,10 @@ function textStyle() {
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
   .backgroundColor(Color.White)
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
+  .border({
+    width: 1,
+    color: Color.Grey,
+    radius: 10,
+    style: BorderStyle.Dashed
+  })
 }

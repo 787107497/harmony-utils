@@ -2,6 +2,7 @@ import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { ArrayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
+import { JSON } from '@kit.ArkTS';
 
 /**
  * 集合工具类
@@ -120,6 +121,14 @@ struct Index {
               LogUtil.error('array: ' + array.join(','))
               ToastUtil.showToast("请查看Log日志")
             })
+          Button("chunk()")
+            .btnStyle()
+            .onClick(() => {
+              let array = ArrayUtil.chunk(this.array2, 2);
+              LogUtil.error(JSON.stringify(array, null, 2));
+              ToastUtil.showToast("请查看Log日志")
+            })
+
 
           Text('').layoutWeight(1)
         }

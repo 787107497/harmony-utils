@@ -16,11 +16,11 @@
    1、优化init方法，1.1.0版本后，在UIAbility的onCreate方法中初始化该方法。    
    2、新增setGrayScale方法，设置灰阶，APP一键置灰。       
    3、新增getWindowStage方法。    
-   4、等方法迁移到WantUtil。
-10. FileUtil，等方法迁移到ResUtil。
+   4、toAppSetting、toNetworkSetting、toNotificationSetting、toBluetoothSetting、toNfcSetting、toWebBrowser、toAppGalleryDetail、toFileManagement、等方法迁移到WantUtil。
+10. FileUtil，getRawFileContent、getRawFileContentSync、getRawFileContentStr、getRawFileContentStrSync、等方法迁移到ResUtil。
 11. StrUtil：    
-    1、等方法迁移到RegexUtil。    
-    2、等方法迁移到FormatUtil。
+    1、isMatch、isEmail、isEmoji、等方法迁移到RegexUtil。    
+    2、isPhone、getPhoneFormat、getPhoneLocationName、等方法迁移到FormatUtil。
 12. 新增KvUtil，键值型数据库工具类。
 13. 新增WantUtil，Want相关工具类。
 14. 新增ResUtil，资源相关工具类。

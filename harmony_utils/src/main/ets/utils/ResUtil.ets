@@ -153,7 +153,7 @@ export class ResUtil {
 
 
   /**
-   * 获取指定资源ID对应的字符串数组
+   * 获取指定资源对应的字符串数组
    * @param resId 资源ID值/资源信息
    */
   static getStringArrayValueSync(resId: number | Resource): Array<string> {
@@ -239,7 +239,7 @@ export class ResUtil {
 
 
   /**
-   * 获取指定资源ID对应的颜色值（十进制）
+   * 获取指定资源对应的颜色值（十进制）
    * @param resId 资源ID值/资源信息
    * @returns
    */
@@ -252,7 +252,7 @@ export class ResUtil {
   }
 
   /**
-   * 获取指定资源ID对应的颜色值（十进制）
+   * 获取指定资源对应的颜色值（十进制）
    * @param resId 资源ID值/资源信息
    * @returns
    */
@@ -265,7 +265,7 @@ export class ResUtil {
   }
 
   /**
-   * 获取指定资源ID对应的颜色值（十进制）
+   * 获取指定资源名称对应的颜色值（十进制）
    * @param resName 资源名称
    * @returns
    */
@@ -274,7 +274,7 @@ export class ResUtil {
   }
 
   /**
-   * 获取指定资源ID对应的颜色值（十进制）
+   * 获取指定资源名称对应的颜色值（十进制）
    * @param resName 资源名称
    * @returns
    */
