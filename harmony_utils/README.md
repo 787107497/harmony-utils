@@ -28,22 +28,25 @@ OpenHarmony ohpm
 | PermissionUtil                                                                    | 申请授权工具类                                                                  |
 | NotificationUtil                                                                  | 通知工具类                                                                    |
 | EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                      |
-| DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                       |
-| ToastUtil                                                                         | 吐司工具类（promptAction）                                                      |
+| WantUtil                                                                          | Want工具类                                                                  |
 | AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                     |
 | PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                    |
+| KvUtil                                                                            | 键值型数据库工具库                                                                |
 | CacheUtil                                                                         | 缓存工具类                                                                    |
 | FileUtil                                                                          | 文件操作相关工具类                                                                |
 | PickerUtil                                                                        | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类                                              |
 | PhotoHelper                                                                       | 相册相关工具类                                                                  |
 | ImageUtil                                                                         | 图片相关工具类                                                                  |
 | SnapshotUtil                                                                      | 组件截图和窗口截图工具类                                                             |
-| ScanUtil                                                                          | 码工具类（扫码、码图生成、图片识码）                                                       |
 | PreviewUtil                                                                       | 文件预览工具类                                                                  |
+| ScanUtil                                                                          | 码工具类（扫码、码图生成、图片识码）                                                       |
 | LocationUtil                                                                      | 定位工具类(WGS-84坐标系)                                                         |
 | LogUtil                                                                           | 日志工具类                                                                    |
+| ResUtil                                                                           | 资源工具类                                                                    |
 | DateUtil                                                                          | 日期工具类                                                                    |
 | StrUtil                                                                           | 字符串工具类                                                                   |
+| RegexUtil                                                                         | 正则工具类                                                                    |
+| FormatUtil                                                                        | 格式化工具类                                                                   |
 | CharUtil                                                                          | 字符工具类                                                                    |
 | Base64Util                                                                        | Base64工具类                                                                |
 | NumberUtil                                                                        | number工具类                                                                |
@@ -58,6 +61,8 @@ OpenHarmony ohpm
 | NetworkUtil                                                                       | 网络相关工具类                                                                  |
 | AssetUtil                                                                         | 关键资产存储服务工具类                                                              |
 | TempUtil                                                                          | 温度转换工具类，华氏度与摄氏度相互转换                                                      |
+| DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                       |
+| ToastUtil                                                                         | 吐司工具类（promptAction）                                                      |
 | SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。 |
 
 <br></br>
@@ -164,33 +169,35 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## NotificationUtil（通知工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
 
-| 方法                                                  | 介绍                    |
-|:----------------------------------------------------|:----------------------|
-| setDefaultConfig                                    | 设置通知的默认统一配置           |
-| isNotificationEnabled<br/>isNotificationEnabledSync | 查询通知是否授权              |
-| authorizeNotification                               | 请求通知授权，第一次调用会弹窗让用户选择。 |
-| isSupportTemplate                                   | 查询模板是否存在，目前仅支持进度条模板。  |
-| isDistributedEnabled                                | 查询设备是否支持分布式通知         |
-| publishBasic                                        | 发布普通文本通知              |
-| publishMultiLine                                    | 发布多文本通知               |
-| publishLongText                                     | 发布长文本通知               |
-| publishPicture                                      | 发布带有图片的通知             |
-| publishTemplate                                     | 发布模板通知                |
-| cancel                                              | 取消通知                  |
-| cancelGroup                                         | 取消本应用指定组下的通知          |
-| cancelAll                                           | 取消所有通知                |
-| setBadge                                            | 设置桌面角标个数              |
-| clearBadge                                          | 清空桌面角标                |
-| setBadgeFromNotificationCount                       | 设置桌面角标数量，来自于通知数量      |
-| getActiveNotificationCount                          | 获取当前应用未删除的通知数量        |
-| getActiveNotifications                              | 获取当前应用未删除的通知列表        |
-| addSlot                                             | 创建指定类型的通知渠道           |
-| getSlot                                             | 获取一个指定类型的通知渠道         |
-| getSlots                                            | 获取此应用程序的所有通知渠道        |
-| removeSlot                                          | 删除此应用程序指定类型的通知渠道      |
-| removeAllSlots                                      | 删除此应用程序所有通知渠道         |
-| generateNotificationId                              | 生成通知id（用时间戳当id）       |
-| getDefaultWantAgent                                 | 创建一个可拉起Ability的Want   |
+| 方法                                                  | 介绍                          |
+|:----------------------------------------------------|:----------------------------|
+| setDefaultConfig                                    | 设置通知的默认统一配置                 |
+| isNotificationEnabled<br/>isNotificationEnabledSync | 查询通知是否授权                    |
+| authorizeNotification                               | 请求通知授权，第一次调用会弹窗让用户选择。       |
+| isSupportTemplate                                   | 查询模板是否存在，目前仅支持进度条模板。        |
+| isDistributedEnabled                                | 查询设备是否支持分布式通知               |
+| publishBasic                                        | 发布普通文本通知                    |
+| publishMultiLine                                    | 发布多文本通知                     |
+| publishLongText                                     | 发布长文本通知                     |
+| publishPicture                                      | 发布带有图片的通知                   |
+| publishTemplate                                     | 发布模板通知                      |
+| cancel                                              | 取消通知                        |
+| cancelGroup                                         | 取消本应用指定组下的通知                |
+| cancelAll                                           | 取消所有通知                      |
+| setBadge                                            | 设置桌面角标个数                    |
+| clearBadge                                          | 清空桌面角标                      |
+| setBadgeFromNotificationCount                       | 设置桌面角标数量，来自于通知数量            |
+| getActiveNotificationCount                          | 获取当前应用未删除的通知数量              |
+| getActiveNotifications                              | 获取当前应用未删除的通知列表              |
+| addSlot                                             | 创建指定类型的通知渠道                 |
+| getSlot                                             | 获取一个指定类型的通知渠道               |
+| getSlots                                            | 获取此应用程序的所有通知渠道              |
+| removeSlot                                          | 删除此应用程序指定类型的通知渠道            |
+| removeAllSlots                                      | 删除此应用程序所有通知渠道               |
+| generateNotificationId                              | 生成通知id（用时间戳当id）             |
+| getDefaultWantAgent                                 | 创建一个可拉起Ability的Want         |
+| getCompressedPicture                                | 获取压缩通知的图片（图像像素的总字节数不能超过2MB） |
+| getCompressedIcon                                   | 获取压缩通知图标（图标像素的总字节数不超过192KB） |
 
 ## EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
 
@@ -201,30 +208,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | onceSubscribe | 单次订阅指定事件 |
 | unSubscribe   | 取消事件订阅   |
 
-## DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
-
-| 方法                  | 介绍               |
-|:--------------------|:-----------------|
-| setDefaultConfig    | 设置默认统一样式         |
-| showConfirmDialog   | 显示弹窗（一个按钮）       |
-| showPrimaryDialog   | 显示弹窗（两个按钮）       |
-| showDialog          | 显示弹窗（可多个按钮）      |
-| showDialogEasy      | 显示弹窗（可多个按钮,简单易用） |
-| showActionSheet     | 列表选择弹窗           |
-| showActionSheetEasy | 列表选择弹窗（简单易用）     |
-| showCalendarPicker  | 日历选择器弹窗          |
-| showDatePicker      | 日期滑动选择器弹窗        |
-| showTimePicker      | 时间滑动选择器弹窗        |
-| showTextPicker      | 文本滑动选择器弹窗        |
-
-## ToastUtil（吐司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
-
-| 方法               | 介绍               |
-|:-----------------|:-----------------|
-| setDefaultConfig | 设置默认统一样式         |
-| showToast        | 弹出吐司，默认时长为2s     |
-| showShort        | 弹出短吐司，默认时长为:1.5s |
-| showLong         | 弹出长吐司，默认时长为:10s  |
 
 ## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
@@ -568,6 +551,7 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | getHash    | 获取对象的Hash值                        |
 | isString   | 判断是否是String                       |
 | isNull     | 判断对象是否为空                          |
+| isEmpty    | 判断属性内容是否为空                        |
 | deepCopy   | 深度拷贝对象                            |
 | objToClass | obj转class，解决obj as class后丢失方法的问题。 |
 
@@ -650,6 +634,31 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 |:----|:--------|
 | F2C | 华氏度转摄氏度 |
 | C2F | 摄氏度转华氏度 |
+
+## DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
+
+| 方法                  | 介绍               |
+|:--------------------|:-----------------|
+| setDefaultConfig    | 设置默认统一样式         |
+| showConfirmDialog   | 显示弹窗（一个按钮）       |
+| showPrimaryDialog   | 显示弹窗（两个按钮）       |
+| showDialog          | 显示弹窗（可多个按钮）      |
+| showDialogEasy      | 显示弹窗（可多个按钮,简单易用） |
+| showActionSheet     | 列表选择弹窗           |
+| showActionSheetEasy | 列表选择弹窗（简单易用）     |
+| showCalendarPicker  | 日历选择器弹窗          |
+| showDatePicker      | 日期滑动选择器弹窗        |
+| showTimePicker      | 时间滑动选择器弹窗        |
+| showTextPicker      | 文本滑动选择器弹窗        |
+
+## ToastUtil（吐司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
+
+| 方法               | 介绍               |
+|:-----------------|:-----------------|
+| setDefaultConfig | 设置默认统一样式         |
+| showToast        | 弹出吐司，默认时长为2s     |
+| showShort        | 弹出短吐司，默认时长为:1.5s |
+| showLong         | 弹出长吐司，默认时长为:10s  |
 
 ## SM2（SM2加解密）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/SM2Page.ets)
 
