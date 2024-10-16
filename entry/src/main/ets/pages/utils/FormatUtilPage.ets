@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { CharUtil, FormatUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { FormatUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -42,7 +42,20 @@ struct Index {
               LogUtil.error(`getPhoneLocationName: ${locationName}`);
               ToastUtil.showToast("请查看Log日志");
             })
-
+          Button("transliterator()")
+            .btnStyle()
+            .onClick(() => {
+              let str = FormatUtil.transliterator("中国");
+              LogUtil.error(`transliterator: ${str}`);
+              ToastUtil.showToast("请查看Log日志");
+            })
+          Button("getIconFont()")
+            .btnStyle()
+            .onClick(() => {
+              let str = FormatUtil.getIconFont("e631");
+              LogUtil.error(`getIconFont: ${str}`);
+              ToastUtil.showToast("请查看Log日志");
+            })
 
           Blank().layoutWeight(1)
         }

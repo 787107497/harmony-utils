@@ -70,11 +70,11 @@ OpenHarmony ohpm
 ## 📚API详解
 
  ```
-全局初始化方法，在UIAbility的onWindowStageCreate方法中初始化 AppUtil.init()
+全局初始化方法，在UIAbility的onCreate方法中初始化 AppUtil.init()
     
-onWindowStageCreate(windowStage: window.WindowStage): void {
-    AppUtil.init(this.context, windowStage);  
-}
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    AppUtil.init(this.context);
+  }
  ```
 
 ## AppUtil（APP相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AppUtilPage.ets)

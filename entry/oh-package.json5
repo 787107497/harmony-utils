@@ -1,6 +1,6 @@
 {
   "name": "entry",
-  "version": "1.0.6",
+  "version": "1.0.1",
   "description": "一款高效的OpenHarmony/HarmonyOS工具包",
   "main": "",
   "author": "",
@@ -12,10 +12,6 @@
     //本地引用
     "@pura/harmony-utils": "file:../harmony_utils",
     "@pura/harmony-dialog": "file:../harmony_dialog",
-
-    //本地压缩包引用
-//    "@pura/harmony-utils": "file:./libs/harmony_utils.har",
-//    "@pura/harmony-dialog": "file:./libs/harmony_dialog.har",
 
   }
 }

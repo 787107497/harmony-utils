@@ -6,13 +6,16 @@ import { WindowUtil } from '../utils/WindowUtil';
 import { DialogHelper } from '@pura/harmony-dialog';
 
 export default class EntryAbility extends UIAbility {
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     AppUtil.init(this.context);
-    DialogHelper.setDefaultConfig((config) => {
-      config.uiContext = this.context;
-    })
-
   }
+
+  // onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  //
+  //
+  //
+  // }
 
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
