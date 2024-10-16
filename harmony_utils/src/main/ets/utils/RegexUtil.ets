@@ -202,8 +202,8 @@ export class RegexUtil {
    * 判断传入的电话号码格式是否正确。
    * @param phone 电话号码
    */
-  static isPhone(phone: string) {
-    FormatUtil.isPhone(phone);
+  static isPhone(phone: string): boolean {
+    return FormatUtil.isPhone(phone);
   }
 
 

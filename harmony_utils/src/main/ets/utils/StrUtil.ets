@@ -19,7 +19,6 @@ import { CharUtil } from './CharUtil';
 import util from '@ohos.util';
 import { buffer } from '@kit.ArkTS';
 import { Base64Util } from './Base64Util';
-import { i18n } from '@kit.LocalizationKit';
 
 
 /**
@@ -51,7 +50,7 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isNotNull(str: string | undefined | null) {
+  static isNotNull(str: string | undefined | null): boolean {
     return false == StrUtil.isNull(str);
   }
 
@@ -70,7 +69,7 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isNotEmpty(str: string | undefined | null):boolean {
+  static isNotEmpty(str: string | undefined | null): boolean {
     return false == StrUtil.isEmpty(str);
   }
 
@@ -109,7 +108,7 @@ export class StrUtil {
    * @param defaultValue
    * @returns
    */
-  static toStr(source: string | null | undefined, defaultValue = "") {
+  static toStr(source: string | null | undefined, defaultValue = ""): string {
     if (source == null || source == undefined) {
       return defaultValue;
     }

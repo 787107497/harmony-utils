@@ -16,6 +16,8 @@ export { AuthUtil } from './src/main/ets/utils/AuthUtil';
 
 export { PreferencesUtil } from './src/main/ets/utils/PreferencesUtil';
 
+export { KvUtil } from './src/main/ets/utils/KvUtil';
+
 export { CacheUtil } from './src/main/ets/utils/CacheUtil';
 
 export { GlobalContext } from './src/main/ets/utils/GlobalContext';

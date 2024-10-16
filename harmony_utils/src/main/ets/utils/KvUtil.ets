@@ -17,6 +17,7 @@
 
 import { distributedKVStore } from '@kit.ArkData';
 import { AppUtil } from './AppUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
@@ -30,6 +31,7 @@ import { AppUtil } from './AppUtil';
  * QQ交流群: 569512366
  */
 export class KvUtil {
+
   private constructor() {}
 
   private static kvStore: distributedKVStore.SingleKVStore; //KVStore数据库实例
@@ -69,13 +71,52 @@ export class KvUtil {
     return (await KvUtil.getKvStore()).put(key, value);
   }
 
+
   /**
    * 获取指定键的值。
    * @param key 要查询数据的Key
    * @param callback
    */
-  static async get(key: string): Promise<string | number | boolean | Uint8Array> {
-    return (await KvUtil.getKvStore()).get(key);
+  static async get(key: string, defValue?: string | number | boolean | Uint8Array): Promise<string | number | boolean | Uint8Array | undefined> {
+    return (await KvUtil.getKvStore()).get(key).catch((e: BusinessError) => {
+      return defValue;
+    });
+  }
+
+  /**
+   * 获取指定键的值。
+   * @param key 要查询数据的Key
+   * @param callback
+   */
+  static async getString(key: string, defValue: string = ''): Promise<string> {
+    return (await KvUtil.get(key, defValue)) as string;
+  }
+
+  /**
+   * 获取指定键的值。
+   * @param key 要查询数据的Key
+   * @param callback
+   */
+  static async getNumber(key: string, defValue: number = 0): Promise<number> {
+    return (await KvUtil.get(key, defValue)) as number;
+  }
+
+  /**
+   * 获取指定键的值。
+   * @param key 要查询数据的Key
+   * @param callback
+   */
+  static async getBoolean(key: string, defValue?: boolean): Promise<boolean> {
+    return (await KvUtil.get(key, defValue)) as boolean;
+  }
+
+  /**
+   * 获取指定键的值。
+   * @param key 要查询数据的Key
+   * @param callback
+   */
+  static async getUint8Array(key: string, defValue?: Uint8Array): Promise<Uint8Array> {
+    return (await KvUtil.get(key, defValue)) as Uint8Array;
   }
 
 

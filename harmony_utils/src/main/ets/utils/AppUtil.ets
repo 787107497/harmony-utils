@@ -21,7 +21,7 @@ import { BusinessError } from '@ohos.base';
 import { KeyboardAvoidMode, window } from '@kit.ArkUI';
 import { DeviceUtil } from './DeviceUtil';
 import { resourceManager } from '@kit.LocalizationKit';
-import { common, Want } from '@kit.AbilityKit';
+import { common } from '@kit.AbilityKit';
 
 
 /**
@@ -416,7 +416,7 @@ export class AppUtil {
    * 获取应用程序的配置信息
    * @returns
    */
-  static async getAppInfo() {
+  static async getAppInfo(): Promise<bundleManager.ApplicationInfo> {
     return (await AppUtil.getBundleInfo()).appInfo;
   }
 
@@ -424,7 +424,7 @@ export class AppUtil {
    * 获取应用程序的配置信息
    * @returns
    */
-  static async getAppInfoSync() {
+  static getAppInfoSync(): bundleManager.ApplicationInfo {
     return AppUtil.getBundleInfoSync().appInfo;
   }
 

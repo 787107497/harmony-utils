@@ -40,7 +40,7 @@ export class ResUtil {
    * 获取提供访问应用资源的能力
    * @returns
    */
-  static getResourceManager() {
+  static getResourceManager(): resourceManager.ResourceManager {
     return AppUtil.getContext().resourceManager;
   }
 
@@ -99,7 +99,7 @@ export class ResUtil {
    *   说明：%%转义为%; %数字\$d表示使用第几个参数；
    *   举例：%%d格式化后为%d字符串; %1\$d表示使用第一个参数
    */
-  static getStringSync(resId: number | Resource, args?: Array<string | number>) {
+  static getStringSync(resId: number | Resource, args?: Array<string | number>): string {
     if (args != null && args != undefined) {
       if (typeof resId === 'number') {
         return ResUtil.getResourceManager().getStringSync(resId, ...args);
@@ -135,7 +135,7 @@ export class ResUtil {
    *   说明：%%转义为%; %数字\$d表示使用第几个参数；
    *   举例：%%d格式化后为%d字符串; %1\$d表示使用第一个参数
    */
-  static getStringByNameSync(resName: string, args?: Array<string | number>) {
+  static getStringByNameSync(resName: string, args?: Array<string | number>): string {
     if (args != null && args != undefined) {
       return ResUtil.getResourceManager().getStringByNameSync(resName, ...args);
     } else {
@@ -147,7 +147,7 @@ export class ResUtil {
    * 获取指定资源名称对应的字符串
    * @param resName 资源名称
    */
-  static async getStringByName(resName: string) {
+  static async getStringByName(resName: string): Promise<string> {
     return await ResUtil.getResourceManager().getStringByName(resName);
   }
 

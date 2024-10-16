@@ -23,7 +23,7 @@
         "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
-            "useNormalizedOHMUrl": true
+            "useNormalizedOHMUrl": false
           }
         }
       }

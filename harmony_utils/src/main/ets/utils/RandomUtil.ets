@@ -73,7 +73,7 @@ export class RandomUtil {
    * 生成一个随机汉字（'\u4E00'-'\u9FFF'）
    * @return 随机的汉字字符
    */
-  static getRandomChineseChar() {
+  static getRandomChineseChar(): string {
     let start = 0x4E00; //汉字起始Unicode编码,'\u4E00'
     let end = 0x9FFF; //汉字结束Unicode编码,'\u9FFF'
     let randomCode = start + Math.floor(Math.random() * (end - start + 1)); //生成一个随机码点
@@ -117,7 +117,7 @@ export class RandomUtil {
    * @param length 目标长度
    * @returns
    */
-  static getRandomUint8Array(length: number) {
+  static getRandomUint8Array(length: number): Uint8Array {
     let array = new Uint8Array(length);
     for (let i = 0; i < length; i++) {
       array[i] = Math.floor(Math.random() * 256); //生成一个0到255之间的随机整数

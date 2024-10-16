@@ -70,7 +70,7 @@ export class ObjectUtil {
    * @param property
    * @returns
    */
-  static isEmpty(property: CommonAllType): Boolean {
+  static isEmpty(property: CommonAllType): boolean {
     if (ObjectUtil.isNull(property)) {
       return true
     } else if (Array.isArray(property) || property instanceof Array) {

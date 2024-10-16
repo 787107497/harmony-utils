@@ -1,5 +1,10 @@
 # 版本记录
 
+## 1.2.1（API12 - 5.0.3.900）
+1. 优化代码。
+2. 导出KvUtil。
+3. 修改useNormalizedOHMUrl为false。
+
 ## 1.2.0（API12 - 5.0.3.900）
 1. DateUtil，修复1.1.0版本中的日期格式化异常的Bug。
 2. NotificationUtil：       

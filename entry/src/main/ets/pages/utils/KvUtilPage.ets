@@ -1,7 +1,9 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { PreferencesUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { KvUtil, RandomUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
+import { distributedKVStore } from '@kit.ArkData';
+import { Callback } from '@kit.BasicServicesKit';
 
 /**
  * KvUtil，键值型数据库工具类
@@ -12,6 +14,9 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State pStr: string = ''
+  private callBack: Callback<distributedKVStore.ChangeNotification> = (change) => {
+    this.pStr = JSON.stringify(change, null, 2);
+  }
 
   @MockSetup
   mock() {
@@ -27,98 +32,60 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("put()\nputSync()\nget()\ngetSync")
-            .labelStyle({ maxLines: 5 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
+          Button("put()")
             .btnStyle()
             .onClick(async () => {
-              PreferencesUtil.put("id", 10000018);
-              PreferencesUtil.putSync("name", "张三叁");
+              KvUtil.put("name", "张三叁");
+              KvUtil.put("id", 10018);
+              KvUtil.put("sex", RandomUtil.getRandomBoolean());
+              KvUtil.put("info", RandomUtil.getRandomUint8Array(8));
               ToastUtil.showToast("数据缓存成功");
-              let id = await PreferencesUtil.get("id", "");
-              let name = PreferencesUtil.getSync("name", "");
-              this.pStr = `获取缓存：\nid: ${id}\nname: ${name}`;
             })
-          Button("getNumber()\ngetNumberSync()\ngetString()\ngetStringSync")
+          Button("get()\ngetString()")
             .labelStyle({ maxLines: 5 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(async () => {
-              let id1 = await PreferencesUtil.getNumber("id");
-              let id2 = PreferencesUtil.getNumberSync('id');
-              let name1 = await PreferencesUtil.getString("name");
-              let name2 = PreferencesUtil.getStringSync('name');
-              this.pStr = `获取缓存：\nid1: ${id1}\nid2: ${id2}\nname1: ${name1}\nname2: ${name2}`;
+              let kv1 = await KvUtil.get("name");
+              let kv2 = await KvUtil.getString('name');
+              this.pStr = `获取缓存：\nkv1: ${kv1}\nkv2: ${kv2}`;
             })
-          Button("getBoolean()\ngetBooleanSync()")
-            .labelStyle({ maxLines: 2 })
+          Button("getNumber()\ngetBoolean()")
+            .labelStyle({ maxLines: 5 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(async () => {
-              PreferencesUtil.put("bl_nut", true);
-              PreferencesUtil.putSync("bl_nuv", false);
-              let bl1 = await PreferencesUtil.getBoolean("bl_nut");
-              let bl2 = PreferencesUtil.getBooleanSync('bl_nuv');
-              this.pStr = `缓存·bl1：${bl1}\n缓存·bl2：${bl2}`;
+              let kv3 = await KvUtil.getNumber("id");
+              let kv4 = await KvUtil.getBoolean('sex');
+              this.pStr = `获取缓存：\nkv3: ${kv3}\nkv4: ${kv4}`;
             })
-          Button("has()\nhasSync()")
-            .labelStyle({ maxLines: 2 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
+          Button("getUint8Array()")
             .btnStyle()
             .onClick(async () => {
-              let bl1 = await PreferencesUtil.has("id");
-              let bl2 = PreferencesUtil.hasSync('name');
-              this.pStr = `has~bl1：${bl1}\nhas~bl2：${bl2}`;
+              let kv5 = await KvUtil.getUint8Array('info');
+              this.pStr = `获取缓存：\nkv5: ${kv5}`;
             })
-          Button("delete()\ndeleteSync()")
-            .labelStyle({ maxLines: 2 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
+          Button("delete()")
             .btnStyle()
             .onClick(async () => {
-              PreferencesUtil.delete("id");
-              PreferencesUtil.deleteSync("name");
+              KvUtil.delete("name");
               ToastUtil.showToast('删除缓存成功')
             })
-          Button("clear()\nclearSync()")
-            .labelStyle({ maxLines: 2 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
+          Button("onDataChange()")
             .btnStyle()
             .onClick(() => {
-              PreferencesUtil.clear();
-              PreferencesUtil.clearSync();
-              ToastUtil.showToast('清空缓存成功')
+              KvUtil.onDataChange(distributedKVStore.SubscribeType.SUBSCRIBE_TYPE_ALL, this.callBack);
+              ToastUtil.showToast('订阅指定类型的数据变更通知')
             })
-          Button("putSync()，其他使用")
+          Button("offDataChange()")
             .btnStyle()
             .onClick(() => {
-              PreferencesUtil.putSync("msg",
-                "Harmony_utils，一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。",
-                "SP_PREFERENCES_MSG");
-              ToastUtil.showToast("数据缓存成功");
-            })
-          Button("getStringSync()，其他使用")
-            .btnStyle()
-            .onClick(() => {
-              let cacheMsg = PreferencesUtil.getStringSync("msg", "SP_PREFERENCES_MSG");
-              this.pStr = `缓存：\n${cacheMsg}`;
-            })
-          Button("deletePreferences()")
-            .btnStyle()
-            .onClick(() => {
-              PreferencesUtil.deletePreferences(getContext(), "SP_PREFERENCES_MSG");
-              ToastUtil.showToast('移出指定的Preferences实例，成功')
+              KvUtil.offDataChange(this.callBack);
+              ToastUtil.showToast('取消订阅数据变更通知')
             })
 
           Blank().layoutWeight(1)
