@@ -5,7 +5,7 @@
 2. 导出KvUtil。
 3. 修改useNormalizedOHMUrl为false。
 
-## 1.2.0（API12 - 5.0.3.900）
+## 1.2.0（API12 - 5.0.3.900）（慎用，请使用1.2.1）
 1. DateUtil，修复1.1.0版本中的日期格式化异常的Bug。
 2. NotificationUtil：       
    1、修复boolean默认参数可能异常的Bug。       
