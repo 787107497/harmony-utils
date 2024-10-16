@@ -26,29 +26,42 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("isMatch()\nisEmail()")
-            .labelStyle({ maxLines: 4 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
+          Button("isPhone()")
             .btnStyle()
             .onClick(() => {
-              let rex="^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
-              let phone: string = "13909626520";
-              let email: string = "787107497@qq.com";
-              let bl1 = RegexUtil.isMatch(phone,rex);
-              LogUtil.error(`是否是手机号: ${bl1}`);
-              let bl2 = RegexUtil.isEmail(email);
-              LogUtil.error(`是否是邮件: ${bl2}`);
+              let phone: string = "18969062528";
+              let bl = RegexUtil.isPhone(phone);
+              LogUtil.error(`isPhone: ${bl}`);
               ToastUtil.showToast("请查看Log日志");
             })
-          Button("isEmoji()")
+          Button("isMatch()")
+            .btnStyle()
+            .onClick(() => {
+              let url = "https://ohpm.openharmony.cn/#/cn/publisher/663b99a5788eb334c83d9cd5";
+              let blUrl = RegexUtil.isMatch(url, RegexUtil.REG_URL);
+              let num = "123479";
+              let blNum = RegexUtil.isMatch(num, RegexUtil.REG_NUMBERS);
+              let cardNo = "340322199601100668";
+              let blCardNo = RegexUtil.isMatch(cardNo, RegexUtil.REG_CITIZEN_ID);
+              let date = "2024-10-15 21:18";
+              let blDate = RegexUtil.isMatch(date, RegexUtil.REG_TIME);
+              LogUtil.error(`是否是URL: ${blUrl}`);
+              LogUtil.error(`是否是数字: ${blNum}`);
+              LogUtil.error(`是否是身份证号: ${blCardNo}`);
+              LogUtil.error(`是否是时间: ${blDate}`);
+
+              ToastUtil.showToast("请查看Log日志");
+            })
+          Button("isEmoji()\nisEmail()")
             .labelStyle({ maxLines: 2 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
+              let email: string = "787107497@qq.com";
+              let bl2 = RegexUtil.isEmail(email);
+              LogUtil.error(`是否是邮件: ${bl2}`);
               let str = "hdc shell aa start -a EntryAbility -b com.harmony.utils in 253 ms";
               let isEmoji = RegexUtil.isEmoji(str);
               LogUtil.error(`判断字符串是否包含表情: ${isEmoji}`);

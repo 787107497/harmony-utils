@@ -78,7 +78,7 @@ export class FormatUtil {
    * @param text 输入字符串
    * @returns
    */
-  static transform(text: string): string {
+  static transliterator(text: string): string {
     let transliterator = i18n.Transliterator.getInstance('Any-Latn');
     return transliterator.transform(text);
   }

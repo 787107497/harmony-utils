@@ -221,7 +221,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | toFileManagement      | 拉起系统文件管理器                                  |
 | startMMS              | 拉起短信界面并指定联系人                               |
 
-
 ## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
 | 方法                 | 介绍                 |
@@ -269,49 +268,49 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
-| 方法                                                | 介绍                                     |
-|:--------------------------------------------------|:---------------------------------------|
-| getFilesDirPath                                   | 获取文件目录下的文件夹路径或文件路径                     |
-| getCacheDirPath                                   | 获取缓存目录下的文件夹路径或文件路径                     |
-| getTempDirPath                                    | 获取临时目录下的文件夹路径或文件路径                     |
-| hasDirPath                                        | 判断是否是完整路径                              |
-| getFileUri                                        | 通过URI或路径，获取FileUri                     |
-| getFileName                                       | 通过URI或路径，获取文件名                         |
-| getFilePath                                       | 通过URI或路径，获取文件路径                        |
-| getParentUri                                      | 通过URI或路径，获取对应文件父目录的URI                 |
-| getParentPath                                     | 通过URI或路径，获取对应文件父目录的路径名                 |
-| getUriFromPath                                    | 以同步方法获取文件URI                           |
-| getFileExtention                                  | 根据文件名获取文件后缀                            |
-| getFileDirSize                                    | 获取指定文件夹下所有文件的大小或指定文件大小                 |
-| isFile                                            | 判断文件是否是普通文件                            |
-| isDirectory                                       | 判断文件是否是目录                              |
-| rename<br/>renameSync                             | 重命名文件或文件夹，使用Promise异步回调                |
-| mkdir<br/>mkdirSync                               | 创建目录，当recursion指定为true，可多层级创建目录        |
-| rmdir<br/>rmdirSync                               | 删除整个目录，使用Promise异步回调                   |
-| unlink<br/>unlinkSync                             | 删除单个文件，使用Promise异步回调                   |
-| access<br/>accessSync                             | 检查文件是否存在，使用Promise异步回调                 |
-| open<br/>openSync                                 | 打开文件，支持使用URI打开文件                       |
-| read<br/>readSync                                 | 从文件读取数据                                |
-| readText<br/>readTextSync                         | 基于文本方式读取文件（即直接读取文件的文本内容）               |
-| write<br/>writeSync                               | 将数据写入文件                                |
-| writeEasy                                         | 将数据写入文件，并关闭文件                          |
-| close<br/>closeSync                               | 关闭文件                                   |
-| listFile<br/>listFileSync                         | 列出文件夹下所有文件名，支持递归列出所有文件名（包含子目录下），支持文件过滤 |
-| stat<br/>statSync                                 | 获取文件详细属性信息                             |
-| copy                                              | 拷贝文件或者目录，支持拷贝进度监听                      |
-| copyFile<br/>copyFileSync                         | 复制文件                                   |
-| moveFile<br/>moveFileSync                         | 移动文件                                   |
-| moveDir<br/>moveDirSync                           | 移动源文件夹至目标路径下                           |
-| truncate<br/>truncateSync                         | 截断文件                                   |
-| lstat<br/>lstatSync                               | 获取链接文件信息                               |
-| fsync<br/>fsyncSync                               | 同步文件数据                                 |
-| fdatasync<br/>fdatasyncSync                       | 实现文件内容数据同步                             |
-| createStream<br/>createStreamSync                 | 基于文件路径打开文件流                            |
-| fdopenStream<br/>fdopenStreamSync                 | 基于文件描述符打开文件流                           |
-| mkdtemp<br/>mkdtempSync                           | 创建临时目录                                 |
-| dup                                               | 将文件描述符转化为File                          |
-| utimes                                            | 修改文件最近访问时间属性                           |
-| getFormatFileSize                                 | 格式化文件大小                                |
+| 方法                                | 介绍                                     |
+|:----------------------------------|:---------------------------------------|
+| getFilesDirPath                   | 获取文件目录下的文件夹路径或文件路径                     |
+| getCacheDirPath                   | 获取缓存目录下的文件夹路径或文件路径                     |
+| getTempDirPath                    | 获取临时目录下的文件夹路径或文件路径                     |
+| hasDirPath                        | 判断是否是完整路径                              |
+| getFileUri                        | 通过URI或路径，获取FileUri                     |
+| getFileName                       | 通过URI或路径，获取文件名                         |
+| getFilePath                       | 通过URI或路径，获取文件路径                        |
+| getParentUri                      | 通过URI或路径，获取对应文件父目录的URI                 |
+| getParentPath                     | 通过URI或路径，获取对应文件父目录的路径名                 |
+| getUriFromPath                    | 以同步方法获取文件URI                           |
+| getFileExtention                  | 根据文件名获取文件后缀                            |
+| getFileDirSize                    | 获取指定文件夹下所有文件的大小或指定文件大小                 |
+| isFile                            | 判断文件是否是普通文件                            |
+| isDirectory                       | 判断文件是否是目录                              |
+| rename<br/>renameSync             | 重命名文件或文件夹，使用Promise异步回调                |
+| mkdir<br/>mkdirSync               | 创建目录，当recursion指定为true，可多层级创建目录        |
+| rmdir<br/>rmdirSync               | 删除整个目录，使用Promise异步回调                   |
+| unlink<br/>unlinkSync             | 删除单个文件，使用Promise异步回调                   |
+| access<br/>accessSync             | 检查文件是否存在，使用Promise异步回调                 |
+| open<br/>openSync                 | 打开文件，支持使用URI打开文件                       |
+| read<br/>readSync                 | 从文件读取数据                                |
+| readText<br/>readTextSync         | 基于文本方式读取文件（即直接读取文件的文本内容）               |
+| write<br/>writeSync               | 将数据写入文件                                |
+| writeEasy                         | 将数据写入文件，并关闭文件                          |
+| close<br/>closeSync               | 关闭文件                                   |
+| listFile<br/>listFileSync         | 列出文件夹下所有文件名，支持递归列出所有文件名（包含子目录下），支持文件过滤 |
+| stat<br/>statSync                 | 获取文件详细属性信息                             |
+| copy                              | 拷贝文件或者目录，支持拷贝进度监听                      |
+| copyFile<br/>copyFileSync         | 复制文件                                   |
+| moveFile<br/>moveFileSync         | 移动文件                                   |
+| moveDir<br/>moveDirSync           | 移动源文件夹至目标路径下                           |
+| truncate<br/>truncateSync         | 截断文件                                   |
+| lstat<br/>lstatSync               | 获取链接文件信息                               |
+| fsync<br/>fsyncSync               | 同步文件数据                                 |
+| fdatasync<br/>fdatasyncSync       | 实现文件内容数据同步                             |
+| createStream<br/>createStreamSync | 基于文件路径打开文件流                            |
+| fdopenStream<br/>fdopenStreamSync | 基于文件描述符打开文件流                           |
+| mkdtemp<br/>mkdtempSync           | 创建临时目录                                 |
+| dup                               | 将文件描述符转化为File                          |
+| utimes                            | 修改文件最近访问时间属性                           |
+| getFormatFileSize                 | 格式化文件大小                                |
 
 ## PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
 
@@ -352,13 +351,13 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
 
-| 方法                             | 介绍                               |
-|:-------------------------------|:---------------------------------|
-| get<br/>getSync                | 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图 |
-| createFromBuilder              | 在应用后台渲染CustomBuilder自定义组件，并输出其截图 |
-| snapshot                       | 获取窗口截图，使用Promise异步回调             |
-| onSnapshotListener             | 开启系统截屏事件的监听                      |
-| removeSnapshotListener         | 关闭系统截屏事件的监听                      |
+| 方法                     | 介绍                               |
+|:-----------------------|:---------------------------------|
+| get<br/>getSync        | 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图 |
+| createFromBuilder      | 在应用后台渲染CustomBuilder自定义组件，并输出其截图 |
+| snapshot               | 获取窗口截图，使用Promise异步回调             |
+| onSnapshotListener     | 开启系统截屏事件的监听                      |
+| removeSnapshotListener | 关闭系统截屏事件的监听                      |
 
 ## PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
 
@@ -494,49 +493,52 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## StrUtil（字符串工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
 
-| 方法                   | 介绍                                     |
-|:---------------------|:---------------------------------------|
-| isNull               | 判断字符串是否为空(undefined、null)              |
-| isNotNull            | 判断字符串是否为非空                             |
-| isEmpty              | 判断字符串是否为空(undefined、null、字符串长度为0)      |
-| isNotEmpty           | 判断字符串是否为非空                             |
-| isBlank              | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格)  |
-| isNotBlank           | 判断字符串是否为非空                             |
-| replace              | 替换字符串中匹配的正则为给定的字符串                     |
-| replaceAll           | 替换字符串中所有匹配的正则为给定的字符串                   |
-| startsWith           | 判断字符串是否以给定的字符串开头                       |
-| endsWith             | 判断字符串是否以给定的字符串结尾                       |
-| repeat               | 将字符串重复指定次数                             |
-| toLower              | 将整个字符串转换为小写                            |
-| toUpper              | 将整个字符串转换为大写                            |
-| capitalize           | 将字符串首字母转换为大写，剩下为小写                     |
-| equal                | 判断两个传入的数值或者是字符串是否相等                    |
-| notEqual             | 判断两个传入的数值或者是字符串是否不相等                   |
-| strToUint8Array      | 字符串转Uint8Array                         |
-| unit8ArrayToStr      | Uint8Array转字符串                         |
-| strToBase64          | 字符串转Base64字符串                          |
-| base64ToStr          | Base64字符串转字符串                          |
-| strToBuffer          | 字符串转ArrayBuffer                        |
-| bufferToStr          | ArrayBuffer转字符串                        |
-| bufferToUint8Array   | ArrayBuffer转Uint8Array                 |
-| unit8ArrayToBuffer   | Uint8Array转ArrayBuffer                 |
-| getErrnoToString     | 获取系统错误码对应的详细信息                         |
+| 方法                 | 介绍                                    |
+|:-------------------|:--------------------------------------|
+| isNull             | 判断字符串是否为空(undefined、null)             |
+| isNotNull          | 判断字符串是否为非空                            |
+| isEmpty            | 判断字符串是否为空(undefined、null、字符串长度为0)     |
+| isNotEmpty         | 判断字符串是否为非空                            |
+| isBlank            | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格) |
+| isNotBlank         | 判断字符串是否为非空                            |
+| replace            | 替换字符串中匹配的正则为给定的字符串                    |
+| replaceAll         | 替换字符串中所有匹配的正则为给定的字符串                  |
+| startsWith         | 判断字符串是否以给定的字符串开头                      |
+| endsWith           | 判断字符串是否以给定的字符串结尾                      |
+| repeat             | 将字符串重复指定次数                            |
+| toLower            | 将整个字符串转换为小写                           |
+| toUpper            | 将整个字符串转换为大写                           |
+| capitalize         | 将字符串首字母转换为大写，剩下为小写                    |
+| equal              | 判断两个传入的数值或者是字符串是否相等                   |
+| notEqual           | 判断两个传入的数值或者是字符串是否不相等                  |
+| strToUint8Array    | 字符串转Uint8Array                        |
+| unit8ArrayToStr    | Uint8Array转字符串                        |
+| strToBase64        | 字符串转Base64字符串                         |
+| base64ToStr        | Base64字符串转字符串                         |
+| strToBuffer        | 字符串转ArrayBuffer                       |
+| bufferToStr        | ArrayBuffer转字符串                       |
+| bufferToUint8Array | ArrayBuffer转Uint8Array                |
+| unit8ArrayToBuffer | Uint8Array转ArrayBuffer                |
+| getErrnoToString   | 获取系统错误码对应的详细信息                        |
 
 ## RegexUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets)
 
-| 方法           | 介绍                             |
-|:-------------|:-------------------------------|
-| isMatch              | 给定内容是否匹配正则                             |
-| isEmail              | 判断传入的邮箱格式是否正确                          |
-| isEmoji              | 判断字符串是否包含表情（匹配单个emoji或多个组合emoji的正则表达式） |
+| 方法      | 介绍                                |
+|:--------|:----------------------------------|
+| isPhone | 判断传入的电话号码格式是否正确                   |
+| isMatch | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
+| isEmail | 判断传入的邮箱格式是否正确                     |
+| isEmoji | 判断字符串是否包含表情                       |
 
 ## FormatUtil（格式化工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets)
 
-| 方法           | 介绍                             |
-|:-------------|:-------------------------------|
-| isPhone              | 判断传入的电话号码格式是否正确                        |
-| getPhoneFormat       | 对电话号码进行格式化                             |
-| getPhoneLocationName | 获取电话号码归属地                              |
+| 方法                   | 介绍                          |
+|:---------------------|:----------------------------|
+| isPhone              | 判断传入的电话号码格式是否正确             |
+| getPhoneFormat       | 对电话号码进行格式化                  |
+| getPhoneLocationName | 获取电话号码归属地                   |
+| transliterator       | 将输入字符串从源格式转换为目标格式（中文汉字转为拼音） |
+| getIconFont          | 解析iconFont字符                |
 
 ## CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
 
@@ -586,7 +588,6 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 | flatten     | 平铺二维数组                      |
 | union       | 平铺二维数组，并去重                  |
 | chunk       | 数组分块                        |
-
 
 ## RandomUtil（随机工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RandomUtilPage.ets)
 
@@ -698,17 +699,17 @@ onWindowStageCreate(windowStage: window.WindowStage): void {
 
 ## DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
 
-| 方法                  | 介绍               |
-|:--------------------|:-----------------|
-| setDefaultConfig    | 设置默认统一样式         |
-| showConfirmDialog   | 显示弹窗（一个按钮）       |
-| showPrimaryDialog   | 显示弹窗（两个按钮）       |
-| showDialog          | 显示弹窗（可多个按钮）      |
-| showActionSheet     | 列表选择弹窗           |
-| showCalendarPicker  | 日历选择器弹窗          |
-| showDatePicker      | 日期滑动选择器弹窗        |
-| showTimePicker      | 时间滑动选择器弹窗        |
-| showTextPicker      | 文本滑动选择器弹窗        |
+| 方法                 | 介绍          |
+|:-------------------|:------------|
+| setDefaultConfig   | 设置默认统一样式    |
+| showConfirmDialog  | 显示弹窗（一个按钮）  |
+| showPrimaryDialog  | 显示弹窗（两个按钮）  |
+| showDialog         | 显示弹窗（可多个按钮） |
+| showActionSheet    | 列表选择弹窗      |
+| showCalendarPicker | 日历选择器弹窗     |
+| showDatePicker     | 日期滑动选择器弹窗   |
+| showTimePicker     | 时间滑动选择器弹窗   |
+| showTextPicker     | 文本滑动选择器弹窗   |
 
 ## ToastUtil（吐司工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ToastUtilPage.ets)
 

@@ -4,7 +4,7 @@ import { CharUtil, FormatUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
- * 字符工具类
+ * 格式化工具类
  */
 @Entry
 @Component
@@ -14,7 +14,7 @@ struct Index {
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("CharUtil", "字符工具类");
+    this.describe = new DescribeBean("FormatUtil", "格式化工具类");
   }
 
   build() {
@@ -43,7 +43,8 @@ struct Index {
               ToastUtil.showToast("请查看Log日志");
             })
 
-          Text('').layoutWeight(1)
+
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

@@ -57,7 +57,7 @@ export class RegexUtil {
    */
   static readonly REG_GROUP_VAR: string = "^\\$(\\d+)$";
   /**
-   * IP v4  采用分组方式便于解析地址的每一个段
+   * IP v4 采用分组方式便于解析地址的每一个段
    */
   static readonly REG_IPV4: string = "^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)$";
   /**
