@@ -140,11 +140,7 @@ export class CryptoHelper {
    * @returns
    */
   static getRandomUint8Array(size: number): Uint8Array {
-    let randArray = new Array<number>();
-    for (let i = 0; i < size; i++) {
-      randArray.push(Math.floor(Math.random() * 256));
-    }
-    return new Uint8Array(randArray);
+    return cryptoFramework.createRandom().generateRandomSync(size).data;
   }
 
 
