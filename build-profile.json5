@@ -57,6 +57,10 @@
     {
       "name": "harmony_dialog",
       "srcPath": "./harmony_dialog",
+    },
+    {
+      "name": "spinkit",
+      "srcPath": "./spinkit",
     }
   ]
 }

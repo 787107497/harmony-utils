@@ -50,12 +50,11 @@ struct Index {
           Button("getCurrentLocationEasy()")
             .btnStyle()
             .onClick(() => {
-              let errCode = LocationUtil.getCurrentLocationEasy((location) => {
-                this.addrStr = `当前位置：\n${JSON.stringify(location, null, 2)}`
+              LocationUtil.getCurrentLocationEasy().then((location) => {
+                this.addrStr = `当前位置：\n${JSON.stringify(location, null, 2)}`;
+              }).catch((err: BusinessError) => {
+                this.addrStr = `当前位置~异常信息：\n错误码： ${err.code}\n错误信息：${err.message}`;
               });
-              if (errCode != 0) {
-                this.addrStr = `当前位置-异常信息：\n${LocationUtil.getErrorMsg(errCode, "")}`;
-              }
             })
           Button("getCurrentLocation()")
             .btnStyle()

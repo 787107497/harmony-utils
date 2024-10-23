@@ -16,7 +16,7 @@
  */
 
 import geoLocationManager from '@ohos.geoLocationManager';
-import { AsyncCallback, BusinessError, Callback } from '@ohos.base';
+import { BusinessError, Callback } from '@ohos.base';
 import { LogUtil } from './LogUtil';
 import { PermissionUtil } from './PermissionUtil';
 
@@ -32,8 +32,8 @@ import { PermissionUtil } from './PermissionUtil';
  * QQ交流群: 569512366
  */
 export class LocationUtil {
-
-  private constructor() {}
+  private constructor() {
+  }
 
   private static locationCallBack: Callback<geoLocationManager.Location> //开启位置变化订阅，监听回调
 
@@ -65,21 +65,8 @@ export class LocationUtil {
    * @param callBack
    * @returns 失败返回错误码，成功返回0。
    */
-  static getCurrentLocationEasy(callBack: AsyncCallback<geoLocationManager.Location>): number {
-    try {
-      let request: geoLocationManager.CurrentLocationRequest = {
-        // 'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
-        'scenario': geoLocationManager.LocationRequestScenario.DAILY_LIFE_SERVICE, //表示日常服务使用场景。适用于不需要定位用户精确位置的使用场景。此场景默认以最小1秒间隔上报定位结果。
-        'maxAccuracy': 0, //表示精度信息，单位是米。
-        'timeoutMs': 1000 //表示超时时间，单位是毫秒，最小为1000毫秒。取值范围为大于等于1000。
-      } //当前位置，默认Request参数
-      geoLocationManager.getCurrentLocation(request, callBack);
-      return 0; //成功返回-0
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-getCurrentLocationEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return error.code; //失败返回-错误码
-    }
+  static async getCurrentLocationEasy(): Promise<geoLocationManager.Location> {
+    return await LocationUtil.getCurrentLocation();
   }
 
 
@@ -87,16 +74,15 @@ export class LocationUtil {
    * 获取当前位置，使用Promise方式异步返回结果。
    * @param request
    */
-  static async getCurrentLocation(request?: geoLocationManager.CurrentLocationRequest) :Promise<geoLocationManager.Location>{
+  static async getCurrentLocation(request?: geoLocationManager.CurrentLocationRequest | geoLocationManager.SingleLocationRequest): Promise<geoLocationManager.Location> {
     if (!request) {
       request = {
-        // 'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
-        'scenario': geoLocationManager.LocationRequestScenario.DAILY_LIFE_SERVICE, //表示日常服务使用场景。适用于不需要定位用户精确位置的使用场景。此场景默认以最小1秒间隔上报定位结果。
+        'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
+        'scenario': geoLocationManager.LocationRequestScenario.UNSET,
         'maxAccuracy': 0, //表示精度信息，单位是米。
-        'timeoutMs': 1000 //表示超时时间，单位是毫秒，最小为1000毫秒。取值范围为大于等于1000。
       } //当前位置，默认Request参数
     }
-   return await geoLocationManager.getCurrentLocation(request);
+    return await geoLocationManager.getCurrentLocation(request);
   }
 
 
@@ -131,7 +117,8 @@ export class LocationUtil {
    * @param callBack
    * @returns 失败返回错误码，成功返回0。
    */
-  static onLocationChange(request: geoLocationManager.LocationRequest, callBack: Callback<geoLocationManager.Location>): number {
+  static onLocationChange(request: geoLocationManager.LocationRequest | geoLocationManager.ContinuousLocationRequest,
+    callBack: Callback<geoLocationManager.Location>): number {
     try {
       LocationUtil.locationCallBack = callBack;
       geoLocationManager.on('locationChange', request, callBack);
@@ -219,7 +206,8 @@ export class LocationUtil {
    * @param longitude 经度
    * @returns 逆编码后集合
    */
-  static async getGeoAddressFromLocation(latitude: number, longitude: number, maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
+  static async getGeoAddressFromLocation(latitude: number, longitude: number,
+    maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
     let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
       latitude: latitude,
       longitude: longitude,
@@ -294,6 +282,4 @@ export class LocationUtil {
       return defaultMsg
     }
   }
-
-
 }

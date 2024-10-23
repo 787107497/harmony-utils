@@ -30,6 +30,7 @@ import { BaseDialogOptions } from './base/BaseDialogOptions';
  */
 export interface LoadingOptions extends BaseDialogOptions {
 
+  // loadType?: SpinType //动画类型
   loadSize?: number; //加载动画或进度条的大小
   loadColor?: ResourceColor; //加载动画的颜色
   content?: ResourceStr; //加载动画的提示文字
@@ -37,5 +38,8 @@ export interface LoadingOptions extends BaseDialogOptions {
   fontColor?: ResourceColor; //加载动画的文字颜色
   backgroundColor?: ResourceColor; //加载动画背景颜色，建议八位色值前两位为透明度
   borderRadius?: Length | BorderRadiuses; //加载动画背景圆角
+  marginTop?: number | string | Resource //文字与动画的间距
+  padding?: Padding | Length //padding
+
 
 }

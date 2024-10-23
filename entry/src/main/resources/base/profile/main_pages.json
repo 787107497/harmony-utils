@@ -50,7 +50,9 @@
     "pages/crypto/AESPage",
     "pages/crypto/DESPage",
     "pages/crypto/RSAPage",
-    "pages/crypto/ECDSAPage"
+    "pages/crypto/ECDSAPage",
+    "pages/spinkit/SpinKit1",
+    "pages/spinkit/SpinKit2"
   ],
   "window": {
     "designWidth": 750,

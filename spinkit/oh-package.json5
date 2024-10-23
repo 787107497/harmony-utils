@@ -1,0 +1,29 @@
+{
+  "name": "@pura/spinkit",
+  "version": "1.0.4",
+  "description": "SpinKit是一个适用于OpenHarmony的加载动画库",
+  "author": "tongyuyan",
+  "homepage": "https://gitee.com/tongyuyan",
+  "repository": "https://gitee.com/tongyuyan/harmony-utils",
+  "license": "Apache-2.0",
+  "main": "Index.ets",
+  "dependencies": {},
+  "keywords": [
+    "动画",
+    "加载动画",
+    "SpinKit",
+    "加载框",
+    "弹框",
+    "OpenHarmony",
+    "HarmonyOS",
+  ],
+  "tags": [
+    "SpinKit",
+    "动画",
+    "加载动画",
+    "加载框",
+    "弹框",
+    "OpenHarmony",
+    "HarmonyOS"
+  ]
+}

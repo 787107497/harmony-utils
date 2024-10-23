@@ -66,7 +66,7 @@ export class DeviceUtil {
         if (!rule) {
           deviceId = deviceId.replace(/-/g, ''); //去除-
         }
-        if (canIUse("SystemCapability.Security.Asset")) {
+        if (AssetUtil.canIUse()) {
           //将deviceId保存到关键资产（在应用卸载时保留）
           AssetUtil.addSync(DeviceUtil.deviceIdKey, deviceId);
         } else {
@@ -84,7 +84,7 @@ export class DeviceUtil {
    */
   static deleteDeviceId() {
     DeviceUtil.deviceId = '';
-    if (canIUse("SystemCapability.Security.Asset")) {
+    if (AssetUtil.canIUse()) {
       AssetUtil.removeSync(DeviceUtil.deviceIdKey);
     } else {
       PreferencesUtil.deleteSync(DeviceUtil.deviceIdKey)

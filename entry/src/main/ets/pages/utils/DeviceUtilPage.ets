@@ -37,7 +37,7 @@ struct Index {
           Button("getDeviceId()")
             .btnStyle()
             .onClick(async () => {
-              let id = await DeviceUtil.getDeviceId(false,"");
+              let id = await DeviceUtil.getDeviceId(true);
               this.deviceIdStr = `当前设备号为：\n${id}`
             })
           Text(this.deviceIdStr)

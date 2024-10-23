@@ -19,6 +19,66 @@
     {
       "name": "color_main",
       "value": "#0A59F7"
+    },
+    {
+      "name": "color1",
+      "value": "#D45100"
+    },
+    {
+      "name": "color2",
+      "value": "#2A3D50"
+    },
+    {
+      "name": "color3",
+      "value": "#00BA9B"
+    },
+    {
+      "name": "color4",
+      "value": "#217DBA"
+    },
+    {
+      "name": "color5",
+      "value": "#934EFF"
+    },
+    {
+      "name": "color6",
+      "value": "#FEC95A"
+    },
+    {
+      "name": "color7",
+      "value": "#DE5246"
+    },
+    {
+      "name": "color8",
+      "value": "#17A05E"
+    },
+    {
+      "name": "color9",
+      "value": "#0073FF"
+    },
+    {
+      "name": "color10",
+      "value": "#934EFF"
+    },
+    {
+      "name": "color11",
+      "value": "#4A70FF"
+    },
+    {
+      "name": "color12",
+      "value": "#F46957"
+    },
+    {
+      "name": "color13",
+      "value": "#4C8BF5"
+    },
+    {
+      "name": "color14",
+      "value": "#7D8A8B"
+    },
+    {
+      "name": "color15",
+      "value": "#54D562"
     }
   ]
 }

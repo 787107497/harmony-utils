@@ -2,7 +2,6 @@ import { JSONUtil, ResUtil } from '@pura/harmony-utils';
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { DescribeBean } from '../../entity/DescribeBean';
-import { Mock } from '../../utils/Mock';
 
 /**
  * 工具包主页面
@@ -14,16 +13,21 @@ export struct UtilsPage {
 
   @MockSetup
   mock() {
-    this.data = Mock.getData();
+    this.getData();
   }
 
   async aboutToAppear(): Promise<void> {
+    this.getData();
+  }
+
+  getData() {
     let jsonStr = ResUtil.getRawFileContentStrSync('data.json');
     let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
     if (arr && arr.length > 0) {
       this.data = arr;
     }
   }
+
 
   onBackPress(): boolean {
     return false;

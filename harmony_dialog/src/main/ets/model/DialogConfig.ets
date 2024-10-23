@@ -53,6 +53,7 @@ export class DialogConfig {
 
 
   //--------------------------------------加载框Loading------------------------------------------------------------------
+  // loading_loadType: SpinType = SpinType.spinZ; //动画类型
   loading_loadSize: number = 60; //加载动画或进度条的大小
   loading_loadColor: ResourceColor = Color.White; //加载动画或进度条的颜色
   loading_content: ResourceStr = ''; //加载动画的提示文字
@@ -60,6 +61,8 @@ export class DialogConfig {
   loading_fontColor: ResourceColor = Color.White; //文字颜色
   loading_backgroundColor: ResourceColor = '#CC000000'; //背景颜色，八位色值前两位为透明度
   loading_borderRadius: Length | BorderRadiuses = 10; //背景圆角
+  loading_marginTop: number | string | Resource = 20; //文字与动画的间距
+  loading_padding: Padding | Length = 25; //padding
   //--------------------------------------加载框Loading------------------------------------------------------------------
 
 
