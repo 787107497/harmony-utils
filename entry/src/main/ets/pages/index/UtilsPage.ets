@@ -6,6 +6,7 @@ import { DescribeBean } from '../../entity/DescribeBean';
 /**
  * 工具包主页面
  */
+@Preview
 @Component
 export struct UtilsPage {
   private scroller: Scroller = new Scroller();

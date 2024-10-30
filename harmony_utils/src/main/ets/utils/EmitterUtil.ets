@@ -16,6 +16,8 @@
  */
 
 import { emitter } from '@kit.BasicServicesKit';
+import { NumberUtil } from './NumberUtil';
+import { StrUtil } from './StrUtil';
 
 
 /**
@@ -39,10 +41,10 @@ export class EmitterUtil {
    * @param data 发送的数据
    * @param EventPriority 事件被发送的优先级
    */
-  static post<T>(eventId: string, data: T, priority: emitter.EventPriority = emitter.EventPriority.HIGH) {
+  static post<T>(eventId: string | number, data: T, priority: emitter.EventPriority = emitter.EventPriority.HIGH) {
     let eventData: emitter.EventData = { data: { "eventData": data } };
     let options: emitter.Options = { priority: priority };
-    emitter.emit(eventId, options, eventData);
+    emitter.emit(eventId.toString(), options, eventData);
   }
 
 
@@ -51,8 +53,8 @@ export class EmitterUtil {
    * @param eventId 事件ID，string类型的eventId不支持空字符串。
    * @param callback 事件的回调处理函数。
    */
-  static onSubscribe<T>(eventId: string, callback: (data: T) => void) {
-    emitter.on(eventId, (eventData: emitter.EventData) => {
+  static onSubscribe<T>(eventId: string | number, callback: (data: T) => void) {
+    emitter.on(eventId.toString(), (eventData: emitter.EventData) => {
       callback(eventData.data?.eventData);
     });
   }
@@ -63,8 +65,8 @@ export class EmitterUtil {
    * @param eventId 事件ID，string类型的eventId不支持空字符串。
    * @param callback 事件的回调处理函数。
    */
-  static onceSubscribe<T>(eventId: string, callback: (data: T) => void) {
-    emitter.once(eventId, (eventData: emitter.EventData) => {
+  static onceSubscribe<T>(eventId: string | number, callback: (data: T) => void) {
+    emitter.once(eventId.toString(), (eventData: emitter.EventData) => {
       callback(eventData.data?.eventData);
     });
   }
@@ -74,8 +76,8 @@ export class EmitterUtil {
    * 取消事件订阅
    * @param eventId 事件ID，string类型的eventId不支持空字符串。
    */
-  static unSubscribe(eventId: string) {
-    emitter.off(eventId);
+  static unSubscribe(eventId: string | number) {
+    emitter.off(eventId.toString());
   }
 
 

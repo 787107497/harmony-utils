@@ -3,7 +3,6 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { AppUtil } from '@pura/harmony-utils';
 import { WindowUtil } from '../utils/WindowUtil';
-import { DialogHelper } from '@pura/harmony-dialog';
 
 export default class EntryAbility extends UIAbility {
 
@@ -11,11 +10,6 @@ export default class EntryAbility extends UIAbility {
     AppUtil.init(this.context);
   }
 
-  // onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-  //
-  //
-  //
-  // }
 
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');

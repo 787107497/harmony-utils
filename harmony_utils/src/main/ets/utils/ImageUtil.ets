@@ -200,7 +200,7 @@ export class ImageUtil {
    * 图片压缩或重新打包，使用Promise形式返回结果。
    * @param source PixelMap-打包的PixelMap资源。
    * @param options 设置打包参数:
-   *   format 目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）。
+   *   format 目标格式。当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    *   quality JPEG编码中设定输出图片质量的参数，取值范围为0-100。
    *   bufferSize 接收编码数据的缓冲区大小，单位为Byte。默认为10MB。bufferSize需大于编码后图片大小。
    * @returns
@@ -217,7 +217,7 @@ export class ImageUtil {
    * 图片压缩或重新打包，使用Promise形式返回结果。
    * @param source ImageSource-打包的图片源。
    * @param options 设置打包参数:
-   *   format 目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）。
+   *   format 目标格式。当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    *   quality JPEG编码中设定输出图片质量的参数，取值范围为0-100。
    *   bufferSize 接收编码数据的缓冲区大小，单位为Byte。默认为10MB。bufferSize需大于编码后图片大小。
    * @returns
@@ -235,7 +235,7 @@ export class ImageUtil {
    * @param source PixelMap-打包的PixelMap资源。
    * @param fd 文件描述符。
    * @param option 设置打包参数:
-   *   format 目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）。
+   *   format 目标格式。当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    *   quality JPEG编码中设定输出图片质量的参数，取值范围为0-100。
    *   bufferSize 接收编码数据的缓冲区大小，单位为Byte。默认为10MB。bufferSize需大于编码后图片大小。
    * @returns
@@ -253,7 +253,7 @@ export class ImageUtil {
    * @param source ImageSource-打包的图片源。
    * @param fd 文件描述符。
    * @param option 设置打包参数:
-   *   format 目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）。
+   *   format 目标格式。当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    *   quality JPEG编码中设定输出图片质量的参数，取值范围为0-100。
    *   bufferSize 接收编码数据的缓冲区大小，单位为Byte。默认为10MB。bufferSize需大于编码后图片大小。
    * @returns
@@ -281,7 +281,7 @@ export class ImageUtil {
    * 图片压缩
    * @param sourcePixelMap：原始待压缩图片的PixelMap对象
    * @param maxCompressedImageSize：指定图片的压缩目标大小，单位kb
-   * @param imageFormat：目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）
+   * @param imageFormat：当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    * @returns compressedImageData：返回压缩后的图片数据
    */
   static async compressedImage(sourcePixelMap: image.PixelMap, maxCompressedImageSize: number,
@@ -321,7 +321,7 @@ export class ImageUtil {
    * packing压缩
    * @param sourcePixelMap：原始待压缩图片的PixelMap
    * @param imageQuality：图片质量参数
-   * @param imageFormat：目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）
+   * @param imageFormat：当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    * @returns data：返回压缩后的图片数据
    */
   static async packing(sourcePixelMap: image.PixelMap, imageQuality: number, imageFormat: string = "image/jpeg"): Promise<ArrayBuffer> {
@@ -338,7 +338,7 @@ export class ImageUtil {
    * @param sourcePixelMap：原始待压缩图片的PixelMap
    * @param maxCompressedImageByte：压缩目标图像字节长度
    * @param imageQuality：图片质量参数
-   * @param imageFormat：目标格式。当前只支持jpg（image/jpeg）、webp 和 png（image/png）
+   * @param imageFormat：当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    * @returns compressedImageData：返回二分packing压缩后的图片数据
    */
   static async packingImage(compressedImageData: ArrayBuffer, sourcePixelMap: image.PixelMap, maxCompressedImageByte: number,

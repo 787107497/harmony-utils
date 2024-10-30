@@ -881,7 +881,7 @@ OpenHarmony ohpm
 | stringToHex              | 字符串转Hex字符串            |
 | uint8ArrayToString       | 字节流转成可理解的字符串          |
 
-<br><br>
+<br>
 
 ## 🍎贡献代码与技术交流
 
@@ -892,6 +892,12 @@ OpenHarmony ohpm
 [https://github.com/787107497](https://github.com/787107497)
 
 鸿蒙技术交流QQ群：569512366
+
+## 🌞友情推荐🙏
+
+#### [《ArkUI实战》](https://www.arkui.club)深入浅出介绍鸿蒙应用开发，帮助数百万开发者学习鸿蒙与仓颉。
+
+#### [《鸿蒙NEXT实战教程》](https://www.bilibili.com/cheese/play/ss25125)鸿蒙next实战教学，不废话，手把手教你从零开始搭建获得next模拟器资格和查阅文档，学习当下最新的next技术。 [鸿蒙next ArkUI 技术博客专栏](https://juejin.cn/column/7308434349426556979)旨在分享鸿蒙next最前沿的技术博客 ，希望广大群友能愉快的学习鸿蒙next开发。
 
 ## 🌏开源协议
 

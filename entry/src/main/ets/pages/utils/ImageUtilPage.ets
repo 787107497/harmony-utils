@@ -121,7 +121,6 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let imageSource = await ImageUtil.createImageSource(this.filePath)
-
               let filePath = FileUtil.getFilesDirPath("", `MeiZi_${DateUtil.getTodayTime()}.png`);
               let file = FileUtil.openSync(filePath)
               let packOpts: image.PackingOption = { format: "image/png", quality: 100 }
