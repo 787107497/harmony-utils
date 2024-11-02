@@ -3,6 +3,7 @@ import { MockSetup } from '@ohos/hamock';
 import { FileUtil, ImageUtil, LogUtil, ResUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { JSON } from '@kit.ArkTS';
+import { zlib } from '@kit.BasicServicesKit';
 
 /**
  * 资源工具类
@@ -194,7 +195,17 @@ struct Index {
               LogUtil.error(this.jsonStr);
               ToastUtil.showToast("请查看Log日志");
             })
-
+          Button("getRawFileContentStr()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(async () => {
+              this.jsonStr = await ResUtil.getRawFileContentStr("area_code_2024.json.gz");
+              LogUtil.error(this.jsonStr);
+              ToastUtil.showToast("请查看Log日志");
+            })
           Text(this.jsonStr)
             .visibility(StrUtil.isNotEmpty(this.jsonStr) ? Visibility.Visible : Visibility.None)
             .textStyle()

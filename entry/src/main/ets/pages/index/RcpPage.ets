@@ -1,7 +1,17 @@
+import { AreaHelper, AreaEntity } from "@nutpi/china_area";
+
 @Preview
 @Component
 export struct RcpPage {
   private scroller: Scroller = new Scroller();
+  private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
+
+  private citys:AreaEntity[]=[]
+
+  aboutToAppear(): void {
+
+  this.citys=  AreaHelper.getAreaSync()
+  }
 
   build() {
     Column() {
@@ -17,10 +27,15 @@ export struct RcpPage {
         Column() {
           Blank().layoutWeight(1)
 
-          Image($r('app.media.test_as2'))
-            .objectFit(ImageFit.Fill)
-            .width('98%')
-            .margin({ top: 10, bottom: 10 })
+          TextPicker({ range: this.citys })
+            // .onChange((value: string | string[], index: number | number[]) => {
+            //   console.info('Picker item changed, value: ' + value + ', index: ' + index)
+            // })
+
+          // Image($r('app.media.test_as2'))
+          //   .objectFit(ImageFit.Fill)
+          //   .width('98%')
+          //   .margin({ top: 10, bottom: 10 })
 
           Blank().layoutWeight(1)
         }

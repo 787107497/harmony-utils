@@ -881,8 +881,6 @@ OpenHarmony ohpm
 | stringToHex              | 字符串转Hex字符串            |
 | uint8ArrayToString       | 字节流转成可理解的字符串          |
 
-<br>
-
 ## 🍎贡献代码与技术交流
 
 使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues)给我们；   

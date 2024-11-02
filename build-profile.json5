@@ -61,6 +61,10 @@
     {
       "name": "spinkit",
       "srcPath": "./spinkit",
+    },
+    {
+      "name": "china_area",
+      "srcPath": "./china_area",
     }
   ]
 }

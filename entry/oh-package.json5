@@ -11,7 +11,8 @@
     //本地引用
     "@pura/harmony-utils": "file:../harmony_utils",
     "@pura/harmony-dialog": "file:../harmony_dialog",
-    "@pura/spinkit": "file:../spinkit"
+    "@pura/spinkit": "file:../spinkit",
+    "@nutpi/china_area": "file:../china_area"
   }
 }
 
