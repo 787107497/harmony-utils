@@ -8,7 +8,7 @@
 AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、CustomDialog、LoadingDialog、LoadingProgress、Toast、ToastTip
 等多种类型，能够满足各种不同的弹窗开发需求。
 
-[SpinKit](https://gitee.com/tongyuyan/harmony-utils/tree/master/spinkit)是一个适用于OpenHarmony/HarmonyOS的加载动画库。
+[SpinKit](https://gitee.com/tongyuyan/harmony-utils/tree/master/spinkit) 是一个适用于OpenHarmony/HarmonyOS的加载动画库。
 
 [china_area](https://gitee.com/tongyuyan/harmony-utils/tree/master/china_area) 中国区域数据，省市县三级数据。
 
