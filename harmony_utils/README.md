@@ -1,4 +1,4 @@
-# harmony-utils (API12 - 5.0.3.900)
+# harmony-utils (API12 - 5.0.3.906)
 
 ## 🏆简介与推荐
 
@@ -10,13 +10,23 @@
 
 [SpinKit](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit) 是一个适用于OpenHarmony/HarmonyOS的加载动画库。
 
-## 🌞下载安装
+## 🌞下载安装与使用说明🙏
 
 `ohpm i @pura/harmony-utils`
 OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 
-<br><br>
+#### 在更新记录里，每个版本号，都有对应的最低开发工具版本，如：“1.2.2（API12 - 5.0.3.906）”；如遇到API不存在和项目报错，请升级开发工具DevEco Studio。
+
+ ```
+全局初始化方法，从1.2.0版本开始，在UIAbility的onCreate方法中初始化 AppUtil.init()
+    
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    AppUtil.init(this.context);
+  }
+ ```
+
+<br>
 
 ## 📂模块介绍
 
@@ -65,17 +75,7 @@ OpenHarmony ohpm
 | ToastUtil                                                                         | 吐司工具类（promptAction）                                                      |
 | SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。 |
 
-<br></br>
-
-## 📚API详解
-
- ```
-全局初始化方法，在UIAbility的onCreate方法中初始化 AppUtil.init()
-    
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    AppUtil.init(this.context);
-  }
- ```
+<br>
 
 ## AppUtil（APP相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AppUtilPage.ets)
 
@@ -195,12 +195,16 @@ OpenHarmony ohpm
 
 ## EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
 
-| 方法            | 介绍       |
-|:--------------|:---------|
-| post          | 发送事件     |
-| onSubscribe   | 订阅事件     |
-| onceSubscribe | 单次订阅指定事件 |
-| unSubscribe   | 取消事件订阅   |
+| 方法               | 介绍                  |
+|:-----------------|:--------------------|
+| post             | 发送事件                |
+| onSubscribe      | 订阅事件                |
+| onceSubscribe    | 单次订阅指定事件            |
+| unSubscribe      | 取消事件订阅              |
+| getListenerCount | 获取指定事件的订阅数          |
+| on               | 订阅事件，支持Callback     |
+| once             | 单次订阅指定事件，支持Callback |
+| off              | 取消事件订阅，支持Callback   |
 
 ## WantUtil（Want工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets)
 
@@ -356,6 +360,7 @@ OpenHarmony ohpm
 | packToFileFromImageSource | 将ImageSource图片源编码后直接打包进文件         |
 | getPixelMapFromMedia      | 用户获取resource目录下的media中的图片PixelMap |
 | compressedImage           | 图片压缩                              |
+| compressPhoto             | 图片压缩，返回压缩后的图片文件路径                 |
 
 ## SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
 
@@ -891,7 +896,7 @@ OpenHarmony ohpm
 
 鸿蒙技术交流QQ群：569512366
 
-## 🌞友情推荐🙏
+## 🌞友情推荐
 
 #### [《ArkUI实战》](https://www.arkui.club)深入浅出介绍鸿蒙应用开发，帮助数百万开发者学习鸿蒙与仓颉。
 

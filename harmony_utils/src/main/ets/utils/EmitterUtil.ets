@@ -16,8 +16,6 @@
  */
 
 import { emitter } from '@kit.BasicServicesKit';
-import { NumberUtil } from './NumberUtil';
-import { StrUtil } from './StrUtil';
 
 
 /**
@@ -31,7 +29,6 @@ import { StrUtil } from './StrUtil';
  * QQ交流群: 569512366
  */
 export class EmitterUtil {
-
   private constructor() {}
 
 
@@ -41,10 +38,10 @@ export class EmitterUtil {
    * @param data 发送的数据
    * @param EventPriority 事件被发送的优先级
    */
-  static post<T>(eventId: string | number, data: T, priority: emitter.EventPriority = emitter.EventPriority.HIGH) {
-    let eventData: emitter.EventData = { data: { "eventData": data } };
+  static post<T>(eventId: string | number, eventData: T, priority: emitter.EventPriority = emitter.EventPriority.HIGH) {
+    let genericEventData: emitter.GenericEventData<T> = { data: eventData };
     let options: emitter.Options = { priority: priority };
-    emitter.emit(eventId.toString(), options, eventData);
+    emitter.emit(eventId.toString(), options, genericEventData);
   }
 
 
@@ -53,9 +50,9 @@ export class EmitterUtil {
    * @param eventId 事件ID，string类型的eventId不支持空字符串。
    * @param callback 事件的回调处理函数。
    */
-  static onSubscribe<T>(eventId: string | number, callback: (data: T) => void) {
-    emitter.on(eventId.toString(), (eventData: emitter.EventData) => {
-      callback(eventData.data?.eventData);
+  static onSubscribe<T>(eventId: string | number, callback: Callback<T>) {
+    emitter.on(eventId.toString(), (eventData: emitter.GenericEventData<T>) => {
+      callback(eventData.data);
     });
   }
 
@@ -65,9 +62,9 @@ export class EmitterUtil {
    * @param eventId 事件ID，string类型的eventId不支持空字符串。
    * @param callback 事件的回调处理函数。
    */
-  static onceSubscribe<T>(eventId: string | number, callback: (data: T) => void) {
-    emitter.once(eventId.toString(), (eventData: emitter.EventData) => {
-      callback(eventData.data?.eventData);
+  static onceSubscribe<T>(eventId: string | number, callback: Callback<T>) {
+    emitter.once(eventId.toString(), (eventData: emitter.GenericEventData<T>) => {
+      callback(eventData.data);
     });
   }
 
@@ -78,6 +75,45 @@ export class EmitterUtil {
    */
   static unSubscribe(eventId: string | number) {
     emitter.off(eventId.toString());
+  }
+
+
+  /**
+   * 获取指定事件的订阅数
+   * @param eventId 事件ID，string类型的eventId不支持空字符串。
+   * @returns
+   */
+  static getListenerCount(eventId: number | string): number {
+    return emitter.getListenerCount(eventId);
+  }
+
+
+  /**
+   * 订阅事件
+   * @param eventId 事件ID，string类型的eventId不支持空字符串。
+   * @param callback 接收到该事件时需要执行的回调处理函数。
+   */
+  static on<T>(eventId: string | number, callback: Callback<emitter.GenericEventData<T>>) {
+    emitter.on(eventId.toString(), callback);
+  }
+
+
+  /**
+   * 单次订阅指定事件
+   * @param eventId 事件ID，string类型的eventId不支持空字符串。
+   * @param callback 接收到该事件时需要执行的回调处理函数。
+   */
+  static once<T>(eventId: string | number, callback: Callback<emitter.GenericEventData<T>>) {
+    emitter.once(eventId.toString(), callback);
+  }
+
+  /**
+   * 取消事件订阅
+   * @param eventId 事件ID，string类型的eventId不支持空字符串。
+   * @param callback 取消该事件的回调处理函数。
+   */
+  static off<T>(eventId: string | number, callback: Callback<emitter.GenericEventData<T>>) {
+    emitter.off(eventId.toString(), callback);
   }
 
 

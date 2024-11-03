@@ -22,6 +22,7 @@ import { FileUtil } from './FileUtil';
 import { LogUtil } from './LogUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { ResUtil } from './ResUtil';
+import { DateUtil } from './DateUtil';
 
 
 /**
@@ -280,22 +281,21 @@ export class ImageUtil {
   /**
    * 图片压缩
    * @param sourcePixelMap：原始待压缩图片的PixelMap对象
-   * @param maxCompressedImageSize：指定图片的压缩目标大小，单位kb
+   * @param maxSize：指定图片的压缩目标大小，单位kb
    * @param imageFormat：当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    * @returns compressedImageData：返回压缩后的图片数据
    */
-  static async compressedImage(sourcePixelMap: image.PixelMap, maxCompressedImageSize: number,
-    imageFormat: string = "image/jpeg"): Promise<ArrayBuffer> {
+  static async compressedImage(sourcePixelMap: image.PixelMap, maxImgSize: number, imageFormat: string = "image/jpeg"): Promise<ArrayBuffer> {
     const imagePackerApi = image.createImagePacker(); //创建图像编码ImagePacker对象
     const IMAGE_QUALITY = 0;
     const packOpts: image.PackingOption = { format: imageFormat, quality: IMAGE_QUALITY };
     //通过PixelMap进行编码。compressedImageData为打包获取到的图片文件流。
     let compressedImageData: ArrayBuffer = await imagePackerApi.packing(sourcePixelMap, packOpts);
-    const maxCompressedImageByte = maxCompressedImageSize * 1024; //压缩目标图像字节长度
+    const maxCompressedImageByte = maxImgSize * 1024; //压缩目标图像字节长度
     //图片压缩。先判断设置图片质量参数quality为0时，packing能压缩到的图片最小字节大小是否满足指定的图片压缩大小。如果满足，则使用packing方式二分查找最接近指定图片压缩目标大小的quality来压缩图片。如果不满足，则使用scale对图片先进行缩放，采用while循环每次递减0.4倍缩放图片，再用packing（图片质量参数quality设置0）获取压缩图片大小，最终查找到最接近指定图片压缩目标大小的缩放倍数的图片压缩数据。
     if (maxCompressedImageByte > compressedImageData.byteLength) {
       //使用packing二分压缩获取图片文件流
-      compressedImageData = await ImageUtil.packingImage(compressedImageData, sourcePixelMap, IMAGE_QUALITY, maxCompressedImageByte, imageFormat);
+      compressedImageData = await ImageUtil.packingImage(compressedImageData, sourcePixelMap, maxCompressedImageByte, IMAGE_QUALITY, imageFormat);
     } else {
       //使用scale对图片先进行缩放，采用while循环每次递减0.4倍缩放图片，再用packing（图片质量参数quality设置0）获取压缩图片大小，最终查找到最接近指定图片压缩目标大小的缩放倍数的图片压缩数据
       let imageScale = 1;
@@ -313,6 +313,7 @@ export class ImageUtil {
         }
       }
     }
+    imagePackerApi.release();
     return compressedImageData;
   }
 
@@ -328,6 +329,7 @@ export class ImageUtil {
     const imagePackerApi = image.createImagePacker();
     const packOpts: image.PackingOption = { format: imageFormat, quality: imageQuality };
     const data: ArrayBuffer = await imagePackerApi.packing(sourcePixelMap, packOpts);
+    imagePackerApi.release()
     return data;
   }
 
@@ -378,6 +380,33 @@ export class ImageUtil {
     }
     return compressedImageData;
   }
+
+
+  /**
+   * 图片压缩，返回压缩后的图片文件路径
+   * @param uri：原始待压缩图片的PixelMap对象
+   * @param maxSize：指定图片的压缩目标大小，单位kb
+   * @param imageFormat：当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
+   * @returns filePath：返回文件压缩路径
+   */
+  static async compressPhoto(uri: string, maxSize: number, imageFormat: string = "image/jpeg"): Promise<string> {
+    try {
+      let file = await FileUtil.open(uri);
+      let filePath = FileUtil.getTempDirPath(DateUtil.getTodayTime().toString(), file.name); //文件压缩路径
+      let pixelMap = await ImageUtil.createImageSource(file.fd).createPixelMap();
+      let arrayBuffer = await ImageUtil.compressedImage(pixelMap, maxSize, imageFormat); //压缩
+      await FileUtil.writeEasy(filePath, arrayBuffer, false); //写入文件
+      FileUtil.closeSync(file.fd); //关闭文件
+      pixelMap.release(); //释放资源
+      return filePath; //返回文件压缩路径
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`ImageUtil-compressPhoto-压缩异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return "";
+    }
+  }
+
+
 
 
 }

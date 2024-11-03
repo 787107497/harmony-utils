@@ -1,5 +1,5 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
-import { DateUtil, FileUtil, ImageUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { DateUtil, FileUtil, ImageUtil, LogUtil, PhotoHelper, PickerUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { image } from '@kit.ImageKit';
 import { MockSetup } from '@ohos/hamock';
@@ -21,6 +21,7 @@ struct Index {
   @State base64Str: string = '';
   @State imgPath: string = '';
   @State imgUri: string = '';
+  @State resultStr: string = '';
 
   @MockSetup
   mock() {
@@ -140,11 +141,45 @@ struct Index {
           Button("pixelMapToBase64Str()")
             .btnStyle()
             .onClick(async () => {
+              this.resultStr = ""
               let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as3"))
               this.base64Str = await ImageUtil.pixelMapToBase64Str(pixelMap)
             })
+          Button("compressedImage()")
+            .btnStyle()
+            .onClick(async () => {
+              let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as5")); //原大小3.78M
+              let arrayBuffer = await ImageUtil.compressedImage(pixelMap, 150);
+              LogUtil.error("压缩后的大小：" + arrayBuffer.byteLength);
+              PickerUtil.savePhoto(['压缩后的图片.jpeg']).then(async (uris)=>{
+                let uri = uris[0];
+                await FileUtil.writeEasy(uri,arrayBuffer,false);
+                ToastUtil.showToast("压缩文件保存成功")
+              })
+            })
+          Button("compressPhoto()")
+            .btnStyle()
+            .onClick(async () => {
+              this.base64Str = ""
+              PhotoHelper.select({ maxSelectNumber: 1 }).then(async (uris) => {
+                if (uris?.length > 0) {
+                  let uri = uris[0];
+                  let filePath = await ImageUtil.compressPhoto(uri, 100); //压缩返回路径
+
+                  let oldSize = FileUtil.statSync(FileUtil.openSync(uri).fd).size; //压缩前大小
+                  let compressSize = FileUtil.statSync(filePath).size; //压缩后大小
+                  this.resultStr = `压缩路径: ${filePath}\n\n压缩前大小: ${FileUtil.getFormatFileSize(oldSize)}\n压缩后大小: ${FileUtil.getFormatFileSize(compressSize)}`
+                  LogUtil.error( this.resultStr);
+                  // this.imgPath = filePath;
+                }
+              })
+            })
+
           Text(this.base64Str)
             .visibility(this.base64Str ? Visibility.Visible : Visibility.None)
+            .textStyle()
+          Text(this.resultStr)
+            .visibility(this.resultStr ? Visibility.Visible : Visibility.None)
             .textStyle()
 
           Text('').layoutWeight(1)

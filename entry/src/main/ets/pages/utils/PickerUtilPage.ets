@@ -43,15 +43,6 @@ struct Index {
           Button("camera()")
             .btnStyle()
             .onClick(async () => {
-              // let p: Permissions = 'ohos.permission.CAMERA';
-              // PermissionUtil.checkRequestPermissions(p).then(async (grant) => {
-              //   if (grant) {
-              //
-              //   } else {
-              //     ToastUtil.showLong("请在设置中打开权限")
-              //     AppUtil.toAppSetting()
-              //   }
-              // })
               PickerUtil.camera().then((uri) => {
                 this.uriStr = `调用相机，返回uri：\n${uri}`
               }).catch((err: BusinessError) => {
@@ -61,15 +52,6 @@ struct Index {
           Button("selectPhoto()")
             .btnStyle()
             .onClick(() => {
-              // let ps: Permissions[] = ['ohos.permission.CAMERA', 'ohos.permission.READ_MEDIA', 'ohos.permission.WRITE_MEDIA', 'ohos.permission.READ_IMAGEVIDEO'];
-              // PermissionUtil.requestPermissionsList(ps).then((result) => {
-              //   if (result) {
-              //
-              //   } else {
-              //     ToastUtil.showLong("请在设置中打开权限")
-              //     AppUtil.toAppSetting()
-              //   }
-              // })
               PickerUtil.selectPhoto().then((uris) => {
                 this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
               }).catch((err: BusinessError) => {

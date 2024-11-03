@@ -37,7 +37,7 @@ export class PreferencesUtil {
   private static preferences: preferences.Preferences;
 
   /**
-   * 初始化
+   * 初始化，非必要不要初始化该方法
    * @param name Preferences实例的名称。
    */
   static init(preferenceName: string) {
@@ -132,8 +132,9 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static getStringSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): string {
-    return PreferencesUtil.getSync(key, "", preferenceName) as string;
+  static getStringSync(key: string, defValue: string = "",
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): string {
+    return PreferencesUtil.getSync(key, defValue, preferenceName) as string;
   }
 
   /**
@@ -141,8 +142,9 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static async getString(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<string> {
-    return (await PreferencesUtil.get(key, "", preferenceName)) as string;
+  static async getString(key: string, defValue: string = "",
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<string> {
+    return (await PreferencesUtil.get(key, defValue, preferenceName)) as string;
   }
 
 
@@ -151,8 +153,9 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static getNumberSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): number {
-    return PreferencesUtil.getSync(key, 0, preferenceName) as number;
+  static getNumberSync(key: string, defValue: number = 0,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): number {
+    return PreferencesUtil.getSync(key, defValue, preferenceName) as number;
   }
 
   /**
@@ -160,8 +163,9 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static async getNumber(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<number> {
-    return (await PreferencesUtil.get(key, 0, preferenceName)) as number;
+  static async getNumber(key: string, defValue: number = 0,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<number> {
+    return (await PreferencesUtil.get(key, defValue, preferenceName)) as number;
   }
 
 
@@ -170,8 +174,9 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static getBooleanSync(key: string, preferenceName: string = PreferencesUtil.defaultPreferenceName): boolean {
-    return PreferencesUtil.getSync(key, false, preferenceName) as boolean;
+  static getBooleanSync(key: string, defValue: boolean = false,
+    preferenceName: string = PreferencesUtil.defaultPreferenceName): boolean {
+    return PreferencesUtil.getSync(key, defValue, preferenceName) as boolean;
   }
 
   /**
@@ -179,9 +184,9 @@ export class PreferencesUtil {
    * @param key
    * @returns
    */
-  static async getBoolean(key: string,
+  static async getBoolean(key: string, defValue: boolean = false,
     preferenceName: string = PreferencesUtil.defaultPreferenceName): Promise<boolean> {
-    return (await PreferencesUtil.get(key, false, preferenceName)) as boolean;
+    return (await PreferencesUtil.get(key, defValue, preferenceName)) as boolean;
   }
 
 
