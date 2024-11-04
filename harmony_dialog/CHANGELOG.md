@@ -1,5 +1,9 @@
 # 版本记录
 
+## 1.0.4
+1. 优化代码。   
+2. showLoading，Loading弹框内置SpinKit，支持20多种动画。   
+
 ## 1.0.3
 1. 优化吐司（Toast）支持backCancel。    
 2. 优化showCustomContentDialog等的多按钮参数buttons?: Array<ResourceStr | ButtonOptions>。    

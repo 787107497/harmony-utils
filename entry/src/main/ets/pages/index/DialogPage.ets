@@ -1,5 +1,6 @@
 import { AnimationHelper, DialogAction, DialogHelper } from '@pura/harmony-dialog';
 import { ToastUtil } from '@pura/harmony-utils';
+import { SpinType } from '@pura/spinkit';
 import { LabelButton } from '../../component/LabelButton';
 import { DrawerOptions } from '../../utils/DrawerOptions';
 import { MyCustomOptions } from '../../utils/MyCustomOptions';
@@ -737,21 +738,30 @@ export struct DialogPage {
     } else if (index == 1) {
       //自定义文字内容
       DialogHelper.showLoadingDialog({
-        content: "努力加载中",
+        loadType: SpinType.spinP,
+        loadColor: Color.White,
+        loadSize: 70,
+        backgroundColor: '#BB000000',
+        content: "加载中…",
+        fontSize: 18,
+        padding: { top: 30, right: 50, bottom: 30, left: 50 },
         autoCancel: true
       })
     } else if (index == 2) {
       //自定义文字和加载动画的颜色
       DialogHelper.showLoadingDialog({
+        loadType: SpinType.spinD,
         content: "努力加载中",
-        loadColor: Color.Blue,
-        fontColor: Color.Green,
-        borderRadius: 20
+        loadColor: Color.White,
+        backgroundColor: '#99000000',
+        fontColor: Color.White,
+        padding: { top: 30, right: 40, bottom: 30, left: 40 },
+        borderRadius: 5
       })
     } else {
       //禁止点击返回关闭弹窗 和 禁止点击遮蔽层关闭弹窗
       DialogHelper.showLoadingDialog({
-        content: "努力加载中",
+        loadType: SpinType.spinH,
         autoCancel: false,
         backCancel: false
       })
@@ -790,7 +800,7 @@ export struct DialogPage {
       this.progress = 25;
       DialogHelper.showLoadingProgress({
         progress: this.progress,
-        content: "文件加载中",
+        content: "努力加载中",
         loadColor: $r('app.color.color_main'),
         fontColor: Color.Brown,
         autoCancel: false,

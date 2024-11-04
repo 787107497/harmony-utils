@@ -15,7 +15,9 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
+import { SpinKit } from '@pura/spinkit';
 import { LoadingOptions } from '../model/LoadingOptions';
+import hilog from '@ohos.hilog';
 
 /**
  * TODO Loading组件
@@ -43,10 +45,11 @@ export default struct LoadingView {
 
   build() {
     Column() {
-      LoadingProgress()
-        .height(this.options.loadSize)
-        .width(this.options.loadSize)
-        .color(this.options.loadColor)
+      SpinKit({
+        spinType: this.options.loadType,
+        spinSize: this.options.loadSize,
+        spinColor: this.options.loadColor
+      })
       Text(this.options.content)
         .textAlign(TextAlign.Center)
         .margin({ top: this.options.marginTop })

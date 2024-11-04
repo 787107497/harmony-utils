@@ -15,6 +15,7 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
+import { SpinType } from '@pura/spinkit';
 import { BaseDialogOptions } from './base/BaseDialogOptions';
 
 
@@ -30,7 +31,7 @@ import { BaseDialogOptions } from './base/BaseDialogOptions';
  */
 export interface LoadingOptions extends BaseDialogOptions {
 
-  // loadType?: SpinType //动画类型
+  loadType?: SpinType //动画类型
   loadSize?: number; //加载动画或进度条的大小
   loadColor?: ResourceColor; //加载动画的颜色
   content?: ResourceStr; //加载动画的提示文字
@@ -40,6 +41,5 @@ export interface LoadingOptions extends BaseDialogOptions {
   borderRadius?: Length | BorderRadiuses; //加载动画背景圆角
   marginTop?: number | string | Resource //文字与动画的间距
   padding?: Padding | Length //padding
-
 
 }

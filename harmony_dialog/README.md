@@ -18,7 +18,7 @@ AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、
 
 OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
-<br><br>
+<br>
 
 ## 📚API详解
 
@@ -229,9 +229,15 @@ OpenHarmony ohpm
  ```
     //进度加载类弹出框
     DialogHelper.showLoadingDialog({
-      content: "努力加载中",
-      autoCancel: false
-    })
+      loadType: SpinType.spinP,
+      loadColor: Color.White,
+      loadSize: 70,
+      backgroundColor: '#BB000000',
+      content: "加载中…",
+      fontSize: 18,
+      padding: { top: 30, right: 50, bottom: 30, left: 50 },
+      autoCancel: true
+     })
 
     
     //进度条加载弹框

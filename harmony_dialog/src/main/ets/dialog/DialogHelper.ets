@@ -451,9 +451,6 @@ export class DialogHelper {
     if (options.height || DialogHelper.config.height) {
       options.height = options.height ?? DialogHelper.config.height; //弹窗的高度。
     }
-    if (options.maxWidth || DialogHelper.config.maxWidth) {
-      options.maxWidth = options.maxWidth ?? DialogHelper.config.maxWidth; //弹窗的高度最大宽度。
-    }
     if (options.backgroundColor || DialogHelper.config.backgroundColor) {
       options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
     }
@@ -768,7 +765,9 @@ export class DialogHelper {
     if (options.onDidDisappear || DialogHelper.config.onDidDisappear) {
       options.onDidDisappear = options.onDidDisappear ?? DialogHelper.config.onDidDisappear; //弹窗消失时的事件回调。
     }
-
+    if (options.loadType || DialogHelper.config.loading_loadType) {
+      options.loadType = options.loadType ?? DialogHelper.config.loading_loadType; //加载动画的类型。
+    }
     if (options.loadSize || DialogHelper.config.loading_loadSize) {
       options.loadSize = options.loadSize ?? DialogHelper.config.loading_loadSize; //加载动画的大小。
     }
@@ -789,6 +788,12 @@ export class DialogHelper {
     }
     if (options.borderRadius || DialogHelper.config.loading_borderRadius) {
       options.borderRadius = options.borderRadius ?? DialogHelper.config.loading_borderRadius; //加载动画背景圆角。
+    }
+    if (options.marginTop || DialogHelper.config.loading_marginTop) {
+      options.marginTop = options.marginTop ?? DialogHelper.config.loading_marginTop; //文字与动画的间距。
+    }
+    if (options.padding || DialogHelper.config.loading_padding) {
+      options.padding = options.padding ?? DialogHelper.config.loading_padding; //padding。
     }
   }
 
