@@ -1,7 +1,9 @@
 # 版本记录
 
-## 1.2.2（API12 - 5.0.3.906）
+## 1.2.3（API12 - 5.0.3.906）
+1. DES，代码优化。   
 
+## 1.2.2（API12 - 5.0.3.906）
 1. PreferencesUtil，getString、getNumber、getBoolean方法添加defValue默认参数。    
 2. EmitterUtil，适配新的API，优化代码。    
 3. ImageUtil，优化代码；新增compressPhoto方法，图片压缩，返回压缩后的图片文件路径。    
