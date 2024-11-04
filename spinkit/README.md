@@ -1,4 +1,4 @@
-# SpinKit(API12 - 5.0.3.800)
+# SpinKit(API12)
 
 --------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ OpenHarmony ohpm
   })
  ```
 
-## 加载弹框请移步[harmony-dialog](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog)
+## 加载弹框请移步 [harmony-dialog](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog)
 
 ## 💖沟通与交流🙏
 
