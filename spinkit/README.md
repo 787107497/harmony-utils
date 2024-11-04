@@ -59,6 +59,10 @@ OpenHarmony ohpm
 
 QQ群：569512366
 
+## 🌞友情推荐
+
+#### [《ArkUI实战》](https://www.arkui.club)深入浅出介绍鸿蒙应用开发，帮助数百万开发者学习鸿蒙与仓颉。
+
 ## 🌏开源协议
 
 本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。   

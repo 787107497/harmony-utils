@@ -56,8 +56,8 @@ OpenHarmony ohpm
 | transitionInLeft  | InLeft动画  |
 | transitionInRight | InRight动画 |
 
-
 ## 📚使用说明🙏
+
  ```
   在有子窗口的情况下并且子窗口没有占满全屏的情况下，必须按照下面代码代码初始化和调用
  
@@ -278,6 +278,12 @@ OpenHarmony ohpm
 [https://github.com/787107497](https://github.com/787107497)
 
 鸿蒙技术交流QQ群：569512366
+
+## 🌞友情推荐
+
+#### [《ArkUI实战》](https://www.arkui.club)深入浅出介绍鸿蒙应用开发，帮助数百万开发者学习鸿蒙与仓颉。
+
+#### [《鸿蒙NEXT实战教程》](https://www.bilibili.com/cheese/play/ss25125)鸿蒙next实战教学，不废话，手把手教你从零开始搭建获得next模拟器资格和查阅文档，学习当下最新的next技术。 [鸿蒙next ArkUI 技术博客专栏](https://juejin.cn/column/7308434349426556979)旨在分享鸿蒙next最前沿的技术博客 ，希望广大群友能愉快的学习鸿蒙next开发。
 
 ## 🌏开源协议
 
