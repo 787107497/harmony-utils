@@ -1,3 +1,4 @@
+
 export { DialogHelper } from './src/main/ets/dialog/DialogHelper'
 
 export { AnimationHelper } from './src/main/ets/utils/AnimationHelper';
@@ -37,3 +38,5 @@ export { ToastTipOptions } from './src/main/ets/model/ToastTipOptions';
 export { ButtonOptions } from './src/main/ets/model/ButtonOptions';
 
 export { SheetOptions } from './src/main/ets/model/SheetOptions';
+
+export { SpinType, SpinKit } from '@pura/spinkit';

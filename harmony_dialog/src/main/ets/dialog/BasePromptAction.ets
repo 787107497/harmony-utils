@@ -127,10 +127,14 @@ export class BasePromptAction {
    * @param dialogId
    */
   closeCustomDialog(dialogId: string) {
-    let promptActionArg: PromptActionArg | undefined = this.getArgById(dialogId);
+    let promptActionArg = this.getArgById(dialogId);
     if (promptActionArg && promptActionArg.uiContext) {
       let promptAction = promptActionArg.uiContext.getPromptAction();
-      promptAction.closeCustomDialog(promptActionArg.componentContent);
+      let componentContent = promptActionArg.componentContent;
+      if (componentContent) {
+        promptAction.closeCustomDialog(componentContent);
+        componentContent.dispose(); //立即释放当前ComponentContent
+      }
     }
   }
 
