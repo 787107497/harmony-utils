@@ -17,7 +17,7 @@
 
 import { SpinKit } from '@pura/spinkit';
 import { LoadingOptions } from '../model/LoadingOptions';
-import hilog from '@ohos.hilog';
+import { Utils } from '../utils/Utils';
 
 /**
  * TODO Loading组件
@@ -35,11 +35,7 @@ export default struct LoadingView {
 
   aboutToAppear(): void {
     if (this.options.content) {
-      if (typeof this.options.content === 'string') {
-        this.content = this.options.content;
-      } else {
-        this.content = getContext().resourceManager.getStringSync(this.options.content.id);
-      }
+      this.content = Utils.getResourceStr(this.options.content) ?? "";
     }
   }
 

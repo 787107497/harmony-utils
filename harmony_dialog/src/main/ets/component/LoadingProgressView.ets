@@ -16,6 +16,7 @@
  */
 
 import { LoadingProgressOptions } from '../model/LoadingProgressOptions';
+import { Utils } from '../utils/Utils';
 
 /**
  * TODO LoadingProgress组件
@@ -33,11 +34,7 @@ export default struct LoadingProgressView {
 
   aboutToAppear(): void {
     if (this.options.content) {
-      if (typeof this.options.content === 'string') {
-        this.content = this.options.content;
-      } else {
-        this.content = getContext().resourceManager.getStringSync(this.options.content.id);
-      }
+      this.content = Utils.getResourceStr(this.options.content) ?? "";
     }
   }
 

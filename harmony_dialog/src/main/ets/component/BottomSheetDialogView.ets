@@ -18,6 +18,7 @@
 import { DialogHelper } from '../dialog/DialogHelper';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
+import { Utils } from '../utils/Utils';
 
 
 /**
@@ -37,11 +38,7 @@ export default struct BottomSheetDialogView {
 
   aboutToAppear(): void {
     if (this.options.title) {
-      if (typeof this.options.title === 'string') {
-        this.title = this.options.title;
-      } else {
-        this.title = getContext().resourceManager.getStringSync(this.options.title.id);
-      }
+      this.title = Utils.getResourceStr(this.options.title) ?? "";
     }
     if (this.options.sheets && this.options.sheets.length >= 1) {
       let fontSize = (this.options.sheets[0] as SheetOptions).fontSize;

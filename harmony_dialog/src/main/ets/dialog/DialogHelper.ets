@@ -53,6 +53,7 @@ import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
 import { DialogAction } from '../utils/constraint';
 import { UIContext } from '@kit.ArkUI';
+import { Utils } from '../utils/Utils';
 
 
 /**
@@ -543,7 +544,7 @@ export class DialogHelper {
     if (options.buttons && options.buttons.length > 0) {
       let buttons = new Array<ButtonOptions>();
       for (let index = 0; index < options.buttons.length; index++) {
-        let btnValue = DialogHelper.getResourceStr(options.buttons[index]);
+        let btnValue = Utils.getResourceStr(options.buttons[index]);
         if (btnValue) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
@@ -590,7 +591,7 @@ export class DialogHelper {
       options.secondaryButton = DialogHelper.config.secondaryButton
     }
     if (options.primaryButton) {
-      let primaryValue = DialogHelper.getResourceStr(options.primaryButton);
+      let primaryValue = Utils.getResourceStr(options.primaryButton);
       if (primaryValue) {
         options.primaryButton = {
           value: primaryValue,
@@ -620,7 +621,7 @@ export class DialogHelper {
       }
     }
     if (options.secondaryButton) {
-      let secondaryValue = DialogHelper.getResourceStr(options.secondaryButton);
+      let secondaryValue = Utils.getResourceStr(options.secondaryButton);
       if (secondaryValue) {
         options.secondaryButton = {
           value: secondaryValue,
@@ -670,7 +671,7 @@ export class DialogHelper {
   private static initSelect(options: SelectOptions) {
     if (options.radioContent && options.radioContent.length > 0) {
       CacheUtil.put<string>(options.dialogId ?? "", "");
-      let radioItem = DialogHelper.getResourceStr(options.radioContent[0]);
+      let radioItem = Utils.getResourceStr(options.radioContent[0]);
       if (radioItem) {
         let sheetInfos = new Array<SheetInfo>()
         for (let index = 0; index < options.radioContent.length; index++) {
@@ -861,22 +862,5 @@ export class DialogHelper {
     }
   }
 
-
-  /**
-   * 获取按钮的字符串
-   * @param resource
-   * @returns
-   */
-  private static  getResourceStr(resource: ResourceStr | ButtonOptions | SheetInfo): string | null {
-    try {
-      if (typeof resource === 'string') {
-        return resource;
-      } else {
-        return getContext().resourceManager.getStringSync((resource as Resource).id);
-      }
-    } catch (e) {
-      return null
-    }
-  }
 
 }
