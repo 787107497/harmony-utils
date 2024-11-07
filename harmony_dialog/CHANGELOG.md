@@ -1,5 +1,12 @@
 # 版本记录
 
+## 1.0.5
+1. 优化代码。   
+2. 输入弹框添加maxLength、controller、inputFilter参数。   
+    1、maxLength：文本的最大输入字符数。   
+    2、controller：TextInputController，输入控制器。   
+    3、inputFilter：InputFilter，通过正则表达式设置输入过滤器。   
+
 ## 1.0.4
 1. 优化代码。   
 2. showLoading，Loading弹框内置SpinKit，支持20多种动画。   

@@ -1,4 +1,5 @@
 import { AreaHelper, AreaEntity } from "@nutpi/china_area";
+import { LogUtil, RegexUtil } from "@pura/harmony-utils";
 
 @Preview
 @Component
@@ -28,6 +29,16 @@ export struct RcpPage {
           Blank().layoutWeight(1)
 
           TextPicker({ range: this.citys })
+
+
+          TextInput({
+
+          }).width('100%')
+            .maxLength(10)
+            .inputFilter(RegexUtil.REG_MOBILE, (value: string) => {
+              LogUtil.error("inputFilter: "+value)
+
+            })
             // .onChange((value: string | string[], index: number | number[]) => {
             //   console.info('Picker item changed, value: ' + value + ', index: ' + index)
             // })

@@ -1,5 +1,5 @@
 import { AnimationHelper, DialogAction, DialogHelper } from '@pura/harmony-dialog';
-import { ToastUtil } from '@pura/harmony-utils';
+import { ToastUtil,LogUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { LabelButton } from '../../component/LabelButton';
 import { DrawerOptions } from '../../utils/DrawerOptions';
@@ -18,6 +18,7 @@ import { MyCustomOptions } from '../../utils/MyCustomOptions';
 @Preview
 @Component
 export struct DialogPage {
+  private controller: TextInputController = new TextInputController();
   private scroller: Scroller = new Scroller();
   @State menuArray: Array<string> = ["相机", "相册", "文件管理器"];
   @State inputText: string = ""; //输入框内容
@@ -430,9 +431,6 @@ export struct DialogPage {
       //简单使用
       DialogHelper.showTextInputDialog({
         text: this.inputText,
-        onChange: (text) => {
-          console.error("onChange: " + text);
-        },
         onAction: (action, dialogId, content) => {
           if (action == DialogAction.TWO) {
             this.inputText = content;
@@ -462,19 +460,29 @@ export struct DialogPage {
     } else if (index == 2) {
       //不带标题的
       DialogHelper.showTextInputDialog({
-        text: this.inputText,
         title: "",
-        placeholder: "请输入人员年龄",
-        inputType: InputType.Number,
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: -35 },
         contentAreaPadding: { top: 30, bottom: 10, left: 15, right: 15 },
+        text: this.inputText,
+        placeholder: "请输入人员年龄",
+        inputType: InputType.Number,
+        controller: this.controller,
+        maxLength: 3,
+        inputFilter: {
+          value: "[0-9]",
+          error: (value) => {
+            console.error("inputFilter: " + value);
+          }
+        },
         onChange: (text) => {
           console.error("onChange: " + text);
         },
         onAction: (action, dialogId, content) => {
           if (action == DialogAction.TWO) {
             this.inputText = content;
+          } else if (action == DialogAction.ONE) {
+
           }
         }
       })
@@ -503,6 +511,14 @@ export struct DialogPage {
       DialogHelper.showTextAreaDialog({
         title: "评论内容",
         text: this.inputText,
+        placeholder: "请输入，[a-z,A-Z,0-9]，长度20",
+        maxLength: 20,
+        inputFilter: {
+          value: "[0-9A-Za-z]",
+          error: (value) => {
+            LogUtil.error("inputFilter: " + value);
+          }
+        },
         inputHeight: 160,
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: -35 },

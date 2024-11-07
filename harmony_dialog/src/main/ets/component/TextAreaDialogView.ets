@@ -21,6 +21,7 @@ import { CustomContentOptions } from '../model/CustomContentOptions';
 import { TextAreaOptions } from '../model/TextAreaOptions';
 import { CacheUtil } from '../utils/CacheUtil';
 import { TextAlignment } from '../utils/constraint';
+import { TextAreaModifier } from '../utils/TextAreaModifier';
 
 
 /**
@@ -35,12 +36,18 @@ import { TextAlignment } from '../utils/constraint';
 @Component
 export default struct TextAreaDialogView {
   private controller: TextInputController = new TextInputController()
+  @State modifier: TextAreaModifier = new TextAreaModifier();
+  @State text: string = '';
   @Prop options: TextAreaOptions;
   @State content: CustomContentOptions | null = null;
   @State textAlignment: Alignment = Alignment.Top;
 
   aboutToAppear(): void {
-    CacheUtil.put<string>(this.options.dialogId ?? "", this.options.text);
+    this.text = this.options.text ?? "";
+    this.modifier.inputFilter = this.options.inputFilter;
+    if (this.options.controller) {
+      this.controller = this.options.controller;
+    }
     this.content = {
       primaryTitle: this.options.primaryTitle,
       secondaryTitle: this.options.secondaryTitle,
@@ -58,6 +65,7 @@ export default struct TextAreaDialogView {
     } else {
       this.textAlignment = Alignment.Top;
     }
+    CacheUtil.put<string>(this.options.dialogId ?? "", this.text);
   }
 
   build() {
@@ -77,7 +85,7 @@ export default struct TextAreaDialogView {
   InputBuilder() {
     TextArea({
       controller: this.controller,
-      text: this.options.text,
+      text: $$this.text,
       placeholder: this.options.placeholder ?? '请输入'
     })
       .width('100%')
@@ -93,6 +101,8 @@ export default struct TextAreaDialogView {
       .height(this.options.inputHeight ?? 155)//默认155
       .backgroundColor(this.options.inputBackgroundColor)
       .border(this.options.inputBorder ?? { radius: 8 })
+      .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
+      .attributeModifier(this.modifier)
       .onChange((value: string, previewText?: PreviewText) => {
         CacheUtil.put<string>(this.options.dialogId ?? "", value ?? "")
         if (this.options.onChange) {

@@ -867,7 +867,7 @@ export class DialogHelper {
    * @param resource
    * @returns
    */
-  private static getResourceStr(resource: ResourceStr | ButtonOptions | SheetInfo): string | null {
+  private static  getResourceStr(resource: ResourceStr | ButtonOptions | SheetInfo): string | null {
     try {
       if (typeof resource === 'string') {
         return resource;

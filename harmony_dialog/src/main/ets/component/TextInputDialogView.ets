@@ -20,6 +20,7 @@ import { CustomContentDialog } from '@kit.ArkUI';
 import { BaseContentOptions } from '../model/base/BaseContentOptions';
 import { CustomContentOptions } from '../model/CustomContentOptions';
 import { CacheUtil } from '../utils/CacheUtil';
+import { TextInputModifier } from '../utils/TextInputModifier';
 
 
 /**
@@ -33,13 +34,18 @@ import { CacheUtil } from '../utils/CacheUtil';
  */
 @Component
 export default struct TextInputDialogView {
-  private controller: TextInputController = new TextInputController()
+  private controller: TextInputController = new TextInputController();
+  @State modifier: TextInputModifier = new TextInputModifier();
+  @State text: string = '';
   @Prop options: TextInputOptions;
   @State content: CustomContentOptions | null = null;
 
-
   aboutToAppear(): void {
-    CacheUtil.put<string>(this.options.dialogId ?? "", this.options.text);
+    this.text = this.options.text ?? "";
+    this.modifier.inputFilter = this.options.inputFilter;
+    if (this.options.controller) {
+      this.controller = this.options.controller;
+    }
     this.content = {
       primaryTitle: this.options.primaryTitle,
       secondaryTitle: this.options.secondaryTitle,
@@ -50,8 +56,8 @@ export default struct TextInputDialogView {
       }
     }
     this.content.buttons = this.options.buttons;
+    CacheUtil.put<string>(this.options.dialogId ?? "", this.text);
   }
-
 
   build() {
     CustomContentDialog(this.content as BaseContentOptions)
@@ -70,7 +76,7 @@ export default struct TextInputDialogView {
   InputBuilder() {
     TextInput({
       controller: this.controller,
-      text: this.options.text,
+      text: $$this.text,
       placeholder: this.options.placeholder ?? '请输入'
     })
       .type(this.options.inputType ?? InputType.Normal)
@@ -81,6 +87,8 @@ export default struct TextInputDialogView {
       .height(this.options.inputHeight)
       .backgroundColor(this.options.inputBackgroundColor)
       .border(this.options.inputBorder)
+      .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
+      .attributeModifier(this.modifier)
       .onChange((value: string, previewText?: PreviewText) => {
         CacheUtil.put<string>(this.options.dialogId ?? "", value ?? "")
         if (this.options.onChange) {
@@ -88,6 +96,4 @@ export default struct TextInputDialogView {
         }
       })
   }
-
-
 }

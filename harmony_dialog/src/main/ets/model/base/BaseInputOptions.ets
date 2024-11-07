@@ -18,6 +18,7 @@
 import { ActionCallBack, StringCalBack } from '../../utils/constraint';
 import { DialogOptions } from './DialogOptions';
 import { ButtonOptions } from '../ButtonOptions';
+import { InputFilter } from '../InputFilter';
 
 /**
  * TODO Base输入弹出框，参数类
@@ -45,6 +46,10 @@ export interface BaseInputOptions extends DialogOptions {
   inputBackgroundColor?: ResourceColor; //输入框背景
   inputBorder?: BorderOptions; //输入框Border
   inputHeight?: Length; //输入框高度
+
+  maxLength?: number; //文本的最大输入字符数。  默认值：Infinity，可以无限输入。
+  controller?: TextInputController; //TextInput组件的控制器
+  inputFilter?: InputFilter; //通过正则表达式设置输入过滤器。
 
   onChange?: StringCalBack;
   onAction: ActionCallBack; //按钮的CallBack事件。
