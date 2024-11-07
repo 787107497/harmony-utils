@@ -81,18 +81,20 @@ export class DateUtil {
     if (format === undefined || format == '') {
       format = "yyyy-MM-dd HH:mm:ss"; //yyyy-MM-dd HH:mm:ss.fff
     }
-    const year = date.getFullYear();
-    const month = DateUtil.padZero(date.getMonth() + 1);
-    const day = DateUtil.padZero(date.getDate());
-    const hours = DateUtil.padZero(date.getHours());
-    const minutes = DateUtil.padZero(date.getMinutes());
-    const seconds = DateUtil.padZero(date.getSeconds());
+    let year = date.getFullYear(); //年份，例如 2024
+    let month = DateUtil.padZero(date.getMonth() + 1); //月份，0-11，0 表示一月，11 表示十二月
+    let day = DateUtil.padZero(date.getDate()); //日期，1-31
+    let hours = DateUtil.padZero(date.getHours()); //小时，0-23
+    let minutes = DateUtil.padZero(date.getMinutes()); //分钟，0-59
+    let seconds = DateUtil.padZero(date.getSeconds()); //秒数，0-59
+    let millisecond = date.getMilliseconds(); //毫秒数，0-999
     let formattedDate = format.replace("yyyy", year.toString());
     formattedDate = formattedDate.replace("MM", month);
     formattedDate = formattedDate.replace("dd", day);
     formattedDate = formattedDate.replace("HH", hours);
     formattedDate = formattedDate.replace("mm", minutes);
     formattedDate = formattedDate.replace("ss", seconds);
+    formattedDate = formattedDate.replace("fff", millisecond.toString());
     return formattedDate;
   }
 
