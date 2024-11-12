@@ -18,6 +18,7 @@
 import { ComponentContent, promptAction, window } from '@kit.ArkUI';
 import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
 import { PromptActionArg } from '../model/base/PromptActionArg';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
@@ -127,14 +128,19 @@ export class BasePromptAction {
    * @param dialogId
    */
   closeCustomDialog(dialogId: string) {
-    let promptActionArg = this.getArgById(dialogId);
-    if (promptActionArg && promptActionArg.uiContext) {
-      let promptAction = promptActionArg.uiContext.getPromptAction();
-      let componentContent = promptActionArg.componentContent;
-      if (componentContent) {
-        promptAction.closeCustomDialog(componentContent);
-        componentContent.dispose(); //立即释放当前ComponentContent
+    try {
+      let promptActionArg = this.getArgById(dialogId);
+      if (promptActionArg && promptActionArg.uiContext) {
+        let promptAction = promptActionArg.uiContext.getPromptAction();
+        let componentContent = promptActionArg.componentContent;
+        if (componentContent) {
+          promptAction.closeCustomDialog(componentContent);
+          componentContent.dispose(); //立即释放当前ComponentContent
+        }
       }
+    } catch (e) {
+      let error = e as BusinessError;
+      console.info(`closeCustomDialog-Error ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
