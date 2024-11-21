@@ -35,8 +35,6 @@ import { LogUtil } from './LogUtil';
  */
 export class SnapshotUtil {
 
-  private constructor() {}
-
 
   /**
    * 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图。通过Promise返回结果。

@@ -28,8 +28,6 @@
  */
 export class NumberUtil {
 
-  private constructor() {}
-
 
   /**
    * 判断是否是数值

@@ -27,6 +27,7 @@
  * QQ交流群: 569512366
  */
 export class CacheUtil {
+
   private static cache: Record<string, Object> = {}; //私有缓存对象
 
 

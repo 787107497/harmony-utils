@@ -29,8 +29,6 @@ import { util } from '@kit.ArkTS';
  */
 export class RandomUtil {
 
-  private constructor() {}
-
 
   /**
    * 生成随机Boolean值

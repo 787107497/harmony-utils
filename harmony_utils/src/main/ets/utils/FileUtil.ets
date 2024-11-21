@@ -33,8 +33,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
  */
 export class FileUtil {
 
-  private constructor() {}
-
   static readonly separator: string = '/';
 
   /**

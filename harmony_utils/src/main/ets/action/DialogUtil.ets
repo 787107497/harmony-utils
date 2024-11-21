@@ -41,8 +41,6 @@ import { ResUtil } from '../utils/ResUtil';
  */
 export class DialogUtil {
 
-  private constructor() {}
-
   private static defaultConfig: DialogConfig = new DialogConfig(); //默认样式
 
 

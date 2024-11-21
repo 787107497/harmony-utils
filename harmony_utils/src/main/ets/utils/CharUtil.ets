@@ -29,8 +29,6 @@ import { i18n } from '@kit.LocalizationKit';
  */
 export class CharUtil {
 
-  private constructor() {}
-
 
   /**
    * 判断字符串char是否是数字

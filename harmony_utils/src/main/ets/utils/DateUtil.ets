@@ -30,7 +30,6 @@ import { NumberUtil } from './NumberUtil';
  */
 export class DateUtil {
 
-  private constructor() {}
 
   /**
    * 获取格式化日期，将传入的日期格式化为Date

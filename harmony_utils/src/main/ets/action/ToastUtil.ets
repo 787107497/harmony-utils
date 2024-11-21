@@ -32,8 +32,6 @@ import { ToastOptions } from '../entity/ToastOptions';
  */
 export class ToastUtil {
 
-  private constructor() {}
-
   private static defaultConfig: ToastConfig = new ToastConfig(); //默认样式
 
 

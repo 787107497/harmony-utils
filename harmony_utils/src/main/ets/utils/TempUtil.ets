@@ -28,7 +28,6 @@
  */
 export class TempUtil {
 
-  private constructor() {}
 
   /**
    * 华氏度转摄氏度

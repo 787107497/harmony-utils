@@ -33,8 +33,6 @@ import { Base64Util } from './Base64Util';
  */
 export class StrUtil {
 
-  private constructor() {}
-
 
   /**
    * 判断字符串是否为空(undefined、null)

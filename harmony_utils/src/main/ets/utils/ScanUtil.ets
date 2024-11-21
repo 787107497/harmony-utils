@@ -35,8 +35,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
  */
 export class ScanUtil {
 
-  private constructor() {}
-
 
   /**
    * 调用默认界面扫码，使用Promise方式异步返回解码结果。

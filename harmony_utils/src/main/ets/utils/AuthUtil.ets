@@ -35,8 +35,6 @@ import { ToastUtil } from '../action/ToastUtil';
  */
 export class AuthUtil {
 
-  private constructor() {}
-
   private static userAuthInstance: userAuth.UserAuthInstance; //认证对象
 
   /**

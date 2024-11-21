@@ -35,8 +35,6 @@ import { StrUtil } from './StrUtil';
  */
 export class PreviewUtil {
 
-  private constructor() {}
-
 
   /**
    * 根据文件uri构建PreviewInfo

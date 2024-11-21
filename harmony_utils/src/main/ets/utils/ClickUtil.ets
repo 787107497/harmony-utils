@@ -30,8 +30,6 @@ import { DateUtil } from './DateUtil';
  */
 export class ClickUtil {
 
-  private constructor() {}
-
   private static throttleTimeoutID: number; //节流timeoutID
   private static flag: boolean = false; //节流flag,true=已经进入执行状态了
   private static defaultId: string = DateUtil.getTodayTime().toString(); //防抖Id

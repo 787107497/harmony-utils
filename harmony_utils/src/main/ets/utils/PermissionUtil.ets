@@ -33,8 +33,6 @@ import { ToastUtil } from '../action/ToastUtil';
  */
 export class PermissionUtil {
 
-  private constructor() {}
-
 
   /**
    * 校验当前是否已经授权

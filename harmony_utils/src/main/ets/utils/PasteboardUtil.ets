@@ -33,8 +33,6 @@ import { StrUtil } from './StrUtil';
  */
 export class PasteboardUtil {
 
-  private constructor() {}
-
 
   /**
    * 将纯文本数据写入系统剪贴板，使用Promise异步回调。

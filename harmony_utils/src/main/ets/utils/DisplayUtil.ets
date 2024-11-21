@@ -31,8 +31,6 @@ import { LogUtil } from './LogUtil';
  */
 export class DisplayUtil {
 
-  private constructor() {}
-
 
   /**
    * 获取当前默认的display对象。

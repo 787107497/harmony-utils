@@ -29,7 +29,6 @@ import { emitter } from '@kit.BasicServicesKit';
  * QQ交流群: 569512366
  */
 export class EmitterUtil {
-  private constructor() {}
 
 
   /**

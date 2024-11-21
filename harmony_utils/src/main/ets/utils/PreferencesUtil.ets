@@ -31,7 +31,6 @@ import { AppUtil } from './AppUtil';
  * QQ交流群: 569512366
  */
 export class PreferencesUtil {
-  private constructor() {}
 
   private static defaultPreferenceName: string = "SP_HARMONY_UTILS_PREFERENCES";
   private static preferences: preferences.Preferences;

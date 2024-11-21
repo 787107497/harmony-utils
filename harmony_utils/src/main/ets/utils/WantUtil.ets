@@ -90,7 +90,6 @@ export class WantUtil {
   static readonly URI_RESET_NET_CONFIRM: string = "reset_net_confirm_settings"; //系统和更新-重置-还原网络设置-还原网络设置确认五级页面
 
 
-  private constructor() {}
 
 
   /**

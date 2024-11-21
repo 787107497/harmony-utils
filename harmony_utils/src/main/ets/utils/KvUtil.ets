@@ -32,8 +32,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
  */
 export class KvUtil {
 
-  private constructor() {}
-
   private static kvStore: distributedKVStore.SingleKVStore; //KVStore数据库实例
 
 

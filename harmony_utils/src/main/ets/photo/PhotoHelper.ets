@@ -38,8 +38,6 @@ const PHOTO_DEFAULT_SELECT_NUMBER: number = 9; //数量
  */
 export class PhotoHelper {
 
-  private constructor() {}
-
 
   /**
    * 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频。

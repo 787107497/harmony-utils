@@ -32,8 +32,6 @@ import { PermissionUtil } from './PermissionUtil';
  * QQ交流群: 569512366
  */
 export class LocationUtil {
-  private constructor() {
-  }
 
   private static locationCallBack: Callback<geoLocationManager.Location> //开启位置变化订阅，监听回调
 

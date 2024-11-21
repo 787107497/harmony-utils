@@ -35,8 +35,6 @@ import { LogUtil } from './LogUtil';
  */
 export class NetworkUtil {
 
-  private constructor() {}
-
   private static netConnection: connection.NetConnection;
 
 

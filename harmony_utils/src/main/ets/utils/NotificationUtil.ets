@@ -47,8 +47,6 @@ import { ImageUtil } from './ImageUtil';
  */
 export class NotificationUtil {
 
-  private constructor() {}
-
   private static defaultConfig: NotificationConfig = new NotificationConfig(); //默认配置
 
 

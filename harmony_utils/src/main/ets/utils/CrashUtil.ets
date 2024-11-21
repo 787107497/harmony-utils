@@ -39,8 +39,6 @@ import { GlobalContext } from './GlobalContext';
  */
 export class CrashUtil {
 
-  private constructor() {}
-
   private static readonly idKey: string = 'crash_observer_id_key'
   private static observerId: number = -100;
   private static ErrorFilePath: string = ''; //错误日志文件路径

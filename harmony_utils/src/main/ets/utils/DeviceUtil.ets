@@ -38,6 +38,7 @@ import { ResUtil } from './ResUtil';
  * QQ交流群: 569512366
  */
 export class DeviceUtil {
+
   private static deviceIdKey: string = "device_id_cache_harmony_key";
   private static deviceId: string = ""; //设备ID
 

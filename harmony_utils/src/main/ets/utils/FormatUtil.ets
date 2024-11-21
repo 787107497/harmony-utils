@@ -31,8 +31,6 @@ import { i18n } from '@kit.LocalizationKit';
  */
 export class FormatUtil {
 
-  private constructor() {}
-
 
   /**
    * 判断传入的电话号码格式是否正确。

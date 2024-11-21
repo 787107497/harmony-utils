@@ -30,8 +30,6 @@ import { StrUtil } from './StrUtil';
  */
 export class ArrayUtil {
 
-  private constructor() {}
-
 
   /**
    * 判断集合是否为非空集合。

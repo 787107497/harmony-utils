@@ -37,8 +37,6 @@ import { DateUtil } from './DateUtil';
  */
 export class ImageUtil {
 
-  private constructor() {}
-
 
   /**
    * 图片base64字符串转PixelMap

@@ -29,8 +29,6 @@ import util from '@ohos.util';
  */
 export class Base64Util {
 
-  private constructor() {}
-
 
   /**
    * 编码，通过输入参数编码后输出Uint8Array对象。

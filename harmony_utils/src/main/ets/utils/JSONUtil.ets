@@ -31,8 +31,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
  */
 export class JSONUtil {
 
-  private constructor() {}
-
 
   /**
    * JSON字符串转Class对象

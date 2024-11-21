@@ -32,8 +32,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
  */
 export class KeyboardUtil {
 
-  private constructor() {}
-
 
   /**
    * 拉起键盘

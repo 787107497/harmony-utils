@@ -41,8 +41,6 @@ const DOCUMENT_DEFAULT_SELECT_NUMBER: number = 9; //数量
  */
 export class PickerUtil {
 
-  private constructor() {}
-
 
   /**
    * 调用系统相机，拍照、录视频

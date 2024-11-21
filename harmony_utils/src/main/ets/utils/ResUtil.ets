@@ -33,8 +33,6 @@ import { resourceManager } from '@kit.LocalizationKit';
  */
 export class ResUtil {
 
-  private constructor() {}
-
 
   /**
    * 获取提供访问应用资源的能力
