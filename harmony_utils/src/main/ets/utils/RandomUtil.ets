@@ -16,6 +16,7 @@
  */
 
 import { util } from '@kit.ArkTS';
+import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 
 /**
  * TODO 随机工具类
@@ -111,26 +112,35 @@ export class RandomUtil {
 
 
   /**
+   * 生成一个随机颜色，十六进制
+   * @returns color
+   */
+  static getRandomColor(): string {
+    let hexadecimal = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += hexadecimal[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+
+  /**
+   * 生成随机指定长度的DataBlob
+   * @param length 目标长度
+   * @returns
+   */
+  static getRandomDataBlob(length: number): cryptoFramework.DataBlob {
+    return cryptoFramework.createRandom().generateRandomSync(length);
+  }
+
+  /**
    * 生成随机指定长度的Uint8Array
    * @param length 目标长度
    * @returns
    */
   static getRandomUint8Array(length: number): Uint8Array {
-    let array = new Uint8Array(length);
-    for (let i = 0; i < length; i++) {
-      array[i] = Math.floor(Math.random() * 256); //生成一个0到255之间的随机整数
-    }
-    return array;
-  }
-
-
-  /**
-   * 生成一个随机颜色，十六进制
-   * @returns color
-   */
-  static getRandomColor(): string {
-    const color = Math.floor(Math.random() * 16777215).toString(16)
-    return `#${color}`
+    return RandomUtil.getRandomDataBlob(length).data;
   }
 
 

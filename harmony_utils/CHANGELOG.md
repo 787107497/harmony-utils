@@ -1,5 +1,9 @@
 # 版本记录
 
+## 1.2.4（API12 - 5.0.3.906）
+1. RandomUtil：新增getRandomDataBlob() 和 getRandomColor()的Bug修复。
+2. ObjectUtil：新增shallowCopy()、assign() 和 优化deepCopy()。
+
 ## 1.2.3（API12 - 5.0.3.906）
 1. DES，代码优化。   
 

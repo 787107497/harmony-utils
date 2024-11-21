@@ -1,6 +1,6 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil, RandomUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { LogUtil, RandomUtil, StrUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
@@ -65,7 +65,7 @@ struct Index {
               this.txtStr = `随机Boolean值1：${b1}\n随机Boolean值2：${b2}\n随机颜色：${c3}`;
               LogUtil.error(this.txtStr);
             })
-          Button("randomStr()")
+          Button("getRandomStr()")
             .btnStyle()
             .onClick(() => {
               let r1 = RandomUtil.getRandomStr(15, "ACCDEFGHIJKMNL");
@@ -75,6 +75,19 @@ struct Index {
               this.txtStr = `随机1：${r1}\n随机2：${r2}\n随机3：${r3}\n随机4：${r4}`;
               LogUtil.error(this.txtStr);
             })
+          Button("getRandomDataBlob()\ngetRandomUint8Array()")
+            .labelStyle({ maxLines: 3 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let dataBlob = RandomUtil.getRandomDataBlob(8);
+              let unit8Array = RandomUtil.getRandomUint8Array(8);
+              this.txtStr = `dataBlob：\n${dataBlob.data}\n\n3unit8Array：\n${unit8Array}`;
+              LogUtil.error(this.txtStr);
+            })
+
           Button("generateUUID36()\ngenerateUUID32()")
             .labelStyle({ maxLines: 3 })
             .type(ButtonType.Normal)

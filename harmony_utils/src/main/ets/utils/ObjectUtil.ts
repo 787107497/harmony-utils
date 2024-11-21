@@ -17,6 +17,7 @@
 
 import util from '@ohos.util';
 import { ArrayList, HashMap, List } from '@kit.ArkTS';
+import { CommonAllType } from '../entity/constranint';
 
 /**
  * TODO 对象工具类
@@ -36,7 +37,7 @@ export class ObjectUtil {
    * @param object
    * @returns
    */
-  static getHash(object: object): number {
+  static getHash(object: Object): number {
     return util.getHash(object);
   }
 
@@ -56,7 +57,7 @@ export class ObjectUtil {
    * @param source
    * @returns
    */
-  static isNull(source: Object) {
+  static isNull(source: CommonAllType) {
     return source === null || source === undefined;
   }
 
@@ -83,17 +84,58 @@ export class ObjectUtil {
 
 
   /**
-   * 深度拷贝对象(对于undefined等无法序列化的数据会丢失,这个后期优化，也可先使用三方库lodash的_.cloneDeep方法。)
-   * @param obj 被拷贝对象
+   * 浅拷贝
+   * @param obj
    * @returns
    */
-  static deepCopy(obj: Object) {
-    return JSON.parse(JSON.stringify(obj));
+  static shallowCopy<T>(obj: T): T {
+    let newObj: Record<string, Object> = {};
+    for (let key of Object.keys(obj)) {
+      newObj[key] = obj[key];
+    }
+    return newObj as T;
   }
 
 
   /**
-   * obj转class ，解决obj as class后丢失方法的问题。
+   * 深度拷贝
+   * @param obj 被拷贝对象
+   * @returns
+   */
+  static deepCopy<T>(obj: T): T {
+    let newObj: Record<string, Object> | Object[] = Array.isArray(obj) ? [] : {};
+    for (let key of Object.keys(obj)) {
+      if (typeof obj[key] === 'object') {
+        newObj[key] = ObjectUtil.deepCopy(obj[key]);
+      } else {
+        newObj[key] = obj[key];
+      }
+    }
+    return newObj as T;
+  }
+
+
+  /**
+   * 合并两个或多个对象
+   * @param target
+   * @param source
+   * @returns
+   */
+  static assign(target: Object, ...source: Object[]): Object {
+    for (const items of source) {
+      for (const key of Object.keys(items)) {
+        target[key] = Reflect.get(items, key)
+      }
+    }
+    return target;
+  }
+
+
+  /**
+   * obj转class ，解决obj as class 后丢失方法的问题
+   * @param clazz
+   * @param obj
+   * @returns
    */
   static objToClass<T>(clazz: new (...args: any[]) => T, obj: any): T {
     const instance = new clazz();
@@ -103,8 +145,3 @@ export class ObjectUtil {
 
 
 }
-
-
-export type CommonSingleType = Object | String | Number | Boolean | null | undefined; //通用单个联合类型
-
-export type CommonAllType = CommonSingleType | Array<CommonSingleType> | ArrayList<CommonSingleType> | HashMap<CommonSingleType, CommonSingleType>; //通用所有联合类型

@@ -613,6 +613,7 @@ OpenHarmony ohpm
 | getRandomChineseChar     | 生成一个随机汉字                                      |
 | getRandomChinese         | 生成随机汉字                                        |
 | getRandomStr             | 根据指定字符串，随机生成 指定长度的字符串                         |
+| getRandomDataBlob        | 生成随机指定长度的DataBlob                             |
 | getRandomUint8Array      | 生成随机指定长度的Uint8Array                           |
 | getRandomColor           | 生成随机颜色，十六进制                                   |
 | generateUUID36           | 生成36位UUID，带-                                  |
@@ -622,14 +623,16 @@ OpenHarmony ohpm
 
 ## ObjectUtil（对象工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets)
 
-| 方法         | 介绍                                |
-|------------|:----------------------------------|
-| getHash    | 获取对象的Hash值                        |
-| isString   | 判断是否是String                       |
-| isNull     | 判断对象是否为空                          |
-| isEmpty    | 判断属性内容是否为空                        |
-| deepCopy   | 深度拷贝对象                            |
-| objToClass | obj转class，解决obj as class后丢失方法的问题。 |
+| 方法          | 介绍                                |
+|-------------|:----------------------------------|
+| getHash     | 获取对象的Hash值                        |
+| isString    | 判断是否是String                       |
+| isNull      | 判断对象是否为空                          |
+| isEmpty     | 判断属性内容是否为空                        |
+| shallowCopy | 浅拷贝                               |
+| deepCopy    | 深度拷贝对象                            |
+| assign      | 合并两个或多个对象                         |
+| objToClass  | obj转class，解决obj as class后丢失方法的问题  |
 
 ## JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
 
