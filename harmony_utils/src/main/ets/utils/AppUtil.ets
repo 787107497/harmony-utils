@@ -36,7 +36,6 @@ import { common } from '@kit.AbilityKit';
  */
 export class AppUtil {
 
-  private constructor() {}
 
   private static context: common.UIAbilityContext; //common.UIAbilityContext，上下文
 

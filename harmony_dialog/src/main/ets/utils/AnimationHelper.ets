@@ -27,17 +27,19 @@
  * QQ交流群: 569512366
  */
 export class AnimationHelper {
+
+
   /**
    * InUp动画
    * @param duration 动画时间
    * @returns
    */
-  static transitionInUp(duration: number = 300) {
+  static transitionInUp(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
       TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.translate({ y: -1000 }).animation({ duration: duration })),
+        TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration })),
       TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.translate({ y: -1000 }).animation({ duration: duration }))
+        TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration }))
     )
   }
 
@@ -46,12 +48,12 @@ export class AnimationHelper {
    * @param duration 动画时间
    * @returns
    */
-  static transitionInDown(duration: number = 300) {
+  static transitionInDown(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
       TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.translate({ y: 1000 }).animation({ duration: duration })),
+        TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration })),
       TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.translate({ y: 1000 }).animation({ duration: duration }))
+        TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration }))
     )
   }
 
@@ -60,12 +62,12 @@ export class AnimationHelper {
    * @param duration 动画时间
    * @returns
    */
-  static transitionInLeft(duration: number = 300) {
+  static transitionInLeft(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
       TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.translate({ x: -1000 }).animation({ duration: duration })),
+        TransitionEffect.move(TransitionEdge.START).animation({ duration: duration })),
       TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.translate({ x: -1000 }).animation({ duration: duration }))
+        TransitionEffect.move(TransitionEdge.START).animation({ duration: duration }))
     )
   }
 
@@ -75,12 +77,14 @@ export class AnimationHelper {
    * @param duration 动画时间
    * @returns
    */
-  static transitionInRight(duration: number = 300) {
+  static transitionInRight(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
       TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.translate({ x: 1000 }).animation({ duration: duration })),
+        TransitionEffect.move(TransitionEdge.END).animation({ duration: duration })),
       TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.translate({ x: 1000 }).animation({ duration: duration }))
+        TransitionEffect.move(TransitionEdge.END).animation({ duration: duration }))
     )
   }
+
+
 }
