@@ -1,6 +1,6 @@
 import { UtilsPage } from './index/UtilsPage';
 import { DialogPage } from './index/DialogPage';
-import { RcpPage } from './index/RcpPage';
+import { SpinKitPage } from './index/SpinKitPage';
 import { RoomPage } from './index/RoomPage';
 import { OtherPage } from './index/OtherPage';
 
@@ -30,7 +30,7 @@ struct Index {
       .tabBar(this.tabBuilder(1, $r('app.media.icon_tab_dialog'), "弹框"))
 
       TabContent() {
-        RcpPage().margin({ bottom: 60 })
+        SpinKitPage().margin({ bottom: 60 })
       }
       .tabBar(this.tabBuilder(2, $r("app.media.icon_tab_spin"), "动画"))
 

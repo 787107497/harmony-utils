@@ -20,6 +20,7 @@ import picker from '@ohos.file.picker';
 import { camera, cameraPicker } from '@kit.CameraKit';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { CameraOptions } from '../entity/CameraOptions';
 
 
 const DOCUMENT_DEFAULT_SELECT_NUMBER: number = 9; //数量
@@ -231,15 +232,4 @@ export class PickerUtil {
     }
   }
 
-}
-
-
-/**
- * 相机参数类
- */
-export class CameraOptions {
-  mediaTypes: Array<cameraPicker.PickerMediaType> = [cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO]; //媒体类型。
-  cameraPosition: camera.CameraPosition = camera.CameraPosition.CAMERA_POSITION_BACK; //相机的位置。
-  saveUri?: string; //保存配置信息的uri。
-  videoDuration?: number; //录制的最大时长。
 }
