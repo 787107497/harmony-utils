@@ -1,10 +1,5 @@
 [
   {
-    "name": "ResUtil",
-    "desc": "测试入口",
-    "type": 1
-  },
-  {
     "name": "AppUtil",
     "desc": "APP相关工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/AppUtil.ets",

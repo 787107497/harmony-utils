@@ -42,6 +42,18 @@
         "name": "ohos.permission.INTERNET"
       },
       {
+        "name": "ohos.permission.GET_NETWORK_INFO"  //允许应用获取数据网络信息。
+      },
+      {
+        "name": "ohos.permission.GET_WIFI_INFO"  //允许应用获取Wi-Fi信息。
+      },
+      {
+        "name": "ohos.permission.ACCESS_BIOMETRIC" //允许应用使用生物特征识别能力进行身份认证。
+      },
+      {
+        "name": "ohos.permission.VIBRATE"  //允许应用控制马达振动。
+      },
+      {
         "name": "ohos.permission.APP_TRACKING_CONSENT",
         "reason": "$string:permission_APP_TRACKING_CONSENT",
         "usedScene": {

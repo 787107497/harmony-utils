@@ -14,8 +14,8 @@ struct Index {
   build() {
     Column() {
       ComposeTitleBar({
-        title: $r('app.string.app_name'),
-        subtitle: $r('app.string.module_desc'),
+        title: $r('app.string.spinKit'),
+        subtitle: $r('app.string.spinKit_desc'),
       })
       Divider()
       Scroll(this.scroller) {

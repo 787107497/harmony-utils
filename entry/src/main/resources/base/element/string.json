@@ -9,6 +9,14 @@
       "value": "一款高效的OpenHarmony/HarmonyOS工具包"
     },
     {
+      "name": "spinKit",
+      "value": "SpinKit"
+    },
+    {
+      "name": "spinKit_desc",
+      "value": "一个适用于OpenHarmony/HarmonyOS的加载动画库。"
+    },
+    {
       "name": "EntryAbility_label",
       "value": "鸿蒙工具包"
     },

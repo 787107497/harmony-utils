@@ -23,7 +23,7 @@ import { LogUtil } from './LogUtil';
 
 /**
  * TODO 网络相关工具类
- * 需要ohos.permission.GET_NETWORK_INFO权限。
+ * 需要 ohos.permission.GET_NETWORK_INFO、ohos.permission.GET_WIFI_INFO 权限。
  *
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
