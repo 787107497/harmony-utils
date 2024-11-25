@@ -234,6 +234,22 @@ OpenHarmony ohpm
 | onStart            | 开始认证，用户指定类型认证      |
 | cancel             | 取消认证               |
 
+## KvUtil（键值型数据库工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets)
+
+| 方法                                                               | 介绍                        |
+|:-----------------------------------------------------------------|:--------------------------|
+| put                                                              | 添加指定类型的键值对到数据库            |
+| get<br/>getString<br/>getNumber<br/>getBoolean<br/>getUint8Array | 获取指定键的值                   |
+| delete                                                           | 从数据库中删除指定键值的数据            |
+| putBatch                                                         | 批量插入键值对到SingleKVStore数据库中 |
+| deleteBatch                                                      | 批量删除SingleKVStore数据库中的键值对 |
+| getEntries                                                       | 获取匹配指定键前缀的所有键值对           |
+| backup                                                           | 以指定名称备份数据库                |
+| restore                                                          | 从指定的数据库文件恢复数据库            |
+| deleteBackup                                                     | 根据指定名称删除备份文件              |
+| onDataChange                                                     | 订阅指定类型的数据变更通知             |
+| offDataChange                                                    | 取消订阅数据变更通知                |
+
 ## PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
 
 | 方法                            | 介绍                                                          |
@@ -254,29 +270,29 @@ OpenHarmony ohpm
 | onDataChange                  | 精确订阅数据变更，只有被订阅的key值发生变更后，在执行flush方法后，触发callback回调           |
 | offDataChange                 | 取消精确订阅数据变更                                                  |
 
-## KvUtil（键值型数据库工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets)
-
-| 方法                                                               | 介绍                        |
-|:-----------------------------------------------------------------|:--------------------------|
-| put                                                              | 添加指定类型的键值对到数据库            |
-| get<br/>getString<br/>getNumber<br/>getBoolean<br/>getUint8Array | 获取指定键的值                   |
-| delete                                                           | 从数据库中删除指定键值的数据            |
-| putBatch                                                         | 批量插入键值对到SingleKVStore数据库中 |
-| deleteBatch                                                      | 批量删除SingleKVStore数据库中的键值对 |
-| getEntries                                                       | 获取匹配指定键前缀的所有键值对           |
-| backup                                                           | 以指定名称备份数据库                |
-| restore                                                          | 从指定的数据库文件恢复数据库            |
-| deleteBackup                                                     | 根据指定名称删除备份文件              |
-| onDataChange                                                     | 订阅指定类型的数据变更通知             |
-| offDataChange                                                    | 取消订阅数据变更通知                |
-
 ## CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
 
-| 方法  | 介绍         |
-|:----|:-----------|
-| has | 缓存中的数据是否存在 |
-| put | 将数据存入缓存中   |
-| get | 获取缓存中的数据   |
+| 方法      | 介绍         |
+|:--------|:-----------|
+| put     | 将数据存入缓存中   |
+| get     | 获取缓存中的数据   |
+| has     | 缓存中的数据是否存在 |
+| isEmpty | 判断缓存是否为空   |
+| clear   | 清除缓存数据     |
+
+## LRUCacheUtil（LRUCache缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LRUCacheUtilPage.ets)
+
+| 方法             | 介绍                    |
+|:---------------|:----------------------|
+| getInstance    | 获取LRUCacheUtil的单例     |
+| put            | 添加缓存到lruCache中        |
+| get            | 获取key对应的缓存            |
+| has            | 判断是否包含key对应的缓存        |
+| remove         | 删除key对应的缓存            |
+| isEmpty        | 判断lruCache缓存是否为空      |
+| getCapacity    | 获取当前缓冲区的容量            |
+| updateCapacity | 重新设置lruCache的容量       |
+| clear          | 清除缓存数据，并重置lruCache的大小 |
 
 ## FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 

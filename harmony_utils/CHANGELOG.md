@@ -1,5 +1,10 @@
 # 版本记录
 
+## 1.2.5（API12 - 5.0.3.906）
+1. 新增LRUCacheUtil工具类。
+2. 优化CacheUtil工具类 和 GlobalContext工具类。
+
+
 ## 1.2.4（API12 - 5.0.3.906）
 1. RandomUtil：新增getRandomDataBlob() 和 getRandomColor()的Bug修复。
 2. ObjectUtil：新增shallowCopy()、assign() 和 优化deepCopy()。

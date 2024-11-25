@@ -32,12 +32,51 @@ export class GlobalContext {
     return GlobalContext.instance;
   }
 
-  getObject(value: string): Object | undefined {
-    return this._objects.get(value);
+
+ public  getObject(key: string): Object | undefined {
+    return this._objects.get(key);
   }
 
-  setObject(key: string, objectClass: Object): void {
+  public setObject(key: string, objectClass: Object): void {
     this._objects.set(key, objectClass);
+  }
+
+
+  /**
+   * 将数据存入缓存中
+   */
+  public put(key: string, value: Object): void {
+    this._objects.set(key, value);
+  }
+
+  /**
+   * 获取缓存中的数据
+   */
+  public get<T>(key: string): T {
+    return this._objects.get(key) as T;
+  }
+
+
+  /**
+   * 缓存中的数据是否存在
+   */
+  public has(key: string): boolean {
+    return this._objects.has(key);
+  }
+
+
+  /**
+   * 移除缓存
+   */
+  public remove(key: string) {
+    this._objects.delete(key);
+  }
+
+  /**
+   * 清除缓存数据
+   */
+  public clear() {
+    return this._objects.clear();
   }
 
 

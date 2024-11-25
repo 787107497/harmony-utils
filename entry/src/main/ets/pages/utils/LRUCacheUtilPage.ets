@@ -1,21 +1,23 @@
 import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { CacheUtil, ToastUtil } from '@pura/harmony-utils';
+import { LRUCacheUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 /**
- * "缓存工具类
+ * "LRUCache缓存工具类
  */
 @Entry
 @Component
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+  private lruCache: LRUCacheUtil = LRUCacheUtil.getInstance();
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("CacheUtil", "缓存工具类");
+    this.describe = new DescribeBean("LRUCacheUtil", "LRUCache缓存工具类");
   }
+
 
   build() {
     Column() {
@@ -29,31 +31,43 @@ struct Index {
           Button("put()")
             .btnStyle()
             .onClick(() => {
-              CacheUtil.put("pwd", "ABCD@12345")
+              this.lruCache.put("pwd", "abcd@12345");
               ToastUtil.showToast("缓存密码成功");
             })
           Button("get()")
             .btnStyle()
             .onClick(() => {
-              let pwd = CacheUtil.get<string>("pwd");
+              let pwd = this.lruCache.get<string>("pwd");
               ToastUtil.showToast(`取值：${pwd}`);
             })
           Button("has()")
             .btnStyle()
             .onClick(() => {
-              let pwd = CacheUtil.has("pwd");
+              let pwd = this.lruCache.has("pwd");
               ToastUtil.showToast(`缓存是否存在：${pwd}`);
             })
           Button("isEmpty()")
             .btnStyle()
             .onClick(() => {
-              let blEmpty = CacheUtil.isEmpty();
+              let blEmpty = this.lruCache.isEmpty();
               ToastUtil.showToast(`缓存是否为空：${blEmpty}`);
+            })
+          Button("getCapacity()")
+            .btnStyle()
+            .onClick(() => {
+              let count = this.lruCache.getCapacity();
+              ToastUtil.showToast(`当前缓冲区的容量：${count}`);
+            })
+          Button("updateCapacity()")
+            .btnStyle()
+            .onClick(() => {
+              this.lruCache.updateCapacity(128);
+              ToastUtil.showToast(`重新设置lruCache的容量成功`);
             })
           Button("clear()")
             .btnStyle()
             .onClick(() => {
-              CacheUtil.clear();
+              this.lruCache.clear();
               ToastUtil.showToast(`清除缓存数据成功`);
             })
 
