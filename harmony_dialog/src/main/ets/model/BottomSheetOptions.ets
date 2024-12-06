@@ -34,6 +34,7 @@ export interface BottomSheetOptions extends BaseDialogOptions {
   title?: ResourceStr; //弹框标题
   titleFontColor?: ResourceColor; //弹框标题的字体颜色。
   cancelValue?: ResourceStr; //取消按钮
+  cancelFontColor?: ResourceColor; //取消按钮的字体颜色。
   sheets: Array<SheetOptions> | Array<ResourceStr>; //BottomSheet弹出框操作区按钮。
   onAction: ActionCallBack; //按钮的CallBack事件。
 
