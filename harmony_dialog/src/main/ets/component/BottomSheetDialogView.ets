@@ -82,7 +82,7 @@ export default struct BottomSheetDialogView {
       Text(this.options.cancelValue)
         .fontSize(this.fontSize)
         .fontColor(this.options.cancelFontColor ?? $r('app.color.color_cancel'))
-        .fontWeight(FontWeight.Bold)
+        .fontWeight(this.options.cancelFontWeight ?? FontWeight.Bold)
         .align(Alignment.Center)
         .textAlign(TextAlign.Center)
         .width('100%')
