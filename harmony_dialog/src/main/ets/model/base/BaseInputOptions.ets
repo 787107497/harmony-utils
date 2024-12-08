@@ -34,7 +34,7 @@ export interface BaseInputOptions extends DialogOptions {
 
   primaryTitle?: ResourceStr; //弹出框标题。
   secondaryTitle?: ResourceStr; //弹出框辅助文本。
-  buttons?: Array<ButtonOptions> | Array<ResourceStr>; //弹出框操作区按钮，最多支持4个按钮。
+  buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。
   localizedContentAreaPadding?: LocalizedPadding; //弹出框内容区内边距。
   contentAreaPadding?: Padding; //弹出框内容区内边距。设置了localizedContentAreaPadding属性时该属性不生效。
 

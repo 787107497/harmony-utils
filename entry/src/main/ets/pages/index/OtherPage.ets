@@ -1,5 +1,5 @@
-import { BusinessError, commonEventManager } from '@kit.BasicServicesKit';
-import { LogUtil } from '@pura/harmony-utils';
+import { DialogHelper } from '@pura/harmony-dialog';
+import { AppUtil, LogUtil } from '@pura/harmony-utils';
 
 @Preview
 @Component
@@ -7,6 +7,7 @@ export struct OtherPage {
   private scroller: Scroller = new Scroller();
 
   onCreateSub(): void {
+    AppUtil.getStatusBarHeight()
 
   }
 
@@ -29,6 +30,20 @@ export struct OtherPage {
             .fontColor(Color.Black)
             .fontWeight(FontWeight.Bold)
             .onClick(()=>{
+              // let height = Utils.getNavigationIndicatorHeight(AppUtil.getContext());
+              // LogUtil.error("height: " + height);
+              DialogHelper.showTextPickerDialog({
+                primaryButton: "取消",
+                secondaryButton: {
+                  value: "确定"
+                },
+                backgroundColor: "#FFFFFF",
+                range: ["111", "222", "333", "444", "555", "666", "777", "888", "999"],
+                onChange: (value: string | string[], index: number | number[]) => {
+                  LogUtil.error("value: " + value);
+                  LogUtil.error("index: " + index);
+                }
+              })
 
             })
 

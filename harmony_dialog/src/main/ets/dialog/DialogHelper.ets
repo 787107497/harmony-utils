@@ -26,7 +26,8 @@ import {
     SelectDialogBuilder,
     TextAreaDialogBuilder,
     TextInputDialogBuilder,
-    TipsDialogBuilder,
+  TextPickerDialogBuilder,
+  TipsDialogBuilder,
     ToastBuilder,
     ToastTipBuilder
 } from './DialogBuilder';
@@ -54,6 +55,7 @@ import { SheetOptions } from '../model/SheetOptions';
 import { DialogAction } from '../utils/constraint';
 import { UIContext } from '@kit.ArkUI';
 import { Utils } from '../utils/Utils';
+import { PickerOptions } from '../model/PickerOptions';
 
 
 /**
@@ -159,7 +161,7 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
-    DialogHelper.initInputButtons(options);
+    DialogHelper.initButtons(options, true);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextInputDialogBuilder), options);
     return dialogId;
   }
@@ -174,7 +176,7 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
-    DialogHelper.initInputButtons(options);
+    DialogHelper.initButtons(options, true);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextAreaDialogBuilder), options);
     return dialogId;
   }
@@ -187,7 +189,7 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
-    DialogHelper.initButtons(options);
+    DialogHelper.initButtons(options, false);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(CustomContentDialogBuilder), options);
     return dialogId;
   }
@@ -211,6 +213,19 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initBottomSheetDefault(options);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ActionSheetDialogBuilder), options);
+    return dialogId;
+  }
+
+
+  /**
+   * 显示TextPicker弹框
+   * @param options
+   * @returns
+   */
+  static showTextPickerDialog(options: PickerOptions): string {
+    DialogHelper.initBaseDefault(options);
+    DialogHelper.initTextPickerDefault(options);
+    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextPickerDialogBuilder), options);
     return dialogId;
   }
 
@@ -471,7 +486,73 @@ export class DialogHelper {
         options.sheets = sheets;
       }
     }
+  }
 
+
+  /**
+   * TextPicker弹框默认值
+   * @param options
+   */
+  private static initTextPickerDefault(options: PickerOptions) {
+    if (!options.primaryButton && !options.secondaryButton) {
+      options.primaryButton = DialogHelper.config.primaryButton
+      options.secondaryButton = DialogHelper.config.secondaryButton
+    }
+    if (options.primaryButton) {
+      console.error("1111111111111111111111111111111")
+      let primaryValue = Utils.getResourceStr(options.primaryButton);
+      if (primaryValue) {
+        console.error("2222222222222222222222222")
+        let primaryButton = new ButtonOptions();
+        primaryButton.value = primaryValue;
+        primaryButton.fontColor = $r("app.color.color_99");
+        primaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
+        primaryButton.role = ButtonRole.NORMAL;
+        primaryButton.background = Color.Transparent
+        options.primaryButton = primaryButton;
+      } else{
+        console.error("3333333333333333333333333333333333333")
+        if (!(options.primaryButton as ButtonOptions).fontColor) {
+          (options.primaryButton as ButtonOptions).fontColor = $r("app.color.color_99");
+          console.error("4444444444444444444444444444444444444");
+        }
+
+      }
+    }
+
+    if (!options.titleFontColor) {
+      options.titleFontColor = $r("sys.color.ohos_id_picker_title_text_color")
+    }
+
+
+    // value: ResourceStr = ''; //按钮的内容。
+    // fontColor?: ResourceColor; //按钮的字体颜色。
+    // action?: VoidCallback; //按钮的点击事件，大多数按钮不需要实现这个点击事件
+    // background?: ResourceColor; //按钮的背景。
+    // buttonStyle?: ButtonStyleMode; //按钮的样式。默认值：2in1设备为ButtonStyleMode.NORMAL，其他设备为ButtonStyleMode.TEXTUAL。
+    // role?: ButtonRole; //按钮的角色。默认值：ButtonRole.NORMAL。
+
+
+    // title?: ResourceStr; //弹框标题
+    // titleFontColor?: ResourceColor; //弹框标题的字体颜色。
+    // primaryButton?: ButtonOptions | ResourceStr; //弹框左侧按钮。
+    // secondaryButton?: ButtonOptions | ResourceStr; //弹框右侧按钮。
+
+    if (options.width || DialogHelper.config.width) {
+      options.width = options.width ?? DialogHelper.config.width; //设置弹窗的宽度。
+    }
+    options.alignment = DialogAlignment.Bottom; //弹窗的对齐方式。
+    options.offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。
+    options.actionCancel = options.actionCancel ?? DialogHelper.config.actionCancel; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
+    if (options.backgroundColor || DialogHelper.config.backgroundColor) {
+      options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
+    }
+    if (options.backgroundBlurStyle || DialogHelper.config.backgroundBlurStyle) {
+      options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogHelper.config.backgroundBlurStyle; //弹窗背板模糊材质。
+    }
+    if (options.cornerRadius || DialogHelper.config.cornerRadius) {
+      options.cornerRadius = options.cornerRadius ?? 10; //弹框圆角半径，默认15。
+    }
   }
 
 
@@ -489,63 +570,15 @@ export class DialogHelper {
   /**
    * 自定义弹框，按钮，初始化参数
    */
-  private static initInputButtons(options: BaseInputOptions) {
-    if (!options.buttons) {
-      options.buttons = [DialogHelper.config.primaryButton, DialogHelper.config.secondaryButton]
-    }
-    if (options.buttons && options.buttons.length > 0) {
-      if (options.buttons[0] instanceof ButtonOptions) {
-        for (let index = 0; index < options.buttons.length; index++) {
-          let btn = options.buttons[index] as ButtonOptions;
-          let btnAction = btn.action;
-          btn.action = () => {
-            if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
-              DialogHelper.closeDialog(options.dialogId ?? "");
-            }
-            if (btnAction) {
-              btnAction();
-            }
-            if (options.onAction) {
-              let text = CacheUtil.get<string>(options.dialogId ?? "");
-              options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", text);
-            }
-          }
-        }
-      } else {
-        let buttons = new Array<ButtonOptions>()
-        for (let index = 0; index < options.buttons.length; index++) {
-          let button: ButtonOptions = {
-            value: options.buttons[index] as ResourceStr,
-            action: () => {
-              if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
-                DialogHelper.closeDialog(options.dialogId ?? "");
-              }
-              if (options.onAction) {
-                let text = CacheUtil.get<string>(options.dialogId ?? "");
-                options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", text);
-              }
-            }
-          }
-          buttons.push(button);
-        }
-        options.buttons = buttons;
-      }
-    }
-  }
-
-
-  /**
-   * 自定义弹框，按钮，初始化参数
-   */
-  private static initButtons(options: CustomContentOptions) {
+  private static initButtons(options: CustomContentOptions | BaseInputOptions, blInput: boolean) {
     if (!options.buttons) {
       options.buttons = [DialogHelper.config.primaryButton, DialogHelper.config.secondaryButton]
     }
     if (options.buttons && options.buttons.length > 0) {
       let buttons = new Array<ButtonOptions>();
       for (let index = 0; index < options.buttons.length; index++) {
-        let btnValue = Utils.getResourceStr(options.buttons[index]);
-        if (btnValue) {
+        let btnResStr = Utils.getResourceStr(options.buttons[index]);
+        if (btnResStr) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
             action: () => {
@@ -553,7 +586,12 @@ export class DialogHelper {
                 DialogHelper.closeDialog(options.dialogId ?? "");
               }
               if (options.onAction) {
-                options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
+                if (blInput) {
+                  let text = CacheUtil.get<string>(options.dialogId ?? "");
+                  options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", text);
+                } else {
+                  options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
+                }
               }
             }
           };
@@ -569,7 +607,12 @@ export class DialogHelper {
               btnAction();
             }
             if (options.onAction) {
-              options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
+              if (blInput) {
+                let text = CacheUtil.get<string>(options.dialogId ?? "");
+                options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", text);
+              } else {
+                options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
+              }
             }
           };
           buttons.push(btn);
@@ -708,8 +751,22 @@ export class DialogHelper {
       options.confirm = DialogHelper.config.primaryButton
     }
     if (options.confirm) {
-      if (options.confirm instanceof ButtonOptions) {
-        let confirmButton = options.confirm;
+      let confirmResStr = Utils.getResourceStr(options.confirm);
+      if (confirmResStr) {
+        options.confirm = {
+          value: confirmResStr,
+          action: () => {
+            if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
+              DialogHelper.closeDialog(options.dialogId ?? "");
+            }
+            if (options.onAction) {
+              let indexStr = CacheUtil.get<string>(options.dialogId ?? "");
+              options.onAction(DialogAction.ONE, options.dialogId ?? "", indexStr);
+            }
+          }
+        }
+      } else {
+        let confirmButton = options.confirm as ButtonOptions;
         let confirmAction = confirmButton.action;
         confirmButton.action = () => {
           if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
@@ -721,19 +778,6 @@ export class DialogHelper {
           }
           if (confirmAction) {
             confirmAction();
-          }
-        }
-      } else {
-        options.confirm = {
-          value: options.confirm,
-          action: () => {
-            if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
-              DialogHelper.closeDialog(options.dialogId ?? "");
-            }
-            if (options.onAction) {
-              let indexStr = CacheUtil.get<string>(options.dialogId ?? "");
-              options.onAction(DialogAction.ONE, options.dialogId ?? "", indexStr);
-            }
           }
         }
       }

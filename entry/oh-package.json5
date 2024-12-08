@@ -12,7 +12,8 @@
     "@pura/harmony-utils": "file:../harmony_utils",
     "@pura/harmony-dialog": "file:../harmony_dialog",
     "@pura/spinkit": "file:../spinkit",
-    "@nutpi/china_area": "file:../china_area"
+    "@nutpi/china_area": "file:../china_area",
+//    "@pura/harmony-utils": "file:./libs/harmony_utils.har",
   }
 }
 

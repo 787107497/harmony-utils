@@ -87,7 +87,7 @@ export default struct BottomSheetDialogView {
         .textAlign(TextAlign.Center)
         .width('100%')
         .padding({ top: 20, bottom: 20, left: 10, right: 10 })
-        .margin({ bottom: 20 })
+        .margin({ bottom: 22 })
         .onClick(()=>{
           DialogHelper.closeDialog(this.options.dialogId ?? "");
         })

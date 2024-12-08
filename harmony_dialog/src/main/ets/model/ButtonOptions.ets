@@ -29,7 +29,7 @@
 export class ButtonOptions {
   value: ResourceStr = ''; //按钮的内容。
   fontColor?: ResourceColor; //按钮的字体颜色。
-  action?: VoidCallback; //按钮的点击事件。
+  action?: VoidCallback; //按钮的点击事件，大多数按钮不需要实现这个点击事件
   background?: ResourceColor; //按钮的背景。
   buttonStyle?: ButtonStyleMode; //按钮的样式。默认值：2in1设备为ButtonStyleMode.NORMAL，其他设备为ButtonStyleMode.TEXTUAL。
   role?: ButtonRole; //按钮的角色。默认值：ButtonRole.NORMAL。
