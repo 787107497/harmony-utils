@@ -1,13 +1,12 @@
 # 版本记录
 
 ## 1.0.7
-1. 优化部分弹框的按钮。
+1. 修复部分弹框，buttons设置按钮颜色不生效。。
 2. 优化BottomSheetDialog和ActionSheetDialog的展示。
 3. 新增参数maxHeight，设置弹窗高度默认最大值；很多弹框都是自适应高度，谨慎设置该值。
 4. 新增加载弹框方法isShowLoading()、getLoadingDialogId()。
-5. 修复部分弹框，buttons设置按钮颜色不生效。
-6. 输入类弹框新增参数defaultFocus；设置弹框默认获得焦点，打开弹窗同时弹出输入法。
-7. 新增显示选择器弹框，showTextPickerDialog。
+5. 输入类弹框新增参数defaultFocus；设置弹框默认获得焦点，打开弹窗同时弹出输入法。
+6. 新增显示选择器弹框，showTextPickerDialog。
 
 ## 1.0.6
 1. 优化弹框关闭可能出现的异常。
