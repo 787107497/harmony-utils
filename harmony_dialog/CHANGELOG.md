@@ -3,7 +3,7 @@
 ## 1.0.7
 1. 优化部分弹框的按钮。
 2. 优化BottomSheetDialog和ActionSheetDialog的展示。
-3. 优化TextInputDialog和TextAreaDialog。
+3. 新增参数maxHeight，设置弹窗高度默认最大值；很多弹框都是自适应高度，谨慎设置该值。
 4. 新增显示选择器弹框，showTextPickerDialog。
 
 ## 1.0.6

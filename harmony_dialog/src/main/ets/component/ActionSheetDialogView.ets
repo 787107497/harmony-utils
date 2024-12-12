@@ -74,6 +74,7 @@ export default struct ActionSheetDialogView {
         }
         .divider({ strokeWidth: 1, color: $r('app.color.color_line') })
         .width('100%')
+        .layoutWeight(this.options.maxHeight ? 1 : 0)
       }
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
@@ -82,6 +83,7 @@ export default struct ActionSheetDialogView {
       .shadow(ShadowStyle.OUTER_DEFAULT_SM)
       .width('100%')
       .margin({ bottom: 10 })
+      .layoutWeight(this.options.maxHeight ? 1 : 0)
 
       Text(this.options.cancelValue)
         .fontSize(this.fontSize)
@@ -102,8 +104,8 @@ export default struct ActionSheetDialogView {
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
     .width(this.options.width)
-    .height(this.options.height)
-    .constraintSize({ maxWidth: this.options.maxWidth })
+    .height(this.options.height ?? "auto")
+    .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
     .margin({ bottom: 30 })
   }
 

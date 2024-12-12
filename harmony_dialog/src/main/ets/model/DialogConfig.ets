@@ -41,7 +41,6 @@ export class DialogConfig {
   imageRes?: ResourceStr | PixelMap; //TipsDialog用到，展示的图片。
   imageSize: SizeOptions = { width: '64vp', height: '64vp' }; //TipsDialog用到，自定义图片尺寸。默认值：64*64vp
 
-  height?: Dimension | Length; //设置弹窗的高度。
   width: Dimension | Length = 'calc(100% - 32vp)'; //设置弹窗的宽度，弹窗宽度默认值：'calc(100% - 32vp)'、100%。
   maxWidth?: Length = 360; //弹窗宽度默认最大值：360vp/400vp。
   backgroundColor: ResourceColor = Color.White; //弹窗背板颜色。默认值：Color.White

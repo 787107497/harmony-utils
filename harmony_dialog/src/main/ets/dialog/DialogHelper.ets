@@ -424,9 +424,6 @@ export class DialogHelper {
     if (options.width || DialogHelper.config.width) {
       options.width = options.width ?? DialogHelper.config.width; //设置弹窗的宽度。
     }
-    if (options.height || DialogHelper.config.height) {
-      options.height = options.height ?? DialogHelper.config.height; //弹窗的高度。
-    }
     if (options.maxWidth || DialogHelper.config.maxWidth) {
       options.maxWidth = options.maxWidth ?? DialogHelper.config.maxWidth; //弹窗的高度最大宽度。
     }
@@ -460,9 +457,6 @@ export class DialogHelper {
     options.offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。
     options.cancelValue = options.cancelValue ?? DialogHelper.config.primaryButton;
     options.actionCancel = options.actionCancel ?? DialogHelper.config.actionCancel; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
-    if (options.height || DialogHelper.config.height) {
-      options.height = options.height ?? DialogHelper.config.height; //弹窗的高度。
-    }
     if (options.width || DialogHelper.config.width) {
       if (fullWidth) {
         options.width = options.width ?? "100%"; //设置弹窗的宽度。

@@ -34,8 +34,9 @@ export interface DialogOptions extends BaseDialogOptions {
   actionCancel?: boolean; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
   onAction?: ActionCallBack; //按钮的CallBack事件。
 
-  height?: Dimension | Length; //设置弹窗的高度。
+  height?: Dimension | Length; //设置弹窗的高度；很多弹框都是自适应高度，谨慎设置该值。
   width?: Dimension | Length; //设置弹窗的宽度，弹窗宽度默认值：'calc(100% - 32vp)'、100%。
+  maxHeight?: Dimension | Length; //设置弹窗高度默认最大值；很多弹框都是自适应高度，谨慎设置该值。
   maxWidth?: Length; //弹窗宽度默认最大值：360vp。
   backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.White
   backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK

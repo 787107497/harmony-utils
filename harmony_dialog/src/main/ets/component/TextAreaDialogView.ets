@@ -36,11 +36,12 @@ import { CacheUtil } from '../utils/CacheUtil';
 @Component
 export default struct TextAreaDialogView {
   private controller: TextInputController = new TextInputController()
-  @State modifier: TextAreaModifier = new TextAreaModifier();
-  @State text: string = '';
   @Prop options: TextAreaOptions;
+  @State modifier: TextAreaModifier = new TextAreaModifier();
   @State content: CustomContentOptions | null = null;
+  @State text: string = '';
   @State textAlignment: Alignment = Alignment.Top;
+
 
   aboutToAppear(): void {
     this.text = this.options.text ?? "";
@@ -72,7 +73,7 @@ export default struct TextAreaDialogView {
     CustomContentDialog(this.content as BaseContentOptions)
       .height(this.options.height)
       .width(this.options.width)
-      .constraintSize({ maxWidth: this.options.maxWidth })
+      .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
       .backgroundColor(this.options.backgroundColor)
       .backgroundBlurStyle(this.options.backgroundBlurStyle)
       .borderRadius(this.options.cornerRadius)

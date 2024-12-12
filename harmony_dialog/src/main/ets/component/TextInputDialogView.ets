@@ -40,6 +40,7 @@ export default struct TextInputDialogView {
   @State content: CustomContentOptions | null = null;
   @State text: string = '';
 
+
   aboutToAppear(): void {
     this.text = this.options.text ?? "";
     this.modifier.inputFilter = this.options.inputFilter;
@@ -63,7 +64,7 @@ export default struct TextInputDialogView {
     CustomContentDialog(this.content as BaseContentOptions)
       .height(this.options.height)
       .width(this.options.width)
-      .constraintSize({ maxWidth: this.options.maxWidth })
+      .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
       .backgroundColor(this.options.backgroundColor)
       .backgroundBlurStyle(this.options.backgroundBlurStyle)
       .borderRadius(this.options.cornerRadius)

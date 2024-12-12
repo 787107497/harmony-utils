@@ -76,6 +76,7 @@ export default struct BottomSheetDialogView {
       }
       .divider({ strokeWidth: 1, color: $r('app.color.color_line') })
       .width('100%')
+      .layoutWeight(this.options.maxHeight ? 1 : 0)
 
       Divider()
         .width('100%')
@@ -100,8 +101,8 @@ export default struct BottomSheetDialogView {
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
     .width(this.options.width)
-    .height(this.options.height)
-    .constraintSize({ maxWidth: this.options.maxWidth })
+    .height(this.options.height ?? "auto")
+    .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
     .margin({ bottom: this.largeScreen ? 30 : 0 })
   }
 
