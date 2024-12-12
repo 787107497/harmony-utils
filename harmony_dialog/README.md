@@ -22,30 +22,33 @@ OpenHarmony ohpm
 
 ## 📚API详解
 
-| DialogHelper方法          | 介绍                        |
-|:------------------------|:--------------------------|
-| setDefaultConfig        | 设置默认统一样式                  |
-| showAlertDialog         | 显示操作确认类弹出框                |
-| showConfirmDialog       | 显示信息确认类弹出框                |
-| showTipsDialog          | 显示提示弹出框，即为带图形确认框          |
-| showSelectDialog        | 显示选择类弹出框                  |
-| showTextInputDialog     | 显示单行文本输入弹框                |
-| showTextAreaDialog      | 显示多行文本输入弹框                |
-| showCustomContentDialog | 显示自定义内容区弹出框，同时支持定义操作区按钮样式 |
-| showBottomSheetDialog   | 显示动作面板                    |
-| showActionSheetDialog   | 显示动作面板（IOS风格）             |
-| showCustomDialog        | 显示自定义弹窗                   |
-| update                  | 刷新自定义弹窗                   |
-| isShowing               | 当前弹窗是否显示                  |
-| closeDialog             | 关闭弹框                      |
-| showLoadingDialog       | 显示进度加载类弹出框                |
-| showLoadingProgress     | 显示进度条加载弹框                 |
-| updateLoading           | 刷新加载弹框                    |
-| closeLoading            | 关闭加载弹框                    |
-| showToast               | 显示吐司                      |
-| showToastLong           | 显示长吐司                     |
-| showToastTip            | 显示带图形吐司                   |
-| generateId              | 生成弹框id                    |
+| DialogHelper方法          | 介绍                                              |
+|:------------------------|:------------------------------------------------|
+| setDefaultConfig        | 设置默认统一样式                                        |
+| showAlertDialog         | 显示操作确认类弹出框                                      |
+| showConfirmDialog       | 显示信息确认类弹出框                                      |
+| showTipsDialog          | 显示提示弹出框，即为带图形确认框                                |
+| showSelectDialog        | 显示选择类弹出框                                        |
+| showTextInputDialog     | 显示单行文本输入弹框                                      |
+| showTextAreaDialog      | 显示多行文本输入弹框                                      |
+| showCustomContentDialog | 显示自定义内容区弹出框，同时支持定义操作区按钮样式                       |
+| showBottomSheetDialog   | 显示动作面板                                          |
+| showActionSheetDialog   | 显示动作面板（IOS风格）                                   |
+| showTextPickerDialog    | 显示选择器弹框；入参参考TextPicker组件                        |
+| showCustomDialog        | 显示自定义弹窗                                         |
+| update                  | 刷新自定义弹窗                                         |
+| isShowing               | 当前弹窗是否显示                                        |
+| closeDialog             | 关闭弹框                                            |
+| showLoadingDialog       | 显示进度加载类弹出框                                      |
+| showLoadingProgress     | 显示进度条加载弹框                                       |
+| updateLoading           | 刷新加载弹框                                          |
+| isShowLoading           | 加载弹框是否显示（showLoadingDialog、showLoadingProgress） |
+| closeLoading            | 关闭加载弹框（showLoadingDialog、showLoadingProgress）   |
+| getLoadingDialogId      | 获取加载弹框ID                                        |
+| showToast               | 显示吐司                                            |
+| showToastLong           | 显示长吐司                                           |
+| showToastTip            | 显示带图形吐司                                         |
+| generateId              | 生成弹框id                                          |
 
 <br/>
 

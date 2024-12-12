@@ -467,6 +467,10 @@ export struct DialogPage {
       //不带标题的
       DialogHelper.showTextInputDialog({
         title: "",
+        buttons: [
+          '取消',
+          { value: '保存', fontColor: Color.Orange }
+        ],
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: -35 },
         contentAreaPadding: { top: 30, bottom: 10, left: 15, right: 15 },

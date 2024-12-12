@@ -82,6 +82,7 @@ export default struct TextInputDialogView {
       placeholder: this.options.placeholder ?? '请输入'
     })
       .type(this.options.inputType ?? InputType.Normal)
+      .defaultFocus(this.options.defaultFocus)
       .fontSize(this.options.fontSize)
       .fontColor(this.options.fontColor)
       .fontSize(this.options.fontSize)

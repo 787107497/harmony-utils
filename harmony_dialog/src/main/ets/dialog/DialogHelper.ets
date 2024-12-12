@@ -218,7 +218,7 @@ export class DialogHelper {
 
 
   /**
-   * 显示选择器弹框
+   * 显示选择器弹框；入参参考TextPicker组件
    * @param options
    * @returns
    */
@@ -307,11 +307,26 @@ export class DialogHelper {
 
 
   /**
-   * 关闭加载弹框
+   * 加载弹框是否显示（showLoadingDialog、showLoadingProgress）
+   */
+  static isShowLoading(): boolean {
+    return BasePromptAction.getInstance().exist(DialogHelper.loadingDialogId);
+  }
+
+  /**
+   * 关闭加载弹框（showLoadingDialog、showLoadingProgress）
    */
   static closeLoading() {
     DialogHelper.cacheOptions = null;
     DialogHelper.closeDialog(DialogHelper.loadingDialogId);
+  }
+
+  /**
+   * 获取加载弹框ID
+   * @returns
+   */
+  static getLoadingDialogId() {
+    return DialogHelper.loadingDialogId;
   }
 
 

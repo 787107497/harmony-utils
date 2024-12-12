@@ -47,6 +47,7 @@ export interface BaseInputOptions extends DialogOptions {
   inputBorder?: BorderOptions; //输入框Border
   inputHeight?: Length; //输入框高度
 
+  defaultFocus?: boolean //设置弹框默认获得焦点，打开弹窗同时弹出输入法
   maxLength?: number; //文本的最大输入字符数。  默认值：Infinity，可以无限输入。
   controller?: TextInputController; //TextInput组件的控制器
   inputFilter?: InputFilter; //通过正则表达式设置输入过滤器。
