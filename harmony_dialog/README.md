@@ -44,7 +44,7 @@ OpenHarmony ohpm
 | updateLoading           | 刷新加载弹框                                          |
 | isShowLoading           | 加载弹框是否显示（showLoadingDialog、showLoadingProgress） |
 | closeLoading            | 关闭加载弹框（showLoadingDialog、showLoadingProgress）   |
-| getLoadingDialogId      | 获取加载弹框ID                                        |
+| getLoadingDialogId      | 获取加载弹框id                                        |
 | showToast               | 显示吐司                                            |
 | showToastLong           | 显示长吐司                                           |
 | showToastTip            | 显示带图形吐司                                         |
@@ -125,9 +125,9 @@ OpenHarmony ohpm
     DialogHelper.showAlertDialog({
       content: "确定保存该WPS文件吗？",
       onAction: (action) => {
-        if (action == DialogAction.ONE) {
+        if (action == DialogAction.CANCEL) {
           ToastUtil.showToast(`您点击了取消按钮`);
-        } else if (action == DialogAction.TWO) {
+        } else if (action == DialogAction.SURE) {
           ToastUtil.showToast(`您点击了确认按钮`);
         }
       }
@@ -176,7 +176,7 @@ OpenHarmony ohpm
         console.error("onChange: " + text);
       },
       onAction: (action, dialogId, content) => {
-        if (action == DialogAction.TWO) {
+        if (action == DialogAction.SURE) {
           this.inputText = content;
         }
       }
@@ -190,7 +190,7 @@ OpenHarmony ohpm
         console.error("onChange: " + text);
       },
       onAction: (action, dialogId, content) => {
-        if (action == DialogAction.TWO) {
+        if (action == DialogAction.SURE) {
           this.inputText = content;
         }
       }

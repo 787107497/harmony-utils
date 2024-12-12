@@ -451,6 +451,7 @@ export struct DialogPage {
         title: "工作人员姓名",
         placeholder: "请输入工作人员姓名",
         inputType: InputType.Normal,
+        defaultFocus: true,
         text: this.inputText,
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: -35 },
@@ -523,6 +524,7 @@ export struct DialogPage {
       DialogHelper.showTextAreaDialog({
         title: "评论内容",
         text: this.inputText,
+        defaultFocus: true,
         placeholder: "请输入，[a-z,A-Z,0-9]，长度20",
         maxLength: 20,
         inputFilter: {
