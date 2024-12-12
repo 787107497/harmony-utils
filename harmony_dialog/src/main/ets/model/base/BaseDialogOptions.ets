@@ -15,7 +15,7 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
-import { ActionCallBack } from '../../utils/constraint';
+import { ActionCallBack, OnActionCallBack } from '../../utils/constraint';
 
 
 /**
@@ -30,8 +30,8 @@ import { ActionCallBack } from '../../utils/constraint';
  */
 export interface BaseDialogOptions {
   uiContext?: UIContext; //UIContext上下文
-  onAction?: ActionCallBack; //按钮的CallBack事件。
   backCancel?: boolean; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
+  onAction?: ActionCallBack | OnActionCallBack; //按钮的CallBack事件。
 
   dialogId?: string; //弹框id，具有唯一性
   alignment?: DialogAlignment; //弹窗的对齐方式。

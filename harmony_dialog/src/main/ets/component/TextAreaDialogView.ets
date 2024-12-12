@@ -19,9 +19,9 @@ import { CustomContentDialog } from '@kit.ArkUI';
 import { BaseContentOptions } from '../model/base/BaseContentOptions';
 import { CustomContentOptions } from '../model/CustomContentOptions';
 import { TextAreaOptions } from '../model/TextAreaOptions';
-import { CacheUtil } from '../utils/CacheUtil';
 import { TextAlignment } from '../utils/constraint';
 import { TextAreaModifier } from '../utils/TextAreaModifier';
+import { CacheUtil } from '../utils/CacheUtil';
 
 
 /**
@@ -80,6 +80,7 @@ export default struct TextAreaDialogView {
       .borderColor(this.options.borderColor)
       .borderStyle(this.options.borderStyle)
   }
+
 
   @Builder
   InputBuilder() {

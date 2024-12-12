@@ -1,5 +1,6 @@
+import { AreaHelper } from '@nutpi/china_area';
 import { AnimationHelper, DialogAction, DialogHelper } from '@pura/harmony-dialog';
-import { ToastUtil,LogUtil } from '@pura/harmony-utils';
+import { LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { LabelButton } from '../../component/LabelButton';
 import { DrawerOptions } from '../../utils/DrawerOptions';
@@ -23,6 +24,12 @@ export struct DialogPage {
   @State menuArray: Array<string> = ["相机", "相册", "文件管理器"];
   @State inputText: string = ""; //输入框内容
   @State progress: number = 1;
+  private likes: string[] =
+    ['乒乓球', '鸿蒙手机', 'ArkTS', 'Mate70Pro', '三折叠手机', '小米su7', '红米K80pro', '广东名菜龙虎斗'];
+  private years: string[] = ['2020年', '2021年', '2022年', '2023年', '2024年', '2025年', '2026年', '2027年', '2028年'];
+  private months: string[] = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+  private days: string[] = ['1日', '2日', '3日', '4日', '5日', '6日', '7日', '8日', '9日', '10日', '11日', '12日', '13日', '14日', '15日', '16日'];
+  private multis: string[][] = [this.years, this.months, this.days];
 
   /**
    * 统一配置一
@@ -162,9 +169,9 @@ export struct DialogPage {
       DialogHelper.showAlertDialog({
         content: "确定保存该WPS文件吗？",
         onAction: (action) => {
-          if (action == DialogAction.ONE) {
+          if (action == DialogAction.CANCEL) {
             ToastUtil.showToast(`您点击了取消按钮`);
-          } else if (action == DialogAction.TWO) {
+          } else if (action == DialogAction.SURE) {
             ToastUtil.showToast(`您点击了确认按钮`);
           }
         }
@@ -183,9 +190,9 @@ export struct DialogPage {
           fontColor: Color.Brown
         },
         onAction: (action) => {
-          if (action == DialogAction.ONE) {
+          if (action == DialogAction.CANCEL) {
             ToastUtil.showToast(`您取消了保存`);
-          } else if (action == DialogAction.TWO) {
+          } else if (action == DialogAction.SURE) {
             ToastUtil.showToast(`已保存`);
           }
         }
@@ -199,9 +206,9 @@ export struct DialogPage {
         primaryButton: "取消",
         secondaryButton: $r('app.string.btn_save'),
         onAction: (action) => {
-          if (action == DialogAction.ONE) {
+          if (action == DialogAction.CANCEL) {
             ToastUtil.showToast(`您取消了保存`);
-          } else if (action == DialogAction.TWO) {
+          } else if (action == DialogAction.SURE) {
             ToastUtil.showToast(`已保存`);
           }
         }
@@ -216,9 +223,9 @@ export struct DialogPage {
         backCancel: false, //点击返回键，不关闭弹窗
         onAction: (action, dialogId) => {
           DialogHelper.closeDialog(dialogId); //关闭弹框
-          if (action == DialogAction.ONE) {
+          if (action == DialogAction.CANCEL) {
             ToastUtil.showToast(`您取消了保存`);
-          } else if (action == DialogAction.TWO) {
+          } else if (action == DialogAction.SURE) {
             ToastUtil.showToast(`已保存`);
           }
         }
@@ -432,8 +439,9 @@ export struct DialogPage {
       DialogHelper.showTextInputDialog({
         text: this.inputText,
         onAction: (action, dialogId, content) => {
-          if (action == DialogAction.TWO) {
+          if (action == DialogAction.SURE) {
             this.inputText = content;
+            ToastUtil.showToast(content);
           }
         }
       })
@@ -452,9 +460,7 @@ export struct DialogPage {
           console.error("onChange: " + text);
         },
         onAction: (action, dialogId, content) => {
-          if (action == DialogAction.ONE) {
-            this.inputText = content;
-          }
+          this.inputText = content;
         }
       })
     } else if (index == 2) {
@@ -479,9 +485,10 @@ export struct DialogPage {
           console.error("onChange: " + text);
         },
         onAction: (action, dialogId, content) => {
-          if (action == DialogAction.TWO) {
+          if (action == DialogAction.SURE) {
             this.inputText = content;
-          } else if (action == DialogAction.ONE) {
+            ToastUtil.showToast(content);
+          } else if (action == DialogAction.CANCEL) {
 
           }
         }
@@ -501,8 +508,9 @@ export struct DialogPage {
           console.error("onChange: " + text);
         },
         onAction: (action, dialogId, content) => {
-          if (action == DialogAction.TWO) {
+          if (action == DialogAction.SURE) {
             this.inputText = content;
+            ToastUtil.showToast(content);
           }
         }
       })
@@ -522,15 +530,16 @@ export struct DialogPage {
         inputHeight: 160,
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: -35 },
-        buttons: ["确认"],
+        buttons: [{
+          value: "确认",
+          fontColor: Color.Red
+        }],
         autoCancel: false,
         onChange: (text) => {
           console.error("onChange: " + text);
         },
         onAction: (action, dialogId, content) => {
-          if (action == DialogAction.ONE) {
             this.inputText = content;
-          }
         }
       })
     } else if (index == 2) {
@@ -545,8 +554,9 @@ export struct DialogPage {
           console.error("onChange: " + text);
         },
         onAction: (action, dialogId, content) => {
-          if (action == DialogAction.TWO) {
+          if (action == DialogAction.SURE) {
             this.inputText = content;
+            ToastUtil.showToast(content);
           }
         }
       })
@@ -692,6 +702,67 @@ export struct DialogPage {
         }],
         onAction: (index) => {
           ToastUtil.showToast(`您点击了第几个按钮，${index + 1}`);
+        }
+      })
+    }
+  }
+
+  /**
+   * TextPickerDialog，选择器弹框
+   */
+  textPickerDialog(index: number) {
+    if (index == 0) {
+      DialogHelper.showTextPickerDialog({
+        title: "请选择",
+        range: this.likes,
+        onAction: (action: number, dialogId: string, value: string | string[]) => {
+          if (action == DialogAction.SURE) {
+            ToastUtil.showToast(`已选择：${value as string}`);
+          }
+        }
+      })
+    } else if (index == 1) {
+      DialogHelper.showTextPickerDialog({
+        autoCancel: false,
+        title: "请选择时间",
+        titleFontColor: Color.Pink,
+        titleBackground: "#E6E6E6",
+        primaryButton: "取消",
+        secondaryButton: {
+          value: "确定",
+          fontColor: Color.Red,
+        },
+        range: this.multis,
+        value: ["2025年", "6月", "8日"], //设置选中
+        onAction: (action: number, dialogId: string, value: string | string[]) => {
+          if (action == DialogAction.SURE) {
+            ToastUtil.showToast(`已选择：${value as string}`);
+          }
+        },
+        onChange: (value: string | string[], index: number | number[]): void => {
+          LogUtil.error(`value: ${value}`);
+          LogUtil.error(`index: ${index}`);
+        }
+      })
+    } else if (index == 2) {
+      let aiHuiList = AreaHelper.getCityByNameSync("安徽省");
+      DialogHelper.showTextPickerDialog({
+        range: aiHuiList,
+        onAction: (action: number, dialogId: string, value: string | string[]) => {
+          if (action == DialogAction.SURE) {
+            ToastUtil.showToast(`已选择：${value as string}`);
+          }
+        }
+      })
+    } else if (index == 3) {
+      let areas = AreaHelper.getAreaSync();
+      DialogHelper.showTextPickerDialog({
+        title: "请选择收货地址",
+        range: areas,
+        onAction: (action: number, dialogId: string, value: string | string[]) => {
+          if (action == DialogAction.SURE) {
+            ToastUtil.showToast(`已选择：${value as string}`);
+          }
         }
       })
     }
@@ -1000,6 +1071,12 @@ export struct DialogPage {
             content: "显示动作面板（IOS风格）",
             num: 3,
             onClickAction: (index: number): void => this.actionSheetDialog(index)
+          })
+          LabelButton({
+            label: "TextPickerDialog",
+            content: "TextPicker-选择器弹框",
+            num: 4,
+            onClickAction: (index: number): void => this.textPickerDialog(index)
           })
           LabelButton({
             label: "CustomDialog",

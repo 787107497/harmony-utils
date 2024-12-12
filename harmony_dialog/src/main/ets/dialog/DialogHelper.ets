@@ -55,7 +55,7 @@ import { SheetOptions } from '../model/SheetOptions';
 import { DialogAction } from '../utils/constraint';
 import { UIContext } from '@kit.ArkUI';
 import { Utils } from '../utils/Utils';
-import { PickerOptions } from '../model/PickerOptions';
+import { TextPickerOptions } from '../model/TextPickerOptions';
 
 
 /**
@@ -200,7 +200,7 @@ export class DialogHelper {
    */
   static showBottomSheetDialog(options: BottomSheetOptions): string {
     DialogHelper.initBaseDefault(options);
-    DialogHelper.initBottomSheetDefault(options);
+    DialogHelper.initBottomSheetDefault(options, true);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(BottomSheetDialogBuilder), options);
     return dialogId;
   }
@@ -211,18 +211,18 @@ export class DialogHelper {
    */
   static showActionSheetDialog(options: BottomSheetOptions): string {
     DialogHelper.initBaseDefault(options);
-    DialogHelper.initBottomSheetDefault(options);
+    DialogHelper.initBottomSheetDefault(options, false);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ActionSheetDialogBuilder), options);
     return dialogId;
   }
 
 
   /**
-   * 显示TextPicker弹框
+   * 显示选择器弹框
    * @param options
    * @returns
    */
-  static showTextPickerDialog(options: PickerOptions): string {
+  static showTextPickerDialog(options: TextPickerOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initTextPickerDefault(options);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextPickerDialogBuilder), options);
@@ -455,16 +455,27 @@ export class DialogHelper {
    * 初始化BottomSheetOptions参数
    * @param options
    */
-  private static initBottomSheetDefault(options: BottomSheetOptions) {
+  private static initBottomSheetDefault(options: BottomSheetOptions, fullWidth: boolean) {
     options.alignment = DialogAlignment.Bottom; //弹窗的对齐方式。
     options.offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。
     options.cancelValue = options.cancelValue ?? DialogHelper.config.primaryButton;
     options.actionCancel = options.actionCancel ?? DialogHelper.config.actionCancel; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
-    if (options.width || DialogHelper.config.width) {
-      options.width = options.width ?? DialogHelper.config.width; //设置弹窗的宽度。
-    }
     if (options.height || DialogHelper.config.height) {
       options.height = options.height ?? DialogHelper.config.height; //弹窗的高度。
+    }
+    if (options.width || DialogHelper.config.width) {
+      if (fullWidth) {
+        options.width = options.width ?? "100%"; //设置弹窗的宽度。
+      } else {
+        options.width = options.width ?? DialogHelper.config.width; //设置弹窗的宽度。
+      }
+    }
+    if (options.maxWidth || DialogHelper.config.maxWidth) {
+      if (fullWidth) {
+        options.maxWidth = options.maxWidth ?? Utils.getMaxWidth(DialogHelper.config.maxWidth); //弹窗的高度最大宽度。
+      }else {
+        options.maxWidth = options.maxWidth ?? DialogHelper.config.maxWidth; //弹窗的高度最大宽度。
+      }
     }
     if (options.backgroundColor || DialogHelper.config.backgroundColor) {
       options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
@@ -493,57 +504,14 @@ export class DialogHelper {
    * TextPicker弹框默认值
    * @param options
    */
-  private static initTextPickerDefault(options: PickerOptions) {
-    if (!options.primaryButton && !options.secondaryButton) {
-      options.primaryButton = DialogHelper.config.primaryButton
-      options.secondaryButton = DialogHelper.config.secondaryButton
-    }
-    if (options.primaryButton) {
-      console.error("1111111111111111111111111111111")
-      let primaryValue = Utils.getResourceStr(options.primaryButton);
-      if (primaryValue) {
-        console.error("2222222222222222222222222")
-        let primaryButton = new ButtonOptions();
-        primaryButton.value = primaryValue;
-        primaryButton.fontColor = $r("app.color.color_99");
-        primaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
-        primaryButton.role = ButtonRole.NORMAL;
-        primaryButton.background = Color.Transparent
-        options.primaryButton = primaryButton;
-      } else{
-        console.error("3333333333333333333333333333333333333")
-        if (!(options.primaryButton as ButtonOptions).fontColor) {
-          (options.primaryButton as ButtonOptions).fontColor = $r("app.color.color_99");
-          console.error("4444444444444444444444444444444444444");
-        }
-
-      }
-    }
-
-    if (!options.titleFontColor) {
-      options.titleFontColor = $r("sys.color.ohos_id_picker_title_text_color")
-    }
-
-
-    // value: ResourceStr = ''; //按钮的内容。
-    // fontColor?: ResourceColor; //按钮的字体颜色。
-    // action?: VoidCallback; //按钮的点击事件，大多数按钮不需要实现这个点击事件
-    // background?: ResourceColor; //按钮的背景。
-    // buttonStyle?: ButtonStyleMode; //按钮的样式。默认值：2in1设备为ButtonStyleMode.NORMAL，其他设备为ButtonStyleMode.TEXTUAL。
-    // role?: ButtonRole; //按钮的角色。默认值：ButtonRole.NORMAL。
-
-
-    // title?: ResourceStr; //弹框标题
-    // titleFontColor?: ResourceColor; //弹框标题的字体颜色。
-    // primaryButton?: ButtonOptions | ResourceStr; //弹框左侧按钮。
-    // secondaryButton?: ButtonOptions | ResourceStr; //弹框右侧按钮。
-
-    if (options.width || DialogHelper.config.width) {
-      options.width = options.width ?? DialogHelper.config.width; //设置弹窗的宽度。
-    }
+  private static initTextPickerDefault(options: TextPickerOptions) {
     options.alignment = DialogAlignment.Bottom; //弹窗的对齐方式。
     options.offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。
     options.actionCancel = options.actionCancel ?? DialogHelper.config.actionCancel; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
+    options.width = options.width ?? "100%"; //设置弹窗的宽度。
+    if (options.maxWidth || DialogHelper.config.maxWidth) {
+      options.maxWidth = options.maxWidth ?? Utils.getMaxWidth(DialogHelper.config.maxWidth); //弹窗的高度最大宽度。
+    }
     if (options.backgroundColor || DialogHelper.config.backgroundColor) {
       options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
     }
@@ -551,7 +519,68 @@ export class DialogHelper {
       options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogHelper.config.backgroundBlurStyle; //弹窗背板模糊材质。
     }
     if (options.cornerRadius || DialogHelper.config.cornerRadius) {
-      options.cornerRadius = options.cornerRadius ?? 10; //弹框圆角半径，默认15。
+      options.cornerRadius = options.cornerRadius ?? 15; //弹框圆角半径，默认15。
+    }
+
+    if (!options.primaryButton && !options.secondaryButton) {
+      options.primaryButton = DialogHelper.config.primaryButton
+      options.secondaryButton = DialogHelper.config.secondaryButton
+    }
+    if (options.primaryButton) { //取消按钮
+      let primaryValue = Utils.getResourceStr(options.primaryButton);
+      if (primaryValue) {
+        let primaryButton = new ButtonOptions();
+        primaryButton.value = primaryValue;
+        primaryButton.fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+        primaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
+        primaryButton.role = ButtonRole.NORMAL;
+        primaryButton.background = Color.Transparent
+        options.primaryButton = primaryButton;
+      } else {
+        if (!(options.primaryButton as ButtonOptions).fontColor) {
+          (options.primaryButton as ButtonOptions).fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+        }
+        if (!(options.primaryButton as ButtonOptions).buttonStyle) {
+          (options.primaryButton as ButtonOptions).buttonStyle = ButtonStyleMode.TEXTUAL;
+        }
+        if (!(options.primaryButton as ButtonOptions).role) {
+          (options.primaryButton as ButtonOptions).role = ButtonRole.NORMAL;
+        }
+        if (!(options.primaryButton as ButtonOptions).background) {
+          (options.primaryButton as ButtonOptions).background = Color.Transparent;
+        }
+      }
+    }
+    if (options.secondaryButton) { //确定按钮
+      let secondaryValue = Utils.getResourceStr(options.secondaryButton);
+      if (secondaryValue) {
+        let secondaryButton = new ButtonOptions();
+        secondaryButton.value = secondaryValue;
+        secondaryButton.fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+        secondaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
+        secondaryButton.role = ButtonRole.NORMAL;
+        secondaryButton.background = Color.Transparent
+        options.secondaryButton = secondaryButton;
+      } else {
+        if (!(options.secondaryButton as ButtonOptions).fontColor) {
+          (options.secondaryButton as ButtonOptions).fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+        }
+        if (!(options.secondaryButton as ButtonOptions).buttonStyle) {
+          (options.secondaryButton as ButtonOptions).buttonStyle = ButtonStyleMode.TEXTUAL;
+        }
+        if (!(options.secondaryButton as ButtonOptions).role) {
+          (options.secondaryButton as ButtonOptions).role = ButtonRole.NORMAL;
+        }
+        if (!(options.secondaryButton as ButtonOptions).background) {
+          (options.secondaryButton as ButtonOptions).background = Color.Transparent;
+        }
+      }
+    }
+    if (!options.titleFontColor) {
+      options.titleFontColor = $r("sys.color.ohos_id_picker_title_text_color");
+    }
+    if (!options.titleBackground) {
+      options.titleBackground = "#F9F9F9";
     }
   }
 

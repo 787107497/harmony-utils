@@ -35,8 +35,10 @@ export default struct BottomSheetDialogView {
   @Prop options: BottomSheetOptions;
   @State title: string = ""; //标题
   @State fontSize: number | string | Resource = 16; //按钮的文字大小，字体大小16。
+  @State largeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
 
   aboutToAppear(): void {
+    this.largeScreen=  Utils.isLargeScreen();
     if (this.options.title) {
       this.title = Utils.getResourceStr(this.options.title) ?? "";
     }
@@ -47,6 +49,7 @@ export default struct BottomSheetDialogView {
       }
     }
   }
+
 
   build() {
     Column({ space: 0 }) {
@@ -87,7 +90,7 @@ export default struct BottomSheetDialogView {
         .textAlign(TextAlign.Center)
         .width('100%')
         .padding({ top: 20, bottom: 20, left: 10, right: 10 })
-        .margin({ bottom: 22 })
+        .margin({ bottom: this.largeScreen ? 0 : 20 })
         .onClick(()=>{
           DialogHelper.closeDialog(this.options.dialogId ?? "");
         })
@@ -96,10 +99,12 @@ export default struct BottomSheetDialogView {
     .borderRadius(this.options.cornerRadius)
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .width('100%')
+    .width(this.options.width)
     .height(this.options.height)
     .constraintSize({ maxWidth: this.options.maxWidth })
+    .margin({ bottom: this.largeScreen ? 30 : 0 })
   }
+
 
   @Builder
   TextBuilder(value: ResourceStr, fontColor: ResourceColor, fontSize: number | string | Resource, index: number) {
@@ -119,5 +124,6 @@ export default struct BottomSheetDialogView {
         }
       })
   }
+
 
 }

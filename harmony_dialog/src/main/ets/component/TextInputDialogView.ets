@@ -19,8 +19,8 @@ import { TextInputOptions } from '../model/TextInputOptions';
 import { CustomContentDialog } from '@kit.ArkUI';
 import { BaseContentOptions } from '../model/base/BaseContentOptions';
 import { CustomContentOptions } from '../model/CustomContentOptions';
-import { CacheUtil } from '../utils/CacheUtil';
 import { TextInputModifier } from '../utils/TextInputModifier';
+import { CacheUtil } from '../utils/CacheUtil';
 
 
 /**
@@ -35,10 +35,10 @@ import { TextInputModifier } from '../utils/TextInputModifier';
 @Component
 export default struct TextInputDialogView {
   private controller: TextInputController = new TextInputController();
-  @State modifier: TextInputModifier = new TextInputModifier();
-  @State text: string = '';
   @Prop options: TextInputOptions;
+  @State modifier: TextInputModifier = new TextInputModifier();
   @State content: CustomContentOptions | null = null;
+  @State text: string = '';
 
   aboutToAppear(): void {
     this.text = this.options.text ?? "";
@@ -72,6 +72,7 @@ export default struct TextInputDialogView {
       .borderStyle(this.options.borderStyle)
   }
 
+
   @Builder
   InputBuilder() {
     TextInput({
@@ -96,4 +97,6 @@ export default struct TextInputDialogView {
         }
       })
   }
+
+
 }

@@ -31,7 +31,7 @@ import { ToastTipOptions } from '../model/ToastTipOptions'
 import { BottomSheetOptions } from '../model/BottomSheetOptions'
 import BottomSheetDialogView from '../component/BottomSheetDialogView'
 import ActionSheetDialogView from '../component/ActionSheetDialogView'
-import { PickerOptions } from '../model/PickerOptions'
+import { TextPickerOptions } from '../model/TextPickerOptions'
 import TextPickerDialogView from '../component/TextPickerDialogView'
 
 
@@ -170,7 +170,7 @@ export function ActionSheetDialogBuilder(options: BottomSheetOptions) {
  * @param options
  */
 @Builder
-export function TextPickerDialogBuilder(options: PickerOptions) {
+export function TextPickerDialogBuilder(options: TextPickerOptions) {
   TextPickerDialogView({ options: options });
 }
 

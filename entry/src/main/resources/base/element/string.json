@@ -71,6 +71,10 @@
     {
       "name": "str_desc",
       "value": "张三%d岁，工资%d米"
+    },
+    {
+      "name": "str_num",
+      "value": "360vpxx"
     }
   ]
 }

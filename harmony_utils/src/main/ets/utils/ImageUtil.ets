@@ -223,7 +223,7 @@ export class ImageUtil {
    */
   static packingFromImageSource(source: image.ImageSource, options: image.PackingOption): Promise<ArrayBuffer> {
     const imagePacker: image.ImagePacker = image.createImagePacker();
-    return imagePacker.packing(source as image.ImageSource, options).finally(() => {
+    return imagePacker.packing(source, options).finally(() => {
       imagePacker.release(); //释放
     });
   }

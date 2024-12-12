@@ -43,7 +43,7 @@ export class DialogConfig {
 
   height?: Dimension | Length; //设置弹窗的高度。
   width: Dimension | Length = 'calc(100% - 32vp)'; //设置弹窗的宽度，弹窗宽度默认值：'calc(100% - 32vp)'、100%。
-  maxWidth?: Length = 360; //弹窗宽度默认最大值：360vp。
+  maxWidth?: Length = 360; //弹窗宽度默认最大值：360vp/400vp。
   backgroundColor: ResourceColor = Color.White; //弹窗背板颜色。默认值：Color.White
   backgroundBlurStyle: BlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
   cornerRadius: Length | BorderRadiuses | LocalizedBorderRadiuses = { topLeft: '20vp', topRight: '20vp', bottomLeft: '20vp', bottomRight: '20vp' }; //设置背板的圆角半径。可分别设置4个圆角的半径。

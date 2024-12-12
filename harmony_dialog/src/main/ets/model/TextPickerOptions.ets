@@ -16,6 +16,7 @@
  */
 
 
+import { OnActionCallBack } from '../utils/constraint';
 import { BaseDialogOptions } from './base/BaseDialogOptions';
 import { ButtonOptions } from './ButtonOptions';
 
@@ -30,29 +31,30 @@ import { ButtonOptions } from './ButtonOptions';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export interface PickerOptions extends TextPickerOptions, BaseDialogOptions {
-
+export interface TextPickerOptions extends BaseDialogOptions {
 
   title?: ResourceStr; //弹框标题
   titleFontColor?: ResourceColor; //弹框标题的字体颜色。
+  titleBackground?: ResourceColor; //头部背景颜色
   primaryButton?: ButtonOptions | ResourceStr; //弹框左侧按钮。
   secondaryButton?: ButtonOptions | ResourceStr; //弹框右侧按钮。
-
-  // onAction: ActionCallBack; //按钮的CallBack事件。
-
-  disappearTextStyle?: PickerTextStyle; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
-  textStyle?: PickerTextStyle; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
-  selectedTextStyle?: PickerTextStyle; //设置选中项的文本颜色、字号、字体粗细。
-  canLoop?: boolean; //设置是否可循环滚动。
-  divider?: DividerOptions | null; //设置分割线样式，不设置该属性则按“默认值”展示分割线。
-  onChange: (value: string | string[], index: number | number[]) => void; //滑动选中TextPicker文本内容后，触发该回调。
+  onAction: OnActionCallBack; //按钮的CallBack事件。
 
   actionCancel?: boolean; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
-  width?: Dimension | Length; //设置弹窗的宽度，弹窗宽度默认值：'calc(100% - 32vp)'。
+  width?: Dimension | Length; //设置弹窗的宽度，弹窗宽度默认值：'100%'。
   maxWidth?: Length; //弹窗宽度默认最大值：360vp。
   backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.White
   backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
   cornerRadius?: Length; //设置背板的圆角半径。可分别设置4个圆角的半径，默认15。
 
+  range: string[] | string[][] | Resource | TextPickerRangeContent[] | TextCascadePickerRangeContent[];
+  value?: string | string[]; //选中
+  // selected?: number | number[];
+  disappearTextStyle?: PickerTextStyle; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
+  textStyle?: PickerTextStyle; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
+  selectedTextStyle?: PickerTextStyle; //设置选中项的文本颜色、字号、字体粗细。
+  canLoop?: boolean; //设置是否可循环滚动。
+  divider?: DividerOptions | null; //设置分割线样式，不设置该属性则按“默认值”展示分割线。
+  onChange?: (value: string | string[], index: number | number[]) => void; //滑动选中TextPicker文本内容后，触发该回调。
 
 }

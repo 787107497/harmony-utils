@@ -16,10 +16,11 @@
  */
 
 
-import { PickerOptions } from '../model/PickerOptions';
+import { TextPickerOptions } from '../model/TextPickerOptions';
 import { ButtonOptions } from '../model/ButtonOptions';
 import { Utils } from '../utils/Utils';
-import { JSON } from '@kit.ArkTS';
+import { DialogAction } from '../utils/constraint';
+import { DialogHelper } from '../dialog/DialogHelper';
 
 
 /**
@@ -34,23 +35,63 @@ import { JSON } from '@kit.ArkTS';
 @Preview
 @Component
 export default struct TextPickerDialogView {
-  @Prop options: PickerOptions;
+  @Prop options: TextPickerOptions;
   @State title: string = ""; //标题
   @State primaryButton?: ButtonOptions = undefined; //弹框左侧按钮。
   @State secondaryButton?: ButtonOptions = undefined; //弹框右侧按钮。
+  @State value: string | string[] = '';
   @State range: string[] | string[][] | Resource | TextPickerRangeContent[] | TextCascadePickerRangeContent[] = [];
+  @State largeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
+
 
   aboutToAppear(): void {
-    this.range = this.options.range ?? [];
+    this.largeScreen=  Utils.isLargeScreen();
+    if (this.options.value) {
+      this.value = this.options.value;
+    } else {
+      if (this.options.range instanceof Array) {
+        let pickerItem = this.options.range[0];
+        if (typeof pickerItem == 'string') { ///string[]
+          this.value = pickerItem;
+        } else if (pickerItem instanceof Array) { //string[][]
+          let selected: string[] = [];
+          let range = this.options.range as string[][];
+          for (let index = 0; index < range.length; index++) {
+            selected.push(range[index][0]);
+          }
+          this.value = selected;
+        } else if ((pickerItem as TextPickerRangeContent).icon) { //TextPickerRangeContent
+          this.value = Utils.getResourceStr(pickerItem.text ?? "") ?? ""
+        } else {
+          this.value = [];
+          this.recursionPickerRange(this.options.range as TextCascadePickerRangeContent[])
+        }
+      } else { //Resource
+        let array = getContext().resourceManager.getStringArrayValueSync(this.options.range);
+        if (array && array.length > 0) {
+          this.value = array[0];
+        }
+      }
+    }
     if (this.options.title) {
       this.title = Utils.getResourceStr(this.options.title) ?? "";
     }
     this.primaryButton = this.options.primaryButton as ButtonOptions;
     this.secondaryButton = this.options.secondaryButton as ButtonOptions;
-
-    console.error("primaryButton： " + JSON.stringify(this.primaryButton))
-    console.error("secondaryButton： " + JSON.stringify(this.secondaryButton))
   }
+
+
+  /**
+   * 递归获取默认值
+   */
+  recursionPickerRange(pickerRange: TextCascadePickerRangeContent[]) {
+    if (pickerRange && pickerRange.length > 0) {
+      let range = pickerRange[0];
+      (this.value as string[]).push(Utils.getResourceStr(range.text ?? "") ?? "");
+      this.recursionPickerRange(range.children ?? []);
+    }
+  }
+
 
   build() {
     Column() {
@@ -62,12 +103,25 @@ export default struct TextPickerDialogView {
           .fontColor(this.primaryButton?.fontColor)
           .backgroundColor(this.primaryButton?.background ?? Color.Transparent)
           .margin({ top: 10, bottom: 10, left: 10 })
+          .alignSelf(ItemAlign.Center)
+          .align(Alignment.Center)
+          .onClick(() => {
+            if (this.options.actionCancel){
+              DialogHelper.closeDialog(this.options.dialogId ?? "");
+            }
+            if (this.options.onAction) {
+              this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.value);
+            }
+          })
         Text(this.title)
-          .fontSize(16)
-          .layoutWeight(1)
+          .fontWeight(FontWeight.Bold)
           .textAlign(TextAlign.Center)
+          .fontColor(this.options.titleFontColor)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+          .ellipsisMode(EllipsisMode.END)
+          .maxLines(1)
+          .layoutWeight(1)
           .margin(5)
-          .fontColor($r("sys.color.ohos_id_picker_title_text_color"))
         Button(this.secondaryButton?.value)
           .buttonStyle(this.secondaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
           .role(this.secondaryButton?.role ?? ButtonRole.NORMAL)
@@ -75,25 +129,45 @@ export default struct TextPickerDialogView {
           .backgroundColor(this.secondaryButton?.background ?? Color.Transparent)
           .type(ButtonType.Capsule)
           .margin({ top: 10, bottom: 10, right: 10 })
+          .alignSelf(ItemAlign.Center)
+          .align(Alignment.Center)
+          .onClick(() => {
+            if (this.options.actionCancel){
+              DialogHelper.closeDialog(this.options.dialogId ?? "");
+            }
+            if (this.options.onAction) {
+              this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.value);
+            }
+          })
       }
-      .backgroundColor("#F9F9F9")
+      .backgroundColor(this.options.titleBackground)
+      .width('100%')
 
-      // value: ResourceStr = ''; //按钮的内容。
-      // fontColor?: ResourceColor; //按钮的字体颜色。
-      // action?: VoidCallback; //按钮的点击事件，大多数按钮不需要实现这个点击事件
-      // background?: ResourceColor; //按钮的背景。
-      // buttonStyle?: ButtonStyleMode; //按钮的样式。默认值：2in1设备为ButtonStyleMode.NORMAL，其他设备为ButtonStyleMode.TEXTUAL。
-      // role?: ButtonRole; //按钮的角色。默认值：ButtonRole.NORMAL。
-
-      TextPicker({ range: this.range, value: this.options.value, selected: this.options.selected })
-        .width('100%')
+      TextPicker({ range: this.options.range, value: this.value })
+        .disappearTextStyle(this.options.disappearTextStyle)
+        .textStyle(this.options.textStyle)
+        .selectedTextStyle(this.options.selectedTextStyle)
+        .canLoop(this.options.canLoop)
+        .divider(this.options.divider)
         .margin({ top: 20, bottom: 20 })
+        .width('100%')
+        .onChange((value: string | string[], index: number | number[]) => {
+          this.value = value;
+          if (this.options.onChange) {
+            this.options.onChange(value, index)
+          }
+        })
     }
-    .width('100%')
+    .backgroundColor(this.options.backgroundColor)
+    .borderRadius(this.options.cornerRadius)
+    .clip(true)
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .backgroundColor(this.options.backgroundColor)
+    .width(this.options.width)
     .constraintSize({ maxWidth: this.options.maxWidth })
-    .padding({ bottom: 25 })
+    .padding({ bottom: this.largeScreen ? 0 : 25 })
+    .margin({ bottom: this.largeScreen ? 30 : 0 })
   }
+
+
 }

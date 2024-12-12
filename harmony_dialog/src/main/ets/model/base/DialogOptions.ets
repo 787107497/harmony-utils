@@ -15,6 +15,7 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
+import { ActionCallBack } from '../../utils/constraint';
 import { BaseDialogOptions } from './BaseDialogOptions';
 
 
@@ -31,6 +32,7 @@ import { BaseDialogOptions } from './BaseDialogOptions';
 export interface DialogOptions extends BaseDialogOptions {
   title?: ResourceStr; //弹框标题
   actionCancel?: boolean; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
+  onAction?: ActionCallBack; //按钮的CallBack事件。
 
   height?: Dimension | Length; //设置弹窗的高度。
   width?: Dimension | Length; //设置弹窗的宽度，弹窗宽度默认值：'calc(100% - 32vp)'、100%。

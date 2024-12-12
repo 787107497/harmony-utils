@@ -1,5 +1,11 @@
 # 版本记录
 
+## 1.0.7
+1. 优化部分弹框的按钮。
+2. 优化BottomSheetDialog和ActionSheetDialog的展示。
+3. 优化TextInputDialog和TextAreaDialog。
+4. 新增显示选择器弹框，showTextPickerDialog。
+
 ## 1.0.6
 1. 优化弹框关闭可能出现的异常。
 

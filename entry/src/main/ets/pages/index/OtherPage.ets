@@ -1,14 +1,22 @@
+import { AreaEntity, AreaHelper } from '@nutpi/china_area';
 import { DialogHelper } from '@pura/harmony-dialog';
-import { AppUtil, LogUtil } from '@pura/harmony-utils';
+import { Utils } from '@pura/harmony-dialog/src/main/ets/utils/Utils';
+import { LogUtil } from '@pura/harmony-utils';
 
 @Preview
 @Component
 export struct OtherPage {
   private scroller: Scroller = new Scroller();
+  @State areas: Array<AreaEntity> = []
+  private apfruits: string[] = ['apple1', 'apple2', 'apple3', 'apple4']
+  private orfruits: string[] = ['orange1', 'orange2', 'orange3', 'orange4']
+  private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
+  private demos: string[] = ['demo1', 'demo2', 'demo3', 'demo4']
+  private demos4: string[] = []
+  private multi: string[][] = [this.apfruits, this.orfruits, this.pefruits,this.demos,this.apfruits]
 
   onCreateSub(): void {
-    AppUtil.getStatusBarHeight()
-
+    this.areas = AreaHelper.getAreaSync();
   }
 
   build() {
@@ -30,20 +38,6 @@ export struct OtherPage {
             .fontColor(Color.Black)
             .fontWeight(FontWeight.Bold)
             .onClick(()=>{
-              // let height = Utils.getNavigationIndicatorHeight(AppUtil.getContext());
-              // LogUtil.error("height: " + height);
-              DialogHelper.showTextPickerDialog({
-                primaryButton: "取消",
-                secondaryButton: {
-                  value: "确定"
-                },
-                backgroundColor: "#FFFFFF",
-                range: ["111", "222", "333", "444", "555", "666", "777", "888", "999"],
-                onChange: (value: string | string[], index: number | number[]) => {
-                  LogUtil.error("value: " + value);
-                  LogUtil.error("index: " + index);
-                }
-              })
 
             })
 
