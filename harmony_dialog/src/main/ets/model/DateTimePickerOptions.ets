@@ -16,12 +16,12 @@
  */
 
 
-import { ActionValueCallBack } from '../utils/constraint';
+import { ActionDateCallBack, DateType } from '../utils/constraint';
 import { BasePickerOptions } from './base/BasePickerOptions';
 
 
 /**
- * TODO 弹窗工具类，TextPicker参数类
+ * TODO 弹窗工具类，DatePicker参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
@@ -30,12 +30,13 @@ import { BasePickerOptions } from './base/BasePickerOptions';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export interface TextPickerOptions extends BasePickerOptions {
+export interface DateTimePickerOptions extends BasePickerOptions {
 
-  value?: string | string[]; //选中
-  range: string[] | string[][] | Resource | TextPickerRangeContent[] | TextCascadePickerRangeContent[];
-  onChange?: (value: string | string[], index: number | number[]) => void; //滑动选中TextPicker文本内容后，触发该回调。
-  // selected?: number | number[];
-  onAction: ActionValueCallBack; //按钮的CallBack事件。
+  dateType: DateType; //选择的日期类型
+  selected?: Date; // 选中日期,不传默认当前日期
+  start?: Date; //开始日期（1900-01-01 00:00:00）
+  end?: Date; //结束日期（2199-12-31 23:59:59）
+
+  onAction: ActionDateCallBack; //按钮的CallBack事件。
 
 }

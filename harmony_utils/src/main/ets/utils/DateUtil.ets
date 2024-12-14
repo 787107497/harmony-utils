@@ -58,6 +58,9 @@ export class DateUtil {
           .replace("时", ':')
           .replace("分", ':')
           .replace("秒", '')
+        if (dateStr.endsWith("/") || dateStr.endsWith(":") || dateStr.endsWith(" ")) {
+          dateStr = dateStr.substring(0, dateStr.length - 1);
+        }
         date = new Date(dateStr);
       }
     } else if (typeof (date) == "number") { //时间戳

@@ -27,6 +27,8 @@ export { TextAreaOptions } from './src/main/ets/model/TextAreaOptions';
 
 export { BottomSheetOptions } from './src/main/ets/model/BottomSheetOptions';
 
+export { DateTimePickerOptions } from './src/main/ets/model/DateTimePickerOptions';
+
 export { LoadingOptions } from './src/main/ets/model/LoadingOptions';
 
 export { LoadingProgressOptions } from './src/main/ets/model/LoadingProgressOptions';

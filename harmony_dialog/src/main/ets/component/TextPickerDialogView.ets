@@ -18,7 +18,7 @@
 
 import { TextPickerOptions } from '../model/TextPickerOptions';
 import { ButtonOptions } from '../model/ButtonOptions';
-import { Utils } from '../utils/Utils';
+import { Helper } from '../utils/Helper';
 import { DialogAction } from '../utils/constraint';
 import { DialogHelper } from '../dialog/DialogHelper';
 
@@ -45,7 +45,7 @@ export default struct TextPickerDialogView {
 
 
   aboutToAppear(): void {
-    this.largeScreen=  Utils.isLargeScreen();
+    this.largeScreen=  Helper.isLargeScreen();
     if (this.options.value) {
       this.value = this.options.value;
     } else {
@@ -61,7 +61,7 @@ export default struct TextPickerDialogView {
           }
           this.value = selected;
         } else if ((pickerItem as TextPickerRangeContent).icon) { //TextPickerRangeContent
-          this.value = Utils.getResourceStr(pickerItem.text ?? "") ?? ""
+          this.value = Helper.getResourceStr(pickerItem.text ?? "") ?? ""
         } else {
           this.value = [];
           this.recursionPickerRange(this.options.range as TextCascadePickerRangeContent[])
@@ -74,7 +74,7 @@ export default struct TextPickerDialogView {
       }
     }
     if (this.options.title) {
-      this.title = Utils.getResourceStr(this.options.title) ?? "";
+      this.title = Helper.getResourceStr(this.options.title) ?? "";
     }
     this.primaryButton = this.options.primaryButton as ButtonOptions;
     this.secondaryButton = this.options.secondaryButton as ButtonOptions;
@@ -87,7 +87,7 @@ export default struct TextPickerDialogView {
   recursionPickerRange(pickerRange: TextCascadePickerRangeContent[]) {
     if (pickerRange && pickerRange.length > 0) {
       let range = pickerRange[0];
-      (this.value as string[]).push(Utils.getResourceStr(range.text ?? "") ?? "");
+      (this.value as string[]).push(Helper.getResourceStr(range.text ?? "") ?? "");
       this.recursionPickerRange(range.children ?? []);
     }
   }

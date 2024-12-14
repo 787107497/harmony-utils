@@ -15,7 +15,7 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
-import { ActionCallBack, StringCalBack } from '../../utils/constraint';
+import { ActionStrCallBack, StringCalBack } from '../../utils/constraint';
 import { DialogOptions } from './DialogOptions';
 import { ButtonOptions } from '../ButtonOptions';
 import { InputFilter } from '../InputFilter';
@@ -53,6 +53,6 @@ export interface BaseInputOptions extends DialogOptions {
   inputFilter?: InputFilter; //通过正则表达式设置输入过滤器。
 
   onChange?: StringCalBack;
-  onAction: ActionCallBack; //按钮的CallBack事件。
+  onAction: ActionStrCallBack; //按钮的CallBack事件。
 
 }

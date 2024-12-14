@@ -1,12 +1,14 @@
-import { DialogHelper } from '@pura/harmony-dialog';
+import { DateUtil, LogUtil } from '@pura/harmony-utils';
 
 @Preview
 @Component
 export struct OtherPage {
   private scroller: Scroller = new Scroller();
 
-  onCreateSub(): void {
 
+  onCreateSub(): void {
+DateUtil.getFormatDate()
+    // NumberUtil.toInt()
   }
 
   build() {
@@ -27,9 +29,15 @@ export struct OtherPage {
             .fontSize(24)
             .fontColor(Color.Black)
             .fontWeight(FontWeight.Bold)
-            .onClick(()=>{
+            .onClick(() => {
+              let array=["1月","2月","3月","4月","5月","6月"];
+              let bl = array.includes("1月")
+              let bl2 = array.includes("10月")
+              LogUtil.error("bl: " + bl)
+              LogUtil.error("bl: " + bl2)
 
             })
+
 
           Blank().layoutWeight(1)
 
@@ -44,4 +52,6 @@ export struct OtherPage {
       this.onCreateSub()
     })
   }
+
+
 }

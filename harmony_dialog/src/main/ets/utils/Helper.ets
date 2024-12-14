@@ -31,7 +31,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export class Utils {
+export class Helper {
 
   /**
    * 获取提供访问应用资源的能力
@@ -48,7 +48,7 @@ export class Utils {
    * @returns
    */
   static getNumber(res: Resource): number {
-    return Utils.getResourceManager().getNumber(res);
+    return Helper.getResourceManager().getNumber(res);
   }
 
 
@@ -57,7 +57,7 @@ export class Utils {
    * @param res
    */
   static getString(res: Resource): string {
-    return Utils.getResourceManager().getStringSync(res);
+    return Helper.getResourceManager().getStringSync(res);
   }
 
 
@@ -71,7 +71,7 @@ export class Utils {
       if (typeof resource === 'string') {
         return resource;
       } else {
-        return Utils.getString(resource as Resource);
+        return Helper.getString(resource as Resource);
       }
     } catch (e) {
       return null
@@ -108,7 +108,7 @@ export class Utils {
    * 是否是大屏，大于手机屏幕宽度1280
    */
   static isLargeScreen(): boolean {
-    return Utils.getDisplayWidth() > 1600;
+    return Helper.getDisplayWidth() > 1600;
   }
 
 
@@ -123,13 +123,13 @@ export class Utils {
       if (typeof maxWidth === 'number') { //number
         oldWidth = maxWidth;
       } else if (typeof maxWidth === 'string') { //string
-        oldWidth = Utils.getVpByStr(maxWidth);
+        oldWidth = Helper.getVpByStr(maxWidth);
       } else {
         try { //number资源
-          oldWidth = Utils.getNumber(maxWidth);
+          oldWidth = Helper.getNumber(maxWidth);
         } catch (e) { //string资源
-          let strWidth = Utils.getString(maxWidth);
-          oldWidth = Utils.getVpByStr(strWidth);
+          let strWidth = Helper.getString(maxWidth);
+          oldWidth = Helper.getVpByStr(strWidth);
         }
       }
     } catch (e) {

@@ -12,10 +12,14 @@ export declare type StringCalBack = (content: string) => void;
  * 1、当action小于0时，对应弹框操作按钮的Action，类型为DialogAction。
  * 2、当action大于等于0时，对选的是选项索引值。
  * dialogId: 对应弹框的id。
- * content: 弹框内容回调，如输入框的输入内容。
+ * value: string 弹框内容回调，如输入框的输入内容。
+ * value: string | string[] picker选中值
+ * date: Date 选中日期
  */
-export declare type ActionCallBack = (action: number, dialogId: string, content: string) => void;
-export declare type OnActionCallBack = (action: number, dialogId: string, value: string | string[]) => void;
+export declare type ActionCallBack = (action: number, dialogId: string) => void;
+export declare type ActionStrCallBack = (action: number, dialogId: string, value: string) => void;
+export declare type ActionValueCallBack = (action: number, dialogId: string, value: string | string[]) => void;
+export declare type ActionDateCallBack = (action: number, dialogId: string, date: Date) => void;
 
 //多行文本输入弹框Align
 export enum TextAlignment { Top, Center, Bottom }
@@ -31,4 +35,17 @@ export enum DialogAction {
   SIX = -6, //第六个按钮。
   CANCEL = ONE, //第一个按钮 - 取消。
   SURE = TWO, //第二个按钮 - 确定。
+}
+
+//选择日期类型
+export enum DateType {
+  YmdHms, //年月日时分秒
+  YmdHm, //年月日时分
+  YmdH, //年月日时
+  Ymd, //年月日
+  Ym, //年月
+  Y, //年
+  Hms, //时分秒
+  Hm, //时分
+  Ms //分秒
 }

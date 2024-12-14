@@ -1,12 +1,18 @@
 # 版本记录
 
+## 1.0.8
+
+1. BottomSheetOptions 支持 cancelFontColor/cancelFontWeight 属性，用于自定义【取消】字体样式。
+2. 新增日期选择器弹框，showDatePickerDialog。
+3. 
+
 ## 1.0.7
-1. 修复部分弹框，buttons设置按钮颜色不生效。。
+1. 修复部分弹框，buttons设置按钮颜色不生效。
 2. 优化BottomSheetDialog和ActionSheetDialog的展示。
 3. 新增参数maxHeight，设置弹窗高度默认最大值；很多弹框都是自适应高度，谨慎设置该值。
 4. 新增加载弹框方法isShowLoading()、getLoadingDialogId()。
 5. 输入类弹框新增参数defaultFocus；设置弹框默认获得焦点，打开弹窗同时弹出输入法。
-6. 新增显示选择器弹框，showTextPickerDialog。
+6. 新增选择器弹框，showTextPickerDialog。
 
 ## 1.0.6
 1. 优化弹框关闭可能出现的异常。

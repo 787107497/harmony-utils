@@ -18,7 +18,7 @@
 import { DialogHelper } from '../dialog/DialogHelper';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
-import { Utils } from '../utils/Utils';
+import { Helper } from '../utils/Helper';
 
 
 /**
@@ -38,7 +38,7 @@ export default struct ActionSheetDialogView {
 
   aboutToAppear(): void {
     if (this.options.title) {
-      this.title = Utils.getResourceStr(this.options.title) ?? "";
+      this.title = Helper.getResourceStr(this.options.title) ?? "";
     }
     if (this.options.sheets && this.options.sheets.length >= 1) {
       let fontSize = (this.options.sheets[0] as SheetOptions).fontSize;
@@ -123,7 +123,7 @@ export default struct ActionSheetDialogView {
           DialogHelper.closeDialog(this.options.dialogId ?? "");
         }
         if (this.options.onAction) {
-          this.options.onAction(index, this.options.dialogId ?? "", "");
+          this.options.onAction(index, this.options.dialogId ?? "");
         }
       })
   }

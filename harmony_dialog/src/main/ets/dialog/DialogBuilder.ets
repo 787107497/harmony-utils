@@ -33,6 +33,8 @@ import BottomSheetDialogView from '../component/BottomSheetDialogView'
 import ActionSheetDialogView from '../component/ActionSheetDialogView'
 import { TextPickerOptions } from '../model/TextPickerOptions'
 import TextPickerDialogView from '../component/TextPickerDialogView'
+import { DateTimePickerOptions } from '../model/DateTimePickerOptions'
+import DatePickerDialogView from '../component/DatePickerDialogView'
 
 
 /**
@@ -166,12 +168,22 @@ export function ActionSheetDialogBuilder(options: BottomSheetOptions) {
 
 
 /**
- * TextPickerDialogBuilder
+ * TextPickerDialog
  * @param options
  */
 @Builder
 export function TextPickerDialogBuilder(options: TextPickerOptions) {
   TextPickerDialogView({ options: options });
+}
+
+
+/**
+ * DatePickerDialog
+ * @param options
+ */
+@Builder
+export function DatePickerDialogBuilder(options: DateTimePickerOptions) {
+  DatePickerDialogView({ options: options });
 }
 
 

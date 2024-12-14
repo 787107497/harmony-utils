@@ -18,7 +18,7 @@
 import { DialogHelper } from '../dialog/DialogHelper';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
-import { Utils } from '../utils/Utils';
+import { Helper } from '../utils/Helper';
 
 
 /**
@@ -38,9 +38,9 @@ export default struct BottomSheetDialogView {
   @State largeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
 
   aboutToAppear(): void {
-    this.largeScreen=  Utils.isLargeScreen();
+    this.largeScreen=  Helper.isLargeScreen();
     if (this.options.title) {
-      this.title = Utils.getResourceStr(this.options.title) ?? "";
+      this.title = Helper.getResourceStr(this.options.title) ?? "";
     }
     if (this.options.sheets && this.options.sheets.length >= 1) {
       let fontSize = (this.options.sheets[0] as SheetOptions).fontSize;
@@ -121,7 +121,7 @@ export default struct BottomSheetDialogView {
           DialogHelper.closeDialog(this.options.dialogId ?? "");
         }
         if (this.options.onAction) {
-          this.options.onAction(index, this.options.dialogId ?? "", "");
+          this.options.onAction(index, this.options.dialogId ?? "");
         }
       })
   }

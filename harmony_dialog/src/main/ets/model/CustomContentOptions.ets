@@ -15,6 +15,7 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
+import { ActionStrCallBack } from '../utils/constraint';
 import { BaseContentOptions } from './base/BaseContentOptions';
 import { ButtonOptions } from './ButtonOptions';
 
@@ -31,5 +32,6 @@ import { ButtonOptions } from './ButtonOptions';
 export interface CustomContentOptions extends BaseContentOptions {
 
   buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。
+  onAction?: ActionStrCallBack; //按钮的CallBack事件。
 
 }

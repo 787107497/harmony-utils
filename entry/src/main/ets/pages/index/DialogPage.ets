@@ -1,6 +1,6 @@
 import { AreaHelper } from '@nutpi/china_area';
-import { AnimationHelper, DialogAction, DialogHelper } from '@pura/harmony-dialog';
-import { LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { AnimationHelper, DateType, DialogAction, DialogHelper } from '@pura/harmony-dialog';
+import { DateUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { LabelButton } from '../../component/LabelButton';
 import { DrawerOptions } from '../../utils/DrawerOptions';
@@ -680,6 +680,8 @@ export struct DialogPage {
       //带标题
       DialogHelper.showActionSheetDialog({
         title: "请选择上传方式",
+        cancelFontColor: Color.Red,
+        cancelFontWeight: FontWeight.Normal,
         sheets: this.menuArray,
         onAction: (index) => {
           ToastUtil.showToast(`您点击了，${this.menuArray[index]}`);
@@ -746,6 +748,7 @@ export struct DialogPage {
           }
         },
         onChange: (value: string | string[], index: number | number[]): void => {
+          this.multis[2]= ['1日', '2日', '3日', '4日', '5日']
           LogUtil.error(`value: ${value}`);
           LogUtil.error(`index: ${index}`);
         }
@@ -773,6 +776,65 @@ export struct DialogPage {
       })
     }
   }
+
+
+  /**
+   * DatePickerDialog，日期选择器弹框
+   */
+  datePickerDialog(index: number) {
+    if (index == 0) {
+      DialogHelper.showDatePickerDialog({
+        dateType: DateType.YmdHms,
+        onAction: (action: number, dialogId: string, date: Date): void => {
+          if (action == DialogAction.SURE) {
+            let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd HH:mm:ss");
+            ToastUtil.showToast(`选中日期：${dateStr}`);
+            LogUtil.error(`选中日期：${dateStr}`);
+          }
+        }
+      })
+    } else if (index == 1) {
+      DialogHelper.showDatePickerDialog({
+        title: "请选择日期",
+        dateType: DateType.YmdHm,
+        selected: new Date("2999-12-16 19:20:35"),
+        start: new Date("2025-12-16 20:30:25"),
+        end: new Date("2025-12-16 20:30:25"),
+        onAction: (action: number, dialogId: string, date: Date): void => {
+          if (action == DialogAction.SURE) {
+            let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd HH:mm");
+            ToastUtil.showToast(`选中日期：${dateStr}`);
+            LogUtil.error(`选中日期：${dateStr}`);
+          }
+        }
+      })
+    } else if (index == 2) {
+      DialogHelper.showDatePickerDialog({
+        title: "请选择年月日",
+        dateType: DateType.Ymd,
+        onAction: (action: number, dialogId: string, date: Date): void => {
+          if (action == DialogAction.SURE) {
+            let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd");
+            ToastUtil.showToast(`选中日期：${dateStr}`);
+            LogUtil.error(`选中日期：${dateStr}`);
+          }
+        }
+      })
+    } else if (index == 3) {
+      DialogHelper.showDatePickerDialog({
+        title: "请选择时分秒",
+        dateType: DateType.Hms,
+        onAction: (action: number, dialogId: string, date: Date): void => {
+          if (action == DialogAction.SURE) {
+            let dateStr = DateUtil.getFormatDateStr(date, "HH:mm:ss");
+            ToastUtil.showToast(`选中日期：${dateStr}`);
+            LogUtil.error(`选中日期：${dateStr}`);
+          }
+        }
+      })
+    }
+  }
+
 
   /**
    * 显示自定义弹窗
@@ -1080,9 +1142,15 @@ export struct DialogPage {
           })
           LabelButton({
             label: "TextPickerDialog",
-            content: "TextPicker-选择器弹框",
+            content: "选择器弹框-TextPicker",
             num: 4,
             onClickAction: (index: number): void => this.textPickerDialog(index)
+          })
+          LabelButton({
+            label: "DatePickerDialog",
+            content: "日期选择器弹框",
+            num: 4,
+            onClickAction: (index: number): void => this.datePickerDialog(index)
           })
           LabelButton({
             label: "CustomDialog",

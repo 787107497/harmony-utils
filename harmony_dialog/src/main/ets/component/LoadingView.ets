@@ -17,7 +17,7 @@
 
 import { SpinKit } from '@pura/spinkit';
 import { LoadingOptions } from '../model/LoadingOptions';
-import { Utils } from '../utils/Utils';
+import { Helper } from '../utils/Helper';
 
 /**
  * TODO Loading组件
@@ -35,7 +35,7 @@ export default struct LoadingView {
 
   aboutToAppear(): void {
     if (this.options.content) {
-      this.content = Utils.getResourceStr(this.options.content) ?? "";
+      this.content = Helper.getResourceStr(this.options.content) ?? "";
     }
   }
 

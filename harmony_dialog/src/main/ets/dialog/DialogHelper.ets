@@ -21,7 +21,8 @@ import {
     BottomSheetDialogBuilder,
     ConfirmDialogBuilder,
     CustomContentDialogBuilder,
-    LoadingBuilder,
+  DatePickerDialogBuilder,
+  LoadingBuilder,
     LoadingProgressBuilder,
     SelectDialogBuilder,
     TextAreaDialogBuilder,
@@ -54,8 +55,10 @@ import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
 import { DialogAction } from '../utils/constraint';
 import { UIContext } from '@kit.ArkUI';
-import { Utils } from '../utils/Utils';
+import { Helper } from '../utils/Helper';
 import { TextPickerOptions } from '../model/TextPickerOptions';
+import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
+import { BasePickerOptions } from '../model/base/BasePickerOptions';
 
 
 /**
@@ -226,6 +229,19 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initTextPickerDefault(options);
     let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextPickerDialogBuilder), options);
+    return dialogId;
+  }
+
+
+  /**
+   * 显示日期选择器弹框
+   * @param options
+   * @returns
+   */
+  static showDatePickerDialog(options: DateTimePickerOptions): string {
+    DialogHelper.initBaseDefault(options);
+    DialogHelper.initTextPickerDefault(options);
+    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(DatePickerDialogBuilder), options);
     return dialogId;
   }
 
@@ -481,7 +497,7 @@ export class DialogHelper {
     }
     if (options.maxWidth || DialogHelper.config.maxWidth) {
       if (fullWidth) {
-        options.maxWidth = options.maxWidth ?? Utils.getMaxWidth(DialogHelper.config.maxWidth); //弹窗的高度最大宽度。
+        options.maxWidth = options.maxWidth ?? Helper.getMaxWidth(DialogHelper.config.maxWidth); //弹窗的高度最大宽度。
       }else {
         options.maxWidth = options.maxWidth ?? DialogHelper.config.maxWidth; //弹窗的高度最大宽度。
       }
@@ -513,13 +529,13 @@ export class DialogHelper {
    * TextPicker弹框默认值
    * @param options
    */
-  private static initTextPickerDefault(options: TextPickerOptions) {
+  private static initTextPickerDefault(options: BasePickerOptions) {
     options.alignment = DialogAlignment.Bottom; //弹窗的对齐方式。
     options.offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。
     options.actionCancel = options.actionCancel ?? DialogHelper.config.actionCancel; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
     options.width = options.width ?? "100%"; //设置弹窗的宽度。
     if (options.maxWidth || DialogHelper.config.maxWidth) {
-      options.maxWidth = options.maxWidth ?? Utils.getMaxWidth(DialogHelper.config.maxWidth); //弹窗的高度最大宽度。
+      options.maxWidth = options.maxWidth ?? Helper.getMaxWidth(DialogHelper.config.maxWidth); //弹窗的高度最大宽度。
     }
     if (options.backgroundColor || DialogHelper.config.backgroundColor) {
       options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
@@ -536,7 +552,7 @@ export class DialogHelper {
       options.secondaryButton = DialogHelper.config.secondaryButton
     }
     if (options.primaryButton) { //取消按钮
-      let primaryValue = Utils.getResourceStr(options.primaryButton);
+      let primaryValue = Helper.getResourceStr(options.primaryButton);
       if (primaryValue) {
         let primaryButton = new ButtonOptions();
         primaryButton.value = primaryValue;
@@ -561,7 +577,7 @@ export class DialogHelper {
       }
     }
     if (options.secondaryButton) { //确定按钮
-      let secondaryValue = Utils.getResourceStr(options.secondaryButton);
+      let secondaryValue = Helper.getResourceStr(options.secondaryButton);
       if (secondaryValue) {
         let secondaryButton = new ButtonOptions();
         secondaryButton.value = secondaryValue;
@@ -615,7 +631,7 @@ export class DialogHelper {
     if (options.buttons && options.buttons.length > 0) {
       let buttons = new Array<ButtonOptions>();
       for (let index = 0; index < options.buttons.length; index++) {
-        let btnResStr = Utils.getResourceStr(options.buttons[index]);
+        let btnResStr = Helper.getResourceStr(options.buttons[index]);
         if (btnResStr) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
@@ -672,7 +688,7 @@ export class DialogHelper {
       options.secondaryButton = DialogHelper.config.secondaryButton
     }
     if (options.primaryButton) {
-      let primaryValue = Utils.getResourceStr(options.primaryButton);
+      let primaryValue = Helper.getResourceStr(options.primaryButton);
       if (primaryValue) {
         options.primaryButton = {
           value: primaryValue,
@@ -681,7 +697,7 @@ export class DialogHelper {
               DialogHelper.closeDialog(options.dialogId ?? "");
             }
             if (options.onAction) {
-              options.onAction(DialogAction.ONE, options.dialogId ?? "", "");
+              options.onAction(DialogAction.ONE, options.dialogId ?? "");
             }
           }
         }
@@ -696,13 +712,13 @@ export class DialogHelper {
             primaryAction();
           }
           if (options.onAction) {
-            options.onAction(DialogAction.ONE, options.dialogId ?? "", "");
+            options.onAction(DialogAction.ONE, options.dialogId ?? "");
           }
         }
       }
     }
     if (options.secondaryButton) {
-      let secondaryValue = Utils.getResourceStr(options.secondaryButton);
+      let secondaryValue = Helper.getResourceStr(options.secondaryButton);
       if (secondaryValue) {
         options.secondaryButton = {
           value: secondaryValue,
@@ -711,7 +727,7 @@ export class DialogHelper {
               DialogHelper.closeDialog(options.dialogId ?? "");
             }
             if (options.onAction) {
-              options.onAction(DialogAction.TWO, options.dialogId ?? "", "");
+              options.onAction(DialogAction.TWO, options.dialogId ?? "");
             }
           }
         }
@@ -726,7 +742,7 @@ export class DialogHelper {
             secondaryAction();
           }
           if (options.onAction) {
-            options.onAction(DialogAction.TWO, options.dialogId ?? "", "");
+            options.onAction(DialogAction.TWO, options.dialogId ?? "");
           }
         }
       }
@@ -752,7 +768,7 @@ export class DialogHelper {
   private static initSelect(options: SelectOptions) {
     if (options.radioContent && options.radioContent.length > 0) {
       CacheUtil.put<string>(options.dialogId ?? "", "");
-      let radioItem = Utils.getResourceStr(options.radioContent[0]);
+      let radioItem = Helper.getResourceStr(options.radioContent[0]);
       if (radioItem) {
         let sheetInfos = new Array<SheetInfo>()
         for (let index = 0; index < options.radioContent.length; index++) {
@@ -789,7 +805,7 @@ export class DialogHelper {
       options.confirm = DialogHelper.config.primaryButton
     }
     if (options.confirm) {
-      let confirmResStr = Utils.getResourceStr(options.confirm);
+      let confirmResStr = Helper.getResourceStr(options.confirm);
       if (confirmResStr) {
         options.confirm = {
           value: confirmResStr,

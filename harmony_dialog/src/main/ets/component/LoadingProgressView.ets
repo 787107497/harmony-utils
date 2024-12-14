@@ -16,7 +16,7 @@
  */
 
 import { LoadingProgressOptions } from '../model/LoadingProgressOptions';
-import { Utils } from '../utils/Utils';
+import { Helper } from '../utils/Helper';
 
 /**
  * TODO LoadingProgress组件
@@ -34,7 +34,7 @@ export default struct LoadingProgressView {
 
   aboutToAppear(): void {
     if (this.options.content) {
-      this.content = Utils.getResourceStr(this.options.content) ?? "";
+      this.content = Helper.getResourceStr(this.options.content) ?? "";
     }
   }
 
