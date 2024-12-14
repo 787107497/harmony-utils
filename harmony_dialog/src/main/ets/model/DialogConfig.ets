@@ -31,6 +31,23 @@ import { SpinType } from '@pura/spinkit';
  */
 export class DialogConfig {
 
+
+  //------------------------------------公共参数---promptAction.BaseDialogOptions----------------------------------------
+  uiContext?: common.UIAbilityContext | UIContext; //UIContext或者UIAbilityContext，建议设置UIAbilityContext
+  backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
+  autoCancel: boolean = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
+  alignment: DialogAlignment = DialogAlignment.Center; //弹窗的对齐方式。
+  offset: Offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
+  maskRect: Rectangle = { x: 0, y: 0, width: '100%', height: '100%' }; //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
+  maskColor: ResourceColor = 0x33000000; //自定义蒙层颜色。默认值 0x33000000
+  isModal: boolean = true; //弹窗是否为模态窗口，模态窗口有蒙层，非模态窗口无蒙层。默认值：true，此时弹窗有蒙层。
+  showInSubWindow: boolean = false; //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
+  transition?: TransitionEffect; //设置弹窗显示和退出的过渡效果。
+  onWillDismiss?: Callback<DismissDialogAction>; //交互式关闭回调函数。
+  onDidDisappear?: VoidCallback; //弹窗消失时的事件回调。
+  //-----------------------------------公共参数---promptAction.BaseDialogOptions-----------------------------------------
+
+
   //---------------------------------------弹框Dialog--------------------------------------------------------------------
   title: ResourceStr = '温馨提示'; //弹框标题
   primaryButton: ResourceStr = '取消'; //弹框左侧按钮。
@@ -66,7 +83,20 @@ export class DialogConfig {
   //--------------------------------------加载框Loading------------------------------------------------------------------
 
 
-  //--------------------------------------吐司Toast---------------------------------------------------------------------
+  //--------------------------------------选择器弹框Picker----------------------------------------------------------------
+  picker_textStyle?: PickerTextStyle; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
+  picker_selectedTextStyle?: PickerTextStyle; //设置选中项的文本颜色、字号、字体粗细。
+  picker_disappearTextStyle?: PickerTextStyle; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
+  picker_divider: DividerOptions = { strokeWidth: '2px', startMargin: 0, endMargin: 0, color: '#33000000' }; //设置分割线样式，不设置该属性则按“默认值”展示分割线。
+  picker_canLoop: boolean = true; //设置是否可循环滚动。
+
+  picker_titleFontColor: ResourceColor = $r("sys.color.ohos_id_picker_title_text_color"); //弹框标题的字体颜色。
+  picker_titleBackground: ResourceColor = "#F9F9F9"; //头部背景颜色
+  picker_buttonFontColor = $r("sys.color.ohos_id_picker_button_text_color"); //按钮颜色
+  //--------------------------------------选择器弹框Picker----------------------------------------------------------------
+
+
+  //--------------------------------------吐司Toast----------------------------------------------------------------------
   toast_fontSize: number | string | Resource = 16; //文字大小
   toast_fontColor: ResourceColor = Color.White; //文字颜色
   toast_backgroundColor: ResourceColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度
@@ -75,23 +105,7 @@ export class DialogConfig {
   toast_imageSize: SizeOptions = { width: 45, height: 45 }; //Tip图片尺寸。默认值：45*45vp
   toast_duration: number = 2000; //显示时长(1500ms-10000ms)
   toast_durationLong: number = 10000; //显示时长(10000ms)
-  //--------------------------------------吐司Toast---------------------------------------------------------------------
-
-
-  //------------------------------------公共参数---promptAction.BaseDialogOptions----------------------------------------
-  uiContext?: common.UIAbilityContext | UIContext; //UIContext或者UIAbilityContext，建议设置UIAbilityContext
-  backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
-  autoCancel: boolean = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
-  alignment: DialogAlignment = DialogAlignment.Center; //弹窗的对齐方式。
-  offset: Offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
-  maskRect: Rectangle = { x: 0, y: 0, width: '100%', height: '100%' }; //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
-  maskColor: ResourceColor = 0x33000000; //自定义蒙层颜色。默认值 0x33000000
-  isModal: boolean = true; //弹窗是否为模态窗口，模态窗口有蒙层，非模态窗口无蒙层。默认值：true，此时弹窗有蒙层。
-  showInSubWindow: boolean = false; //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
-  transition?: TransitionEffect; //设置弹窗显示和退出的过渡效果。
-  onWillDismiss?: Callback<DismissDialogAction>; //交互式关闭回调函数。
-  onDidDisappear?: VoidCallback; //弹窗消失时的事件回调。
-  //-----------------------------------公共参数---promptAction.BaseDialogOptions-----------------------------------------
+  //--------------------------------------吐司Toast----------------------------------------------------------------------
 
 
 }

@@ -546,7 +546,19 @@ export class DialogHelper {
     if (options.cornerRadius || DialogHelper.config.cornerRadius) {
       options.cornerRadius = options.cornerRadius ?? 15; //弹框圆角半径，默认15。
     }
-
+    if (options.textStyle || DialogHelper.config.picker_textStyle) {
+      options.textStyle = options.textStyle ?? DialogHelper.config.picker_textStyle; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
+    }
+    if (options.selectedTextStyle || DialogHelper.config.picker_selectedTextStyle) {
+      options.selectedTextStyle = options.selectedTextStyle ?? DialogHelper.config.picker_selectedTextStyle; //设置选中项的文本颜色、字号、字体粗细。
+    }
+    if (options.disappearTextStyle || DialogHelper.config.picker_disappearTextStyle) {
+      options.disappearTextStyle = options.disappearTextStyle ?? DialogHelper.config.picker_disappearTextStyle; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
+    }
+    if (options.divider || DialogHelper.config.picker_divider) {
+      options.divider = options.divider ?? DialogHelper.config.picker_divider; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
+    }
+    options.canLoop = options.canLoop ?? DialogHelper.config.picker_canLoop; //设置是否可循环滚动
     if (!options.primaryButton && !options.secondaryButton) {
       options.primaryButton = DialogHelper.config.primaryButton
       options.secondaryButton = DialogHelper.config.secondaryButton
@@ -556,14 +568,14 @@ export class DialogHelper {
       if (primaryValue) {
         let primaryButton = new ButtonOptions();
         primaryButton.value = primaryValue;
-        primaryButton.fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+        primaryButton.fontColor = DialogHelper.config.picker_buttonFontColor;
         primaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
         primaryButton.role = ButtonRole.NORMAL;
         primaryButton.background = Color.Transparent
         options.primaryButton = primaryButton;
       } else {
         if (!(options.primaryButton as ButtonOptions).fontColor) {
-          (options.primaryButton as ButtonOptions).fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+          (options.primaryButton as ButtonOptions).fontColor = DialogHelper.config.picker_buttonFontColor;
         }
         if (!(options.primaryButton as ButtonOptions).buttonStyle) {
           (options.primaryButton as ButtonOptions).buttonStyle = ButtonStyleMode.TEXTUAL;
@@ -581,14 +593,14 @@ export class DialogHelper {
       if (secondaryValue) {
         let secondaryButton = new ButtonOptions();
         secondaryButton.value = secondaryValue;
-        secondaryButton.fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+        secondaryButton.fontColor = DialogHelper.config.picker_buttonFontColor;
         secondaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
         secondaryButton.role = ButtonRole.NORMAL;
         secondaryButton.background = Color.Transparent
         options.secondaryButton = secondaryButton;
       } else {
         if (!(options.secondaryButton as ButtonOptions).fontColor) {
-          (options.secondaryButton as ButtonOptions).fontColor = $r("sys.color.ohos_id_picker_button_text_color");
+          (options.secondaryButton as ButtonOptions).fontColor = DialogHelper.config.picker_buttonFontColor;
         }
         if (!(options.secondaryButton as ButtonOptions).buttonStyle) {
           (options.secondaryButton as ButtonOptions).buttonStyle = ButtonStyleMode.TEXTUAL;
@@ -602,10 +614,10 @@ export class DialogHelper {
       }
     }
     if (!options.titleFontColor) {
-      options.titleFontColor = $r("sys.color.ohos_id_picker_title_text_color");
+      options.titleFontColor = DialogHelper.config.picker_titleFontColor;
     }
     if (!options.titleBackground) {
-      options.titleBackground = "#F9F9F9";
+      options.titleBackground = DialogHelper.config.picker_titleBackground;
     }
   }
 

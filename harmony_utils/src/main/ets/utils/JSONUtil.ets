@@ -91,7 +91,11 @@ export class JSONUtil {
    * @returns
    */
   static jsonToMap(jsonStr: string): Map<string, Object> {
-    return new Map(Object.entries(JSON.parse(jsonStr)));
+    try {
+      return new Map(Object.entries(JSON.parse(jsonStr)));
+    } catch (e) {
+      return new Map();
+    }
   }
 
 

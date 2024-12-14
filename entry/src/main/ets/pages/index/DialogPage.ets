@@ -797,9 +797,9 @@ export struct DialogPage {
       DialogHelper.showDatePickerDialog({
         title: "请选择日期",
         dateType: DateType.YmdHm,
-        selected: new Date("2999-12-16 19:20:35"),
-        start: new Date("2025-12-16 20:30:25"),
-        end: new Date("2025-12-16 20:30:25"),
+        // selected: new Date("2999-12-16 19:20:35"),
+        // start: new Date("2025-12-16 20:30:25"),
+        // end: new Date("2025-12-16 20:30:25"),
         onAction: (action: number, dialogId: string, date: Date): void => {
           if (action == DialogAction.SURE) {
             let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd HH:mm");
@@ -811,10 +811,10 @@ export struct DialogPage {
     } else if (index == 2) {
       DialogHelper.showDatePickerDialog({
         title: "请选择年月日",
-        dateType: DateType.Ymd,
+        dateType: DateType.YmdH,
         onAction: (action: number, dialogId: string, date: Date): void => {
           if (action == DialogAction.SURE) {
-            let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd");
+            let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd HH");
             ToastUtil.showToast(`选中日期：${dateStr}`);
             LogUtil.error(`选中日期：${dateStr}`);
           }
@@ -823,10 +823,10 @@ export struct DialogPage {
     } else if (index == 3) {
       DialogHelper.showDatePickerDialog({
         title: "请选择时分秒",
-        dateType: DateType.Hms,
+        dateType: DateType.Ymd,
         onAction: (action: number, dialogId: string, date: Date): void => {
           if (action == DialogAction.SURE) {
-            let dateStr = DateUtil.getFormatDateStr(date, "HH:mm:ss");
+            let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd");
             ToastUtil.showToast(`选中日期：${dateStr}`);
             LogUtil.error(`选中日期：${dateStr}`);
           }

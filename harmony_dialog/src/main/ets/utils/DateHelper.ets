@@ -14,6 +14,7 @@
  *
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
+
 import { DateType } from './constraint';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -29,6 +30,44 @@ import { BusinessError } from '@kit.BasicServicesKit';
  * QQ交流群: 569512366
  */
 export class DateHelper {
+
+
+  /**
+   * 判断是否是闰年
+   */
+  static isLeapYear(year: number): boolean {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  }
+
+
+  /**
+   * 获取指定月份的天数
+   */
+  static getDaysByMonth(year: number, month: number): number {
+    if (month == 2) {
+      if (DateHelper.isLeapYear(year)) {
+        return 29;
+      } else {
+        return 28;
+      }
+    } else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+      return 31;
+    } else {
+      return 30;
+    }
+  }
+
+
+  /**
+   * 补零操作
+   * @param num
+   * @returns
+   */
+  static padZero(num: number): string {
+    return num.toString().padStart(2, "0");
+  }
+
+
   /**
    * 是否包含年
    */
@@ -204,6 +243,7 @@ export class DateHelper {
     return ranges;
   }
 
+
   /**
    * 获取已选日期的年月日时分秒
    * @param containType 是否包含
@@ -267,41 +307,6 @@ export class DateHelper {
 
 
   /**
-   * 判断是否是闰年
-   */
-  static isLeapYear(year: number): boolean {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-  }
-
-  /**
-   * 获取指定月份的天数
-   */
-  static getDaysByMonth(year: number, month: number): number {
-    if (month == 2) {
-      if (DateHelper.isLeapYear(year)) {
-        return 29;
-      } else {
-        return 28;
-      }
-    } else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-      return 31;
-    } else {
-      return 30;
-    }
-  }
-
-
-  /**
-   * 补零操作
-   * @param num
-   * @returns
-   */
-  static padZero(num: number): string {
-    return num.toString().padStart(2, "0");
-  }
-
-
-  /**
    * 将年月日时分秒字符串转为Date
    * @param date
    * @returns
@@ -310,31 +315,52 @@ export class DateHelper {
     containHour: boolean, containMinute: boolean, containSecond: boolean,
     year: string, month: string, day: string, hour: string, minute: string, second: string,): Date {
     let dateStr = '';
+    let currentDate = new Date();
     if (containYear) {
       dateStr = dateStr + year;
       dateStr = dateStr.replace("年", '/');
+    } else {
+      if (containMinute) {
+        dateStr = dateStr + `${currentDate.getFullYear()}/`;
+      }
     }
     if (containMonth) {
       dateStr = dateStr + month;
       dateStr = dateStr.replace("月", '/');
+    } else {
+      if (containMinute) {
+        dateStr = dateStr + `${DateHelper.padZero(currentDate.getMonth() + 1)}/`;
+      }
     }
     if (containDay) {
       dateStr = dateStr + day;
       dateStr = dateStr.replace("日", ' ');
+    } else {
+      if (containMinute) {
+        dateStr = dateStr + `${DateHelper.padZero(currentDate.getDate())} `;
+      }
     }
     if (containHour) {
       dateStr = dateStr + hour;
       dateStr = dateStr.replace("时", ':');
+    } else {
+      if (containMinute) {
+        dateStr = dateStr + `${DateHelper.padZero(currentDate.getDate())}:`
+      }
     }
     if (containMinute) {
       dateStr = dateStr + minute;
       dateStr = dateStr.replace("分", ':')
+    } else {
+      if (containHour) {
+        dateStr = dateStr + `00:`;
+      }
     }
     if (containSecond) {
       dateStr = dateStr + second;
       dateStr = dateStr.replace("秒", '');
     }
-    if (dateStr.endsWith("/") || dateStr.endsWith(":") || dateStr.endsWith(" ")) {
+    if (dateStr.endsWith("/") || dateStr.endsWith(":") || dateStr.endsWith(' ')) {
       dateStr = dateStr.substring(0, dateStr.length - 1);
     }
     return new Date(dateStr);
