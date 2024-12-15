@@ -20,7 +20,7 @@ OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 <br>
 
-## 📚API详解 [预览效果]()
+## 📚API详解 [预览效果](https://blog.csdn.net/qq_32922545/article/details/144492075)
 
 | DialogHelper方法          | 介绍                                                                                                                |
 |:------------------------|:------------------------------------------------------------------------------------------------------------------|
@@ -40,12 +40,12 @@ OpenHarmony ohpm
 | update                  | 刷新自定义弹窗                                                                                                           |
 | isShowing               | 当前弹窗是否显示                                                                                                          |
 | closeDialog             | 关闭弹框                                                                                                              |
-| showLoadingDialog       | 显示进度加载类弹出框                                                                                                        |
+| showLoadingDialog       | 显示加载类弹出框                                                                                                          |
 | showLoadingProgress     | 显示进度条加载弹框                                                                                                         |
 | updateLoading           | 刷新加载弹框                                                                                                            |
 | showToast               | 显示吐司                                                                                                              |
 | showToastLong           | 显示长吐司                                                                                                             |
-| showToastTip            | 显示带图形吐司                                                                                                           |
+| showToastTip            | 显示带图形的吐司                                                                                                          |
 | generateId              | 生成弹框id                                                                                                            |
 
 <br/>

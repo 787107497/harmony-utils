@@ -80,5 +80,15 @@
       "name": "color15",
       "value": "#54D562"
     }
+  ,
+    {
+      "name": "color66",
+      "value": "#666666"
+    }
+  ,
+    {
+      "name": "colorF0",
+      "value": "#F0F0F0"
+    }
   ]
 }

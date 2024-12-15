@@ -25,10 +25,11 @@ export struct DialogPage {
   @State inputText: string = ""; //输入框内容
   @State progress: number = 1;
   private likes: string[] = ['乒乓球', '鸿蒙手机', 'ArkTS', 'Mate70Pro', '三折叠手机', '小米su7', '红米K80pro', '广东名菜龙虎斗'];
-  private years: string[] = ['2020年', '2021年', '2022年', '2023年', '2024年', '2025年', '2026年', '2027年', '2028年'];
-  private months: string[] = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-  private days: string[] = ['1日', '2日', '3日', '4日', '5日', '6日', '7日', '8日', '9日', '10日', '11日', '12日', '13日', '14日', '15日', '16日'];
-  private multis: string[][] = [this.years, this.months, this.days];
+  private apfruits: string[] = ['apple1', 'apple2', 'apple3', 'apple4']
+  private orfruits: string[] = ['orange1', 'orange2', 'orange3', 'orange4']
+  private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
+  private multis: string[][] = [this.apfruits, this.orfruits, this.pefruits]
+
 
   /**
    * 统一配置一
@@ -248,7 +249,7 @@ export struct DialogPage {
       DialogHelper.showConfirmDialog({
         checkTips: "是否记住密码？",
         content: "您是否退出当前应用",
-        primaryButton: { value: "取消", fontColor: Color.Orange },
+        primaryButton: { value: "取消", fontColor: Color.Red },
         secondaryButton: "退出",
         onCheckedChange: (check) => {
           ToastUtil.showToast(`${check}`);
@@ -464,7 +465,7 @@ export struct DialogPage {
         title: "",
         buttons: [
           '取消',
-          { value: '保存', fontColor: Color.Orange }
+          { value: '保存', fontColor: Color.Red }
         ],
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: -35 },
@@ -726,7 +727,7 @@ export struct DialogPage {
     } else if (index == 1) {
       DialogHelper.showTextPickerDialog({
         autoCancel: false,
-        title: "请选择时间",
+        title: "请选择",
         titleFontColor: Color.Pink,
         titleBackground: "#E6E6E6",
         primaryButton: "取消",
@@ -735,14 +736,13 @@ export struct DialogPage {
           fontColor: Color.Red,
         },
         range: this.multis,
-        value: ["2025年", "6月", "8日"], //设置选中
+        value: ["apple2", "orange3", "peach1"], //设置选中
         onAction: (action: number, dialogId: string, value: string | string[]) => {
           if (action == DialogAction.SURE) {
             ToastUtil.showToast(`已选择：${value as string}`);
           }
         },
         onChange: (value: string | string[], index: number | number[]): void => {
-          this.multis[2]= ['1日', '2日', '3日', '4日', '5日']
           LogUtil.error(`value: ${value}`);
           LogUtil.error(`index: ${index}`);
         }
@@ -817,10 +817,10 @@ export struct DialogPage {
     } else if (index == 3) {
       DialogHelper.showDatePickerDialog({
         title: "请选择时分秒",
-        dateType: DateType.Ymd,
+        dateType: DateType.Hms,
         onAction: (action: number, dialogId: string, date: Date): void => {
           if (action == DialogAction.SURE) {
-            let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd");
+            let dateStr = DateUtil.getFormatDateStr(date, "HH:mm:ss");
             ToastUtil.showToast(`选中日期：${dateStr}`);
             LogUtil.error(`选中日期：${dateStr}`);
           }

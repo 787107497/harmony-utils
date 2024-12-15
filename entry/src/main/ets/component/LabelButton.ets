@@ -8,7 +8,7 @@ export struct LabelButton {
   build() {
     Column() {
       Text(this.label)
-        .fontColor($r('app.color.color_main'))
+        .fontColor($r('app.color.color66'))
         .fontWeight(FontWeight.Bold)
         .fontSize(24)
         .margin({ top: 10, left: 10, right: 10 })
@@ -21,6 +21,8 @@ export struct LabelButton {
         Button("案例一")
           .type(ButtonType.Capsule)
           .grayscale(0.1)
+          .backgroundColor($r('app.color.colorF0'))
+          .fontColor($r('app.color.color_66'))
           .onClick(() => {
             if (this.onClickAction) {
               this.onClickAction(0);
@@ -30,6 +32,8 @@ export struct LabelButton {
         Button("案例二")
           .type(ButtonType.Capsule)
           .opacity(0.9)
+          .backgroundColor($r('app.color.colorF0'))
+          .fontColor($r('app.color.color_66'))
           .onClick(() => {
             if (this.onClickAction) {
               this.onClickAction(1);
@@ -40,6 +44,8 @@ export struct LabelButton {
           .type(ButtonType.Capsule)
           .opacity(0.9)
           .grayscale(0.1)
+          .backgroundColor($r('app.color.colorF0'))
+          .fontColor($r('app.color.color_66'))
           .onClick(() => {
             if (this.onClickAction) {
               this.onClickAction(2);
@@ -50,6 +56,8 @@ export struct LabelButton {
           .visibility(this.num >= 3 ? Visibility.Visible : Visibility.None)
         Button("案例四")
           .type(ButtonType.Capsule)
+          .backgroundColor($r('app.color.colorF0'))
+          .fontColor($r('app.color.color_66'))
           .onClick(() => {
             if (this.onClickAction) {
               this.onClickAction(3);
