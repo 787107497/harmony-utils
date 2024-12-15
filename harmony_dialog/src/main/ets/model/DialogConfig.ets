@@ -92,7 +92,7 @@ export class DialogConfig {
 
   picker_titleFontColor: ResourceColor = $r("sys.color.ohos_id_picker_title_text_color"); //弹框标题的字体颜色。
   picker_titleBackground: ResourceColor = "#F9F9F9"; //头部背景颜色
-  picker_buttonFontColor = $r("sys.color.ohos_id_picker_button_text_color"); //按钮颜色
+  picker_buttonFontColor: ResourceColor = $r("sys.color.ohos_id_picker_button_text_color"); //按钮颜色
   //--------------------------------------选择器弹框Picker----------------------------------------------------------------
 
 

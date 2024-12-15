@@ -20,7 +20,7 @@ OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 <br>
 
-## 📚API详解 [预览效果](https://blog.csdn.net/qq_32922545/article/details/144492075)
+## 📚API详解  [预览效果](https://blog.csdn.net/qq_32922545/article/details/144492075)🌞
 
 | DialogHelper方法          | 介绍                                                                                                                |
 |:------------------------|:------------------------------------------------------------------------------------------------------------------|
@@ -61,14 +61,15 @@ OpenHarmony ohpm
 ## 📚使用说明与示例代码 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
 
  ```
-     //必须在UIAbility的onCreate方法里初始化context。
+    //简单初始化（1.0.8版本及以后）
+    //必须在UIAbility的onCreate方法里初始化context。
     DialogHelper.setDefaultConfig((config) => {
-      config.uiContext = this.context;
+      config.uiAbilityContext = this.context;
     })
     
     //设置默认的统一配置，在UIAbility的onCreate方法里初始化
     DialogHelper.setDefaultConfig((config) => {
-      config.uiContext = this.context  //必须初始化上下文
+      config.uiAbilityContext = this.context  //必须初始化上下文
       config.autoCancel = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
       config.backCancel = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
       config.actionCancel = true; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
@@ -92,6 +93,15 @@ OpenHarmony ohpm
       config.loading_fontColor = Color.White; //文字颜色
       config.loading_backgroundColor = '#CC000000'; //背景颜色，八位色值前两位为透明度
       config.loading_borderRadius = 10; //背景圆角
+      
+      config.picker_textStyle = ; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
+      config.picker_selectedTextStylee = ; //设置选中项的文本颜色、字号、字体粗细。
+      config.picker_disappearTextStylee = ; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
+      config.picker_divider: DividerOptions = { strokeWidth: '2px', startMargin: 0, endMargin: 0, color: '#33000000' }; //设置分割线样式，不设置该属性则按“默认值”展示分割线。
+      config.picker_canLoop: boolean = true; //设置是否可循环滚动。
+      config.picker_titleFontColor = $r("sys.color.ohos_id_picker_title_text_color"); //弹框标题的字体颜色。
+      config.picker_titleBackground = "#F9F9F9"; //头部背景颜色
+      config.picker_buttonFontColor = $r("sys.color.ohos_id_picker_button_text_color"); //按钮颜色
 
       config.toast_fontSize = 16; //文字大小
       config.toast_fontColor = Color.White; //文字颜色
@@ -105,7 +115,7 @@ OpenHarmony ohpm
  ```
 
  ```
-     //在子窗口 使用弹框需要传入uiContext
+    //在子窗口 使用弹框需要传入uiContext
     DialogHelper.showTipsDialog({
       uiContext:this.getUIContext(), //子窗口需要传入UIContext
       content: '想要卸载这个APP嘛?',
@@ -220,6 +230,34 @@ OpenHarmony ohpm
       sheets: ["相机", "相册", "文件管理器"],
       onAction: (index) => {
         ToastUtil.showToast(`您点击了，${this.menuArray[index]}`);
+      }
+    })
+ ```
+
+ ```
+    //选择器弹框（TextPickerDialog）
+    let areas = AreaHelper.getAreaSync();
+    DialogHelper.showTextPickerDialog({
+      title: "请选择收货地址",
+      range: areas,
+      onAction: (action: number, dialogId: string, value: string | string[]) => {
+        if (action == DialogAction.SURE) {
+          ToastUtil.showToast(`已选择：${value}`);
+        }
+      }
+    })
+ ```
+
+ ```
+    //日期选择器弹框（DatePickerDialog）
+    DialogHelper.showDatePickerDialog({
+      dateType: DateType.YmdHm,
+      onAction: (action: number, dialogId: string, date: Date): void => {
+        if (action == DialogAction.SURE) {
+          let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd HH:mm");
+          ToastUtil.showToast(`选中日期：${dateStr}`);
+          LogUtil.error(`选中日期：${dateStr}`);
+        }
       }
     })
  ```

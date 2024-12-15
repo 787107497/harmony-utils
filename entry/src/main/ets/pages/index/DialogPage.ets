@@ -753,7 +753,7 @@ export struct DialogPage {
         range: aiHuiList,
         onAction: (action: number, dialogId: string, value: string | string[]) => {
           if (action == DialogAction.SURE) {
-            ToastUtil.showToast(`已选择：${value as string}`);
+            ToastUtil.showToast(`已选择：${value}`);
           }
         }
       })
@@ -764,7 +764,7 @@ export struct DialogPage {
         range: areas,
         onAction: (action: number, dialogId: string, value: string | string[]) => {
           if (action == DialogAction.SURE) {
-            ToastUtil.showToast(`已选择：${value as string}`);
+            ToastUtil.showToast(`已选择：${value}`);
           }
         }
       })
@@ -893,7 +893,7 @@ export struct DialogPage {
         backgroundColor: '#BB000000',
         content: "加载中…",
         fontSize: 18,
-        padding: { top: 30, right: 50, bottom: 30, left: 50 },
+        padding: { top: 30, right: 45, bottom: 30, left: 45 },
         autoCancel: true
       })
     } else if (index == 2) {
@@ -902,9 +902,10 @@ export struct DialogPage {
         loadType: SpinType.spinD,
         content: "努力加载中",
         loadColor: Color.White,
-        backgroundColor: '#99000000',
+        backgroundColor: '#DD000000',
         fontColor: Color.White,
-        padding: { top: 30, right: 40, bottom: 30, left: 40 },
+        fontSize: 18,
+        padding: 30,
         borderRadius: 5
       })
     } else {
@@ -946,12 +947,12 @@ export struct DialogPage {
       }, 100);
     } else if (index == 1) {
       //自定义加载内容和主题色
-      this.progress = 25;
+      this.progress = 10;
       let dialogId = DialogHelper.showLoadingProgress({
         progress: this.progress,
         content: "努力加载中",
         loadColor: $r('app.color.color_main'),
-        fontColor: Color.Brown,
+        fontColor: $r('app.color.color_main'),
         autoCancel: false,
       })
       //模拟网络
@@ -965,7 +966,28 @@ export struct DialogPage {
           ToastUtil.showToast("加载成功啦~");
           clearInterval(intervalID);
         }
-      }, 300);
+      }, 150);
+    } else if (index == 2) {
+      //自定义加载内容和主题色
+      this.progress = 0;
+      let dialogId = DialogHelper.showLoadingProgress({
+        progress: this.progress,
+        content: "文件下载中",
+        loadColor: Color.White,
+        autoCancel: false,
+      })
+      //模拟网络
+      let intervalID = setInterval(() => {
+        if (this.progress < 100) {
+          this.progress = this.progress + 1
+          DialogHelper.updateLoading(dialogId, undefined, this.progress)
+          console.log("progress: " + this.progress);
+        } else {
+          DialogHelper.closeDialog(dialogId); //加载成功
+          ToastUtil.showToast("下载成功啦~");
+          clearInterval(intervalID);
+        }
+      }, 200);
     }
   }
 
@@ -977,27 +999,27 @@ export struct DialogPage {
       //简单使用,长文本
       DialogHelper.showToast("女人什么年龄是最好？任何年龄都可以。因为每个年龄段都有不一样的美。看XX的穿搭你就会发现成熟女性的魅力，反而会更加的吸引人。难道这就是传说中的可爱在性感面前真的不值得一提吗？")
     } else if (index == 1) {
-      //自定义吐司
-      DialogHelper.showToast("这是一个自定义吐司", {
-        fontColor: Color.Brown,
-        backgroundColor: Color.Pink,
-        borderRadius: 30,
+      //自定义的长吐司
+      DialogHelper.showToast("这是一个自定义的长吐司呀~~~", {
+        fontColor: Color.White,
+        backgroundColor: "#DD0066FF",
+        backCancel: true,
       });
     } else if (index == 2) {
       //自定义吐司
       DialogHelper.showToast("这是一个自定义吐司", {
-        fontColor: Color.White,
-        backgroundColor: "#99FF0000",
-        alignment:DialogAlignment.Bottom,
-        borderRadius: 5,
-        fontSize: 18,
+        fontColor: Color.Red,
+        backgroundColor: Color.Grey,
+        borderRadius: 30,
       });
     } else {
-      //自定义的长吐司
-      DialogHelper.showToastLong("这是一个自定义的长吐司呀~~~", {
+      //自定义吐司
+      DialogHelper.showToastLong("这是一个自定义吐司", {
         fontColor: Color.White,
-        backgroundColor: "#AA0066FF",
-        backCancel: true,
+        backgroundColor: "#99FF0000",
+        alignment:DialogAlignment.Center,
+        borderRadius: 5,
+        fontSize: 18,
       });
     }
   }
@@ -1010,28 +1032,28 @@ export struct DialogPage {
       //简单使用
       DialogHelper.showToastTip({
         message: "操作成功",
-        imageRes: $r('sys.media.ohos_ic_public_ok')
+        imageRes: $r('app.media.icon_tip_ok')
       })
     } else if (index == 1) {
-      //自定义颜色和时长
       DialogHelper.showToastTip({
-        message: "操作成功",
-        imageRes: $r('app.media.icon_tip_info'),
-        fontColor: $r('app.color.color_main'),
-        duration: 1000
+        message: "操作失败",
+        imageRes: $r('app.media.icon_tip_warn')
       })
     } else if (index == 2) {
       //自定义背景和圆角
       DialogHelper.showToastTip({
         message: "操作成功",
         imageRes: $r('app.media.icon_tip_info'),
-        backgroundColor: "#EEFFB018",
+        backgroundColor: $r('app.color.color_main'),
         borderRadius: 6
       })
     } else {
+      //自定义颜色和时长
       DialogHelper.showToastTip({
-        message: "操作失败",
-        imageRes: $r('app.media.icon_tip_warn')
+        message: "操作成功",
+        imageRes: $r('app.media.icon_tip_info'),
+        fontColor: $r('app.color.color_main'),
+        duration: 2000
       })
     }
   }
@@ -1159,7 +1181,7 @@ export struct DialogPage {
           LabelButton({
             label: "LoadingProgress",
             content: "进度条加载弹框",
-            num: 2,
+            num: 3,
             onClickAction: (index: number): void => this.loadingProgress(index)
           })
           LabelButton({
