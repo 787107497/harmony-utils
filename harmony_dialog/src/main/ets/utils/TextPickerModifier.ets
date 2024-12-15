@@ -17,7 +17,7 @@
 
 
 /**
- * 给TextInput 设置过滤器
+ * 给TextPicker 设置样式
  */
 export class TextPickerModifier implements AttributeModifier<TextPickerAttribute> {
 

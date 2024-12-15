@@ -21,7 +21,7 @@ import { CustomContentOptions } from '../model/CustomContentOptions';
 import { TextAreaOptions } from '../model/TextAreaOptions';
 import { TextAlignment } from '../utils/constraint';
 import { TextAreaModifier } from '../utils/TextAreaModifier';
-import { CacheUtil } from '../utils/CacheUtil';
+import { CacheHelper } from '../utils/CacheHelper';
 
 
 /**
@@ -66,7 +66,7 @@ export default struct TextAreaDialogView {
     } else {
       this.textAlignment = Alignment.Top;
     }
-    CacheUtil.put<string>(this.options.dialogId ?? "", this.text);
+    CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, this.text);
   }
 
   build() {
@@ -107,7 +107,7 @@ export default struct TextAreaDialogView {
       .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
       .attributeModifier(this.modifier)
       .onChange((value: string, previewText?: PreviewText) => {
-        CacheUtil.put<string>(this.options.dialogId ?? "", value ?? "")
+        CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
         if (this.options.onChange) {
           this.options.onChange(value);
         }

@@ -20,7 +20,7 @@ import { CustomContentDialog } from '@kit.ArkUI';
 import { BaseContentOptions } from '../model/base/BaseContentOptions';
 import { CustomContentOptions } from '../model/CustomContentOptions';
 import { TextInputModifier } from '../utils/TextInputModifier';
-import { CacheUtil } from '../utils/CacheUtil';
+import { CacheHelper } from '../utils/CacheHelper';
 
 
 /**
@@ -57,7 +57,7 @@ export default struct TextInputDialogView {
       }
     }
     this.content.buttons = this.options.buttons;
-    CacheUtil.put<string>(this.options.dialogId ?? "", this.text);
+    CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, this.text);
   }
 
   build() {
@@ -93,7 +93,7 @@ export default struct TextInputDialogView {
       .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
       .attributeModifier(this.modifier)
       .onChange((value: string, previewText?: PreviewText) => {
-        CacheUtil.put<string>(this.options.dialogId ?? "", value ?? "")
+        CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
         if (this.options.onChange) {
           this.options.onChange(value);
         }

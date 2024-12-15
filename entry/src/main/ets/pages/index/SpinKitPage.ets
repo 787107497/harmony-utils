@@ -70,9 +70,9 @@ export struct SpinKitPage {
             .grayscale(1)
             .onClick(() => {
               ClickUtil.throttle(() => {
-                DialogHelper.showLoadingDialog({ autoCancel: false })
+                let dialogId = DialogHelper.showLoadingDialog({ autoCancel: false })
                 let timeoutID = setTimeout(() => {
-                  DialogHelper.closeLoading();
+                  DialogHelper.closeDialog(dialogId);
                   clearTimeout(timeoutID);
                 }, 15000)
               })
@@ -82,7 +82,7 @@ export struct SpinKitPage {
             .grayscale(1)
             .onClick(() => {
               ClickUtil.throttle(() => {
-                DialogHelper.showLoadingDialog({
+                let dialogId = DialogHelper.showLoadingDialog({
                   loadType: SpinType.spinH,
                   autoCancel: false,
                   onDidDisappear: () => {
@@ -90,7 +90,7 @@ export struct SpinKitPage {
                   }
                 })
                 let timeoutID = setTimeout(() => {
-                  DialogHelper.closeLoading();
+                  DialogHelper.closeDialog(dialogId);
                   clearTimeout(timeoutID);
                 }, 15000)
               })

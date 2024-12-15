@@ -3,11 +3,15 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { AppUtil } from '@pura/harmony-utils';
 import { WindowUtil } from '../utils/WindowUtil';
+import { DialogHelper } from '@pura/harmony-dialog';
 
 export default class EntryAbility extends UIAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     AppUtil.init(this.context);
+    DialogHelper.setDefaultConfig((config) => {
+      config.uiAbilityContext = this.context;
+    })
   }
 
 

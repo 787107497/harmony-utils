@@ -4,7 +4,7 @@
 
 [harmony-dialog](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog)
 一款极为简单易用的零侵入弹窗，仅需一行代码即可轻松实现，无论在何处都能够轻松弹出。其涵盖了
-AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、CustomDialog、LoadingDialog、LoadingProgress、Toast、ToastTip
+AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、TextPickerDialog、DatePickerDialog、CustomDialog、LoadingDialog、LoadingProgress、Toast、ToastTip
 等多种类型，能够满足各种不同的弹窗开发需求。
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
@@ -20,7 +20,7 @@ OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 <br>
 
-## 📚API详解
+## 📚API详解 [预览效果]()
 
 | DialogHelper方法          | 介绍                                                                                                                |
 |:------------------------|:------------------------------------------------------------------------------------------------------------------|
@@ -35,6 +35,7 @@ OpenHarmony ohpm
 | showBottomSheetDialog   | 显示动作面板                                                                                                            |
 | showActionSheetDialog   | 显示动作面板（IOS风格）                                                                                                     |
 | showTextPickerDialog    | 显示选择器弹框；入参参考TextPicker组件；配合[china_area](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Fchina_area)可进行中国省市县数据选择。 |
+| showDatePickerDialog    | 显示日期选择器弹框，配合[harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)的DateUtil工具类使用，格式化日期。   |
 | showCustomDialog        | 显示自定义弹窗                                                                                                           |
 | update                  | 刷新自定义弹窗                                                                                                           |
 | isShowing               | 当前弹窗是否显示                                                                                                          |
@@ -42,9 +43,6 @@ OpenHarmony ohpm
 | showLoadingDialog       | 显示进度加载类弹出框                                                                                                        |
 | showLoadingProgress     | 显示进度条加载弹框                                                                                                         |
 | updateLoading           | 刷新加载弹框                                                                                                            |
-| isShowLoading           | 加载弹框是否显示（showLoadingDialog、showLoadingProgress）                                                                   |
-| closeLoading            | 关闭加载弹框（showLoadingDialog、showLoadingProgress）                                                                     |
-| getLoadingDialogId      | 获取加载弹框id                                                                                                          |
 | showToast               | 显示吐司                                                                                                              |
 | showToastLong           | 显示长吐司                                                                                                             |
 | showToastTip            | 显示带图形吐司                                                                                                           |
@@ -59,29 +57,15 @@ OpenHarmony ohpm
 | transitionInLeft  | InLeft动画  |
 | transitionInRight | InRight动画 |
 
-## 📚使用说明🙏
+
+## 📚使用说明与示例代码 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
 
  ```
-  在有子窗口的情况下并且子窗口没有占满全屏的情况下，必须按照下面代码代码初始化和调用
- 
-    //必须在UIAbility的onCreate方法里初始化context。
+     //必须在UIAbility的onCreate方法里初始化context。
     DialogHelper.setDefaultConfig((config) => {
       config.uiContext = this.context;
     })
     
-    //在子窗口 使用弹框需要传入uiContext
-    DialogHelper.showTipsDialog({
-      uiContext:this.getUIContext(), //子窗口需要传入UIContext
-      content: '想要卸载这个APP嘛?',
-      onAction: (action) => {
-        ToastUtil.showToast(`${action}`);
-      }
-    })
- ```
-
-## 📚示例代码 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
-
- ```
     //设置默认的统一配置，在UIAbility的onCreate方法里初始化
     DialogHelper.setDefaultConfig((config) => {
       config.uiContext = this.context  //必须初始化上下文
@@ -118,6 +102,17 @@ OpenHarmony ohpm
       config.toast_duration = 2000; //显示时长(1500ms-10000ms)
       config.toast_durationLong = 10000; //显示时长(10000ms)
     });
+ ```
+
+ ```
+     //在子窗口 使用弹框需要传入uiContext
+    DialogHelper.showTipsDialog({
+      uiContext:this.getUIContext(), //子窗口需要传入UIContext
+      content: '想要卸载这个APP嘛?',
+      onAction: (action) => {
+        ToastUtil.showToast(`${action}`);
+      }
+    })
  ```
 
  ```

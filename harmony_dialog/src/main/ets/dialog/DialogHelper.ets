@@ -21,14 +21,14 @@ import {
     BottomSheetDialogBuilder,
     ConfirmDialogBuilder,
     CustomContentDialogBuilder,
-  DatePickerDialogBuilder,
-  LoadingBuilder,
+    DatePickerDialogBuilder,
+    LoadingBuilder,
     LoadingProgressBuilder,
     SelectDialogBuilder,
     TextAreaDialogBuilder,
     TextInputDialogBuilder,
-  TextPickerDialogBuilder,
-  TipsDialogBuilder,
+    TextPickerDialogBuilder,
+    TipsDialogBuilder,
     ToastBuilder,
     ToastTipBuilder
 } from './DialogBuilder';
@@ -50,7 +50,6 @@ import { TextInputOptions as TextInputOptions } from '../model/TextInputOptions'
 import { TextAreaOptions } from '../model/TextAreaOptions';
 import { BaseInputOptions } from '../model/base/BaseInputOptions';
 import { HmDialogOptions } from '../model/base/HmDialogOptions';
-import { CacheUtil } from '../utils/CacheUtil';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
 import { DialogAction } from '../utils/constraint';
@@ -59,6 +58,7 @@ import { Helper } from '../utils/Helper';
 import { TextPickerOptions } from '../model/TextPickerOptions';
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
 import { BasePickerOptions } from '../model/base/BasePickerOptions';
+import { CacheHelper } from '../utils/CacheHelper';
 
 
 /**
@@ -73,9 +73,6 @@ import { BasePickerOptions } from '../model/base/BasePickerOptions';
 export class DialogHelper {
   private static config: DialogConfig = new DialogConfig(); //默认样式
   private static mainUIContext: UIContext | undefined; //MainWindow的UIContext
-
-  private static loadingDialogId: string = "harmony_dialog_LoadingDialog_id"; //加载弹框id
-  private static cacheOptions: LoadingProgressOptions | null = null; //缓存进度加载框参数
 
 
   /**
@@ -95,10 +92,7 @@ export class DialogHelper {
     if (DialogHelper.mainUIContext) {
       return DialogHelper.mainUIContext;
     }
-    if (DialogHelper.config?.uiContext instanceof UIContext) {
-      return DialogHelper.config.uiContext;
-    }
-    return DialogHelper.config?.uiContext?.windowStage?.getMainWindowSync()?.getUIContext();
+    return DialogHelper.config?.uiAbilityContext?.windowStage?.getMainWindowSync()?.getUIContext();
   }
 
 
@@ -291,59 +285,39 @@ export class DialogHelper {
   static showLoadingDialog(options?: LoadingOptions) {
     options = options ?? {};
     DialogHelper.initLoadingDefault(options);
-    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(LoadingBuilder), options);
+    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(LoadingBuilder), options);
+    CacheHelper.put(`${CacheHelper.CACHE_LABEL}${dialogId}`, options); //缓存加载框options
+    return dialogId;
   }
 
 
   /**
    * 显示进度条加载弹框
    */
-  static showLoadingProgress(options: LoadingProgressOptions) {
+  static showLoadingProgress(options: LoadingProgressOptions): string {
     DialogHelper.initLoadingDefault(options);
-    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(LoadingProgressBuilder), options);
-    DialogHelper.cacheOptions = options;
+    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(LoadingProgressBuilder), options);
+    CacheHelper.put(`${CacheHelper.CACHE_LABEL}${dialogId}`, options); //缓存加载框options
+    return dialogId;
   }
 
 
   /**
    * 刷新加载弹框
    */
-  static updateLoading(content: string, progress: number) {
-    if (DialogHelper.isShowing(DialogHelper.loadingDialogId)) {
-      if (DialogHelper.cacheOptions != null) {
-        if (content && content.length > 1) {
-          DialogHelper.cacheOptions.content = content;
+  static updateLoading(dialogId: string, content?: string, progress?: number) {
+    if (DialogHelper.isShowing(dialogId)) {
+      let cacheOptions = CacheHelper.get<LoadingProgressOptions>(`${CacheHelper.CACHE_LABEL}${dialogId}`);
+      if (cacheOptions) {
+        if (content && content.length >= 0) {
+          cacheOptions.content = content;
         }
-        if (progress > 0) {
-          DialogHelper.cacheOptions.progress = progress;
+        if (progress && progress >= 0) {
+          cacheOptions.progress = progress;
         }
-        DialogHelper.update(DialogHelper.loadingDialogId, DialogHelper.cacheOptions);
+        DialogHelper.update(dialogId, cacheOptions);
       }
     }
-  }
-
-
-  /**
-   * 加载弹框是否显示（showLoadingDialog、showLoadingProgress）
-   */
-  static isShowLoading(): boolean {
-    return BasePromptAction.getInstance().exist(DialogHelper.loadingDialogId);
-  }
-
-  /**
-   * 关闭加载弹框（showLoadingDialog、showLoadingProgress）
-   */
-  static closeLoading() {
-    DialogHelper.cacheOptions = null;
-    DialogHelper.closeDialog(DialogHelper.loadingDialogId);
-  }
-
-  /**
-   * 获取加载弹框ID
-   * @returns
-   */
-  static getLoadingDialogId() {
-    return DialogHelper.loadingDialogId;
   }
 
 
@@ -654,7 +628,7 @@ export class DialogHelper {
               }
               if (options.onAction) {
                 if (blInput) {
-                  let text = CacheUtil.get<string>(options.dialogId ?? "");
+                  let text = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
                   options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", text);
                 } else {
                   options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
@@ -675,7 +649,7 @@ export class DialogHelper {
             }
             if (options.onAction) {
               if (blInput) {
-                let text = CacheUtil.get<string>(options.dialogId ?? "");
+                let text = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
                 options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", text);
               } else {
                 options.onAction(DialogHelper.getDialogAction(index), options.dialogId ?? "", "");
@@ -780,7 +754,7 @@ export class DialogHelper {
    */
   private static initSelect(options: SelectOptions) {
     if (options.radioContent && options.radioContent.length > 0) {
-      CacheUtil.put<string>(options.dialogId ?? "", "");
+      CacheHelper.put(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`, "");
       let radioItem = Helper.getResourceStr(options.radioContent[0]);
       if (radioItem) {
         let sheetInfos = new Array<SheetInfo>()
@@ -788,7 +762,7 @@ export class DialogHelper {
           let sheetInfo: SheetInfo = {
             title: options.radioContent[index] as ResourceStr,
             action: () => {
-              CacheUtil.put<string>(options.dialogId ?? "", index.toString());
+              CacheHelper.put(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`, index.toString());
               if (options.onCheckedChanged) {
                 options.onCheckedChanged(index);
               }
@@ -802,7 +776,7 @@ export class DialogHelper {
           let btn = options.radioContent[index] as SheetInfo;
           let btnAction = btn.action;
           btn.action = () => {
-            CacheUtil.put<string>(options.dialogId ?? "", index.toString());
+            CacheHelper.put(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`, index.toString());
             if (options.onCheckedChanged) {
               options.onCheckedChanged(index);
             }
@@ -827,7 +801,7 @@ export class DialogHelper {
               DialogHelper.closeDialog(options.dialogId ?? "");
             }
             if (options.onAction) {
-              let indexStr = CacheUtil.get<string>(options.dialogId ?? "");
+              let indexStr = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
               options.onAction(DialogAction.ONE, options.dialogId ?? "", indexStr);
             }
           }
@@ -840,7 +814,7 @@ export class DialogHelper {
             DialogHelper.closeDialog(options.dialogId ?? "");
           }
           if (options.onAction) {
-            let indexStr = CacheUtil.get<string>(options.dialogId ?? "");
+            let indexStr = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
             options.onAction(DialogAction.ONE, options.dialogId ?? "", indexStr);
           }
           if (confirmAction) {
@@ -858,7 +832,6 @@ export class DialogHelper {
    */
   private static initLoadingDefault(options: LoadingOptions) {
     options.uiContext = options.uiContext ?? DialogHelper.getMainUIContext();
-    options.dialogId = DialogHelper.loadingDialogId; //加载框id
     options.alignment = DialogAlignment.Center; //弹窗的对齐方式。
     options.isModal = options.isModal ?? DialogHelper.config.isModal; //弹窗是否为模态窗口。
     options.showInSubWindow = options.showInSubWindow ?? DialogHelper.config.showInSubWindow; //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。

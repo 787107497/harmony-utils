@@ -33,7 +33,7 @@ export class DialogConfig {
 
 
   //------------------------------------公共参数---promptAction.BaseDialogOptions----------------------------------------
-  uiContext?: common.UIAbilityContext | UIContext; //UIContext或者UIAbilityContext，建议设置UIAbilityContext
+  uiAbilityContext?: common.UIAbilityContext; //设置UIAbilityContext
   backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
   autoCancel: boolean = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
   alignment: DialogAlignment = DialogAlignment.Center; //弹窗的对齐方式。

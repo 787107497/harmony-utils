@@ -24,8 +24,7 @@ export struct DialogPage {
   @State menuArray: Array<string> = ["相机", "相册", "文件管理器"];
   @State inputText: string = ""; //输入框内容
   @State progress: number = 1;
-  private likes: string[] =
-    ['乒乓球', '鸿蒙手机', 'ArkTS', 'Mate70Pro', '三折叠手机', '小米su7', '红米K80pro', '广东名菜龙虎斗'];
+  private likes: string[] = ['乒乓球', '鸿蒙手机', 'ArkTS', 'Mate70Pro', '三折叠手机', '小米su7', '红米K80pro', '广东名菜龙虎斗'];
   private years: string[] = ['2020年', '2021年', '2022年', '2023年', '2024年', '2025年', '2026年', '2027年', '2028年'];
   private months: string[] = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
   private days: string[] = ['1日', '2日', '3日', '4日', '5日', '6日', '7日', '8日', '9日', '10日', '11日', '12日', '13日', '14日', '15日', '16日'];
@@ -36,7 +35,6 @@ export struct DialogPage {
    */
   customConfig1() {
     DialogHelper.setDefaultConfig((config) => {
-      config.uiContext = this.getUIContext()
       config.autoCancel = false; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。
       config.backCancel = false; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。
       config.actionCancel = true; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。
@@ -71,11 +69,6 @@ export struct DialogPage {
       config.toast_durationLong = 5000; //显示时长
     });
     ToastUtil.showToast("统一配置设置成功！");
-
-    // WindowUtil.createWindow({
-    //   contentRouter:"pages/utils/ToastUtilPage"
-    // })
-
   }
 
   /**
@@ -167,6 +160,7 @@ export struct DialogPage {
     if (index == 0) {
       //简单使用
       DialogHelper.showAlertDialog({
+        uiContext:this.getUIContext(),
         content: "确定保存该WPS文件吗？",
         onAction: (action) => {
           if (action == DialogAction.CANCEL) {
@@ -915,14 +909,14 @@ export struct DialogPage {
       })
     } else {
       //禁止点击返回关闭弹窗 和 禁止点击遮蔽层关闭弹窗
-      DialogHelper.showLoadingDialog({
+      let dialogId = DialogHelper.showLoadingDialog({
         loadType: SpinType.spinH,
         autoCancel: false,
         backCancel: false
       })
       //延时关闭
       let timeoutID = setTimeout(() => {
-        DialogHelper.closeLoading(); //关闭加载框
+        DialogHelper.closeDialog(dialogId); //关闭加载框
         clearTimeout(timeoutID);
       }, 5000);
     }
@@ -935,17 +929,17 @@ export struct DialogPage {
     if (index == 0) {
       //简单使用
       this.progress = 50;
-      DialogHelper.showLoadingProgress({
+      let dialogId = DialogHelper.showLoadingProgress({
         progress: this.progress,
       });
       //模拟网络
       let intervalID = setInterval(() => {
         if (this.progress < 100) {
           this.progress = this.progress + 1
-          DialogHelper.updateLoading("", this.progress)
+          DialogHelper.updateLoading(dialogId, "", this.progress)
           console.log("progress: " + this.progress);
         } else {
-          DialogHelper.closeLoading(); //加载成功
+          DialogHelper.closeDialog(dialogId); //加载成功
           ToastUtil.showToast("加载成功啦~");
           clearInterval(intervalID);
         }
@@ -953,7 +947,7 @@ export struct DialogPage {
     } else if (index == 1) {
       //自定义加载内容和主题色
       this.progress = 25;
-      DialogHelper.showLoadingProgress({
+      let dialogId = DialogHelper.showLoadingProgress({
         progress: this.progress,
         content: "努力加载中",
         loadColor: $r('app.color.color_main'),
@@ -964,10 +958,10 @@ export struct DialogPage {
       let intervalID = setInterval(() => {
         if (this.progress < 100) {
           this.progress = this.progress + 1
-          DialogHelper.updateLoading("", this.progress)
+          DialogHelper.updateLoading(dialogId, undefined, this.progress)
           console.log("progress: " + this.progress);
         } else {
-          DialogHelper.closeLoading(); //加载成功
+          DialogHelper.closeDialog(dialogId); //加载成功
           ToastUtil.showToast("加载成功啦~");
           clearInterval(intervalID);
         }

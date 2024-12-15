@@ -19,6 +19,7 @@ import { ComponentContent, promptAction, window } from '@kit.ArkUI';
 import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
 import { PromptActionArg } from '../model/base/PromptActionArg';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { CacheHelper } from '../utils/CacheHelper';
 
 
 /**
@@ -32,13 +33,13 @@ import { BusinessError } from '@kit.BasicServicesKit';
  */
 export class BasePromptAction {
   private static instance: BasePromptAction;
-  private uiContext?: UIContext;
-  private cacheWindow?: window.Window;
   private caches: Array<PromptActionArg> = new Array<PromptActionArg>();
+
 
   private constructor() {
 
   }
+
 
   static getInstance(): BasePromptAction {
     if (!BasePromptAction.instance) {
@@ -60,15 +61,9 @@ export class BasePromptAction {
     if (options.uiContext) {
       this.openBaseCustomDialog(options.uiContext, contentView, options);
     } else {
-      if (this.isWindowFocused(this.cacheWindow)) {
-        this.openBaseCustomDialog(this.uiContext!, contentView, options);
-      } else {
-        window.getLastWindow(getContext()).then((result: window.Window) => {
-          this.cacheWindow = result;
-          this.uiContext = result.getUIContext();
-          this.openBaseCustomDialog(this.uiContext, contentView, options);
-        })
-      }
+      window.getLastWindow(getContext()).then((result: window.Window) => {
+        this.openBaseCustomDialog(result.getUIContext(), contentView, options);
+      })
     }
     return options.dialogId;
   }
@@ -97,6 +92,7 @@ export class BasePromptAction {
         onDidAppear: options.onDidAppear, //弹窗弹出时的事件回调。
         onDidDisappear: () => { //弹窗消失时的事件回调。
           this.removeArg(options.dialogId ?? ''); //弹窗关闭时，移除
+          this.onDestroy(options.dialogId ?? '');
           if (options.onDidDisappear) {
             options.onDidDisappear();
           }
@@ -107,9 +103,9 @@ export class BasePromptAction {
             options.onWillDismiss(action);
           }else {
             if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
-              action.dismiss()
+              action.dismiss();
             } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-              action.dismiss()
+              action.dismiss();
             }
           }
         },
@@ -209,16 +205,14 @@ export class BasePromptAction {
 
 
   /**
-   * 判断当前窗口是否已获焦。
-   * @param window
-   * @returns
+   * 弹框关闭时清除缓存数据
    */
-  private isWindowFocused(window?: window.Window): boolean {
-    try {
-      let isFocused = window?.isFocused() ?? false;
-      return isFocused;
-    } catch (e) {
-      return false;
+  onDestroy(dialogId?: string) {
+    if (dialogId && dialogId.length > 0) {
+      let key = `${CacheHelper.CACHE_LABEL}${dialogId}`;
+      if (CacheHelper.has(key)) {
+        CacheHelper.remove(key); //清除缓存
+      }
     }
   }
 

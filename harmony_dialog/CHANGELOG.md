@@ -1,10 +1,10 @@
 # 版本记录
 
 ## 1.0.8
-
-1. BottomSheetOptions 支持 cancelFontColor/cancelFontWeight 属性，用于自定义【取消】字体样式。
-2. 新增日期选择器弹框，showDatePickerDialog。
-3. 
+1. 新增日期选择器弹框，showDatePickerDialog。
+2. BottomSheetOptions 支持 cancelFontColor/cancelFontWeight 属性，用于自定义【取消】字体样式。
+3. 加载弹框，修改为可传入dialogId; 并废弃closeLoading()、isShowLoading()、getLoadingDialogId()方法。
+4. DialogConfig的uiContext改为uiAbilityContext，并且类型为common.UIAbilityContext；所以后面需要在UIAbility的onCreate方法里初始化uiAbilityContext。
 
 ## 1.0.7
 1. 修复部分弹框，buttons设置按钮颜色不生效。
