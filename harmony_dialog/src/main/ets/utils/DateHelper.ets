@@ -285,7 +285,7 @@ export class DateHelper {
         return dayStr;
       }
       if (selectDay > day) {
-        return `${day}日`; //当选中日期超过可选范围时，取当月最后一天
+        return `${day}日`; //当选中天超过可选范围时，取当月最后一天
       }
     } catch (err) {
       let error = err as BusinessError;

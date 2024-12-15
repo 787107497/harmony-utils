@@ -73,6 +73,7 @@ import { BasePickerOptions } from '../model/base/BasePickerOptions';
 export class DialogHelper {
   private static config: DialogConfig = new DialogConfig(); //默认样式
   private static mainUIContext: UIContext | undefined; //MainWindow的UIContext
+
   private static loadingDialogId: string = "harmony_dialog_LoadingDialog_id"; //加载弹框id
   private static cacheOptions: LoadingProgressOptions | null = null; //缓存进度加载框参数
 
