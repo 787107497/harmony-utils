@@ -3,7 +3,8 @@
 ## 1.2.5（API12 - 5.0.3.906）
 1. 新增LRUCacheUtil工具类。
 2. 优化CacheUtil工具类 和 GlobalContext工具类。
-
+3. DateUtil：getFormatDate方法格式化时间可能异常的Bug修复。
+4. 代码优化。
 
 ## 1.2.4（API12 - 5.0.3.906）
 1. RandomUtil：新增getRandomDataBlob() 和 getRandomColor()的Bug修复。

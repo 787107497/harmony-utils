@@ -44,7 +44,7 @@ export class DateUtil {
         date = new Date();
       } else {
         if (date.toString().length == 10 || date.toString().length == 13) {
-          date = DateUtil.toNumber(date); //将字符串时间戳 转为 number
+          date = DateUtil.parseTimestamp(date); //将字符串时间戳 转为 number
           if (typeof date == 'number') {
             date = new Date(date);
             return date;
@@ -54,16 +54,22 @@ export class DateUtil {
           .replace("年", '/')
           .replace("月", '/')
           .replace("日", ' ')
-          .replace("  ", ' ')
+          .replace('  ', ' ')
           .replace("时", ':')
           .replace("分", ':')
           .replace("秒", '')
-        if (dateStr.endsWith("/") || dateStr.endsWith(":") || dateStr.endsWith(" ")) {
+        if (dateStr.endsWith('/') || dateStr.endsWith(':') || dateStr.endsWith(' ')) {
           dateStr = dateStr.substring(0, dateStr.length - 1);
+        }
+        if (dateStr.length == 13 && dateStr.includes(' ')) {
+          dateStr = dateStr + ':00'; //yyyy-MM-dd HH，需要补齐分钟。
         }
         date = new Date(dateStr);
       }
-    } else if (typeof (date) == "number") { //时间戳
+    } else if (typeof date == "number") { //时间戳
+      if (date.toString().length == 10) {
+        date = date * 1000; //如果是10位时间戳转为13位
+      }
       date = new Date(date);
     } else {
       date = new Date(date);
@@ -505,7 +511,7 @@ export class DateUtil {
    * @param defaultValue
    * @returns
    */
-  private static toNumber(value: string): number | string {
+  private static parseTimestamp(value: string): number | string {
     try {
       let parsedValue = parseFloat(value);
       if (isNaN(parsedValue)) {
@@ -514,9 +520,12 @@ export class DateUtil {
       if (parsedValue.toString().length != value.length) {
         return value;
       }
+      if (parsedValue.toString().length == 10) {
+        parsedValue = parsedValue * 1000; //如果是10位时间戳转为13位
+      }
       return parsedValue;
     } catch (e) {
-      return value
+      return value //不是时间戳，直接返回
     }
   }
 
