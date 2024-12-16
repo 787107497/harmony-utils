@@ -81,7 +81,7 @@ OpenHarmony ohpm
 
 | 方法                           | 介绍                                                                       |
 |:-----------------------------|:-------------------------------------------------------------------------|
-| init                         | 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法                     |
+| init                         | 初始化方法,缓存全局变量，在UIAbility的onCreate方法中初始化该方法                                |
 | getContext                   | 获取上下文，common.UIAbilityContext                                            |
 | getWindowStage               | 获取WindowStage                                                            |
 | getMainWindow                | 获取主窗口                                                                    |
