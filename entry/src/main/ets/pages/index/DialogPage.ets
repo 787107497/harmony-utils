@@ -1011,13 +1011,14 @@ export struct DialogPage {
         fontColor: Color.Red,
         backgroundColor: Color.Grey,
         borderRadius: 30,
+        alignment: DialogAlignment.Bottom,
       });
     } else {
       //自定义吐司
       DialogHelper.showToastLong("这是一个自定义吐司", {
         fontColor: Color.White,
         backgroundColor: "#99FF0000",
-        alignment:DialogAlignment.Center,
+        alignment: DialogAlignment.Top,
         borderRadius: 5,
         fontSize: 18,
       });
