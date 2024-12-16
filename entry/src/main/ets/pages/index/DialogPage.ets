@@ -24,7 +24,7 @@ export struct DialogPage {
   @State menuArray: Array<string> = ["相机", "相册", "文件管理器"];
   @State inputText: string = ""; //输入框内容
   @State progress: number = 1;
-  private likes: string[] = ['乒乓球', '鸿蒙手机', 'ArkTS', 'Mate70Pro', '三折叠手机', '小米su7', '红米K80pro', '广东名菜龙虎斗'];
+  private likes: string[] = ['乒乓球', '鸿蒙手机', 'ArkTS', 'Mate70Pro', '三折叠手机', '小米su7', '红米K80pro', '广东名菜烤乳猪'];
   private apfruits: string[] = ['apple1', 'apple2', 'apple3', 'apple4']
   private orfruits: string[] = ['orange1', 'orange2', 'orange3', 'orange4']
   private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
