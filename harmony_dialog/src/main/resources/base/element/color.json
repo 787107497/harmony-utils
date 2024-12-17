@@ -1,23 +1,23 @@
 {
   "color": [
     {
-      "name": "color_33",
+      "name": "color_harmony_dialog_33",
       "value": "#333333"
     },
     {
-      "name": "color_66",
+      "name": "color_harmony_dialog_66",
       "value": "#666666"
     },
     {
-      "name": "color_99",
+      "name": "color_harmony_dialog_99",
       "value": "#999999"
     },
     {
-      "name": "color_line",
+      "name": "color_harmony_dialog_line",
       "value": "#EEEEEE"
     },
     {
-      "name": "color_cancel",
+      "name": "color_harmony_dialog_cancel",
       "value": "#0A59F7"
     }
   ]

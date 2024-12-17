@@ -56,7 +56,7 @@ export default struct BottomSheetDialogView {
       Column() {
         Text(this.title)
           .fontSize(14)
-          .fontColor(this.options.titleFontColor ?? $r('app.color.color_99'))
+          .fontColor(this.options.titleFontColor ?? $r('app.color.color_harmony_dialog_99'))
           .align(Alignment.Center)
           .textAlign(TextAlign.Center)
           .padding({ left: 10, right: 10, bottom: 15, top: 15 })
@@ -64,28 +64,28 @@ export default struct BottomSheetDialogView {
         Divider()
           .width('100%')
           .strokeWidth(1)
-          .color($r('app.color.color_line'))
+          .color($r('app.color.color_harmony_dialog_line'))
       }
       .width('100%')
       .visibility(this.title.length > 0 ? Visibility.Visible : Visibility.None)
 
       List() {
         ForEach(this.options.sheets, (sheet: SheetOptions, index: number) => {
-          this.TextBuilder(sheet.value, sheet.fontColor ?? $r('app.color.color_33'), sheet.fontSize ?? 16, index)
+          this.TextBuilder(sheet.value, sheet.fontColor ?? $r('app.color.color_harmony_dialog_33'), sheet.fontSize ?? 16, index)
         }, (sheet: SheetOptions, index: number) => `${index}-${sheet.value}`)
       }
-      .divider({ strokeWidth: 1, color: $r('app.color.color_line') })
+      .divider({ strokeWidth: 1, color: $r('app.color.color_harmony_dialog_line') })
       .width('100%')
       .layoutWeight(this.options.maxHeight ? 1 : 0)
 
       Divider()
         .width('100%')
         .strokeWidth(10)
-        .color($r('app.color.color_line'))
+        .color($r('app.color.color_harmony_dialog_line'))
 
       Text(this.options.cancelValue)
         .fontSize(this.fontSize)
-        .fontColor(this.options.cancelFontColor ?? $r('app.color.color_cancel'))
+        .fontColor(this.options.cancelFontColor ?? $r('app.color.color_harmony_dialog_cancel'))
         .fontWeight(this.options.cancelFontWeight ?? FontWeight.Bold)
         .align(Alignment.Center)
         .textAlign(TextAlign.Center)

@@ -9,6 +9,22 @@
       "value": "#FAFAFA"
     },
     {
+      "name": "color_33",
+      "value": "#333333"
+    },
+    {
+      "name": "color_66",
+      "value": "#666666"
+    },
+    {
+      "name": "color_99",
+      "value": "#999999"
+    },
+    {
+      "name": "color_cancel",
+      "value": "#0A59F7"
+    },
+    {
       "name": "color_line",
       "value": "#ECECEC"
     },
