@@ -35,6 +35,8 @@ import { TextPickerOptions } from '../model/TextPickerOptions'
 import TextPickerDialogView from '../component/TextPickerDialogView'
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions'
 import DatePickerDialogView from '../component/DatePickerDialogView'
+import ToastView from '../component/ToastView'
+import ToastTipView from '../component/ToastTipView'
 
 
 /**
@@ -210,21 +212,7 @@ export function LoadingProgressBuilder(options: LoadingProgressOptions) {
  */
 @Builder
 export function ToastBuilder(options: ToastOptions) {
-  Column() {
-    Text(options.message)
-      .fontColor(options.fontColor)
-      .fontSize(options.fontSize)
-  }
-  .justifyContent(FlexAlign.Center)
-  .alignItems(HorizontalAlign.Center)
-  .align(Alignment.Center)
-  .alignSelf(ItemAlign.Center)
-  .constraintSize({ minWidth: 90 })
-  .margin({ left: 15, right: 15 })
-  .padding(options.padding)
-  .backgroundColor(options.backgroundColor)
-  .borderRadius(options.borderRadius)
-  .shadow(ShadowStyle.OUTER_DEFAULT_SM)
+  ToastView({ options: options });
 }
 
 
@@ -233,23 +221,5 @@ export function ToastBuilder(options: ToastOptions) {
  */
 @Builder
 export function ToastTipBuilder(options: ToastTipOptions) {
-  Column({ space: 10 }) {
-    Image(options.imageRes)
-      .size(options.imageSize)
-      .fillColor(options.fontColor)
-      .margin(5)
-    Text(options.message)
-      .fontColor(options.fontColor)
-      .fontSize(options.fontSize)
-  }
-  .margin(12)
-  .padding(20)
-  .justifyContent(FlexAlign.Center)
-  .alignItems(HorizontalAlign.Center)
-  .align(Alignment.Center)
-  .alignSelf(ItemAlign.Center)
-  .constraintSize({ minWidth: 120 })
-  .backgroundColor(options.backgroundColor)
-  .borderRadius(options.borderRadius)
-  .shadow(ShadowStyle.OUTER_DEFAULT_SM)
+  ToastTipView({ options: options });
 }

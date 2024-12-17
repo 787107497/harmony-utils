@@ -15,25 +15,38 @@
  * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
-import { Orientation } from '../utils/constraint';
-import { ToastOptions } from './ToastOptions';
+import { ToastOptions } from '../model/ToastOptions';
 
 /**
- * TODO ToastTip基本参数类
+ * TODO Toast组件
  * author: 桃花镇童长老ᥫ᭡
- * since: 2024/08/18
+ * since: 2024/08/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export interface ToastTipOptions extends ToastOptions {
+@Component
+export default struct ToastView {
+  @Prop options: ToastOptions;
 
-  message: string | Resource; //吐司内容
-  imageRes: ResourceStr | PixelMap; //展示的图片。
-  imageSize?: SizeOptions; //自定义图片尺寸。默认值：64*64vp
-  orientation?: Orientation; //吐司布局方向，默认垂直。设置该值时，请重新设置imageSize和margin。
-  margin?: number; //吐司的图片与文字间距。
+  build() {
+    Column() {
+      Text(this.options.message)
+        .fontColor(this.options.fontColor)
+        .fontSize(this.options.fontSize)
+        .padding({ left: 10, right: 10 })
+    }
+    .justifyContent(FlexAlign.Center)
+    .alignItems(HorizontalAlign.Center)
+    .align(Alignment.Center)
+    .alignSelf(ItemAlign.Center)
+    .constraintSize({ minWidth: 90 })
+    .margin({ left: 15, right: 15 })
+    .padding(this.options.padding)
+    .backgroundColor(this.options.backgroundColor)
+    .borderRadius(this.options.borderRadius)
+    .shadow(ShadowStyle.OUTER_DEFAULT_SM)
+  }
 
 }

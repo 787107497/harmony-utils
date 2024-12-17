@@ -1,5 +1,5 @@
 import { AreaHelper } from '@nutpi/china_area';
-import { AnimationHelper, DateType, DialogAction, DialogHelper } from '@pura/harmony-dialog';
+import { AnimationHelper, DateType, DialogAction, DialogHelper, Orientation } from '@pura/harmony-dialog';
 import { DateUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { LabelButton } from '../../component/LabelButton';
@@ -1052,9 +1052,14 @@ export struct DialogPage {
       //自定义颜色和时长
       DialogHelper.showToastTip({
         message: "操作成功",
-        imageRes: $r('app.media.icon_tip_info'),
-        fontColor: $r('app.color.color_main'),
-        duration: 2000
+        imageRes: $r('app.media.icon_tip_ok'),
+        // fontColor: $r('app.color.color_main'),
+        alignment: DialogAlignment.Bottom,
+        offset: { dy: -100, dx: 0 },
+        duration: 2000,
+        orientation: Orientation.HORIZONTAL,
+        imageSize: { height: 24, width: 24 },
+        margin: 8,
       })
     }
   }

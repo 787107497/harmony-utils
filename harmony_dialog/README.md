@@ -103,14 +103,16 @@ OpenHarmony ohpm
       config.picker_titleBackground = "#F9F9F9"; //头部背景颜色
       config.picker_buttonFontColor = $r("sys.color.ohos_id_picker_button_text_color"); //按钮颜色
 
+      config.toast_duration = 2000; //显示时长(1500ms-10000ms)
+      config.toast_durationLong = 10000; //显示时长(10000ms)
       config.toast_fontSize = 16; //文字大小
       config.toast_fontColor = Color.White; //文字颜色
       config.toast_backgroundColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度
       config.toast_borderRadius = 8; //背景圆角
       config.toast_padding = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding
-      config.toast_imageSize = { width: 45, height: 45 }; //Tip图片尺寸。默认值：45*45vp
-      config.toast_duration = 2000; //显示时长(1500ms-10000ms)
-      config.toast_durationLong = 10000; //显示时长(10000ms)
+      config.toast_orientation = Orientation.VERTICAL; //吐司布局方向，默认垂直。设置该值时，请重新设置imageSize和margin。
+      config.toast_imageSize = { width: 45, height: 45 }; //Tip图片尺寸。垂直默认值：45*45vp，水平建议值：24*24vp。
+      config.toast_margin = 10; //吐司的图片与文字间距。
     });
  ```
 

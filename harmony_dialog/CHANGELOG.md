@@ -1,10 +1,32 @@
 # 版本记录
 
+## 1.0.9
+1. 优化部分弹框的最大宽度。
+2. 优化ToastTip部分参数配置。
+3. 优化ToastTip新增支持水平布局，参数alignment。
+
+
 ## 1.0.8
 1. 新增日期选择器弹框，showDatePickerDialog。
 2. BottomSheetOptions 支持 cancelFontColor/cancelFontWeight 属性，用于自定义【取消】字体样式。
 3. 加载弹框，修改为可传入dialogId; 并废弃closeLoading()、isShowLoading()、getLoadingDialogId()方法。
 4. DialogConfig的uiContext改为uiAbilityContext，并且类型为common.UIAbilityContext；所以后面需要在UIAbility的onCreate方法里初始化uiAbilityContext。
+
+```typescript
+//1.0.8版本适配指南：
+
+DialogHelper.setDefaultConfig((config) => {
+config.uiContext = this.context
+})
+//改为
+DialogHelper.setDefaultConfig((config) => {
+config.uiAbilityContext = this.context
+})
+
+DialogHelper.closeLoading();
+//改为
+DialogHelper.closeDialog("xxx");
+```
 
 ## 1.0.7
 1. 修复部分弹框，buttons设置按钮颜色不生效。

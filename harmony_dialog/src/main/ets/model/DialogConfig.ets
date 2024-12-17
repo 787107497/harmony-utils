@@ -17,6 +17,7 @@
 
 import { common } from '@kit.AbilityKit';
 import { SpinType } from '@pura/spinkit';
+import { Orientation } from '../../../../Index';
 
 
 /**
@@ -97,14 +98,16 @@ export class DialogConfig {
 
 
   //--------------------------------------吐司Toast----------------------------------------------------------------------
+  toast_duration: number = 2000; //显示时长(1500ms-10000ms)
+  toast_durationLong: number = 10000; //显示时长(10000ms)
   toast_fontSize: number | string | Resource = 16; //文字大小
   toast_fontColor: ResourceColor = Color.White; //文字颜色
   toast_backgroundColor: ResourceColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度
   toast_borderRadius: Length | BorderRadiuses = 8; //背景圆角
   toast_padding: Padding | Length = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding
-  toast_imageSize: SizeOptions = { width: 45, height: 45 }; //Tip图片尺寸。默认值：45*45vp
-  toast_duration: number = 2000; //显示时长(1500ms-10000ms)
-  toast_durationLong: number = 10000; //显示时长(10000ms)
+  toast_orientation: Orientation = Orientation.VERTICAL; //吐司布局方向，默认垂直。设置该值时，请重新设置imageSize和margin。
+  toast_imageSize: SizeOptions = { width: 45, height: 45 }; //Tip图片尺寸。垂直默认值：45*45vp，水平建议值：24*24vp。
+  toast_margin: number = 10; //吐司的图片与文字间距。
   //--------------------------------------吐司Toast----------------------------------------------------------------------
 
 

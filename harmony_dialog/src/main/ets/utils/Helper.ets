@@ -105,7 +105,7 @@ export class Helper {
 
 
   /**
-   * 是否是大屏，大于手机屏幕宽度1280
+   * 是否是大屏，大于手机屏幕宽度1600
    */
   static isLargeScreen(): boolean {
     return Helper.getDisplayWidth() > 1600;
@@ -118,25 +118,29 @@ export class Helper {
    * @returns 单位vp
    */
   static getMaxWidth(maxWidth: Length = 360): number {
-    let oldWidth = 360;
-    try {
-      if (typeof maxWidth === 'number') { //number
-        oldWidth = maxWidth;
-      } else if (typeof maxWidth === 'string') { //string
-        oldWidth = Helper.getVpByStr(maxWidth);
-      } else {
-        try { //number资源
-          oldWidth = Helper.getNumber(maxWidth);
-        } catch (e) { //string资源
-          let strWidth = Helper.getString(maxWidth);
-          oldWidth = Helper.getVpByStr(strWidth);
+    if (Helper.isLargeScreen()) {
+      let oldWidth = 360;
+      try {
+        if (typeof maxWidth === 'number') { //number
+          oldWidth = maxWidth;
+        } else if (typeof maxWidth === 'string') { //string
+          oldWidth = Helper.getVpByStr(maxWidth);
+        } else {
+          try { //number资源
+            oldWidth = Helper.getNumber(maxWidth);
+          } catch (e) { //string资源
+            let strWidth = Helper.getString(maxWidth);
+            oldWidth = Helper.getVpByStr(strWidth);
+          }
         }
+      } catch (e) {
+        let error = e as BusinessError;
+        console.log(`getMaxWidth-Error ~ code: ${error.code} -·- message: ${error.message}`);
       }
-    } catch (e) {
-      let error = e as BusinessError;
-      console.log(`getMaxWidth-Error ~ code: ${error.code} -·- message: ${error.message}`);
+      return oldWidth + 40;
+    } else { //小屏幕直接获取屏幕宽度。
+      return px2vp(Helper.getDisplayWidth());
     }
-    return oldWidth + 40;
   }
 
 

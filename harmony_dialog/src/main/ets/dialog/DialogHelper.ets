@@ -365,7 +365,7 @@ export class DialogHelper {
   static showToastTip(options: ToastTipOptions) {
     DialogHelper.initToastDefault(options);
     options.dialogId = DialogHelper.generateId();
-    options.alignment = DialogAlignment.Center; //前置居中
+    options.orientation = options.orientation ?? DialogHelper.config.toast_orientation; //吐司的布局方向。
     options.imageSize = options.imageSize ?? DialogHelper.config.toast_imageSize;
     options.duration = options.duration ?? DialogHelper.config.toast_duration;
     BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastTipBuilder), options);
@@ -486,7 +486,6 @@ export class DialogHelper {
     if (options.cornerRadius || DialogHelper.config.cornerRadius) {
       options.cornerRadius = options.cornerRadius ?? 15; //弹框圆角半径，默认15。
     }
-
     if (options.sheets && options.sheets.length > 0) {
       if (typeof options.sheets[0] == 'string') {
         let sheets = new Array<SheetOptions>();
@@ -893,19 +892,20 @@ export class DialogHelper {
     options.isModal = false; //弹窗是否为模态窗口。
     options.backCancel = options.backCancel ?? DialogHelper.config.backCancel; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。
     if (options.alignment || DialogHelper.config.alignment) {
-      options.alignment = options.alignment ?? DialogHelper.config.alignment; //弹窗的对齐方式。
+      options.alignment = options.alignment ?? DialogHelper.config.alignment; //吐司的对齐方式。
     }
+    let dy = options.offset?.dy; //dy-垂直方向上
     if (options.alignment == DialogAlignment.Top || options.alignment == DialogAlignment.TopStart ||
       options.alignment == DialogAlignment.TopEnd) {
       options.alignment = DialogAlignment.Top;
-      options.offset = { dx: 0, dy: 60 };
+      options.offset = { dx: 0, dy: dy ?? 60 };
     } else if (options.alignment == DialogAlignment.Bottom || options.alignment == DialogAlignment.BottomStart ||
       options.alignment == DialogAlignment.BottomEnd) {
       options.alignment = DialogAlignment.Bottom;
-      options.offset = { dx: 0, dy: -60 };
+      options.offset = { dx: 0, dy: dy ?? -60 };
     } else {
       options.alignment = DialogAlignment.Center;
-      options.offset = { dx: 0, dy: 0 };
+      options.offset = { dx: 0, dy: dy ?? 0 };
     }
     options.showInSubWindow = options.showInSubWindow ?? DialogHelper.config.showInSubWindow; //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
     if (options.fontSize || DialogHelper.config.toast_fontSize) {

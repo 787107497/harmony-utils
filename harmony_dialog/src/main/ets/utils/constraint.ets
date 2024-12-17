@@ -49,3 +49,8 @@ export enum DateType {
   Hm, //时分
   Ms //分秒
 }
+
+export enum Orientation {
+  VERTICAL, //垂直
+  HORIZONTAL //水平
+}
