@@ -31,7 +31,7 @@ export struct SpinKitPage {
             })
           Button('加载框样式配置1')
             .width('100%')
-            .grayscale(0.5)
+            .backgroundColor(Color.Grey)
             .onClick(() => {
               DialogHelper.setDefaultConfig((config) => {
                 config.loading_loadType = SpinType.spinZ; //动画类型
@@ -49,7 +49,7 @@ export struct SpinKitPage {
             })
           Button('加载框样式配置2')
             .width('100%')
-            .grayscale(0.5)
+            .backgroundColor(Color.Grey)
             .onClick(() => {
               DialogHelper.setDefaultConfig((config) => {
                 config.loading_loadType = SpinType.spinH; //动画类型
@@ -67,7 +67,8 @@ export struct SpinKitPage {
             })
           Button('加载框，样式一')
             .width('100%')
-            .grayscale(1)
+            .fontColor($r('app.color.color_main'))
+            .backgroundColor($r('app.color.color_dd'))
             .onClick(() => {
               ClickUtil.throttle(() => {
                 let dialogId = DialogHelper.showLoadingDialog({ autoCancel: false })
@@ -79,7 +80,8 @@ export struct SpinKitPage {
             })
           Button('加载框，样式二')
             .width('100%')
-            .grayscale(1)
+            .fontColor($r('app.color.color_main'))
+            .backgroundColor($r('app.color.color_dd'))
             .onClick(() => {
               ClickUtil.throttle(() => {
                 let dialogId = DialogHelper.showLoadingDialog({
@@ -97,7 +99,8 @@ export struct SpinKitPage {
             })
           Button('加载框，样式三')
             .width('100%')
-            .grayscale(1)
+            .fontColor($r('app.color.color_main'))
+            .backgroundColor($r('app.color.color_dd'))
             .onClick(() => {
               ClickUtil.throttle(() => {
                 DialogHelper.showLoadingDialog({
@@ -110,7 +113,8 @@ export struct SpinKitPage {
             })
           Button('加载框，样式四')
             .width('100%')
-            .grayscale(1)
+            .fontColor($r('app.color.color_main'))
+            .backgroundColor($r('app.color.color_dd'))
             .onClick(() => {
               ClickUtil.throttle(() => {
                 DialogHelper.showLoadingDialog({
@@ -122,7 +126,8 @@ export struct SpinKitPage {
             })
           Button('加载框，样式五')
             .width('100%')
-            .grayscale(1)
+            .fontColor($r('app.color.color_main'))
+            .backgroundColor($r('app.color.color_dd'))
             .onClick(() => {
               ClickUtil.throttle(() => {
                 DialogHelper.showLoadingDialog({
@@ -137,6 +142,25 @@ export struct SpinKitPage {
                   padding: { top: 30, right: 50, bottom: 30, left: 50 },
                   marginTop: 20,
                   autoCancel: true
+                })
+              })
+            })
+          Button('加载框，样式六')
+            .width('100%')
+            .fontColor($r('app.color.color_main'))
+            .backgroundColor($r('app.color.color_dd'))
+            .onClick(() => {
+              ClickUtil.throttle(() => {
+                //自定义文字和加载动画的颜色
+                DialogHelper.showLoadingDialog({
+                  loadType: SpinType.spinD,
+                  content: "努力加载中",
+                  loadColor: Color.Red,
+                  backgroundColor: '#990000FF',
+                  fontColor: Color.Red,
+                  fontSize: 18,
+                  padding: 30,
+                  borderRadius: 10
                 })
               })
             })

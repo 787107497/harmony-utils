@@ -817,6 +817,7 @@ export struct DialogPage {
     } else if (index == 3) {
       DialogHelper.showDatePickerDialog({
         title: "请选择时分秒",
+        transition: AnimationHelper.transitionInDown(300),
         dateType: DateType.Hms,
         onAction: (action: number, dialogId: string, date: Date): void => {
           if (action == DialogAction.SURE) {
@@ -871,7 +872,7 @@ export struct DialogPage {
         msg: "这是一个自定义弹框，底部弹出",
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: 0 },
-        transition: AnimationHelper.transitionInDown(150)
+        transition: AnimationHelper.transitionInDown()
       };
       DialogHelper.showCustomDialog(wrapBuilder(MyCustomBuilder), custom);
     }

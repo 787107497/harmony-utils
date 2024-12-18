@@ -8,6 +8,7 @@ export class User {
   work?: string = '工程师';
   state?: string = '';
   user?: User;
+  url?: string;
 
   say(msg: string) {
     LogUtil.error(`我想吃：${msg}`);

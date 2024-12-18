@@ -21,6 +21,18 @@
       "value": "#999999"
     },
     {
+      "name": "color_cc",
+      "value": "#cccccc"
+    },
+    {
+      "name": "color_dd",
+      "value": "#dddddd"
+    },
+    {
+      "name": "color_ee",
+      "value": "#eeeeee"
+    },
+    {
       "name": "color_cancel",
       "value": "#0A59F7"
     },
