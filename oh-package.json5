@@ -8,6 +8,7 @@
   "license": "",
   "dependencies": {
     "class-transformer": "^0.5.1",
+    "@nutpi/privacy_dialog": "^1.0.2"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.16",

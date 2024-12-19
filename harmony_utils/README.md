@@ -43,6 +43,7 @@ OpenHarmony ohpm
 | PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                    |
 | KvUtil                                                                            | 键值型数据库工具类                                                                |
 | CacheUtil                                                                         | 缓存工具类                                                                    |
+| LRUCacheUtil                                                                      | LRUCache缓存工具类                                                            |
 | FileUtil                                                                          | 文件操作相关工具类                                                                |
 | PickerUtil                                                                        | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类                                              |
 | PhotoHelper                                                                       | 相册相关工具类                                                                  |
