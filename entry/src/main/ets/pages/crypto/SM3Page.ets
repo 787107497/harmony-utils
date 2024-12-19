@@ -1,9 +1,10 @@
 import { DescribeBean } from '../../entity/DescribeBean';
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { SM3 } from '@pura/harmony-utils/src/main/ets/crypto/SM3';
 import { CryptoUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * SM3工具类
@@ -36,10 +37,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column({ space: 5 }) {

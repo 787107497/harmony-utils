@@ -1,9 +1,10 @@
 import { DescribeBean } from '../../entity/DescribeBean';
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { SM4 } from '@pura/harmony-utils/src/main/ets/crypto/SM4';
 import { CryptoHelper, CryptoUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * SM4加解密
@@ -39,10 +40,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column({ space: 5 }) {

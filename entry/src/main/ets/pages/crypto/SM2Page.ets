@@ -1,10 +1,11 @@
 import { DescribeBean } from '../../entity/DescribeBean';
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { SM2 } from '@pura/harmony-utils/src/main/ets/crypto/SM2';
 import { CryptoHelper } from '@pura/harmony-utils/src/main/ets/crypto/CryptoHelper';
 import { LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * SM2加解密
@@ -42,10 +43,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column({ space: 5 }) {

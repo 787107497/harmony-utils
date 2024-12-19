@@ -1,10 +1,10 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
-import {AppUtil,DateUtil,FileUtil,ImageUtil,LogUtil,PermissionUtil,PickerUtil,StrUtil,ToastUtil} from '@pura/harmony-utils';
+import { router } from '@kit.ArkUI';
+import { DateUtil, FileUtil, ImageUtil, LogUtil, PickerUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { Permissions } from '@kit.AbilityKit';
 import { image } from '@kit.ImageKit';
 import { MockSetup } from '@ohos/hamock';
+import { TitleBarView } from '../../component/TitleBarView';
 
 
 /**
@@ -33,10 +33,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column() {

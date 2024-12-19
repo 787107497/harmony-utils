@@ -1,9 +1,10 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { LocationUtil, LogUtil, StrUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { geoLocationManager } from '@kit.LocationKit';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * 定位工具类(WGS-84坐标系)
@@ -22,10 +23,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column() {

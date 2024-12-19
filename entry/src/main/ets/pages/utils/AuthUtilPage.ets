@@ -1,9 +1,10 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { AuthUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import userIAM_userAuth from '@ohos.userIAM.userAuth';
 import userAuth from '@ohos.userIAM.userAuth';
 import { MockSetup } from '@ohos/hamock';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * 手机的生物认证（指纹、人脸、密码）工具类
@@ -23,10 +24,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column() {

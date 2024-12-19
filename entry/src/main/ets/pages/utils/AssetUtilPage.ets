@@ -1,7 +1,8 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { MockSetup } from '@ohos/hamock';
 import { AssetUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * 关键资产存储服务工具类
@@ -22,10 +23,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column() {

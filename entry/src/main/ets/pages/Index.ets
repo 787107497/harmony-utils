@@ -35,11 +35,6 @@ struct Index {
       .tabBar(this.tabBuilder(2, $r("app.media.icon_tab_spin"), "动画"))
 
       TabContent() {
-        RoomPage().margin({ bottom: 60 })
-      }
-      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_other'), "艺术"))
-
-      TabContent() {
         OtherPage()
       }
       .tabBar(this.tabBuilder(4, $r('app.media.icon_tab_mine'), "我的"))

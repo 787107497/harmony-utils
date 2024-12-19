@@ -1,8 +1,9 @@
 import { DescribeBean } from '../../entity/DescribeBean';
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { CryptoUtil, LogUtil, MD5, ToastUtil } from '@pura/harmony-utils';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * MD5工具类
@@ -37,10 +38,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column({ space: 5 }) {

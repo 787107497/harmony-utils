@@ -1,9 +1,10 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { KvUtil, RandomUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { distributedKVStore } from '@kit.ArkData';
 import { Callback } from '@kit.BasicServicesKit';
+import { TitleBarView } from '../../component/TitleBarView';
 
 /**
  * KvUtil，键值型数据库工具类
@@ -25,10 +26,7 @@ struct Index {
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: this.describe.name,
-        subtitle: this.describe.desc,
-      })
+      TitleBarView({ describe: this.describe })
       Divider()
       Scroll(this.scroller) {
         Column() {
