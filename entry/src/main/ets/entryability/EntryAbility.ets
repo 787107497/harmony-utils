@@ -1,6 +1,6 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import { font, window } from '@kit.ArkUI';
 import { AppUtil } from '@pura/harmony-utils';
 import { WindowUtil } from '../utils/WindowUtil';
 import { DialogHelper } from '@pura/harmony-dialog';
@@ -26,10 +26,9 @@ export default class EntryAbility extends UIAbility {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      // WindowUtil.createWindow({contentRouter:'pages/Index'}).then(()=>{
-      //   AppUtil.setGrayScale();
-      // })
-
+      font.registerFont({
+        familyName: 'MyFont', familySrc: $rawfile('MyFont.ttf')
+      })
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
     });
 

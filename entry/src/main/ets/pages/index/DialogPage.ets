@@ -1067,18 +1067,21 @@ export struct DialogPage {
 
   build() {
     Column() {
-      Text("弹框")
+      Text("弹框指南")
+        .fontFamily('MyFont')
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .textAlign(TextAlign.Center)
         .height(50)
         .width('100%')
         .backgroundColor(Color.White)
-        .textAlign(TextAlign.Center)
-        .fontWeight(FontWeight.Bold)
-        .fontSize(24)
+
       Divider()
       Scroll(this.scroller) {
         Column() {
           Column() {
             Text("弹框，加载框、吐司 的统一配置")
+              .fontFamily('MyFont')
               .fontColor($r('app.color.color_main'))
               .fontWeight(FontWeight.Bold)
               .fontSize(20)
@@ -1086,16 +1089,19 @@ export struct DialogPage {
             Row() {
               Blank().layoutWeight(1)
               Button("配置一")
+                .fontFamily('MyFont')
                 .type(ButtonType.Capsule)
                 .grayscale(0.1)
                 .onClick(() => this.customConfig1())
               Blank().layoutWeight(1)
               Button("配置二")
+                .fontFamily('MyFont')
                 .type(ButtonType.Capsule)
                 .opacity(0.9)
                 .onClick(() => this.customConfig2())
               Blank().layoutWeight(1)
               Button("默认的配置")
+                .fontFamily('MyFont')
                 .type(ButtonType.Capsule)
                 .opacity(0.9)
                 .grayscale(0.1)

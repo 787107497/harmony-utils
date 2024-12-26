@@ -9,27 +9,32 @@ export struct SpinKitPage {
   build() {
     Column() {
       Text("SpinKit动画")
+        .fontFamily('MyFont')
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .textAlign(TextAlign.Center)
         .height(50)
         .width('100%')
         .backgroundColor(Color.White)
-        .textAlign(TextAlign.Center)
-        .fontWeight(FontWeight.Bold)
-        .fontSize(24)
+
       Divider()
       Scroll(this.scroller) {
         Column({ space: 15 }) {
           Button('SpinKit')
+            .fontFamily('MyFont')
             .width('100%')
             .margin({ top: 15 })
             .onClick(() => {
               router.pushUrl({ url: 'pages/spinkit/SpinKit1' })
             })
           Button('SpinKit')
+            .fontFamily('MyFont')
             .width('100%')
             .onClick(() => {
               router.pushUrl({ url: 'pages/spinkit/SpinKit2' })
             })
           Button('加载框样式配置1')
+            .fontFamily('MyFont')
             .width('100%')
             .backgroundColor(Color.Grey)
             .onClick(() => {
@@ -48,6 +53,7 @@ export struct SpinKitPage {
               ToastUtil.showToast("样式配置成功！");
             })
           Button('加载框样式配置2')
+            .fontFamily('MyFont')
             .width('100%')
             .backgroundColor(Color.Grey)
             .onClick(() => {
@@ -66,6 +72,7 @@ export struct SpinKitPage {
               ToastUtil.showToast("样式配置成功！");
             })
           Button('加载框，样式一')
+            .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
             .backgroundColor($r('app.color.color_dd'))
@@ -79,6 +86,7 @@ export struct SpinKitPage {
               })
             })
           Button('加载框，样式二')
+            .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
             .backgroundColor($r('app.color.color_dd'))
@@ -98,6 +106,7 @@ export struct SpinKitPage {
               })
             })
           Button('加载框，样式三')
+            .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
             .backgroundColor($r('app.color.color_dd'))
@@ -112,6 +121,7 @@ export struct SpinKitPage {
               })
             })
           Button('加载框，样式四')
+            .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
             .backgroundColor($r('app.color.color_dd'))
@@ -125,6 +135,7 @@ export struct SpinKitPage {
               })
             })
           Button('加载框，样式五')
+            .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
             .backgroundColor($r('app.color.color_dd'))
@@ -146,6 +157,7 @@ export struct SpinKitPage {
               })
             })
           Button('加载框，样式六')
+            .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
             .backgroundColor($r('app.color.color_dd'))

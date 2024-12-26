@@ -1,7 +1,6 @@
 import { UtilsPage } from './index/UtilsPage';
 import { DialogPage } from './index/DialogPage';
 import { SpinKitPage } from './index/SpinKitPage';
-import { RoomPage } from './index/RoomPage';
 import { OtherPage } from './index/OtherPage';
 
 /**
@@ -20,31 +19,32 @@ struct Index {
   build() {
     Tabs({ barPosition: BarPosition.End, index: this.index, controller: this.tabsController }) {
       TabContent() {
-        UtilsPage().margin({ bottom: 60 })
+        UtilsPage()
       }
       .tabBar(this.tabBuilder(0, $r('app.media.icon_tab_utils'), "工具"))
 
       TabContent() {
-        DialogPage().margin({ bottom: 60 })
+        DialogPage()
       }
       .tabBar(this.tabBuilder(1, $r('app.media.icon_tab_dialog'), "弹框"))
 
       TabContent() {
-        SpinKitPage().margin({ bottom: 60 })
+        SpinKitPage()
       }
       .tabBar(this.tabBuilder(2, $r("app.media.icon_tab_spin"), "动画"))
 
       TabContent() {
         OtherPage()
       }
-      .tabBar(this.tabBuilder(4, $r('app.media.icon_tab_mine'), "我的"))
+      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_mine'), "我的"))
     }
     .divider({ strokeWidth: 1, color: $r('app.color.color_line') })
-    .barBackgroundColor(Color.White)
     .vertical(false)
-    .barOverlap(true)
     .barMode(BarMode.Fixed)
     .backgroundColor($r('app.color.main_background'))
+    .fadingEdge(false)
+    .barOverlap(false)
+    .barBackgroundColor(Color.White)
     .width('100%')
     .height('100%')
     .onChange((index: number) => { //页面切换回调
@@ -67,12 +67,13 @@ struct Index {
         .objectFit(ImageFit.Auto)
         .fillColor(index == this.index ? Color.Brown : Color.Gray)
       Text(text)
-        .fontSize(12)
+        .fontSize(15)
         .fontColor(index == this.index ? Color.Brown : Color.Gray)
         .fontStyle(FontStyle.Normal)
         .margin({ top: 5 })
+        .fontFamily('MyFont')
     }
-    .backgroundColor(Color.White)
+    .backgroundColor(Color.Transparent)
     .alignItems(HorizontalAlign.Center)
     .justifyContent(FlexAlign.Center)
     .alignSelf(ItemAlign.Center)

@@ -1,4 +1,4 @@
-import { JSONUtil, LogUtil, ResUtil, WantUtil } from '@pura/harmony-utils';
+import { JSONUtil, ResUtil, WantUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 @Preview
@@ -18,12 +18,14 @@ export struct OtherPage {
   build() {
     Column() {
       Text("我的")
+        .fontFamily('MyFont')
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .textAlign(TextAlign.Center)
         .height(50)
         .width('100%')
         .backgroundColor(Color.White)
-        .textAlign(TextAlign.Center)
-        .fontWeight(FontWeight.Bold)
-        .fontSize(24)
+
       Divider()
       Scroll(this.scroller) {
         Column() {
@@ -32,21 +34,26 @@ export struct OtherPage {
               .size({ width: 90, height: 90 })
               .borderRadius(6)
 
-            Column({ space: 10 }) {
+            Column({ space: 0 }) {
               Text("桃花镇童长老")
+                .fontFamily('MyFont')
                 .fontColor(Color.Black)
                 .fontWeight(FontWeight.Bold)
-                .fontSize(26)
+                .fontSize(28)
               Text("༺工程师༻")
+                .fontFamily('MyFont')
                 .fontColor(Color.Brown)
                 .fontWeight(FontWeight.Lighter)
                 .fontStyle(FontStyle.Italic)
                 .fontSize(16)
+                .margin({ top: 8 })
               Text("QQ交流群：569512366")
+                .fontFamily('MyFont')
                 .fontColor(Color.Black)
                 .fontWeight(FontWeight.Regular)
                 .fontStyle(FontStyle.Italic)
-                .fontSize(12)
+                .fontSize(18)
+                .margin({ top: 12 })
             }
             .alignItems(HorizontalAlign.Start)
             .margin({ left: 12 })
@@ -79,6 +86,7 @@ export struct OtherPage {
       Divider().visibility(index == 0 ? Visibility.None : Visibility.Visible)
       Row() {
         Text(item.name)
+          .fontFamily('MyFont')
           .fontSize(20)
           .fontColor($r('app.color.color_33'))
           .layoutWeight(1)

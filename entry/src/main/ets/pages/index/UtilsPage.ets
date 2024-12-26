@@ -55,15 +55,17 @@ export struct UtilsPage {
   itemBuilder(describe: DescribeBean) {
     Column() {
       Text(describe.name)
-        .width('100%')
+        .fontFamily('MyFont')
         .fontSize(26)
         .fontColor(Color.Black)
         .fontWeight(FontWeight.Bold)
-      Text(describe.desc)
         .width('100%')
+      Text(describe.desc)
+        .fontFamily('MyFont')
         .fontSize(16)
         .fontColor(Color.Brown)
         .fontStyle(FontStyle.Italic)
+        .width('100%')
         .margin({ top: 8 })
     }
     .alignItems(HorizontalAlign.Start)
@@ -94,13 +96,15 @@ export struct UtilsPage {
 
   build() {
     Column() {
-      Text("鸿蒙工具包")
+      Text("鸿蒙指南")
+        .fontFamily('MyFont')
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .textAlign(TextAlign.Center)
         .height(50)
         .width('100%')
         .backgroundColor(Color.White)
-        .textAlign(TextAlign.Center)
-        .fontWeight(FontWeight.Bold)
-        .fontSize(24)
+
       Divider()
       Scroll(this.scroller) {
         Column() {
