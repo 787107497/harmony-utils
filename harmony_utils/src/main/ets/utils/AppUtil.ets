@@ -55,7 +55,7 @@ export class AppUtil {
   static getContext(): common.UIAbilityContext {
     if (!AppUtil.context) {
       AppUtil.context = getContext() as common.UIAbilityContext; //兜底
-      LogUtil.error("context为空，请在UIAbility的onWindowStageCreate方法中调用AppUtil的init方法初始化！");
+      LogUtil.error("context为空，请在UIAbility的onCreate方法中调用AppUtil的init方法初始化！");
     }
     return AppUtil.context;
   }

@@ -789,6 +789,11 @@ export struct DialogPage {
       })
     } else if (index == 1) {
       DialogHelper.showDatePickerDialog({
+        primaryButton: {
+          value: "取消",
+          fontColor: Color.Red
+        },
+        secondaryButton: "确认",
         title: "请选择日期",
         dateType: DateType.YmdHm,
         // selected: new Date("2999-12-16 19:20:35"),
