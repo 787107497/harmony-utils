@@ -532,7 +532,7 @@ export class DialogHelper {
     if (options.divider || DialogHelper.config.picker_divider) {
       options.divider = options.divider ?? DialogHelper.config.picker_divider; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
     }
-    options.canLoop = options.canLoop ?? DialogHelper.config.picker_canLoop; //设置是否可循环滚动
+    options.canLoop = options.canLoop == undefined ?? DialogHelper.config.picker_canLoop; //设置是否可循环滚动
     if (!options.primaryButton && !options.secondaryButton) {
       options.primaryButton = DialogHelper.config.primaryButton
       options.secondaryButton = DialogHelper.config.secondaryButton

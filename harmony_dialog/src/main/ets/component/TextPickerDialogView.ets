@@ -144,11 +144,11 @@ export default struct TextPickerDialogView {
       .width('100%')
 
       TextPicker({ range: this.options.range, value: this.value })
-        .disappearTextStyle(this.options.disappearTextStyle)
         .textStyle(this.options.textStyle)
         .selectedTextStyle(this.options.selectedTextStyle)
-        .canLoop(this.options.canLoop)
+        .disappearTextStyle(this.options.disappearTextStyle)
         .divider(this.options.divider)
+        .canLoop(this.options.canLoop)
         .margin({ top: 20, bottom: 20 })
         .width('100%')
         .onChange((value: string | string[], index: number | number[]) => {

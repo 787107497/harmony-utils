@@ -19,7 +19,6 @@ import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
 import { ButtonOptions } from '../model/ButtonOptions';
 import { DateType, DialogAction, DialogHelper } from '../../../../Index';
 import { DateHelper } from '../utils/DateHelper';
-import { TextPickerModifier } from '../utils/TextPickerModifier';
 import { Helper } from '../utils/Helper';
 
 
@@ -58,7 +57,6 @@ export default struct DatePickerDialogView {
   @State hours: string[] = []; //时的可选范围
   @State minutes: string[] = []; //分的可选范围
   @State seconds: string[] = []; //秒的可选范围
-  @State modifier: TextPickerModifier = new TextPickerModifier();
   @State title: string = ""; //标题
   @State primaryButton?: ButtonOptions = undefined; //弹框左侧按钮。
   @State secondaryButton?: ButtonOptions = undefined; //弹框右侧按钮。
@@ -72,11 +70,6 @@ export default struct DatePickerDialogView {
     }
     this.primaryButton = this.options.primaryButton as ButtonOptions;
     this.secondaryButton = this.options.secondaryButton as ButtonOptions;
-    this.modifier.textStyle = this.options.textStyle
-    this.modifier.selectedTextStyle = this.options.selectedTextStyle
-    this.modifier.disappearTextStyle = this.options.disappearTextStyle
-    this.modifier.divider = this.options.divider
-    this.modifier.canLoop = this.options.canLoop
     this.initPickerData();
    }
 
@@ -206,72 +199,30 @@ export default struct DatePickerDialogView {
       .width('100%')
 
       Row() {
-        TextPicker({
-          range: this.years,
-          value: this.year
+        this.TextPickerView(this.years, this.year, this.containYear, 10, (value) => {
+          this.year = value as string;
+          this.onChangeData(1);
         })
-          .layoutWeight(10)
-          .attributeModifier(this.modifier)
-          .visibility(this.containYear ? Visibility.Visible : Visibility.None)
-          .onChange((value) => {
-            this.year = value as string;
-            this.onChangeData(1);
-          })
-        TextPicker({
-          range: this.months,
-          value: this.month
+        this.TextPickerView(this.months, this.month, this.containMonth, 9, (value) => {
+          this.month = value as string;
+          this.onChangeData(2);
         })
-          .layoutWeight(9)
-          .attributeModifier(this.modifier)
-          .visibility(this.containMonth ? Visibility.Visible : Visibility.None)
-          .onChange((value) => {
-            this.month = value as string;
-            this.onChangeData(2);
-          })
-        TextPicker({
-          range: this.days,
-          value: this.day
+        this.TextPickerView(this.days, this.day, this.containDay, 9, (value) => {
+          this.day = value as string;
+          this.onChangeData(3);
         })
-          .layoutWeight(9)
-          .attributeModifier(this.modifier)
-          .visibility(this.containDay ? Visibility.Visible : Visibility.None)
-          .onChange((value) => {
-            this.day = value as string;
-            this.onChangeData(3);
-          })
-        TextPicker({
-          range: this.hours,
-          value: this.hour
+        this.TextPickerView(this.hours, this.hour, this.containHour, 9, (value) => {
+          this.hour = value as string;
+          this.onChangeData(4);
         })
-          .layoutWeight(9)
-          .attributeModifier(this.modifier)
-          .visibility(this.containHour ? Visibility.Visible : Visibility.None)
-          .onChange((value) => {
-            this.hour = value as string;
-            this.onChangeData(4);
-          })
-        TextPicker({
-          range: this.minutes,
-          value: $$this.minute
+        this.TextPickerView(this.minutes, this.minute, this.containMinute, 9, (value) => {
+          this.minute = value as string;
+          this.onChangeData(5);
         })
-          .layoutWeight(9)
-          .attributeModifier(this.modifier)
-          .visibility(this.containMinute ? Visibility.Visible : Visibility.None)
-          .onChange((value) => {
-            this.minute = value as string;
-            this.onChangeData(5);
-          })
-        TextPicker({
-          range: this.seconds,
-          value: $$this.second
+        this.TextPickerView(this.seconds, this.second, this.containSecond, 9, (value) => {
+          this.second = value as string;
+          this.onChangeData(6);
         })
-          .layoutWeight(9)
-          .attributeModifier(this.modifier)
-          .visibility(this.containSecond ? Visibility.Visible : Visibility.None)
-          .onChange((value) => {
-            this.second = value as string;
-            this.onChangeData(6);
-          })
       }
       .alignItems(VerticalAlign.Center)
       .justifyContent(FlexAlign.Center)
@@ -287,6 +238,24 @@ export default struct DatePickerDialogView {
     .constraintSize({ maxWidth: this.options.maxWidth })
     .padding({ bottom: this.largeScreen ? 0 : 25 })
     .margin({ bottom: this.largeScreen ? 30 : 0 })
+  }
+
+
+  @Builder
+  TextPickerView(range: string[], value: string, contain: boolean, layoutWeight: number,
+    callback: (value: string | string[], index: number | number[]) => void) {
+    TextPicker({
+      range: range,
+      value: value
+    })
+      .layoutWeight(layoutWeight)
+      .textStyle(this.options.textStyle)
+      .selectedTextStyle(this.options.selectedTextStyle)
+      .disappearTextStyle(this.options.disappearTextStyle)
+      .divider(this.options.divider)
+      .canLoop(this.options.canLoop)
+      .visibility(contain ? Visibility.Visible : Visibility.None)
+      .onChange(callback)
   }
 
 

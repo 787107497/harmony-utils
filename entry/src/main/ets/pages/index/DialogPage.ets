@@ -384,6 +384,7 @@ export struct DialogPage {
       DialogHelper.showSelectDialog({
         title: "请选择菜单",
         content: "选择您中意的文本菜单",
+        selectedIndex: 3, //设置选中索引
         autoCancel: false, //点击遮障层时，不关闭弹窗
         radioContent: [{
           title: "文本菜单选项一",
@@ -811,6 +812,7 @@ export struct DialogPage {
       DialogHelper.showDatePickerDialog({
         title: "请选择年月日",
         dateType: DateType.YmdH,
+        canLoop: false,
         onAction: (action: number, dialogId: string, date: Date): void => {
           if (action == DialogAction.SURE) {
             let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd HH");

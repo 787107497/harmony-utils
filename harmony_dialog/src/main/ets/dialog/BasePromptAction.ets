@@ -86,6 +86,7 @@ export class BasePromptAction {
         isModal: options.isModal, //弹窗是否为模态窗口，模态窗口有蒙层，非模态窗口无蒙层。默认值：true，此时弹窗有蒙层。
         showInSubWindow: options.showInSubWindow, //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
         autoCancel: options.autoCancel, //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
+        keyboardAvoidMode: options.keyboardAvoidMode, //用于设置弹窗是否在拉起软键盘时进行自动避让。默认值：KeyboardAvoidMode.DEFAULT
         transition: options.transition, //设置弹窗显示和退出的过渡效果。
         onWillAppear: options.onWillAppear, //弹窗显示动效前的事件回调。
         onWillDisappear: options.onWillDisappear, //弹窗退出动效前的事件回调。

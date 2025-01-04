@@ -44,6 +44,7 @@ export interface DialogOptions extends BaseDialogOptions {
   borderWidth?: Dimension | EdgeWidths | LocalizedEdgeWidths; //可分别设置4个边框宽度。默认值：0。
   borderColor?: ResourceColor | EdgeColors | LocalizedEdgeColors; //设置弹窗背板的边框颜色。默认值：Color.Black。
   borderStyle?: BorderStyle | EdgeStyles; //设置弹窗背板的边框样式。默认值：BorderStyle.Solid。
+  shadow?: ShadowOptions | ShadowStyle; //设置弹窗背板的阴影。
   theme?: Theme | CustomTheme; //主题信息，可以是CustomTheme或从onWillApplyTheme中获取的Theme实例。
-
+  themeColorMode?: ThemeColorMode; //设置深色浅色。
 }

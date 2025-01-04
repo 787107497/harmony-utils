@@ -72,6 +72,7 @@ export function ConfirmDialogBuilder(options: DialogOptions) {
     .borderWidth(options.borderWidth)
     .borderColor(options.borderColor)
     .borderStyle(options.borderStyle)
+
 }
 
 
@@ -175,7 +176,7 @@ export function ActionSheetDialogBuilder(options: BottomSheetOptions) {
  */
 @Builder
 export function TextPickerDialogBuilder(options: TextPickerOptions) {
-  TextPickerDialogView({ options: options });
+  TextPickerDialogView({ options: options })
 }
 
 

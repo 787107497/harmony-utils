@@ -32,6 +32,7 @@ import { ActionStrCallBack, NumberCalBack } from '../utils/constraint';
  */
 export interface SelectOptions extends DialogOptions {
 
+  selectedIndex?: number; //设置选中索引
   content?: ResourceStr; //弹框内容。
   confirm?: ButtonOptions | ResourceStr; //选择弹出框底部按钮。
   radioContent: Array<SheetInfo> | Array<ResourceStr>; //选择弹出框的子项内容列表，每个选择项支持设置文本和选中的回调事件。

@@ -1,5 +1,11 @@
 # 版本记录
 
+
+## 1.1.0
+1. SelectDialog，添加selectedIndex参数，设置选中索引。
+2. TextPickerDialog，修复canLoop参数问题。
+3.
+
 ## 1.0.9
 1. 优化部分弹框的最大宽度。
 2. 优化ToastTip部分参数配置。

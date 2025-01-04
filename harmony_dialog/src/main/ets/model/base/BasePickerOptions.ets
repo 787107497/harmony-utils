@@ -44,6 +44,9 @@ export interface BasePickerOptions extends BaseDialogOptions {
   backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.White
   backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
   cornerRadius?: Length; //设置背板的圆角半径。可分别设置4个圆角的半径，默认15。
+  shadow?: ShadowOptions | ShadowStyle; //设置弹窗背板的阴影。
+  theme?: Theme | CustomTheme; //主题信息，可以是CustomTheme或从onWillApplyTheme中获取的Theme实例。
+  themeColorMode?: ThemeColorMode; //设置深色浅色。
 
   textStyle?: PickerTextStyle; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
   selectedTextStyle?: PickerTextStyle; //设置选中项的文本颜色、字号、字体粗细。
