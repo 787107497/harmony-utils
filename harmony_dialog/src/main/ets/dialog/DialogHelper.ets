@@ -28,9 +28,7 @@ import {
     TextAreaDialogBuilder,
     TextInputDialogBuilder,
     TextPickerDialogBuilder,
-    TipsDialogBuilder,
-    ToastBuilder,
-    ToastTipBuilder
+    TipsDialogBuilder, ToastTipBuilder
 } from './DialogBuilder';
 import { BasePromptAction } from './BasePromptAction';
 import { DialogOptions } from '../model/base/DialogOptions';
@@ -53,7 +51,7 @@ import { HmDialogOptions } from '../model/base/HmDialogOptions';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
 import { DialogAction } from '../utils/constraint';
-import { UIContext } from '@kit.ArkUI';
+import { promptAction, UIContext } from '@kit.ArkUI';
 import { Helper } from '../utils/Helper';
 import { TextPickerOptions } from '../model/TextPickerOptions';
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
@@ -329,15 +327,11 @@ export class DialogHelper {
   static showToast(message: string | Resource, options?: ToastOptions) {
     options = options ?? {};
     options.message = message;
-    DialogHelper.initToastDefault(options);
-    options.dialogId = DialogHelper.generateId();
     options.duration = options.duration ?? DialogHelper.config.toast_duration;
-    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastBuilder), options);
-    let timeID = setTimeout(() => {
-      DialogHelper.closeDialog(options?.dialogId ?? "");
-      clearTimeout(timeID);
-    }, options.duration);
+    DialogHelper.initToastDefault(options);
+    BasePromptAction.getInstance().showToast(options);
   }
+
 
   /**
    * 显示长吐司
@@ -347,14 +341,9 @@ export class DialogHelper {
   static showToastLong(message: string | Resource, options?: ToastOptions) {
     options = options ?? {};
     options.message = message;
-    DialogHelper.initToastDefault(options);
-    options.dialogId = DialogHelper.generateId();
     options.duration = options.duration ?? DialogHelper.config.toast_durationLong;
-    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastBuilder), options);
-    let timeID = setTimeout(() => {
-      DialogHelper.closeDialog(options?.dialogId ?? "");
-      clearTimeout(timeID);
-    }, options.duration);
+    DialogHelper.initToastDefault(options);
+    BasePromptAction.getInstance().showToast(options);
   }
 
 
@@ -363,7 +352,7 @@ export class DialogHelper {
    * @param options
    */
   static showToastTip(options: ToastTipOptions) {
-    DialogHelper.initToastDefault(options);
+    DialogHelper.initToastTipDefault(options);
     options.dialogId = DialogHelper.generateId();
     options.orientation = options.orientation ?? DialogHelper.config.toast_orientation; //吐司的布局方向。
     options.imageSize = options.imageSize ?? DialogHelper.config.toast_imageSize;
@@ -882,10 +871,10 @@ export class DialogHelper {
 
 
   /**
-   * 初始化ToastOptions参数
+   * 初始化ToastTipOptions参数
    * @param options
    */
-  private static initToastDefault(options: ToastOptions) {
+  private static initToastTipDefault(options: ToastTipOptions) {
     options.uiContext = options.uiContext ?? DialogHelper.getMainUIContext();
     options.maskColor = Color.Transparent; //弹框自定义蒙层颜色。
     options.autoCancel = false; //点击遮障层时，是否关闭弹窗。
@@ -915,8 +904,7 @@ export class DialogHelper {
       options.fontColor = options.fontColor ?? DialogHelper.config.toast_fontColor; //文字颜色。
     }
     if (options.backgroundColor || DialogHelper.config.toast_backgroundColor) {
-      options.backgroundColor =
-        options.backgroundColor ?? DialogHelper.config.toast_backgroundColor; //背景颜色，建议八位色值前两位为透明度。
+      options.backgroundColor = options.backgroundColor ?? DialogHelper.config.toast_backgroundColor; //背景颜色，建议八位色值前两位为透明度。
     }
     if (options.borderRadius || DialogHelper.config.toast_borderRadius) {
       options.borderRadius = options.borderRadius ?? DialogHelper.config.toast_borderRadius; //背景圆角。
@@ -924,6 +912,28 @@ export class DialogHelper {
     if (options.padding || DialogHelper.config.toast_padding) {
       options.padding = options.padding ?? DialogHelper.config.toast_padding; //Padding。
     }
+  }
+
+
+  /**
+   * 初始化ToastOptions参数
+   * @param options
+   */
+  private static initToastDefault(options: ToastOptions) {
+    options.uiContext = options.uiContext ?? DialogHelper.getMainUIContext();
+    if (options.fontColor || DialogHelper.config.toast_fontColor) {
+      options.fontColor = options.fontColor ?? DialogHelper.config.toast_fontColor; //文字颜色。
+    }
+    if (options.backgroundColor || DialogHelper.config.toast_backgroundColor) {
+      options.backgroundColor =
+        options.backgroundColor ?? DialogHelper.config.toast_backgroundColor; //背景颜色，建议八位色值前两位为透明度。
+    }
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? BlurStyle.NONE; //文本提示框背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK。说明：设置为BlurStyle.NONE即可关闭背景虚化。当设置了backgroundBlurStyle为非NONE值时，则不要设置backgroundColor，否则颜色显示将不符合预期效果。。
+    options.shadow = options.shadow ?? ShadowStyle.OUTER_DEFAULT_MD; //文本提示框背板阴影。默认值：ShadowStyle.OUTER_DEFAULT_MD
+    options.showMode = options.showMode ?? promptAction.ToastShowMode.DEFAULT; //设置弹窗是否显示在应用之上。默认值：ToastShowMode.DEFAULT，默认显示在应用内。
+    // options.alignment = options.alignment ?? undefined; //对齐方式。默认值：undefined，默认底部偏上位置。
+    options.bottom = options.bottom ?? "80vp"; //设置弹窗底部边框距离导航条的高度，ToastShowMode.TOP_MOST模式下，软键盘拉起时，如果bottom值过小，toast要被软键盘遮挡时，会自动避让至距离软键盘80vp处。ToastShowMode.DEFAULT模式下，软键盘拉起时，会上移软键盘的高度。默认值：80vp。说明：当底部没有导航条时，bottom为设置弹窗底部边框距离窗口底部的高度。设置对齐方式alignment后，bottom不生效。
+    options.offset = options.offset ?? { dx: 0, dy: 0 }; //在对齐方式上的偏移。默认值：{ dx: 0, dy: 0 }，默认没有偏移。说明： 只支持设置px类型的数值，如需设置vp，可以将vp改成px传入。
   }
 
 

@@ -90,8 +90,6 @@ export default struct TextAreaDialogView {
       text: $$this.text,
       placeholder: this.options.placeholder ?? '请输入'
     })
-      .width('100%')
-      .padding({ top: 12, bottom: 12 })
       .type(this.options.inputType ?? TextAreaType.NORMAL)
       .defaultFocus(this.options.defaultFocus)
       .fontSize(this.options.fontSize)
@@ -101,11 +99,13 @@ export default struct TextAreaDialogView {
       .textAlign(this.options.textAlign)
       .align(this.textAlignment)
       .lineHeight(this.options.inputLineHeight)
-      .height(this.options.inputHeight ?? 155)//默认155
       .backgroundColor(this.options.inputBackgroundColor)
       .border(this.options.inputBorder ?? { radius: 8 })
       .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
       .attributeModifier(this.modifier)
+      .width('100%')
+      .height(this.options.inputHeight ?? 155)//默认155
+      .padding({ top: 12, bottom: 12 })
       .onChange((value: string, previewText?: PreviewText) => {
         CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
         if (this.options.onChange) {
@@ -113,4 +113,6 @@ export default struct TextAreaDialogView {
         }
       })
   }
+
+
 }

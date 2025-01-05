@@ -20,6 +20,7 @@ import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
 import { PromptActionArg } from '../model/base/PromptActionArg';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { CacheHelper } from '../utils/CacheHelper';
+import { ToastOptions } from '../model/ToastOptions';
 
 
 /**
@@ -47,6 +48,35 @@ export class BasePromptAction {
     }
     return BasePromptAction.instance;
   }
+
+
+  /**
+   * 创建并弹出dialogContent对应的自定义弹窗
+   * @param contentView 自定义弹窗中显示的组件内容。
+   * @param options 弹窗样式。
+   */
+  showToast(options: ToastOptions) {
+    let showToastOptions: promptAction.ShowToastOptions = {
+      message: options.message ?? "",
+      duration: options.duration, //默认值1500ms，取值区间：1500ms-10000ms。若小于1500ms则取默认值，若大于10000ms则取上限值10000ms。
+      textColor: options.fontColor ?? Color.Black, // 文本提示框文本颜色。默认值：Color.Black
+      bottom: options.bottom ?? "80vp", //设置弹窗底部边框距离导航条的高度。默认值：80vp。
+      alignment: options.alignment, //对齐方式。默认值：undefined，默认底部偏上位置。
+      offset: options.offset ?? { dx: 0, dy: 0 }, //在对齐方式上的偏移。默认值：{ dx: 0, dy: 0 }，默认没有偏移。说明： 只支持设置px类型的数值，如需设置vp，可以将vp改成px传入。
+      backgroundColor: options.backgroundColor, //文本提示框背板颜色，建议八位色值前两位为透明度。默认值：Color.Transparent。
+      backgroundBlurStyle: options.backgroundBlurStyle ?? BlurStyle.COMPONENT_ULTRA_THICK, //文本提示框背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK。
+      shadow: options.shadow ?? ShadowStyle.OUTER_DEFAULT_MD, //文本提示框背板阴影。默认值：ShadowStyle.OUTER_DEFAULT_MD
+      showMode: options.showMode, //设置弹窗是否显示在应用之上。默认值：ToastShowMode.DEFAULT，默认显示在应用内。
+    }
+    if (options.uiContext) {
+      options.uiContext.getPromptAction().showToast(showToastOptions);
+    } else {
+      window.getLastWindow(getContext()).then((result: window.Window) => {
+        result.getUIContext().getPromptAction().showToast(showToastOptions);
+      })
+    }
+  }
+
 
 
   /**

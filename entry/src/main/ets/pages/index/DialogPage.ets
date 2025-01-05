@@ -1021,27 +1021,25 @@ export struct DialogPage {
       DialogHelper.showToast("女人什么年龄是最好？任何年龄都可以。因为每个年龄段都有不一样的美。看XX的穿搭你就会发现成熟女性的魅力，反而会更加的吸引人。难道这就是传说中的可爱在性感面前真的不值得一提吗？")
     } else if (index == 1) {
       //自定义的长吐司
-      DialogHelper.showToast("这是一个自定义的长吐司呀~~~", {
+      DialogHelper.showToastLong("这是一个自定义的长吐司呀~~~", {
         fontColor: Color.White,
         backgroundColor: "#DD0066FF",
-        backCancel: true,
+        bottom: "120vp"
       });
     } else if (index == 2) {
       //自定义吐司
-      DialogHelper.showToast("这是一个自定义吐司", {
+      DialogHelper.showToast("这是一个居中的自定义吐司", {
         fontColor: Color.Red,
-        backgroundColor: Color.Grey,
-        borderRadius: 30,
-        alignment: DialogAlignment.Bottom,
+        backgroundColor: Color.Black,
+        alignment: Alignment.Center,
       });
     } else {
       //自定义吐司
-      DialogHelper.showToastLong("这是一个自定义吐司", {
+      DialogHelper.showToastLong("这是一个距离顶部100vp的自定义吐司", {
         fontColor: Color.White,
         backgroundColor: "#99FF0000",
-        alignment: DialogAlignment.Top,
-        borderRadius: 5,
-        fontSize: 18,
+        alignment: Alignment.Top,
+        offset: { dx: 0, dy: vp2px(100) }
       });
     }
   }

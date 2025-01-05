@@ -26,7 +26,6 @@ import { TextInputOptions } from '../model/TextInputOptions'
 import { TextAreaOptions } from '../model/TextAreaOptions'
 import { LoadingOptions } from '../model/LoadingOptions'
 import { LoadingProgressOptions } from '../model/LoadingProgressOptions'
-import { ToastOptions } from '../model/ToastOptions'
 import { ToastTipOptions } from '../model/ToastTipOptions'
 import { BottomSheetOptions } from '../model/BottomSheetOptions'
 import BottomSheetDialogView from '../component/BottomSheetDialogView'
@@ -35,7 +34,6 @@ import { TextPickerOptions } from '../model/TextPickerOptions'
 import TextPickerDialogView from '../component/TextPickerDialogView'
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions'
 import DatePickerDialogView from '../component/DatePickerDialogView'
-import ToastView from '../component/ToastView'
 import ToastTipView from '../component/ToastTipView'
 
 
@@ -205,15 +203,6 @@ export function LoadingBuilder(options: LoadingOptions) {
 @Builder
 export function LoadingProgressBuilder(options: LoadingProgressOptions) {
   LoadingProgressView({ options: options });
-}
-
-
-/**
- * Toast
- */
-@Builder
-export function ToastBuilder(options: ToastOptions) {
-  ToastView({ options: options });
 }
 
 

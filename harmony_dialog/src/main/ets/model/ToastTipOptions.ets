@@ -16,7 +16,7 @@
  */
 
 import { Orientation } from '../utils/constraint';
-import { ToastOptions } from './ToastOptions';
+import { BaseDialogOptions } from './base/BaseDialogOptions';
 
 /**
  * TODO ToastTip基本参数类
@@ -28,9 +28,16 @@ import { ToastOptions } from './ToastOptions';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 569512366
  */
-export interface ToastTipOptions extends ToastOptions {
+export interface ToastTipOptions extends BaseDialogOptions {
 
-  message: string | Resource; //吐司内容
+  message?: string | Resource; //吐司内容
+  duration?: number; //显示时长(1500ms-10000ms)
+  fontSize?: number | string | Resource; //文字大小
+  fontColor?: ResourceColor; //文字颜色
+  backgroundColor?: ResourceColor; //背景颜色，建议八位色值前两位为透明度
+  borderRadius?: Length | BorderRadiuses; //背景圆角
+  padding?: Padding | Length; //Padding
+
   imageRes: ResourceStr | PixelMap; //展示的图片。
   imageSize?: SizeOptions; //自定义图片尺寸。默认值：64*64vp
   orientation?: Orientation; //吐司布局方向，默认垂直。设置该值时，请重新设置imageSize和margin。
