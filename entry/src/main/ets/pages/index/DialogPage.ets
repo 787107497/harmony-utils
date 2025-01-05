@@ -915,7 +915,8 @@ export struct DialogPage {
         content: "加载中…",
         fontSize: 18,
         padding: { top: 30, right: 45, bottom: 30, left: 45 },
-        autoCancel: true
+        autoCancel: true,
+        shadow: { radius: 0 }
       })
     } else if (index == 2) {
       //自定义文字和加载动画的颜色
@@ -975,6 +976,7 @@ export struct DialogPage {
         loadColor: $r('app.color.color_main'),
         fontColor: $r('app.color.color_main'),
         autoCancel: false,
+        shadow: { radius: 0 }
       })
       //模拟网络
       let intervalID = setInterval(() => {

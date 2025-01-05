@@ -867,6 +867,7 @@ export class DialogHelper {
     if (options.padding || DialogHelper.config.loading_padding) {
       options.padding = options.padding ?? DialogHelper.config.loading_padding; //padding。
     }
+    options.shadow = options.shadow ?? ShadowStyle.OUTER_DEFAULT_SM;
   }
 
 

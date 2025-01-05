@@ -60,6 +60,6 @@ export default struct LoadingView {
     .padding(this.options.padding)
     .backgroundColor(this.options.backgroundColor)
     .borderRadius(this.options.borderRadius)
-    .shadow(ShadowStyle.OUTER_DEFAULT_SM)
+    .shadow(this.options.shadow)
   }
 }

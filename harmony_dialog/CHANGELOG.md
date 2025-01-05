@@ -4,10 +4,11 @@
 1. SelectDialog，添加selectedIndex参数，设置选中索引。
 2. TextPickerDialog，修复canLoop参数问题。
 3. TextInputDialog 新增showPassword、showPasswordIcon、passwordIcon、passwordRules、cancelButton等参数。
-4. 修改showToast实现方式，解决一些网友反馈的问题。
+4. LoadingDialog和LoadingProgress，新增参数shadow，阴影效果。
+5. 修改showToast实现方式，解决一些网友反馈的问题。
 
 ```typescript
-//1.1.0版本适配指南：由于修改了吐司（showToast）实现方式，所以只支持一下参数
+//1.1.0版本适配指南：由于修改了吐司（showToast）实现方式，所以只支持以下参数
 
 uiContext?: UIContext; //UIContext上下文
 message?: string | Resource; //显示的文本信息。默认字体为'Harmony Sans'，不支持设置其他字体。

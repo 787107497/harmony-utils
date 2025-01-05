@@ -40,6 +40,7 @@ export interface LoadingOptions extends BaseDialogOptions {
   backgroundColor?: ResourceColor; //加载动画背景颜色，建议八位色值前两位为透明度
   borderRadius?: Length | BorderRadiuses; //加载动画背景圆角
   marginTop?: number | string | Resource //文字与动画的间距
-  padding?: Padding | Length //padding
+  padding?: Padding | Length; //padding
+  shadow?: ShadowOptions | ShadowStyle; //阴影效果，默认参数为：ShadowStyle.OUTER_DEFAULT_SM
 
 }
