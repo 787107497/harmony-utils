@@ -39,6 +39,8 @@ export default struct TextInputDialogView {
   @State modifier: TextInputModifier = new TextInputModifier();
   @State content: CustomContentOptions | null = null;
   @State text: string = '';
+  @State showPassword: boolean = false; //是否显示密码
+  @State cancelButton: CancelButtonOptions = { style: CancelButtonStyle.INPUT, icon: { size: '16vp', color: '#99ffffff', src: '' } }; //右侧清除按钮样式
 
 
   aboutToAppear(): void {
@@ -46,6 +48,10 @@ export default struct TextInputDialogView {
     this.modifier.inputFilter = this.options.inputFilter;
     if (this.options.controller) {
       this.controller = this.options.controller;
+    }
+    this.showPassword = this.options.showPassword ?? false;
+    if (this.options.cancelButton) {
+      this.cancelButton = this.options.cancelButton;
     }
     this.content = {
       primaryTitle: this.options.primaryTitle,
@@ -82,15 +88,19 @@ export default struct TextInputDialogView {
       placeholder: this.options.placeholder ?? '请输入'
     })
       .type(this.options.inputType ?? InputType.Normal)
+      .showPassword(this.showPassword)
+      .showPasswordIcon(this.options.showPasswordIcon)
+      .passwordIcon(this.options.passwordIcon)
+      .passwordRules(this.options.passwordRules)
+      .cancelButton(this.cancelButton)
       .defaultFocus(this.options.defaultFocus)
-      .fontSize(this.options.fontSize)
       .fontColor(this.options.fontColor)
       .fontSize(this.options.fontSize)
       .placeholderColor(this.options.placeholderColor)
-      .height(this.options.inputHeight)
       .backgroundColor(this.options.inputBackgroundColor)
       .border(this.options.inputBorder)
       .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
+      .height(this.options.inputHeight)
       .attributeModifier(this.modifier)
       .onChange((value: string, previewText?: PreviewText) => {
         CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
@@ -98,7 +108,9 @@ export default struct TextInputDialogView {
           this.options.onChange(value);
         }
       })
+      .onSecurityStateChange(show => {
+        this.showPassword = show;
+      })
   }
-
 
 }

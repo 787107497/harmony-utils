@@ -444,15 +444,28 @@ export struct DialogPage {
     } else if (index == 1) {
       //自定义按钮、标题、边距等
       DialogHelper.showTextInputDialog({
-        title: "工作人员姓名",
-        placeholder: "请输入工作人员姓名",
-        inputType: InputType.Normal,
-        defaultFocus: true,
+        title: "支付密码",
+        placeholder: "请输入密码",
+        inputType: InputType.Password,
+        showPassword: false,
+        showPasswordIcon: true,
+        passwordIcon: {
+          onIconSrc: $r('sys.media.ohos_ic_public_voice'),
+          offIconSrc: $r('sys.media.ohos_ic_public_voice_off')
+        },
+        passwordRules:"1234567",
+        cancelButton: {
+          style: CancelButtonStyle.INPUT
+        },
+        defaultFocus: true, //主动拉起键盘
         text: this.inputText,
         alignment: DialogAlignment.Bottom,
         offset: { dx: 0, dy: -35 },
         contentAreaPadding: { top: 12, bottom: 16, left: 15, right: 15 },
-        buttons: ["确认"],
+        buttons: [
+          { value: "取消", fontColor: Color.Red },
+          "确认"
+        ],
         onChange: (text) => {
           console.error("onChange: " + text);
         },
@@ -1215,6 +1228,7 @@ export struct DialogPage {
             onClickAction: (index: number): void => this.toastTip(index)
           })
             .margin({ bottom: 15 })
+
         }
       }
       .layoutWeight(1)

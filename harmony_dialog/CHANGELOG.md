@@ -4,7 +4,8 @@
 ## 1.1.0
 1. SelectDialog，添加selectedIndex参数，设置选中索引。
 2. TextPickerDialog，修复canLoop参数问题。
-3.
+3. TextInputDialog 新增showPassword、showPasswordIcon、passwordIcon、passwordRules、cancelButton等参数。
+4. 
 
 ## 1.0.9
 1. 优化部分弹框的最大宽度。
