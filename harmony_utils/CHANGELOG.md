@@ -1,5 +1,8 @@
 # 版本记录
 
+## 1.2.6（API12 - 5.0.3.906）
+
+
 ## 1.2.5（API12 - 5.0.3.906）
 1. 新增LRUCacheUtil工具类。
 2. 优化CacheUtil工具类 和 GlobalContext工具类。
