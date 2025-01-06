@@ -93,7 +93,7 @@ export struct OtherPage {
           .margin(5)
         Image($r('app.media.icon_right'))
           .fillColor($r('app.color.color_cc'))
-          .size({ width: 20, height: 20 })
+          .size({ width: 16, height: 16 })
       }
       .width('100%')
       .padding(15)
