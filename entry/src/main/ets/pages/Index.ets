@@ -2,6 +2,7 @@ import { UtilsPage } from './index/UtilsPage';
 import { DialogPage } from './index/DialogPage';
 import { SpinKitPage } from './index/SpinKitPage';
 import { OtherPage } from './index/OtherPage';
+import { RoomPage } from './index/RoomPage';
 
 /**
  * 主页面
@@ -34,9 +35,14 @@ struct Index {
       .tabBar(this.tabBuilder(2, $r("app.media.icon_tab_spin"), "动画"))
 
       TabContent() {
+        RoomPage()
+      }
+      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_room'), "艺术"))
+
+      TabContent() {
         OtherPage()
       }
-      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_mine'), "我的"))
+      .tabBar(this.tabBuilder(4, $r('app.media.icon_tab_mine'), "我的"))
     }
     .divider({ strokeWidth: 1, color: $r('app.color.color_line') })
     .vertical(false)
