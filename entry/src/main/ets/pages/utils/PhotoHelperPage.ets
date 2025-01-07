@@ -1,15 +1,15 @@
 import { router } from '@kit.ArkUI';
 import {
-    DateUtil,
-    FileUtil,
-    ImageUtil,
-    LogUtil,
-    PermissionUtil,
-    PhotoHelper,
-    PickerUtil,
-    StrUtil,
-    ToastUtil,
-    WantUtil
+  DateUtil,
+  FileUtil,
+  ImageUtil,
+  LogUtil,
+  PermissionUtil,
+  PhotoHelper,
+  PickerUtil,
+  StrUtil,
+  ToastUtil,
+  WantUtil
 } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -18,6 +18,7 @@ import { image } from '@kit.ImageKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { DialogHelper } from '@pura/harmony-dialog';
 
 
 /**
@@ -31,6 +32,7 @@ struct Index {
   @State uriStr: string = ''
   @State pixelMap?: image.PixelMap = undefined
   @State filePath: string = ''; //本地图片path
+  @State filePath2: string = ''; //本地图片path
 
   @MockSetup
   mock() {
@@ -38,9 +40,12 @@ struct Index {
   }
 
   async aboutToAppear(): Promise<void> {
-    let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"))
-    this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
+    let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"));
+    this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png");
     LogUtil.error("filePath: " + this.filePath);
+    let pixelMap2 = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as2"))
+    this.filePath2 = await ImageUtil.savePixelMap(pixelMap2, FileUtil.getFilesDirPath(""), "为梦想窒息.png")
+
   }
 
   onBackPress(): boolean {
@@ -121,7 +126,14 @@ struct Index {
           Button("测试")
             .btnStyle()
             .onClick(() => {
-              PhotoHelper.showAssetsCreationDialog([FileUtil.getUriFromPath(this.filePath)])
+              let uri = FileUtil.getUriFromPath(this.filePath);
+              let uri2 = FileUtil.getUriFromPath(this.filePath2);
+              PhotoHelper.showAssetsCreationDialog([uri,uri2]).then((result)=>{
+                DialogHelper.showToast("图片保存成功！")
+              }).catch((error: BusinessError) => {
+                LogUtil.error(`PhotoHelper-showAssetsCreationDialogEasy11 ~ code: ${error.code} -·- message: ${error.message}`);
+                DialogHelper.showToast("图片保存失败！")
+              })
 
             })
 

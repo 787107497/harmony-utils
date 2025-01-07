@@ -21,6 +21,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { LogUtil } from '../utils/LogUtil';
 import { FileUtil } from '../utils/FileUtil';
 import fs from '@ohos.file.fs';
+import { AppUtil } from '../utils/AppUtil';
 
 const PHOTO_DEFAULT_SELECT_NUMBER: number = 9; //数量
 
@@ -146,32 +147,28 @@ export class PhotoHelper {
    * @returns 返回给应用的媒体库文件uri列表。Uri已对应用授权，支持应用写入数据。
    */
   static async showAssetsCreationDialog(srcFileUris: Array<string>, photoCreationConfigs?: Array<photoAccessHelper.PhotoCreationConfig>): Promise<Array<string>>{
-    try {
-      let ImageExtensions = ["jpeg", "jpg", "png", "gif", "webp", "bmp", "heic", "heif", , "ico", "svg"]; //图片文件后缀
-      let phAccessHelper = photoAccessHelper.getPhotoAccessHelper(getContext());
-      if (photoCreationConfigs == undefined || photoCreationConfigs == null) {
-        photoCreationConfigs = new Array<photoAccessHelper.PhotoCreationConfig>();
-        for (let index = 0; index < srcFileUris.length; index++) {
-          let fileName = FileUtil.getFileName(srcFileUris[index]); //文件名
-          let fileExtention = FileUtil.getFileExtention(fileName); //文件后缀
-          let photoType = ImageExtensions.includes(fileExtention.toLowerCase()) ? photoAccessHelper.PhotoType.IMAGE : photoAccessHelper.PhotoType.VIDEO;
-          let photoCreationConfig: photoAccessHelper.PhotoCreationConfig = {
-            title: fileName, //可选
-            fileNameExtension: fileExtention,
-            photoType: photoType,
-            subtype: photoAccessHelper.PhotoSubtype.DEFAULT, //可选
-          }
-          photoCreationConfigs.push(photoCreationConfig);
+    let ImageExtensions = ["jpeg", "jpg", "png", "gif", "webp", "bmp", "heic", "heif", , "ico", "svg"]; //图片文件后缀
+    let phAccessHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    if (photoCreationConfigs == undefined || photoCreationConfigs == null) {
+      photoCreationConfigs = new Array<photoAccessHelper.PhotoCreationConfig>();
+      for (let index = 0; index < srcFileUris.length; index++) {
+        let fileName = FileUtil.getFileName(srcFileUris[index]); //文件名
+        let fileExtention = FileUtil.getFileExtention(fileName); //文件后缀
+        // fileName = fileName.replace(`.${fileExtention}`, "");
+        let photoType = ImageExtensions.includes(fileExtention.toLowerCase()) ? photoAccessHelper.PhotoType.IMAGE :
+        photoAccessHelper.PhotoType.VIDEO;
+        let photoCreationConfig: photoAccessHelper.PhotoCreationConfig = {
+          title: fileName, //可选
+          fileNameExtension: fileExtention,
+          photoType: photoType,
+          subtype: photoAccessHelper.PhotoSubtype.DEFAULT, //可选
         }
+        photoCreationConfigs.push(photoCreationConfig);
       }
-      let desFileUris: Array<string> = await phAccessHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
-      phAccessHelper.release(); //释放
-      return desFileUris;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`PhotoHelper-showAssetsCreationDialog-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
-    return [];
+    let desFileUris: Array<string> = await phAccessHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
+    phAccessHelper.release(); //释放
+    return desFileUris;
   }
 
 
@@ -181,23 +178,17 @@ export class PhotoHelper {
    * @param photoCreationConfigs 保存图片/视频到媒体库的配置，包括保存的文件名等，与srcFileUris保持一一对应。
    * @returns 图片/视频文件是否保存成功。
    */
-  static async showAssetsCreationDialogEasy(srcFileUris: Array<string>, photoCreationConfigs?: Array<photoAccessHelper.PhotoCreationConfig>): Promise<boolean> {
-    try {
-      let desFileUris: Array<string> = await PhotoHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
-      for (let index = 0; index < desFileUris.length; index++) {
-        //将来源于应用沙箱的照片内容写入媒体库的目标uri
-        let desFile: fs.File = await FileUtil.open(desFileUris[index], fs.OpenMode.WRITE_ONLY);
-        let srcFile: fs.File = await FileUtil.open(srcFileUris[index], fs.OpenMode.READ_ONLY);
-        await FileUtil.copyFile(srcFile.fd, desFile.fd);
-        FileUtil.closeSync(srcFile);
-        FileUtil.closeSync(desFile);
-      }
-      return true;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`PhotoHelper-showAssetsCreationDialogEasy ~ code: ${error.code} -·- message: ${error.message}`);
+  static async showAssetsCreationDialogEasy(srcFileUris: Array<string>, photoCreationConfigs?: Array<photoAccessHelper.PhotoCreationConfig>): Promise<Array<string>> {
+    let desFileUris: Array<string> = await PhotoHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
+    for (let index = 0; index < desFileUris.length; index++) {
+      //将来源于应用沙箱的照片内容写入媒体库的目标uri
+      let srcFile: fs.File = await FileUtil.open(srcFileUris[index], fs.OpenMode.READ_ONLY);
+      let desFile: fs.File = await FileUtil.open(desFileUris[index], fs.OpenMode.WRITE_ONLY);
+      await FileUtil.copyFile(srcFile.fd, desFile.fd);
+      await FileUtil.close(srcFile);
+      await FileUtil.close(desFile);
     }
-    return false;
+    return desFileUris;
   }
 
 }
