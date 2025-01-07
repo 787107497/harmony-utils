@@ -67,7 +67,7 @@ struct Index {
                 let file = FileUtil.openSync(uri);
                 FileUtil.copyFile(this.filePath, file.fd).then(() => {
                   this.uriStr = `保存图片，返回uris：\n${uri}`
-                  ToastUtil.showToast("图片保存成功");
+                  ToastUtil.showToast("图片1保存成功");
                 })
 
                 let file1 = FileUtil.openSync(uris[1]);
@@ -75,7 +75,7 @@ struct Index {
                 let packOpts: image.PackingOption = { format: 'image/png', quality: 100 }
                 ImageUtil.packToFileFromPixelMap(pixelMap1, file1.fd, packOpts).then(() => {
                   this.uriStr = `保存图片，返回uris：\n${uris[1]}`
-                  ToastUtil.showToast("图片保存成功");
+                  ToastUtil.showToast("图片2保存成功");
                 })
               }).catch((err: BusinessError) => {
                 this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`

@@ -56,19 +56,12 @@ struct Index {
           Button("select()")
             .btnStyle()
             .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.READ_IMAGEVIDEO'];
-              PermissionUtil.requestPermissions(ps).then((result) => {
-                if (result) {
-                  PhotoHelper.select().then((uris) => {
-                    this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`
-                  })
-                } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  WantUtil.toAppSetting()
-                }
-              })
+              PhotoHelper.select().then((uris) => {
+                this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`
+              });
+
             })
 
           Button("save()")
@@ -123,6 +116,13 @@ struct Index {
                   WantUtil.toAppSetting()
                 }
               })
+            })
+
+          Button("测试")
+            .btnStyle()
+            .onClick(() => {
+              PhotoHelper.showAssetsCreationDialog([FileUtil.getUriFromPath(this.filePath)])
+
             })
 
           Button("getPhotoAsset()")
