@@ -166,4 +166,36 @@ export class Helper {
       return parseInt(str);
     }
   }
+
+
+  /**
+   * 将DialogAlignment值转化为Alignment值
+   */
+  static getAlignment(dialogAlignment: DialogAlignment): Alignment | undefined {
+    switch (dialogAlignment) {
+      case DialogAlignment.Top:
+        return Alignment.Top;
+      case DialogAlignment.Center:
+        return Alignment.Center;
+      case DialogAlignment.Bottom:
+        return Alignment.Bottom;
+      case DialogAlignment.TopStart:
+        return Alignment.TopStart;
+      case DialogAlignment.TopEnd:
+        return Alignment.TopEnd;
+      case DialogAlignment.CenterStart:
+        return Alignment.Start;
+      case DialogAlignment.CenterEnd:
+        return Alignment.End;
+      case DialogAlignment.BottomStart:
+        return Alignment.BottomStart;
+      case DialogAlignment.BottomEnd:
+        return Alignment.BottomEnd;
+      case DialogAlignment.Default:
+        return undefined;
+    }
+    return undefined;
+  }
+
+
 }

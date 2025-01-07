@@ -1,5 +1,9 @@
 # 版本记录
 
+## 1.1.1
+1. 修复Toast, 全局参数alignment不起作用问题。
+2. Toast，新增全局参数toast_alignment（当该值为undefined时alignment值起作用）。
+
 ## 1.1.0
 1. SelectDialog，添加selectedIndex参数，设置选中索引。
 2. TextPickerDialog，修复canLoop参数问题。

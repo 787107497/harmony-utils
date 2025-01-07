@@ -63,6 +63,7 @@ export struct DialogPage {
       config.toast_fontSize = 16; //文字大小
       config.toast_fontColor = Color.Black; //文字颜色
       config.toast_backgroundColor = '#CC56D866'; //背景颜色，建议八位色值前两位为透明度
+      config.toast_alignment = Alignment.Center; //土司居中显示
       config.toast_borderRadius = 8; //背景圆角
       config.toast_padding = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding
       config.toast_imageSize = { width: 45, height: 45 }; //Tip图片尺寸。默认值：45*45vp
@@ -104,6 +105,7 @@ export struct DialogPage {
       config.toast_fontSize = 16; //文字大小
       config.toast_fontColor = Color.Black; //文字颜色
       config.toast_backgroundColor = '#CC0FCEE3'; //背景颜色，建议八位色值前两位为透明度
+      config.toast_alignment = Alignment.Top; //土司Top显示
       config.toast_borderRadius = 8; //背景圆角
       config.toast_padding = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding
       config.toast_imageSize = { width: 45, height: 45 }; //Tip图片尺寸。默认值：45*45vp
@@ -121,7 +123,7 @@ export struct DialogPage {
       config.autoCancel = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
       config.backCancel = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
       config.actionCancel = true; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
-      config.alignment = DialogAlignment.Center; //弹窗的对齐方式。
+      config.alignment = DialogAlignment.Default; //弹窗的对齐方式。
       config.offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
       config.maskColor = 0x33000000; //自定义蒙层颜色。默认值 0x33000000
       config.backgroundColor = Color.White; //弹窗背板颜色。默认值：Color.White
@@ -145,6 +147,7 @@ export struct DialogPage {
       config.toast_fontSize = 16; //文字大小
       config.toast_fontColor = Color.White; //文字颜色
       config.toast_backgroundColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度
+      config.toast_alignment = undefined; //土司显示位置
       config.toast_borderRadius = 8; //背景圆角
       config.toast_padding = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding
       config.toast_imageSize = { width: 45, height: 45 }; //Tip图片尺寸。默认值：45*45vp

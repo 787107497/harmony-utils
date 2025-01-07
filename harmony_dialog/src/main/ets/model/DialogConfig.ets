@@ -37,7 +37,7 @@ export class DialogConfig {
   uiAbilityContext?: common.UIAbilityContext; //设置UIAbilityContext
   backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
   autoCancel: boolean = true; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
-  alignment: DialogAlignment = DialogAlignment.Center; //弹窗的对齐方式。
+  alignment: DialogAlignment = DialogAlignment.Default; //弹窗的对齐方式。
   offset: Offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
   maskRect: Rectangle = { x: 0, y: 0, width: '100%', height: '100%' }; //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
   maskColor: ResourceColor = 0x33000000; //自定义蒙层颜色。默认值 0x33000000
@@ -103,11 +103,12 @@ export class DialogConfig {
   toast_fontSize: number | string | Resource = 16; //文字大小
   toast_fontColor: ResourceColor = Color.White; //文字颜色
   toast_backgroundColor: ResourceColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度
-  toast_borderRadius: Length | BorderRadiuses = 8; //背景圆角
-  toast_padding: Padding | Length = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding
-  toast_orientation: Orientation = Orientation.VERTICAL; //吐司布局方向，默认垂直。设置该值时，请重新设置imageSize和margin。
-  toast_imageSize: SizeOptions = { width: 45, height: 45 }; //Tip图片尺寸。垂直默认值：45*45vp，水平建议值：24*24vp。
-  toast_margin: number = 10; //吐司的图片与文字间距。
+  toast_alignment: Alignment | undefined = undefined; //该值仅对Toast有效，对ToastTip无效。当该值为undefined时alignment值起作用。
+  toast_borderRadius: Length | BorderRadiuses = 8; //背景圆角，该值仅对ToastTip。
+  toast_padding: Padding | Length = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding，该值仅对ToastTip。
+  toast_orientation: Orientation = Orientation.VERTICAL; //吐司布局方向，默认垂直。设置该值时，请重新设置imageSize和margin。该值仅对ToastTip。
+  toast_imageSize: SizeOptions = { width: 45, height: 45 }; //Tip图片尺寸。垂直默认值：45*45vp，水平建议值：24*24vp。该值仅对ToastTip。
+  toast_margin: number = 10; //吐司的图片与文字间距，该值仅对ToastTip。
   //--------------------------------------吐司Toast----------------------------------------------------------------------
 
 
