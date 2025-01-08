@@ -161,8 +161,9 @@ export class BasePromptAction {
         let promptAction = promptActionArg.uiContext.getPromptAction();
         let componentContent = promptActionArg.componentContent;
         if (componentContent) {
-          promptAction.closeCustomDialog(componentContent);
-          componentContent.dispose(); //立即释放当前ComponentContent
+          promptAction.closeCustomDialog(componentContent).then(() => {
+            componentContent.dispose(); //立即释放当前ComponentContent
+          });
         }
       }
     } catch (e) {
