@@ -154,9 +154,8 @@ export class PhotoHelper {
       for (let index = 0; index < srcFileUris.length; index++) {
         let fileName = FileUtil.getFileName(srcFileUris[index]); //文件名
         let fileExtention = FileUtil.getFileExtention(fileName); //文件后缀
-        // fileName = fileName.replace(`.${fileExtention}`, "");
-        let photoType = ImageExtensions.includes(fileExtention.toLowerCase()) ? photoAccessHelper.PhotoType.IMAGE :
-        photoAccessHelper.PhotoType.VIDEO;
+        fileName = fileName.replace(`.${fileExtention}`, "");
+        let photoType = ImageExtensions.includes(fileExtention.toLowerCase()) ? photoAccessHelper.PhotoType.IMAGE : photoAccessHelper.PhotoType.VIDEO;
         let photoCreationConfig: photoAccessHelper.PhotoCreationConfig = {
           title: fileName, //可选
           fileNameExtension: fileExtention,
@@ -190,5 +189,42 @@ export class PhotoHelper {
     }
     return desFileUris;
   }
+
+
+  static async createAssetWithShortTermPermission(srcFileUri: string, photoCreationConfig?: photoAccessHelper.PhotoCreationConfig): Promise<string> {
+    let ImageExtensions = ["jpeg", "jpg", "png", "gif", "webp", "bmp", "heic", "heif", , "ico", "svg"]; //图片文件后缀
+    let phAccessHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    if (photoCreationConfig == undefined || photoCreationConfig == null) {
+      let fileName = FileUtil.getFileName(srcFileUri); //文件名
+      let fileExtention = FileUtil.getFileExtention(fileName); //文件后缀
+      fileName = fileName.replace(`.${fileExtention}`, "");
+      let photoType = ImageExtensions.includes(fileExtention.toLowerCase()) ? photoAccessHelper.PhotoType.IMAGE : photoAccessHelper.PhotoType.VIDEO;
+      photoCreationConfig = {
+        title: fileName, //可选
+        fileNameExtension: fileExtention,
+        photoType: photoType,
+        subtype: photoAccessHelper.PhotoSubtype.DEFAULT, //可选
+      }
+    }
+    let desFileUri = await phAccessHelper.createAssetWithShortTermPermission(photoCreationConfig);
+    phAccessHelper.release(); //释放
+    return desFileUri;
+  }
+
+
+  /**
+   * 提交媒体变更请求，插入图片/视频。
+   * @param srcFileUri 需要确保srcFileUri对应的资源存在
+   */
+  static async applyChanges(srcFileUri: string): Promise<photoAccessHelper.PhotoAsset> {
+    let context = AppUtil.getContext();
+    let phAccessHelper = photoAccessHelper.getPhotoAccessHelper(context);
+    let assetChangeRequest: photoAccessHelper.MediaAssetChangeRequest =
+      photoAccessHelper.MediaAssetChangeRequest.createImageAssetRequest(context, srcFileUri);
+    await phAccessHelper.applyChanges(assetChangeRequest);
+    return assetChangeRequest.getAsset();
+  }
+
+
 
 }

@@ -107,42 +107,42 @@
           ]
         }
       },
-//      {
-//        "name": "ohos.permission.READ_AUDIO",
-//        "reason": "$string:permission_READ_AUDIO",
-//        "usedScene": {
-//          "abilities": [
-//            "EntryAbility"
-//          ]
-//        }
-//      },
-//      {
-//        "name": "ohos.permission.WRITE_AUDIO",
-//        "reason": "$string:permission_WRITE_AUDIO",
-//        "usedScene": {
-//          "abilities": [
-//            "EntryAbility"
-//          ]
-//        }
-//      },
-//      {
-//        "name": "ohos.permission.READ_IMAGEVIDEO",
-//        "reason": "$string:permission_READ_IMAGEVIDEO",
-//        "usedScene": {
-//          "abilities": [
-//            "EntryAbility"
-//          ]
-//        }
-//      },
-//      {
-//        "name": "ohos.permission.WRITE_IMAGEVIDEO",
-//        "reason": "$string:permission_WRITE_IMAGEVIDEO",
-//        "usedScene": {
-//          "abilities": [
-//            "EntryAbility"
-//          ]
-//        }
-//      },
+      {
+        "name": "ohos.permission.READ_AUDIO",
+        "reason": "$string:permission_READ_AUDIO",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        }
+      },
+      {
+        "name": "ohos.permission.WRITE_AUDIO",
+        "reason": "$string:permission_WRITE_AUDIO",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        }
+      },
+      {
+        "name": "ohos.permission.READ_IMAGEVIDEO",
+        "reason": "$string:permission_READ_IMAGEVIDEO",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        }
+      },
+      {
+        "name": "ohos.permission.WRITE_IMAGEVIDEO",
+        "reason": "$string:permission_WRITE_IMAGEVIDEO",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ]
+        }
+      },
       {
         "name": "ohos.permission.READ_PASTEBOARD",
         "reason": "$string:permission_READ_PASTEBOARD",

@@ -33,6 +33,7 @@ struct Index {
   @State pixelMap?: image.PixelMap = undefined
   @State filePath: string = ''; //本地图片path
   @State filePath2: string = ''; //本地图片path
+  saveButtonOptions: SaveButtonOptions = { icon: SaveIconStyle.FULL_FILLED, text: SaveDescription.SAVE_IMAGE, buttonType: ButtonType.Capsule } //设置安全控件按钮属性
 
   @MockSetup
   mock() {
@@ -43,8 +44,8 @@ struct Index {
     let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"));
     this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png");
     LogUtil.error("filePath: " + this.filePath);
-    let pixelMap2 = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as2"))
-    this.filePath2 = await ImageUtil.savePixelMap(pixelMap2, FileUtil.getFilesDirPath(""), "为梦想窒息.png")
+    let pixelMap2 = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as2"));
+    this.filePath2 = await ImageUtil.savePixelMap(pixelMap2, FileUtil.getFilesDirPath(""), "为梦想窒息.png");
 
   }
 
@@ -60,124 +61,23 @@ struct Index {
         Column() {
           Button("select()")
             .btnStyle()
-            .onClick(() => {
-              PhotoHelper.select().then((uris) => {
-                this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
-              }).catch((err: BusinessError) => {
-                this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`
-              });
-
-            })
-
+            .onClick(() => this.select())
           Button("save()")
             .btnStyle()
-            .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.WRITE_IMAGEVIDEO'];
-              PermissionUtil.requestPermissions(ps).then((result) => {
-                if (result) {
-                  let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}`;
-                  PhotoHelper.save(photoAccessHelper.PhotoType.IMAGE, 'jpg', { title: imgName }).then(async (uri) => {
-                    if (uri) {
-                      this.uriStr = `调用1保存图片，返回uris：\n${uri}`
-                      let file = FileUtil.openSync(uri);
-                      FileUtil.copyFile(this.filePath, file.fd).then(() => {
-                        FileUtil.close(file.fd);
-                        ToastUtil.showToast("图片保存成功");
-                      })
-                    }
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`
-                  })
-                } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  WantUtil.toAppSetting()
-                }
-              })
-            })
-
-          Button("save()")
+            .onClick(() => this.save())
+          Button("showAssetsCreationDialogEasy()")
             .btnStyle()
-            .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.WRITE_IMAGEVIDEO'];
-              PermissionUtil.requestPermissions(ps).then((result) => {
-                if (result) {
-                  let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}`;
-                  PhotoHelper.save(photoAccessHelper.PhotoType.IMAGE, 'png', { title: imgName }).then(async (uri) => {
-                    if (uri) {
-                      this.uriStr = `调用2保存图片，返回uris：\n${uri}`
-                      let file = FileUtil.openSync(uri);
-                      let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as3"))
-                      let packOpts: image.PackingOption = { format: 'image/png', quality: 100 }
-                      ImageUtil.packToFileFromPixelMap(pixelMap, file.fd, packOpts).then(() => {
-                        FileUtil.close(file.fd);
-                        ToastUtil.showToast("图片保存成功");
-                      })
-                    }
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`
-                  })
-                } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  WantUtil.toAppSetting()
-                }
-              })
-            })
-
-          Button("测试")
-            .btnStyle()
-            .onClick(() => {
-              let uri = FileUtil.getUriFromPath(this.filePath);
-              let uri2 = FileUtil.getUriFromPath(this.filePath2);
-              PhotoHelper.showAssetsCreationDialog([uri,uri2]).then((result)=>{
-                DialogHelper.showToast("图片保存成功！")
-              }).catch((error: BusinessError) => {
-                LogUtil.error(`PhotoHelper-showAssetsCreationDialogEasy11 ~ code: ${error.code} -·- message: ${error.message}`);
-                DialogHelper.showToast("图片保存失败！")
-              })
-
-            })
-
+            .onClick(() => this.showAssetsCreationDialog())
           Button("getPhotoAsset()")
             .btnStyle()
-            .onClick(() => {
-              let ps: Permissions[] = ['ohos.permission.READ_IMAGEVIDEO'];
-              PermissionUtil.requestPermissions(ps).then((result) => {
-                if (result) {
-                  PickerUtil.selectPhoto().then(async (uris) => {
-                    if (uris && uris.length > 0) {
-                      let photoAsset = await PhotoHelper.getPhotoAsset(uris[0]);
-                      try {
-                        let name = photoAsset?.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME);
-                        let type = photoAsset?.get(photoAccessHelper.PhotoKeys.PHOTO_TYPE);
-                        let title = photoAsset?.get(photoAccessHelper.PhotoKeys.TITLE.toString());
-                        let size = photoAsset?.get(photoAccessHelper.PhotoKeys.SIZE.toString());
-                        let with1 = photoAsset?.get(photoAccessHelper.PhotoKeys.WIDTH.toString());
-                        let height = photoAsset?.get(photoAccessHelper.PhotoKeys.HEIGHT.toString());
-                        let date = photoAsset?.get(photoAccessHelper.PhotoKeys.DATE_TAKEN.toString());
-                        let orientation = photoAsset?.get(photoAccessHelper.PhotoKeys.ORIENTATION.toString());
-                        this.uriStr = `图片信息：\n文件名：${name}\n文件类型：${type}\n文件大小：${size}\n图片宽度：${with1}\n图片高度：${height}\n拍摄日期：${date}\n文件标题：${title}\n图片文件的方向：${orientation}`
-                      } catch (err) {
-                        LogUtil.error("读取图片信息失败：" + JSON.stringify(err));
-                      }
-                      photoAsset?.getThumbnail((err, pixelMap,) => {
-                        if (err) {
-                          LogUtil.error("缩略图-异常：" + JSON.stringify(err))
-                          result;
-                        }
-                        this.pixelMap = pixelMap;
-                      })
-                    } else {
-                      ToastUtil.showToast("请选择图片")
-                    }
-                  }).catch((err: BusinessError) => {
-                    this.uriStr = `异常：\n${JSON.stringify(err)}`
-                  })
-                } else {
-                  ToastUtil.showLong("请在设置中打开权限")
-                  WantUtil.toAppSetting()
-                }
-              })
-            })
+            .onClick(() => this.getPhotoAsset())
+          SaveButton()
+            .onClick(()=>this.saveButton())
+          Button("createAssetWithShortTermPermission()")
+            .btnStyle()
+            .onClick(() => this.createAssetWithShortTermPermission())
+
+
           Text(this.uriStr)
             .visibility(StrUtil.isNotEmpty(this.uriStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
@@ -199,6 +99,120 @@ struct Index {
     .justifyContent(FlexAlign.Start)
     .backgroundColor($r('app.color.main_background'))
   }
+
+
+  createAssetWithShortTermPermission(){
+    let uri = FileUtil.getUriFromPath(this.filePath);
+    PhotoHelper.createAssetWithShortTermPermission(uri).then((result) => {
+      this.uriStr = `保存图片成功：${result}`;
+    }).catch((err: BusinessError) => {
+      this.uriStr = `保存图片失败：${JSON.stringify(err)}`;
+    })
+  }
+
+
+  //按钮保存
+  saveButton() {
+    let uri = FileUtil.getUriFromPath(this.filePath);
+    PhotoHelper.applyChanges(uri).then((result) => {
+      this.uriStr = `保存图片成功：${result.uri}`;
+    }).catch((err: BusinessError) => {
+      this.uriStr = `保存图片失败：${JSON.stringify(err)}`;
+    })
+  }
+
+
+  //相册选择图片/视频
+  select(){
+    PhotoHelper.select().then((uris) => {
+      this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
+    }).catch((err: BusinessError) => {
+      this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
+    });
+  }
+
+
+  //图片保存进相册
+  save(){
+    let ps: Permissions[] = ['ohos.permission.WRITE_IMAGEVIDEO'];
+    PermissionUtil.requestPermissions(ps).then((result) => {
+      if (result) {
+        let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}`;
+        PhotoHelper.save(photoAccessHelper.PhotoType.IMAGE, 'jpg', { title: imgName }).then(async (uri) => {
+          if (uri) {
+            this.uriStr = `调用1保存图片，返回uris：\n${uri}`
+            let file = FileUtil.openSync(uri);
+            FileUtil.copyFile(this.filePath, file.fd).then(() => {
+              FileUtil.close(file.fd);
+              ToastUtil.showToast("图片保存成功");
+            })
+          }
+        }).catch((err: BusinessError) => {
+          this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`
+        })
+      } else {
+        ToastUtil.showLong("请在设置中打开权限")
+        WantUtil.toAppSetting()
+      }
+    })
+  }
+
+
+  //图片保存进相册
+  showAssetsCreationDialog(){
+    let uri = FileUtil.getUriFromPath(this.filePath);
+    let uri2 = FileUtil.getUriFromPath(this.filePath2);
+    PhotoHelper.showAssetsCreationDialog([uri,uri2]).then((result)=>{
+      DialogHelper.showToast("图片保存成功！")
+    }).catch((error: BusinessError) => {
+      LogUtil.error(`PhotoHelper-showAssetsCreationDialogEasy ~ code: ${error.code} -·- message: ${error.message}`);
+      DialogHelper.showToast("图片保存失败！")
+    })
+  }
+
+
+  //读取图片/视频的信息
+  getPhotoAsset(){
+    let ps: Permissions[] = ['ohos.permission.READ_IMAGEVIDEO'];
+    PermissionUtil.requestPermissions(ps).then((result) => {
+      if (result) {
+        PickerUtil.selectPhoto().then(async (uris) => {
+          if (uris && uris.length > 0) {
+            let photoAsset = await PhotoHelper.getPhotoAsset(uris[0]);
+            try {
+              let name = photoAsset?.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME);
+              let type = photoAsset?.get(photoAccessHelper.PhotoKeys.PHOTO_TYPE);
+              let title = photoAsset?.get(photoAccessHelper.PhotoKeys.TITLE.toString());
+              let size = photoAsset?.get(photoAccessHelper.PhotoKeys.SIZE.toString());
+              let with1 = photoAsset?.get(photoAccessHelper.PhotoKeys.WIDTH.toString());
+              let height = photoAsset?.get(photoAccessHelper.PhotoKeys.HEIGHT.toString());
+              let date = photoAsset?.get(photoAccessHelper.PhotoKeys.DATE_TAKEN.toString());
+              let orientation = photoAsset?.get(photoAccessHelper.PhotoKeys.ORIENTATION.toString());
+              this.uriStr = `图片信息：\n文件名：${name}\n文件类型：${type}\n文件大小：${size}\n图片宽度：${with1}\n图片高度：${height}\n拍摄日期：${date}\n文件标题：${title}\n图片文件的方向：${orientation}`
+            } catch (err) {
+              LogUtil.error("读取图片信息失败：" + JSON.stringify(err));
+            }
+            photoAsset?.getThumbnail((err, pixelMap,) => {
+              if (err) {
+                LogUtil.error("缩略图-异常：" + JSON.stringify(err))
+                result;
+              }
+              this.pixelMap = pixelMap;
+            })
+          } else {
+            ToastUtil.showToast("请选择图片")
+          }
+        }).catch((err: BusinessError) => {
+          this.uriStr = `异常：\n${JSON.stringify(err)}`
+        })
+      } else {
+        ToastUtil.showLong("请在设置中打开权限")
+        WantUtil.toAppSetting()
+      }
+    })
+  }
+
+
 }
 
 
