@@ -151,7 +151,7 @@ struct Index {
         let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}`;
         PhotoHelper.save(photoAccessHelper.PhotoType.IMAGE, 'jpg', { title: imgName }).then(async (uri) => {
           if (uri) {
-            this.uriStr = `调用1保存图片，返回uris：\n${uri}`
+            this.uriStr = `保存图片成功，返回uris：\n${uri}`
             let file = FileUtil.openSync(uri);
             FileUtil.copyFile(this.filePath, file.fd).then(() => {
               FileUtil.close(file.fd);
@@ -173,10 +173,11 @@ struct Index {
   showAssetsCreationDialog(){
     let uri = FileUtil.getUriFromPath(this.filePath);
     let uri2 = FileUtil.getUriFromPath(this.filePath2);
-    PhotoHelper.showAssetsCreationDialog([uri,uri2]).then((result)=>{
+    PhotoHelper.showAssetsCreationDialogEasy([uri, uri2]).then((result) => {
+      this.uriStr = `图片保存成功，返回uris：\n${JSON.stringify(result, null, 2)}`;
       DialogHelper.showToast("图片保存成功！")
     }).catch((error: BusinessError) => {
-      LogUtil.error(`PhotoHelper-showAssetsCreationDialogEasy ~ code: ${error.code} -·- message: ${error.message}`);
+      this.uriStr = `保存图片失败 ~ code: ${error.code} -·- message: ${error.message}`;
       DialogHelper.showToast("图片保存失败！")
     })
   }
