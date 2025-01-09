@@ -33,7 +33,7 @@ struct Index {
   @State pixelMap?: image.PixelMap = undefined
   @State filePath: string = ''; //本地图片path
   @State filePath2: string = ''; //本地图片path
-  saveButtonOptions: SaveButtonOptions = { icon: SaveIconStyle.FULL_FILLED, text: SaveDescription.SAVE_IMAGE, buttonType: ButtonType.Capsule } //设置安全控件按钮属性
+  private saveButtonOptions: SaveButtonOptions = { icon: SaveIconStyle.FULL_FILLED, text: SaveDescription.SAVE_IMAGE, buttonType: ButtonType.Capsule } //设置安全控件按钮属性
 
   @MockSetup
   mock() {
@@ -46,7 +46,6 @@ struct Index {
     LogUtil.error("filePath: " + this.filePath);
     let pixelMap2 = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as2"));
     this.filePath2 = await ImageUtil.savePixelMap(pixelMap2, FileUtil.getFilesDirPath(""), "为梦想窒息.png");
-
   }
 
   onBackPress(): boolean {
@@ -59,24 +58,26 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("select()")
+          Button("select()-默认使用")
             .btnStyle()
-            .onClick(() => this.select())
+            .onClick(() => this.selectDefault())
+          Button("select()-多选")
+            .btnStyle()
+            .onClick(() => this.selectMore())
+          Button("select()-单选")
+            .btnStyle()
+            .onClick(() => this.selectSingle())
           Button("save()")
             .btnStyle()
             .onClick(() => this.save())
           Button("showAssetsCreationDialogEasy()")
             .btnStyle()
             .onClick(() => this.showAssetsCreationDialog())
+          SaveButton(this.saveButtonOptions)
+            .onClick(() => this.saveButton())
           Button("getPhotoAsset()")
             .btnStyle()
             .onClick(() => this.getPhotoAsset())
-          SaveButton()
-            .onClick(()=>this.saveButton())
-          Button("createAssetWithShortTermPermission()")
-            .btnStyle()
-            .onClick(() => this.createAssetWithShortTermPermission())
-
 
           Text(this.uriStr)
             .visibility(StrUtil.isNotEmpty(this.uriStr) ? Visibility.Visible : Visibility.None)
@@ -101,29 +102,8 @@ struct Index {
   }
 
 
-  createAssetWithShortTermPermission(){
-    let uri = FileUtil.getUriFromPath(this.filePath);
-    PhotoHelper.createAssetWithShortTermPermission(uri).then((result) => {
-      this.uriStr = `保存图片成功：${result}`;
-    }).catch((err: BusinessError) => {
-      this.uriStr = `保存图片失败：${JSON.stringify(err)}`;
-    })
-  }
-
-
-  //按钮保存
-  saveButton() {
-    let uri = FileUtil.getUriFromPath(this.filePath);
-    PhotoHelper.applyChanges(uri).then((result) => {
-      this.uriStr = `保存图片成功：${result.uri}`;
-    }).catch((err: BusinessError) => {
-      this.uriStr = `保存图片失败：${JSON.stringify(err)}`;
-    })
-  }
-
-
   //相册选择图片/视频
-  select(){
+  selectDefault(){
     PhotoHelper.select().then((uris) => {
       this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
     }).catch((err: BusinessError) => {
@@ -131,8 +111,39 @@ struct Index {
     });
   }
 
+  //相册选择图片/视频（多选）
+  selectMore(){
+    let options: photoAccessHelper.PhotoSelectOptions = {
+      MIMEType: photoAccessHelper.PhotoViewMIMETypes.IMAGE_VIDEO_TYPE,
+      maxSelectNumber: 12,
+      isPhotoTakingSupported: false,
+      isSearchSupported: false,
+      isEditSupported: false,
+      isOriginalSupported: true
+    }
+    PhotoHelper.select(options).then((uris) => {
+      this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
+    }).catch((err: BusinessError) => {
+      this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
+    });
+  }
 
-  //图片保存进相册
+  //相册选择图片/视频（单选）
+  selectSingle(){
+    let options: photoAccessHelper.PhotoSelectOptions = {
+      MIMEType: photoAccessHelper.PhotoViewMIMETypes.IMAGE_VIDEO_TYPE,
+      maxSelectNumber: 1,
+      isOriginalSupported: true,
+      isPreviewForSingleSelectionSupported: true //单选模式下是否需要进大图预览
+    }
+    PhotoHelper.select(options).then((uris) => {
+      this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
+    }).catch((err: BusinessError) => {
+      this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
+    });
+  }
+
+  //图片保存进相册（已申请权限使用该方法）
   save(){
     let ps: Permissions[] = ['ohos.permission.WRITE_IMAGEVIDEO'];
     PermissionUtil.requestPermissions(ps).then((result) => {
@@ -158,7 +169,7 @@ struct Index {
   }
 
 
-  //图片保存进相册
+  //弹窗授权保存，图片保存进相册。
   showAssetsCreationDialog(){
     let uri = FileUtil.getUriFromPath(this.filePath);
     let uri2 = FileUtil.getUriFromPath(this.filePath2);
@@ -171,44 +182,49 @@ struct Index {
   }
 
 
+  //安全控件保存，图片保存进相册。。
+  saveButton() {
+    let uri = FileUtil.getUriFromPath(this.filePath);
+    PhotoHelper.applyChanges(uri).then((result) => {
+      this.uriStr = `保存图片成功：${result.uri}`;
+    }).catch((err: BusinessError) => {
+      this.uriStr = `保存图片失败：${JSON.stringify(err)}`;
+    })
+  }
+
+
   //读取图片/视频的信息
   getPhotoAsset(){
-    let ps: Permissions[] = ['ohos.permission.READ_IMAGEVIDEO'];
-    PermissionUtil.requestPermissions(ps).then((result) => {
-      if (result) {
-        PickerUtil.selectPhoto().then(async (uris) => {
-          if (uris && uris.length > 0) {
-            let photoAsset = await PhotoHelper.getPhotoAsset(uris[0]);
-            try {
-              let name = photoAsset?.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME);
-              let type = photoAsset?.get(photoAccessHelper.PhotoKeys.PHOTO_TYPE);
-              let title = photoAsset?.get(photoAccessHelper.PhotoKeys.TITLE.toString());
-              let size = photoAsset?.get(photoAccessHelper.PhotoKeys.SIZE.toString());
-              let with1 = photoAsset?.get(photoAccessHelper.PhotoKeys.WIDTH.toString());
-              let height = photoAsset?.get(photoAccessHelper.PhotoKeys.HEIGHT.toString());
-              let date = photoAsset?.get(photoAccessHelper.PhotoKeys.DATE_TAKEN.toString());
-              let orientation = photoAsset?.get(photoAccessHelper.PhotoKeys.ORIENTATION.toString());
-              this.uriStr = `图片信息：\n文件名：${name}\n文件类型：${type}\n文件大小：${size}\n图片宽度：${with1}\n图片高度：${height}\n拍摄日期：${date}\n文件标题：${title}\n图片文件的方向：${orientation}`
-            } catch (err) {
-              LogUtil.error("读取图片信息失败：" + JSON.stringify(err));
-            }
-            photoAsset?.getThumbnail((err, pixelMap,) => {
-              if (err) {
-                LogUtil.error("缩略图-异常：" + JSON.stringify(err))
-                result;
-              }
-              this.pixelMap = pixelMap;
-            })
-          } else {
-            ToastUtil.showToast("请选择图片")
+    PickerUtil.selectPhoto().then(async (uris) => {
+      if (uris && uris.length > 0) {
+        PhotoHelper.getPhotoAsset(uris[0]).then((photoAsset) => {
+          try {
+            let name = photoAsset?.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME);
+            let type = photoAsset?.get(photoAccessHelper.PhotoKeys.PHOTO_TYPE);
+            let title = photoAsset?.get(photoAccessHelper.PhotoKeys.TITLE.toString());
+            let size = photoAsset?.get(photoAccessHelper.PhotoKeys.SIZE.toString());
+            let with1 = photoAsset?.get(photoAccessHelper.PhotoKeys.WIDTH.toString());
+            let height = photoAsset?.get(photoAccessHelper.PhotoKeys.HEIGHT.toString());
+            let date = photoAsset?.get(photoAccessHelper.PhotoKeys.DATE_TAKEN.toString());
+            let orientation = photoAsset?.get(photoAccessHelper.PhotoKeys.ORIENTATION.toString());
+            this.uriStr = `图片信息：\n文件名：${name}\n文件类型：${type}\n文件大小：${size}\n图片宽度：${with1}\n图片高度：${height}\n拍摄日期：${date}\n文件标题：${title}\n图片文件的方向：${orientation}`
+          } catch (err) {
+            LogUtil.error("读取图片信息失败：" + JSON.stringify(err));
           }
+          photoAsset?.getThumbnail((err, pixelMap) => {
+            if (err) {
+              LogUtil.error("缩略图-异常：" + JSON.stringify(err));
+            }
+            this.pixelMap = pixelMap;
+          })
         }).catch((err: BusinessError) => {
-          this.uriStr = `异常：\n${JSON.stringify(err)}`
-        })
+          this.uriStr = `读取图片异常：\n${JSON.stringify(err)}`
+        });
       } else {
-        ToastUtil.showLong("请在设置中打开权限")
-        WantUtil.toAppSetting()
+        ToastUtil.showToast("请选择图片")
       }
+    }).catch((err: BusinessError) => {
+      this.uriStr = `异常：\n${JSON.stringify(err)}`
     })
   }
 
