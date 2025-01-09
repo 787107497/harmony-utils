@@ -174,7 +174,7 @@ export class PhotoHelper {
    * @returns
    */
   static async getPhotoAsset(uri: string): Promise<photoAccessHelper.PhotoAsset> {
-    let phAccessHelper = photoAccessHelper.getPhotoAccessHelper(getContext());
+    let photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
     let predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
     //配置查询条件，使用PhotoViewPicker选择图片返回的uri进行查询
     predicates.equalTo('uri', uri);
@@ -183,9 +183,10 @@ export class PhotoHelper {
         'uri', 'duration', 'orientation', 'date_added', 'date_modified', 'is_favorite'],
       predicates: predicates
     };
-    let fetchResult: photoAccessHelper.FetchResult<photoAccessHelper.PhotoAsset> = await phAccessHelper.getAssets(fetchOption);
+    let fetchResult: photoAccessHelper.FetchResult<photoAccessHelper.PhotoAsset> = await photoHelper.getAssets(fetchOption);
     //得到uri对应的PhotoAsset对象，读取文件的部分信息
-    const photoAsset: photoAccessHelper.PhotoAsset = await fetchResult.getFirstObject();
+    let photoAsset: photoAccessHelper.PhotoAsset = await fetchResult.getFirstObject();
+    await photoHelper.release();
     return photoAsset;
   }
 
