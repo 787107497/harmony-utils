@@ -17,7 +17,7 @@
 
 import util from '@ohos.util';
 import { ArrayList, HashMap, List } from '@kit.ArkTS';
-import { CommonAllType } from '../entity/constranint';
+import { CommonAllType } from '../entity/constraint';
 
 /**
  * TODO 对象工具类

@@ -119,3 +119,6 @@ export { NotificationOptions,
   NotificationPictureOptions,
   NotificationTemplateOptions
 } from './src/main/ets/entity/NotificationOptions';
+
+
+export * from './src/main/ets/entity/constraint';
