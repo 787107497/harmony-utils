@@ -131,7 +131,7 @@ struct Index {
   //相册选择图片/视频（单选）
   selectSingle(){
     let options: photoAccessHelper.PhotoSelectOptions = {
-      MIMEType: photoAccessHelper.PhotoViewMIMETypes.IMAGE_VIDEO_TYPE,
+      MIMEType: photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE,
       maxSelectNumber: 1,
       isOriginalSupported: true,
       isPreviewForSingleSelectionSupported: true //单选模式下是否需要进大图预览
@@ -142,6 +142,7 @@ struct Index {
       this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
     });
   }
+
 
   //图片保存进相册（已申请权限使用该方法）
   save(){
