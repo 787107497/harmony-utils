@@ -355,11 +355,14 @@ OpenHarmony ohpm
 
 ## PhotoHelper（相册相关,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
 
-| 方法            | 介绍                                     |
-|:--------------|:---------------------------------------|
-| select        | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频 |
-| save          | 保存图片或视频到相册                             |
-| getPhotoAsset | 获取对应uri的PhotoAsset对象,用于读取文件信息          |
+| 方法                           | 介绍                                     |
+|:-----------------------------|:---------------------------------------|
+| select                       | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频 |
+| save                         | 申请权限保存，保存图片或视频到相册。                     |
+| showAssetsCreationDialog     | 弹窗授权保存，调用接口拉起保存确认弹窗。                   |
+| showAssetsCreationDialogEasy | 弹窗授权保存，调用接口拉起保存确认弹窗，并保存。               |
+| applyChanges                 | 安全控件保存，提交媒体变更请求，插入图片/视频。               |
+| getPhotoAsset                | 获取对应uri的PhotoAsset对象,用于读取文件信息          |
 
 ## ImageUtil（图片相关工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ImageUtilPage.ets)
 

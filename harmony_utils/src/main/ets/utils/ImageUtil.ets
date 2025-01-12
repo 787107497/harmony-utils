@@ -19,8 +19,6 @@ import { image } from '@kit.ImageKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { Base64Util } from './Base64Util';
 import { FileUtil } from './FileUtil';
-import { LogUtil } from './LogUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { ResUtil } from './ResUtil';
 import { DateUtil } from './DateUtil';
 
@@ -64,20 +62,14 @@ export class ImageUtil {
    * @returns
    */
   static async pixelMapToBase64Str(pixelMap: image.PixelMap, format: string = 'image/png'): Promise<string> {
-    try {
-      let packOpts: image.PackingOption = { format: format, quality: 100 }
-      const arrayBuffer = await ImageUtil.packingFromPixelMap(pixelMap, packOpts);
-      let base64Str: string = Base64Util.encodeToStrSync(new Uint8Array(arrayBuffer));
-      let headStr = `data:${format};base64,`;
-      if (!base64Str.startsWith(headStr)) {
-        base64Str = headStr + base64Str
-      }
-      return base64Str;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`ImageUtil-pixelMapToBase64Str-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return '';
+    let packOpts: image.PackingOption = { format: format, quality: 100 }
+    let arrayBuffer = await ImageUtil.packingFromPixelMap(pixelMap, packOpts);
+    let base64Str: string = Base64Util.encodeToStrSync(new Uint8Array(arrayBuffer));
+    let headStr = `data:${format};base64,`;
+    if (!base64Str.startsWith(headStr)) {
+      base64Str = headStr + base64Str
     }
+    return base64Str;
   }
 
 
@@ -90,21 +82,15 @@ export class ImageUtil {
    * @returns
    */
   static async savePixelMap(pixelMap: image.PixelMap, path: string, name: string, format: string = 'image/png'): Promise<string> {
-    try {
-      if (!FileUtil.accessSync(path)) {
-        FileUtil.mkdirSync(path) //如果文件夹不存在就创建
-      }
-      let filePath = path + FileUtil.separator + name;
-      let file = FileUtil.openSync(filePath)
-      let packOpts: image.PackingOption = { format: format, quality: 100 }
-      await ImageUtil.packToFileFromPixelMap(pixelMap, file.fd, packOpts)
-      FileUtil.closeSync(file.fd)  //关闭文件
-      return filePath;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`ImageUtil-savePixelMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return '';
+    if (!FileUtil.accessSync(path)) {
+      FileUtil.mkdirSync(path) //如果文件夹不存在就创建
     }
+    let filePath = path + FileUtil.separator + name;
+    let file = FileUtil.openSync(filePath)
+    let packOpts: image.PackingOption = { format: format, quality: 100 }
+    await ImageUtil.packToFileFromPixelMap(pixelMap, file.fd, packOpts)
+    FileUtil.closeSync(file.fd) //关闭文件
+    return filePath;
   }
 
 
@@ -117,21 +103,15 @@ export class ImageUtil {
    * @returns
    */
   static async saveImageSource(source: image.ImageSource, path: string, name: string, format: string = 'image/png'): Promise<string> {
-    try {
-      if (!FileUtil.accessSync(path)) {
-        FileUtil.mkdirSync(path) //如果文件夹不存在就创建
-      }
-      let filePath = path + FileUtil.separator + name;
-      let file = FileUtil.openSync(filePath)
-      let packOpts: image.PackingOption = { format: format, quality: 100 }
-      await ImageUtil.packToFileFromImageSource(source, file.fd, packOpts)
-      FileUtil.closeSync(file.fd) //关闭文件
-      return filePath;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`ImageUtil-saveImageSource-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return '';
+    if (!FileUtil.accessSync(path)) {
+      FileUtil.mkdirSync(path) //如果文件夹不存在就创建
     }
+    let filePath = path + FileUtil.separator + name;
+    let file = FileUtil.openSync(filePath)
+    let packOpts: image.PackingOption = { format: format, quality: 100 }
+    await ImageUtil.packToFileFromImageSource(source, file.fd, packOpts)
+    FileUtil.closeSync(file.fd) //关闭文件
+    return filePath;
   }
 
 
@@ -388,23 +368,15 @@ export class ImageUtil {
    * @returns filePath：返回文件压缩路径
    */
   static async compressPhoto(uri: string, maxSize: number, imageFormat: string = "image/jpeg"): Promise<string> {
-    try {
-      let file = await FileUtil.open(uri);
-      let filePath = FileUtil.getTempDirPath(DateUtil.getTodayTime().toString(), file.name); //文件压缩路径
-      let pixelMap = await ImageUtil.createImageSource(file.fd).createPixelMap();
-      let arrayBuffer = await ImageUtil.compressedImage(pixelMap, maxSize, imageFormat); //压缩
-      await FileUtil.writeEasy(filePath, arrayBuffer, false); //写入文件
-      FileUtil.closeSync(file.fd); //关闭文件
-      pixelMap.release(); //释放资源
-      return filePath; //返回文件压缩路径
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`ImageUtil-compressPhoto-压缩异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return "";
-    }
+    let file = await FileUtil.open(uri);
+    let filePath = FileUtil.getTempDirPath(DateUtil.getTodayTime().toString(), file.name); //文件压缩路径
+    let pixelMap = await ImageUtil.createImageSource(file.fd).createPixelMap();
+    let arrayBuffer = await ImageUtil.compressedImage(pixelMap, maxSize, imageFormat); //压缩
+    await FileUtil.writeEasy(filePath, arrayBuffer, false); //写入文件
+    FileUtil.closeSync(file.fd); //关闭文件
+    pixelMap.release(); //释放资源
+    return filePath; //返回文件压缩路径
   }
-
-
 
 
 }

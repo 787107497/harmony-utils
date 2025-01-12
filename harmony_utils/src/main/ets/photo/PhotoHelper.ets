@@ -20,8 +20,8 @@ import { dataSharePredicates } from '@kit.ArkData';
 import { FileUtil } from '../utils/FileUtil';
 import fs from '@ohos.file.fs';
 import { AppUtil } from '../utils/AppUtil';
+import { PICKER_DEFAULT_SELECT_NUMBER } from '../entity/constraint';
 
-const PHOTO_DEFAULT_SELECT_NUMBER: number = 9; //数量
 
 /**
  * TODO 相册选择和保存,工具类
@@ -59,7 +59,7 @@ export class PhotoHelper {
     if (options == undefined) {
       options = new photoAccessHelper.PhotoSelectOptions();
       options.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE; //可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
-      options.maxSelectNumber = PHOTO_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
+      options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
       options.isPhotoTakingSupported = true; //支持拍照。
       options.isEditSupported = true; //支持编辑照片。
       options.isOriginalSupported = true; //显示选择原图按钮。

@@ -34,3 +34,6 @@ export enum DialogAction {
   FIVE = -5, //第五个按钮。
   SIX = -6 //第六个按钮。
 }
+
+
+export const PICKER_DEFAULT_SELECT_NUMBER: number = 9; //选择器默认选择数量

@@ -1,10 +1,22 @@
 import { router } from '@kit.ArkUI';
-import { DateUtil, FileUtil, ImageUtil, LogUtil, PickerUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import {
+  CameraOptions,
+  DateUtil,
+  FileUtil,
+  ImageUtil,
+  LogUtil,
+  PickerUtil,
+  PreferencesUtil,
+  StrUtil,
+  ToastUtil
+} from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { image } from '@kit.ImageKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { camera, cameraPicker } from '@kit.CameraKit';
+import { fileShare, picker } from '@kit.CoreFileKit';
 
 
 /**
@@ -18,6 +30,8 @@ struct Index {
   @State uriStr: string = ''
   @State pixelMap?: image.PixelMap | string = undefined
   @State filePath: string = ''; //本地图片path
+  @State cacheUri: string = ''; //缓存本地Uri，上次保存的Uri。
+
 
   @MockSetup
   mock() {
@@ -26,6 +40,7 @@ struct Index {
 
 
   async aboutToAppear(): Promise<void> {
+    this.cacheUri = PreferencesUtil.getStringSync("picker_cache_uri");
     let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"))
     this.filePath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小姐姐.png")
     LogUtil.error("filePath: " + this.filePath);
@@ -37,22 +52,35 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
+          Button("cameraEasy()")
+            .btnStyle()
+            .onClick(async () => {
+              PickerUtil.cameraEasy().then((uri) => {
+                this.uriStr = `调用相机，返回uri：\n${uri}`;
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用相机，异常：\n${JSON.stringify(err)}`;
+              })
+            })
           Button("camera()")
             .btnStyle()
             .onClick(async () => {
-              PickerUtil.camera().then((uri) => {
-                this.uriStr = `调用相机，返回uri：\n${uri}`
+              let options: CameraOptions = {
+                mediaTypes: [cameraPicker.PickerMediaType.PHOTO],
+                cameraPosition: camera.CameraPosition.CAMERA_POSITION_BACK
+              }
+              PickerUtil.camera(options).then((result) => {
+                this.uriStr = `调用相机，返回uri：\n${result.resultUri}`;
               }).catch((err: BusinessError) => {
-                this.uriStr = `调用相机，异常：\n${JSON.stringify(err)}`
-              })
+                this.uriStr = `调用相机，异常：\n${JSON.stringify(err)}`;
+              });
             })
           Button("selectPhoto()")
             .btnStyle()
             .onClick(() => {
               PickerUtil.selectPhoto().then((uris) => {
-                this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`
+                this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
               }).catch((err: BusinessError) => {
-                this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`
+                this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
               })
             })
 
@@ -84,41 +112,111 @@ struct Index {
           Button("selectDocument()")
             .btnStyle()
             .onClick(() => {
-              PickerUtil.selectDocument().then((uris) => {
+              let options: picker.DocumentSelectOptions = {
+                maxSelectNumber: 9, //选择媒体文件数量的最大值,默认9。
+                selectMode: picker.DocumentSelectMode.FILE, //支持选择的资源类型,默认文件
+                fileSuffixFilters: ['图片(.png, .jpeg)|.png,.jpeg', '文档|.txt', '视频|.mp4', '.pdf'], //选择文件的后缀类型['后缀类型描述|后缀类型']（可选） 若选择项存在多个后缀名，则每一个后缀名之间用英文逗号进行分隔（可选），后缀类型名不能超过100,选择所有文件：'所有文件(*.*)|.*';
+                defaultFilePathUri: "file://docs/storage/Users/currentUser/Download/com.harmony.utils", //指定选择的文件或者目录路径（可选）
+                authMode: true //选择是否对指定文件或目录授权，true为授权，当为true时，defaultFilePathUri为必选参数。
+              }
+              PickerUtil.selectDocument(options).then((uris) => {
                 this.uriStr = `调用文件管理，返回uris：\n${uris.join('\n')}`
               }).catch((err: BusinessError) => {
                 this.uriStr = `调用文件管理，异常：\n${JSON.stringify(err)}`
+              });
+            })
+          Button("saveDocumentEasy()")
+            .btnStyle()
+            .onClick(() => {
+              let fileName = `test_easy_${DateUtil.getTodayTime()}.txt`;
+              PickerUtil.saveDocumentEasy([fileName]).then((uris) => {
+                let uri = uris[0];
+                this.cacheUri = uri
+                PreferencesUtil.put("picker_cache_uri", this.cacheUri);
+                let txtStr = `“harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。\n\n`;
+                FileUtil.writeEasy(uri, txtStr).then(() => {
+                  this.uriStr = `文件保存成功，返回uris：\n${uri}`;
+                  ToastUtil.showToast("文件保存成功");
+                }).catch((err: BusinessError) => {
+                  this.uriStr = `文件保存，异常：\n${JSON.stringify(err)}`;
+                })
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用保存文件，异常：\n${JSON.stringify(err)}`;
               })
             })
           Button("saveDocument()")
             .btnStyle()
             .onClick(() => {
               let fileName = `test_${DateUtil.getTodayTime()}.txt`;
-              PickerUtil.saveDocument([fileName]).then((uris) => {
+              PickerUtil.saveDocument({newFileNames:[fileName]}).then((uris) => {
                 let uri = uris[0];
-                this.uriStr = `调用保存文件，返回uris：\n${uri}`
-                FileUtil.writeEasy(uri, `“harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。\n\n`)
-                  .then(() => {
-                    this.uriStr = `文件保存成功，返回uris：\n${uri}`
-                    ToastUtil.showToast("文件保存成功");
-                  })
+                this.cacheUri = uri
+                PreferencesUtil.put("picker_cache_uri", this.cacheUri);
+                let txtStr = `“harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。\n\n`;
+                FileUtil.writeEasy(uri, txtStr).then(() => {
+                  this.uriStr = `文件保存成功，返回uris：\n${uri}`;
+                  ToastUtil.showToast("文件保存成功");
+                }).catch((err: BusinessError) => {
+                  this.uriStr = `文件保存，异常：\n${JSON.stringify(err)}`;
+                })
               }).catch((err: BusinessError) => {
-                this.uriStr = `调用保存文件，异常：\n${JSON.stringify(err)}`
+                this.uriStr = `调用保存文件，异常：\n${JSON.stringify(err)}`;
               })
             })
-          Button("selectPhoto()")
+          Button("checkPersistentPermission()")
             .btnStyle()
             .onClick(() => {
-              PickerUtil.selectPhoto({ maxSelectNumber: 1 }).then(async (uris) => {
-                if (uris && uris.length > 0) {
-                  this.pixelMap = uris[0];
-                } else {
-                  ToastUtil.showToast("请选择图片")
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+                let policie: fileShare.PolicyInfo = {
+                  uri: this.cacheUri,
+                  operationMode: fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE
                 }
-              }).catch((err: BusinessError) => {
-                this.uriStr = `异常：\n${JSON.stringify(err)}`
-              })
+                PickerUtil.checkPersistentPermission([policie]).then(() => {
+                  this.uriStr = `检查权限，已授权`;
+                }).catch((err: BusinessError) => {
+                  this.uriStr = `检查权限，异常：\n${JSON.stringify(err)}`;
+                })
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，然后杀死APP，在操作！");
+              }
             })
+          Button("persistPermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，然后杀死APP，在操作！");
+              }
+            })
+          Button("revokePermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，然后杀死APP，在操作！");
+              }
+            })
+          Button("activatePermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，然后杀死APP，在操作！");
+              }
+            })
+          Button("deactivatePermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，然后杀死APP，在操作！");
+              }
+            })
+
           Text(this.uriStr)
             .visibility(StrUtil.isNotEmpty(this.uriStr) ? Visibility.Visible : Visibility.None)
             .textStyle()

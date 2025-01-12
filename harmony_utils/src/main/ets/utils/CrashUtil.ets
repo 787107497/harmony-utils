@@ -102,7 +102,7 @@ export class CrashUtil {
   static onExportErrorLog() {
     CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
     if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
-      PickerUtil.saveDocument(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
+      PickerUtil.saveDocumentEasy(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
         if (documentSaveResult && documentSaveResult.length > 0) {
           let saveUri = documentSaveResult[0];
           let file = FileUtil.openSync(saveUri);

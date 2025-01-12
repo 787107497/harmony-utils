@@ -17,7 +17,7 @@
 
 
 import { AppUtil } from './AppUtil';
-import { Want } from '@kit.AbilityKit';
+import { Want, wantConstant } from '@kit.AbilityKit';
 
 
 /**
@@ -242,5 +242,19 @@ export class WantUtil {
     return await context.startAbility(want);
   }
 
+
+  /**
+   * 分享文件给其他应用
+   */
+  static async openFile(uri: string) {
+    let context = AppUtil.getContext();
+    let want: Want = {
+      flags: wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION, //配置被分享文件的读写权限，例如对被分享应用进行读写授权
+      action: 'ohos.want.action.sendData', //配置分享应用的隐式拉起规则
+      uri: uri,
+      type: 'image/png'
+    }
+    return await context.startAbility(want);
+  }
 
 }

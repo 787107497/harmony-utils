@@ -17,9 +17,7 @@
 
 import fileUri from '@ohos.file.fileuri';
 import fs, { ListFileOptions, ReadOptions, ReadTextOptions, WriteOptions } from '@ohos.file.fs';
-import { LogUtil } from './LogUtil';
 import { StrUtil } from './StrUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * TODO 文件操作相关工具类
@@ -118,7 +116,7 @@ export class FileUtil {
    * @param path 文件路径
    */
   static hasDirPath(path: string): boolean {
-    return StrUtil.startsWith(path, "/data/storage/el1/") || StrUtil.startsWith(path, "/data/storage/el2/");
+    return StrUtil.startsWith(path, "/data/storage/") || StrUtil.startsWith(path, "/storage/");
   }
 
 
@@ -416,7 +414,7 @@ export class FileUtil {
    *                 offset，number类型，表示期望写入文件的位置。可选，默认从当前位置开始写。
    *                 length，number类型，表示期望写入数据的长度。可选，默认缓冲区长度。
    *                 encoding，string类型，当数据是string类型时有效，表示数据的编码方式，默认 'utf-8'。当前仅支持 'utf-8'。
-   * @returns
+   * @returns Promise对象。返回实际写入的数据长度，单位字节。
    */
   static write(fd: number, buffer: ArrayBuffer | string, options?: WriteOptions): Promise<number> {
     return fs.write(fd, buffer, options)
@@ -430,7 +428,7 @@ export class FileUtil {
    *                 offset，number类型，表示期望写入文件的位置。可选，默认从当前位置开始写。
    *                 length，number类型，表示期望写入数据的长度。可选，默认缓冲区长度。
    *                 encoding，string类型，当数据是string类型时有效，表示数据的编码方式，默认 'utf-8'。当前仅支持 'utf-8'。
-   * @returns
+   * @returns 返回实际写入的数据长度，单位字节。
    */
   static writeSync(fd: number, buffer: ArrayBuffer | string, options?: WriteOptions): number {
     return fs.writeSync(fd, buffer, options)
@@ -441,21 +439,15 @@ export class FileUtil {
    * @param path string 文件的应用沙箱路径或URI。
    * @param buffer ArrayBuffer|string 待写入文件的数据，可来自缓冲区或字符串。
    * @param append 是否追加，true-追加，false-不追加（直接覆盖）
-   * @returns
+   * @returns Promise对象。返回实际写入的数据长度，单位字节。
    */
   static async writeEasy(path: string, buffer: ArrayBuffer | string, append: boolean = true): Promise<number> {
-    try {
-      let file = FileUtil.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-      let offset = append ? FileUtil.statSync(file.fd).size : 0
-      let options: WriteOptions = { offset: offset, encoding: 'utf-8' };
-      return await FileUtil.write(file.fd, buffer, options).finally(() => {
-        FileUtil.close(file.fd); //关闭文件
-      });
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`FileUtil-writeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return -1;
-    }
+    let file = FileUtil.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+    let offset = append ? FileUtil.statSync(file.fd).size : 0
+    let options: WriteOptions = { offset: offset, encoding: 'utf-8' };
+    let result = await FileUtil.write(file.fd, buffer, options);
+    FileUtil.close(file.fd); //关闭文件
+    return result;
   }
 
 

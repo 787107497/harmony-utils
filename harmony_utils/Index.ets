@@ -108,6 +108,10 @@ export { RSA } from './src/main/ets/crypto/RSA';
 
 export { ECDSA } from './src/main/ets/crypto/ECDSA';
 
+export * from './src/main/ets/entity/constraint';
+
+export { CameraOptions } from './src/main/ets/entity/CameraOptions';
+
 export { ToastOptions } from './src/main/ets/entity/ToastOptions';
 
 export { DialogOptions } from './src/main/ets/entity/DialogOptions';
@@ -121,4 +125,4 @@ export { NotificationOptions,
 } from './src/main/ets/entity/NotificationOptions';
 
 
-export * from './src/main/ets/entity/constraint';
+
