@@ -51,12 +51,14 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let windowStage = AppUtil.getWindowStage();
-              ToastUtil.showToast("成功获取UIContext")
+              LogUtil.error(JSON.stringify(windowStage, null, 2));
+              ToastUtil.showToast("成功获取WindowStage");
             })
           Button("getMainWindow()")
             .btnStyle()
             .onClick(() => {
               let mainWindow = AppUtil.getMainWindow();
+              LogUtil.error(JSON.stringify(mainWindow, null, 2));
               ToastUtil.showToast("成功获取主窗口");
             })
           Button("setGrayScale()")

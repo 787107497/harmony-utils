@@ -54,6 +54,8 @@ struct Index {
               ToastUtil.setDefaultConfig((config) => {
                 config.alignment = Alignment.Top
                 config.offset = { dx: 0, dy: 80 }
+                config.backgroundColor = Color.Pink
+                config.textColor = Color.White
               });
               ToastUtil.showLong("样式(一)设置成功");
             })
@@ -65,6 +67,8 @@ struct Index {
                 config.offset = { dx: 0, dy: 0 }
                 config.showMode = promptAction.ToastShowMode.DEFAULT
                 config.duration = 2600
+                config.backgroundColor = Color.Blue
+                config.textColor = Color.White
               });
               ToastUtil.showLong("样式(二)设置成功");
             })
@@ -74,6 +78,8 @@ struct Index {
               ToastUtil.setDefaultConfig((config) => {
                 config.alignment = Alignment.Bottom
                 config.offset = { dx: 0, dy: -80 }
+                config.textColor = Color.Red
+                config.backgroundColor = Color.Black
               });
               ToastUtil.showLong("样式(三)设置成功");
             })

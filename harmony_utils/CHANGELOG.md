@@ -2,7 +2,7 @@
 
 ## 1.2.6（API12 - 5.0.3.906）
 1. PhotoHelper，新增showAssetsCreationDialog、showAssetsCreationDialogEasy、applyChanges；并优化代码。   
-2.  q
+2. PickerUtil，新增方法和优化代码。
 ```typescript
 //1.2.6版本适配指南：
 1、PickerUtil.camera() 改为PickerUtil.cameraEasy()  或修改camera()入参

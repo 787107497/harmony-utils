@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import promptAction from '@ohos.promptAction';
@@ -56,7 +54,12 @@ export class ToastUtil {
         duration: options?.duration ?? ToastUtil.defaultConfig.duration,
         showMode: options?.showMode ?? ToastUtil.defaultConfig.showMode,
         alignment: options?.alignment ?? ToastUtil.defaultConfig.alignment,
-        offset: options?.offset ?? ToastUtil.defaultConfig.offset
+        bottom: options?.bottom ?? ToastUtil.defaultConfig.bottom,
+        offset: options?.offset ?? ToastUtil.defaultConfig.offset,
+        textColor: options?.textColor ?? ToastUtil.defaultConfig.textColor,
+        backgroundColor: options?.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor,
+        backgroundBlurStyle: options?.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle,
+        shadow: options?.shadow ?? ToastUtil.defaultConfig.shadow
       })
     }
   }
@@ -74,7 +77,12 @@ export class ToastUtil {
         duration: options?.duration ?? ToastUtil.defaultConfig.duration_short,
         showMode: options?.showMode ?? ToastUtil.defaultConfig.showMode,
         alignment: options?.alignment ?? ToastUtil.defaultConfig.alignment,
-        offset: options?.offset ?? ToastUtil.defaultConfig.offset
+        bottom: options?.bottom ?? ToastUtil.defaultConfig.bottom,
+        offset: options?.offset ?? ToastUtil.defaultConfig.offset,
+        textColor: options?.textColor ?? ToastUtil.defaultConfig.textColor,
+        backgroundColor: options?.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor,
+        backgroundBlurStyle: options?.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle,
+        shadow: options?.shadow ?? ToastUtil.defaultConfig.shadow
       })
     }
   }
@@ -92,7 +100,12 @@ export class ToastUtil {
         duration: options?.duration ?? ToastUtil.defaultConfig.duration_long,
         showMode: options?.showMode ?? ToastUtil.defaultConfig.showMode,
         alignment: options?.alignment ?? ToastUtil.defaultConfig.alignment,
-        offset: options?.offset ?? ToastUtil.defaultConfig.offset
+        bottom: options?.bottom ?? ToastUtil.defaultConfig.bottom,
+        offset: options?.offset ?? ToastUtil.defaultConfig.offset,
+        textColor: options?.textColor ?? ToastUtil.defaultConfig.textColor,
+        backgroundColor: options?.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor,
+        backgroundBlurStyle: options?.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle,
+        shadow: options?.shadow ?? ToastUtil.defaultConfig.shadow
       })
     }
   }

@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import bundleManager from '@ohos.bundle.bundleManager';
@@ -55,7 +53,7 @@ export class AppUtil {
   static getContext(): common.UIAbilityContext {
     if (!AppUtil.context) {
       AppUtil.context = getContext() as common.UIAbilityContext; //兜底
-      LogUtil.error("context为空，请在UIAbility的onCreate方法中调用AppUtil的init方法初始化！");
+      LogUtil.error("请在UIAbility的onCreate方法中调用AppUtil的init方法初始化！");
     }
     return AppUtil.context;
   }
@@ -139,7 +137,8 @@ export class AppUtil {
     try {
       AppUtil.getUIContext().setKeyboardAvoidMode(value);
     } catch (err) {
-      LogUtil.error(JSON.stringify(err));
+      let error = err as BusinessError;
+      LogUtil.error(`AppUtil-setKeyboardAvoidMode-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
     return true;
@@ -179,16 +178,9 @@ export class AppUtil {
    *   AUTO_ROTATION_LANDSCAPE_RESTRICTED  10  表示受开关控制的自动横向旋转模式。
    *   LOCKED  11  表示锁定模式。
    */
-  static async setPreferredOrientation(orientation: window.Orientation, windowClass?: window.Window): Promise<void> {
-    try {
-      if (!windowClass) {
-        windowClass = AppUtil.getMainWindow();
-      }
-      return windowClass.setPreferredOrientation(orientation);
-    } catch (err) {
-      LogUtil.error(JSON.stringify(err));
-      return;
-    }
+  static async setPreferredOrientation(orientation: window.Orientation,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return await windowClass.setPreferredOrientation(orientation);
   }
 
 
@@ -197,16 +189,9 @@ export class AppUtil {
    * @param brightness  屏幕亮度值。该参数为浮点数，取值范围为[0.0, 1.0]或-1.0。1.0表示最亮，-1.0表示默认亮度。
    * @returns
    */
-  static async setWindowBrightness(brightness: number, windowClass?: window.Window): Promise<void> {
-    try {
-      if (!windowClass) {
-        windowClass = AppUtil.getMainWindow();
-      }
-      return windowClass.setWindowBrightness(brightness);
-    } catch (err) {
-      LogUtil.error(JSON.stringify(err));
-      return;
-    }
+  static async setWindowBrightness(brightness: number,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return await windowClass.setWindowBrightness(brightness);
   }
 
 
@@ -215,16 +200,9 @@ export class AppUtil {
    * @param isKeepScreenOn  true表示常亮；false表示不常亮。
    * @returns
    */
-  static async setWindowKeepScreenOn(isKeepScreenOn: boolean, windowClass?: window.Window): Promise<void> {
-    try {
-      if (!windowClass) {
-        windowClass = AppUtil.getMainWindow();
-      }
-      return windowClass.setWindowKeepScreenOn(isKeepScreenOn);
-    } catch (err) {
-      LogUtil.error(JSON.stringify(err))
-      return;
-    }
+  static async setWindowKeepScreenOn(isKeepScreenOn: boolean,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return await windowClass.setWindowKeepScreenOn(isKeepScreenOn);
   }
 
 
@@ -233,16 +211,9 @@ export class AppUtil {
    * @param isPrivacyMode 窗口是否为隐私模式。true表示模式开启；false表示模式关闭。
    * @returns
    */
-  static async setWindowPrivacyMode(isPrivacyMode: boolean, windowClass?: window.Window): Promise<void> {
-    try {
-      if (!windowClass) {
-        windowClass = AppUtil.getMainWindow();
-      }
-      return windowClass.setWindowPrivacyMode(isPrivacyMode);
-    } catch (err) {
-      LogUtil.error(JSON.stringify(err));
-      return;
-    }
+  static async setWindowPrivacyMode(isPrivacyMode: boolean,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return await windowClass.setWindowPrivacyMode(isPrivacyMode);
   }
 
 
@@ -251,15 +222,12 @@ export class AppUtil {
    * @param color 需要设置的背景色，为十六进制RGB或ARGB颜色，不区分大小写，例如#00FF00或#FF00FF00。
    * @returns
    */
-  static async setWindowBackgroundColor(color: string, windowClass?: window.Window) {
+  static setWindowBackgroundColor(color: string, windowClass: window.Window = AppUtil.getMainWindow()) {
     try {
-      if (!windowClass) {
-        windowClass = AppUtil.getMainWindow();
-      }
-      return windowClass.setWindowBackgroundColor(color);
+      windowClass.setWindowBackgroundColor(color);
     } catch (err) {
-      LogUtil.error(JSON.stringify(err));
-      return;
+      let error = err as BusinessError;
+      LogUtil.error(`AppUtil-setWindowBackgroundColor-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -268,16 +236,9 @@ export class AppUtil {
    * @param isFocusable 点击时是否支持切换焦点窗口。true表示支持；false表示不支持。
    * @returns
    */
-  static async setWindowFocusable(isFocusable: boolean, windowClass?: window.Window): Promise<void> {
-    try {
-      if (!windowClass) {
-        windowClass = AppUtil.getMainWindow();
-      }
-      return windowClass.setWindowFocusable(isFocusable);
-    } catch (err) {
-      LogUtil.error(JSON.stringify(err));
-      return;
-    }
+  static async setWindowFocusable(isFocusable: boolean,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return await windowClass.setWindowFocusable(isFocusable);
   }
 
   /**
@@ -285,16 +246,9 @@ export class AppUtil {
    * @param isTouchable 窗口是否为可触状态。true表示可触；false表示不可触。
    * @returns
    */
-  static async setWindowTouchable(isTouchable: boolean, windowClass?: window.Window): Promise<void> {
-    try {
-      if (!windowClass) {
-        windowClass = AppUtil.getMainWindow();
-      }
-      return windowClass.setWindowTouchable(isTouchable);
-    } catch (err) {
-      LogUtil.error(JSON.stringify(err));
-      return;
-    }
+  static async setWindowTouchable(isTouchable: boolean,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return await windowClass.setWindowTouchable(isTouchable);
   }
 
 
@@ -308,7 +262,8 @@ export class AppUtil {
       let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
       return avoidArea.topRect.height;
     } catch (err) {
-      LogUtil.error(JSON.stringify(err));
+      let error = err as BusinessError;
+      LogUtil.error(`AppUtil-getStatusBarHeight-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return 0;
     }
   }
@@ -323,7 +278,8 @@ export class AppUtil {
       let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
       return avoidArea.bottomRect.height;
     } catch (err) {
-      LogUtil.error(JSON.stringify(err));
+      let error = err as BusinessError;
+      LogUtil.error(`AppUtil-getNavigationIndicatorHeight-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return 0;
     }
   }
@@ -348,20 +304,21 @@ export class AppUtil {
       windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
         windowClass.setWindowBackgroundColor(color);
       }).catch((error: BusinessError) => {
-        LogUtil.error(`setWindowLayoutFullScreen-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+        LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       });
       windowClass.setWindowSystemBarEnable(enable ? ['status', 'navigation'] : []).then(() => {
         windowClass.setSpecificSystemBarEnabled("navigationIndicator", enable); //底部导航条。
       }).catch((error: BusinessError) => {
-        LogUtil.error(`setWindowSystemBarEnable-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+        LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       });
       if (systemBarProperties) {
         windowClass.setWindowSystemBarProperties(systemBarProperties).catch((error: BusinessError) => {
-          LogUtil.error(`setWindowSystemBarProperties-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+          LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
         });
       }
     } catch (err) {
-      LogUtil.error(JSON.stringify(err));
+      let error = err as BusinessError;
+      LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

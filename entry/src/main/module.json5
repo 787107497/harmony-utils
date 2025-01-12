@@ -54,6 +54,9 @@
         "name": "ohos.permission.VIBRATE"  //允许应用控制马达振动。
       },
       {
+        "name": "ohos.permission.FILE_ACCESS_PERSIST"
+      },
+      {
         "name": "ohos.permission.APP_TRACKING_CONSENT",
         "reason": "$string:permission_APP_TRACKING_CONSENT",
         "usedScene": {
@@ -158,7 +161,7 @@
           "abilities": [
             "EntryAbility"
           ]
-        },
+        }
 
       }
     ]
