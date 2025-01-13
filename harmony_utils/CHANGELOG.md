@@ -13,6 +13,9 @@
 1. 新增LRUCacheUtil工具类。
 2. 优化CacheUtil工具类 和 GlobalContext工具类。
 3. DateUtil：getFormatDate方法格式化时间可能异常的Bug修复。
+4. ToastUtil，新增参数和优化代码。
+5. DialogUtil，代码优化。
+6. 
 4. 代码优化。
 
 ## 1.2.4（API12 - 5.0.3.906）

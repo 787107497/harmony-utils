@@ -262,15 +262,9 @@ export class DialogUtil {
    *   onCancel:() => void 点击弹窗中的“取消”按钮时触发该回调。
    */
   static showCalendarPicker(options: CalendarDialogOptions) {
-    if (!options.backgroundColor) {
-      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
-    }
-    if (!options.shadow) {
-      options.shadow = DialogUtil.defaultConfig.shadow;
-    }
+    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
+    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
     CalendarPickerDialog.show(options);
   }
 
@@ -289,24 +283,12 @@ export class DialogUtil {
    *  onCancel:() => void  点击弹窗中的“取消”按钮时触发该回调。
    */
   static showDatePicker(options: DatePickerDialogOptions) {
-    if (!options.alignment) {
-      options.alignment = DialogUtil.defaultConfig.alignment;
-    }
-    if (!options.offset) {
-      options.offset = DialogUtil.defaultConfig.offset;
-    }
-    if (!options.maskRect) {
-      options.maskRect = DialogUtil.defaultConfig.maskRect;
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
-    }
-    if (!options.shadow) {
-      options.shadow = DialogUtil.defaultConfig.shadow;
-    }
+    options.alignment = options.alignment ?? DialogUtil.defaultConfig.alignment;
+    options.offset = options.offset ?? DialogUtil.defaultConfig.offset;
+    options.maskRect = options.maskRect ?? DialogUtil.defaultConfig.maskRect;
+    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
+    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
     DatePickerDialog.show(options);
   }
 
@@ -322,24 +304,12 @@ export class DialogUtil {
    *  onCancel:() => void 点击弹窗中的“取消”按钮时触发该回调。
    */
   static showTimePicker(options: TimePickerDialogOptions) {
-    if (!options.alignment) {
-      options.alignment = DialogUtil.defaultConfig.alignment;
-    }
-    if (!options.offset) {
-      options.offset = DialogUtil.defaultConfig.offset;
-    }
-    if (!options.maskRect) {
-      options.maskRect = DialogUtil.defaultConfig.maskRect;
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
-    }
-    if (!options.shadow) {
-      options.shadow = DialogUtil.defaultConfig.shadow;
-    }
+    options.alignment = options.alignment ?? DialogUtil.defaultConfig.alignment;
+    options.offset = options.offset ?? DialogUtil.defaultConfig.offset;
+    options.maskRect = options.maskRect ?? DialogUtil.defaultConfig.maskRect;
+    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
+    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
     TimePickerDialog.show(options);
   }
 
@@ -362,24 +332,12 @@ export class DialogUtil {
    *  onCancel:() => void 点击弹窗中的“取消”按钮时触发该回调。
    */
   static showTextPicker(options: TextPickerDialogOptions) {
-    if (!options.alignment) {
-      options.alignment = DialogUtil.defaultConfig.alignment;
-    }
-    if (!options.offset) {
-      options.offset = DialogUtil.defaultConfig.offset;
-    }
-    if (!options.maskRect) {
-      options.maskRect = DialogUtil.defaultConfig.maskRect;
-    }
-    if (!options.backgroundColor) {
-      options.backgroundColor = DialogUtil.defaultConfig.backgroundColor;
-    }
-    if (!options.backgroundBlurStyle) {
-      options.backgroundBlurStyle = DialogUtil.defaultConfig.backgroundBlurStyle;
-    }
-    if (!options.shadow) {
-      options.shadow = DialogUtil.defaultConfig.shadow;
-    }
+    options.alignment = options.alignment ?? DialogUtil.defaultConfig.alignment;
+    options.offset = options.offset ?? DialogUtil.defaultConfig.offset;
+    options.maskRect = options.maskRect ?? DialogUtil.defaultConfig.maskRect;
+    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
+    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
     TextPickerDialog.show(options);
   }
 
@@ -418,9 +376,7 @@ export class DialogUtil {
    * @param options
    */
   private static initConfirmButton(options: ConfirmDialogOptions) {
-    if (!options.confirm) {
-      options.confirm = DialogUtil.defaultConfig.secondaryButton;
-    }
+    options.confirm = options.confirm ?? DialogUtil.defaultConfig.secondaryButton;
     let confirmValue = DialogUtil.getResourceStr(options.confirm);
     if (confirmValue) {
       options.confirm = {
@@ -638,7 +594,7 @@ export class DialogUtil {
    * @param resource
    * @returns
    */
-  private static getResourceStr(resource: ResourceStr | ButtonOptions | SheetInfo): string | null {
+  private static getResourceStr(resource: ResourceStr | ButtonOptions | SheetInfo): string | undefined {
     try {
       if (typeof resource === 'string') {
         return resource;
@@ -646,7 +602,7 @@ export class DialogUtil {
         return ResUtil.getStringSync((resource as Resource).id);
       }
     } catch (e) {
-      return null
+      return undefined;
     }
   }
 

@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { StrUtil } from './StrUtil';
@@ -124,7 +122,7 @@ export class ArrayUtil {
    * @returns
    */
   static min<T extends number | string | Date>(array: T[]): T | null {
-    if (array.length === 0) {
+    if (array.length == 0) {
       return null;
     }
     let minValue = array[0];
