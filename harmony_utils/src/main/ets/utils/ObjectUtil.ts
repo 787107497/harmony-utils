@@ -43,6 +43,28 @@ export class ObjectUtil {
 
 
   /**
+   * 获取对象的Class名称
+   * @param obj
+   * @returns
+   */
+  static getClassName(obj: Object) {
+    return obj.constructor.name;
+  }
+
+
+  /**
+   * 获取对象的所有方法名
+   * @param obj
+   * @returns
+   */
+  static getMethodsNames(obj: Object) {
+    let protoType = Object.getPrototypeOf(obj);
+    let methodsNames: string[] = Object.getOwnPropertyNames(protoType);
+    return methodsNames;
+  }
+
+
+  /**
    * 判断是否是String
    * @param source
    * @returns

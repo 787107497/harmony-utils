@@ -1,4 +1,4 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { LogUtil, ObjectUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
@@ -35,7 +35,25 @@ struct Index {
             .onClick(() => {
               let hash1 = ObjectUtil.getHash(this.user);
               let hash2 = ObjectUtil.getHash(this.describe);
-              this.resultStr = `hash1: ${hash1}\n\nhash2: ${hash2}`
+              this.resultStr = `hash1: ${hash1}\n\nhash2: ${hash2}`;
+              LogUtil.error(this.resultStr);
+              ToastUtil.showToast("请查看Log日志");
+            })
+          Button("getClassName()")
+            .btnStyle()
+            .onClick(() => {
+              let name1 = ObjectUtil.getClassName(this.user);
+              let name2 = ObjectUtil.getClassName(this.describe);
+              this.resultStr = `name1: ${name1}\n\nname2: ${name2}`
+              LogUtil.error(this.resultStr)
+              ToastUtil.showToast("请查看Log日志")
+            })
+          Button("getMethodsNames()")
+            .btnStyle()
+            .onClick(() => {
+              let methodsNames1 = ObjectUtil.getMethodsNames(this.user);
+              let methodsNames2 = ObjectUtil.getMethodsNames(this.describe);
+              this.resultStr = `User方法名: ${methodsNames1}\n\nDescribe方法名: ${methodsNames2}`
               LogUtil.error(this.resultStr)
               ToastUtil.showToast("请查看Log日志")
             })
