@@ -28,11 +28,11 @@ struct Index {
 
   async aboutToAppear(): Promise<void> {
     this.textPath = FileUtil.getFilesDirPath('download/wps/txt', '文本文档.txt');
-    FileUtil.writeEasy(this.textPath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。")
+    FileUtil.writeEasy(this.textPath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。");
     this.docPath = FileUtil.getFilesDirPath('download/wps/doc', '测试DOC文件.doc');
-    FileUtil.writeEasy(this.docPath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。")
-    let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"))
-    this.imgPath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小妹纸.png")
+    FileUtil.writeEasy(this.docPath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。");
+    let pixelMap = await ImageUtil.getPixelMapFromMedia($r("app.media.test_as4"));
+    this.imgPath = await ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), "漂亮小妹纸.png");
   }
 
   onBackPress(): boolean {
@@ -122,9 +122,10 @@ struct Index {
           Button("onSharePreview()")
             .btnStyle()
             .onClick(() => {
-              let uri = FileUtil.getUriFromPath(this.textPath);
+              let uri = FileUtil.getUriFromPath(this.docPath);
               LogUtil.error("uri: "+ uri)
               PreviewUtil.onSharePreview(uri).catch((error: BusinessError) => {
+                ToastUtil.showToast("打开文件失败，" + error.message);
                 LogUtil.error(`onSharePreview-异常 ~ code: ${error.code} -·- message: ${error.message}`);
               });
             })
@@ -138,22 +139,12 @@ struct Index {
           Button("getIconFileStr()")
             .btnStyle()
             .onClick(() => {
-              this.iconFileStr = PreviewUtil.getIconFileStr("doc");
+              this.iconFileStr = PreviewUtil.getIconFileStr("docx");
               ToastUtil.showToast(`${this.iconFileStr}`)
             })
           Image($r(this.iconFileStr))
             .visibility(StrUtil.isNotEmpty(this.iconFileStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
-          Button("getMimeTypeMap()")
-            .btnStyle()
-            .onClick(() => {
-              let map = PreviewUtil.getMimeTypeMap();
-              let mapStr='';
-              map.forEach((value,key)=>{
-                mapStr= `${mapStr}\n\n${key} ---> ${value}`
-              })
-              this.resultStr = mapStr;
-            })
           Text(this.resultStr)
             .visibility(StrUtil.isNotEmpty(this.resultStr) ? Visibility.Visible : Visibility.None)
             .textStyle()

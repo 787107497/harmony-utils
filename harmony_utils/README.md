@@ -225,6 +225,7 @@ OpenHarmony ohpm
 | toAppGalleryDetail    | 拉起应用市场对应的应用详情界面                            |
 | toFileManagement      | 拉起系统文件管理器                                  |
 | startMMS              | 拉起短信界面并指定联系人                               |
+| openFile              | 调用三方软件打开文件                                 |
 
 ## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
@@ -394,20 +395,20 @@ OpenHarmony ohpm
 
 ## PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
 
-| 方法                  | 介绍                          |
-|:--------------------|:----------------------------|
-| generatePreviewInfo | 根据文件uri构建PreviewInfo        |
-| openPreview         | 通过传入文件预览信息，打开预览窗口。1秒内重复调用无效 |
-| openPreviewEasy     | 通过传入文件的uri，打开预览窗口。1秒内重复调用无效 |
-| canPreview          | 根据文件的uri判断文件是否可预览           |
-| hasDisplayed        | 判断预览窗口是否已经存在                |
-| closePreview        | 关闭预览窗口，仅当预览窗口存在时起效          |
-| loadData            | 加载预览文件信息。仅当预览窗口存在时起效        |
-| loadDataEasy        | 加载预览文件信息。仅当预览窗口存在时起效        |
-| onSharePreview      | 调用其他应用预览文件                  |
-| getMimeType         | 根据文件后缀名获取文件mimeType         |
-| getIconFileStr      | 根据文件后缀名获取对应文件类型的图标          |
-| getMimeTypeMap      | filePreview支持的预览文件类型        |
+| 方法                  | 介绍                                   |
+|:--------------------|:-------------------------------------|
+| generatePreviewInfo | 根据文件uri构建PreviewInfo                 |
+| openPreview         | 通过传入文件预览信息，打开预览窗口。1秒内重复调用无效          |
+| openPreviewEasy     | 通过传入文件的uri，打开预览窗口。1秒内重复调用无效          |
+| canPreview          | 根据文件的uri判断文件是否可预览                    |
+| hasDisplayed        | 判断预览窗口是否已经存在                         |
+| closePreview        | 关闭预览窗口，仅当预览窗口存在时起效                   |
+| loadData            | 加载预览文件信息。仅当预览窗口存在时起效                 |
+| loadDataEasy        | 加载预览文件信息。仅当预览窗口存在时起效                 |
+| onSharePreview      | 调用其他应用预览文件                           |
+| getTypeDescriptor   | 根据文件后缀名获取TypeDescriptor（标准化数据类型的描述类） |
+| getMimeType         | 根据文件后缀名获取文件mimeType                  |
+| getIconFileStr      | 根据文件后缀名获取对应文件类型的图标                   |
 
 ## ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
 

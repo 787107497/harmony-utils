@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { distributedKVStore } from '@kit.ArkData';
@@ -41,11 +39,11 @@ export class KvUtil {
    */
   private static async getKvStore(): Promise<distributedKVStore.SingleKVStore> {
     if (!KvUtil.kvStore) {
-      let kvManager = distributedKVStore.createKVManager({
+      const kvManager = distributedKVStore.createKVManager({
         context: AppUtil.getContext(),
         bundleName: AppUtil.getBundleName()
       });
-      let options: distributedKVStore.Options = {
+      const options: distributedKVStore.Options = {
         createIfMissing: true, //当数据库文件不存在时是否创建数据库
         encrypt: true, //设置数据库文件是否加密
         backup: false, //设置数据库文件是否备份
@@ -66,7 +64,8 @@ export class KvUtil {
    * @param callback
    */
   static async put(key: string, value: Uint8Array | string | number | boolean): Promise<void> {
-    return (await KvUtil.getKvStore()).put(key, value);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.put(key, value);
   }
 
 
@@ -76,7 +75,8 @@ export class KvUtil {
    * @param callback
    */
   static async get(key: string, defValue?: string | number | boolean | Uint8Array): Promise<string | number | boolean | Uint8Array | undefined> {
-    return (await KvUtil.getKvStore()).get(key).catch((e: BusinessError) => {
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.get(key).catch((e: BusinessError) => {
       return defValue;
     });
   }
@@ -87,7 +87,8 @@ export class KvUtil {
    * @param callback
    */
   static async getString(key: string, defValue: string = ''): Promise<string> {
-    return (await KvUtil.get(key, defValue)) as string;
+    let value = await KvUtil.get(key, defValue);
+    return value as string;
   }
 
   /**
@@ -96,7 +97,8 @@ export class KvUtil {
    * @param callback
    */
   static async getNumber(key: string, defValue: number = 0): Promise<number> {
-    return (await KvUtil.get(key, defValue)) as number;
+    let value = await KvUtil.get(key, defValue);
+    return value as number;
   }
 
   /**
@@ -105,7 +107,8 @@ export class KvUtil {
    * @param callback
    */
   static async getBoolean(key: string, defValue?: boolean): Promise<boolean> {
-    return (await KvUtil.get(key, defValue)) as boolean;
+    let value = await KvUtil.get(key, defValue);
+    return value as boolean;
   }
 
   /**
@@ -114,7 +117,8 @@ export class KvUtil {
    * @param callback
    */
   static async getUint8Array(key: string, defValue?: Uint8Array): Promise<Uint8Array> {
-    return (await KvUtil.get(key, defValue)) as Uint8Array;
+    let value = await KvUtil.get(key, defValue);
+    return value as Uint8Array;
   }
 
 
@@ -123,7 +127,8 @@ export class KvUtil {
    * @param key 要删除数据的Key
    */
   static async delete(key: string): Promise<void> {
-    return (await KvUtil.getKvStore()).delete(key);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.delete(key);
   }
 
   /**
@@ -132,7 +137,8 @@ export class KvUtil {
    * @returns
    */
   static async putBatch(entries: distributedKVStore.Entry[]): Promise<void> {
-    return (await KvUtil.getKvStore()).putBatch(entries);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.putBatch(entries);
   }
 
 
@@ -142,7 +148,8 @@ export class KvUtil {
    * @returns
    */
   static async deleteBatch(keys: string[]): Promise<void> {
-    return (await KvUtil.getKvStore()).deleteBatch(keys);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.deleteBatch(keys);
   }
 
 
@@ -152,7 +159,8 @@ export class KvUtil {
    * @returns
    */
   static async getEntries(keyPrefix: string): Promise<distributedKVStore.Entry[]> {
-    return (await KvUtil.getKvStore()).getEntries(keyPrefix);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.getEntries(keyPrefix);
   }
 
 
@@ -162,7 +170,8 @@ export class KvUtil {
    * @returns
    */
   static async backup(file: string): Promise<void> {
-    return (await KvUtil.getKvStore()).backup(file);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.backup(file);
   }
 
 
@@ -172,7 +181,8 @@ export class KvUtil {
    * @returns
    */
   static async restore(file: string): Promise<void> {
-    return (await KvUtil.getKvStore()).restore(file);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.restore(file);
   }
 
 
@@ -182,7 +192,8 @@ export class KvUtil {
    * @returns
    */
   static async deleteBackup(files: Array<string>): Promise<Array<[string, number]>> {
-    return (await KvUtil.getKvStore()).deleteBackup(files);
+    let kvStore = await KvUtil.getKvStore();
+    return kvStore.deleteBackup(files);
   }
 
 
@@ -193,7 +204,8 @@ export class KvUtil {
    */
   static async onDataChange(type: distributedKVStore.SubscribeType,
     listener: Callback<distributedKVStore.ChangeNotification>) {
-    (await KvUtil.getKvStore()).on('dataChange', type, listener);
+    let kvStore = await KvUtil.getKvStore();
+    kvStore.on('dataChange', type, listener);
   }
 
 
@@ -202,10 +214,11 @@ export class KvUtil {
    * @param listener 取消订阅的函数。如不设置callback，则取消所有已订阅的函数。
    */
   static async offDataChange(listener?: Callback<distributedKVStore.ChangeNotification>) {
+    let kvStore = await KvUtil.getKvStore();
     if (listener) {
-      (await KvUtil.getKvStore()).off('dataChange', listener);
+      kvStore.off('dataChange', listener);
     } else {
-      (await KvUtil.getKvStore()).off('dataChange');
+      kvStore.off('dataChange');
     }
   }
 

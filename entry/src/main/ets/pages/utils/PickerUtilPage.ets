@@ -115,9 +115,9 @@ struct Index {
               let options: picker.DocumentSelectOptions = {
                 maxSelectNumber: 9, //选择媒体文件数量的最大值,默认9。
                 selectMode: picker.DocumentSelectMode.FILE, //支持选择的资源类型,默认文件
-                fileSuffixFilters: ['图片(.png, .jpeg)|.png,.jpeg', '文档|.txt', '视频|.mp4', '.pdf'], //选择文件的后缀类型['后缀类型描述|后缀类型']（可选） 若选择项存在多个后缀名，则每一个后缀名之间用英文逗号进行分隔（可选），后缀类型名不能超过100,选择所有文件：'所有文件(*.*)|.*';
-                defaultFilePathUri: "file://docs/storage/Users/currentUser/Download/com.harmony.utils", //指定选择的文件或者目录路径（可选）
-                authMode: true //选择是否对指定文件或目录授权，true为授权，当为true时，defaultFilePathUri为必选参数。
+                // fileSuffixFilters: ['图片(.png, .jpg)|.png,.jpg', '文档|.txt', '视频|.mp4', '.pdf'], //选择文件的后缀类型['后缀类型描述|后缀类型']（可选） 若选择项存在多个后缀名，则每一个后缀名之间用英文逗号进行分隔（可选），后缀类型名不能超过100,选择所有文件：'所有文件(*.*)|.*';
+                // defaultFilePathUri: "file://docs/storage/Users/currentUser/Download/com.harmony.utils", //指定选择的文件或者目录路径（可选）
+                // authMode: true //选择是否对指定文件或目录授权，true为授权，当为true时，defaultFilePathUri为必选参数。
               }
               PickerUtil.selectDocument(options).then((uris) => {
                 this.uriStr = `调用文件管理，返回uris：\n${uris.join('\n')}`
@@ -136,7 +136,7 @@ struct Index {
                 let txtStr = `“harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。\n\n`;
                 FileUtil.writeEasy(path, txtStr).then(() => {
                   this.uriStr = `文件保存成功，返回uris：\n${path}`;
-                  ToastUtil.showToast("文件保存成功");
+                  ToastUtil.showToast("文件保存成功！");
                 }).catch((err: BusinessError) => {
                   this.uriStr = `文件保存，异常：\n${JSON.stringify(err)}`;
                 })
@@ -155,7 +155,7 @@ struct Index {
                 let txtStr = `“harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。\n\n`;
                 FileUtil.writeEasy(uri, txtStr).then(() => {
                   this.uriStr = `文件保存成功，返回uris：\n${uri}`;
-                  ToastUtil.showToast("文件保存成功");
+                  ToastUtil.showToast("文件保存成功！");
                 }).catch((err: BusinessError) => {
                   this.uriStr = `文件保存，异常：\n${JSON.stringify(err)}`;
                 })
@@ -166,6 +166,7 @@ struct Index {
           Button("checkPersistentPermission()")
             .btnStyle()
             .onClick(() => {
+              LogUtil.error("授权uri："+this.cacheUri)
               if (StrUtil.isNotEmpty(this.cacheUri)) {
                 let policie: fileShare.PolicyInfo = {
                   uri: this.cacheUri,

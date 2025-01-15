@@ -233,8 +233,8 @@ export class StrUtil {
    * @returns Uint8Array
    */
   public static strToUint8Array(src: string, encoding: buffer.BufferEncoding = 'utf-8'): Uint8Array {
-    let textEncoder = new util.TextEncoder(encoding);
-    let result = textEncoder.encodeInto(src);
+    const textEncoder = new util.TextEncoder(encoding);
+    const result = textEncoder.encodeInto(src);
     return result;
   }
 
@@ -244,8 +244,8 @@ export class StrUtil {
    * @returns 字符串
    */
   static unit8ArrayToStr(src: Uint8Array, encoding: buffer.BufferEncoding = 'utf-8'): string {
-    let textDecoder = util.TextDecoder.create(encoding, { ignoreBOM: true })
-    let result = textDecoder.decodeWithStream(src, { stream: true });
+    const textDecoder = util.TextDecoder.create(encoding, { ignoreBOM: true })
+    const result = textDecoder.decodeToString(src, { stream: true });
     return result;
   }
 
@@ -303,8 +303,8 @@ export class StrUtil {
    * @returns
    */
   static strToBase64(src: string): string {
-    let uint8Array = StrUtil.strToUint8Array(src);
-    let result = Base64Util.encodeToStrSync(uint8Array);
+    const uint8Array = StrUtil.strToUint8Array(src);
+    const result = Base64Util.encodeToStrSync(uint8Array);
     return result;
   }
 
@@ -315,8 +315,8 @@ export class StrUtil {
    * @returns
    */
   static base64ToStr(base64Str: string): string {
-    let uint8Array = Base64Util.decodeSync(base64Str);
-    let result = StrUtil.unit8ArrayToStr(uint8Array);
+    const uint8Array = Base64Util.decodeSync(base64Str);
+    const result = StrUtil.unit8ArrayToStr(uint8Array);
     return result;
   }
 
@@ -327,7 +327,7 @@ export class StrUtil {
    * @returns
    */
   static strToBuffer(src: string, encoding: buffer.BufferEncoding = 'utf-8'): ArrayBuffer {
-    let buf = buffer.from(src, encoding);
+    const buf = buffer.from(src, encoding);
     return buf.buffer;
   }
 
@@ -337,8 +337,8 @@ export class StrUtil {
    * @returns
    */
   static bufferToStr(src: ArrayBuffer, encoding: buffer.BufferEncoding = 'utf-8'): string {
-    let buf = buffer.from(src);
-    let result = buf.toString(encoding);
+    const buf = buffer.from(src);
+    const result = buf.toString(encoding);
     return result;
   }
 

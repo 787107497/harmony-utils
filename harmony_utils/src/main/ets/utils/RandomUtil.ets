@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { util } from '@kit.ArkTS';
@@ -73,9 +71,9 @@ export class RandomUtil {
    * @return 随机的汉字字符
    */
   static getRandomChineseChar(): string {
-    let start = 0x4E00; //汉字起始Unicode编码,'\u4E00'
-    let end = 0x9FFF; //汉字结束Unicode编码,'\u9FFF'
-    let randomCode = start + Math.floor(Math.random() * (end - start + 1)); //生成一个随机码点
+    const start = 0x4E00; //汉字起始Unicode编码,'\u4E00'
+    const end = 0x9FFF; //汉字结束Unicode编码,'\u9FFF'
+    const randomCode = start + Math.floor(Math.random() * (end - start + 1)); //生成一个随机码点
     return String.fromCharCode(randomCode); //将随机码点转换为对应的汉字字符
   }
 
@@ -101,7 +99,7 @@ export class RandomUtil {
    * @returns
    */
   static getRandomStr(length: number, strPool: string): string {
-    let strPoolLength = strPool.length;
+    const strPoolLength = strPool.length;
     let randomStr = '';
     for (let i = 0; i < length; i++) {
       let randomIndex = Math.floor(Math.random() * strPoolLength); //生成一个随机索引

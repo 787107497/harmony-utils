@@ -33,7 +33,7 @@ export class ToastConfig {
   duration_short: number = 1500; //显示时长(1500ms)
   duration_long: number = 10000; //显示时长(10000ms)
   showMode: promptAction.ToastShowMode = promptAction.ToastShowMode.DEFAULT; //是否显示在应用之上。
-  alignment: Alignment = Alignment.Center; //对齐方式。默认值：undefined，默认底部偏上位置。
+  alignment: Alignment | undefined = undefined; //对齐方式。默认值：undefined，默认底部偏上位置。
   bottom: string | number = '80vp'; //设置弹窗底部边框距离导航条的高度，ToastShowMode.TOP_MOST模式下，软键盘拉起时，如果bottom值过小，toast要被软键盘遮挡时，会自动避让至距离软键盘80vp处。ToastShowMode.DEFAULT模式下，软键盘拉起时，会上移软键盘的高度。默认值：80vp。说明：当底部没有导航条时，bottom为设置弹窗底部边框距离窗口底部的高度。设置对齐方式alignment后，bottom不生效。
   offset: Offset = { dx: 0, dy: 0 }; //在对齐方式上的偏移。 默认值：{dx:0, dy:0}，默认没有偏移。
   textColor: ResourceColor = Color.White; // 文本提示框文本颜色。默认值：Color.Black

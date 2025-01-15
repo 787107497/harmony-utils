@@ -157,7 +157,7 @@ export class AppUtil {
    * 设备当前是否以横屏方式显示（横屏）
    */
   static isLandscape(): Boolean {
-    let direction = DeviceUtil.getDirection();
+    const direction = DeviceUtil.getDirection();
     return direction == resourceManager.Direction.DIRECTION_HORIZONTAL;
   }
 
@@ -180,7 +180,7 @@ export class AppUtil {
    */
   static async setPreferredOrientation(orientation: window.Orientation,
     windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return await windowClass.setPreferredOrientation(orientation);
+    return windowClass.setPreferredOrientation(orientation);
   }
 
 
@@ -191,7 +191,7 @@ export class AppUtil {
    */
   static async setWindowBrightness(brightness: number,
     windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return await windowClass.setWindowBrightness(brightness);
+    return windowClass.setWindowBrightness(brightness);
   }
 
 
@@ -202,7 +202,7 @@ export class AppUtil {
    */
   static async setWindowKeepScreenOn(isKeepScreenOn: boolean,
     windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return await windowClass.setWindowKeepScreenOn(isKeepScreenOn);
+    return windowClass.setWindowKeepScreenOn(isKeepScreenOn);
   }
 
 
@@ -213,7 +213,7 @@ export class AppUtil {
    */
   static async setWindowPrivacyMode(isPrivacyMode: boolean,
     windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return await windowClass.setWindowPrivacyMode(isPrivacyMode);
+    return windowClass.setWindowPrivacyMode(isPrivacyMode);
   }
 
 
@@ -238,7 +238,7 @@ export class AppUtil {
    */
   static async setWindowFocusable(isFocusable: boolean,
     windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return await windowClass.setWindowFocusable(isFocusable);
+    return windowClass.setWindowFocusable(isFocusable);
   }
 
   /**
@@ -248,7 +248,7 @@ export class AppUtil {
    */
   static async setWindowTouchable(isTouchable: boolean,
     windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return await windowClass.setWindowTouchable(isTouchable);
+    return windowClass.setWindowTouchable(isTouchable);
   }
 
 
@@ -258,8 +258,8 @@ export class AppUtil {
    */
   static getStatusBarHeight(): number {
     try {
-      let windowClass = AppUtil.getMainWindow();
-      let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
+      const windowClass = AppUtil.getMainWindow();
+      const avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
       return avoidArea.topRect.height;
     } catch (err) {
       let error = err as BusinessError;
@@ -274,8 +274,8 @@ export class AppUtil {
    */
   static getNavigationIndicatorHeight(): number {
     try {
-      let windowClass = AppUtil.getMainWindow();
-      let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
+      const windowClass = AppUtil.getMainWindow();
+      const avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
       return avoidArea.bottomRect.height;
     } catch (err) {
       let error = err as BusinessError;
@@ -300,7 +300,7 @@ export class AppUtil {
    */
   static setStatusBar(isLayoutFullScreen: boolean = true, enable: boolean = true, color: string = '#FFFFFF', systemBarProperties?: window.SystemBarProperties) {
     try {
-      let windowClass = AppUtil.getMainWindow();
+      const windowClass = AppUtil.getMainWindow();
       windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
         windowClass.setWindowBackgroundColor(color);
       }).catch((error: BusinessError) => {
@@ -327,7 +327,7 @@ export class AppUtil {
    * 获取当前应用的BundleInfo
    */
   static async getBundleInfo(): Promise<bundleManager.BundleInfo> {
-    return await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+    return bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
   }
 
   /**

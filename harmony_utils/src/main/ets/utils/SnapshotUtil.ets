@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { image } from '@kit.ImageKit';
@@ -92,12 +90,12 @@ export class SnapshotUtil {
    */
   static onSnapshotListener(listenerId: number, callback: VoidCallback): number {
     try {
-      let callBack = CacheUtil.get<NumberCallBack>(`snapshot_num_x_id_${listenerId}`);
+      let callBack = CacheUtil.get<NumberCallBack>(`snapshot_listener_id_${listenerId}`);
       if (callBack != null && callBack != undefined) {
         LogUtil.error(`KeyboardUtil-onKeyboardListener: 监听事件已存在！`);
         return -1; //监听事件已存在返回-1
       } else {
-        CacheUtil.put<NumberCallBack>(`snapshot_num_x_id_${listenerId}`, callback);
+        CacheUtil.put<NumberCallBack>(`snapshot_listener_id_${listenerId}`, callback);
         AppUtil.getMainWindow().on("screenshot", callback);
         return 0; //成功返回-0
       }
@@ -117,10 +115,10 @@ export class SnapshotUtil {
   static removeSnapshotListener(listenerId?: number): number {
     try {
       if (listenerId) {
-        let callBack = CacheUtil.get<VoidCallback>(`snapshot_num_x_id_${listenerId}`);
+        let callBack = CacheUtil.get<VoidCallback>(`snapshot_listener_id_${listenerId}`);
         if (callBack != null && callBack != undefined) {
           AppUtil.getMainWindow().off('screenshot', callBack);
-          CacheUtil.put(`snapshot_num_x_id_${listenerId}`, null);
+          CacheUtil.put(`snapshot_listener_id_${listenerId}`, null);
         }
       } else {
         AppUtil.getMainWindow().off('screenshot');

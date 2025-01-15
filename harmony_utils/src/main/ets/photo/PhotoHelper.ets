@@ -62,7 +62,7 @@ export class PhotoHelper {
       options.isEditSupported = true; //支持编辑照片。
       options.isOriginalSupported = true; //显示选择原图按钮。
     }
-    let photoPicker = new photoAccessHelper.PhotoViewPicker();
+    const photoPicker = new photoAccessHelper.PhotoViewPicker();
     let photoSelectResult: photoAccessHelper.PhotoSelectResult = await photoPicker.select(options);
     if (photoSelectResult && photoSelectResult.photoUris && photoSelectResult.photoUris.length > 0) {
       return photoSelectResult.photoUris;
@@ -80,7 +80,7 @@ export class PhotoHelper {
    * @returns
    */
   static async save(photoType: photoAccessHelper.PhotoType, extension: string, options?: photoAccessHelper.CreateOptions): Promise<string> {
-    let photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    const photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
     let uri = await photoHelper.createAsset(photoType, extension, options);
     await photoHelper.release();
     return uri;
@@ -94,8 +94,8 @@ export class PhotoHelper {
    * @returns 返回给应用的媒体库文件uri列表。Uri已对应用授权，支持应用写入数据。
    */
   static async showAssetsCreationDialog(srcFileUris: Array<string>, photoCreationConfigs?: Array<photoAccessHelper.PhotoCreationConfig>): Promise<Array<string>>{
-    let ImageExtensions = ["jpeg", "jpg", "png", "gif", "webp", "bmp", "heic", "heif", , "ico", "svg"]; //图片文件后缀
-    let photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    const ImageExtensions = ["jpeg", "jpg", "png", "gif", "webp", "bmp", "heic", "heif", , "ico", "svg"]; //图片文件后缀
+    const photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
     if (photoCreationConfigs == undefined || photoCreationConfigs == null) {
       photoCreationConfigs = new Array<photoAccessHelper.PhotoCreationConfig>();
       for (let index = 0; index < srcFileUris.length; index++) {
@@ -143,9 +143,9 @@ export class PhotoHelper {
    * @param srcFileUri 需要确保srcFileUri对应的资源存在
    */
   static async applyChanges(srcFileUri: string): Promise<photoAccessHelper.PhotoAsset> {
-    let context = AppUtil.getContext();
-    let photoHelper = photoAccessHelper.getPhotoAccessHelper(context);
-    let assetChangeRequest: photoAccessHelper.MediaAssetChangeRequest =
+    const context = AppUtil.getContext();
+    const photoHelper = photoAccessHelper.getPhotoAccessHelper(context);
+    const assetChangeRequest: photoAccessHelper.MediaAssetChangeRequest =
       photoAccessHelper.MediaAssetChangeRequest.createImageAssetRequest(context, srcFileUri);
     await photoHelper.applyChanges(assetChangeRequest);
     let photoAsset = assetChangeRequest.getAsset();
@@ -172,8 +172,8 @@ export class PhotoHelper {
    * @returns
    */
   static async getPhotoAsset(uri: string): Promise<photoAccessHelper.PhotoAsset> {
-    let photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
-    let predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
+    const photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    const predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
     //配置查询条件，使用PhotoViewPicker选择图片返回的uri进行查询
     predicates.equalTo('uri', uri);
     let fetchOption: photoAccessHelper.FetchOptions = {

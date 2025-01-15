@@ -47,19 +47,20 @@ export class ToastUtil {
    * @param message 提示消息
    * @param options (显示时长、距离屏幕底部的位置、是否显示在应用之上)
    */
-  static showToast(message: string | Resource, options?: ToastOptions) {
+  static showToast(message: string | Resource, options: ToastOptions = new ToastOptions()) {
     if ((typeof message === 'string' && message.length > 0) || message) {
+      options = ToastUtil.initToastDefault(options, 0);
       promptAction.showToast({
         message: message,
-        duration: options?.duration ?? ToastUtil.defaultConfig.duration,
-        showMode: options?.showMode ?? ToastUtil.defaultConfig.showMode,
-        alignment: options?.alignment ?? ToastUtil.defaultConfig.alignment,
-        bottom: options?.bottom ?? ToastUtil.defaultConfig.bottom,
-        offset: options?.offset ?? ToastUtil.defaultConfig.offset,
-        textColor: options?.textColor ?? ToastUtil.defaultConfig.textColor,
-        backgroundColor: options?.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor,
-        backgroundBlurStyle: options?.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle,
-        shadow: options?.shadow ?? ToastUtil.defaultConfig.shadow
+        duration: options.duration,
+        showMode: options.showMode,
+        alignment: options.alignment,
+        bottom: options.bottom,
+        offset: options.offset,
+        textColor: options.textColor,
+        backgroundColor: options.backgroundColor,
+        backgroundBlurStyle: options.backgroundBlurStyle,
+        shadow: options.shadow
       })
     }
   }
@@ -70,19 +71,20 @@ export class ToastUtil {
    * @param message 提示消息
    * @param options (距离屏幕底部的位置、是否显示在应用之上)
    */
-  static showShort(message: string | Resource, options?: ToastOptions) {
+  static showShort(message: string | Resource, options: ToastOptions = new ToastOptions()) {
     if ((typeof message === 'string' && message.length > 0) || message) {
+      options = ToastUtil.initToastDefault(options, 1);
       promptAction.showToast({
         message: message,
-        duration: options?.duration ?? ToastUtil.defaultConfig.duration_short,
-        showMode: options?.showMode ?? ToastUtil.defaultConfig.showMode,
-        alignment: options?.alignment ?? ToastUtil.defaultConfig.alignment,
-        bottom: options?.bottom ?? ToastUtil.defaultConfig.bottom,
-        offset: options?.offset ?? ToastUtil.defaultConfig.offset,
-        textColor: options?.textColor ?? ToastUtil.defaultConfig.textColor,
-        backgroundColor: options?.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor,
-        backgroundBlurStyle: options?.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle,
-        shadow: options?.shadow ?? ToastUtil.defaultConfig.shadow
+        duration: options.duration,
+        showMode: options.showMode,
+        alignment: options.alignment,
+        bottom: options.bottom,
+        offset: options.offset,
+        textColor: options.textColor,
+        backgroundColor: options.backgroundColor,
+        backgroundBlurStyle: options.backgroundBlurStyle,
+        shadow: options.shadow
       })
     }
   }
@@ -93,21 +95,45 @@ export class ToastUtil {
    * @param message 提示消息
    * @param options (距离屏幕底部的位置、是否显示在应用之上)
    */
-  static showLong(message: string | Resource, options?: ToastOptions) {
+  static showLong(message: string | Resource, options: ToastOptions = new ToastOptions()) {
     if ((typeof message === 'string' && message.length > 0) || message) {
+      options = ToastUtil.initToastDefault(options, 2);
       promptAction.showToast({
         message: message,
-        duration: options?.duration ?? ToastUtil.defaultConfig.duration_long,
-        showMode: options?.showMode ?? ToastUtil.defaultConfig.showMode,
-        alignment: options?.alignment ?? ToastUtil.defaultConfig.alignment,
-        bottom: options?.bottom ?? ToastUtil.defaultConfig.bottom,
-        offset: options?.offset ?? ToastUtil.defaultConfig.offset,
-        textColor: options?.textColor ?? ToastUtil.defaultConfig.textColor,
-        backgroundColor: options?.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor,
-        backgroundBlurStyle: options?.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle,
-        shadow: options?.shadow ?? ToastUtil.defaultConfig.shadow
+        duration: options.duration,
+        showMode: options.showMode,
+        alignment: options.alignment,
+        bottom: options.bottom,
+        offset: options.offset,
+        textColor: options.textColor,
+        backgroundColor: options.backgroundColor,
+        backgroundBlurStyle: options.backgroundBlurStyle,
+        shadow: options.shadow
       })
     }
+  }
+
+
+  /**
+   * 初始化DialogOptions参数
+   */
+  private static initToastDefault(options: ToastOptions, type: number): ToastOptions {
+    if (type == 1) {
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_long;
+    } else if (type == 2) {
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_long;
+    } else {
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_long;
+    }
+    options.showMode = options.showMode ?? ToastUtil.defaultConfig.showMode;
+    options.alignment = options.alignment ?? ToastUtil.defaultConfig.alignment;
+    options.bottom = options.bottom ?? ToastUtil.defaultConfig.bottom;
+    options.offset = options.offset ?? ToastUtil.defaultConfig.offset;
+    options.textColor = options.textColor ?? ToastUtil.defaultConfig.textColor;
+    options.backgroundColor = options.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor;
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle;
+    options.shadow = options.shadow ?? ToastUtil.defaultConfig.shadow;
+    return options;
   }
 
 

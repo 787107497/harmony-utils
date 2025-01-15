@@ -11,13 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 
 import { AppUtil } from './AppUtil';
-import { Want, wantConstant } from '@kit.AbilityKit';
+import { Want } from '@kit.AbilityKit';
+import { PreviewUtil } from './PreviewUtil';
 
 
 /**
@@ -98,8 +97,8 @@ export class WantUtil {
    * @returns
    */
   static async toSetting(uri?: string): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
+    const context = AppUtil.getContext();
+    const want: Want = {
       bundleName: 'com.huawei.hmos.settings', //设置应用bundleName
       abilityName: 'com.huawei.hmos.settings.MainAbility', //设置应用abilityName
       uri: uri, //目标页面
@@ -107,7 +106,7 @@ export class WantUtil {
         bundleName: context.abilityInfo.bundleName, //拉起方应用包名
       }
     }
-    return await context.startAbility(want);
+    return context.startAbility(want);
   }
 
 
@@ -179,8 +178,8 @@ export class WantUtil {
    * 拉起系统浏览器
    */
   static async toWebBrowser(url: string): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
+    const context = AppUtil.getContext();
+    const want: Want = {
       action: 'ohos.want.action.viewData',
       entities: ['entity.system.browsable'],
       uri: url,
@@ -188,7 +187,7 @@ export class WantUtil {
         bundleName: context.abilityInfo.bundleName, //拉起方应用包名
       }
     }
-    return await context.startAbility(want);
+    return context.startAbility(want);
   }
 
 
@@ -198,12 +197,11 @@ export class WantUtil {
    * @returns
    */
   static async toAppGalleryDetail(bundleName: string): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
+    const want: Want = {
       action: 'ohos.want.action.appdetail',
       uri: 'store://appgallery.huawei.com/app/detail?id=' + bundleName,
     };
-    return await context.startAbility(want);
+    return AppUtil.getContext().startAbility(want);
   }
 
 
@@ -211,12 +209,11 @@ export class WantUtil {
    * 拉起系统文件管理器
    */
   static async toFileManagement(): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
+    const want: Want = {
       bundleName: 'com.huawei.hmos.filemanager',
       abilityName: 'MainAbility'
     };
-    return await context.startAbility(want);
+    return AppUtil.getContext().startAbility(want);
   }
 
 
@@ -227,8 +224,7 @@ export class WantUtil {
    * @returns
    */
   static async startMMS(contactsName: string, telephone: string): Promise<void> {
-    let context = AppUtil.getContext();
-    let want: Want = {
+    const want: Want = {
       bundleName: 'com.ohos.mms',
       abilityName: 'com.ohos.mms.MainAbility',
       parameters: {
@@ -239,22 +235,16 @@ export class WantUtil {
         pageFlag: 'conversation'
       }
     };
-    return await context.startAbility(want);
+    return AppUtil.getContext().startAbility(want);
   }
 
 
   /**
-   * 分享文件给其他应用
+   * 调用三方软件打开文件
    */
-  static async openFile(uri: string) {
-    let context = AppUtil.getContext();
-    let want: Want = {
-      flags: wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION, //配置被分享文件的读写权限，例如对被分享应用进行读写授权
-      action: 'ohos.want.action.sendData', //配置分享应用的隐式拉起规则
-      uri: uri,
-      type: 'image/png'
-    }
-    return await context.startAbility(want);
+  static async openFile(uri: string, write: boolean = true): Promise<void> {
+    return PreviewUtil.onSharePreview(uri, write);
   }
+
 
 }

@@ -115,11 +115,11 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              PreferencesUtil.putSync("msg",
+              PreferencesUtil.putSync("cache_desc",
                 "Harmony_utils，一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。",
                 "SP_PREFERENCES_MSG");
-              let cacheMsg = PreferencesUtil.getStringSync("msg", "SP_PREFERENCES_MSG");
-              this.pStr = `缓存：\n${cacheMsg}`;
+              let cacheDesc = PreferencesUtil.getStringSync("cache_desc", "", "SP_PREFERENCES_MSG");
+              this.pStr = `缓存：\n${cacheDesc}`;
             })
           Button("deletePreferences()")
             .btnStyle()

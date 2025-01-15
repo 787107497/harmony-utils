@@ -11,16 +11,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { detectBarcode, generateBarcode, scanBarcode, scanCore } from '@kit.ScanKit';
 import { image } from '@kit.ImageKit';
-import { picker } from '@kit.CoreFileKit';
-import { LogUtil } from './LogUtil';
 import { AppUtil } from './AppUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { PhotoHelper } from '../photo/PhotoHelper';
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
 
 
 /**
@@ -70,7 +67,7 @@ export class ScanUtil {
    */
   static generateBarcode(content: string, options?: generateBarcode.CreateOptions): Promise<image.PixelMap> {
     if (!options) {
-      options = { scanType: scanCore.ScanType.QR_CODE, height: 800, width: 800, margin: 5 }
+      options = { scanType: scanCore.ScanType.QR_CODE, height: 800, width: 800, margin: 5 };
     }
     return generateBarcode.createBarcode(content, options);
   }
@@ -82,18 +79,14 @@ export class ScanUtil {
    * @returns
    */
   static async onPickerScanForResult(options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
-    try {
-      let photoOption = new picker.PhotoSelectOptions();
-      photoOption.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE;
-      photoOption.maxSelectNumber = 1;
-      let photoPicker = new picker.PhotoViewPicker();
-      let uris = await photoPicker.select(photoOption);
-      return await ScanUtil.onDetectBarCode(uris[0], options);
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`ScanUtil-onPickerScanForResult-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return [];
-    }
+    const photoSelectOptions = new photoAccessHelper.PhotoSelectOptions();
+    photoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE;
+    photoSelectOptions.maxSelectNumber = 1; //单选
+    photoSelectOptions.isPhotoTakingSupported = true; //支持拍照。
+    photoSelectOptions.isEditSupported = false;
+    photoSelectOptions.isOriginalSupported = false;
+    let uris = await PhotoHelper.select(photoSelectOptions);
+    return ScanUtil.onDetectBarCode(uris[0], options);
   }
 
 
@@ -110,9 +103,9 @@ export class ScanUtil {
    *   scanCodeRect 码识别位置信息。
    */
   static onDetectBarCode(uri: string, options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
-    let inputImage: detectBarcode.InputImage = { uri: uri }
+    const inputImage: detectBarcode.InputImage = { uri: uri };
     if (!options) {
-      options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true }
+      options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
     }
     return detectBarcode.decode(inputImage, options);
   }

@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
+import { FileUtil, LogUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { TitleBarView } from '../../component/TitleBarView';
@@ -13,11 +13,18 @@ import { TitleBarView } from '../../component/TitleBarView';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+  @State docPath: string = '' //文件路径
 
   @MockSetup
   mock() {
     this.describe = new DescribeBean("WantUtil", "Want工具类");
   }
+
+  async aboutToAppear(): Promise<void> {
+    this.docPath = FileUtil.getFilesDirPath('download/wps/doc', '测试DOC文件.doc');
+    FileUtil.writeEasy(this.docPath, "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包。帮助开发者快速构建鸿蒙应用。哈哈哈哈哈哈！");
+  }
+
 
   build() {
     Column() {
@@ -131,6 +138,16 @@ struct Index {
                   LogUtil.error(JSON.stringify(err));
                   ToastUtil.showToast("拉起失败！");
                 });
+            })
+          Button("openFile()")
+            .btnStyle()
+            .onClick(() => {
+              let uri = FileUtil.getUriFromPath(this.docPath);
+              LogUtil.error("uri: "+ uri)
+              WantUtil.openFile(uri).catch((error: BusinessError) => {
+                ToastUtil.showToast("打开文件失败，" + error.message);
+                LogUtil.error(`打开文件异常 ~ code: ${error.code} -·- message: ${error.message}`);
+              });
             })
 
           Blank().layoutWeight(1)

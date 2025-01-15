@@ -53,7 +53,7 @@ export class PickerUtil {
    * @returns
    */
   static async camera(options: CameraOptions = new CameraOptions()): Promise<cameraPicker.PickerResult> {
-    let pickerProfile: cameraPicker.PickerProfile = {
+    const pickerProfile: cameraPicker.PickerProfile = {
       cameraPosition: options.cameraPosition ? options.cameraPosition : camera.CameraPosition.CAMERA_POSITION_BACK,
       videoDuration: options.videoDuration,
       saveUri: options.saveUri
@@ -64,7 +64,7 @@ export class PickerUtil {
 
 
   /**
-   * 通过选择模式拉起PhotoViewPicker界面，用户可以选择一个或多个图片/视频。
+   * 通过选择模式拉起PhotoViewPicker界面，用户可以选择一个或多个图片/视频。（该方法系统已废弃，推荐使用PhotoHelper工具类）
    * @param options
    *  MIMEType PhotoViewMIMETypes 可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
    *  maxSelectNumber	number 选择媒体文件数量的最大值(默认值为50，最大值为500)。
@@ -76,24 +76,24 @@ export class PickerUtil {
       options.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE; //可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9。
     }
-    let photoPicker = new picker.PhotoViewPicker(AppUtil.getContext());
+    const photoPicker = new picker.PhotoViewPicker(AppUtil.getContext());
     let photoSelectResult: picker.PhotoSelectResult = await photoPicker.select(options);
     return photoSelectResult.photoUris;
   }
 
 
   /**
-   * 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无此参数，则默认需要用户自行输入
+   * 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无此参数，则默认需要用户自行输入。（该方法系统已废弃，推荐使用PhotoHelper工具类）
    * @param newFileNames 拉起photoPicker进行保存图片或视频资源的文件名，若无此参数，则默认需要用户自行输入。
    * @returns
    */
   static async savePhoto(newFileNames?: Array<string>): Promise<Array<string>> {
-    let photoPicker = new picker.PhotoViewPicker(AppUtil.getContext());
-    let PhotoSaveOptions = new picker.PhotoSaveOptions();
+    const photoPicker = new picker.PhotoViewPicker(AppUtil.getContext());
+    const PhotoSaveOptions = new picker.PhotoSaveOptions();
     if (newFileNames != undefined && newFileNames.length > 0) {
       PhotoSaveOptions.newFileNames = newFileNames;
     }
-    return await photoPicker.save(PhotoSaveOptions);
+    return photoPicker.save(PhotoSaveOptions);
   }
 
 
@@ -113,8 +113,8 @@ export class PickerUtil {
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9。
       options.selectMode = picker.DocumentSelectMode.FILE; //支持选择的资源类型,默认文件
     }
-    let documentPicker = new picker.DocumentViewPicker();
-    return await documentPicker.select(options);
+    const documentPicker = new picker.DocumentViewPicker();
+    return documentPicker.select(options);
   }
 
 
@@ -124,13 +124,13 @@ export class PickerUtil {
    * @returns 返回DOWNLOAD的文件夹下的文件path。
    */
   static async saveDocumentEasy(newFileNames: Array<string>): Promise<Array<string>> {
-    let documentSaveOptions = new picker.DocumentSaveOptions();
+    const documentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.pickerMode = picker.DocumentPickerMode.DOWNLOAD;
     if (newFileNames != undefined && newFileNames.length > 0) {
       documentSaveOptions.newFileNames = newFileNames;
     }
     let downloadUri = await PickerUtil.saveDocument(documentSaveOptions);
-    let path = FileUtil.getFileUri(downloadUri[0]).path;
+    const path = FileUtil.getFileUri(downloadUri[0]).path;
     let uris = new Array<string>();
     for (let index = 0; index < newFileNames.length; index++) {
       uris.push(`${path}/${newFileNames[index]}`);
@@ -149,8 +149,8 @@ export class PickerUtil {
    * @returns
    */
   static async saveDocument(options?: picker.DocumentSaveOptions): Promise<Array<string>> {
-    let documentPicker = new picker.DocumentViewPicker(AppUtil.getContext());
-    return await documentPicker.save(options);
+    const documentPicker = new picker.DocumentViewPicker(AppUtil.getContext());
+    return documentPicker.save(options);
   }
 
 
@@ -164,8 +164,8 @@ export class PickerUtil {
       options = new picker.AudioSelectOptions();
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
     }
-    let audioPicker = new picker.AudioViewPicker(AppUtil.getContext());
-    return await audioPicker.select(options);
+    const audioPicker = new picker.AudioViewPicker(AppUtil.getContext());
+    return audioPicker.select(options);
   }
 
 
@@ -175,12 +175,12 @@ export class PickerUtil {
    * @returns 返回保存文件的uri数组。
    */
   static async saveAudio(newFileNames?: Array<string>): Promise<Array<string>> {
-    let audioPicker = new picker.AudioViewPicker(AppUtil.getContext());
-    let audioSaveOptions = new picker.AudioSaveOptions();
+    const audioPicker = new picker.AudioViewPicker(AppUtil.getContext());
+    const audioSaveOptions = new picker.AudioSaveOptions();
     if (newFileNames != undefined && newFileNames.length > 0) {
       audioSaveOptions.newFileNames = newFileNames;
     }
-    return await audioPicker.save(audioSaveOptions);
+    return audioPicker.save(audioSaveOptions);
   }
 
 
@@ -197,7 +197,7 @@ export class PickerUtil {
       let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
       policies.push(policyInfo);
     }
-    return await fileShare.persistPermission(policies);
+    return fileShare.persistPermission(policies);
   }
 
   /**
@@ -205,7 +205,7 @@ export class PickerUtil {
    * @returns 无返回结果的Promise对象。
    */
   static async persistPermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
-    return await fileShare.persistPermission(policies);
+    return fileShare.persistPermission(policies);
   }
 
 
@@ -222,7 +222,7 @@ export class PickerUtil {
       let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
       policies.push(policyInfo);
     }
-    return await fileShare.revokePermission(policies);
+    return fileShare.revokePermission(policies);
   }
 
   /**
@@ -230,7 +230,7 @@ export class PickerUtil {
    * @returns 无返回结果的Promise对象。
    */
   static async revokePermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
-    return await fileShare.revokePermission(policies);
+    return fileShare.revokePermission(policies);
   }
 
 
@@ -247,7 +247,7 @@ export class PickerUtil {
       let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
       policies.push(policyInfo);
     }
-    return await fileShare.activatePermission(policies);
+    return fileShare.activatePermission(policies);
   }
 
   /**
@@ -255,7 +255,7 @@ export class PickerUtil {
    * @returns 无返回结果的Promise对象。
    */
   static async activatePermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
-    return await fileShare.activatePermission(policies);
+    return fileShare.activatePermission(policies);
   }
 
 
@@ -272,7 +272,7 @@ export class PickerUtil {
       let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
       policies.push(policyInfo);
     }
-    return await fileShare.deactivatePermission(policies);
+    return fileShare.deactivatePermission(policies);
   }
 
   /**
@@ -280,7 +280,7 @@ export class PickerUtil {
    * @returns 无返回结果的Promise对象。
    */
   static async deactivatePermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
-    return await fileShare.deactivatePermission(policies);
+    return fileShare.deactivatePermission(policies);
   }
 
 
@@ -291,7 +291,7 @@ export class PickerUtil {
    * @returns Promise对象，返回true表示有持久化授权，false表示不具有持久化授权。
    */
   static async checkPersistentPermission(policies: Array<fileShare.PolicyInfo>): Promise<Array<boolean>> {
-    return await fileShare.checkPersistentPermission(policies);
+    return fileShare.checkPersistentPermission(policies);
   }
 
 

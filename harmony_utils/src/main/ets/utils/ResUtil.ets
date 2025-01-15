@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 
@@ -119,9 +117,9 @@ export class ResUtil {
    */
   static async getStringValue(resId: number | Resource): Promise<string> {
     if (typeof resId === 'number') {
-      return await ResUtil.getResourceManager().getStringValue(resId);
+      return ResUtil.getResourceManager().getStringValue(resId);
     } else {
-      return await ResUtil.getResourceManager().getStringValue(resId);
+      return ResUtil.getResourceManager().getStringValue(resId);
     }
   }
 
@@ -146,7 +144,7 @@ export class ResUtil {
    * @param resName 资源名称
    */
   static async getStringByName(resName: string): Promise<string> {
-    return await ResUtil.getResourceManager().getStringByName(resName);
+    return ResUtil.getResourceManager().getStringByName(resName);
   }
 
 
@@ -168,9 +166,9 @@ export class ResUtil {
    */
   static async getStringArrayValue(resId: number | Resource): Promise<Array<string>> {
     if (typeof resId === 'number') {
-      return await ResUtil.getResourceManager().getStringArrayValue(resId);
+      return ResUtil.getResourceManager().getStringArrayValue(resId);
     } else {
-      return await ResUtil.getResourceManager().getStringArrayValue(resId);
+      return ResUtil.getResourceManager().getStringArrayValue(resId);
     }
   }
 
@@ -187,7 +185,7 @@ export class ResUtil {
    * @param resName 资源名称
    */
   static async getStringArrayByName(resName: string): Promise<Array<string>> {
-    return await ResUtil.getResourceManager().getStringArrayByName(resName);
+    return ResUtil.getResourceManager().getStringArrayByName(resName);
   }
 
 
@@ -211,9 +209,9 @@ export class ResUtil {
    */
   static async getPluralStringValue(resId: number | Resource, num: number): Promise<string> {
     if (typeof resId === 'number') {
-      return await ResUtil.getResourceManager().getPluralStringValue(resId, num);
+      return ResUtil.getResourceManager().getPluralStringValue(resId, num);
     } else {
-      return await ResUtil.getResourceManager().getPluralStringValue(resId, num);
+      return ResUtil.getResourceManager().getPluralStringValue(resId, num);
     }
   }
 
@@ -232,7 +230,7 @@ export class ResUtil {
    * @param num 数量值
    */
   static async getPluralStringByName(resName: string, num: number): Promise<string> {
-    return await ResUtil.getResourceManager().getPluralStringByName(resName, num);
+    return ResUtil.getResourceManager().getPluralStringByName(resName, num);
   }
 
 
@@ -256,9 +254,9 @@ export class ResUtil {
    */
   static async getColor(resId: number | Resource): Promise<number> {
     if (typeof resId === 'number') {
-      return await ResUtil.getResourceManager().getColor(resId);
+      return ResUtil.getResourceManager().getColor(resId);
     } else {
-      return await ResUtil.getResourceManager().getColor(resId);
+      return ResUtil.getResourceManager().getColor(resId);
     }
   }
 
@@ -277,7 +275,7 @@ export class ResUtil {
    * @returns
    */
   static async getColorByName(resName: string): Promise<number> {
-    return await ResUtil.getResourceManager().getColorByName(resName);
+    return ResUtil.getResourceManager().getColorByName(resName);
   }
 
 
@@ -312,15 +310,15 @@ export class ResUtil {
   static async getMediaContent(resId: number | Resource, density?: number): Promise<Uint8Array> {
     if (density != null && density != undefined) {
       if (typeof resId === 'number') {
-        return await ResUtil.getResourceManager().getMediaContent(resId, density);
+        return ResUtil.getResourceManager().getMediaContent(resId, density);
       } else {
-        return await ResUtil.getResourceManager().getMediaContent(resId, density);
+        return ResUtil.getResourceManager().getMediaContent(resId, density);
       }
     } else {
       if (typeof resId === 'number') {
-        return await ResUtil.getResourceManager().getMediaContent(resId);
+        return ResUtil.getResourceManager().getMediaContent(resId);
       } else {
-        return await ResUtil.getResourceManager().getMediaContent(resId);
+        return ResUtil.getResourceManager().getMediaContent(resId);
       }
     }
   }
@@ -347,9 +345,9 @@ export class ResUtil {
    */
   static async getMediaByName(resName: string, density?: number): Promise<Uint8Array> {
     if (density != null && density != undefined) {
-      return await ResUtil.getResourceManager().getMediaByName(resName, density);
+      return ResUtil.getResourceManager().getMediaByName(resName, density);
     } else {
-      return await ResUtil.getResourceManager().getMediaByName(resName);
+      return ResUtil.getResourceManager().getMediaByName(resName);
     }
   }
 
@@ -385,15 +383,15 @@ export class ResUtil {
   static async getMediaContentBase64(resId: number | Resource, density?: number): Promise<string> {
     if (density != null && density != undefined) {
       if (typeof resId === 'number') {
-        return await ResUtil.getResourceManager().getMediaContentBase64(resId, density);
+        return ResUtil.getResourceManager().getMediaContentBase64(resId, density);
       } else {
-        return await ResUtil.getResourceManager().getMediaContentBase64(resId, density);
+        return ResUtil.getResourceManager().getMediaContentBase64(resId, density);
       }
     } else {
       if (typeof resId === 'number') {
-        return await ResUtil.getResourceManager().getMediaContentBase64(resId);
+        return ResUtil.getResourceManager().getMediaContentBase64(resId);
       } else {
-        return await ResUtil.getResourceManager().getMediaContentBase64(resId);
+        return ResUtil.getResourceManager().getMediaContentBase64(resId);
       }
     }
   }
@@ -420,9 +418,9 @@ export class ResUtil {
    */
   static async getMediaBase64ByName(resName: string, density?: number): Promise<string> {
     if (density != null && density != undefined) {
-      return await ResUtil.getResourceManager().getMediaBase64ByName(resName, density);
+      return ResUtil.getResourceManager().getMediaBase64ByName(resName, density);
     } else {
-      return await ResUtil.getResourceManager().getMediaBase64ByName(resName);
+      return ResUtil.getResourceManager().getMediaBase64ByName(resName);
     }
   }
 
@@ -442,7 +440,7 @@ export class ResUtil {
    * @returns
    */
   static async getRawFileContent(path: string): Promise<Uint8Array> {
-    return await ResUtil.getResourceManager().getRawFileContent(path);
+    return ResUtil.getResourceManager().getRawFileContent(path);
   }
 
   /**
@@ -481,7 +479,7 @@ export class ResUtil {
    * @returns
    */
   static async getRawFileList(path: string): Promise<Array<string>> {
-    return await ResUtil.getResourceManager().getRawFileList(path);
+    return ResUtil.getResourceManager().getRawFileList(path);
   }
 
 
@@ -491,7 +489,7 @@ export class ResUtil {
    * @returns
    */
   static async getRawFd(path: string): Promise<resourceManager.RawFileDescriptor> {
-    return await ResUtil.getResourceManager().getRawFd(path);
+    return ResUtil.getResourceManager().getRawFd(path);
   }
 
   /**
@@ -500,7 +498,7 @@ export class ResUtil {
    * @returns
    */
   static async closeRawFd(path: string) {
-    return await ResUtil.getResourceManager().closeRawFd(path);
+    return ResUtil.getResourceManager().closeRawFd(path);
   }
 
   /**
@@ -526,7 +524,7 @@ export class ResUtil {
    * @returns
    */
   static async getConfiguration(): Promise<resourceManager.Configuration> {
-    return await ResUtil.getResourceManager().getConfiguration();
+    return ResUtil.getResourceManager().getConfiguration();
   }
 
 
@@ -543,7 +541,7 @@ export class ResUtil {
    * @returns
    */
   static async getDeviceCapability(): Promise<resourceManager.DeviceCapability> {
-    return await ResUtil.getResourceManager().getDeviceCapability();
+    return ResUtil.getResourceManager().getDeviceCapability();
   }
 
 

@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 
@@ -196,16 +194,6 @@ export class RegexUtil {
 
 
 
-
-  /**
-   * 判断传入的电话号码格式是否正确。
-   * @param phone 电话号码
-   */
-  static isPhone(phone: string): boolean {
-    return FormatUtil.isPhone(phone);
-  }
-
-
   /**
    * 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用）
    * @param content 内容
@@ -238,6 +226,15 @@ export class RegexUtil {
    */
   static isEmoji(content: string): boolean {
     return RegexUtil.isMatch(content, RegexUtil.REG_EMOJI);
+  }
+
+
+  /**
+   * 判断传入的电话号码格式是否正确。
+   * @param phone 电话号码
+   */
+  static isPhone(phone: string): boolean {
+    return FormatUtil.isPhone(phone);
   }
 
 

@@ -75,6 +75,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               DialogUtil.showConfirmDialog({
+                backCancel: false,
                 title: "温馨提示",
                 message: 'APP已更新最新版本！',
                 confirm: {
@@ -147,7 +148,7 @@ struct Index {
                 buttonDirection: DialogButtonDirection.HORIZONTAL,
                 buttons: [{
                   value: "取消",
-                  fontColor: Color.Yellow,
+                  fontColor: Color.Blue,
                   action: () => {
                     ToastUtil.showToast(`点击了"取消"`)
                   }

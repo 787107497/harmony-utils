@@ -1,9 +1,10 @@
 import { router } from '@kit.ArkUI';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { image } from '@kit.ImageKit';
-import { FileUtil, ImageUtil, ScanUtil, ToastUtil } from '@pura/harmony-utils';
+import { FileUtil, ImageUtil, LogUtil, ScanUtil, ToastUtil } from '@pura/harmony-utils';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 码工具类（扫码、码图生成、图片识码）
@@ -74,6 +75,9 @@ struct Index {
               if (ScanUtil.canIUseScan()) {
                 ScanUtil.onPickerScanForResult().then((scanResult) => {
                   this.scanStr2 = JSON.stringify(scanResult, null, 2);
+                }).catch((err: BusinessError) => {
+                  ToastUtil.showToast("扫码异常！");
+                  LogUtil.error("扫码异常：code:" + err.code + " ~ msg:" + err.message);
                 })
               } else {
                 ToastUtil.showToast("当前设备不支持扫码能力！")
