@@ -1,20 +1,51 @@
-/*
- * Copyright (C) 2024 桃花镇童长老 @pura/harmony-utils
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+export const DATE_FORMAT1: string = "yyyy-MM-dd HH:mm:ss"; //2025-01-05 14:06:55
 
+export const DATE_FORMAT2: string = "yyyy-MM-dd HH:mm"; //2025-01-05 14:06
+
+export const DATE_FORMAT3: string = "yyyy-MM-dd HH"; //2025-01-05 14
+
+export const DATE_FORMAT4: string = "yyyy-MM-dd"; //2025-01-05
+
+export const DATE_FORMAT5: string = "HH:mm:ss"; //14:06:55
+
+export const DATE_FORMAT6: string = "HH:mm"; //14:06
+
+export const DATE_FORMAT7: string = "yyyy/MM/dd HH:mm:ss"; //2025/01/05 14:06:55
+
+export const DATE_FORMAT8: string = "yyyy/MM/dd HH:mm"; //2025/01/05 14:06
+
+export const DATE_FORMAT9: string = "yyyy/MM/dd HH"; //2025/01/05 14
+
+export const DATE_FORMAT10: string = "yyyy/MM/dd"; //2025/01/05
+
+export const DATE_FORMAT11: string = "yyyy年MM月dd日 HH时mm分ss秒fff毫秒"; //2025年01月05日 14时06分55秒135毫秒
+
+export const DATE_FORMAT12: string = "yyyy年MM月dd日 HH时mm分ss秒"; //2025年01月05日 14时06分55秒
+
+export const DATE_FORMAT13: string = "yyyy年MM月dd日 HH时mm分"; //2025年01月05日 14时06分
+
+export const DATE_FORMAT14: string = "yyyy年MM月dd日 HH时"; //2025年01月05日 14时
+
+export const DATE_FORMAT15: string = "yyyy年MM月dd日"; //2025年01月05日
+
+export const DATE_FORMAT16: string = "HH时mm分ss秒"; //14时06分55秒
+
+export const DATE_FORMAT17: string = "HH时mm分"; //14时06分
+
+
+export const LOGGER_DOMAIN: number = 0x0000
+
+export const LOGGER_TAG: string = 'HarmonyLogUtil'
+
+export const DEVICE_ID_KEY: string = "device_id_cache_harmony_key"; //设备ID的Key
+
+export const CRASH_ID_KEY: string = 'crash_observer_id_key' //Crash的ID的key
+
+export const DEFAULT_PREFERENCE_NAME: string = "SP_HARMONY_UTILS_PREFERENCES"; //Preferences实例的名称。
 
 export const PICKER_DEFAULT_SELECT_NUMBER: number = 9; //选择器默认选择数量
+
+
 
 
 //弹框按钮的Action类型（从左往右，最多四个按钮）

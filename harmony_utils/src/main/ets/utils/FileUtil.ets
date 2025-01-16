@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import fileUri from '@ohos.file.fileuri';
@@ -161,7 +159,7 @@ export class FileUtil {
    * @param uriOrPath URI或路径
    */
   static getParentPath(uriOrPath: string): string {
-    let parentUri = FileUtil.getParentUri(uriOrPath);
+    const parentUri = FileUtil.getParentUri(uriOrPath);
     return FileUtil.getFilePath(parentUri)
   }
 
@@ -442,9 +440,9 @@ export class FileUtil {
    * @returns Promise对象。返回实际写入的数据长度，单位字节。
    */
   static async writeEasy(path: string, buffer: ArrayBuffer | string, append: boolean = true): Promise<number> {
-    let file = FileUtil.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-    let offset = append ? FileUtil.statSync(file.fd).size : 0
-    let options: WriteOptions = { offset: offset, encoding: 'utf-8' };
+    const file = FileUtil.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+    const offset = append ? FileUtil.statSync(file.fd).size : 0
+    const options: WriteOptions = { offset: offset, encoding: 'utf-8' };
     let result = await FileUtil.write(file.fd, buffer, options);
     FileUtil.close(file.fd); //关闭文件
     return result;

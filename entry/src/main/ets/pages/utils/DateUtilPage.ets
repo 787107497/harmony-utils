@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { DateUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
+import { DATE_FORMAT11, DATE_FORMAT16, DATE_FORMAT17, DateUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -42,9 +42,9 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let todayStr1 = DateUtil.getFormatDateStr(1716181651533);
-              let todayStr2 = DateUtil.getFormatDateStr("2024-05-21");
-              let todayStr3 = DateUtil.getFormatDateStr("2024-05-20 13:07:45");
-              let todayStr4 = DateUtil.getFormatDateStr("2024年05月20日 13时07分45秒");
+              let todayStr2 = DateUtil.getFormatDateStr(DateUtil.getTodayTime(), DATE_FORMAT11);
+              let todayStr3 = DateUtil.getFormatDateStr("2024-05-20 13:07:45", DATE_FORMAT17);
+              let todayStr4 = DateUtil.getFormatDateStr("2024年05月20日 13时07分45秒", DATE_FORMAT16);
               let todayStr5 = DateUtil.getFormatDateStr("2024年05月20日");
               let todayStr6 = DateUtil.getFormatDateStr("2024/05/20");
               let todayStr7 = DateUtil.getFormatDateStr(new Date());

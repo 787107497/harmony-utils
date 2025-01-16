@@ -35,7 +35,7 @@ export class ArrayUtil {
    * @returns
    */
   static isNotEmpty<T>(array: T[]): boolean {
-    return undefined != array && null != array && array.length != 0;
+    return undefined !== array && null !== array && array.length !== 0;
   }
 
 
@@ -45,7 +45,7 @@ export class ArrayUtil {
    * @returns
    */
   static isEmpty<T>(array: T[]): boolean {
-    return array == undefined || array == null || array.length == 0;
+    return array === undefined || array === null || array.length === 0;
   }
 
 
@@ -122,7 +122,7 @@ export class ArrayUtil {
    * @returns
    */
   static min<T extends number | string | Date>(array: T[]): T | null {
-    if (array.length == 0) {
+    if (array.length === 0) {
       return null;
     }
     let minValue = array[0];

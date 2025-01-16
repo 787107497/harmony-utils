@@ -15,8 +15,23 @@
         "name": "ohos.permission.STORE_PERSISTENT_DATA" //允许应用存储持久化的数据，该数据直到设备恢复出厂设置或重装系统才会被清除
       },
       {
+        "name": "ohos.permission.FILE_ACCESS_PERSIST" //允许应用支持持久化访问文件Uri。
+      },
+      {
         "name": "ohos.permission.PRIVACY_WINDOW" //允许应用将窗口设置为隐私窗口，禁止截屏录屏
-      }
+      },
+      {
+        "name": "ohos.permission.ACCESS_BIOMETRIC" //允许应用使用生物特征识别能力进行身份认证。
+      },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO" //允许应用获取数据网络信息。
+      },
+      {
+        "name": "ohos.permission.GET_WIFI_INFO" //允许应用获取Wi-Fi信息。
+      },
+      {
+        "name": "ohos.permission.VIBRATE" //允许应用控制马达振动。
+      },
     ]
   }
 }

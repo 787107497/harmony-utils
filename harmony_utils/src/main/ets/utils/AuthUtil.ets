@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { RandomUtil } from './RandomUtil';
@@ -20,6 +18,8 @@ import { userAuth } from '@kit.UserAuthenticationKit';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { LogUtil } from './LogUtil';
 import { ToastUtil } from '../action/ToastUtil';
+import { AuthOptions, StatusResult } from '../entity/AuthOptions';
+import { StrUtil } from './StrUtil';
 
 /**
  * TODO 手机的生物认证（指纹、人脸、密码）工具类
@@ -45,7 +45,7 @@ export class AuthUtil {
    */
   static getAvailableStatus(authType: userAuth.UserAuthType, authTrustLevel: userAuth.AuthTrustLevel): StatusResult {
     try {
-      userAuth.getAvailableStatus(authType, authTrustLevel)
+      userAuth.getAvailableStatus(authType, authTrustLevel);
       return { status: true };
     } catch (err) {
       let error = err as BusinessError;
@@ -60,33 +60,11 @@ export class AuthUtil {
    * @param showTip 是否显示提示语
    * @param callBack
    */
-  static onStartEasy(showTip: boolean, callBack: Callback<userAuth.UserAuthResult>) {
-    let authParam: userAuth.AuthParam = {
-      challenge: AuthUtil.getChallenge(), //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])
-      authType: [userAuth.UserAuthType.FINGERPRINT, userAuth.UserAuthType.PIN], //认证类型列表，用来指定用户认证界面提供的认证方法。
-      authTrustLevel: userAuth.AuthTrustLevel.ATL2, //认证信任等级。
-    };
-    try {
-      // 获取认证对象
-      AuthUtil.userAuthInstance = userAuth.getUserAuthInstance(authParam, { title: '请验证身份' });
-      // 订阅认证结果
-      AuthUtil.userAuthInstance.on('result', {
-        onResult(result) {
-          if (callBack) {
-            callBack(result)
-          }
-          if (showTip) {
-            ToastUtil.showToast(AuthUtil.getErrorMsg(result.result, ''));
-          }
-        }
-      });
-      //开始认证
-      AuthUtil.userAuthInstance.start();
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AuthUtil-onStartEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(AuthUtil.getErrorMsg(error.code, '认证失败：' + error.message));
-    }
+  static onStartEasy(showTip: boolean = false, callBack: Callback<userAuth.UserAuthResult>) {
+    const options: AuthOptions = new AuthOptions();
+    LogUtil.error(JSON.stringify(options, null, 2));
+    options.showTip = showTip;
+    AuthUtil.onStart(options, callBack);
   }
 
 
@@ -96,56 +74,51 @@ export class AuthUtil {
    * @param callBack
    */
   static onStart(options: AuthOptions, callBack: Callback<userAuth.UserAuthResult>) {
-    if (!options) {
-      options = new AuthOptions();
-    }
-    if (!options.challenge) {
-      options.challenge = AuthUtil.getChallenge(); //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])
-    }
-    if (!options.authType || options.authType.length == 0) {
-      options.authType = [userAuth.UserAuthType.FINGERPRINT, userAuth.UserAuthType.PIN]; //认证类型列表，用来指定用户认证界面提供的认证方法。
-    }
-    if (!options.authTrustLevel) {
-      options.authTrustLevel = userAuth.AuthTrustLevel.ATL3; //认证信任等级。
-    }
-    if (!options.title) {
-      options.title = '请验证身份'; //用户认证界面的标题，最大长度为500字符。
-    }
-    if (!options.showTip) {
-      options.showTip = false; //默认不显示提示语
-    }
-    let authParam: userAuth.AuthParam = {
-      challenge: options.challenge,
-      authType: options.authType,
-      authTrustLevel: options.authTrustLevel,
-    };
     try {
-      // 获取认证对象
+      if (options.challenge === undefined) {
+        options.challenge = AuthUtil.getChallenge(); //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])
+      }
+      if (options.authType === undefined || options.authType.length <= 0) {
+        options.authType = [userAuth.UserAuthType.FINGERPRINT, userAuth.UserAuthType.FACE, userAuth.UserAuthType.PIN]; //认证类型列表，用来指定用户认证界面提供的认证方法。
+      }
+      if (options.authTrustLevel === undefined) {
+        options.authTrustLevel = userAuth.AuthTrustLevel.ATL3; //认证信任等级。
+      }
+      if (options.title === undefined) {
+        options.title = '请验证身份'; //用户认证界面的标题，最大长度为500字符。
+      }
+      if (options.showTip === undefined) {
+        options.showTip = false; //默认不显示提示语
+      }
+      const authParam: userAuth.AuthParam = {
+        challenge: options.challenge,
+        authType: options.authType,
+        authTrustLevel: options.authTrustLevel,
+      };
       if (options.navigationButtonText) {
         AuthUtil.userAuthInstance = userAuth.getUserAuthInstance(authParam, {
-          title: options.title,
-          navigationButtonText: options.navigationButtonText
-        });
+          title: options.title, navigationButtonText: options.navigationButtonText });
       } else {
         AuthUtil.userAuthInstance = userAuth.getUserAuthInstance(authParam, { title: options.title });
       }
-      // 订阅认证结果
       AuthUtil.userAuthInstance.on('result', {
         onResult(result) {
-          if (callBack) {
-            callBack(result)
-          }
-          if (options.showTip) {
-            ToastUtil.showToast(AuthUtil.getErrorMsg(result.result, ''));
+          callBack?.(result);
+          if (userAuth.UserAuthResultCode.SUCCESS === result.result && options.showTip) {
+            const errorTip = AuthUtil.getErrorMsg(result.result, '');
+            if (StrUtil.isNotEmpty(errorTip)) {
+              ToastUtil.showToast(errorTip);
+            }
           }
         }
       });
-      //开始认证
-      AuthUtil.userAuthInstance.start();
+      AuthUtil.userAuthInstance.start(); //开始认证
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`AuthUtil-onStart-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      ToastUtil.showToast(AuthUtil.getErrorMsg(error.code, '认证失败：' + error.message));
+      if (options.showTip) {
+        ToastUtil.showToast(AuthUtil.getErrorMsg(error.code, '认证失败：' + error.message));
+      }
     }
   }
 
@@ -220,27 +193,4 @@ export class AuthUtil {
   }
 
 
-}
-
-
-/**
- * 认证参数类
- */
-class AuthOptions {
-  challenge?: Uint8Array; //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])。
-  authType: userAuth.UserAuthType[] = [userAuth.UserAuthType.FINGERPRINT, userAuth.UserAuthType.PIN]; //认证类型列表，用来指定用户认证界面提供的认证方法。
-  authTrustLevel: userAuth.AuthTrustLevel = userAuth.AuthTrustLevel.ATL3; //认证信任等级。
-  title: string = '请验证身份'; //用户认证界面的标题，最大长度为500字符。
-  navigationButtonText?: string; //导航按键的说明文本，最大长度为60字符。仅在单指纹、单人脸场景下支持。
-  showTip?: boolean = false; //默认不显示提示语
-}
-
-
-/**
- * 查询认证能力是否支持的 返回参数类
- */
-interface StatusResult {
-  status: boolean;
-  errorCode?: number;
-  errorMsg?: string;
 }

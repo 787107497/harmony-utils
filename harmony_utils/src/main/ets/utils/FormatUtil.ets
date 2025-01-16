@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 
@@ -40,7 +38,7 @@ export class FormatUtil {
    * @returns
    */
   static isPhone(phone: string, country: string = "CN", option?: i18n.PhoneNumberFormatOptions): boolean {
-    let phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
+    const phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
     return phoneNumberFormat.isValidNumber(phone);
   }
 
@@ -52,7 +50,7 @@ export class FormatUtil {
    * @returns
    */
   static getPhoneFormat(phone: string, country: string = "CN", option?: i18n.PhoneNumberFormatOptions): string {
-    let phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
+    const phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
     return phoneNumberFormat.format(phone);
   }
 
@@ -66,7 +64,7 @@ export class FormatUtil {
    */
   static getPhoneLocationName(phone: string, locale: string = "zh-CN", country: string = "CN",
     option?: i18n.PhoneNumberFormatOptions): string {
-    let phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
+    const phoneNumberFormat: i18n.PhoneNumberFormat = new i18n.PhoneNumberFormat(country, option);
     return phoneNumberFormat.getLocationName(phone, locale);
   }
 
@@ -77,7 +75,7 @@ export class FormatUtil {
    * @returns
    */
   static transliterator(text: string): string {
-    let transliterator = i18n.Transliterator.getInstance('Any-Latn');
+    const transliterator = i18n.Transliterator.getInstance('Any-Latn');
     return transliterator.transform(text);
   }
 

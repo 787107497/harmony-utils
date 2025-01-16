@@ -15,6 +15,7 @@
 
 import preferences from '@ohos.data.preferences';
 import dataPreferences from '@ohos.data.preferences';
+import { DEFAULT_PREFERENCE_NAME } from '../entity/constraint';
 import { AppUtil } from './AppUtil';
 
 
@@ -30,8 +31,9 @@ import { AppUtil } from './AppUtil';
  */
 export class PreferencesUtil {
 
-  private static defaultPreferenceName: string = "SP_HARMONY_UTILS_PREFERENCES";
+  private static defaultPreferenceName: string = DEFAULT_PREFERENCE_NAME;
   private static preferences: preferences.Preferences;
+
 
   /**
    * 初始化，非必要不要初始化该方法

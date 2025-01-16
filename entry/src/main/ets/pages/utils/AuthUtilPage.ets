@@ -78,7 +78,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               AuthUtil.onStart({
-                authType: [userAuth.UserAuthType.FACE,],
+                authType: [userAuth.UserAuthType.FACE],
                 authTrustLevel: userAuth.AuthTrustLevel.ATL3,
                 title: '请验证人脸',
                 showTip: true

@@ -11,11 +11,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { i18n, intl } from '@kit.LocalizationKit';
+import { DATE_FORMAT1, DATE_FORMAT4 } from '../entity/constraint';
 import { NumberUtil } from './NumberUtil';
 
 /**
@@ -86,8 +85,8 @@ export class DateUtil {
    */
   static getFormatDateStr(date: number | string | Date, format?: string): string {
     date = DateUtil.getFormatDate(date)
-    if (format === undefined || format == '') {
-      format = "yyyy-MM-dd HH:mm:ss"; //yyyy-MM-dd HH:mm:ss.fff
+    if (format === undefined || format.length <= 0) {
+      format = DATE_FORMAT1; //yyyy-MM-dd HH:mm:ss
     }
     let year = date.getFullYear(); //年份，例如 2024
     let month = DateUtil.padZero(date.getMonth() + 1); //月份，0-11，0 表示一月，11 表示十二月
@@ -136,8 +135,8 @@ export class DateUtil {
    * 判断日期是否是今天
    */
   static isToday(date: number | string | Date) {
-    let today = DateUtil.getTodayStr("yyyy-MM-dd");
-    let day = DateUtil.getFormatDateStr(date, "yyyy-MM-dd")
+    let today = DateUtil.getTodayStr(DATE_FORMAT4);
+    let day = DateUtil.getFormatDateStr(date, DATE_FORMAT4)
     return today === day;
   }
 
@@ -362,7 +361,7 @@ export class DateUtil {
    * @param date
    * @param amount 进行加减操作的具体数值。
    */
-  static getAmountDayStr(date: number | string | Date, amount: number, format: string = "yyyy-MM-dd"): string {
+  static getAmountDayStr(date: number | string | Date, amount: number, format: string = DATE_FORMAT4): string {
     return DateUtil.getFormatDateStr(DateUtil.getAmountDay(date, amount), format);
   }
 
@@ -376,7 +375,7 @@ export class DateUtil {
   /**
    * 获取前一天日期,返回字符串
    */
-  static getBeforeDayStr(date: number | string | Date, format: string = "yyyy-MM-dd"): string {
+  static getBeforeDayStr(date: number | string | Date, format: string = DATE_FORMAT4): string {
     return DateUtil.getAmountDayStr(date, -1, format);
   }
 
@@ -390,7 +389,7 @@ export class DateUtil {
   /**
    * 获取后一天日期,返回字符串
    */
-  static getAfterDayStr(date: number | string | Date, format: string = "yyyy-MM-dd"): string {
+  static getAfterDayStr(date: number | string | Date, format: string = DATE_FORMAT4): string {
     return DateUtil.getAmountDayStr(date, 1, format);
   }
 

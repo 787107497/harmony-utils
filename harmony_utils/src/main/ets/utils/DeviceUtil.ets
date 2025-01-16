@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 
@@ -25,6 +23,8 @@ import { PreferencesUtil } from './PreferencesUtil';
 import { RandomUtil } from './RandomUtil';
 import deviceInfo from '@ohos.deviceInfo';
 import { ResUtil } from './ResUtil';
+import { identifier } from '@kit.AdsKit';
+import { DEVICE_ID_KEY } from '../entity/constraint';
 
 
 /**
@@ -39,7 +39,6 @@ import { ResUtil } from './ResUtil';
  */
 export class DeviceUtil {
 
-  private static deviceIdKey: string = "device_id_cache_harmony_key";
   private static deviceId: string = ""; //设备ID
 
 
@@ -53,9 +52,9 @@ export class DeviceUtil {
     let deviceId = DeviceUtil.deviceId;
     if (StrUtil.isEmpty(deviceId)) {
       if (AssetUtil.canIUse()) {
-        deviceId = StrUtil.toStr(AssetUtil.getSync(DeviceUtil.deviceIdKey));
+        deviceId = StrUtil.toStr(AssetUtil.getSync(DEVICE_ID_KEY));
       } else {
-        deviceId = StrUtil.toStr(PreferencesUtil.getStringSync(DeviceUtil.deviceIdKey))
+        deviceId = StrUtil.toStr(PreferencesUtil.getStringSync(DEVICE_ID_KEY));
         LogUtil.error(`当前设备不支持,关键资产存储服务`);
       }
       if (StrUtil.isEmpty(deviceId)) {
@@ -69,9 +68,9 @@ export class DeviceUtil {
         }
         if (AssetUtil.canIUse()) {
           //将deviceId保存到关键资产（在应用卸载时保留）
-          AssetUtil.addSync(DeviceUtil.deviceIdKey, deviceId);
+          AssetUtil.addSync(DEVICE_ID_KEY, deviceId);
         } else {
-          PreferencesUtil.putSync(DeviceUtil.deviceIdKey, deviceId)
+          PreferencesUtil.putSync(DEVICE_ID_KEY, deviceId);
           LogUtil.error(`当前设备不支持,关键资产存储服务`);
         }
       }
@@ -86,10 +85,9 @@ export class DeviceUtil {
   static deleteDeviceId() {
     DeviceUtil.deviceId = '';
     if (AssetUtil.canIUse()) {
-      AssetUtil.removeSync(DeviceUtil.deviceIdKey);
+      AssetUtil.removeSync(DEVICE_ID_KEY);
     } else {
-      PreferencesUtil.deleteSync(DeviceUtil.deviceIdKey)
-      LogUtil.error(`当前设备不支持,关键资产存储服务`);
+      PreferencesUtil.deleteSync(DEVICE_ID_KEY);
     }
   }
 
@@ -152,11 +150,20 @@ export class DeviceUtil {
 
 
   /**
+   * 获取开放匿名设备标识符
+   * 需要权限：ohos.permission.APP_TRACKING_CONSENT
+   */
+  static async getOAID(): Promise<string> {
+    return identifier.getOAID();
+  }
+
+
+  /**
    * 获取设备的Configuration
    * @returns
    */
   static async getConfiguration(): Promise<resourceManager.Configuration> {
-    return await ResUtil.getConfiguration();
+    return ResUtil.getConfiguration();
   }
 
   /**
@@ -184,7 +191,7 @@ export class DeviceUtil {
    * @returns
    */
   static async getDeviceCapability(): Promise<resourceManager.DeviceCapability> {
-    return await ResUtil.getDeviceCapability();
+    return ResUtil.getDeviceCapability();
   }
 
   /**
@@ -259,7 +266,7 @@ export class DeviceUtil {
    * @param duration
    * @param usage
    */
-  static startVibration(duration: number = 10000, usage: vibrator.Usage = 'media'): Promise<void> {
+  static startVibration(duration: number = 1000, usage: vibrator.Usage = 'media'): Promise<void> {
     return vibrator.startVibration({ type: 'time', duration: duration }, { id: 0, usage: usage });
   }
 

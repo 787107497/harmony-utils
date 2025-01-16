@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { i18n } from '@kit.LocalizationKit';
@@ -111,7 +109,7 @@ export class CharUtil {
   static isBlankChar(c: number): boolean {
     return CharUtil.isWhitespace(c.toString())
       || CharUtil.isSpaceChar(c.toString())
-      || c == 0xFEFF || c == 0x202A || c == 0x0000;
+      || c === 0xFEFF || c === 0x202A || c === 0x0000;
   }
 
 
@@ -121,7 +119,7 @@ export class CharUtil {
    * @returns
    */
   static isAscii(char: string): boolean {
-    if (char.length == 1) { //确保输入的是单个字符
+    if (char.length === 1) { //确保输入的是单个字符
       return char.charCodeAt(0) < 128;
     } else {
       return false;

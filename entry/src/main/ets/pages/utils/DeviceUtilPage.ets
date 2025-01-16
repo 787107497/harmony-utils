@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { DeviceUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { DeviceUtil, LogUtil, PermissionUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { resourceManager } from '@kit.LocalizationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -35,7 +35,7 @@ struct Index {
           Button("getDeviceId()")
             .btnStyle()
             .onClick(async () => {
-              let id = await DeviceUtil.getDeviceId(true);
+              let id = await DeviceUtil.getDeviceId();
               this.deviceIdStr = `当前设备号为：\n${id}`
             })
           Text(this.deviceIdStr)
@@ -64,6 +64,20 @@ struct Index {
               let ODID = DeviceUtil.getODID();
               this.infoStr = `brand: ${brand}\nproductModel: ${productModel}\nosReleaseType: ${osReleaseType}\nosFullName: ${osFullName}` +
                   `\ndisplayVersion: ${displayVersion}\nsdkApiVersion: ${sdkApiVersion}\nbuildVersion: ${buildVersion}\nODID: ${ODID}`;
+            })
+          Button("getOAID()")
+            .btnStyle()
+            .onClick(async () => {
+              PermissionUtil.requestPermissionsEasy("ohos.permission.APP_TRACKING_CONSENT").then(async (grant) => {
+                if (grant) {
+                  let oaId = await DeviceUtil.getOAID().catch((err: BusinessError) => {
+                    ToastUtil.showToast("获取OAID失败！" + err.message);
+                  });
+                  ToastUtil.showToast("获取OAID成功：" + oaId);
+                } else {
+                  ToastUtil.showToast("您拒绝了权限！")
+                }
+              })
             })
           Text(this.infoStr)
             .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)

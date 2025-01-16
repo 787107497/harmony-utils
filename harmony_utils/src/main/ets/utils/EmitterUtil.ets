@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { emitter } from '@kit.BasicServicesKit';
@@ -38,8 +36,8 @@ export class EmitterUtil {
    * @param EventPriority 事件被发送的优先级
    */
   static post<T>(eventId: string | number, eventData: T, priority: emitter.EventPriority = emitter.EventPriority.HIGH) {
-    let genericEventData: emitter.GenericEventData<T> = { data: eventData };
-    let options: emitter.Options = { priority: priority };
+    const genericEventData: emitter.GenericEventData<T> = { data: eventData };
+    const options: emitter.Options = { priority: priority };
     emitter.emit(eventId.toString(), options, genericEventData);
   }
 

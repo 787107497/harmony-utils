@@ -24,7 +24,6 @@ export class GlobalContext {
   private static instance: GlobalContext;
   private _objects = new Map<string, Object>();
 
-
   public static getContext(): GlobalContext {
     if (!GlobalContext.instance) {
       GlobalContext.instance = new GlobalContext();
@@ -33,7 +32,7 @@ export class GlobalContext {
   }
 
 
- public  getObject(key: string): Object | undefined {
+  public getObject(key: string): Object | undefined {
     return this._objects.get(key);
   }
 

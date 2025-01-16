@@ -165,15 +165,13 @@ struct Index {
                 if (uris?.length > 0) {
                   let uri = uris[0];
                   let filePath = await ImageUtil.compressPhoto(uri, 100).catch((err: BusinessError) => {
-                    LogUtil.error("压缩异常异常：" + err.message);
+                    LogUtil.error("图片压缩异常：" + err.message);
                     return "";
                   }); //压缩返回路径
-
-                  let oldSize = FileUtil.statSync(FileUtil.openSync(uri,fs.OpenMode.READ_ONLY).fd).size; //压缩前大小
+                  let oldSize = FileUtil.statSync(FileUtil.openSync(uri, fs.OpenMode.READ_ONLY).fd).size; //压缩前大小
                   let compressSize = FileUtil.statSync(filePath).size; //压缩后大小
                   this.resultStr = `压缩路径: ${filePath}\n\n压缩前大小: ${FileUtil.getFormatFileSize(oldSize)}\n压缩后大小: ${FileUtil.getFormatFileSize(compressSize)}`
-                  LogUtil.error( this.resultStr);
-                  // this.imgPath = filePath;
+                  LogUtil.error(this.resultStr);
                 }
               }).catch((err: BusinessError) => {
                 LogUtil.error("异常信息：" + err.message);

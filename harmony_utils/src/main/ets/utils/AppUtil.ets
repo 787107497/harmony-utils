@@ -105,10 +105,7 @@ export class AppUtil {
    * @param windowClass 不传该值，获取主窗口的属性
    * @returns
    */
-  static getWindowProperties(windowClass?: window.Window): window.WindowProperties {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow()
-    }
+  static getWindowProperties(windowClass: window.Window = AppUtil.getMainWindow()): window.WindowProperties {
     return windowClass.getWindowProperties();
   }
 
@@ -149,8 +146,8 @@ export class AppUtil {
    * 设备当前是否以竖屏方式显示（竖屏）
    */
   static isPortrait(): Boolean {
-    let direction = DeviceUtil.getDirection();
-    return direction == resourceManager.Direction.DIRECTION_VERTICAL;
+    const direction = DeviceUtil.getDirection();
+    return direction === resourceManager.Direction.DIRECTION_VERTICAL;
   }
 
   /**
@@ -158,7 +155,7 @@ export class AppUtil {
    */
   static isLandscape(): Boolean {
     const direction = DeviceUtil.getDirection();
-    return direction == resourceManager.Direction.DIRECTION_HORIZONTAL;
+    return direction === resourceManager.Direction.DIRECTION_HORIZONTAL;
   }
 
 

@@ -21,6 +21,7 @@ import { Base64Util } from './Base64Util';
 import { FileUtil } from './FileUtil';
 import { ResUtil } from './ResUtil';
 import { DateUtil } from './DateUtil';
+import { PreviewUtil } from './PreviewUtil';
 
 
 /**
@@ -367,15 +368,8 @@ export class ImageUtil {
    * @param imageFormat：当前只支持"image/jpeg"、"image/webp"、"image/png"和"image/heif"12+（不同硬件设备支持情况不同）。
    * @returns filePath：返回文件压缩路径
    */
-  static async compressPhoto(uri: string, maxSize: number, imageFormat: string = "image/jpeg"): Promise<string> {
-    // let file = await FileUtil.open(uri, fs.OpenMode.READ_ONLY);
-    // let filePath = FileUtil.getTempDirPath(DateUtil.getTodayTime().toString(), file.name); //文件压缩路径
-    // let pixelMap = await ImageUtil.createImageSource(file.fd).createPixelMap();
-    // let arrayBuffer = await ImageUtil.compressedImage(pixelMap, maxSize, imageFormat); //压缩
-    // await FileUtil.writeEasy(filePath, arrayBuffer, false); //写入文件
-    // FileUtil.closeSync(file.fd); //关闭文件
-    // pixelMap.release(); //释放资源
-
+  static async compressPhoto(uri: string, maxSize: number, imageFormat?: string): Promise<string> {
+    imageFormat = imageFormat ?? PreviewUtil.getMimeType(FileUtil.getFileExtention(uri));
     let srcFile = await FileUtil.open(uri, fs.OpenMode.READ_ONLY);
     let pixelMap = await ImageUtil.createImageSource(srcFile.fd).createPixelMap();
     let arrayBuffer = await ImageUtil.compressedImage(pixelMap, maxSize, imageFormat); //压缩

@@ -11,13 +11,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { display } from '@kit.ArkUI';
-import { BusinessError, Callback } from '@kit.BasicServicesKit';
-import { LogUtil } from './LogUtil';
+import { Callback } from '@kit.BasicServicesKit';
 
 /**
  * TODO 屏幕相关工具类
@@ -162,13 +159,8 @@ export class DisplayUtil {
    * 关闭折叠设备折叠状态变化的监听。
    * @param callback
    */
-  static offFoldStatusChange(callback: Callback<display.FoldStatus>) {
-    try {
-      display.off('foldStatusChange', callback)
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`DisplayUtil-offFoldStatusChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-    }
+  static offFoldStatusChange(callback?: Callback<display.FoldStatus>) {
+    display.off('foldStatusChange', callback)
   }
 
 

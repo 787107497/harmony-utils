@@ -17,9 +17,8 @@
 
 import hilog from '@ohos.hilog'
 import { BusinessError } from '@kit.BasicServicesKit'
+import { LOGGER_DOMAIN, LOGGER_TAG } from '../entity/constraint'
 
-const LOGGER_DOMAIN: number = 0x0000
-const LOGGER_TAG: string = 'HarmonyLogUtil'
 
 /**
  * TODO 日志工具类

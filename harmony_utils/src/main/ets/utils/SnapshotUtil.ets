@@ -74,10 +74,7 @@ export class SnapshotUtil {
    * @returns
    */
   static async snapshot(windowClass?: window.Window): Promise<image.PixelMap> {
-    if (!windowClass) {
-      windowClass = AppUtil.getMainWindow()
-    }
-    return windowClass.snapshot();
+    return (windowClass ?? AppUtil.getMainWindow()).snapshot();
   }
 
 

@@ -25,6 +25,7 @@ import { PickerUtil } from './PickerUtil';
 import { StrUtil } from './StrUtil';
 import { ToastUtil } from '../action/ToastUtil';
 import { GlobalContext } from './GlobalContext';
+import { CRASH_ID_KEY } from '../entity/constraint';
 
 
 /**
@@ -39,7 +40,6 @@ import { GlobalContext } from './GlobalContext';
  */
 export class CrashUtil {
 
-  private static readonly idKey: string = 'crash_observer_id_key'
   private static observerId: number = -100;
   private static ErrorFilePath: string = ''; //错误日志文件路径
 
@@ -49,7 +49,7 @@ export class CrashUtil {
    */
   static onError() {
     try {
-      let cacheId = GlobalContext.getContext().getObject(CrashUtil.idKey) as number;
+      let cacheId = GlobalContext.getContext().getObject(CRASH_ID_KEY) as number;
       if (cacheId !== undefined && cacheId !== -100) {
         CrashUtil.offError(); //如果存在，就先注销错误观测器。
       }
@@ -63,7 +63,7 @@ export class CrashUtil {
           // let errStr = `${DateUtil.getTodayStr()} - 异常信息2：\n${JSON.stringify(errObject)}\n\n\n`;
         }
       });
-      GlobalContext.getContext().setObject(CrashUtil.idKey, CrashUtil.observerId);
+      GlobalContext.getContext().setObject(CRASH_ID_KEY, CrashUtil.observerId);
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`CrashUtil-onError-异常 ~ code: ${error.code} -·- message: ${error.message}`);
@@ -77,7 +77,7 @@ export class CrashUtil {
   static offError() {
     try {
       if (CrashUtil.observerId === -100) {
-        let cacheId = GlobalContext.getContext().getObject(CrashUtil.idKey) as number;
+        let cacheId = GlobalContext.getContext().getObject(CRASH_ID_KEY) as number;
         if (cacheId && cacheId != -100) {
           CrashUtil.observerId = cacheId;
         }
@@ -87,7 +87,7 @@ export class CrashUtil {
           LogUtil.error("CrashUtil：" + JSON.stringify(err))
           return;
         }
-        GlobalContext.getContext().setObject(CrashUtil.idKey, -100);
+        GlobalContext.getContext().setObject(CRASH_ID_KEY, -100);
       });
     } catch (err) {
       let error = err as BusinessError;
