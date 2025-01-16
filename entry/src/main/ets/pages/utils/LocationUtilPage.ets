@@ -15,6 +15,12 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State addrStr: string = ''
+  private locationCallBack1: Callback<geoLocationManager.Location> = (location) => {
+    this.addrStr = `位置变化订阅1：\n${JSON.stringify(location, null, 2)}`
+  }
+  private locationCallBack2: Callback<geoLocationManager.Location> = (location) => {
+    this.addrStr = `位置变化订阅2：\n${JSON.stringify(location, null, 2)}`
+  }
 
   @MockSetup
   mock() {
@@ -49,7 +55,10 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               LocationUtil.getCurrentLocationEasy().then((location) => {
-                this.addrStr = `当前位置：\n${JSON.stringify(location, null, 2)}`;
+                LocationUtil.getGeoAddressFromLocation(location.latitude, location.longitude,2).then((address) => {
+                  this.addrStr = `当前位置：\n${JSON.stringify(address, null, 2)}`;
+                })
+                // this.addrStr = `当前位置：\n${JSON.stringify(location, null, 2)}`;
               }).catch((err: BusinessError) => {
                 this.addrStr = `当前位置~异常信息：\n错误码： ${err.code}\n错误信息：${err.message}`;
               });
@@ -66,9 +75,7 @@ struct Index {
           Button("onLocationChangeEasy()")
             .btnStyle()
             .onClick(() => {
-              let errCode = LocationUtil.onLocationChangeEasy((location) => {
-                this.addrStr = `开启位置变化订阅：\n${JSON.stringify(location, null, 2)}`
-              });
+              let errCode = LocationUtil.onLocationChangeEasy(this.locationCallBack1);
               if (errCode != 0) {
                 this.addrStr = `开启位置变化订阅-异常信息：\n${LocationUtil.getErrorMsg(errCode, "")}`;
               }
@@ -83,9 +90,7 @@ struct Index {
                 'distanceInterval': 0, //表示上报位置信息的距离间隔。单位是米，默认值为0，取值范围为大于等于0。
                 'maxAccuracy': 0 //表示精度信息，单位是米。
               }; //开启位置变化订阅，默认Request参数
-              let errCode = LocationUtil.onLocationChange(locationRequest, (location) => {
-                this.addrStr = `开启位置变化订阅：\n${JSON.stringify(location, null, 2)}`;
-              })
+              let errCode = LocationUtil.onLocationChange(locationRequest, this.locationCallBack2);
               if (errCode != 0) {
                 this.addrStr = `开启位置变化订阅-异常信息：\n${LocationUtil.getErrorMsg(errCode, "")}`;
               }
@@ -93,6 +98,7 @@ struct Index {
           Button("offLocationChange()")
             .btnStyle()
             .onClick(() => {
+              // LocationUtil.offLocationChange(this.locationCallBack2);
               let errCode = LocationUtil.offLocationChange();
               if (errCode == 0) {
                 ToastUtil.showToast("关闭位置变化订阅，成功");

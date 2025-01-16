@@ -44,5 +44,4 @@ export declare namespace crypto {
     | 'RSA2048|PKCS1_OAEP|SHA256|MGF1_SHA256' | 'RSA1024|PKCS1_OAEP|SHA256|MGF1_SHA256'; //RSA加解密规格，字符串参数
   type RSA_TRAN = RSA_TRAN_SOME | string;
 
-
 }

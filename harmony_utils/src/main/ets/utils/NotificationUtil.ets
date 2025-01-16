@@ -11,17 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import notificationManager from '@ohos.notificationManager';
-import Base, { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
 import wantAgent from '@ohos.app.ability.wantAgent';
 import { WantAgent } from '@ohos.wantAgent';
-import { LogUtil } from './LogUtil';
-import { DateUtil } from './DateUtil';
 import {
     NotificationBasicOptions,
     NotificationLongTextOptions,
@@ -33,6 +28,8 @@ import {
 import { NotificationConfig } from '../entity/NotificationConfig';
 import { image } from '@kit.ImageKit';
 import { ImageUtil } from './ImageUtil';
+import { AppUtil } from './AppUtil';
+import { systemDateTime } from '@kit.BasicServicesKit';
 
 
 /**
@@ -63,7 +60,7 @@ export class NotificationUtil {
    * 查询通知是否授权
    */
   static async isNotificationEnabled(): Promise<boolean> {
-    return await notificationManager.isNotificationEnabled(); //查询通知是否授权。
+    return notificationManager.isNotificationEnabled(); //查询通知是否授权。
   }
 
   /**
@@ -82,22 +79,15 @@ export class NotificationUtil {
     let isEnabled = await NotificationUtil.isNotificationEnabled(); //查询通知是否授权
     if (!isEnabled) { //未授权，拉起授权
       try {
-        let context = getContext() as common.UIAbilityContext;
-        await notificationManager.requestEnableNotification(context);
-        if (callBack) {
-          callBack(true);
-        }
+        await notificationManager.requestEnableNotification(AppUtil.getContext());
+        callBack?.(true);
         return true;
       } catch (e) {
-        if (callBack) {
-          callBack(false);
-        }
+        callBack?.(false);
         return false;
       }
     } else {
-      if (callBack) {
-        callBack(true);
-      }
+      callBack?.(true);
       return true;
     }
   }
@@ -109,7 +99,7 @@ export class NotificationUtil {
    * @returns
    */
   static async isSupportTemplate(templateName: string = 'downloadTemplate'): Promise<boolean> {
-    return await notificationManager.isSupportTemplate(templateName);
+    return notificationManager.isSupportTemplate(templateName);
   }
 
 
@@ -118,7 +108,7 @@ export class NotificationUtil {
    * @returns
    */
   static async isDistributedEnabled(): Promise<boolean> {
-    return await notificationManager.isDistributedEnabled()
+    return notificationManager.isDistributedEnabled()
   }
 
 
@@ -127,38 +117,26 @@ export class NotificationUtil {
    * @param options  通知实体
    * @returns
    */
-  static publishBasic(options: NotificationBasicOptions) {
-    try {
-      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
-      let basicContent: notificationManager.NotificationBasicContent = {
-        title: options.title,
-        text: options.text
-      }
-      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
-        basicContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
-      }
-      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
-        basicContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
-      }
-      let notificationContent: notificationManager.NotificationContent = {
-        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
-        normal: basicContent
-      }
-      //通知Request对象
-      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
-      //发送通知
-      notificationManager.publish(notificationRequest, (err: BusinessError) => {
-        if (!err && options.callBack && options.id) {
-          options.callBack(options.id); //执行回调
-        }
-        if (err) {
-          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-        }
-      });
-    } catch (error) {
-      let err = error as BusinessError;
-      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+  static async publishBasic(options: NotificationBasicOptions): Promise<number> {
+    const notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+    const basicContent: notificationManager.NotificationBasicContent = {
+      title: options.title,
+      text: options.text
     }
+    if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+      basicContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
+    }
+    if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+      basicContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
+    }
+    let notificationContent: notificationManager.NotificationContent = {
+      notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+      normal: basicContent
+    }
+    //通知Request对象
+    const notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
+    await notificationManager.publish(notificationRequest);  //发送通知
+    return notificationId
   }
 
 
@@ -167,41 +145,29 @@ export class NotificationUtil {
    * @param options  通知实体
    * @returns
    */
-  static publishLongText(options: NotificationLongTextOptions) {
-    try {
-      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
-      let longTextContent: notificationManager.NotificationLongTextContent = {
-        title: options.title,
-        text: options.text,
-        briefText: options.briefText,
-        longText: options.longText,
-        expandedTitle: options.expandedTitle
-      }
-      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
-        longTextContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
-      }
-      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
-        longTextContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
-      }
-      let notificationContent: notificationManager.NotificationContent = {
-        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_LONG_TEXT,
-        longText: longTextContent
-      }
-      //通知Request对象
-      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
-      //发送通知
-      notificationManager.publish(notificationRequest, (err: Base.BusinessError) => {
-        if (!err && options.callBack && options.id) {
-          options.callBack(options.id); //执行回调
-        }
-        if (err) {
-          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-        }
-      });
-    } catch (error) {
-      let err = error as BusinessError;
-      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+  static async publishLongText(options: NotificationLongTextOptions): Promise<number> {
+    const notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+    const longTextContent: notificationManager.NotificationLongTextContent = {
+      title: options.title,
+      text: options.text,
+      briefText: options.briefText,
+      longText: options.longText,
+      expandedTitle: options.expandedTitle
     }
+    if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+      longTextContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
+    }
+    if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+      longTextContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
+    }
+    let notificationContent: notificationManager.NotificationContent = {
+      notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_LONG_TEXT,
+      longText: longTextContent
+    }
+    //通知Request对象
+    const notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
+    await notificationManager.publish(notificationRequest); //发送通知
+    return notificationId;
   }
 
 
@@ -210,41 +176,29 @@ export class NotificationUtil {
    * @param options  通知实体
    * @returns
    */
-  static publishMultiLine(options: NotificationMultiLineOptions) {
-    try {
-      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
-      let multiLineContent: notificationManager.NotificationMultiLineContent = {
-        title: options.title,
-        text: options.text,
-        briefText: options.briefText,
-        longTitle: options.longTitle,
-        lines: options.lines
-      }
-      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
-        multiLineContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
-      }
-      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
-        multiLineContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
-      }
-      let notificationContent: notificationManager.NotificationContent = {
-        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_MULTILINE,
-        multiLine: multiLineContent
-      }
-      //通知Request对象
-      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
-      //发送通知
-      notificationManager.publish(notificationRequest, (err: Base.BusinessError) => {
-        if (!err && options.callBack && options.id) {
-          options.callBack(options.id); //执行回调
-        }
-        if (err) {
-          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-        }
-      });
-    } catch (error) {
-      let err = error as BusinessError;
-      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+  static async publishMultiLine(options: NotificationMultiLineOptions): Promise<number> {
+    const notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+    const multiLineContent: notificationManager.NotificationMultiLineContent = {
+      title: options.title,
+      text: options.text,
+      briefText: options.briefText,
+      longTitle: options.longTitle,
+      lines: options.lines
     }
+    if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+      multiLineContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
+    }
+    if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+      multiLineContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
+    }
+    let notificationContent: notificationManager.NotificationContent = {
+      notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_MULTILINE,
+      multiLine: multiLineContent
+    }
+    //通知Request对象
+    const notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
+    await notificationManager.publish(notificationRequest); //发送通知
+    return notificationId;
   }
 
 
@@ -253,41 +207,29 @@ export class NotificationUtil {
    * @param options  通知实体
    * @returns
    */
-  static publishPicture(options: NotificationPictureOptions) {
-    try {
-      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
-      let pictureContent: notificationManager.NotificationPictureContent = {
-        title: options.title,
-        text: options.text,
-        briefText: options.briefText,
-        expandedTitle: options.expandedTitle,
-        picture: options.picture
-      }
-      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
-        pictureContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
-      }
-      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
-        pictureContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
-      }
-      let notificationContent: notificationManager.NotificationContent = {
-        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_PICTURE,
-        picture: pictureContent
-      }
-      //通知Request对象
-      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
-      //发送通知
-      notificationManager.publish(notificationRequest, (err: Base.BusinessError) => {
-        if (!err && options.callBack && options.id) {
-          options.callBack(options.id); //执行回调
-        }
-        if (err) {
-          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-        }
-      });
-    } catch (error) {
-      let err = error as BusinessError;
-      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+  static async publishPicture(options: NotificationPictureOptions): Promise<number> {
+    const notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+    const pictureContent: notificationManager.NotificationPictureContent = {
+      title: options.title,
+      text: options.text,
+      briefText: options.briefText,
+      expandedTitle: options.expandedTitle,
+      picture: options.picture
     }
+    if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+      pictureContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
+    }
+    if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+      pictureContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
+    }
+    let notificationContent: notificationManager.NotificationContent = {
+      notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_PICTURE,
+      picture: pictureContent
+    }
+    //通知Request对象
+    const notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent);
+    await notificationManager.publish(notificationRequest); //发送通知
+    return notificationId;
   }
 
 
@@ -295,43 +237,31 @@ export class NotificationUtil {
    * 发布模板的通知
    * @param options
    */
-  static publishTemplate(options: NotificationTemplateOptions){
-    try {
-      let notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
-      let basicContent: notificationManager.NotificationBasicContent = {
-        title: options.title,
-        text: options.text
-      }
-      if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
-        basicContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
-      }
-      if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
-        basicContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
-      }
-      let notificationContent: notificationManager.NotificationContent = {
-        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
-        normal: basicContent
-      }
-      //模板对象
-      let template: notificationManager.NotificationTemplate = {
-        name: 'downloadTemplate',
-        data: { title: options.title, fileName: options.fileName, progressValue: options.progressValue }
-      }
-      //通知Request对象
-      let notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent, template);
-      //发送通知
-      notificationManager.publish(notificationRequest, (err: BusinessError) => {
-        if (!err && options.callBack && options.id) {
-          options.callBack(options.id); //执行回调
-        }
-        if (err) {
-          LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-        }
-      });
-    } catch (error) {
-      let err = error as BusinessError;
-      LogUtil.error(`发送通知异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+  static async publishTemplate(options: NotificationTemplateOptions): Promise<number> {
+    const notificationId: number = options.id ?? NotificationUtil.generateNotificationId(); //通知ID。
+    const basicContent: notificationManager.NotificationBasicContent = {
+      title: options.title,
+      text: options.text
     }
+    if (options.additionalText || NotificationUtil.defaultConfig.additionalText) {
+      basicContent.additionalText = options.additionalText ?? NotificationUtil.defaultConfig.additionalText;
+    }
+    if (options.lockscreenPicture || NotificationUtil.defaultConfig.lockscreenPicture) {
+      basicContent.lockscreenPicture = options.lockscreenPicture ?? NotificationUtil.defaultConfig.lockscreenPicture;
+    }
+    let notificationContent: notificationManager.NotificationContent = {
+      notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+      normal: basicContent
+    }
+    //模板对象
+    let template: notificationManager.NotificationTemplate = {
+      name: 'downloadTemplate',
+      data: { title: options.title, fileName: options.fileName, progressValue: options.progressValue }
+    }
+    //通知Request对象
+    const notificationRequest = NotificationUtil.getNotificationRequest(notificationId, options, notificationContent, template);
+    await notificationManager.publish(notificationRequest); //发送通知
+    return notificationId;
   }
 
 
@@ -342,7 +272,7 @@ export class NotificationUtil {
    * @returns
    */
   static async cancel(id: number, label?: string): Promise<void> {
-    return await notificationManager.cancel(id, label);
+    return notificationManager.cancel(id, label);
   }
 
   /**
@@ -351,7 +281,7 @@ export class NotificationUtil {
    * @returns
    */
   static async cancelGroup(groupName: string): Promise<void> {
-    return await notificationManager.cancelGroup(groupName);
+    return notificationManager.cancelGroup(groupName);
   }
 
   /**
@@ -359,7 +289,7 @@ export class NotificationUtil {
    * @returns
    */
   static async cancelAll(): Promise<void> {
-    return await notificationManager.cancelAll()
+    return notificationManager.cancelAll()
   }
 
 
@@ -367,14 +297,14 @@ export class NotificationUtil {
    * 设置桌面角标个数，在应用的桌面图标上呈现。
    */
   static async setBadge(badgeNumber: number): Promise<void> {
-    return await notificationManager.setBadgeNumber(badgeNumber);
+    return notificationManager.setBadgeNumber(badgeNumber);
   }
 
   /**
    * 清空桌面角标，在应用的桌面图标上呈现。
    */
   static async clearBadge(): Promise<void> {
-    return await notificationManager.setBadgeNumber(0);
+    return notificationManager.setBadgeNumber(0);
   }
 
 
@@ -382,7 +312,7 @@ export class NotificationUtil {
    * 获取当前应用未删除的通知数量。
    */
   static async getActiveNotificationCount(): Promise<number> {
-    return await notificationManager.getActiveNotificationCount();
+    return notificationManager.getActiveNotificationCount();
   }
 
 
@@ -390,14 +320,8 @@ export class NotificationUtil {
    * 设置桌面角标数量，来自于通知数量。
    */
   static async setBadgeFromNotificationCount(): Promise<void> {
-    try {
-      let count = await NotificationUtil.getActiveNotificationCount();
-      notificationManager.setBadgeNumber(count); //设置角标
-    } catch (error) {
-      const err = error as BusinessError;
-      LogUtil.error(`NotificationUtil-setBadgeFromNotificationCount-异常：${NotificationUtil.getErrorMsg(err.code,
-        err.code + " - " + err.message)}`);
-    }
+    let count = await NotificationUtil.getActiveNotificationCount();
+    return notificationManager.setBadgeNumber(count); //设置角标
   }
 
 
@@ -405,7 +329,7 @@ export class NotificationUtil {
    * 获取当前应用未删除的通知列表。
    */
   static async getActiveNotifications(): Promise<Array<notificationManager.NotificationRequest>> {
-    return await notificationManager.getActiveNotifications();
+    return notificationManager.getActiveNotifications();
   }
 
 
@@ -414,7 +338,7 @@ export class NotificationUtil {
    * @param type 要创建的通知渠道的类型
    */
   static async addSlot(type: notificationManager.SlotType) {
-    return await notificationManager.addSlot(type);
+    return notificationManager.addSlot(type);
   }
 
   /**
@@ -422,7 +346,7 @@ export class NotificationUtil {
    * @param type 要创建的通知渠道的类型
    */
   static async getSlot(type: notificationManager.SlotType): Promise<notificationManager.NotificationSlot> {
-    return await notificationManager.getSlot(type);
+    return notificationManager.getSlot(type);
   }
 
   /**
@@ -430,7 +354,7 @@ export class NotificationUtil {
    * @returns
    */
   static async getSlots(): Promise<Array<notificationManager.NotificationSlot>> {
-    return await notificationManager.getSlots();
+    return notificationManager.getSlots();
   }
 
 
@@ -440,7 +364,7 @@ export class NotificationUtil {
    * @returns
    */
   static async removeSlot(type: notificationManager.SlotType) {
-    return await notificationManager.removeSlot(type);
+    return notificationManager.removeSlot(type);
   }
 
   /**
@@ -448,7 +372,7 @@ export class NotificationUtil {
    * @returns
    */
   static async removeAllSlots() {
-    return await notificationManager.removeAllSlots();
+    return notificationManager.removeAllSlots();
   }
 
 
@@ -457,7 +381,7 @@ export class NotificationUtil {
    * @returns
    */
   static generateNotificationId(): number {
-    return DateUtil.getTodayTime();
+    return systemDateTime.getTime(true);
   }
 
 
@@ -506,8 +430,8 @@ export class NotificationUtil {
    * @returns
    */
   static async getDefaultWantAgent(): Promise<WantAgent> {
-    let context = getContext() as common.UIAbilityContext; //获取当前上下文对象
-    let wantAgentInfo: wantAgent.WantAgentInfo = {
+    const context = getContext() as common.UIAbilityContext; //获取当前上下文对象
+    const wantAgentInfo: wantAgent.WantAgentInfo = {
       wants: [
         {
           deviceId: '',
@@ -523,7 +447,7 @@ export class NotificationUtil {
       requestCode: 0,
       actionFlags: [wantAgent.WantAgentFlags.CONSTANT_FLAG]
     };
-    return await wantAgent.getWantAgent(wantAgentInfo);
+    return wantAgent.getWantAgent(wantAgentInfo);
   }
 
 
@@ -537,7 +461,7 @@ export class NotificationUtil {
    */
   private static getNotificationRequest(notificationId: number, options: NotificationOptions,
     content: notificationManager.NotificationContent, template?: notificationManager.NotificationTemplate): notificationManager.NotificationRequest {
-    let request: notificationManager.NotificationRequest = { content: content };
+    const request: notificationManager.NotificationRequest = { content: content };
     request.id = notificationId; //通知ID。
     if (template) {
       request.template = template; //模板
@@ -606,7 +530,7 @@ export class NotificationUtil {
    * @param code
    * @param defaultMsg
    */
-  private static getErrorMsg(code: number, defaultMsg: string) {
+  public static getErrorMsg(code: number, defaultMsg: string) {
     if (201 == code) {
       return '权限校验失败！'
     } else if (202 == code) {

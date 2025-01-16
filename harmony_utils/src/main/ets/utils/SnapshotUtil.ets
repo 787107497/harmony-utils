@@ -17,7 +17,6 @@ import { image } from '@kit.ImageKit';
 import { componentSnapshot, window } from '@kit.ArkUI';
 import { AppUtil } from './AppUtil';
 import { CacheUtil } from './CacheUtil';
-import { NumberCallBack } from './KeyboardUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { LogUtil } from './LogUtil';
 
@@ -90,12 +89,12 @@ export class SnapshotUtil {
    */
   static onSnapshotListener(listenerId: number, callback: VoidCallback): number {
     try {
-      let callBack = CacheUtil.get<NumberCallBack>(`snapshot_listener_id_${listenerId}`);
-      if (callBack != null && callBack != undefined) {
+      let callBack = CacheUtil.get<Callback<number>>(`snapshot_listener_id_${listenerId}`);
+      if (callBack !== null && callBack !== undefined) {
         LogUtil.error(`KeyboardUtil-onKeyboardListener: 监听事件已存在！`);
         return -1; //监听事件已存在返回-1
       } else {
-        CacheUtil.put<NumberCallBack>(`snapshot_listener_id_${listenerId}`, callback);
+        CacheUtil.put<Callback<number>>(`snapshot_listener_id_${listenerId}`, callback);
         AppUtil.getMainWindow().on("screenshot", callback);
         return 0; //成功返回-0
       }
@@ -116,9 +115,9 @@ export class SnapshotUtil {
     try {
       if (listenerId) {
         let callBack = CacheUtil.get<VoidCallback>(`snapshot_listener_id_${listenerId}`);
-        if (callBack != null && callBack != undefined) {
+        if (callBack !== null && callBack !== undefined) {
           AppUtil.getMainWindow().off('screenshot', callBack);
-          CacheUtil.put(`snapshot_listener_id_${listenerId}`, null);
+          CacheUtil.remove(`snapshot_listener_id_${listenerId}`);
         }
       } else {
         AppUtil.getMainWindow().off('screenshot');

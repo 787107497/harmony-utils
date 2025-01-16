@@ -276,9 +276,10 @@ OpenHarmony ohpm
 
 | 方法      | 介绍         |
 |:--------|:-----------|
-| put     | 将数据存入缓存中   |
-| get     | 获取缓存中的数据   |
 | has     | 缓存中的数据是否存在 |
+| get     | 获取缓存中的数据   |
+| put     | 将数据存入缓存中   |
+| remove  | 删除key对应的缓存 |
 | isEmpty | 判断缓存是否为空   |
 | clear   | 清除缓存数据     |
 
@@ -287,9 +288,9 @@ OpenHarmony ohpm
 | 方法             | 介绍                    |
 |:---------------|:----------------------|
 | getInstance    | 获取LRUCacheUtil的单例     |
-| put            | 添加缓存到lruCache中        |
-| get            | 获取key对应的缓存            |
 | has            | 判断是否包含key对应的缓存        |
+| get            | 获取key对应的缓存            |
+| put            | 添加缓存到lruCache中        |
 | remove         | 删除key对应的缓存            |
 | isEmpty        | 判断lruCache缓存是否为空      |
 | getCapacity    | 获取当前缓冲区的容量            |
@@ -644,16 +645,19 @@ OpenHarmony ohpm
 
 ## ObjectUtil（对象工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets)
 
-| 方法          | 介绍                                |
-|-------------|:----------------------------------|
-| getHash     | 获取对象的Hash值                        |
-| isString    | 判断是否是String                       |
-| isNull      | 判断对象是否为空                          |
-| isEmpty     | 判断属性内容是否为空                        |
-| shallowCopy | 浅拷贝                               |
-| deepCopy    | 深度拷贝对象                            |
-| assign      | 合并两个或多个对象                         |
-| objToClass  | obj转class，解决obj as class后丢失方法的问题  |
+| 方法              | 介绍                               |
+|-----------------|:---------------------------------|
+| getHash         | 获取对象的Hash值                       |
+| getClassName    | 获取对象的Class名称                     |
+| getMethodsNames | 获取对象的所有方法名                       |
+| isString        | 判断是否是String                      |
+| isNull          | 判断对象是否为空                         |
+| isEmpty         | 判断属性内容是否为空                       |
+| shallowCopy     | 浅拷贝                              |
+| deepCopy        | 深度拷贝对象                           |
+| assign          | 合并两个或多个对象                        |
+| objToClass      | obj转class，解决obj as class后丢失方法的问题 |
+| deleteRecord    | 删除Record中的元素                     |
 
 ## JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
 

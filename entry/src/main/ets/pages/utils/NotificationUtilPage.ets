@@ -9,6 +9,7 @@ import {
 } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../entity/DescribeBean';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 通知工具类
@@ -79,25 +80,29 @@ struct Index {
                 id: id,
                 title: "鸿蒙工具包",
                 text: "HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用",
-                callBack: (id) => {
-                  ToastUtil.showToast(`通知发送成功，id为：${id}`)
-                  this.notificationIds.push(id)
-                }
               }
-              NotificationUtil.publishBasic(basicOptions);
+              NotificationUtil.publishBasic(basicOptions).then((id) => {
+                ToastUtil.showToast(`通知发送成功，id为：${id}`);
+                this.notificationIds.push(id);
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast(`通知发送失败，${err.message}`);
+              });
             })
           Button("publishLongText()")
             .btnStyle()
             .onClick(() => {
-              let id = NotificationUtil.generateNotificationId(); //通知id
               NotificationUtil.publishLongText({
-                id: id,
                 title: "鸿蒙工具包",
                 text: "HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用",
                 longText: "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助初学者了解API，帮助开发者快速构建鸿蒙应用",
                 briefText: "111111111111111111111111111111111111111111",
                 expandedTitle: "OpenHarmony/HarmonyOS工具包",
-              })
+              }).then((id) => {
+                ToastUtil.showToast(`通知发送成功，id为：${id}`);
+                this.notificationIds.push(id);
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast(`通知发送失败，${err.message}`);
+              });
             })
           Button("publishMultiLine()")
             .btnStyle()
@@ -110,7 +115,12 @@ struct Index {
                 lines: ["帮助初学者了解API", "封装了常用工具类", "提供一系列简单易用的方法",
                   "帮助开发者快速构建鸿蒙应用"]
               }
-              NotificationUtil.publishMultiLine(multiLineOptions);
+              NotificationUtil.publishMultiLine(multiLineOptions).then((id) => {
+                ToastUtil.showToast(`通知发送成功，id为：${id}`);
+                this.notificationIds.push(id);
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast(`通知发送失败，${err.message}`);
+              });
             })
           Button("publishPicture()")
             .btnStyle()
@@ -124,7 +134,12 @@ struct Index {
                 briefText: "33333333333333333333333333333333",
                 expandedTitle: "OpenHarmony/HarmonyOS工具包",
                 picture: pixelMap
-              })
+              }).then((id) => {
+                ToastUtil.showToast(`通知发送成功，id为：${id}`);
+                this.notificationIds.push(id);
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast(`通知发送失败，${err.message}`);
+              });
             })
           Button("isSupportTemplate()")
             .btnStyle()
@@ -140,11 +155,12 @@ struct Index {
                 text: "HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用",
                 fileName: "漂亮小姐姐.mp4",
                 progressValue: 72,
-                callBack: (id) => {
-                  ToastUtil.showToast(`通知发送成功，id为：${id}`)
-                  this.notificationIds.push(id)
-                }
-              })
+              }).then((id) => {
+                ToastUtil.showToast(`通知发送成功，id为：${id}`);
+                this.notificationIds.push(id);
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast(`通知发送失败，${err.message}`);
+              });
             })
           Button("cancelAll()")
             .btnStyle()
@@ -154,12 +170,14 @@ struct Index {
           Button("setBadge()")
             .btnStyle()
             .onClick(() => {
-              NotificationUtil.setBadge(96)
+              NotificationUtil.setBadge(96);
+              ToastUtil.showToast(`设置角标成功！`);
             })
           Button("clearBadge()")
             .btnStyle()
             .onClick(() => {
-              NotificationUtil.clearBadge()
+              NotificationUtil.clearBadge();
+              ToastUtil.showToast(`清除角标成功！`);
             })
           Button("getActiveNotificationCount()")
             .btnStyle()
@@ -170,7 +188,12 @@ struct Index {
           Button("setBadgeFromNotificationCount()")
             .btnStyle()
             .onClick(() => {
-              NotificationUtil.setBadgeFromNotificationCount()
+              NotificationUtil.setBadgeFromNotificationCount().then(() => {
+                ToastUtil.showToast("设置角标成功");
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast("设置角标失败，" + NotificationUtil.getErrorMsg(err.code, err.message));
+                LogUtil.error(`设置角标异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+              })
             })
           Button("getActiveNotifications()")
             .btnStyle()

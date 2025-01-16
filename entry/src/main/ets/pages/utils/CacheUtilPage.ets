@@ -42,6 +42,12 @@ struct Index {
               let pwd = CacheUtil.has("pwd");
               ToastUtil.showToast(`缓存是否存在：${pwd}`);
             })
+          Button("remove()")
+            .btnStyle()
+            .onClick(() => {
+              CacheUtil.remove("pwd");
+              ToastUtil.showToast(`缓存移除成功！`);
+            })
           Button("isEmpty()")
             .btnStyle()
             .onClick(() => {

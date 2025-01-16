@@ -71,7 +71,7 @@ export class PickerUtil {
    * @returns
    */
   static async selectPhoto(options?: picker.PhotoSelectOptions): Promise<Array<string>> {
-    if (options == undefined) {
+    if (options === undefined) {
       options = new picker.PhotoSelectOptions();
       options.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE; //可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9。
@@ -90,7 +90,7 @@ export class PickerUtil {
   static async savePhoto(newFileNames?: Array<string>): Promise<Array<string>> {
     const photoPicker = new picker.PhotoViewPicker(AppUtil.getContext());
     const PhotoSaveOptions = new picker.PhotoSaveOptions();
-    if (newFileNames != undefined && newFileNames.length > 0) {
+    if (newFileNames !== undefined && newFileNames.length > 0) {
       PhotoSaveOptions.newFileNames = newFileNames;
     }
     return photoPicker.save(PhotoSaveOptions);
@@ -108,7 +108,7 @@ export class PickerUtil {
    * @returns
    */
   static async selectDocument(options?: picker.DocumentSelectOptions): Promise<Array<string>> {
-    if (options == undefined) {
+    if (options === undefined) {
       options = new picker.DocumentSelectOptions();
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9。
       options.selectMode = picker.DocumentSelectMode.FILE; //支持选择的资源类型,默认文件
@@ -126,7 +126,7 @@ export class PickerUtil {
   static async saveDocumentEasy(newFileNames: Array<string>): Promise<Array<string>> {
     const documentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.pickerMode = picker.DocumentPickerMode.DOWNLOAD;
-    if (newFileNames != undefined && newFileNames.length > 0) {
+    if (newFileNames !== undefined && newFileNames.length > 0) {
       documentSaveOptions.newFileNames = newFileNames;
     }
     let downloadUri = await PickerUtil.saveDocument(documentSaveOptions);
@@ -160,7 +160,7 @@ export class PickerUtil {
    * @returns
    */
   static async selectAudio(options?: picker.AudioSelectOptions): Promise<Array<string>> {
-    if (options == undefined) {
+    if (options === undefined) {
       options = new picker.AudioSelectOptions();
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
     }
@@ -177,7 +177,7 @@ export class PickerUtil {
   static async saveAudio(newFileNames?: Array<string>): Promise<Array<string>> {
     const audioPicker = new picker.AudioViewPicker(AppUtil.getContext());
     const audioSaveOptions = new picker.AudioSaveOptions();
-    if (newFileNames != undefined && newFileNames.length > 0) {
+    if (newFileNames !== undefined && newFileNames.length > 0) {
       audioSaveOptions.newFileNames = newFileNames;
     }
     return audioPicker.save(audioSaveOptions);

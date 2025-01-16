@@ -4,6 +4,8 @@ import { DescribeBean } from '../../entity/DescribeBean';
 import { image } from '@kit.ImageKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { BusinessError } from '@kit.BasicServicesKit';
+import fs from '@ohos.file.fs';
 
 /**
  * 图片相关工具类
@@ -162,14 +164,19 @@ struct Index {
               PhotoHelper.select({ maxSelectNumber: 1 }).then(async (uris) => {
                 if (uris?.length > 0) {
                   let uri = uris[0];
-                  let filePath = await ImageUtil.compressPhoto(uri, 100); //压缩返回路径
+                  let filePath = await ImageUtil.compressPhoto(uri, 100).catch((err: BusinessError) => {
+                    LogUtil.error("压缩异常异常：" + err.message);
+                    return "";
+                  }); //压缩返回路径
 
-                  let oldSize = FileUtil.statSync(FileUtil.openSync(uri).fd).size; //压缩前大小
+                  let oldSize = FileUtil.statSync(FileUtil.openSync(uri,fs.OpenMode.READ_ONLY).fd).size; //压缩前大小
                   let compressSize = FileUtil.statSync(filePath).size; //压缩后大小
                   this.resultStr = `压缩路径: ${filePath}\n\n压缩前大小: ${FileUtil.getFormatFileSize(oldSize)}\n压缩后大小: ${FileUtil.getFormatFileSize(compressSize)}`
                   LogUtil.error( this.resultStr);
                   // this.imgPath = filePath;
                 }
+              }).catch((err: BusinessError) => {
+                LogUtil.error("异常信息：" + err.message);
               })
             })
 

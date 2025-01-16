@@ -65,7 +65,6 @@ export interface NotificationBasicOptions extends NotificationOptions {
   text: string; //通知内容（不可为空字符串）。
   additionalText?: string; //通知附加内容，是对通知内容的补充。
   lockscreenPicture?: image.PixelMap; //通知在锁屏界面显示的图片。
-  callBack?: (noticeId: number) => void; //业务回调函数
 }
 
 

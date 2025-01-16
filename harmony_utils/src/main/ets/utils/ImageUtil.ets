@@ -11,10 +11,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
+
+import fs from '@ohos.file.fs';
 import { image } from '@kit.ImageKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { Base64Util } from './Base64Util';
@@ -368,12 +368,20 @@ export class ImageUtil {
    * @returns filePath：返回文件压缩路径
    */
   static async compressPhoto(uri: string, maxSize: number, imageFormat: string = "image/jpeg"): Promise<string> {
-    let file = await FileUtil.open(uri);
-    let filePath = FileUtil.getTempDirPath(DateUtil.getTodayTime().toString(), file.name); //文件压缩路径
-    let pixelMap = await ImageUtil.createImageSource(file.fd).createPixelMap();
+    // let file = await FileUtil.open(uri, fs.OpenMode.READ_ONLY);
+    // let filePath = FileUtil.getTempDirPath(DateUtil.getTodayTime().toString(), file.name); //文件压缩路径
+    // let pixelMap = await ImageUtil.createImageSource(file.fd).createPixelMap();
+    // let arrayBuffer = await ImageUtil.compressedImage(pixelMap, maxSize, imageFormat); //压缩
+    // await FileUtil.writeEasy(filePath, arrayBuffer, false); //写入文件
+    // FileUtil.closeSync(file.fd); //关闭文件
+    // pixelMap.release(); //释放资源
+
+    let srcFile = await FileUtil.open(uri, fs.OpenMode.READ_ONLY);
+    let pixelMap = await ImageUtil.createImageSource(srcFile.fd).createPixelMap();
     let arrayBuffer = await ImageUtil.compressedImage(pixelMap, maxSize, imageFormat); //压缩
+    let filePath = FileUtil.getTempDirPath(DateUtil.getTodayStr("yyyy-MM-dd"), srcFile.name);
     await FileUtil.writeEasy(filePath, arrayBuffer, false); //写入文件
-    FileUtil.closeSync(file.fd); //关闭文件
+    FileUtil.closeSync(srcFile.fd); //关闭文件
     pixelMap.release(); //释放资源
     return filePath; //返回文件压缩路径
   }

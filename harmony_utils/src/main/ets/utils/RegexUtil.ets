@@ -200,7 +200,7 @@ export class RegexUtil {
    * @param regex   正则
    */
   static isMatch(content: string, pattern: string): boolean {
-    if (content == undefined || content == null) {
+    if (content === undefined || content === null) {
       return false;
     } else {
       return new RegExp(pattern).test(content);

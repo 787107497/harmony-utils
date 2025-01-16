@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import util from '@ohos.util';
@@ -58,8 +56,8 @@ export class ObjectUtil {
    * @returns
    */
   static getMethodsNames(obj: Object) {
-    let protoType = Object.getPrototypeOf(obj);
-    let methodsNames: string[] = Object.getOwnPropertyNames(protoType);
+    const protoType = Object.getPrototypeOf(obj);
+    const methodsNames: string[] = Object.getOwnPropertyNames(protoType);
     return methodsNames;
   }
 
@@ -93,7 +91,7 @@ export class ObjectUtil {
     if (ObjectUtil.isNull(property)) {
       return true
     } else if (Array.isArray(property) || property instanceof Array) {
-      return property.length == 0
+      return property.length === 0
     } else if (property instanceof List) {
       return property.isEmpty()
     } else if (property instanceof ArrayList) {
@@ -101,7 +99,7 @@ export class ObjectUtil {
     } else if (property instanceof HashMap) {
       return property.isEmpty()
     }
-    return property == '';
+    return property === '';
   }
 
 
@@ -163,6 +161,16 @@ export class ObjectUtil {
     const instance = new clazz();
     Object.assign(instance, obj);
     return instance;
+  }
+
+
+  /**
+   * 删除Record中的元素
+   * @param record
+   * @param key
+   */
+  static deleteRecord(record: Record<string, Object>, key: string) {
+    delete record[key];
   }
 
 

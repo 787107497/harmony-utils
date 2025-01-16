@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { pasteboard } from '@kit.BasicServicesKit';
@@ -33,14 +31,13 @@ import { StrUtil } from './StrUtil';
  */
 export class PasteboardUtil {
 
-
   /**
    * 将纯文本数据写入系统剪贴板，使用Promise异步回调。
    * @param data
    * @returns
    */
   static setDataText(text: string): Promise<void> {
-    let pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
+    const pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
     return PasteboardUtil.getSystemPasteboard().setData(pasteData);
   }
 
@@ -51,7 +48,7 @@ export class PasteboardUtil {
    * @returns
    */
   static setDataHtml(html: string): Promise<void> {
-    let pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_HTML, html);
+    const pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_HTML, html);
     return PasteboardUtil.getSystemPasteboard().setData(pasteData);
   }
 
@@ -62,7 +59,7 @@ export class PasteboardUtil {
    * @returns
    */
   static setDataUri(uri: string): Promise<void> {
-    let pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_URI, uri);
+    const pasteData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_URI, uri);
     return PasteboardUtil.getSystemPasteboard().setData(pasteData);
   }
 
@@ -152,7 +149,9 @@ export class PasteboardUtil {
    * @returns
    */
   private static getSystemPasteboard(): pasteboard.SystemPasteboard {
-    let systemPasteboard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
+    const systemPasteboard: pasteboard.SystemPasteboard = pasteboard.getSystemPasteboard();
     return systemPasteboard;
   }
+
+
 }

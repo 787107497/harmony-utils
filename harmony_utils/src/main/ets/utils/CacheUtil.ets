@@ -11,9 +11,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
+
+
+import { ObjectUtil } from './ObjectUtil';
 
 
 /**
@@ -31,6 +32,16 @@ export class CacheUtil {
 
 
   /**
+   * 获取缓存中的数据
+   * @param key 存入的key
+   * @returns
+   */
+  static get<T>(key: string): T {
+    return CacheUtil.cache[key] as T;
+  }
+
+
+  /**
    * 将数据存入缓存中
    * @param key 存入key
    * @param value 存入数据
@@ -41,12 +52,10 @@ export class CacheUtil {
 
 
   /**
-   * 获取缓存中的数据
-   * @param key 存入的key
-   * @returns
+   * 删除对应的缓存
    */
-  static get<T>(key: string): T {
-    return CacheUtil.cache[key] as T;
+  static remove(key: string) {
+    ObjectUtil.deleteRecord(CacheUtil.cache, key);
   }
 
 

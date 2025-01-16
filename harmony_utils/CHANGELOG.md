@@ -2,11 +2,17 @@
 
 ## 1.2.6（API12 - 5.0.3.906）
 1. PhotoHelper，新增showAssetsCreationDialog、showAssetsCreationDialogEasy、applyChanges；并优化代码。   
-2. PickerUtil，新增方法和优化代码。
+2. PickerUtil，新增若干方法和优化代码。
+3. NotificationUtil，移除callBack参数，方法改为异步方法。
+4. ObjectUtil，新增getClassName、getMethodsNames、deleteRecord。
+5. CacheUtil，新增remove。
+6. LocationUtil，代码优化。
 ```typescript
 //1.2.6版本适配指南：
-1、PickerUtil.camera() 改为PickerUtil.cameraEasy()  或修改camera()入参
-2、PickerUtil.saveDocument() 改为 PickerUtil.saveDocumentEasy() 或修改saveDocument()入参
+1、PickerUtil.camera() 改为PickerUtil.cameraEasy()  或修改camera()入参。
+2、PickerUtil.saveDocument() 改为 PickerUtil.saveDocumentEasy() 或修改saveDocument()入参。
+3、NotificationUtil，移除callBack回调，其他使用见案例。
+4、LocationUtil，offLocationChange方法参数有bool类型改为Callback，
 ```
 
 ## 1.2.5（API12 - 5.0.3.906）
@@ -62,7 +68,8 @@
 15. 新增RegexUtil，正则相关工具类。
 16. 新增FormatUtil，格式化相关工具类。
 
-```typescript   
+```typescript
+//1.2.0版本适配指南：
 //全局初始化方法，从1.2.0版本开始，在UIAbility的onCreate方法中初始化 AppUtil.init()
 onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
   AppUtil.init(this.context);

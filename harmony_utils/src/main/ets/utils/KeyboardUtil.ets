@@ -11,14 +11,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 import { AppUtil } from './AppUtil';
 import { CacheUtil } from './CacheUtil';
 import { LogUtil } from './LogUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { KeyboardCallBack } from '../entity/constraint';
 
 /**
  * TODO 键盘工具类
@@ -61,17 +60,17 @@ export class KeyboardUtil {
    */
   static onKeyboardListener(listenerId: number, callback: KeyboardCallBack): number {
     try {
-      let callBack = CacheUtil.get<NumberCallBack>(`keyboard_num_x_id_${listenerId}`);
+      let callBack = CacheUtil.get<Callback<number>>(`keyboard_listener_id_${listenerId}`);
       if (callBack != null && callBack != undefined) {
         LogUtil.error(`KeyboardUtil-onKeyboardListener: 监听事件已存在！`);
         return -1; //监听事件已存在返回-1
       } else {
-        let keyboardCallBack: NumberCallBack = (height: number) => {
+        const keyboardCallBack: Callback<number> = (height: number) => {
           if (callback) {
             callback(height > 0, height); //键盘显示
           }
         }
-        CacheUtil.put<NumberCallBack>(`keyboard_num_x_id_${listenerId}`, keyboardCallBack);
+        CacheUtil.put<Callback<number>>(`keyboard_num_x_id_${listenerId}`, keyboardCallBack);
         AppUtil.getMainWindow().on("keyboardHeightChange", keyboardCallBack);
         return 0; //成功返回-0
       }
@@ -91,10 +90,10 @@ export class KeyboardUtil {
   static removeKeyboardListener(listenerId?: number): number {
     try {
       if (listenerId) {
-        let keyboardCallBack = CacheUtil.get<NumberCallBack>(`keyboard_num_x_id_${listenerId}`);
+        let keyboardCallBack = CacheUtil.get<Callback<number>>(`keyboard_listener_id_${listenerId}`);
         if (keyboardCallBack != null && keyboardCallBack != undefined) {
           AppUtil.getMainWindow().off('keyboardHeightChange', keyboardCallBack);
-          CacheUtil.put(`keyboard_num_x_id_${listenerId}`, null);
+          CacheUtil.remove(`keyboard_num_x_id_${listenerId}`);
         }
       } else {
         AppUtil.getMainWindow().off('keyboardHeightChange');
@@ -110,7 +109,3 @@ export class KeyboardUtil {
 
 }
 
-//KeyboardUtil回调
-export declare type NumberCallBack = (height: number) => void;
-
-export declare type KeyboardCallBack = (show: boolean, height: number) => void;

@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
  */
 
 
@@ -50,6 +48,14 @@ export class LRUCacheUtil {
 
 
   /**
+   * 判断是否包含key对应的缓存
+   */
+  public has(key: string): boolean {
+    return this.lruCache.contains(key);
+  }
+
+
+  /**
    * 获取key对应的缓存
    */
   public get<T>(key: string): T {
@@ -70,14 +76,6 @@ export class LRUCacheUtil {
    */
   public remove(key: string) {
     this.lruCache.remove(key);
-  }
-
-
-  /**
-   * 判断是否包含key对应的缓存
-   */
-  public has(key: string): boolean {
-    return this.lruCache.contains(key);
   }
 
 

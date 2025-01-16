@@ -40,7 +40,7 @@ export class StrUtil {
    * @returns 是否为空
    */
   static isNull(str: string | undefined | null): boolean {
-    return str == undefined || str == null;
+    return str === undefined || str === null;
   }
 
   /**
@@ -49,7 +49,7 @@ export class StrUtil {
    * @returns
    */
   static isNotNull(str: string | undefined | null): boolean {
-    return false == StrUtil.isNull(str);
+    return false === StrUtil.isNull(str);
   }
 
 
@@ -59,7 +59,7 @@ export class StrUtil {
    * @return 是否为空
    */
   static isEmpty(str: string | undefined | null): boolean {
-    return str == undefined || str == null || str.length == 0;
+    return str === undefined || str === null || str.length === 0;
   }
 
   /**
@@ -68,7 +68,7 @@ export class StrUtil {
    * @returns
    */
   static isNotEmpty(str: string | undefined | null): boolean {
-    return false == StrUtil.isEmpty(str);
+    return false === StrUtil.isEmpty(str);
   }
 
 
@@ -79,7 +79,7 @@ export class StrUtil {
    */
   static isBlank(str: string | undefined | null): boolean {
     let length: number = 0;
-    if ((str == undefined) || (str == null) || ((length = str.length) == 0)) {
+    if ((str === undefined) || (str === null) || ((length = str.length) === 0)) {
       return true;
     }
     for (let i = 0; i < length; i++) {
@@ -96,7 +96,7 @@ export class StrUtil {
    * @returns
    */
   static isNotBlank(str: string | undefined | null): boolean {
-    return false == StrUtil.isBlank(str);
+    return false === StrUtil.isBlank(str);
   }
 
 
@@ -107,7 +107,7 @@ export class StrUtil {
    * @returns
    */
   static toStr(source: string | null | undefined, defaultValue = ""): string {
-    if (source == null || source == undefined) {
+    if (source === null || source === undefined) {
       return defaultValue;
     }
     return String(source);
@@ -223,7 +223,7 @@ export class StrUtil {
    * @returns
    */
   static notEqual(source: string | number, target: string | number): boolean {
-    return false == StrUtil.equal(source, target);
+    return false === StrUtil.equal(source, target);
   }
 
 

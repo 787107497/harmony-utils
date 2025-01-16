@@ -96,7 +96,7 @@ export class ResUtil {
    *   举例：%%d格式化后为%d字符串; %1\$d表示使用第一个参数
    */
   static getStringSync(resId: number | Resource, args?: Array<string | number>): string {
-    if (args != null && args != undefined) {
+    if (args !== undefined && args.length > 0) {
       if (typeof resId === 'number') {
         return ResUtil.getResourceManager().getStringSync(resId, ...args);
       } else {
@@ -132,7 +132,7 @@ export class ResUtil {
    *   举例：%%d格式化后为%d字符串; %1\$d表示使用第一个参数
    */
   static getStringByNameSync(resName: string, args?: Array<string | number>): string {
-    if (args != null && args != undefined) {
+    if (args !== undefined && args.length > 0) {
       return ResUtil.getResourceManager().getStringByNameSync(resName, ...args);
     } else {
       return ResUtil.getResourceManager().getStringByNameSync(resName);
@@ -286,7 +286,7 @@ export class ResUtil {
    * @returns
    */
   static getMediaContentSync(resId: number | Resource, density?: number): Uint8Array {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       if (typeof resId === 'number') {
         return ResUtil.getResourceManager().getMediaContentSync(resId, density);
       } else {
@@ -308,7 +308,7 @@ export class ResUtil {
    * @returns
    */
   static async getMediaContent(resId: number | Resource, density?: number): Promise<Uint8Array> {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       if (typeof resId === 'number') {
         return ResUtil.getResourceManager().getMediaContent(resId, density);
       } else {
@@ -330,7 +330,7 @@ export class ResUtil {
    * @returns
    */
   static getMediaByNameSync(resName: string, density?: number): Uint8Array {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       return ResUtil.getResourceManager().getMediaByNameSync(resName, density);
     } else {
       return ResUtil.getResourceManager().getMediaByNameSync(resName);
@@ -344,7 +344,7 @@ export class ResUtil {
    * @returns
    */
   static async getMediaByName(resName: string, density?: number): Promise<Uint8Array> {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       return ResUtil.getResourceManager().getMediaByName(resName, density);
     } else {
       return ResUtil.getResourceManager().getMediaByName(resName);
@@ -359,7 +359,7 @@ export class ResUtil {
    * @returns
    */
   static getMediaContentBase64Sync(resId: number | Resource, density?: number): string {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       if (typeof resId === 'number') {
         return ResUtil.getResourceManager().getMediaContentBase64Sync(resId, density);
       } else {
@@ -381,7 +381,7 @@ export class ResUtil {
    * @returns
    */
   static async getMediaContentBase64(resId: number | Resource, density?: number): Promise<string> {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       if (typeof resId === 'number') {
         return ResUtil.getResourceManager().getMediaContentBase64(resId, density);
       } else {
@@ -403,7 +403,7 @@ export class ResUtil {
    * @returns
    */
   static getMediaBase64ByNameSync(resName: string, density?: number): string {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       return ResUtil.getResourceManager().getMediaBase64ByNameSync(resName, density);
     } else {
       return ResUtil.getResourceManager().getMediaBase64ByNameSync(resName);
@@ -417,7 +417,7 @@ export class ResUtil {
    * @returns
    */
   static async getMediaBase64ByName(resName: string, density?: number): Promise<string> {
-    if (density != null && density != undefined) {
+    if (density !== undefined) {
       return ResUtil.getResourceManager().getMediaBase64ByName(resName, density);
     } else {
       return ResUtil.getResourceManager().getMediaBase64ByName(resName);

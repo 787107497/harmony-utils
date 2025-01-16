@@ -45,7 +45,7 @@ export class ScanUtil {
    *   scanCodeRect 码识别位置信息。
    */
   static startScanForResult(options?: scanBarcode.ScanOptions): Promise<scanBarcode.ScanResult> {
-    if (!options) {
+    if (options === undefined) {
       options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
     }
     return scanBarcode.startScanForResult(AppUtil.getContext(), options); //启动扫码，拉起扫码界面
@@ -66,7 +66,7 @@ export class ScanUtil {
    * @returns
    */
   static generateBarcode(content: string, options?: generateBarcode.CreateOptions): Promise<image.PixelMap> {
-    if (!options) {
+    if (options === undefined) {
       options = { scanType: scanCore.ScanType.QR_CODE, height: 800, width: 800, margin: 5 };
     }
     return generateBarcode.createBarcode(content, options);
@@ -104,7 +104,7 @@ export class ScanUtil {
    */
   static onDetectBarCode(uri: string, options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
     const inputImage: detectBarcode.InputImage = { uri: uri };
-    if (!options) {
+    if (options === undefined) {
       options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
     }
     return detectBarcode.decode(inputImage, options);

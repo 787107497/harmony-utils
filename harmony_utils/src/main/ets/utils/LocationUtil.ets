@@ -33,8 +33,6 @@ import { PermissionUtil } from './PermissionUtil';
  */
 export class LocationUtil {
 
-  private static locationCallBack: Callback<geoLocationManager.Location> //开启位置变化订阅，监听回调
-
 
   /**
    * 判断位置服务是否已经使能(定位是否开启)。
@@ -64,7 +62,7 @@ export class LocationUtil {
    * @returns 失败返回错误码，成功返回0。
    */
   static async getCurrentLocationEasy(): Promise<geoLocationManager.Location> {
-    return await LocationUtil.getCurrentLocation();
+    return LocationUtil.getCurrentLocation();
   }
 
 
@@ -73,14 +71,11 @@ export class LocationUtil {
    * @param request
    */
   static async getCurrentLocation(request?: geoLocationManager.CurrentLocationRequest | geoLocationManager.SingleLocationRequest): Promise<geoLocationManager.Location> {
-    if (!request) {
-      request = {
-        'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, //表示快速获取位置优先，如果应用希望快速拿到一个位置，可以将优先级设置为该字段。
-        'scenario': geoLocationManager.LocationRequestScenario.UNSET,
-        'maxAccuracy': 0, //表示精度信息，单位是米。
-      } //当前位置，默认Request参数
+    if (request) {
+      return geoLocationManager.getCurrentLocation(request);
+    } else {
+      return geoLocationManager.getCurrentLocation();
     }
-    return await geoLocationManager.getCurrentLocation(request);
   }
 
 
@@ -98,7 +93,6 @@ export class LocationUtil {
         'distanceInterval': 0, //表示上报位置信息的距离间隔。单位是米，默认值为0，取值范围为大于等于0。
         'maxAccuracy': 0 //表示精度信息，单位是米。
       }; //开启位置变化订阅，默认Request参数
-      LocationUtil.locationCallBack = callBack;
       geoLocationManager.on('locationChange', locationRequest, callBack);
       return 0; //成功返回-0
     } catch (err) {
@@ -118,7 +112,6 @@ export class LocationUtil {
   static onLocationChange(request: geoLocationManager.LocationRequest | geoLocationManager.ContinuousLocationRequest,
     callBack: Callback<geoLocationManager.Location>): number {
     try {
-      LocationUtil.locationCallBack = callBack;
       geoLocationManager.on('locationChange', request, callBack);
       return 0; //成功返回-0
     } catch (err) {
@@ -130,20 +123,16 @@ export class LocationUtil {
 
 
   /**
-   *  关闭位置变化订阅，并删除对应的定位请求。
-   * @param all 取消当前类型的所有订阅。
+   * 关闭位置变化订阅，并删除对应的定位请求。
+   * @param callback 不传，取消当前类型的所有订阅。
    * @returns 失败返回错误码，成功返回0。
    */
-  static offLocationChange(all: boolean = false): number {
+  static offLocationChange(callback?: Callback<geoLocationManager.Location>): number {
     try {
-      if (all) {
-        geoLocationManager.off('locationChange');
+      if (callback) {
+        geoLocationManager.off('locationChange', callback);
       } else {
-        if (LocationUtil.locationCallBack) {
-          geoLocationManager.off('locationChange', LocationUtil.locationCallBack);
-        } else {
-          geoLocationManager.off('locationChange'); //callback:需要取消订阅的回调函数。若无此参数，则取消当前类型的所有订阅。
-        }
+        geoLocationManager.off('locationChange'); //callback:需要取消订阅的回调函数。若无此参数，则取消当前类型的所有订阅。
       }
       return 0; //成功返回-0
     } catch (err) {
@@ -171,7 +160,7 @@ export class LocationUtil {
    * @returns 编码后集合
    */
   static async getGeoAddressFromLocationName(locationName: string, maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
-    let geocodeRequest: geoLocationManager.GeoCodeRequest = {
+    const geocodeRequest: geoLocationManager.GeoCodeRequest = {
       description: locationName, //表示位置描述信息的语言，“zh”代表中文，“en”代表英文。
       maxItems: maxItems, //表示返回位置信息的最大个数。取值范围为大于等于0，推荐该值小于10。
       locale: 'zh' //表示位置信息描述，如“上海市浦东新区xx路xx号”。
@@ -206,7 +195,7 @@ export class LocationUtil {
    */
   static async getGeoAddressFromLocation(latitude: number, longitude: number,
     maxItems: number = 1): Promise<Array<geoLocationManager.GeoAddress>> {
-    let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
+    const reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = {
       latitude: latitude,
       longitude: longitude,
       maxItems: maxItems,
@@ -280,4 +269,6 @@ export class LocationUtil {
       return defaultMsg
     }
   }
+
+
 }
