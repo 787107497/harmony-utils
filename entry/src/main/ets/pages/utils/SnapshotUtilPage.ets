@@ -17,6 +17,10 @@ struct Index {
   @State pixelMap1?: image.PixelMap = undefined;
   @State pixelMap2?: image.PixelMap = undefined;
   @State pixelMap3?: image.PixelMap = undefined;
+  private snapshotCallBack: VoidCallback = () => { //系统截图监听回调
+    ToastUtil.showToast("您已成功截图！");
+    LogUtil.error("您已成功截图！");
+  }
 
   @MockSetup
   mock() {
@@ -64,27 +68,30 @@ struct Index {
           Image(this.pixelMap3)
             .visibility(this.pixelMap3 ? Visibility.Visible : Visibility.None)
             .textStyle()
+
           Button("onSnapshotListener()")
             .btnStyle()
             .onClick(() => {
-              let resultCode = SnapshotUtil.onSnapshotListener(1000, () => {
-                ToastUtil.showToast("系统截图了");
-              })
-              if (resultCode == 0) {
-                ToastUtil.showToast("监听事件添加成功！");
-              } else if (resultCode == -1) {
-                ToastUtil.showToast("监听事件已存在！");
-              }
+              SnapshotUtil.onSnapshotListener(() => {
+                ToastUtil.showToast("系统截图了！");
+                LogUtil.error("系统截图了！");
+              });
             })
           Button("removeSnapshotListener()")
             .btnStyle()
             .onClick(() => {
-              let resultCode = SnapshotUtil.removeSnapshotListener(1000);
-              if (resultCode == 0) {
-                ToastUtil.showToast("监听事件关闭成功！");
-              } else if (resultCode == -1) {
-                ToastUtil.showToast("监听事件关闭异常！");
-              }
+              SnapshotUtil.removeSnapshotListener();
+            })
+          
+          Button("onSnapshotListener()-指定")
+            .btnStyle()
+            .onClick(() => {
+              SnapshotUtil.onSnapshotListener(this.snapshotCallBack);
+            })
+          Button("removeSnapshotListener()-指定")
+            .btnStyle()
+            .onClick(() => {
+              SnapshotUtil.removeSnapshotListener(this.snapshotCallBack);
             })
 
           Column() {

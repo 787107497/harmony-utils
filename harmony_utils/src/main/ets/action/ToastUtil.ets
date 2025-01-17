@@ -119,11 +119,11 @@ export class ToastUtil {
    */
   private static initToastDefault(options: ToastOptions, type: number): ToastOptions {
     if (type == 1) {
-      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_long;
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_short;
     } else if (type == 2) {
       options.duration = options.duration ?? ToastUtil.defaultConfig.duration_long;
     } else {
-      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_long;
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration;
     }
     options.showMode = options.showMode ?? ToastUtil.defaultConfig.showMode;
     options.alignment = options.alignment ?? ToastUtil.defaultConfig.alignment;

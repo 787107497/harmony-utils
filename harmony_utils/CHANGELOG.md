@@ -5,25 +5,29 @@
 2. PickerUtil，新增若干方法和优化代码。
 3. ObjectUtil，新增getClassName、getMethodsNames、deleteRecord。
 4. CacheUtil，新增remove。
-5. NotificationUtil，移除callBack参数，方法改为异步方法。
-6. LocationUtil，代码优化。
-7. ImageUtil，相册图片压缩Bug修复。
-8. 工具类整体代码走查与优化。
+5. ArrayUtil，新增contain、remove。
+6. NotificationUtil，发布通知方法，移除callBack参数，方法改为异步方法。
+7. LocationUtil，代码优化。
+8. ImageUtil，相册图片压缩Bug修复。
+9. ToastUtil，新增参数和优化代码。
+10. DialogUtil，代码优化。
+11. KeyboardUtil，键盘监听事件优化。
+12. SnapshotUtil，系统截图监听优化。
+13. 工具类整体代码走查与优化。
 ```typescript
 //1.2.6版本适配指南：
-1、PickerUtil.camera() 改为PickerUtil.cameraEasy()  或修改camera()入参。
-2、PickerUtil.saveDocument() 改为 PickerUtil.saveDocumentEasy() 或修改saveDocument()入参。
-3、NotificationUtil，移除callBack回调，其他使用见案例。
-4、LocationUtil，offLocationChange方法参数有bool类型改为Callback。
+ 1、PickerUtil.camera() 改为PickerUtil.cameraEasy()  或修改camera()入参。
+ 2、PickerUtil.saveDocument() 改为 PickerUtil.saveDocumentEasy() 或修改saveDocument()入参。
+ 3、NotificationUtil，移除callBack回调，其他见使用案例。
+ 4、LocationUtil，offLocationChange方法参数有bool类型改为Callback。
+ 5、KeyboardUtil，onKeyboardListener和removeKeyboardListener方法，移除事件id参数，其他见使用案例。
+ 6、SnapshotUtil，onSnapshotListener和removeSnapshotListener方法，移除事件id参数，其他见使用案例。
 ```
 
 ## 1.2.5（API12 - 5.0.3.906）
 1. 新增LRUCacheUtil工具类。
 2. 优化CacheUtil工具类 和 GlobalContext工具类。
 3. DateUtil：getFormatDate方法格式化时间可能异常的Bug修复。
-4. ToastUtil，新增参数和优化代码。
-5. DialogUtil，代码优化。
-6. 
 4. 代码优化。
 
 ## 1.2.4（API12 - 5.0.3.906）

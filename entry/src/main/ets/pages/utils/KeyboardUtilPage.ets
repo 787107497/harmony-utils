@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { KeyboardUtil, ToastUtil } from '@pura/harmony-utils';
+import { KeyboardCallBack, KeyboardUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../entity/DescribeBean';
 
@@ -13,6 +13,14 @@ struct Index {
   private scroller: Scroller = new Scroller();
   private controller: TextInputController = new TextInputController()
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+  private callback: KeyboardCallBack = (show, height) => {
+    LogUtil.error("onKeyboardListener-A: " + height);
+    if (show) {
+      ToastUtil.showToast(`键盘显示！高度为：${height}`);
+    } else {
+      ToastUtil.showToast(`键盘已关闭！`);
+    }
+  };
 
   @MockSetup
   mock() {
@@ -39,7 +47,8 @@ struct Index {
           Button("onKeyboardListener()")
             .btnStyle()
             .onClick(() => {
-              KeyboardUtil.onKeyboardListener(1000, (show, height) => {
+              KeyboardUtil.onKeyboardListener((show, height) => {
+                LogUtil.error("onKeyboardListener-B: " + height);
                 if (show) {
                   ToastUtil.showToast(`键盘显示，高度为：${height}`);
                 } else {
@@ -50,7 +59,17 @@ struct Index {
           Button("removeKeyboardListener()")
             .btnStyle()
             .onClick(() => {
-              KeyboardUtil.removeKeyboardListener(1000);
+              KeyboardUtil.removeKeyboardListener(); //移除所有
+            })
+          Button("onKeyboardListener()-指定")
+            .btnStyle()
+            .onClick(() => {
+              KeyboardUtil.onKeyboardListener(this.callback);
+            })
+          Button("removeKeyboardListener()-指定")
+            .btnStyle()
+            .onClick(() => {
+              KeyboardUtil.removeKeyboardListener(this.callback); //移除指定
             })
 
           TextInput({ placeholder: '请输入', controller: this.controller })

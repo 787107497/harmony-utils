@@ -623,6 +623,8 @@ OpenHarmony ohpm
 | flatten     | 平铺二维数组                      |
 | union       | 平铺二维数组，并去重                  |
 | chunk       | 数组分块                        |
+| contain     | 判断集合是否包含某个值                 |
+| remove      | 移除集合的某个值                    |
 
 ## RandomUtil（随机工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RandomUtilPage.ets)
 

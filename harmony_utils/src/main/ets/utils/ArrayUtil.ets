@@ -195,5 +195,29 @@ export class ArrayUtil {
   }
 
 
+  /**
+   * 判断集合是否包含某个值
+   * @param array
+   * @param value
+   * @returns
+   */
+  static contain<T>(array: T[], value: T): boolean {
+    return array.includes(value);
+  }
+
+  /**
+   * 移除集合的某个值
+   * @param array
+   * @param value
+   * @returns
+   */
+  static remove<T>(array: T[], value: T) {
+    const index = array.indexOf(value);
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
+  }
+
+
 }
 

@@ -14,10 +14,9 @@
  */
 
 import { AppUtil } from './AppUtil';
-import { CacheUtil } from './CacheUtil';
 import { LogUtil } from './LogUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { KeyboardCallBack } from '../entity/constraint';
+import { ArrayUtil } from './ArrayUtil';
 
 /**
  * TODO 键盘工具类
@@ -30,6 +29,9 @@ import { KeyboardCallBack } from '../entity/constraint';
  * QQ交流群: 569512366
  */
 export class KeyboardUtil {
+
+  private static callBacks: Array<KeyboardCallBack> = new Array<KeyboardCallBack>(); //缓存的监听回调。
+  private static keyboardCallBack: Callback<number> | undefined = undefined //全局的键盘监听回调
 
 
   /**
@@ -52,57 +54,40 @@ export class KeyboardUtil {
 
   /**
    * 订阅输入法软键盘显示或隐藏事件
-   * @param listenerId 监听事件id，id具有唯一性，不能重复。
    * @param callBack:
    *         show boolen，true-键盘显示、false-键盘隐藏;
    *         height 键盘高度。
-   * @returns 失败返回错误码，成功返回0，监听事件已存在返回-1。
    */
-  static onKeyboardListener(listenerId: number, callback: KeyboardCallBack): number {
-    try {
-      let callBack = CacheUtil.get<Callback<number>>(`keyboard_listener_id_${listenerId}`);
-      if (callBack != null && callBack != undefined) {
-        LogUtil.error(`KeyboardUtil-onKeyboardListener: 监听事件已存在！`);
-        return -1; //监听事件已存在返回-1
-      } else {
-        const keyboardCallBack: Callback<number> = (height: number) => {
-          if (callback) {
-            callback(height > 0, height); //键盘显示
-          }
-        }
-        CacheUtil.put<Callback<number>>(`keyboard_num_x_id_${listenerId}`, keyboardCallBack);
-        AppUtil.getMainWindow().on("keyboardHeightChange", keyboardCallBack);
-        return 0; //成功返回-0
+  static onKeyboardListener(callback: KeyboardCallBack): void {
+    if (ArrayUtil.contain(KeyboardUtil.callBacks, callback)) {
+      LogUtil.error(`KeyboardUtil-onKeyboardListener: 监听事件已存在！`);
+    } else {
+      KeyboardUtil.callBacks.push(callback);
+    }
+    if (KeyboardUtil.keyboardCallBack === undefined) {
+      KeyboardUtil.keyboardCallBack = (height: number) => { //全局的键盘监听回调
+        KeyboardUtil.callBacks.forEach((callback) => callback?.(height > 0, height));
       }
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`KeyboardUtil-onKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return error.code; //失败返回-错误码
+      AppUtil.getMainWindow().on("keyboardHeightChange", KeyboardUtil.keyboardCallBack);
     }
   }
 
 
   /**
    * 取消订阅输入法软键盘显示或隐藏事件
-   * @param listenerId 监听事件id，不传关闭所有监听。
-   * @returns 失败返回错误码，成功返回0。
+   * @param callBack 监听事件，不传关闭所有事件。
    */
-  static removeKeyboardListener(listenerId?: number): number {
-    try {
-      if (listenerId) {
-        let keyboardCallBack = CacheUtil.get<Callback<number>>(`keyboard_listener_id_${listenerId}`);
-        if (keyboardCallBack != null && keyboardCallBack != undefined) {
-          AppUtil.getMainWindow().off('keyboardHeightChange', keyboardCallBack);
-          CacheUtil.remove(`keyboard_num_x_id_${listenerId}`);
-        }
+  static removeKeyboardListener(callback?: KeyboardCallBack): void {
+    if (callback && KeyboardUtil.callBacks.length > 1) {
+      ArrayUtil.remove(KeyboardUtil.callBacks, callback);
+    } else {
+      if (KeyboardUtil.keyboardCallBack) {
+        AppUtil.getMainWindow().off('keyboardHeightChange', KeyboardUtil.keyboardCallBack);
       } else {
         AppUtil.getMainWindow().off('keyboardHeightChange');
       }
-      return 0;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`KeyboardUtil-removeKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return error.code; //失败返回-错误码
+      KeyboardUtil.keyboardCallBack = undefined;
+      KeyboardUtil.callBacks = new Array<KeyboardCallBack>();
     }
   }
 

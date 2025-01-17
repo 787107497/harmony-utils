@@ -16,9 +16,7 @@
 import { image } from '@kit.ImageKit';
 import { componentSnapshot, window } from '@kit.ArkUI';
 import { AppUtil } from './AppUtil';
-import { CacheUtil } from './CacheUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { LogUtil } from './LogUtil';
+import { ArrayUtil } from './ArrayUtil';
 
 /**
  * TODO 组件截图和窗口截图工具类
@@ -31,6 +29,9 @@ import { LogUtil } from './LogUtil';
  * QQ交流群: 569512366
  */
 export class SnapshotUtil {
+
+  private static callBacks: Array<VoidCallback> = new Array<VoidCallback>(); //缓存的截图回调。
+  private static snapshotCallBack: VoidCallback | undefined = undefined //全局的截图监听回调
 
 
   /**
@@ -80,50 +81,37 @@ export class SnapshotUtil {
 
   /**
    * 开启系统截屏事件的监听
-   * @param listenerId 监听事件id，id具有唯一性，不能重复。
    * @param callBack 截图回调
-   * @returns 失败返回错误码，成功返回0，监听事件已存在返回-1。
    */
-  static onSnapshotListener(listenerId: number, callback: VoidCallback): number {
-    try {
-      let callBack = CacheUtil.get<Callback<number>>(`snapshot_listener_id_${listenerId}`);
-      if (callBack !== null && callBack !== undefined) {
-        LogUtil.error(`KeyboardUtil-onKeyboardListener: 监听事件已存在！`);
-        return -1; //监听事件已存在返回-1
-      } else {
-        CacheUtil.put<Callback<number>>(`snapshot_listener_id_${listenerId}`, callback);
-        AppUtil.getMainWindow().on("screenshot", callback);
-        return 0; //成功返回-0
+  static onSnapshotListener(callback: VoidCallback): void {
+    if (ArrayUtil.contain(SnapshotUtil.callBacks, callback)) {
+    } else {
+      SnapshotUtil.callBacks.push(callback);
+    }
+    if (SnapshotUtil.snapshotCallBack === undefined) {
+      SnapshotUtil.snapshotCallBack = () => { //全局的截图监听回调
+        SnapshotUtil.callBacks.forEach((callback) => callback?.());
       }
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`SnapshotUtil-onSnapshotListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return error.code; //失败返回-错误码
+      AppUtil.getMainWindow().on("screenshot", SnapshotUtil.snapshotCallBack);
     }
   }
 
 
   /**
    * 关闭系统截屏事件的监听
-   * @param listenerId 监听事件id，不传关闭所有监听。
-   * @returns 失败返回错误码，成功返回0。
+   * @param callback 监听事件，不传关闭所有监听。
    */
-  static removeSnapshotListener(listenerId?: number): number {
-    try {
-      if (listenerId) {
-        let callBack = CacheUtil.get<VoidCallback>(`snapshot_listener_id_${listenerId}`);
-        if (callBack !== null && callBack !== undefined) {
-          AppUtil.getMainWindow().off('screenshot', callBack);
-          CacheUtil.remove(`snapshot_listener_id_${listenerId}`);
-        }
+  static removeSnapshotListener(callback?: VoidCallback): void {
+    if (callback && SnapshotUtil.callBacks.length > 1) {
+      ArrayUtil.remove(SnapshotUtil.callBacks, callback);
+    } else {
+      if (SnapshotUtil.callBacks) {
+        AppUtil.getMainWindow().off('screenshot', SnapshotUtil.snapshotCallBack);
       } else {
         AppUtil.getMainWindow().off('screenshot');
       }
-      return 0;
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`SnapshotUtil-removeSnapshotListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return error.code; //失败返回-错误码
+      SnapshotUtil.snapshotCallBack = undefined;
+      SnapshotUtil.callBacks = new Array<VoidCallback>();
     }
   }
 
