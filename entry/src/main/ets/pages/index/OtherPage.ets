@@ -9,7 +9,7 @@ export struct OtherPage {
 
   onCreateSub(): void {
     let jsonStr = ResUtil.getRawFileContentStrSync('user.json');
-    let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
+    let arr = JSONUtil.jsonToArray<DescribeBean>(jsonStr);
     if (arr && arr.length > 0) {
       this.data = arr;
     }

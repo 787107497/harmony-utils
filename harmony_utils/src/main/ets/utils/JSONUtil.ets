@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 
-import { ClassConstructor, instanceToPlain, plainToClass } from 'class-transformer';
+import { JSON } from '@kit.ArkTS';
 import { LogUtil } from './LogUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
+
+
 
 /**
  * TODO JSON工具类
@@ -36,9 +38,9 @@ export class JSONUtil {
    * @param jsonStr JSON字符串
    * @returns
    */
-  static jsonToBean<T>(cls: ClassConstructor<T>, jsonStr: string): T | null {
+  static jsonToBean<T>(jsonStr: string): T | null {
     try {
-      return plainToClass(cls, JSON.parse(jsonStr), { enableImplicitConversion: false, exposeDefaultValues: true }) as T
+      return JSON.parse(jsonStr) as T;
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`JSONUtil-jsonToBean-异常 ~ code: ${error.code} -·- message: ${error.message}`);
@@ -53,9 +55,9 @@ export class JSONUtil {
    * @param jsonStr JSON字符串
    * @returns
    */
-  static jsonToArray<T>(cls: ClassConstructor<T>, jsonStr: string): Array<T> {
+  static jsonToArray<T>(jsonStr: string): Array<T> {
     try {
-      return plainToClass(cls, JSON.parse(jsonStr), { enableImplicitConversion: false, exposeDefaultValues: true }) as Array<T>
+      return JSON.parse(jsonStr) as Array<T>
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`JSONUtil-jsonToArray-异常 ~ code: ${error.code} -·- message: ${error.message}`);
@@ -74,7 +76,7 @@ export class JSONUtil {
       if (data == null || data == undefined) {
         return ''
       }
-      return JSON.stringify(instanceToPlain(data))
+      return JSON.stringify(data);
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`JSONUtil-beanToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
@@ -90,7 +92,8 @@ export class JSONUtil {
    */
   static jsonToMap(jsonStr: string): Map<string, Object> {
     try {
-      return new Map(Object.entries(JSON.parse(jsonStr)));
+      let commRecord = JSON.parse(jsonStr) as Record<string, Object>;
+      return new Map(Object.entries(commRecord));
     } catch (e) {
       return new Map();
     }

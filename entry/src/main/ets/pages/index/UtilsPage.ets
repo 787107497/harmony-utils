@@ -23,7 +23,7 @@ export struct UtilsPage {
 
   getData() {
     let jsonStr = ResUtil.getRawFileContentStrSync('data.json');
-    let arr = JSONUtil.jsonToArray(DescribeBean, jsonStr);
+    let arr = JSONUtil.jsonToArray<DescribeBean>(jsonStr);
     if (arr && arr.length > 0) {
       this.data = arr;
     }

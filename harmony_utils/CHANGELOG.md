@@ -14,6 +14,7 @@
 11. KeyboardUtil，键盘监听事件优化。
 12. SnapshotUtil，系统截图监听优化。
 13. 工具类整体代码走查与优化。
+14. JSONUtil，由于class-transformer下架，一些功能使用@ohos.util.json实现。
 ```typescript
 //1.2.6版本适配指南：
  1、PickerUtil.camera() 改为PickerUtil.cameraEasy()  或修改camera()入参。
@@ -22,6 +23,7 @@
  4、LocationUtil，offLocationChange方法参数有bool类型改为Callback。
  5、KeyboardUtil，onKeyboardListener和removeKeyboardListener方法，移除事件id参数，其他见使用案例。
  6、SnapshotUtil，onSnapshotListener和removeSnapshotListener方法，移除事件id参数，其他见使用案例。
+ 7、JSONUtil，见使用案例。
 ```
 
 ## 1.2.5（API12 - 5.0.3.906）

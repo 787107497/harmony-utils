@@ -42,14 +42,14 @@ struct Index {
           Button("jsonToBean()")
             .btnStyle()
             .onClick(() => {
-              let user = JSONUtil.jsonToBean(User, this.objStr);
+              let user = JSONUtil.jsonToBean<User>(this.objStr);
               LogUtil.error(`${user?.name} - ${user?.age} - ${user?.addr} - ${user?.work} - ${user?.id}`)
               ToastUtil.showToast("请查看Log日志");
             })
           Button("jsonToArray()")
             .btnStyle()
             .onClick(() => {
-              let array = JSONUtil.jsonToArray(DescribeBean, this.arrayStr);
+              let array = JSONUtil.jsonToArray<DescribeBean>(this.arrayStr);
               array.forEach((item, index) => {
                 LogUtil.error(`${index} - ${JSON.stringify(item)}`)
               })
