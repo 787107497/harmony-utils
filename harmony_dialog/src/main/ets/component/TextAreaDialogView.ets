@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 import { CustomContentDialog } from '@kit.ArkUI';
@@ -34,7 +32,7 @@ import { CacheHelper } from '../utils/CacheHelper';
  * QQ交流群: 569512366
  */
 @Component
-export default struct TextAreaDialogView {
+export struct TextAreaDialogView {
   private controller: TextInputController = new TextInputController()
   @Prop options: TextAreaOptions;
   @State modifier: TextAreaModifier = new TextAreaModifier();

@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 import { Orientation } from '../../../../Index';
@@ -28,7 +26,7 @@ import { ToastTipOptions } from '../model/ToastTipOptions';
  * QQ交流群: 569512366
  */
 @Component
-export default struct ToastTipView {
+export struct ToastTipView {
   @Prop options: ToastTipOptions;
 
   build() {

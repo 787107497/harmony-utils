@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 import { DialogHelper } from '../dialog/DialogHelper';
@@ -31,7 +29,7 @@ import { Helper } from '../utils/Helper';
  * QQ交流群: 569512366
  */
 @Component
-export default struct ActionSheetDialogView {
+export struct ActionSheetDialogView {
   @Prop options: BottomSheetOptions;
   @State title: string = ""; //标题
   @State fontSize: number | string | Resource = 16; //按钮的文字大小，字体大小16。
@@ -127,4 +125,6 @@ export default struct ActionSheetDialogView {
         }
       })
   }
+
+
 }

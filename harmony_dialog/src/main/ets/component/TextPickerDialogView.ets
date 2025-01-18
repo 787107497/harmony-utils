@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 
@@ -34,7 +32,7 @@ import { DialogHelper } from '../dialog/DialogHelper';
  */
 @Preview
 @Component
-export default struct TextPickerDialogView {
+export struct TextPickerDialogView {
   @Prop options: TextPickerOptions;
   @State title: string = ""; //标题
   @State primaryButton?: ButtonOptions = undefined; //弹框左侧按钮。

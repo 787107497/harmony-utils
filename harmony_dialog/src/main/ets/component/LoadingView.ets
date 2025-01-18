@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 import { SpinKit } from '@pura/spinkit';
@@ -29,7 +27,7 @@ import { Helper } from '../utils/Helper';
  * QQ交流群: 569512366
  */
 @Component
-export default struct LoadingView {
+export struct LoadingView {
   @Prop options: LoadingOptions;
   @State content: string = '';
 
@@ -62,4 +60,6 @@ export default struct LoadingView {
     .borderRadius(this.options.borderRadius)
     .shadow(this.options.shadow)
   }
+
+
 }

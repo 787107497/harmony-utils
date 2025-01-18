@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
@@ -33,7 +31,7 @@ import { Helper } from '../utils/Helper';
  */
 @Preview
 @Component
-export default struct DatePickerDialogView {
+export struct DatePickerDialogView {
   @Prop options: DateTimePickerOptions;
   @State dateType: DateType = DateType.YmdHm; //选择的日期类型
   @State startDate: Date = new Date("1900-01-01 00:00:00"); //开始日期（1900-01-01 00:00:00）

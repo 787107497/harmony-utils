@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 import { LoadingProgressOptions } from '../model/LoadingProgressOptions';
@@ -28,7 +26,7 @@ import { Helper } from '../utils/Helper';
  * QQ交流群: 569512366
  */
 @Component
-export default struct LoadingProgressView {
+export struct LoadingProgressView {
   @Prop options: LoadingProgressOptions;
   @State content: string = '';
 
@@ -79,4 +77,6 @@ export default struct LoadingProgressView {
     .borderRadius(this.options.borderRadius)
     .shadow(this.options.shadow)
   }
+
+
 }

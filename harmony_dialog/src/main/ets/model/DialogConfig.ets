@@ -11,13 +11,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 import { common } from '@kit.AbilityKit';
 import { SpinType } from '@pura/spinkit';
-import { Orientation } from '../../../../Index';
+import { Orientation } from '../utils/constraint';
 
 
 /**
