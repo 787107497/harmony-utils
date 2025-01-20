@@ -102,7 +102,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initPrimarySecondaryButton(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(AlertDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(AlertDialogBuilder), options);
     return dialogId;
   }
 
@@ -115,7 +115,7 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initDialogDefault(options);
     DialogHelper.initPrimarySecondaryButton(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ConfirmDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ConfirmDialogBuilder), options);
     return dialogId;
   }
 
@@ -129,7 +129,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initPrimarySecondaryButton(options);
     DialogHelper.initImageResSize(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TipsDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TipsDialogBuilder), options);
     return dialogId;
   }
 
@@ -142,7 +142,7 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initDialogDefault(options);
     DialogHelper.initSelect(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(SelectDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(SelectDialogBuilder), options);
     return dialogId;
   }
 
@@ -157,7 +157,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initButtons(options, true);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextInputDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextInputDialogBuilder), options);
     return dialogId;
   }
 
@@ -172,7 +172,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initButtons(options, true);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextAreaDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextAreaDialogBuilder), options);
     return dialogId;
   }
 
@@ -185,7 +185,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initButtons(options, false);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(CustomContentDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(CustomContentDialogBuilder), options);
     return dialogId;
   }
 
@@ -196,7 +196,7 @@ export class DialogHelper {
   static showBottomSheetDialog(options: BottomSheetOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initBottomSheetDefault(options, true);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(BottomSheetDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(BottomSheetDialogBuilder), options);
     return dialogId;
   }
 
@@ -207,7 +207,7 @@ export class DialogHelper {
   static showActionSheetDialog(options: BottomSheetOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initBottomSheetDefault(options, false);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ActionSheetDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ActionSheetDialogBuilder), options);
     return dialogId;
   }
 
@@ -220,7 +220,7 @@ export class DialogHelper {
   static showTextPickerDialog(options: TextPickerOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initTextPickerDefault(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextPickerDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextPickerDialogBuilder), options);
     return dialogId;
   }
 
@@ -233,7 +233,7 @@ export class DialogHelper {
   static showDatePickerDialog(options: DateTimePickerOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initTextPickerDefault(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(DatePickerDialogBuilder), options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(DatePickerDialogBuilder), options);
     return dialogId;
   }
 
@@ -245,7 +245,7 @@ export class DialogHelper {
    */
   static showCustomDialog<T extends BaseDialogOptions>(builder: WrappedBuilder<[T]>, options: T): string {
     DialogHelper.initBaseDefault(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(builder, options);
+    const dialogId = BasePromptAction.getInstance().openCustomDialog(builder, options);
     return dialogId;
   }
 
@@ -526,7 +526,7 @@ export class DialogHelper {
       options.secondaryButton = DialogHelper.config.secondaryButton
     }
     if (options.primaryButton) { //取消按钮
-      let primaryValue = Helper.getResourceStr(options.primaryButton);
+      const primaryValue = Helper.getResourceStr(options.primaryButton);
       if (primaryValue) {
         let primaryButton = new ButtonOptions();
         primaryButton.value = primaryValue;
@@ -551,7 +551,7 @@ export class DialogHelper {
       }
     }
     if (options.secondaryButton) { //确定按钮
-      let secondaryValue = Helper.getResourceStr(options.secondaryButton);
+      const secondaryValue = Helper.getResourceStr(options.secondaryButton);
       if (secondaryValue) {
         let secondaryButton = new ButtonOptions();
         secondaryButton.value = secondaryValue;
@@ -605,7 +605,7 @@ export class DialogHelper {
     if (options.buttons && options.buttons.length > 0) {
       let buttons = new Array<ButtonOptions>();
       for (let index = 0; index < options.buttons.length; index++) {
-        let btnResStr = Helper.getResourceStr(options.buttons[index]);
+        const btnResStr = Helper.getResourceStr(options.buttons[index]);
         if (btnResStr) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
@@ -742,7 +742,7 @@ export class DialogHelper {
   private static initSelect(options: SelectOptions) {
     if (options.radioContent && options.radioContent.length > 0) {
       CacheHelper.put(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`, "");
-      let radioItem = Helper.getResourceStr(options.radioContent[0]);
+      const radioItem = Helper.getResourceStr(options.radioContent[0]);
       if (radioItem) {
         let sheetInfos = new Array<SheetInfo>()
         for (let index = 0; index < options.radioContent.length; index++) {
@@ -788,7 +788,7 @@ export class DialogHelper {
               DialogHelper.closeDialog(options.dialogId ?? "");
             }
             if (options.onAction) {
-              let indexStr = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
+              const indexStr = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
               options.onAction(DialogAction.ONE, options.dialogId ?? "", indexStr);
             }
           }
@@ -801,7 +801,7 @@ export class DialogHelper {
             DialogHelper.closeDialog(options.dialogId ?? "");
           }
           if (options.onAction) {
-            let indexStr = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
+            const indexStr = CacheHelper.get<string>(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`);
             options.onAction(DialogAction.ONE, options.dialogId ?? "", indexStr);
           }
           if (confirmAction) {

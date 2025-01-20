@@ -54,7 +54,7 @@ export class BasePromptAction {
    * @param options 弹窗样式。
    */
   showToast(options: ToastOptions) {
-    let showToastOptions: promptAction.ShowToastOptions = {
+    const showToastOptions: promptAction.ShowToastOptions = {
       message: options.message ?? "",
       duration: options.duration, //默认值1500ms，取值区间：1500ms-10000ms。若小于1500ms则取默认值，若大于10000ms则取上限值10000ms。
       textColor: options.fontColor ?? Color.Black, // 文本提示框文本颜色。默认值：Color.Black
@@ -105,8 +105,8 @@ export class BasePromptAction {
    */
   private openBaseCustomDialog<T extends BaseDialogOptions>(uiContext: UIContext, wrappedBuilder: WrappedBuilder<[T]>, options: T) {
     if (!this.exist(options.dialogId ?? "")) { //判断dialogId是否存在
-      let componentContent = new ComponentContent(uiContext, wrappedBuilder, options);
-      let option: promptAction.BaseDialogOptions = {
+      const componentContent = new ComponentContent(uiContext, wrappedBuilder, options);
+      const option: promptAction.BaseDialogOptions = {
         alignment: options.alignment, //弹窗的对齐方式。
         offset: options.offset, //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
         maskRect: options.maskRect, //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
@@ -140,7 +140,7 @@ export class BasePromptAction {
         },
       }
       this.addArg(options.dialogId ?? "", uiContext, componentContent); //显示弹框时，添加
-      let promptAction = uiContext.getPromptAction();
+      const promptAction = uiContext.getPromptAction();
       promptAction.openCustomDialog(componentContent, option);
     } else {
       console.error(`该弹框已存在，dialogId：${options.dialogId}`);
@@ -154,10 +154,10 @@ export class BasePromptAction {
    */
   closeCustomDialog(dialogId: string) {
     try {
-      let promptActionArg = this.getArgById(dialogId);
+      const promptActionArg = this.getArgById(dialogId);
       if (promptActionArg && promptActionArg.uiContext) {
-        let promptAction = promptActionArg.uiContext.getPromptAction();
-        let componentContent = promptActionArg.componentContent;
+        const promptAction = promptActionArg.uiContext.getPromptAction();
+        const componentContent = promptActionArg.componentContent;
         if (componentContent) {
           promptAction.closeCustomDialog(componentContent).then(() => {
             componentContent.dispose(); //立即释放当前ComponentContent
@@ -165,7 +165,7 @@ export class BasePromptAction {
         }
       }
     } catch (e) {
-      let error = e as BusinessError;
+      const error = e as BusinessError;
       console.info(`closeCustomDialog-Error ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
@@ -175,7 +175,7 @@ export class BasePromptAction {
    * 刷新自定义弹窗
    */
   update<T extends BaseDialogOptions>(dialogId: string, params: T) {
-    let promptActionArg: PromptActionArg | undefined = this.getArgById(dialogId);
+    const promptActionArg: PromptActionArg | undefined = this.getArgById(dialogId);
     if (promptActionArg) {
       promptActionArg.componentContent.update(params);
     }
@@ -186,7 +186,7 @@ export class BasePromptAction {
    * 是否存在自定义弹窗
    */
   exist(dialogId: string): boolean {
-    let arg = this.getArgById(dialogId);
+    const arg = this.getArgById(dialogId);
     return arg != undefined;
   }
 
@@ -216,7 +216,7 @@ export class BasePromptAction {
    * @param componentContent
    */
   private addArg(dialogId: string, uiContext: UIContext, componentContent: ComponentContent<Object>) {
-    let arg: PromptActionArg = { dialogId: dialogId, uiContext: uiContext, componentContent: componentContent }
+    const arg: PromptActionArg = { dialogId: dialogId, uiContext: uiContext, componentContent: componentContent }
     this.caches.unshift(arg);
   }
 
@@ -226,8 +226,8 @@ export class BasePromptAction {
    * @param dialogId
    */
   private removeArg(dialogId: string) {
-    let args = BasePromptAction.getInstance().caches;
-    let index = args.findIndex((item) => item.dialogId == dialogId);
+    const args = BasePromptAction.getInstance().caches;
+    const index = args.findIndex((item) => item.dialogId == dialogId);
     if (index >= 0) {
       args.splice(index, 1);
     }
@@ -239,7 +239,7 @@ export class BasePromptAction {
    */
   onDestroy(dialogId?: string) {
     if (dialogId && dialogId.length > 0) {
-      let key = `${CacheHelper.CACHE_LABEL}${dialogId}`;
+      const key = `${CacheHelper.CACHE_LABEL}${dialogId}`;
       if (CacheHelper.has(key)) {
         CacheHelper.remove(key); //清除缓存
       }
