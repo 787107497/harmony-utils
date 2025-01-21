@@ -223,14 +223,14 @@ export class WantUtil {
    * @param telephone
    * @returns
    */
-  static async startMMS(contactsName: string, telephone: string): Promise<void> {
+  static async startMMS(telephone: string, contactsName: string = ''): Promise<void> {
     const want: Want = {
       bundleName: 'com.ohos.mms',
       abilityName: 'com.ohos.mms.MainAbility',
       parameters: {
         contactObjects: JSON.stringify([{
-          contactsName: contactsName,
-          telephone: telephone
+          telephone: telephone,
+          contactsName: contactsName
         }]),
         pageFlag: 'conversation'
       }
