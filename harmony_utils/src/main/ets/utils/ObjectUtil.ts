@@ -174,4 +174,15 @@ export class ObjectUtil {
   }
 
 
+  /**
+   * 根据key获取值value
+   * @param obj
+   * @param key
+   * @returns
+   */
+  static getValue<T>(obj: Object, key: string): T {
+    return obj[key] as T;
+  }
+
+
 }

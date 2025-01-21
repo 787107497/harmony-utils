@@ -1,9 +1,10 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil } from '@pura/harmony-utils';
+import { LogUtil, ObjectUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { User } from '../../entity/User';
+import { JSON } from '@kit.ArkTS';
 
 /**
  * 日志工具类
@@ -74,7 +75,7 @@ struct Index {
               LogUtil.print(user);   //过滤Tag为 JSAPP
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

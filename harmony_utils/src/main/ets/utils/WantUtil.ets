@@ -228,10 +228,10 @@ export class WantUtil {
       bundleName: 'com.ohos.mms',
       abilityName: 'com.ohos.mms.MainAbility',
       parameters: {
-        contactObjects: JSON.stringify({
+        contactObjects: JSON.stringify([{
           contactsName: contactsName,
           telephone: telephone
-        }),
+        }]),
         pageFlag: 'conversation'
       }
     };
