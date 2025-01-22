@@ -19,6 +19,7 @@ import geoLocationManager from '@ohos.geoLocationManager';
 import { BusinessError, Callback } from '@ohos.base';
 import { LogUtil } from './LogUtil';
 import { PermissionUtil } from './PermissionUtil';
+import { map, mapCommon } from '@kit.MapKit';
 
 
 /**
@@ -269,6 +270,19 @@ export class LocationUtil {
       return defaultMsg
     }
   }
+
+
+  /**
+   * 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米。
+   * @returns
+   */
+  static calculateDistance(fromLat: number, fromLng: number, toLat: number, toLng: number): number {
+    let fromLatLng: mapCommon.LatLng = { latitude: fromLat, longitude: fromLng };
+    let toLatLng: mapCommon.LatLng = { latitude: toLat, longitude: toLng };
+    return map.calculateDistance(fromLatLng, toLatLng);
+  }
+
+
 
 
 }

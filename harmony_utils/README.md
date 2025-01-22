@@ -438,6 +438,7 @@ OpenHarmony ohpm
 | getAddressFromLocation        | 逆地理编码,将坐标转换为地理描述      |
 | getGeoAddressFromLocation     | 逆地理编码,将坐标转换为地理描述集合    |
 | getCountryCode                | 获取当前的国家码              |
+| calculateDistance             | 计算这两个点间的直线距离，单位为米     |
 
 ## LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)
 

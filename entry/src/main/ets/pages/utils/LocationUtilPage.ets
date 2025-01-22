@@ -169,6 +169,13 @@ struct Index {
               let code = await LocationUtil.getCountryCode();
               ToastUtil.showToast(`当前的国家码：${code}`);
             })
+          Button("calculateDistance()")
+            .btnStyle()
+            .onClick(() => {
+              let distance = LocationUtil.calculateDistance(38, 118, 39, 119);
+              LogUtil.error(`距离：${distance}米`);
+              ToastUtil.showToast(`距离：${distance}米`);
+            })
 
           Text(this.addrStr)
             .visibility(StrUtil.isNotEmpty(this.addrStr) ? Visibility.Visible : Visibility.None)
