@@ -4,6 +4,7 @@ import { JSONUtil, LogUtil, ResUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../entity/DescribeBean';
 import { User } from '../../entity/User';
+import { JSON } from '@kit.ArkTS';
 
 /**
  * JSON工具类
@@ -21,7 +22,6 @@ struct Index {
   mock() {
     this.describe = new DescribeBean("JSONUtil", "JSON工具类");
   }
-
 
   aboutToAppear(): void {
     ResUtil.getRawFileContentStr('data.json').then((result) => {
@@ -46,6 +46,14 @@ struct Index {
               LogUtil.error(`${user?.name} - ${user?.age} - ${user?.addr} - ${user?.work} - ${user?.id}`)
               ToastUtil.showToast("请查看Log日志");
             })
+          Button("beanToJsonStr()")
+            .btnStyle()
+            .onClick(() => {
+              let user: User = new User();
+              let str = JSONUtil.beanToJsonStr(user);
+              LogUtil.error(`JSON字符串： ${str}`)
+              ToastUtil.showToast("请查看Log日志")
+            })
           Button("jsonToArray()")
             .btnStyle()
             .onClick(() => {
@@ -60,18 +68,19 @@ struct Index {
             .onClick(() => {
               let map = JSONUtil.jsonToMap(this.mapStr);
               map.forEach((value, key) => {
-                LogUtil.error(`${key} - ${value}`)
+                LogUtil.error(`${key} - ${value}`);
               })
-              ToastUtil.showToast("请查看Log日志")
+              ToastUtil.showToast("请查看Log日志");
             })
-          Button("beanToJsonStr()")
+          Button("mapToJsonStr()")
             .btnStyle()
             .onClick(() => {
-              let user: User = new User();
-              let str = JSONUtil.beanToJsonStr(user);
-              LogUtil.error(`JSON字符串： ${str}`)
-              ToastUtil.showToast("请查看Log日志")
+              let map = JSONUtil.jsonToMap(this.mapStr);
+              let JsonStr = JSONUtil.mapToJsonStr(map);
+              LogUtil.error("JsonStr: " + JsonStr);
+              ToastUtil.showToast("请查看Log日志");
             })
+
           Button("isJSONStr()")
             .btnStyle()
             .onClick(() => {
@@ -83,7 +92,7 @@ struct Index {
               ToastUtil.showToast("请查看Log日志")
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -110,5 +119,10 @@ function textStyle() {
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
   .backgroundColor(Color.White)
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
+  .border({
+    width: 1,
+    color: Color.Grey,
+    radius: 10,
+    style: BorderStyle.Dashed
+  })
 }

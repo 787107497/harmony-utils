@@ -1,5 +1,21 @@
 # 版本记录
 
+## 1.2.7（API12 - 5.0.3.906）
+1. ObjectUtil，新增getValue。
+2. JSONUtil，新增mapToJsonStr。
+3. WantUtil，startMMS()，调整参数。
+
+```typescript
+//1.2.7版本适配指南：
+//startMMS(telephone: string, contactsName)，参数telephone,contactsName调整了下位置，并且参数contactsName可不传。
+WantUtil.startMMS("13909666520").then(() => {
+  ToastUtil.showToast("拉起短信界面…")
+}).catch((err: BusinessError) => {
+  LogUtil.error(JSON.stringify(err));
+  ToastUtil.showToast("拉起失败！");
+});
+```
+
 ## 1.2.6（API12 - 5.0.3.906）
 1. PhotoHelper，新增showAssetsCreationDialog、showAssetsCreationDialogEasy、applyChanges；并优化代码。
 2. PickerUtil，新增若干方法和优化代码。

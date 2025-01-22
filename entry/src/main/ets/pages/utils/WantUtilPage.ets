@@ -132,12 +132,12 @@ struct Index {
           Button("startMMS()")
             .btnStyle()
             .onClick(() => {
-              ToastUtil.showToast("拉起短信界面并指定联系人…")
-              WantUtil.startMMS("张三", "13909626520")
-                .catch((err: BusinessError) => {
-                  LogUtil.error(JSON.stringify(err));
-                  ToastUtil.showToast("拉起失败！");
-                });
+              WantUtil.startMMS("13909626520", "张三").then(() => {
+                ToastUtil.showToast("拉起短信界面…")
+              }).catch((err: BusinessError) => {
+                LogUtil.error(JSON.stringify(err));
+                ToastUtil.showToast("拉起失败！");
+              });
             })
           Button("openFile()")
             .btnStyle()

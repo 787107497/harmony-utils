@@ -175,7 +175,7 @@ export class ObjectUtil {
 
 
   /**
-   * 根据key获取值value
+   * 通过key获取对象值
    * @param obj
    * @param key
    * @returns

@@ -18,7 +18,6 @@ import { LogUtil } from './LogUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 
-
 /**
  * TODO JSON工具类
  * author: 桃花镇童长老ᥫ᭡
@@ -30,8 +29,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
  * QQ交流群: 569512366
  */
 export class JSONUtil {
-
-
   /**
    * JSON字符串转Class对象
    * @param cls 类名
@@ -45,6 +42,24 @@ export class JSONUtil {
       let error = err as BusinessError;
       LogUtil.error(`JSONUtil-jsonToBean-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return null
+    }
+  }
+
+  /**
+   * 对象转JSON字符串
+   * @param data
+   * @returns JSON字符串
+   */
+  static beanToJsonStr(data: Object | Array<Object | String | Number | Boolean> | null | undefined): string {
+    try {
+      if (data == null || data == undefined) {
+        return ''
+      }
+      return JSON.stringify(data);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`JSONUtil-beanToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return ""
     }
   }
 
@@ -67,25 +82,6 @@ export class JSONUtil {
 
 
   /**
-   * 对象转字符串
-   * @param data
-   * @returns 字符串
-   */
-  static beanToJsonStr(data: Object | Array<Object | String | Number | Boolean> | null | undefined): string {
-    try {
-      if (data == null || data == undefined) {
-        return ''
-      }
-      return JSON.stringify(data);
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`JSONUtil-beanToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-      return ""
-    }
-  }
-
-
-  /**
    * JSON转Map
    * @param jsonStr
    * @returns
@@ -101,6 +97,27 @@ export class JSONUtil {
 
 
   /**
+   * Map转JSON字符串
+   * @param data
+   * @returns JSON字符串
+   */
+  static mapToJsonStr(map: Map<string, Object>): string {
+    try {
+      let jsonObject: Record<string, Object> = {};
+      map.forEach((value, key) => {
+        if (key !== undefined && value !== undefined) {
+          jsonObject[key] = value;
+        }
+      })
+      return JSON.stringify(jsonObject);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`JSONUtil-mapToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      return ""
+    }
+  }
+
+  /**
    * 判断是否是字符串格式json
    * @param str 待验证字符串
    * @returns
@@ -113,6 +130,4 @@ export class JSONUtil {
       return false;
     }
   }
-
-
 }

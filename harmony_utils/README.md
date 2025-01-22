@@ -660,16 +660,18 @@ OpenHarmony ohpm
 | assign          | 合并两个或多个对象                        |
 | objToClass      | obj转class，解决obj as class后丢失方法的问题 |
 | deleteRecord    | 删除Record中的元素                     |
+| getValue        | 通过key获取对象值                       |
 
 ## JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
 
-| 方法            | 介绍              |
-|:--------------|:----------------|
-| jsonToBean    | JSON字符串转Class对象 |
-| jsonToArray   | JSON字符串转Array   |
-| jsonToMap     | JSON转Map        |
-| beanToJsonStr | 对象转字符串          |
-| isJSONStr     | 判断是否是字符串格式json  |
+| 方法            | 介绍             |
+|:--------------|:---------------|
+| jsonToBean    | JSON字符串转对象     |
+| beanToJsonStr | 对象转JSON字符串     |
+| jsonToArray   | JSON字符串转Array  |
+| jsonToMap     | JSON字符串转Map    |
+| mapToJsonStr  | Map转JSON字符串    |
+| isJSONStr     | 判断是否是字符串格式json |
 
 ## ClickUtil（节流、防抖 工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ClickUtilPage.ets)
 
