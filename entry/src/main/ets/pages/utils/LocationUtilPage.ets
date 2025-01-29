@@ -55,10 +55,10 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               LocationUtil.getCurrentLocationEasy().then((location) => {
-                LocationUtil.getGeoAddressFromLocation(location.latitude, location.longitude,2).then((address) => {
-                  this.addrStr = `当前位置：\n${JSON.stringify(address, null, 2)}`;
+                this.addrStr = `当前位置1：\n${JSON.stringify(location, null, 2)}\n\n`;
+                LocationUtil.getGeoAddressFromLocation(location.latitude, location.longitude, 2).then((address) => {
+                  this.addrStr = this.addrStr + `当前位置2：\n${JSON.stringify(address, null, 2)}`;
                 })
-                // this.addrStr = `当前位置：\n${JSON.stringify(location, null, 2)}`;
               }).catch((err: BusinessError) => {
                 this.addrStr = `当前位置~异常信息：\n错误码： ${err.code}\n错误信息：${err.message}`;
               });

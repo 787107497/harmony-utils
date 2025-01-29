@@ -39,7 +39,7 @@ export interface BasePickerOptions extends BaseDialogOptions {
   actionCancel?: boolean; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
   width?: Dimension | Length; //设置弹窗的宽度，弹窗宽度默认值：'100%'。
   maxWidth?: Length; //弹窗宽度默认最大值：360vp。
-  backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.White
+  backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.Transparent
   backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
   cornerRadius?: Length; //设置背板的圆角半径。可分别设置4个圆角的半径，默认15。
   shadow?: ShadowOptions | ShadowStyle; //设置弹窗背板的阴影。

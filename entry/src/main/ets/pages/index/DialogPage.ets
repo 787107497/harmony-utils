@@ -439,12 +439,16 @@ export struct DialogPage {
     if (index == 0) {
       //简单使用
       DialogHelper.showTextInputDialog({
+        autoCancel: false,
+        backCancel: false,
+        actionCancel: false,
         text: this.inputText,
         onAction: (action, dialogId, content) => {
           if (action == DialogAction.SURE) {
             this.inputText = content;
             ToastUtil.showToast(content);
           }
+          DialogHelper.closeDialog(dialogId);
         }
       })
     } else if (index == 1) {
@@ -817,8 +821,8 @@ export struct DialogPage {
         title: "请选择日期",
         dateType: DateType.YmdHm,
         // selected: new Date("2999-12-16 19:20:35"),
-        // start: new Date("2025-12-16 20:30:25"),
-        // end: new Date("2025-12-16 20:30:25"),
+        start:new Date("1976-01-01 00:00:00"),
+        end: new Date(),
         onAction: (action: number, dialogId: string, date: Date): void => {
           if (action == DialogAction.SURE) {
             let dateStr = DateUtil.getFormatDateStr(date, "yyyy-MM-dd HH:mm");

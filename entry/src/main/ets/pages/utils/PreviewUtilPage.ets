@@ -129,6 +129,14 @@ struct Index {
                 LogUtil.error(`onSharePreview-异常 ~ code: ${error.code} -·- message: ${error.message}`);
               });
             })
+
+          Button("getTypeDescriptor()")
+            .btnStyle()
+            .onClick(() => {
+              let mimeType = PreviewUtil.getTypeDescriptor("png");
+              let mimeType2 = PreviewUtil.getMimeType("txt");
+
+            })
           Button("getMimeType()")
             .btnStyle()
             .onClick(() => {

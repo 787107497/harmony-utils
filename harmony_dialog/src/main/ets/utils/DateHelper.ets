@@ -119,7 +119,7 @@ export class DateHelper {
    * 是否是同一年
    */
   static isSameYear(selectDate: Date, date: Date) {
-    return selectDate.getFullYear() == date.getFullYear();
+    return selectDate.getFullYear() === date.getFullYear();
   }
 
   /**

@@ -197,30 +197,42 @@ export struct DatePickerDialogView {
       .width('100%')
 
       Row() {
-        this.TextPickerView({ range : this.years, value: this.year, contain: this.containYear,layoutWeight: 10, callback: (value) => {
-          this.year = value as string;
-          this.onChangeData(1);
-        }})
-        this.TextPickerView({ range : this.months, value: this.month, contain: this.containMonth,layoutWeight: 9, callback: (value) => {
-          this.month = value as string;
-          this.onChangeData(2);
-        }})
-        this.TextPickerView({ range : this.days, value: this.day, contain: this.containDay,layoutWeight: 9, callback: (value) => {
-          this.day = value as string;
-          this.onChangeData(3);
-        }})
-        this.TextPickerView({ range : this.hours, value: this.hour, contain: this.containHour,layoutWeight: 9, callback: (value) => {
-          this.hour = value as string;
-          this.onChangeData(4);
-        }})
-        this.TextPickerView({ range : this.minutes, value: this.minute, contain: this.containMinute,layoutWeight: 9, callback: (value) => {
-          this.minute = value as string;
-          this.onChangeData(5);
-        }})
-        this.TextPickerView({ range : this.seconds, value: this.second, contain: this.containSecond,layoutWeight: 9, callback: (value) => {
-          this.second = value as string;
-          this.onChangeData(6);
-        }})
+        TextPicker({ range: this.years, value: this.year })
+          .TextPickerStyle(this.options, this.containYear, 10)
+          .onChange((value) => {
+            this.year = value as string;
+            this.onChangeData(1);
+          })
+        TextPicker({ range: this.months, value: this.month })
+          .TextPickerStyle(this.options, this.containMonth, 9)
+          .onChange((value) => {
+            this.month = value as string;
+            this.onChangeData(2);
+          })
+        TextPicker({ range: this.days, value: this.day })
+          .TextPickerStyle(this.options, this.containDay, 9)
+          .onChange((value) => {
+            this.day = value as string;
+            this.onChangeData(3);
+          })
+        TextPicker({ range: this.hours, value: this.hour })
+          .TextPickerStyle(this.options, this.containYear, 9)
+          .onChange((value) => {
+            this.hour = value as string;
+            this.onChangeData(4);
+          })
+        TextPicker({ range: this.minutes, value: this.minute })
+          .TextPickerStyle(this.options, this.containMinute, 9)
+          .onChange((value) => {
+            this.minute = value as string;
+            this.onChangeData(5);
+          })
+        TextPicker({ range: this.seconds, value: this.second })
+          .TextPickerStyle(this.options, this.containSecond, 9)
+          .onChange((value) => {
+            this.second = value as string;
+            this.onChangeData(6);
+          })
       }
       .alignItems(VerticalAlign.Center)
       .justifyContent(FlexAlign.Center)
@@ -228,6 +240,7 @@ export struct DatePickerDialogView {
       .width('100%')
     }
     .backgroundColor(this.options.backgroundColor)
+    .backgroundBlurStyle(this.options.backgroundBlurStyle)
     .borderRadius(this.options.cornerRadius)
     .clip(true)
     .justifyContent(FlexAlign.Center)
@@ -238,29 +251,17 @@ export struct DatePickerDialogView {
     .margin({ bottom: this.largeScreen ? 30 : 0 })
   }
 
-
-  @Builder
-  TextPickerView(data: TextPickerViewParams) {
-    TextPicker({
-      range: data.range,
-      value: data.value
-    })
-      .layoutWeight(data.layoutWeight)
-      .textStyle(this.options.textStyle)
-      .selectedTextStyle(this.options.selectedTextStyle)
-      .disappearTextStyle(this.options.disappearTextStyle)
-      .divider(this.options.divider)
-      .canLoop(this.options.canLoop)
-      .visibility(data.contain ? Visibility.Visible : Visibility.None)
-      .onChange(data.callback)
-  }
-
-
 }
-interface TextPickerViewParams {
-  range: string[];
-  value: string;
-  contain: boolean;
-  layoutWeight: number;
-  callback: (value: string | string[], index: number | number[]) => void
+
+
+//TextPicker统一样式
+@Extend(TextPicker)
+function TextPickerStyle(options: DateTimePickerOptions, contain: boolean, layoutWeight: number) {
+  .visibility(contain ? Visibility.Visible : Visibility.None)
+  .layoutWeight(layoutWeight)
+  .textStyle(options.textStyle)
+  .selectedTextStyle(options.selectedTextStyle)
+  .disappearTextStyle(options.disappearTextStyle)
+  .divider(options.divider)
+  .canLoop(options.canLoop)
 }
