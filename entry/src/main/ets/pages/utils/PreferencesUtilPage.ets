@@ -178,7 +178,6 @@ function textStyle() {
   .padding(10)
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   .margin({ top: 5, bottom: 10 })
-  .backgroundColor(Color.White)
   .border({
     width: 1,
     color: Color.Grey,

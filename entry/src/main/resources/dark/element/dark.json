@@ -2,15 +2,15 @@
   "color": [
     {
       "name": "start_window_background",
-      "value": "#FFFFFF"
+      "value": "#000000"
     },
     {
       "name": "main_background",
-      "value": "#FAFAFA"
+      "value": "#060606"
     },
     {
       "name": "bar_background",
-      "value": "#FFFFFF"
+      "value": "#000000"
     },
     {
       "name": "color_main",
@@ -18,11 +18,11 @@
     },
     {
       "name": "color_default",
-      "value": "#666666"
+      "value": "#DDDDDD"
     },
     {
       "name": "color_line",
-      "value": "#ECECEC"
+      "value": "#3C3C3C"
     },
     {
       "name": "color_cancel",
@@ -30,7 +30,7 @@
     },
     {
       "name": "card_background",
-      "value": "#FFFFFF"
+      "value": "#333333"
     },
     {
       "name": "color_33",
