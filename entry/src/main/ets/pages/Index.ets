@@ -1,8 +1,8 @@
 import { UtilsPage } from './index/UtilsPage';
 import { DialogPage } from './index/DialogPage';
 import { SpinKitPage } from './index/SpinKitPage';
-import { OtherPage } from './index/OtherPage';
-import { RoomPage } from './index/RoomPage';
+import { MyPage } from './index/MyPage';
+import { TabItemView } from '../component/TabItemView';
 
 /**
  * 主页面
@@ -32,17 +32,12 @@ struct Index {
       TabContent() {
         SpinKitPage()
       }
-      .tabBar(this.tabBuilder(2, $r("app.media.icon_tab_spin"), "动画"))
+      .tabBar(this.tabBuilder(2, $r("app.media.icon_tab_plug"), "插件"))
 
       TabContent() {
-        RoomPage()
+        MyPage()
       }
-      .tabBar(this.tabBuilder(3, $r('app.media.icon_tab_room'), "艺术"))
-
-      TabContent() {
-        OtherPage()
-      }
-      .tabBar(this.tabBuilder(4, $r('app.media.icon_tab_mine'), "我的"))
+      .tabBar(this.tabBuilder(3, $r("app.media.icon_tab_my"), "我的"))
     }
     .divider({ strokeWidth: 1, color: $r('app.color.color_line') })
     .backgroundColor($r('app.color.main_background'))
@@ -59,29 +54,12 @@ struct Index {
   }
 
   /**
-   *
-   * @param index
-   * @param icon
-   * @param text
+   * Tab菜单
    */
   @Builder
   tabBuilder(index: number, icon: string | Resource, text: string | Resource) {
-    Column() {
-      Image(icon)
-        .width(26)
-        .height(26)
-        .objectFit(ImageFit.Auto)
-        .fillColor(index == this.index ? $r('app.color.color_main') : $r('app.color.color_default'))
-      Text(text)
-        .fontSize(15)
-        .fontColor(index == this.index ? $r('app.color.color_main') : $r('app.color.color_default'))
-        .fontStyle(FontStyle.Normal)
-        .margin({ top: 5 })
-        .fontFamily('MyFont')
-    }
-    .backgroundColor(Color.Transparent)
-    .alignItems(HorizontalAlign.Center)
-    .justifyContent(FlexAlign.Center)
-    .alignSelf(ItemAlign.Center)
+    TabItemView({ text: text, icon: icon, check: index === this.index })
   }
+
+
 }

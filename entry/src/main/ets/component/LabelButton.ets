@@ -1,26 +1,35 @@
+
 @Component
 export struct LabelButton {
   @Prop label: string;
-  @Prop content: string;
+  @Prop content: string = "";
   @Prop num: number = 4;
+  @Prop buttons: string[] = ["案例一", "案例二", "案例三", "案例四"];
   onClickAction?: (index: number) => void;
+
+  aboutToAppear(): void {
+    const n = this.buttons?.length ?? 0;
+    if (this.num > n) {
+      this.num = n;
+    }
+  }
 
   build() {
     Column() {
       Text(this.label)
         .fontColor($r('app.color.color_main'))
         .fontWeight(FontWeight.Bold)
-        .fontSize(24)
+        .fontSize(this.label.length < 12 ? 24 : 21)
         .fontFamily('MyFont')
         .margin({ top: 10, left: 10, right: 10 })
       Text(this.content ?? "")
-        .fontColor('#666666')
+        .fontColor($r('app.color.card_label'))
         .fontSize(16)
         .fontFamily('MyFont')
         .margin({ top: 5, bottom: 16, left: 10, right: 10 })
       Row() {
         Blank().layoutWeight(1)
-        Button("案例一")
+        Button(this.buttons[0])
           .type(ButtonType.Capsule)
           .fontFamily('MyFont')
           .grayscale(0.1)
@@ -30,7 +39,7 @@ export struct LabelButton {
             }
           })
         Blank().layoutWeight(1)
-        Button("案例二")
+        Button(this.buttons[1])
           .type(ButtonType.Capsule)
           .fontFamily('MyFont')
           .opacity(0.9)
@@ -40,7 +49,7 @@ export struct LabelButton {
             }
           })
         Blank().layoutWeight(1)
-        Button("案例三")
+        Button(this.buttons[2])
           .type(ButtonType.Capsule)
           .fontFamily('MyFont')
           .opacity(0.9)
@@ -53,7 +62,7 @@ export struct LabelButton {
           .visibility(this.num >= 3 ? Visibility.Visible : Visibility.None)
         Blank().layoutWeight(1)
           .visibility(this.num >= 3 ? Visibility.Visible : Visibility.None)
-        Button("案例四")
+        Button(this.buttons[3])
           .type(ButtonType.Capsule)
           .fontFamily('MyFont')
           .onClick(() => {
@@ -68,7 +77,7 @@ export struct LabelButton {
       .width('100%')
     }
     .width('95%')
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.card_background'))
     .border({ width: 2, color: $r('app.color.color_line') })
     .shadow(ShadowStyle.OUTER_DEFAULT_SM)
     .margin({ top: 12 })

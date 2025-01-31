@@ -3,6 +3,7 @@ import { AnimationHelper, DateType, DialogAction, DialogHelper, Orientation } fr
 import { DateUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { LabelButton } from '../../component/LabelButton';
+import { TitleView } from '../../component/TitleView';
 import { DrawerOptions } from '../../utils/DrawerOptions';
 import { MyCustomOptions } from '../../utils/MyCustomOptions';
 
@@ -113,7 +114,7 @@ export struct DialogPage {
       config.toast_duration = 1500; //显示时长(1500ms-10000ms)
       config.toast_durationLong = 5000; //显示时长
     });
-    ToastUtil.showToast("统一配置设置成功！");
+    ToastUtil.showToast("统二配置设置成功！");
   }
 
   /**
@@ -1097,56 +1098,22 @@ export struct DialogPage {
 
   build() {
     Column() {
-      Text("弹框指南")
-        .fontFamily('MyFont')
-        .fontSize(24)
-        .fontWeight(FontWeight.Bold)
-        .textAlign(TextAlign.Center)
-        .height(50)
-        .width('100%')
-        .backgroundColor(Color.White)
-
-      Divider()
+      TitleView({ title: "弹框指南" })
       Scroll(this.scroller) {
         Column() {
-          Column() {
-            Text("弹框，加载框、吐司 的统一配置")
-              .fontFamily('MyFont')
-              .fontColor($r('app.color.color_main'))
-              .fontWeight(FontWeight.Bold)
-              .fontSize(20)
-              .margin({ top: 10, left: 10, right: 10, bottom: 12 })
-            Row() {
-              Blank().layoutWeight(1)
-              Button("配置一")
-                .fontFamily('MyFont')
-                .type(ButtonType.Capsule)
-                .grayscale(0.1)
-                .onClick(() => this.customConfig1())
-              Blank().layoutWeight(1)
-              Button("配置二")
-                .fontFamily('MyFont')
-                .type(ButtonType.Capsule)
-                .opacity(0.9)
-                .onClick(() => this.customConfig2())
-              Blank().layoutWeight(1)
-              Button("默认的配置")
-                .fontFamily('MyFont')
-                .type(ButtonType.Capsule)
-                .opacity(0.9)
-                .grayscale(0.1)
-                .onClick(() => this.defaultConfig())
-              Blank().layoutWeight(1)
+          LabelButton({
+            label: "弹框，加载框、吐司 的统一配置",
+            buttons:["配置一", "配置二", "默认的配置"],
+            onClickAction: (index: number): void => {
+              if (index === 0) {
+                this.customConfig1();
+              } else if (index === 1) {
+                this.customConfig2();
+              } else {
+                this.defaultConfig();
+              }
             }
-            .width('100%')
-          }
-          .width('95%')
-          .backgroundColor(Color.White)
-          .border({ width: 2, color: $r('app.color.color_line') })
-          .shadow(ShadowStyle.OUTER_DEFAULT_SM)
-          .margin({ top: 12 })
-          .borderRadius(6)
-          .padding({ top: 10, bottom: 10, left: 2, right: 2 })
+          })
 
           LabelButton({
             label: "AlertDialog",

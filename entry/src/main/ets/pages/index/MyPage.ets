@@ -1,9 +1,10 @@
 import { JSONUtil, ResUtil, WantUtil } from '@pura/harmony-utils';
+import { TitleView } from '../../component/TitleView';
 import { DescribeBean } from '../../entity/DescribeBean';
 
 @Preview
 @Component
-export struct OtherPage {
+export struct MyPage {
   private scroller: Scroller = new Scroller();
   @State data: Array<DescribeBean> = [];
 
@@ -17,16 +18,7 @@ export struct OtherPage {
 
   build() {
     Column() {
-      Text("我的")
-        .fontFamily('MyFont')
-        .fontSize(24)
-        .fontWeight(FontWeight.Bold)
-        .textAlign(TextAlign.Center)
-        .height(50)
-        .width('100%')
-        .backgroundColor(Color.White)
-
-      Divider()
+      TitleView({ title: "我的" })
       Scroll(this.scroller) {
         Column() {
           Row() {
@@ -37,19 +29,17 @@ export struct OtherPage {
             Column({ space: 0 }) {
               Text("桃花镇童长老")
                 .fontFamily('MyFont')
-                .fontColor(Color.Black)
                 .fontWeight(FontWeight.Bold)
                 .fontSize(26)
               Text("༺工程师༻")
                 .fontFamily('MyFont')
-                .fontColor(Color.Brown)
+                .fontColor($r('app.color.color_main'))
                 .fontWeight(FontWeight.Lighter)
                 .fontStyle(FontStyle.Italic)
                 .fontSize(16)
                 .margin({ top: 6 })
               Text("QQ交流群：569512366")
                 .fontFamily('MyFont')
-                .fontColor(Color.Black)
                 .fontWeight(FontWeight.Regular)
                 .fontStyle(FontStyle.Italic)
                 .fontSize(18)
@@ -57,11 +47,10 @@ export struct OtherPage {
             }
             .alignItems(HorizontalAlign.Start)
             .margin({ left: 12 })
-
           }
           .padding(20)
           .width("100%")
-          .backgroundColor(Color.White)
+          .backgroundColor($r('app.color.card_background'))
           .margin({ bottom: 15 })
 
           ForEach(this.data, (item: DescribeBean, index: number) => {
@@ -83,22 +72,24 @@ export struct OtherPage {
   @Builder
   itemView(item: DescribeBean, index: number) {
     Column() {
-      Divider().visibility(index == 0 ? Visibility.None : Visibility.Visible)
+      Divider()
+        .backgroundColor($r('app.color.color_line'))
+        .visibility(index == 0 ? Visibility.None : Visibility.Visible)
       Row() {
         Text(item.name)
           .fontFamily('MyFont')
           .fontSize(20)
-          .fontColor($r('app.color.color_33'))
+          .fontColor($r('app.color.card_label'))
           .layoutWeight(1)
           .margin(5)
         Image($r('app.media.icon_right'))
-          .fillColor($r('app.color.color_cc'))
+          .fillColor($r('app.color.card_right'))
           .size({ width: 16, height: 16 })
       }
       .width('100%')
       .padding(15)
       .alignItems(VerticalAlign.Center)
-      .backgroundColor(Color.White)
+      .backgroundColor($r('app.color.card_background'))
       .onClick(() => {
         WantUtil.toWebBrowser(item.url); //跳转系统浏览器
       })

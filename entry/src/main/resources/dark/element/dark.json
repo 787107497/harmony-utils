@@ -6,7 +6,7 @@
     },
     {
       "name": "main_background",
-      "value": "#060606"
+      "value": "#0D0D0D"
     },
     {
       "name": "bar_background",
@@ -22,7 +22,7 @@
     },
     {
       "name": "color_line",
-      "value": "#3C3C3C"
+      "value": "#303030"
     },
     {
       "name": "color_cancel",
@@ -30,7 +30,15 @@
     },
     {
       "name": "card_background",
-      "value": "#333333"
+      "value": "#202020"
+    },
+    {
+      "name": "card_label",
+      "value": "#F0F0F0"
+    },
+    {
+      "name": "card_right",
+      "value": "#A0A0A0"
     },
     {
       "name": "color_33",

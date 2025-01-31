@@ -33,6 +33,14 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "card_label",
+      "value": "#666666"
+    },
+    {
+      "name": "card_right",
+      "value": "#CCCCCC"
+    },
+    {
       "name": "color_33",
       "value": "#333333"
     },

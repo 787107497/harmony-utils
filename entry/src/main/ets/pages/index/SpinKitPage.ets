@@ -1,6 +1,7 @@
 import { router } from '@kit.ArkUI';
 import { DialogHelper, SpinType } from '@pura/harmony-dialog';
 import { ClickUtil, ToastUtil } from '@pura/harmony-utils';
+import { TitleView } from '../../component/TitleView';
 
 @Component
 export struct SpinKitPage {
@@ -8,16 +9,7 @@ export struct SpinKitPage {
 
   build() {
     Column() {
-      Text("SpinKit动画")
-        .fontFamily('MyFont')
-        .fontSize(24)
-        .fontWeight(FontWeight.Bold)
-        .textAlign(TextAlign.Center)
-        .height(50)
-        .width('100%')
-        .backgroundColor(Color.White)
-
-      Divider()
+      TitleView({ title: "SpinKit动画" })
       Scroll(this.scroller) {
         Column({ space: 15 }) {
           Button('SpinKit')
@@ -37,6 +29,7 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .backgroundColor(Color.Grey)
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               DialogHelper.setDefaultConfig((config) => {
                 config.loading_loadType = SpinType.spinZ; //动画类型
@@ -56,6 +49,7 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .backgroundColor(Color.Grey)
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               DialogHelper.setDefaultConfig((config) => {
                 config.loading_loadType = SpinType.spinH; //动画类型
@@ -75,7 +69,8 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
-            .backgroundColor($r('app.color.color_dd'))
+            .backgroundColor($r('app.color.card_background'))
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               ClickUtil.throttle(() => {
                 let dialogId = DialogHelper.showLoadingDialog({ autoCancel: false })
@@ -89,7 +84,8 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
-            .backgroundColor($r('app.color.color_dd'))
+            .backgroundColor($r('app.color.card_background'))
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               ClickUtil.throttle(() => {
                 let dialogId = DialogHelper.showLoadingDialog({
@@ -109,7 +105,8 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
-            .backgroundColor($r('app.color.color_dd'))
+            .backgroundColor($r('app.color.card_background'))
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               ClickUtil.throttle(() => {
                 DialogHelper.showLoadingDialog({
@@ -124,7 +121,8 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
-            .backgroundColor($r('app.color.color_dd'))
+            .backgroundColor($r('app.color.card_background'))
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               ClickUtil.throttle(() => {
                 DialogHelper.showLoadingDialog({
@@ -138,7 +136,8 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
-            .backgroundColor($r('app.color.color_dd'))
+            .backgroundColor($r('app.color.card_background'))
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               ClickUtil.throttle(() => {
                 DialogHelper.showLoadingDialog({
@@ -160,7 +159,8 @@ export struct SpinKitPage {
             .fontFamily('MyFont')
             .width('100%')
             .fontColor($r('app.color.color_main'))
-            .backgroundColor($r('app.color.color_dd'))
+            .backgroundColor($r('app.color.card_background'))
+            .shadow(ShadowStyle.OUTER_DEFAULT_MD)
             .onClick(() => {
               ClickUtil.throttle(() => {
                 //自定义文字和加载动画的颜色
