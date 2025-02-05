@@ -276,7 +276,16 @@ export class LocationUtil {
    * 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米。
    * @returns
    */
-  static calculateDistance(fromLat: number, fromLng: number, toLat: number, toLng: number): number {
+  static calculateDistance(from: mapCommon.LatLng, to: mapCommon.LatLng): number {
+    return map.calculateDistance(from, to);
+  }
+
+
+  /**
+   * 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米。
+   * @returns
+   */
+  static calculateDistanceEasy(fromLat: number, fromLng: number, toLat: number, toLng: number): number {
     let fromLatLng: mapCommon.LatLng = { latitude: fromLat, longitude: fromLng };
     let toLatLng: mapCommon.LatLng = { latitude: toLat, longitude: toLng };
     return map.calculateDistance(fromLatLng, toLatLng);

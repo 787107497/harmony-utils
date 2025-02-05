@@ -5,6 +5,7 @@ import { DescribeBean } from '../../entity/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { geoLocationManager } from '@kit.LocationKit';
 import { TitleBarView } from '../../component/TitleBarView';
+import { mapCommon } from '@kit.MapKit';
 
 /**
  * 定位工具类(WGS-84坐标系)
@@ -169,12 +170,15 @@ struct Index {
               let code = await LocationUtil.getCountryCode();
               ToastUtil.showToast(`当前的国家码：${code}`);
             })
-          Button("calculateDistance()")
+          Button("calculateDistance()\ncalculateDistanceEasy()")
             .btnStyle()
             .onClick(() => {
-              let distance = LocationUtil.calculateDistance(38, 118, 39, 119);
-              LogUtil.error(`距离：${distance}米`);
-              ToastUtil.showToast(`距离：${distance}米`);
+              let fromLatLng: mapCommon.LatLng = { latitude: 38, longitude: 118 };
+              let toLatLng: mapCommon.LatLng = { latitude: 38.5, longitude: 118.5 };
+              let distance1 = LocationUtil.calculateDistance(fromLatLng, toLatLng);
+              let distance2 = LocationUtil.calculateDistanceEasy(38, 118, 39, 119);
+              LogUtil.error(`距离1：${distance1}米\t\t距离2：${distance2}米`);
+              ToastUtil.showToast(`距离1：${distance1}米\t\t距离2：${distance2}米`);
             })
 
           Text(this.addrStr)

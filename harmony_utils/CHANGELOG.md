@@ -1,9 +1,12 @@
 # 版本记录
 
+## 1.2.8（API12 - 5.0.3.906）
+1. 代码以及权限优化。
+
 ## 1.2.7（API12 - 5.0.3.906）
 1. ObjectUtil，新增 getValue。
 2. JSONUtil，新增 mapToJsonStr。
-3. LocationUtil，新增 calculateDistance。
+3. LocationUtil，新增 calculateDistance,calculateDistanceEasy。
 4. WantUtil，startMMS()，调整参数。
 ```typescript
 //1.2.7版本适配指南：
