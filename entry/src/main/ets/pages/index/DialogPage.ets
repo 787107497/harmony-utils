@@ -1263,6 +1263,9 @@ export struct DialogPage {
 @Builder
 function DrawerBuilder(options: DrawerOptions) {
   Column() {
+    TextInput()
+      .width("100%")
+      .margin(10)
     Text(options.msg)
       .fontColor(Color.Blue)
       .fontWeight(FontWeight.Bold)
@@ -1286,10 +1289,13 @@ function DrawerBuilder(options: DrawerOptions) {
       })
     Blank().layoutWeight(1)
   }
-  .height("100%")
+  // .height("100%")
+  .layoutWeight(1)
   .width(options.width)
   .padding(10)
-  .backgroundColor(Color.White)
+  .backgroundColor(Color.Red)
+  .padding({bottom:300})
+  // .expandSafeArea()
 }
 
 //自定义弹框

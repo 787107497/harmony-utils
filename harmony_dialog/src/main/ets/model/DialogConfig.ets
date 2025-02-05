@@ -86,11 +86,11 @@ export class DialogConfig {
   picker_textStyle?: PickerTextStyle; //设置所有选项中除了最上、最下及选中项以外的文本颜色、字号、字体粗细。
   picker_selectedTextStyle?: PickerTextStyle; //设置选中项的文本颜色、字号、字体粗细。
   picker_disappearTextStyle?: PickerTextStyle; //设置所有选项中最上和最下两个选项的文本颜色、字号、字体粗细。
-  picker_divider: DividerOptions = { strokeWidth: '2px', startMargin: 0, endMargin: 0, color: '#33000000' }; //设置分割线样式，不设置该属性则按“默认值”展示分割线。
+  picker_divider: DividerOptions = { strokeWidth: 1, startMargin: 0, endMargin: 0, color: $r('app.color.harmony_dialog_divider_color') }; //设置分割线样式，不设置该属性则按“默认值”展示分割线。
   picker_canLoop: boolean = true; //设置是否可循环滚动。
 
-  picker_titleFontColor: ResourceColor = $r("sys.color.ohos_id_picker_title_text_color"); //弹框标题的字体颜色。
-  picker_titleBackground: ResourceColor = "#F9F9F9"; //头部背景颜色
+  picker_titleFontColor: ResourceColor = $r("app.color.harmony_dialog_title_color"); //弹框标题的字体颜色。
+  picker_titleBackground: ResourceColor = $r('app.color.harmony_dialog_title_background'); //头部背景颜色
   picker_buttonFontColor: ResourceColor = $r("sys.color.ohos_id_picker_button_text_color"); //按钮颜色
   //--------------------------------------选择器弹框Picker----------------------------------------------------------------
 

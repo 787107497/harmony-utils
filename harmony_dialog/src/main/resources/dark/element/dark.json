@@ -2,19 +2,19 @@
   "color": [
     {
       "name": "harmony_dialog_title_color",
-      "value": "#333333"
+      "value": "#FFFFFF"
     },
     {
       "name": "harmony_dialog_title_background",
-      "value": "#F3F3F3"
+      "value": "#2B2B2B"
     },
     {
       "name": "harmony_dialog_text_color",
-      "value": "#333333"
+      "value": "#FFFFFF"
     },
     {
       "name": "harmony_dialog_divider_color",
-      "value": "#EDEDED"
+      "value": "#282828"
     }
   ]
 }

@@ -157,6 +157,7 @@ export struct TextPickerDialogView {
         })
     }
     .backgroundColor(this.options.backgroundColor)
+    .backgroundBlurStyle(this.options.backgroundBlurStyle)
     .borderRadius(this.options.cornerRadius)
     .clip(true)
     .justifyContent(FlexAlign.Center)

@@ -78,7 +78,7 @@ export struct CardButton {
     }
     .width('95%')
     .backgroundColor($r('app.color.card_background'))
-    .border({ width: 2, color: $r('app.color.color_line') })
+    .border({ width: 0.5, color: $r('app.color.color_line') })
     .shadow(ShadowStyle.OUTER_DEFAULT_SM)
     .margin({ top: 12 })
     .borderRadius(6)
