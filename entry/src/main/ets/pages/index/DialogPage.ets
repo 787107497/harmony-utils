@@ -2,7 +2,7 @@ import { AreaHelper } from '@nutpi/china_area';
 import { AnimationHelper, DateType, DialogAction, DialogHelper, Orientation } from '@pura/harmony-dialog';
 import { DateUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
-import { LabelButton } from '../../component/LabelButton';
+import { CardButton } from '../../component/CardButton';
 import { TitleView } from '../../component/TitleView';
 import { DrawerOptions } from '../../utils/DrawerOptions';
 import { MyCustomOptions } from '../../utils/MyCustomOptions';
@@ -1101,7 +1101,7 @@ export struct DialogPage {
       TitleView({ title: "弹框指南" })
       Scroll(this.scroller) {
         Column() {
-          LabelButton({
+          CardButton({
             label: "弹框，加载框、吐司 的统一配置",
             buttons:["配置一", "配置二", "默认的配置"],
             onClickAction: (index: number): void => {
@@ -1115,91 +1115,91 @@ export struct DialogPage {
             }
           })
 
-          LabelButton({
+          CardButton({
             label: "AlertDialog",
             content: "操作确认类弹出框",
             onClickAction: (index: number): void => this.alertDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "ConfirmDialog",
             content: "信息确认类弹出框",
             onClickAction: (index: number): void => this.confirmDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "TipsDialog",
             content: "提示弹出框",
             onClickAction: (index: number): void => this.tipsDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "SelectDialog",
             content: "选择类弹出框",
             num: 3,
             onClickAction: (index: number): void => this.selectDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "TextInputDialog",
             content: "单行文本输入弹出框",
             num: 3,
             onClickAction: (index: number): void => this.textInputDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "TextAreaDialog",
             content: "多行文本输入弹出框",
             num: 3,
             onClickAction: (index: number): void => this.textAreaDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "CustomContentDialog",
             content: "显示自定义内容区弹出框，同时支持定义操作区按钮样式",
             num: 3,
             onClickAction: (index: number): void => this.customContentDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "BottomSheetDialog",
             content: "显示动作面板",
             num: 3,
             onClickAction: (index: number): void => this.bottomSheetDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "ActionSheetDialog",
             content: "显示动作面板（IOS风格）",
             num: 3,
             onClickAction: (index: number): void => this.actionSheetDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "TextPickerDialog",
             content: "选择器弹框-TextPicker",
             num: 4,
             onClickAction: (index: number): void => this.textPickerDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "DatePickerDialog",
             content: "日期选择器弹框",
             num: 4,
             onClickAction: (index: number): void => this.datePickerDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "CustomDialog",
             content: "自定义弹窗",
             onClickAction: (index: number): void => this.customDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "LoadingDialog",
             content: "进度加载类弹出框",
             onClickAction: (index: number): void => this.loadingDialog(index)
           })
-          LabelButton({
+          CardButton({
             label: "LoadingProgress",
             content: "进度条加载弹框",
             num: 3,
             onClickAction: (index: number): void => this.loadingProgress(index)
           })
-          LabelButton({
+          CardButton({
             label: "Toast",
             content: "自定义的吐司",
             onClickAction: (index: number): void => this.toast(index)
           })
-          LabelButton({
+          CardButton({
             label: "ToastTip",
             content: "带图标的吐司Tip",
             onClickAction: (index: number): void => this.toastTip(index)

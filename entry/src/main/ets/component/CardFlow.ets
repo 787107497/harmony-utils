@@ -2,22 +2,22 @@ import { DescribeBean } from '../entity/DescribeBean';
 
 @Preview
 @ComponentV2
-export struct CardLabel {
+export struct CardFlow {
   @Require @Param describe: DescribeBean;
 
   build() {
     Column() {
       Text(this.describe.name)
-        .fontFamily('MyFont')
-        .fontSize(26)
+        .fontSize(20)
+        .fontColor($r('app.color.color_main'))
         .fontWeight(FontWeight.Bold)
+        .fontStyle(FontStyle.Italic)
+        .fontFamily('MyFont')
         .width('100%')
+
       Text(this.describe.desc)
         .fontFamily('MyFont')
-        .fontSize(16)
-        .fontColor($r('app.color.color_main'))
-        .fontStyle(FontStyle.Italic)
-        .width('100%')
+        .fontSize(14)
         .margin({ top: 8 })
     }
     .alignItems(HorizontalAlign.Start)
@@ -26,11 +26,12 @@ export struct CardLabel {
     .border({
       width: 0.5,
       color: $r('app.color.color_line'),
-      radius: 6,
+      radius: 5,
       style: BorderStyle.Solid
     })
+
+    .margin({ top: 5, bottom: 5 })
     .padding({ left: 18, top: 15, right: 18, bottom: 15 })
-    .margin({ left: 15, top: 10, right: 15, bottom: 5 })
   }
 
 

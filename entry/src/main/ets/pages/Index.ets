@@ -1,6 +1,6 @@
 import { UtilsPage } from './index/UtilsPage';
 import { DialogPage } from './index/DialogPage';
-import { SpinKitPage } from './index/SpinKitPage';
+import { PlugPage } from './index/PlugPage';
 import { MyPage } from './index/MyPage';
 import { TabItemView } from '../component/TabItemView';
 
@@ -30,7 +30,7 @@ struct Index {
       .tabBar(this.tabBuilder(1, $r('app.media.icon_tab_dialog'), "弹框"))
 
       TabContent() {
-        SpinKitPage()
+        PlugPage()
       }
       .tabBar(this.tabBuilder(2, $r("app.media.icon_tab_plug"), "插件"))
 

@@ -1,15 +1,19 @@
-import { router } from '@kit.ArkUI';
+import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { DialogHelper, SpinType } from '@pura/harmony-dialog';
 import { ClickUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleView } from '../../component/TitleView';
 
-@Component
+@Entry
+@ComponentV2
 export struct SpinKitPage {
   private scroller: Scroller = new Scroller();
 
   build() {
     Column() {
-      TitleView({ title: "SpinKit动画" })
+      ComposeTitleBar({
+        title: "SpinKit动画",
+        subtitle: $r('app.string.spinKit_desc'),
+      })
       Scroll(this.scroller) {
         Column({ space: 15 }) {
           Button('SpinKit')

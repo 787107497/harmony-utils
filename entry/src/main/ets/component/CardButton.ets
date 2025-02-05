@@ -1,6 +1,6 @@
 
 @Component
-export struct LabelButton {
+export struct CardButton {
   @Prop label: string;
   @Prop content: string = "";
   @Prop num: number = 4;

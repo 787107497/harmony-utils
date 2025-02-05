@@ -12,7 +12,6 @@ export struct TitleView {
         .textAlign(TextAlign.Center)
         .height(48)
         .width('100%')
-
         .backgroundColor($r('app.color.bar_background'))
 
       Divider()
