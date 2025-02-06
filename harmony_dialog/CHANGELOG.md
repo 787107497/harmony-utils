@@ -1,5 +1,9 @@
 # 版本记录
 
+## 1.1.2
+1. 修复DatePickerDialog, 部分场景下显示异常。
+2. 新增支持深色模式。
+
 ## 1.1.1
 1. 修复Toast, 全局参数alignment不起作用问题。
 2. Toast，新增全局参数toast_alignment（当该值为undefined时alignment值起作用）。
