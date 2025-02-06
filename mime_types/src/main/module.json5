@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "mime_types",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  }
+}

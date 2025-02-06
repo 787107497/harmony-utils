@@ -65,6 +65,10 @@
     {
       "name": "china_area",
       "srcPath": "./china_area",
+    },
+    {
+      "name": "mime_types",
+      "srcPath": "./mime_types",
     }
   ]
 }
