@@ -2,7 +2,7 @@
 
 ## 🏆简介与推荐
 
-[mime-types](https://ohpm.openharmony.cn/#/cn/detail/nutpi%2Fmime-types)
+[mime-types](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Fmime-types)
 主要用于处理和确定文件的 MIME 类型。
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
