@@ -2,7 +2,7 @@
 
 ## 🏆简介与推荐
 
-[mime-types](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fmime-types)
+[mime-types](https://ohpm.openharmony.cn/#/cn/detail/nutpi%2Fmime-types)
 主要用于处理和确定文件的 MIME 类型。
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
@@ -19,7 +19,7 @@ OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 <br>
 
-## 📚API详解 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
+## 📚API详解 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/plug/MimeTypesPage.ets)
 
 | Mime方法名                          | 介绍                                       |
 |:---------------------------------|:-----------------------------------------|

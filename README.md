@@ -8,7 +8,13 @@
 AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、TextPickerDialog、DatePickerDialog、CustomDialog、LoadingDialog、LoadingProgress、Toast、ToastTip
 等多种类型，能够满足各种不同的弹窗开发需求。
 
+[harmony-web](https://gitee.com/tongyuyan/harmony-utils/tree/master/harmony_web)
+是一款基于鸿蒙 WebView 打造的功能强大且极易上手的库，它不仅轻巧灵便、灵活度极高，还提供了一系列针对鸿蒙 WebView
+的问题解决方案，助力开发者轻松应对各类开发挑战。
+
 [SpinKit](https://gitee.com/tongyuyan/harmony-utils/tree/master/spinkit) 是一个适用于OpenHarmony/HarmonyOS的加载动画库。
+
+[mime-types](https://gitee.com/tongyuyan/harmony-utils/tree/master/mime_types) 主要用于处理和确定文件的 MIME 类型。
 
 [china_area](https://gitee.com/tongyuyan/harmony-utils/tree/master/china_area) 中国区域数据，省市县三级数据。
 
