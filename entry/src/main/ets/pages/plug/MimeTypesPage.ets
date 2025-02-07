@@ -1,10 +1,16 @@
 import { ComposeTitleBar } from '@kit.ArkUI';
+import { Mime } from '@pura/mime-types';
 
 
 @Entry
 @ComponentV2
 export struct MimeTypesPage {
   private scroller: Scroller = new Scroller();
+
+
+  aboutToAppear(): void {
+    Mime.lookup("");
+  }
 
   build() {
     Column() {
