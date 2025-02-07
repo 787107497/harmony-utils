@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "harmony_web",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  }
+}
