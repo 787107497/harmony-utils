@@ -11,8 +11,10 @@
     //本地引用
     "@pura/harmony-utils": "file:../harmony_utils",
     "@pura/harmony-dialog": "file:../harmony_dialog",
+    "@pura/harmony-web": "file:../harmony_web",
     "@pura/spinkit": "file:../spinkit",
-    "@nutpi/china_area": "file:../china_area",
+    "@pura/mime-types": "file:../mime_types",
+    "@nutpi/china_area": "file:../china_area"
 //    "@pura/harmony-utils": "file:./libs/harmony_utils.har",
   }
 }

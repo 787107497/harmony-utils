@@ -13,7 +13,7 @@ struct Index {
   build() {
     Column() {
       ComposeTitleBar({
-        title: $r('app.string.spinKit'),
+        title: $r('app.string.spin_kit'),
         subtitle: $r('app.string.spinKit_desc'),
       })
       Divider()
