@@ -9,7 +9,7 @@ export struct MyPage {
   @State data: Array<DescribeBean> = [];
 
   onCreateSub(): void {
-    let jsonStr = ResUtil.getRawFileContentStrSync('user.json');
+    let jsonStr = ResUtil.getRawFileContentStrSync('data_user.json');
     let arr = JSONUtil.jsonToArray<DescribeBean>(jsonStr);
     if (arr && arr.length > 0) {
       this.data = arr;

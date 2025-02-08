@@ -52,8 +52,12 @@
     "pages/crypto/DESPage",
     "pages/crypto/RSAPage",
     "pages/crypto/ECDSAPage",
+    "pages/spinkit/SpinKitPage",
     "pages/spinkit/SpinKit1",
-    "pages/spinkit/SpinKit2"
+    "pages/spinkit/SpinKit2",
+    "pages/plug/ArkWebPage",
+    "pages/plug/ChinaAreaPage",
+    "pages/plug/MimeTypesPage"
   ],
   "window": {
     "designWidth": 750,

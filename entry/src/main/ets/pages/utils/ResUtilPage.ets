@@ -170,7 +170,7 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let uint8Array1 = ResUtil.getRawFileContentSync('demo/demo.txt');
-              let uint8Array2 = await ResUtil.getRawFileContent('data.json');
+              let uint8Array2 = await ResUtil.getRawFileContent('data_utils.json');
               let str3 = ResUtil.getRawFileContentStrSync("demo/demo.txt");
               let str4 = await ResUtil.getRawFileContentStr("demo/test.txt");
               let s1 = FileUtil.getFormatFileSize(uint8Array1.byteLength);

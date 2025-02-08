@@ -1,19 +1,20 @@
-import { ComposeTitleBar, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { DialogHelper, SpinType } from '@pura/harmony-dialog';
 import { ClickUtil, ToastUtil } from '@pura/harmony-utils';
-import { TitleView } from '../../component/TitleView';
+import { TitleBarView } from '../../component/TitleBarView';
+import { DescribeBean } from '../../entity/DescribeBean';
 
 @Entry
 @ComponentV2
 export struct SpinKitPage {
   private scroller: Scroller = new Scroller();
+  @Local describe: DescribeBean = router.getParams() as DescribeBean;
+
 
   build() {
     Column() {
-      ComposeTitleBar({
-        title: "SpinKit动画",
-        subtitle: $r('app.string.spinKit_desc'),
-      })
+      TitleBarView({ describe: this.describe })
+      Divider()
       Scroll(this.scroller) {
         Column({ space: 15 }) {
           Button('SpinKit')
@@ -187,5 +188,9 @@ export struct SpinKitPage {
       .layoutWeight(1)
       .width('100%')
     }
+    .width('100%')
+    .height('100%')
+    .backgroundColor($r('app.color.main_background'))
   }
+
 }

@@ -24,7 +24,7 @@ struct Index {
   }
 
   aboutToAppear(): void {
-    ResUtil.getRawFileContentStr('data.json').then((result) => {
+    ResUtil.getRawFileContentStr('data_utils.json').then((result) => {
       this.arrayStr = result;
     })
   }

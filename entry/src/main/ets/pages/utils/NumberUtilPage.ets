@@ -59,7 +59,7 @@ struct Index {
               ToastUtil.showToast("请查看Log日志")
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

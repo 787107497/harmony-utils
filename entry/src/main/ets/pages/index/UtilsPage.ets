@@ -24,7 +24,7 @@ export struct UtilsPage {
   }
 
   getData() {
-    let jsonStr = ResUtil.getRawFileContentStrSync('data.json');
+    let jsonStr = ResUtil.getRawFileContentStrSync('data_utils.json');
     let arr = JSONUtil.jsonToArray<DescribeBean>(jsonStr);
     if (arr && arr.length > 0) {
       this.data = arr;
@@ -47,10 +47,7 @@ export struct UtilsPage {
     } else if (describe.type == 2) {
       url = `pages/crypto/${describe.name}Page`;
     }
-    router.pushUrl({
-      url: url,
-      params: describe
-    })
+    router.pushUrl({ url: url, params: describe })
   }
 
 

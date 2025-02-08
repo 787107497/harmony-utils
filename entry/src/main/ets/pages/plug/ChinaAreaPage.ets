@@ -6,10 +6,11 @@ import { DescribeBean } from '../../entity/DescribeBean';
 
 @Entry
 @ComponentV2
-export struct MimeTypesPage {
+export struct ChinaAreaPage {
   private scroller: Scroller = new Scroller();
   @Local describe: DescribeBean = router.getParams() as DescribeBean;
   @Local txtStr: string = "";
+
 
   aboutToAppear(): void {
 
@@ -42,6 +43,7 @@ export struct MimeTypesPage {
     .height('100%')
     .backgroundColor($r('app.color.main_background'))
   }
+
 }
 
 

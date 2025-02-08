@@ -2,6 +2,7 @@ import { JSONUtil, ResUtil } from '@pura/harmony-utils';
 import { CardFlow } from '../../component/CardFlow';
 import { TitleView } from '../../component/TitleView';
 import { DescribeBean } from '../../entity/DescribeBean';
+import { router } from '@kit.ArkUI';
 
 @ComponentV2
 export struct PlugPage {
@@ -13,11 +14,8 @@ export struct PlugPage {
   }
 
   getData() {
-    let jsonStr = ResUtil.getRawFileContentStrSync('data.json');
-    let arr = JSONUtil.jsonToArray<DescribeBean>(jsonStr);
-    if (arr && arr.length > 0) {
-      this.data = arr;
-    }
+    let jsonStr = ResUtil.getRawFileContentStrSync('data_plug.json');
+    this.data = JSONUtil.jsonToArray<DescribeBean>(jsonStr);
   }
 
   build() {
@@ -27,15 +25,20 @@ export struct PlugPage {
         ForEach(this.data, (value: DescribeBean, index: number) => {
           FlowItem() {
             CardFlow({ describe: value })
+              .onClick(() => {
+                router.pushUrl({ url: value.url, params: value });
+              })
           }
         }, (item: DescribeBean, index: number) => `${index}-${item.name}-${item.desc}`)
       }
       .columnsTemplate('1fr 1fr')
-      .columnsGap(10)
+      .columnsGap(0)
       .rowsGap(0)
-      .padding({ top: 3, bottom: 3, left: 10, right: 10 })
+      .padding({ top: 1, bottom: 1 })
+      .margin({ left: 5, right: 5 })
       .layoutWeight(1)
-      .width('100%')
     }
+    .width('100%')
   }
+
 }

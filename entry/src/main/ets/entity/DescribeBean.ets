@@ -6,6 +6,7 @@ export class DescribeBean {
   code: string = ''; //源代码地址
   url: string = ''; //url地址
 
+
   constructor(name: string, desc: string, type: number = 0) {
     this.name = name;
     this.desc = desc;

@@ -17,7 +17,7 @@ export struct CardFlow {
 
       Text(this.describe.desc)
         .fontFamily('MyFont')
-        .fontSize(14)
+        .fontSize(15)
         .margin({ top: 8 })
     }
     .alignItems(HorizontalAlign.Start)
@@ -29,8 +29,7 @@ export struct CardFlow {
       radius: 5,
       style: BorderStyle.Solid
     })
-
-    .margin({ top: 5, bottom: 5 })
+    .margin(5)
     .padding({ left: 18, top: 15, right: 18, bottom: 15 })
   }
 
