@@ -1,9 +1,13 @@
 import { router } from '@kit.ArkUI';
+import { AreaHelper } from '@nutpi/china_area';
+import { DialogHelper } from '@pura/harmony-dialog';
 import { StrUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../entity/DescribeBean';
 
-
+/**
+ * @nutpi/china_area，使用案例
+ */
 @Entry
 @ComponentV2
 export struct ChinaAreaPage {
@@ -22,18 +26,19 @@ export struct ChinaAreaPage {
       Divider()
       Scroll(this.scroller) {
         Column({ space: 5 }) {
-          Button("摘要，异步/同步")
+          Button("getAreaStr()")
             .btnStyle()
             .onClick(async () => {
-
+AreaHelper.getAreaStr();
             })
 
+
+
+          Blank().layoutWeight(1)
 
           Text(this.txtStr)
             .visibility(StrUtil.isNotEmpty(this.txtStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
-
-          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
