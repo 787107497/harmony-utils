@@ -1,6 +1,6 @@
 {
   "name": "@nutpi/china_area",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "中国区域数据，省市县三级数据。",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",
@@ -12,12 +12,18 @@
   "dynamicDependencies": {},
   "keywords": [
     "中国区域数据",
+    "城市数据",
     "省市县",
-    "picker"
+    "picker",
+    "openharmony",
+    "HarmonyOS"
   ],
   "tags": [
     "中国区域数据",
+    "城市数据",
     "省市县",
-    "picker"
+    "picker",
+    "openharmony",
+    "HarmonyOS"
   ]
 }

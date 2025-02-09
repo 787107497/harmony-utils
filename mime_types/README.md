@@ -37,9 +37,6 @@ OpenHarmony ohpm
 使用过程中发现任何问题都可以提 [Issue](https://gitee.com/tongyuyan/harmony-utils/issues) 给我们；   
 当然，我们也非常欢迎你给我们发 [PR](https://gitee.com/tongyuyan/harmony-utils/pulls) 。
 
-[https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)   
-[https://github.com/787107497](https://github.com/787107497)
-
 鸿蒙技术交流QQ群：1029219059
 
 ## 🌏开源协议
