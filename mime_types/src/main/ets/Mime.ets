@@ -101,7 +101,8 @@ export class Mime {
    */
   static getTypeDescriptorByFileExtension(fileExtention: string, belongsTo?: string): uniformTypeDescriptor.TypeDescriptor {
     fileExtention = fileExtention.startsWith('.') ? fileExtention : `.${fileExtention}`;
-    const dataType = uniformTypeDescriptor.getUniformDataTypeByFilenameExtension(fileExtention, belongsTo);
+    const dataType = belongsTo ? uniformTypeDescriptor.getUniformDataTypeByFilenameExtension(fileExtention, belongsTo) :
+    uniformTypeDescriptor.getUniformDataTypeByFilenameExtension(fileExtention);
     const typeDescriptor = uniformTypeDescriptor.getTypeDescriptor(dataType);
     return typeDescriptor;
   }
