@@ -372,7 +372,7 @@ export struct DialogPage {
       })
     } else if (index == 1) {
       //自定义标题，内容，底部弹出框
-      DialogHelper.showSelectDialog({
+      let dialogID = DialogHelper.showSelectDialog({
         title: "请选择",
         content: "选择您中意的文本菜单",
         alignment: DialogAlignment.Bottom, //底部弹出
@@ -381,9 +381,11 @@ export struct DialogPage {
         radioContent: ["文本菜单选项一", "文本菜单选项二", "文本菜单选项三", "文本菜单选项四", "文本菜单选项五"],
         onCheckedChanged: (index) => {
           ToastUtil.showToast(`${index}`);
+          DialogHelper.closeDialog(dialogID);
         },
         onAction: (action, dialogId, value) => {
           ToastUtil.showToast(`${action} --- ${value}`);
+          DialogHelper.closeDialog(dialogId);
         }
       })
     } else if (index == 2) {
