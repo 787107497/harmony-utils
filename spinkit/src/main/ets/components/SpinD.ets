@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
 
 
@@ -25,18 +23,18 @@
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinD {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.White;
-  @State x1: number = 0;
-  @State y1: number = 0;
-  @State scale1: number = 1;
-  @State angle1: number = 0;
-  @State x2: number = this.spinSize * 0.65;
-  @State y2: number = this.spinSize * 0.65;
-  @State scale2: number = 1;
-  @State angle2: number = 0;
+  @Require @Param spinSize: number = 36;
+  @Require @Param spinColor: ResourceColor;
+  @Local x1: number = 0;
+  @Local y1: number = 0;
+  @Local scale1: number = 1;
+  @Local angle1: number = 0;
+  @Local x2: number = this.spinSize * 0.65;
+  @Local y2: number = this.spinSize * 0.65;
+  @Local scale2: number = 1;
+  @Local angle2: number = 0;
 
   aboutToAppear(): void {
     this.x2 = this.spinSize * 0.65;

@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
 
 import { SpinType } from '../SpinType';
@@ -31,10 +29,15 @@ import { SpinL } from './SpinL';
 import { SpinM } from './SpinM';
 import { SpinN } from './SpinN';
 import { SpinO } from './SpinO';
-import { SpinP } from './SpinP';
 import { SpinQ } from './SpinQ';
+import { SpinP } from './SpinP';
 import { SpinR } from './SpinR';
 import { SpinS } from './SpinS';
+import { SpinT } from './SpinT';
+import { SpinU } from './SpinU';
+import { SpinV } from './SpinV';
+import { SpinW } from './SpinW';
+import { SpinX } from './SpinX';
 
 
 /**
@@ -46,11 +49,11 @@ import { SpinS } from './SpinS';
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinKit {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.White;
-  @State spinType: SpinType = SpinType.spinA
+  @Param spinSize: number = 36;
+  @Param spinColor: ResourceColor = Color.White;
+  @Param spinType: SpinType = SpinType.spinA;
 
   build() {
     if (this.spinType == SpinType.spinA) {
@@ -92,10 +95,20 @@ export struct SpinKit {
     } else if (this.spinType == SpinType.spinS) {
       SpinS({ spinSize: this.spinSize, spinColor: this.spinColor })
     } else if (this.spinType == SpinType.spinT) {
+      SpinT({ spinSize: this.spinSize, spinColor: this.spinColor })
+    } else if (this.spinType == SpinType.spinU) {
+      SpinU({ spinSize: this.spinSize, spinColor: this.spinColor })
+    } else if (this.spinType == SpinType.spinV) {
+      SpinV({ spinSize: this.spinSize, spinColor: this.spinColor })
+    } else if (this.spinType == SpinType.spinW) {
+      SpinW({ spinSize: this.spinSize, spinColor: this.spinColor })
+    } else if (this.spinType == SpinType.spinX) {
+      SpinX({ spinSize: this.spinSize, spinColor: this.spinColor })
+    } else if (this.spinType == SpinType.spinY) {
       Progress({ value: 0, total: 100, type: ProgressType.Ring })
         .height(this.spinSize).width(this.spinSize)
         .color(this.spinColor)
-        .style({ strokeWidth: 10, status: ProgressStatus.LOADING })
+        .style({ strokeWidth: this.spinSize * 0.12, status: ProgressStatus.LOADING })
     } else {
       LoadingProgress()
         .height(this.spinSize).width(this.spinSize)

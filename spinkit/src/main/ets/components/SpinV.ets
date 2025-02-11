@@ -24,51 +24,65 @@
  * QQ交流群: 569512366
  */
 @ComponentV2
-export struct SpinB {
+export struct SpinV {
   @Require @Param spinSize: number;
   @Require @Param spinColor: ResourceColor;
-  @Local scale1: number = 0;
-  @Local scale2: number = 1;
+  @Local angle1: number = 0;
+  @Local scale2: number = 0.5;
 
   build() {
     Stack() {
       Canvas()
-        .scale({ x: this.scale1, y: this.scale1 })
-        .bounceStyle()
+        .width(this.spinSize)
+        .height(this.spinSize)
+        .border({
+          width: this.spinSize * 0.08,
+          radius: this.spinSize,
+          color: { top: this.spinColor, bottom: this.spinColor, left: Color.Transparent, right: Color.Transparent },
+        })
+        .rotate({ angle: this.angle1 })
+
       Canvas()
+        .width(this.spinSize * 0.4)
+        .height(this.spinSize * 0.4)
+        .border({
+          width: this.spinSize * 0.08,
+          radius: this.spinSize,
+          color: this.spinColor,
+        })
+        .shadow(ShadowStyle.OUTER_DEFAULT_XS)
         .scale({ x: this.scale2, y: this.scale2 })
-        .bounceStyle()
     }
+    .renderFit(RenderFit.CENTER)
     .width(this.spinSize)
     .height(this.spinSize)
     .onAppear(() => {
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, [
+      let keyframes1: Array<KeyframeState> = [
+        {
+          duration: 1500,
+          curve: Curve.Linear,
+          event: () => {
+            this.angle1 = 360
+          }
+        }];
+      let keyframes2: Array<KeyframeState> = [
         {
           duration: 1000,
           curve: Curve.EaseInOut,
           event: () => {
-            this.scale1 = 1;
-            this.scale2 = 0;
+            this.scale2 = 1
           }
         },
         {
           duration: 1000,
           curve: Curve.EaseInOut,
           event: () => {
-            this.scale1 = 0;
-            this.scale2 = 1;
+            this.scale2 = 0.5
           }
-        }
-      ]);
+        }];
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, keyframes1);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, keyframes2);
     })
   }
-
-  @Styles
-  bounceStyle() {
-    .width('100%')
-    .height('100%')
-    .opacity(0.6)
-    .borderRadius(this.spinSize)
-    .backgroundColor(this.spinColor)
-  }
 }
+

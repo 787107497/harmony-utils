@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
 
 /**
@@ -24,18 +22,18 @@
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinJ {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.White;
-  @State scaleSize: number = this.spinSize * 0.75;
-  @State tran1: number = 0;
+  @Require @Param spinSize: number = 36;
+  @Require @Param spinColor: ResourceColor;
+  @Local scaleSize: number = this.spinSize * 0.75;
+  @Local tran1: number = 0;
   private oldSize: number = this.spinSize;
 
 
   aboutToAppear(): void {
-    this.scaleSize = this.spinSize * 0.75;
     this.oldSize = this.spinSize;
+    this.scaleSize = this.spinSize * 0.75;
   }
 
   build() {
@@ -79,12 +77,12 @@ export struct SpinJ {
       }
       .rowsTemplate('1fr 1fr 1fr')
       .columnsTemplate('1fr 1fr 1fr')
-      .renderFit(RenderFit.CENTER)
       .width(this.scaleSize)
       .height(this.scaleSize)
     }
     .width(this.oldSize)
     .height(this.oldSize)
+    .alignContent(Alignment.Center)
     .onAppear(() => {
       this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, [
         {
@@ -92,7 +90,7 @@ export struct SpinJ {
           curve: Curve.EaseInOut,
           event: () => {
             this.tran1 = 0
-            this.scaleSize = this.oldSize * 1.125
+            this.scaleSize = this.oldSize * 1.1
           }
         },
         {

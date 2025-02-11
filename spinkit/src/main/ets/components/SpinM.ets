@@ -11,10 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
-
 
 /**
  * TODO SpinKit动画组件
@@ -25,22 +22,26 @@
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinM {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.Blue;
-  @State round1: number = this.spinSize * 0.2
-  @State scale1: number = 0;
-  @State scale2: number = 0;
-  @State scale3: number = 0;
-  @State scale4: number = 0;
-  @State scale5: number = 0;
-  @State scale6: number = 0;
-  @State scale7: number = 0;
-  @State scale8: number = 0;
+  @Require @Param spinSize: number = 36;
+  @Require @Param spinColor: ResourceColor;
+  @Local round1: number = this.spinSize * 0.14
+  @Local opacity1: number = 0;
+  @Local opacity2: number = 0;
+  @Local opacity3: number = 0;
+  @Local opacity4: number = 0;
+  @Local opacity5: number = 0;
+  @Local opacity6: number = 0;
+  @Local opacity7: number = 0;
+  @Local opacity8: number = 0;
+  @Local opacity9: number = 0;
+  @Local opacity10: number = 0;
+  @Local opacity11: number = 0;
+  @Local opacity12: number = 0;
 
   aboutToAppear(): void {
-    this.round1 = this.spinSize * 0.2
+    this.round1 = this.spinSize * 0.14
   }
 
   build() {
@@ -48,7 +49,7 @@ export struct SpinM {
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale1, y: this.scale1 })
+          .opacity(this.opacity1)
       }
       .frameStyle()
       .rotate({ angle: 0 })
@@ -56,7 +57,23 @@ export struct SpinM {
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale2, y: this.scale2 })
+          .opacity(this.opacity2)
+      }
+      .frameStyle()
+      .rotate({ angle: 30 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity3)
+      }
+      .frameStyle()
+      .rotate({ angle: 60 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity4)
       }
       .frameStyle()
       .rotate({ angle: 90 })
@@ -64,7 +81,23 @@ export struct SpinM {
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale3, y: this.scale3 })
+          .opacity(this.opacity5)
+      }
+      .frameStyle()
+      .rotate({ angle: 120 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity6)
+      }
+      .frameStyle()
+      .rotate({ angle: 150 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity7)
       }
       .frameStyle()
       .rotate({ angle: 180 })
@@ -72,7 +105,23 @@ export struct SpinM {
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale4, y: this.scale4 })
+          .opacity(this.opacity8)
+      }
+      .frameStyle()
+      .rotate({ angle: 210 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity9)
+      }
+      .frameStyle()
+      .rotate({ angle: 240 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity10)
       }
       .frameStyle()
       .rotate({ angle: 270 })
@@ -80,34 +129,18 @@ export struct SpinM {
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale5, y: this.scale5 })
+          .opacity(this.opacity11)
       }
       .frameStyle()
-      .rotate({ angle: 45 })
+      .rotate({ angle: 300 })
 
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale6, y: this.scale6 })
+          .opacity(this.opacity12)
       }
       .frameStyle()
-      .rotate({ angle: 135 })
-
-      Column() {
-        Canvas()
-          .roundStyle()
-          .scale({ x: this.scale7, y: this.scale7 })
-      }
-      .frameStyle()
-      .rotate({ angle: 225 })
-
-      Column() {
-        Canvas()
-          .roundStyle()
-          .scale({ x: this.scale8, y: this.scale8 })
-      }
-      .frameStyle()
-      .rotate({ angle: 315 })
+      .rotate({ angle: 330 })
     }
     .renderFit(RenderFit.CENTER)
     .width(this.spinSize)
@@ -118,21 +151,14 @@ export struct SpinM {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale1 = 1
+            this.opacity1 = 1
           }
         },
         {
-          duration: 480,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.scale1 = 0
-          }
-        },
-        {
-          duration: 240,
-          curve: Curve.Linear,
-          event: () => {
-
+            this.opacity1 = 0
           }
         }];
       let keyframes2: Array<KeyframeState> = [
@@ -140,21 +166,14 @@ export struct SpinM {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale2 = 1
+            this.opacity2 = 1
           }
         },
         {
-          duration: 480,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.scale2 = 0
-          }
-        },
-        {
-          duration: 240,
-          curve: Curve.Linear,
-          event: () => {
-
+            this.opacity2 = 0
           }
         }];
       let keyframes3: Array<KeyframeState> = [
@@ -162,21 +181,14 @@ export struct SpinM {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale3 = 1
+            this.opacity3 = 1
           }
         },
         {
-          duration: 480,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.scale3 = 0
-          }
-        },
-        {
-          duration: 240,
-          curve: Curve.Linear,
-          event: () => {
-
+            this.opacity3 = 0
           }
         }];
       let keyframes4: Array<KeyframeState> = [
@@ -184,44 +196,29 @@ export struct SpinM {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale4 = 1
+            this.opacity4 = 1
           }
         },
         {
-          duration: 480,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.scale4 = 0
-          }
-        },
-        {
-          duration: 240,
-          curve: Curve.Linear,
-          event: () => {
-
+            this.opacity4 = 0
           }
         }];
-
       let keyframes5: Array<KeyframeState> = [
         {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale5 = 1
+            this.opacity5 = 1
           }
         },
         {
-          duration: 480,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.scale5 = 0
-          }
-        },
-        {
-          duration: 240,
-          curve: Curve.Linear,
-          event: () => {
-
+            this.opacity5 = 0
           }
         }];
       let keyframes6: Array<KeyframeState> = [
@@ -229,21 +226,14 @@ export struct SpinM {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale6 = 1
+            this.opacity6 = 1
           }
         },
         {
-          duration: 480,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.scale6 = 0
-          }
-        },
-        {
-          duration: 240,
-          curve: Curve.Linear,
-          event: () => {
-
+            this.opacity6 = 0
           }
         }];
       let keyframes7: Array<KeyframeState> = [
@@ -251,21 +241,14 @@ export struct SpinM {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale7 = 1
+            this.opacity7 = 1
           }
         },
         {
-          duration: 480,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.scale7 = 0
-          }
-        },
-        {
-          duration: 240,
-          curve: Curve.Linear,
-          event: () => {
-
+            this.opacity7 = 0
           }
         }];
       let keyframes8: Array<KeyframeState> = [
@@ -273,39 +256,96 @@ export struct SpinM {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale8 = 1
+            this.opacity8 = 1
           }
         },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity8 = 0
+          }
+        }];
+      let keyframes9: Array<KeyframeState> = [
         {
           duration: 480,
           curve: Curve.Linear,
           event: () => {
-            this.scale8 = 0
+            this.opacity9 = 1
           }
         },
         {
-          duration: 240,
+          duration: 720,
           curve: Curve.Linear,
           event: () => {
-
+            this.opacity9 = 0
+          }
+        }];
+      let keyframes10: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity10 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity10 = 0
+          }
+        }];
+      let keyframes11: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity11 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity11 = 0
+          }
+        }];
+      let keyframes12: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity12 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity12 = 0
           }
         }];
       this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, keyframes1);
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -900 }, keyframes2);
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -600 }, keyframes3);
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -300 }, keyframes4);
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -1100 }, keyframes5);
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -800 }, keyframes6);
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -500 }, keyframes7);
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -200 }, keyframes8);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -1100 }, keyframes2);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -1000 }, keyframes3);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -900 }, keyframes4);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -800 }, keyframes5);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -700 }, keyframes6);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -600 }, keyframes7);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -500 }, keyframes8);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -400 }, keyframes9);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -300 }, keyframes10);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -200 }, keyframes11);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -100 }, keyframes12);
     })
   }
 
   @Styles
   roundStyle(){
-    .width(this.round1)
-    .height(this.round1)
-    .borderRadius(this.round1)
+    .width(this.round1 / 2)
+    .height(this.round1 * 1.51)
+    .borderRadius(10)
     .backgroundColor(this.spinColor)
     .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   }
@@ -316,4 +356,3 @@ export struct SpinM {
     .width(this.round1)
   }
 }
-

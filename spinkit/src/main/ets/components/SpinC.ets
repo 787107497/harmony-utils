@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
 
 
@@ -25,15 +23,15 @@
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinC {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.White;
-  @State scale1: number = 0.4;
-  @State scale2: number = 0.4;
-  @State scale3: number = 0.4;
-  @State scale4: number = 0.4;
-  @State scale5: number = 0.4;
+  @Require @Param spinSize: number;
+  @Require @Param spinColor: ResourceColor;
+  @Local scale1: number = 0.4;
+  @Local scale2: number = 0.4;
+  @Local scale3: number = 0.4;
+  @Local scale4: number = 0.4;
+  @Local scale5: number = 0.4;
 
   build() {
     Row() {

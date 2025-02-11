@@ -149,7 +149,7 @@ struct Index {
           GridItem() {
             SpinKit({
               spinType: SpinType.spinO,
-              spinColor: $r('app.color.color9'),
+              spinColor: $r('app.color.color13'),
               spinSize: 60
             })
           }.aspectRatio(1)
@@ -158,7 +158,7 @@ struct Index {
           GridItem() {
             SpinKit({
               spinType: SpinType.spinP,
-              spinColor: $r('app.color.color9'),
+              spinColor: $r('app.color.color12'),
               spinSize: 60
             })
           }.aspectRatio(1)
@@ -167,7 +167,7 @@ struct Index {
           GridItem() {
             SpinKit({
               spinType: SpinType.spinQ,
-              spinColor: $r('app.color.color9'),
+              spinColor: $r('app.color.color11'),
               spinSize: 60
             })
           }.aspectRatio(1)
@@ -176,7 +176,7 @@ struct Index {
           GridItem() {
             SpinKit({
               spinType: SpinType.spinR,
-              spinColor: $r('app.color.color9'),
+              spinColor: $r('app.color.color10'),
               spinSize: 60
             })
           }.aspectRatio(1)
@@ -194,7 +194,52 @@ struct Index {
           GridItem() {
             SpinKit({
               spinType: SpinType.spinT,
-              spinColor: $r('app.color.color9'),
+              spinColor: $r('app.color.color8'),
+              spinSize: 60
+            })
+          }.aspectRatio(1)
+          .backgroundColor(Color.White)
+
+          GridItem() {
+            SpinKit({
+              spinType: SpinType.spinU,
+              spinColor: $r('app.color.color7'),
+              spinSize: 60
+            })
+          }.aspectRatio(1)
+          .backgroundColor(Color.White)
+
+          GridItem() {
+            SpinKit({
+              spinType: SpinType.spinV,
+              spinColor: $r('app.color.color6'),
+              spinSize: 60
+            })
+          }.aspectRatio(1)
+          .backgroundColor(Color.White)
+
+          GridItem() {
+            SpinKit({
+              spinType: SpinType.spinW,
+              spinColor: $r('app.color.color5'),
+              spinSize: 60
+            })
+          }.aspectRatio(1)
+          .backgroundColor(Color.White)
+
+          GridItem() {
+            SpinKit({
+              spinType: SpinType.spinX,
+              spinColor: $r('app.color.color4'),
+              spinSize: 60
+            })
+          }.aspectRatio(1)
+          .backgroundColor(Color.White)
+
+          GridItem() {
+            SpinKit({
+              spinType: SpinType.spinY,
+              spinColor: $r('app.color.color3'),
               spinSize: 60
             })
           }.aspectRatio(1)
@@ -203,18 +248,18 @@ struct Index {
           GridItem() {
             SpinKit({
               spinType: SpinType.spinZ,
-              spinColor: $r('app.color.color9'),
+              spinColor: $r('app.color.color2'),
               spinSize: 60
             })
           }.aspectRatio(1)
           .backgroundColor(Color.White)
         }
-        .rowsTemplate('1fr 1fr 1fr 1fr 1fr 1fr 1fr')
+        .rowsTemplate('1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr')
         .columnsTemplate('1fr 1fr 1fr')
         .columnsGap(1)
         .rowsGap(1)
         .width('100%')
-        .aspectRatio(3 / 7)
+        .aspectRatio(3 / 9)
         .backgroundColor('#EEEEEE')
       }
       .layoutWeight(1)

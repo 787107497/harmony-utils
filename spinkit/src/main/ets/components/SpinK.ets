@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
 
 /**
@@ -24,23 +22,23 @@
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinK {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.Blue;
-  @State round1: number = this.spinSize * 0.14
-  @State opacity1: number = 0;
-  @State opacity2: number = 0;
-  @State opacity3: number = 0;
-  @State opacity4: number = 0;
-  @State opacity5: number = 0;
-  @State opacity6: number = 0;
-  @State opacity7: number = 0;
-  @State opacity8: number = 0;
-  @State opacity9: number = 0;
-  @State opacity10: number = 0;
-  @State opacity11: number = 0;
-  @State opacity12: number = 0;
+  @Require @Param spinSize: number = 36;
+  @Require @Param spinColor: ResourceColor;
+  @Local round1: number = this.spinSize * 0.14
+  @Local opacity1: number = 0;
+  @Local opacity2: number = 0;
+  @Local opacity3: number = 0;
+  @Local opacity4: number = 0;
+  @Local opacity5: number = 0;
+  @Local opacity6: number = 0;
+  @Local opacity7: number = 0;
+  @Local opacity8: number = 0;
+  @Local opacity9: number = 0;
+  @Local opacity10: number = 0;
+  @Local opacity11: number = 0;
+  @Local opacity12: number = 0;
 
   aboutToAppear(): void {
     this.round1 = this.spinSize * 0.14

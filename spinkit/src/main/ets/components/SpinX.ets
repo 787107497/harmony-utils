@@ -14,6 +14,7 @@
  */
 
 
+
 /**
  * TODO SpinKit动画组件
  * author: 桃花镇童长老
@@ -24,51 +25,76 @@
  * QQ交流群: 569512366
  */
 @ComponentV2
-export struct SpinB {
+export struct SpinX {
   @Require @Param spinSize: number;
   @Require @Param spinColor: ResourceColor;
-  @Local scale1: number = 0;
-  @Local scale2: number = 1;
+  @Local angle1: number = 0;
+  @Local scale2: number = 0.3;
 
   build() {
     Stack() {
       Canvas()
-        .scale({ x: this.scale1, y: this.scale1 })
-        .bounceStyle()
+        .width(this.spinSize)
+        .height(this.spinSize)
+        .border({
+          width: this.spinSize * 0.08,
+          radius: this.spinSize,
+          color: this.spinColor,
+          style: {
+            top: BorderStyle.Solid,
+            right: BorderStyle.Dotted,
+            bottom: BorderStyle.Solid,
+            left: BorderStyle.Dotted
+          }
+        })
+        .rotate({ angle: this.angle1 })
+
       Canvas()
+        .width(this.spinSize * 0.5)
+        .height(this.spinSize * 0.5)
+        .border({
+          width: this.spinSize * 0.08,
+          radius: this.spinSize,
+          color: this.spinColor,
+          style: {
+            top: BorderStyle.Dotted,
+            right: BorderStyle.Solid,
+            bottom: BorderStyle.Dotted,
+            left: BorderStyle.Solid
+          }
+        })
         .scale({ x: this.scale2, y: this.scale2 })
-        .bounceStyle()
     }
+    .renderFit(RenderFit.CENTER)
     .width(this.spinSize)
     .height(this.spinSize)
     .onAppear(() => {
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, [
+      let keyframes1: Array<KeyframeState> = [
+        {
+          duration: 2000,
+          curve: Curve.Linear,
+          event: () => {
+            this.angle1 = 360
+          }
+        }];
+      let keyframes2: Array<KeyframeState> = [
         {
           duration: 1000,
           curve: Curve.EaseInOut,
           event: () => {
-            this.scale1 = 1;
-            this.scale2 = 0;
+            this.scale2 = 0.9
           }
         },
         {
           duration: 1000,
           curve: Curve.EaseInOut,
           event: () => {
-            this.scale1 = 0;
-            this.scale2 = 1;
+            this.scale2 = 0.3
           }
-        }
-      ]);
+        }];
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, keyframes1);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, keyframes2);
     })
   }
-
-  @Styles
-  bounceStyle() {
-    .width('100%')
-    .height('100%')
-    .opacity(0.6)
-    .borderRadius(this.spinSize)
-    .backgroundColor(this.spinColor)
-  }
 }
+

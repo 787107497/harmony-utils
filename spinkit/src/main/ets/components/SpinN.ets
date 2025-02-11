@@ -11,11 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
-
-
 
 /**
  * TODO SpinKit动画组件
@@ -26,20 +22,20 @@
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinN {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.Blue;
-  @State round1: number = this.spinSize * 0.2
-  @State scale1: number = 1;
-  @State scale2: number = 0.3;
-  @State scale3: number = 0.4;
-  @State scale4: number = 0.5;
-  @State scale5: number = 0.6;
-  @State scale6: number = 0.7;
-  @State scale7: number = 0.8;
-  @State scale8: number = 0.9;
-  @State angle1: number = 0;
+  @Require @Param spinSize: number = 36;
+  @Require @Param spinColor: ResourceColor;
+  @Local round1: number = this.spinSize * 0.2
+  @Local opacity1: number = 0;
+  @Local opacity2: number = 0;
+  @Local opacity3: number = 0;
+  @Local opacity4: number = 0;
+  @Local opacity5: number = 0;
+  @Local opacity6: number = 0;
+  @Local opacity7: number = 0;
+  @Local opacity8: number = 0;
+  @Local opacity9: number = 0;
 
   aboutToAppear(): void {
     this.round1 = this.spinSize * 0.2
@@ -50,96 +46,240 @@ export struct SpinN {
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale1, y: this.scale1 })
+          .opacity(this.opacity1)
       }
-      .frame1Style()
+      .frameStyle()
       .rotate({ angle: 0 })
 
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale2, y: this.scale2 })
+          .opacity(this.opacity2)
       }
-      .frame1Style()
-      .rotate({ angle: 45 })
+      .frameStyle()
+      .rotate({ angle: 40 })
 
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale3, y: this.scale3 })
+          .opacity(this.opacity3)
       }
-      .frame1Style()
-      .rotate({ angle: 90 })
+      .frameStyle()
+      .rotate({ angle: 80 })
 
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale4, y: this.scale4 })
+          .opacity(this.opacity4)
       }
-      .frame1Style()
-      .rotate({ angle: 135 })
-
-
-      Column() {
-        Canvas()
-          .roundStyle()
-          .scale({ x: this.scale5, y: this.scale5 })
-      }
-      .frame1Style()
-      .rotate({ angle: 180 })
+      .frameStyle()
+      .rotate({ angle: 120 })
 
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale6, y: this.scale6 })
+          .opacity(this.opacity5)
       }
-      .frame1Style()
-      .rotate({ angle: 225 })
+      .frameStyle()
+      .rotate({ angle: 160 })
 
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale7, y: this.scale7 })
+          .opacity(this.opacity6)
       }
-      .frame1Style()
-      .rotate({ angle: 270 })
+      .frameStyle()
+      .rotate({ angle: 200 })
 
       Column() {
         Canvas()
           .roundStyle()
-          .scale({ x: this.scale8, y: this.scale8 })
+          .opacity(this.opacity7)
       }
-      .frame1Style()
-      .rotate({ angle: 315 })
+      .frameStyle()
+      .rotate({ angle: 240 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity8)
+      }
+      .frameStyle()
+      .rotate({ angle: 280 })
+
+      Column() {
+        Canvas()
+          .roundStyle()
+          .opacity(this.opacity9)
+      }
+      .frameStyle()
+      .rotate({ angle: 320 })
+
     }
     .renderFit(RenderFit.CENTER)
     .width(this.spinSize)
     .height(this.spinSize)
-    .rotate({ angle: this.angle1 })
     .onAppear(() => {
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, [{
-        duration: 1200,
-        curve: Curve.Linear,
-        event: () => {
-          this.angle1 = 360
-        }
-      }]);
+      let keyframes1: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity1 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity1 = 0
+          }
+        }];
+      let keyframes2: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity2 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity2 = 0
+          }
+        }];
+      let keyframes3: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity3 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity3 = 0
+          }
+        }];
+      let keyframes4: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity4 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity4 = 0
+          }
+        }];
+      let keyframes5: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity5 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity5 = 0
+          }
+        }];
+      let keyframes6: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity6 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity6 = 0
+          }
+        }];
+      let keyframes7: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity7 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity7 = 0
+          }
+        }];
+      let keyframes8: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity8 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity8 = 0
+          }
+        }];
+      let keyframes9: Array<KeyframeState> = [
+        {
+          duration: 480,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity9 = 1
+          }
+        },
+        {
+          duration: 720,
+          curve: Curve.Linear,
+          event: () => {
+            this.opacity9 = 0
+          }
+        }];
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, keyframes1);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -1067 }, keyframes2);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -934 }, keyframes3);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -801 }, keyframes4);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -668 }, keyframes5);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -535 }, keyframes6);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -402 }, keyframes7);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -268 }, keyframes8);
+      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: -134 }, keyframes9);
+
     })
   }
 
   @Styles
   roundStyle(){
-    .width(this.round1)
-    .height(this.round1)
-    .borderRadius(this.round1)
+    .width(this.round1 / 2)
+    .height(this.round1 * 1.21)
+    .borderRadius(10)
     .backgroundColor(this.spinColor)
     .shadow(ShadowStyle.OUTER_DEFAULT_XS)
   }
 
   @Styles
-  frame1Style(){
+  frameStyle(){
     .height('100%')
     .width(this.round1)
   }
 }
-

@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit
  */
 
 
@@ -25,13 +23,13 @@
  * gitee: https://gitee.com/tongyuyan/spinkit
  * QQ交流群: 569512366
  */
-@Component
+@ComponentV2
 export struct SpinA {
-  @State spinSize: number = 60;
-  @State spinColor: ResourceColor = Color.White;
-  @State x: number = 0;
-  @State y: number = 0;
-  @State angle: number = 0;
+  @Require @Param spinSize: number;
+  @Require @Param spinColor: ResourceColor;
+  @Local x: number = 0;
+  @Local y: number = 0;
+  @Local angle: number = 0;
 
   build() {
     Canvas()

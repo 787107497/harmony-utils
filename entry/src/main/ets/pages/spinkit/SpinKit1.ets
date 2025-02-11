@@ -62,7 +62,7 @@ struct Index {
           GridItem() {
             SpinKit({ spinType: SpinType.spinI })
           }.aspectRatio(1)
-          .backgroundColor($r('app.color.color2'))
+          .backgroundColor($r('app.color.color9'))
 
           GridItem() {
             SpinKit({ spinType: SpinType.spinJ })
@@ -97,39 +97,64 @@ struct Index {
           GridItem() {
             SpinKit({ spinType: SpinType.spinP })
           }.aspectRatio(1)
-          .backgroundColor($r('app.color.color1'))
+          .backgroundColor($r('app.color.color14'))
 
           GridItem() {
             SpinKit({ spinType: SpinType.spinQ })
           }.aspectRatio(1)
-          .backgroundColor($r('app.color.color2'))
+          .backgroundColor($r('app.color.color13'))
 
           GridItem() {
             SpinKit({ spinType: SpinType.spinR })
           }.aspectRatio(1)
-          .backgroundColor($r('app.color.color3'))
+          .backgroundColor($r('app.color.color12'))
 
           GridItem() {
             SpinKit({ spinType: SpinType.spinS })
           }.aspectRatio(1)
-          .backgroundColor($r('app.color.color4'))
+          .backgroundColor($r('app.color.color11'))
 
           GridItem() {
             SpinKit({ spinType: SpinType.spinT })
+          }.aspectRatio(1)
+          .backgroundColor($r('app.color.color10'))
+
+          GridItem() {
+            SpinKit({ spinType: SpinType.spinU })
+          }.aspectRatio(1)
+          .backgroundColor($r('app.color.color9'))
+
+          GridItem() {
+            SpinKit({ spinType: SpinType.spinV })
+          }.aspectRatio(1)
+          .backgroundColor($r('app.color.color8'))
+
+          GridItem() {
+            SpinKit({ spinType: SpinType.spinW })
+          }.aspectRatio(1)
+          .backgroundColor($r('app.color.color7'))
+
+          GridItem() {
+            SpinKit({ spinType: SpinType.spinX })
+          }.aspectRatio(1)
+          .backgroundColor($r('app.color.color6'))
+
+          GridItem() {
+            SpinKit({ spinType: SpinType.spinY })
           }.aspectRatio(1)
           .backgroundColor($r('app.color.color5'))
 
           GridItem() {
             SpinKit({ spinType: SpinType.spinZ })
           }.aspectRatio(1)
-          .backgroundColor($r('app.color.color7'))
+          .backgroundColor($r('app.color.color4'))
         }
-        .rowsTemplate('1fr 1fr 1fr 1fr 1fr 1fr 1fr')
+        .rowsTemplate('1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr')
         .columnsTemplate('1fr 1fr 1fr')
         .columnsGap(0)
         .rowsGap(0)
         .width('100%')
-        .aspectRatio(3 / 7)
+        .aspectRatio(3 / 9)
       }
       .layoutWeight(1)
     }
