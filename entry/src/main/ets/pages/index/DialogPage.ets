@@ -3,6 +3,8 @@ import { AnimationHelper, DateType, DialogAction, DialogHelper, Orientation } fr
 import { DateUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { CardButton } from '../../component/CardButton';
+import { DrawerBuilder } from '../../component/DrawerLayout';
+import { MyCustomBuilder } from '../../component/MenuLayout';
 import { TitleView } from '../../component/TitleView';
 import { DrawerOptions } from '../../utils/DrawerOptions';
 import { MyCustomOptions } from '../../utils/MyCustomOptions';
@@ -871,18 +873,17 @@ export struct DialogPage {
     if (index == 0) {
       //自定义一个左边的DrawerLayout
       let drawer: DrawerOptions = {
-        width: 260,
-        msg: "这是一个自定义弹框，DrawerLayout",
-        alignment: DialogAlignment.CenterStart,
-        offset: { dx: 0, dy: 0 },
+        width: 280, //自定义的宽度
+        autoCancel: false,
+        alignment: DialogAlignment.TopStart,
+        keyboardAvoidMode: KeyboardAvoidMode.NONE,
         transition: AnimationHelper.transitionInLeft(250)
       };
       DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer);
     } else if (index == 1) {
       //自定义一个右边的DrawerLayout
       let drawer: DrawerOptions = {
-        width: 260,
-        msg: "这是一个自定义弹框，DrawerLayout",
+        width: 280,
         alignment: DialogAlignment.CenterEnd,
         offset: { dx: 0, dy: 0 },
         transition: AnimationHelper.transitionInRight(300)
@@ -1258,72 +1259,6 @@ export struct DialogPage {
     .width("100%")
     .padding(10)
   }
+
+
 }
-
-
-//自定义弹框，DrawerLayout
-@Builder
-function DrawerBuilder(options: DrawerOptions) {
-  Column() {
-    TextInput()
-      .width("100%")
-      .margin(10)
-    Text(options.msg)
-      .fontColor(Color.Blue)
-      .fontWeight(FontWeight.Bold)
-      .fontSize(16)
-      .padding(20)
-      .margin({ top: 30 })
-    Image($r('app.media.test_as1'))
-      .width("100%")
-      .margin({ top: 1 })
-    Image($r('app.media.test_as2'))
-      .width("100%")
-      .margin({ top: 5 })
-    Image($r('app.media.test_as3'))
-      .width("100%")
-      .margin({ top: 5 })
-
-    Blank().layoutWeight(1)
-    Button("关闭 DrawerLayout")
-      .onClick(() => {
-        DialogHelper.closeDialog(options.dialogId ?? ""); //关闭弹框
-      })
-    Blank().layoutWeight(1)
-  }
-  // .height("100%")
-  .layoutWeight(1)
-  .width(options.width)
-  .padding(10)
-  .backgroundColor(Color.Red)
-  .padding({bottom:300})
-  // .expandSafeArea()
-}
-
-//自定义弹框
-@Builder
-function MyCustomBuilder(options: MyCustomOptions) {
-  Column() {
-    Text(options.msg)
-      .fontColor(Color.Blue)
-      .fontWeight(FontWeight.Bold)
-      .fontSize(16)
-      .padding(20)
-      .margin({ top: 20 })
-    Image($r('app.media.test_as2'))
-      .width("100%")
-      .margin({ top: 5 })
-
-    Blank().layoutWeight(1)
-    Button("关闭，自定义弹框")
-      .onClick(() => {
-        DialogHelper.closeDialog(options.dialogId ?? ""); //关闭弹框
-      })
-    Blank().layoutWeight(1)
-  }
-  .height(options.height)
-  .width("100%")
-  .padding(10)
-  .backgroundColor(Color.White)
-}
-
