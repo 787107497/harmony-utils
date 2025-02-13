@@ -1,6 +1,6 @@
 import { AreaHelper } from '@nutpi/china_area';
 import { AnimationHelper, DateType, DialogAction, DialogHelper, Orientation } from '@pura/harmony-dialog';
-import { DateUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { DateUtil, DisplayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { CardButton } from '../../component/CardButton';
 import { DrawerBuilder } from '../../component/DrawerLayout';
@@ -873,7 +873,7 @@ export struct DialogPage {
     if (index == 0) {
       //自定义一个左边的DrawerLayout
       let drawer: DrawerOptions = {
-        width: 280, //自定义的宽度
+        width: px2vp(DisplayUtil.getWidth()) - 50, //自定义的宽度
         autoCancel: false,
         alignment: DialogAlignment.TopStart,
         keyboardAvoidMode: KeyboardAvoidMode.NONE,

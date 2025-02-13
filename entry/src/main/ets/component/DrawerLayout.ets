@@ -43,7 +43,6 @@ export struct DrawerLayout {
                 .height(60)
                 .borderRadius(5)
                 .margin({ left: 12 })
-
               Column() {
                 Text("桃花镇童长老")
                   .fontSize(18)
@@ -64,12 +63,10 @@ export struct DrawerLayout {
             .padding({ top: 15 })
 
             Divider().height(2).color($r('app.color.color_line'))
-
             Image($r('app.media.test_as2'))
               .objectFit(ImageFit.Auto)
               .width('100%')
               .border({ width: 12, style: BorderStyle.Solid, color: $r('app.color.card_background') })
-
           }
 
           Button('关闭')
@@ -80,13 +77,10 @@ export struct DrawerLayout {
             .onClick(() => { //关闭Drawer
               DialogHelper.closeDialog(this.options.dialogId ?? "");
             })
-
           Blank().layoutWeight(1)
-
           Text('处理键盘与弹框间距问题')
             .fontColor(Color.Red)
             .margin(12)
-
           TextInput({ placeholder: '请输入', controller: this.controller })
             .width('90%')
             .margin({ bottom: 28 })
