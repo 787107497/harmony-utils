@@ -2,8 +2,8 @@ import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { LogUtil, ObjectUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
-import { User } from '../../entity/User';
+import { DescribeBean } from '../../model/DescribeBean';
+import { User } from '../../model/User';
 import { JSON } from '@kit.ArkTS';
 
 /**

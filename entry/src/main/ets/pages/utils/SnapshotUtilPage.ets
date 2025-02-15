@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { LogUtil, SnapshotUtil, ToastUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';

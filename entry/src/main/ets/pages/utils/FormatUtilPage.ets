@@ -2,7 +2,7 @@ import { ComposeTitleBar, router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { FormatUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 
 /**
  * 格式化工具类

@@ -1,7 +1,7 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { FileUtil, LogUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { TitleBarView } from '../../component/TitleBarView';
 

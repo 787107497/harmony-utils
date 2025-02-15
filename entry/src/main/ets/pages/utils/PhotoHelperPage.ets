@@ -11,7 +11,7 @@ import {
   ToastUtil,
   WantUtil
 } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Permissions } from '@kit.AbilityKit';
 import { image } from '@kit.ImageKit';

@@ -1,4 +1,4 @@
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { CryptoUtil, LogUtil, SHA, ToastUtil } from '@pura/harmony-utils';

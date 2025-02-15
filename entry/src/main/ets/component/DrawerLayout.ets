@@ -1,6 +1,6 @@
 import { DialogHelper } from '@pura/harmony-dialog';
 import { KeyboardUtil } from '@pura/harmony-utils';
-import { DrawerOptions } from '../utils/DrawerOptions';
+import { DrawerOptions } from '../model/DrawerOptions';
 
 //DrawerLayout
 @Builder

@@ -1,4 +1,4 @@
-import { DescribeBean } from '../entity/DescribeBean';
+import { DescribeBean } from '../model/DescribeBean';
 
 @Preview
 @ComponentV2

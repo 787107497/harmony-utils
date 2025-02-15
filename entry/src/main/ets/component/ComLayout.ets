@@ -4,64 +4,59 @@
 @Preview
 @ComponentV2
 export struct ComLayout {
-
-  private controller: TextInputController = new TextInputController();
+  private scroller: Scroller = new Scroller();
+  @Local menus: string[] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 
   build() {
     Column() {
-      Column() {
-        Row() {
-          Image($r('app.media.icon_user'))
-            .objectFit(ImageFit.Auto)
-            .width(60)
-            .height(60)
-            .borderRadius(5)
-            .margin({ left: 12 })
-
-          Column() {
-            Text("桃花镇童长老")
-              .fontSize(15)
-            Text("研发工程师")
-              .fontSize(12)
-              .margin({ top: 5 })
-            Text("QQ群：1029219059")
-              .fontSize(10)
-              .fontWeight(FontWeight.Bold)
-              .margin({ top: 5 })
-          }
-          .alignItems(HorizontalAlign.Start)
-          .margin({ left: 12 })
-        }
-        .width('100%')
-        .alignItems(VerticalAlign.Center)
-        .margin(30)
-
-        Divider()
-
-        Image($r('app.media.test_as2'))
+      Stack({ alignContent: Alignment.End }) {
+        Text("分享")
+          .fontWeight(FontWeight.Bold)
+          .textAlign(TextAlign.Center)
+          .align(Alignment.TopStart)
           .width('100%')
-          .border({ width: 12, style: BorderStyle.Solid, color: $r('sys.color.comp_outline_color') })
+
+        Image($r('sys.media.ohos_ic_public_close'))
+          .width(28)
+          .aspectRatio(1)
+          .margin(12)
+          .padding(5)
+          .backgroundColor($r('app.color.card_background'))
+          .border({ width: 1, color: $r('app.color.color_line'), style: BorderStyle.Solid })
+          .borderRadius(50)
+          .align(Alignment.End)
+          .alignSelf(ItemAlign.End)
       }
-      .backgroundColor($r('sys.color.comp_background_gray'))
+      .width('100%')
 
-      Button('关闭')
-        .type(ButtonType.Capsule)
-        .controlSize(ControlSize.NORMAL)
-        .margin({ top: 20, right: 12 })
-        .alignSelf(ItemAlign.End)
-        .onClick(()=>{
+      Divider()
+        .color($r('app.color.color_line'))
+        .strokeWidth(1)
+        .width('100%')
+        .margin({ bottom: 5 })
 
-        })
-
-      Blank().layoutWeight(1)
-
-      TextInput({ placeholder: '请输入', controller: this.controller })
-        .width('90%')
-        .margin({ bottom: 12 })
-
+      Grid() {
+        ForEach(this.menus, (value: string, index: number) => {
+          GridItem() {
+            Column() {
+              Image($r('app.media.icon_user'))
+                .width('80%')
+                .aspectRatio(1)
+                .borderRadius(5)
+              Text("菜单" + index)
+                .fontSize(12)
+                .margin({ top: 5 })
+            }
+            .margin(10)
+            .alignItems(HorizontalAlign.Center)
+          }
+        }, (value: string, index: number) => `${value}_${index}`)
+      }
+      .columnsTemplate('1fr 1fr 1fr 1fr 1fr')
+      .layoutDirection(GridDirection.Row)
     }
-    .height('100%')
-    .width("100%")
+    .width('100%')
     .backgroundColor($r('app.color.main_background'))
+    .borderRadius({ topLeft: 12, topRight: 12 })
   }
 }

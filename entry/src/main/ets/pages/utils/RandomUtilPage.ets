@@ -2,7 +2,7 @@ import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { LogUtil, RandomUtil, StrUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 
 /**
  * 随机工具类

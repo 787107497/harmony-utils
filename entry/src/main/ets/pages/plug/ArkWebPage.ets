@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 
 
 @Entry

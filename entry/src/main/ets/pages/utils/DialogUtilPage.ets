@@ -2,7 +2,7 @@ import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { DateUtil, DialogAction, DialogUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 
 /**
  * 弹窗工具类（AlertDialog）

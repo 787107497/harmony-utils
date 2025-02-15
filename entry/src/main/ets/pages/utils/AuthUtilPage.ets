@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { AuthUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import userIAM_userAuth from '@ohos.userIAM.userAuth';
 import userAuth from '@ohos.userIAM.userAuth';
 import { MockSetup } from '@ohos/hamock';

@@ -8,7 +8,7 @@ import {
     WantUtil
 } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 /**

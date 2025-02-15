@@ -4,10 +4,11 @@ import { DateUtil, DisplayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { CardButton } from '../../component/CardButton';
 import { DrawerBuilder } from '../../component/DrawerLayout';
-import { MyCustomBuilder } from '../../component/MenuLayout';
+import { MenuBuilder } from '../../component/MenuLayout';
 import { TitleView } from '../../component/TitleView';
-import { DrawerOptions } from '../../utils/DrawerOptions';
-import { MyCustomOptions } from '../../utils/MyCustomOptions';
+import { DrawerOptions } from '../../model/DrawerOptions';
+import { MenuOptions } from '../../model/MenuOptions';
+import { Utils } from '../../utils/Utils';
 
 /**
  * TODO 弹窗工具
@@ -881,34 +882,37 @@ export struct DialogPage {
       };
       DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer);
     } else if (index == 1) {
-      //自定义一个右边的DrawerLayout
-      let drawer: DrawerOptions = {
-        width: 280,
-        alignment: DialogAlignment.CenterEnd,
-        offset: { dx: 0, dy: 0 },
-        transition: AnimationHelper.transitionInRight(300)
+      //自定义一个底部的MenuLayout
+      let menuOptions: MenuOptions = {
+        alignment: DialogAlignment.Bottom,
+        title: "分享",
+        menus: Utils.getMenus(),
+        onItemClick: (menu) => {
+          DialogHelper.showToast(menu.text);
+          DialogHelper.closeDialog(menuOptions.dialogId ?? "");
+        }
       };
-      DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer);
+      DialogHelper.showCustomDialog(wrapBuilder(MenuBuilder), menuOptions);
     } else if (index == 2) {
       //自定义一个顶部弹出框
-      let custom: MyCustomOptions = {
-        height: 450,
-        msg: "这是一个自定义弹框，顶部弹出",
-        alignment: DialogAlignment.Top,
-        offset: { dx: 0, dy: 0 },
-        transition: AnimationHelper.transitionInUp(150)
-      };
-      DialogHelper.showCustomDialog(wrapBuilder(MyCustomBuilder), custom);
+      // let custom: MenuOptions = {
+      //   height: 450,
+      //   msg: "这是一个自定义弹框，顶部弹出",
+      //   alignment: DialogAlignment.Top,
+      //   offset: { dx: 0, dy: 0 },
+      //   transition: AnimationHelper.transitionInUp(150)
+      // };
+      // DialogHelper.showCustomDialog(wrapBuilder(MyCustomBuilder), custom);
     } else {
-      //自定义一个底部弹出框
-      let custom: MyCustomOptions = {
-        height: 450,
-        msg: "这是一个自定义弹框，底部弹出",
-        alignment: DialogAlignment.Bottom,
-        offset: { dx: 0, dy: 0 },
-        transition: AnimationHelper.transitionInDown()
-      };
-      DialogHelper.showCustomDialog(wrapBuilder(MyCustomBuilder), custom);
+      // //自定义一个底部弹出框
+      // let custom: MenuOptions = {
+      //   height: 450,
+      //   msg: "这是一个自定义弹框，底部弹出",
+      //   alignment: DialogAlignment.Bottom,
+      //   offset: { dx: 0, dy: 0 },
+      //   transition: AnimationHelper.transitionInDown()
+      // };
+      // DialogHelper.showCustomDialog(wrapBuilder(MyCustomBuilder), custom);
     }
   }
 

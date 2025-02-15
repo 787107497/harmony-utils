@@ -112,7 +112,7 @@ export class Helper {
 
   /**
    * 获取底部类弹框的最大宽度
-   * @param maxWidth 默认360
+   * @param maxWidth 默认360vp
    * @returns 单位vp
    */
   static getMaxWidth(maxWidth: Length = 360): number {
@@ -134,6 +134,10 @@ export class Helper {
       } catch (e) {
         let error = e as BusinessError;
         console.log(`getMaxWidth-Error ~ code: ${error.code} -·- message: ${error.message}`);
+      }
+      const width = px2vp(Helper.getDisplayWidth());
+      if (width < oldWidth + 40) { //当宽度大于屏幕宽度，默认为宽度。
+        return width;
       }
       return oldWidth + 40;
     } else { //小屏幕直接获取屏幕宽度。

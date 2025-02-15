@@ -2,7 +2,7 @@ import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { ClickUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 
 /**
  * 节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）

@@ -1,7 +1,7 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { KvUtil, RandomUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { distributedKVStore } from '@kit.ArkData';
 import { Callback } from '@kit.BasicServicesKit';
 import { TitleBarView } from '../../component/TitleBarView';

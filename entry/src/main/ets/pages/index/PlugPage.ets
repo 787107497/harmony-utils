@@ -1,7 +1,7 @@
 import { JSONUtil, ResUtil } from '@pura/harmony-utils';
 import { CardFlow } from '../../component/CardFlow';
 import { TitleView } from '../../component/TitleView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { router } from '@kit.ArkUI';
 
 @ComponentV2

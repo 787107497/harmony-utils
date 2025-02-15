@@ -1,6 +1,6 @@
 import { JSONUtil, ResUtil, WantUtil } from '@pura/harmony-utils';
 import { TitleView } from '../../component/TitleView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 
 @Preview
 @Component

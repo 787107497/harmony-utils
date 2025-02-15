@@ -1,6 +1,6 @@
 import { KeyboardAvoidMode, router, window } from '@kit.ArkUI';
 import { AppUtil, DialogUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';

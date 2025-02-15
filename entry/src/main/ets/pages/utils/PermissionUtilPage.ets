@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { PermissionUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { Permissions } from '@kit.AbilityKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';

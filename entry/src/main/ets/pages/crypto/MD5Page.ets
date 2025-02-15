@@ -1,4 +1,4 @@
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';

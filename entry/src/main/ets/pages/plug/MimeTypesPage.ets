@@ -2,7 +2,7 @@ import { router } from '@kit.ArkUI';
 import { StrUtil } from '@pura/harmony-utils';
 import { Mime } from '@pura/mime-types';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 
 /**
  * @nutpi/mime-types，使用案例

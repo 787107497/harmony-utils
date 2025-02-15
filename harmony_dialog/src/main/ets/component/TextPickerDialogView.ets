@@ -43,7 +43,7 @@ export struct TextPickerDialogView {
 
 
   aboutToAppear(): void {
-    this.largeScreen=  Helper.isLargeScreen();
+    this.largeScreen = Helper.isLargeScreen();
     if (this.options.value) {
       this.value = this.options.value;
     } else {

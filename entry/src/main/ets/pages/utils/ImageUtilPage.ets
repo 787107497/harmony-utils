@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { DateUtil, FileUtil, ImageUtil, LogUtil, PhotoHelper, PickerUtil, ToastUtil } from '@pura/harmony-utils';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { image } from '@kit.ImageKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';

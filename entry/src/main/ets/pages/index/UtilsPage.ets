@@ -1,7 +1,7 @@
 import { JSONUtil, ResUtil } from '@pura/harmony-utils';
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { TitleView } from '../../component/TitleView';
 import { CardLabel } from '../../component/CardLabel';
 

@@ -2,7 +2,7 @@ import { router } from '@kit.ArkUI';
 import { AreaEntity, AreaHelper } from '@nutpi/china_area';
 import { JSONUtil, LogUtil, StrUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { JSON } from '@kit.ArkTS';
 import { DialogAction, DialogHelper } from '@pura/harmony-dialog';
 

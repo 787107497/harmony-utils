@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { DescribeBean } from '../../entity/DescribeBean';
+import { DescribeBean } from '../../model/DescribeBean';
 import { MockSetup } from '@ohos/hamock';
 import { AssetUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
