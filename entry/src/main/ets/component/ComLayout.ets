@@ -1,62 +1,51 @@
+import lottie, { AnimationItem } from "@ohos/lottie";
+
 /**
  * 自定义组件
  */
 @Preview
 @ComponentV2
 export struct ComLayout {
-  private scroller: Scroller = new Scroller();
-  @Local menus: string[] = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+  private canvasRenderingContext: CanvasRenderingContext2D =
+    new CanvasRenderingContext2D(new RenderingContextSettings(true));
+  private animationItem?: AnimationItem;
+
+
+  aboutToDisappear(): void {
+    lottie.destroy('lottie_loading');
+  }
 
   build() {
     Column() {
-      Stack({ alignContent: Alignment.End }) {
-        Text("分享")
-          .fontWeight(FontWeight.Bold)
-          .textAlign(TextAlign.Center)
-          .align(Alignment.TopStart)
-          .width('100%')
 
-        Image($r('sys.media.ohos_ic_public_close'))
-          .width(28)
-          .aspectRatio(1)
-          .margin(12)
-          .padding(5)
-          .backgroundColor($r('app.color.card_background'))
-          .border({ width: 1, color: $r('app.color.color_line'), style: BorderStyle.Solid })
-          .borderRadius(50)
-          .align(Alignment.End)
-          .alignSelf(ItemAlign.End)
-      }
-      .width('100%')
+      Canvas(this.canvasRenderingContext)
+        .size({ width: 30, height: 30 })
+        .backgroundColor(Color.Transparent)
+        .onReady(() => {
+          //抗锯齿的设置
+          this.canvasRenderingContext.imageSmoothingEnabled = true;
+          this.canvasRenderingContext.imageSmoothingQuality = 'medium'
+          this.animationItem = lottie.loadAnimation({
+            container: this.canvasRenderingContext, //渲染上下文
+            renderer: 'canvas', //渲染方式
+            loop: true, //是否循环播放,默认true
+            autoplay: true, //是否自动播放，默认true
+            name: 'lottie_loading', //动画名称
+            contentMode: 'Contain', //填充的模式
+            path: 'common/lottie_sun.json', //json路径
+          })
+        })
 
-      Divider()
-        .color($r('app.color.color_line'))
-        .strokeWidth(1)
-        .width('100%')
-        .margin({ bottom: 5 })
+      Text("提交成功")
+        .fontColor($r('app.color.color15'))
+        .fontWeight(FontWeight.Bold)
+        .textAlign(TextAlign.Center)
+        .align(Alignment.TopStart)
+        .margin({ top: 6 })
 
-      Grid() {
-        ForEach(this.menus, (value: string, index: number) => {
-          GridItem() {
-            Column() {
-              Image($r('app.media.icon_user'))
-                .width('80%')
-                .aspectRatio(1)
-                .borderRadius(5)
-              Text("菜单" + index)
-                .fontSize(12)
-                .margin({ top: 5 })
-            }
-            .margin(10)
-            .alignItems(HorizontalAlign.Center)
-          }
-        }, (value: string, index: number) => `${value}_${index}`)
-      }
-      .columnsTemplate('1fr 1fr 1fr 1fr 1fr')
-      .layoutDirection(GridDirection.Row)
     }
     .width('100%')
     .backgroundColor($r('app.color.main_background'))
-    .borderRadius({ topLeft: 12, topRight: 12 })
+    .borderRadius(15)
   }
 }
