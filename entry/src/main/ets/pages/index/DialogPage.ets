@@ -4,10 +4,14 @@ import { DateUtil, DisplayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { CardButton } from '../../component/CardButton';
 import { DrawerBuilder } from '../../component/DrawerLayout';
+import { LottieBuilder } from '../../component/LottieView';
 import { MenuBuilder } from '../../component/MenuLayout';
+import { TipBuilder } from '../../component/TipLayout';
 import { TitleView } from '../../component/TitleView';
 import { DrawerOptions } from '../../model/DrawerOptions';
+import { LoadOptions } from '../../model/LoadOptions';
 import { MenuOptions } from '../../model/MenuOptions';
+import { TipOptions } from '../../model/TipOptions';
 import { Utils } from '../../utils/Utils';
 
 /**
@@ -894,25 +898,25 @@ export struct DialogPage {
       };
       DialogHelper.showCustomDialog(wrapBuilder(MenuBuilder), menuOptions);
     } else if (index == 2) {
-      //自定义一个顶部弹出框
-      // let custom: MenuOptions = {
-      //   height: 450,
-      //   msg: "这是一个自定义弹框，顶部弹出",
-      //   alignment: DialogAlignment.Top,
-      //   offset: { dx: 0, dy: 0 },
-      //   transition: AnimationHelper.transitionInUp(150)
-      // };
-      // DialogHelper.showCustomDialog(wrapBuilder(MyCustomBuilder), custom);
+      //自定义一个Tip弹出框
+      let tipOptions: TipOptions = {
+        autoCancel: false,
+        backCancel: false,
+        title: "提交成功",
+        content: "请假单已成功提交给您的领导啦",
+        onAction: (action, dialogId) => {
+          DialogHelper.closeDialog(dialogId);
+        }
+      };
+      DialogHelper.showCustomDialog(wrapBuilder(TipBuilder), tipOptions);
     } else {
-      // //自定义一个底部弹出框
-      // let custom: MenuOptions = {
-      //   height: 450,
-      //   msg: "这是一个自定义弹框，底部弹出",
-      //   alignment: DialogAlignment.Bottom,
-      //   offset: { dx: 0, dy: 0 },
-      //   transition: AnimationHelper.transitionInDown()
-      // };
-      // DialogHelper.showCustomDialog(wrapBuilder(MyCustomBuilder), custom);
+      //基于Lottie动画的自定义加载框
+      let loadOptions: LoadOptions = new LoadOptions();
+      loadOptions.backCancel = true;
+      DialogHelper.showCustomDialog(wrapBuilder(LottieBuilder), loadOptions);
+      setTimeout(() => {
+        DialogHelper.closeDialog(loadOptions.dialogId ?? "");
+      }, 10000)
     }
   }
 

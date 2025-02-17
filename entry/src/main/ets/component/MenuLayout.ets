@@ -96,6 +96,6 @@ export struct MenuLayout {
     .backgroundBlurStyle(this.options.backgroundBlurStyle)
     .borderRadius({ topLeft: 12, topRight: 12 })
     .clip(true)
-
   }
+
 }
