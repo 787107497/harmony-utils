@@ -8,7 +8,7 @@
   "main": "Index.ets",
   "license": "Apache-2.0",
   "dependencies": {
-    "@pura/spinkit": "^1.0.4"
+    "@pura/spinkit": "^1.0.5"
   },
   "devDependencies": {},
   "dynamicDependencies": {},

@@ -53,13 +53,15 @@ export struct LoadingView {
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .margin(12)
-    .constraintSize({ minWidth: 100, minHeight: 100 })
+    .margin(5)
     .padding(this.options.padding)
     .backgroundColor(this.options.backgroundColor)
     .borderRadius(this.options.borderRadius)
     .shadow(this.options.shadow)
+    .constraintSize({
+      minWidth: (this.content.length > 0 ? 116 : 96),
+      minHeight: (this.content.length > 0 ? 116 : 96)
+    })
   }
-
 
 }

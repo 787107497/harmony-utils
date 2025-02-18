@@ -27,18 +27,18 @@ export struct SpinM {
   @Require @Param spinSize: number = 36;
   @Require @Param spinColor: ResourceColor;
   @Local round1: number = this.spinSize * 0.14
-  @Local opacity1: number = 0;
-  @Local opacity2: number = 0;
-  @Local opacity3: number = 0;
-  @Local opacity4: number = 0;
-  @Local opacity5: number = 0;
-  @Local opacity6: number = 0;
-  @Local opacity7: number = 0;
-  @Local opacity8: number = 0;
-  @Local opacity9: number = 0;
-  @Local opacity10: number = 0;
-  @Local opacity11: number = 0;
-  @Local opacity12: number = 0;
+  @Local opacity1: number = 0.3;
+  @Local opacity2: number = 0.3;
+  @Local opacity3: number = 0.3;
+  @Local opacity4: number = 0.3;
+  @Local opacity5: number = 0.3;
+  @Local opacity6: number = 0.3;
+  @Local opacity7: number = 0.3;
+  @Local opacity8: number = 0.3;
+  @Local opacity9: number = 0.3;
+  @Local opacity10: number = 0.3;
+  @Local opacity11: number = 0.3;
+  @Local opacity12: number = 0.3;
 
   aboutToAppear(): void {
     this.round1 = this.spinSize * 0.14
@@ -158,7 +158,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity1 = 0
+            this.opacity1 = 0.3
           }
         }];
       let keyframes2: Array<KeyframeState> = [
@@ -173,7 +173,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity2 = 0
+            this.opacity2 = 0.3
           }
         }];
       let keyframes3: Array<KeyframeState> = [
@@ -188,7 +188,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity3 = 0
+            this.opacity3 = 0.3
           }
         }];
       let keyframes4: Array<KeyframeState> = [
@@ -203,7 +203,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity4 = 0
+            this.opacity4 = 0.3
           }
         }];
       let keyframes5: Array<KeyframeState> = [
@@ -218,7 +218,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity5 = 0
+            this.opacity5 = 0.3
           }
         }];
       let keyframes6: Array<KeyframeState> = [
@@ -233,7 +233,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity6 = 0
+            this.opacity6 = 0.3
           }
         }];
       let keyframes7: Array<KeyframeState> = [
@@ -248,7 +248,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity7 = 0
+            this.opacity7 = 0.3
           }
         }];
       let keyframes8: Array<KeyframeState> = [
@@ -263,7 +263,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity8 = 0
+            this.opacity8 = 0.3
           }
         }];
       let keyframes9: Array<KeyframeState> = [
@@ -278,7 +278,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity9 = 0
+            this.opacity9 = 0.3
           }
         }];
       let keyframes10: Array<KeyframeState> = [
@@ -293,7 +293,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity10 = 0
+            this.opacity10 = 0.3
           }
         }];
       let keyframes11: Array<KeyframeState> = [
@@ -308,7 +308,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity11 = 0
+            this.opacity11 = 0.3
           }
         }];
       let keyframes12: Array<KeyframeState> = [
@@ -323,7 +323,7 @@ export struct SpinM {
           duration: 720,
           curve: Curve.Linear,
           event: () => {
-            this.opacity12 = 0
+            this.opacity12 = 0.3
           }
         }];
       this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, keyframes1);

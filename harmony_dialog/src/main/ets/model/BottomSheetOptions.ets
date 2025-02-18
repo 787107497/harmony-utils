@@ -45,4 +45,7 @@ export interface BottomSheetOptions extends BaseDialogOptions {
   backgroundColor?: ResourceColor; //弹窗背板颜色。默认值：Color.White
   backgroundBlurStyle?: BlurStyle; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
   cornerRadius?: Length; //设置背板的圆角半径。可分别设置4个圆角的半径，默认15。
+
+  themeColorMode?: ThemeColorMode; //设置深色浅色。
+
 }

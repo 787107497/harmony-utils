@@ -930,32 +930,29 @@ export struct DialogPage {
     } else if (index == 1) {
       //自定义文字内容
       DialogHelper.showLoadingDialog({
-        loadType: SpinType.spinP,
         loadColor: Color.White,
-        loadSize: 70,
-        backgroundColor: '#BB000000',
-        content: "加载中…",
-        fontSize: 18,
-        padding: { top: 30, right: 45, bottom: 30, left: 45 },
+        content: "努力加载中",
+        fontSize: 15,
+        backgroundColor: '#ED000000',
         autoCancel: true,
-        shadow: { radius: 0 }
       })
     } else if (index == 2) {
-      //自定义文字和加载动画的颜色
+      //指定加载动画和加载动画的颜色
       DialogHelper.showLoadingDialog({
-        loadType: SpinType.spinD,
-        content: "努力加载中",
-        loadColor: Color.White,
+        loadType: SpinType.spinH,
+        loadColor: $r('app.color.color_main'),
         backgroundColor: '#DD000000',
         fontColor: Color.White,
-        fontSize: 18,
-        padding: 30,
-        borderRadius: 5
+        borderRadius: 8
       })
     } else {
       //禁止点击返回关闭弹窗 和 禁止点击遮蔽层关闭弹窗
       let dialogId = DialogHelper.showLoadingDialog({
-        loadType: SpinType.spinH,
+        loadType: SpinType.spinU,
+        loadColor: $r('app.color.color_main'),
+        marginTop: 20,
+        content: "努力加载中",
+        fontColor: $r('app.color.color_main'),
         autoCancel: false,
         backCancel: false
       })

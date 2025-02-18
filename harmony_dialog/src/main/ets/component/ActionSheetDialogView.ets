@@ -31,6 +31,7 @@ import { Helper } from '../utils/Helper';
 @Component
 export struct ActionSheetDialogView {
   @Prop options: BottomSheetOptions;
+  @State themeColorMode?: ThemeColorMode = this.options.themeColorMode; //设置深色浅色。
   @State title: string = ""; //标题
   @State fontSize: number | string | Resource = 16; //按钮的文字大小，字体大小16。
 
@@ -47,66 +48,68 @@ export struct ActionSheetDialogView {
   }
 
   build() {
-    Column({ space: 0 }) {
-      Column() {
+    WithTheme({ colorMode: this.themeColorMode }) {
+      Column({ space: 0 }) {
         Column() {
-          Text(this.options.title)
-            .fontSize(14)
-            .fontColor(this.options.titleFontColor ?? $r('app.color.harmony_dialog_title_color'))
-            .align(Alignment.Center)
-            .textAlign(TextAlign.Center)
-            .width('100%')
-            .padding({ left: 10, right: 10, bottom: 15, top: 15 })
-          Divider()
-            .width('100%')
-            .strokeWidth(1)
-            .color($r('app.color.harmony_dialog_divider_color'))
-        }
-        .width('100%')
-        .visibility(this.title.length > 0 ? Visibility.Visible : Visibility.None)
+          Column() {
+            Text(this.options.title)
+              .fontSize(14)
+              .fontColor(this.options.titleFontColor ?? $r('app.color.harmony_dialog_title_color'))
+              .align(Alignment.Center)
+              .textAlign(TextAlign.Center)
+              .width('100%')
+              .padding({ left: 10, right: 10, bottom: 15, top: 15 })
+            Divider()
+              .width('100%')
+              .strokeWidth(1)
+              .color($r('app.color.harmony_dialog_divider_color'))
+          }
+          .width('100%')
+          .visibility(this.title.length > 0 ? Visibility.Visible : Visibility.None)
 
-        List() {
-          ForEach(this.options.sheets, (sheet: SheetOptions, index: number) => {
-            this.TextBuilder(sheet.value, sheet.fontColor ?? $r('app.color.harmony_dialog_text_color'), sheet.fontSize ?? 16, index)
-          }, (sheet: SheetOptions, index: number) => `${index}-${sheet.value}`)
+          List() {
+            ForEach(this.options.sheets, (sheet: SheetOptions, index: number) => {
+              this.TextBuilder(sheet.value, sheet.fontColor ?? $r('app.color.harmony_dialog_text_color'), sheet.fontSize ?? 16, index)
+            }, (sheet: SheetOptions, index: number) => `${index}-${sheet.value}`)
+          }
+          .divider({ strokeWidth: 1, color: $r('app.color.harmony_dialog_divider_color') })
+          .width('100%')
+          .layoutWeight(this.options.maxHeight ? 1 : 0)
         }
-        .divider({ strokeWidth: 1, color: $r('app.color.harmony_dialog_divider_color') })
-        .width('100%')
-        .layoutWeight(this.options.maxHeight ? 1 : 0)
-      }
-      .justifyContent(FlexAlign.Center)
-      .alignItems(HorizontalAlign.Center)
-      .backgroundColor(this.options.backgroundColor)
-      .backgroundBlurStyle(this.options.backgroundBlurStyle)
-      .borderRadius(this.options.cornerRadius)
-      .shadow(ShadowStyle.OUTER_DEFAULT_SM)
-      .width('100%')
-      .margin({ bottom: 10 })
-      .layoutWeight(this.options.maxHeight ? 1 : 0)
-
-      Text(this.options.cancelValue)
-        .fontSize(this.fontSize)
-        .fontColor(this.options.cancelFontColor ?? $r('sys.color.ohos_id_picker_button_text_color'))
-        .fontWeight(this.options.cancelFontWeight ?? FontWeight.Bold)
-        .align(Alignment.Center)
-        .textAlign(TextAlign.Center)
-        .width('100%')
-        .padding({ top: 20, bottom: 20, left: 10, right: 10 })
+        .justifyContent(FlexAlign.Center)
+        .alignItems(HorizontalAlign.Center)
         .backgroundColor(this.options.backgroundColor)
         .backgroundBlurStyle(this.options.backgroundBlurStyle)
         .borderRadius(this.options.cornerRadius)
         .shadow(ShadowStyle.OUTER_DEFAULT_SM)
         .width('100%')
-        .onClick(()=>{
-          DialogHelper.closeDialog(this.options.dialogId ?? "");
-        })
+        .margin({ bottom: 10 })
+        .layoutWeight(this.options.maxHeight ? 1 : 0)
+
+        Text(this.options.cancelValue)
+          .fontSize(this.fontSize)
+          .fontColor(this.options.cancelFontColor ?? $r('sys.color.ohos_id_picker_button_text_color'))
+          .fontWeight(this.options.cancelFontWeight ?? FontWeight.Bold)
+          .align(Alignment.Center)
+          .textAlign(TextAlign.Center)
+          .width('100%')
+          .padding({ top: 20, bottom: 20, left: 10, right: 10 })
+          .backgroundColor(this.options.backgroundColor)
+          .backgroundBlurStyle(this.options.backgroundBlurStyle)
+          .borderRadius(this.options.cornerRadius)
+          .shadow(ShadowStyle.OUTER_DEFAULT_SM)
+          .width('100%')
+          .onClick(()=>{
+            DialogHelper.closeDialog(this.options.dialogId ?? "");
+          })
+      }
+      .justifyContent(FlexAlign.Center)
+      .alignItems(HorizontalAlign.Center)
+      .width(this.options.width)
+      .height(this.options.height ?? "auto")
+      .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
+      .margin({ bottom: 30 })
     }
-    .justifyContent(FlexAlign.Center)
-    .alignItems(HorizontalAlign.Center)
-    .width(this.options.width)
-    .height(this.options.height ?? "auto")
-    .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
-    .margin({ bottom: 30 })
   }
 
   @Builder

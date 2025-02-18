@@ -45,7 +45,6 @@ export struct LoadingProgressView {
           .color(this.options.loadColor)
           .backgroundColor("#66FFFFFF")
           .style({ strokeWidth: 6, enableSmoothEffect: false })
-
         Text(`${this.options.progress > 100 ? 100 : this.options.progress}%`)
           .width('100%')
           .height('100%')
@@ -56,7 +55,6 @@ export struct LoadingProgressView {
       }
       .height((this.options.loadSize))
       .width((this.options.loadSize))
-      .margin({ top: this.content.length > 0 ? 2 : 0 })
 
       Text(this.options.content)
         .textAlign(TextAlign.Center)
@@ -67,15 +65,15 @@ export struct LoadingProgressView {
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .margin(12)
-    .constraintSize({
-      minWidth: (this.content.length > 0 ? 130 : 120),
-      minHeight: (this.content.length > 0 ? 130 : 120)
-    })
-    .padding(20)
+    .margin(5)
+    .padding(this.options.padding)
     .backgroundColor(this.options.backgroundColor)
     .borderRadius(this.options.borderRadius)
     .shadow(this.options.shadow)
+    .constraintSize({
+      minWidth: (this.content.length > 0 ? 116 : 96),
+      minHeight: (this.content.length > 0 ? 116 : 96)
+    })
   }
 
 
