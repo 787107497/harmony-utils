@@ -15,7 +15,7 @@ import { TitleBarView } from '../../component/TitleBarView';
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 569512366
+ * QQ交流群: 1029219059
  */
 @Entry
 @Component
@@ -121,7 +121,7 @@ struct Index {
           Button("转换SM2密文")
             .btnStyle()
             .onClick(() => {
-              let msg = "鸿蒙技术交流QQ群：569512366"; //待加密字符串
+              let msg = "鸿蒙技术交流QQ群：1029219059"; //待加密字符串
               let msgDataBlob = CryptoHelper.strToDataBlob(msg, 'utf-8');
               let encryptDataBlob = SM2.encryptSync(msgDataBlob, this.keyPair!.pubKey); //加密
 
@@ -135,7 +135,7 @@ struct Index {
           Button("加解密，异步")
             .btnStyle()
             .onClick(async () => {
-              let msg = "鸿蒙技术交流QQ群：569512366"; //待加密字符串
+              let msg = "鸿蒙技术交流QQ群：1029219059"; //待加密字符串
               let msgDataBlob = CryptoHelper.strToDataBlob(msg, 'utf-8');
               let encryptDataBlob = await SM2.encrypt(msgDataBlob, this.keyPair!.pubKey); //加密
               let decryptDataBlob = await SM2.decrypt(encryptDataBlob, this.keyPair!.priKey); //解密

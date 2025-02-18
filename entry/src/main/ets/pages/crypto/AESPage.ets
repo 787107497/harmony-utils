@@ -14,14 +14,14 @@ import { TitleBarView } from '../../component/TitleBarView';
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 569512366
+ * QQ交流群: 1029219059
  */
 @Entry
 @Component
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
-  readonly str1: string = "鸿蒙技术交流QQ群：569512366";
+  readonly str1: string = "鸿蒙技术交流QQ群：1029219059";
   readonly str2: string = "harmony-utils，一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。";
   readonly str3: string = "harmony-utils，一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。gitee地址：https://gitee.com/tongyuyan/harmony-utils。github主页地址：https://github.com/787107497。";
   @State gcmParams?: cryptoFramework.GcmParamsSpec = undefined;

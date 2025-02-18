@@ -26,7 +26,7 @@ import { InputFilter } from '../InputFilter';
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 569512366
+ * QQ交流群: 1029219059
  */
 export interface BaseInputOptions extends DialogOptions {
 

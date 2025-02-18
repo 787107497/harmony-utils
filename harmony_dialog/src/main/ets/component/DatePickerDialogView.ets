@@ -27,7 +27,7 @@ import { Helper } from '../utils/Helper';
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
- * QQ交流群: 569512366
+ * QQ交流群: 1029219059
  */
 @Preview
 @Component
@@ -216,7 +216,7 @@ export struct DatePickerDialogView {
             this.onChangeData(3);
           })
         TextPicker({ range: this.hours, value: this.hour })
-          .TextPickerStyle(this.options, this.containYear, 9)
+          .TextPickerStyle(this.options, this.containHour, 9)
           .onChange((value) => {
             this.hour = value as string;
             this.onChangeData(4);
