@@ -216,7 +216,7 @@ export struct DatePickerDialogView {
             this.onChangeData(3);
           })
         TextPicker({ range: this.hours, value: this.hour })
-          .TextPickerStyle(this.options, this.containYear, 9)
+          .TextPickerStyle(this.options, this.containHour, 9)
           .onChange((value) => {
             this.hour = value as string;
             this.onChangeData(4);
