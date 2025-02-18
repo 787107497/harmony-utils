@@ -1,17 +1,7 @@
 {
-  "name": "harmony_speech",
-  "version": "1.0.0",
-  "description": "Please describe the basic information.",
-  "main": "Index.ets",
-  "author": "",
-  "license": "Apache-2.0",
-  "dependencies": {}
-}
-
-{
   "name": "@pura/harmony-speech",
   "version": "1.0.0",
-  "description": "mime-types 主要用于处理和确定文件的 MIME 类型。",
+  "description": "harmony-speech ",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",
   "repository": "https://gitee.com/tongyuyan/harmony-utils",
@@ -21,21 +11,19 @@
   "devDependencies": {},
   "dynamicDependencies": {},
   "keywords": [
-    "标准化数据",
-    "mimeType",
-    "mime-types",
-    "mime",
+    "speechRecognizer",
+    "textToSpeech",
+    "基础语音服务",
     "语音识别",
     "文本转语音",
     "朗读控件"
   ],
   "tags": [
-    "标准化数据",
-    "mimeType",
-    "mime-types",
-    "mime",
-    "MIME",
-    "扩展名",
-    "后缀名"
+    "speechRecognizer",
+    "textToSpeech",
+    "基础语音服务",
+    "语音识别",
+    "文本转语音",
+    "朗读控件"
   ]
 }
