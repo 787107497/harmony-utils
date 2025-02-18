@@ -73,6 +73,10 @@
     {
       "name": "mime_types",
       "srcPath": "./mime_types",
+    },
+    {
+      "name": "harmony_speech",
+      "srcPath": "./harmony_speech",
     }
   ]
 }

@@ -315,7 +315,7 @@ OpenHarmony ohpm
 [https://gitee.com/tongyuyan/harmony-utils](https://gitee.com/tongyuyan/harmony-utils)   
 [https://github.com/787107497](https://github.com/787107497)
 
-鸿蒙技术交流QQ群：569512366
+鸿蒙技术交流QQ群：1029219059
 
 ## 🌞友情推荐
 

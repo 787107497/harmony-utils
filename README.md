@@ -20,7 +20,7 @@ AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、
 
 ## 🍎技术交流
 
-鸿蒙技术交流QQ群：569512366
+鸿蒙技术交流QQ群：1029219059
 
 ## 🌏开源协议
 

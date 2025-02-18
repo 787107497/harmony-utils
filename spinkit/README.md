@@ -23,7 +23,7 @@ OpenHarmony ohpm
 ## 📚效果图
 
 效果图略有卡顿，请运行源码或添加依赖，查看效果。      
-![QQ群：569512366](example/GIF.gif)
+![QQ群：1029219059](example/GIF.gif)
 
 ## 📚SpinKit组件
 

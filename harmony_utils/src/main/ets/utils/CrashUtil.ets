@@ -36,7 +36,7 @@ import { CRASH_ID_KEY } from '../entity/constraint';
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 569512366
+ * QQ交流群: 1029219059
  */
 export class CrashUtil {
 

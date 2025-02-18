@@ -38,7 +38,7 @@ export struct MyPage {
                 .fontStyle(FontStyle.Italic)
                 .fontSize(16)
                 .margin({ top: 6 })
-              Text("QQ交流群：569512366")
+              Text("QQ交流群：1029219059")
                 .fontFamily('MyFont')
                 .fontWeight(FontWeight.Regular)
                 .fontStyle(FontStyle.Italic)
