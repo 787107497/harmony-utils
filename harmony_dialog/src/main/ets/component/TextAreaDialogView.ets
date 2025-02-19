@@ -15,11 +15,11 @@
 
 import { CustomContentDialog } from '@kit.ArkUI';
 import { BaseContentOptions } from '../model/base/BaseContentOptions';
-import { CustomContentOptions } from '../model/CustomContentOptions';
 import { TextAreaOptions } from '../model/TextAreaOptions';
-import { TextAlignment } from '../utils/constraint';
+import { DialogThemeColorMode, TextAlignment } from '../utils/constraint';
 import { TextAreaModifier } from '../utils/TextAreaModifier';
 import { CacheHelper } from '../utils/CacheHelper';
+import { DialogOptions } from '../model/base/DialogOptions';
 
 
 /**
@@ -35,10 +35,12 @@ import { CacheHelper } from '../utils/CacheHelper';
 export struct TextAreaDialogView {
   private controller: TextInputController = new TextInputController()
   @Prop options: TextAreaOptions;
+  @State customOptions: BaseContentOptions | undefined = undefined;
   @State modifier: TextAreaModifier = new TextAreaModifier();
-  @State content: CustomContentOptions | null = null;
   @State text: string = '';
   @State textAlignment: Alignment = Alignment.Top;
+  @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
+    this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
 
 
   aboutToAppear(): void {
@@ -47,16 +49,6 @@ export struct TextAreaDialogView {
     if (this.options.controller) {
       this.controller = this.options.controller;
     }
-    this.content = {
-      primaryTitle: this.options.primaryTitle,
-      secondaryTitle: this.options.secondaryTitle,
-      localizedContentAreaPadding: this.options.localizedContentAreaPadding,
-      contentAreaPadding: this.options.contentAreaPadding,
-      contentBuilder: () => {
-        this.InputBuilder()
-      }
-    }
-    this.content.buttons = this.options.buttons;
     if (this.options.align == TextAlignment.Bottom) {
       this.textAlignment = Alignment.Bottom;
     } else if (this.options.align == TextAlignment.Center) {
@@ -64,11 +56,15 @@ export struct TextAreaDialogView {
     } else {
       this.textAlignment = Alignment.Top;
     }
+    this.customOptions = (this.options as BaseContentOptions);
+    this.customOptions.contentBuilder = () => {
+      this.InputBuilder()
+    }
     CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, this.text);
   }
 
   build() {
-    CustomContentDialog(this.content as BaseContentOptions)
+    CustomContentDialog(this.customOptions)
       .height(this.options.height)
       .width(this.options.width)
       .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })

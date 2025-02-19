@@ -36,7 +36,6 @@ import { DialogConfig } from '../model/DialogConfig';
 import { ConfirmOptions } from '../model/ConfirmOptions';
 import { AlertOptions } from '../model/AlertOptions';
 import { CustomContentOptions } from '../model/CustomContentOptions';
-import { ButtonOptions } from '../model/ButtonOptions';
 import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
 import { LoadingOptions } from '../model/LoadingOptions';
 import { ToastOptions } from '../model/ToastOptions';
@@ -56,6 +55,7 @@ import { TextPickerOptions } from '../model/TextPickerOptions';
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
 import { BasePickerOptions } from '../model/base/BasePickerOptions';
 import { CacheHelper } from '../utils/CacheHelper';
+import { ButtonOptions } from '@kit.ArkUI'
 
 
 /**

@@ -498,23 +498,28 @@ export struct DialogPage {
       DialogHelper.showTextInputDialog({
         title: "",
         buttons: [
-          '取消',
-          { value: '保存', fontColor: Color.Red }
+          { value: "取消1", fontColor: Color.Red },
+          "确认1"
         ],
-        alignment: DialogAlignment.Bottom,
-        offset: { dx: 0, dy: -35 },
-        contentAreaPadding: { top: 30, bottom: 10, left: 15, right: 15 },
+
+        // buttons: [
+        //   '取消',
+        //   { value: '保存', fontColor: Color.Red }
+        // ],
+        // alignment: DialogAlignment.Bottom,
+        // offset: { dx: 0, dy: -35 },
+        // contentAreaPadding: { top: 30, bottom: 10, left: 15, right: 15 },
         text: this.inputText,
-        placeholder: "请输入人员年龄",
-        inputType: InputType.Number,
+        // placeholder: "请输入人员年龄",
+        // inputType: InputType.Number,
         controller: this.controller,
-        maxLength: 3,
-        inputFilter: {
-          value: "[0-9]",
-          error: (value) => {
-            console.error("inputFilter: " + value);
-          }
-        },
+        // maxLength: 3,
+        // inputFilter: {
+        //   value: "[0-9]",
+        //   error: (value) => {
+        //     console.error("inputFilter: " + value);
+        //   }
+        // },
         onChange: (text) => {
           console.error("onChange: " + text);
         },

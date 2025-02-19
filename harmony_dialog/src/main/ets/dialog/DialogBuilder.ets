@@ -68,7 +68,6 @@ export function ConfirmDialogBuilder(options: DialogOptions) {
     .borderWidth(options.borderWidth)
     .borderColor(options.borderColor)
     .borderStyle(options.borderStyle)
-
 }
 
 

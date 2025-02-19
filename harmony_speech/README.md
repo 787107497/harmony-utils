@@ -3,7 +3,7 @@
 ## 🏆简介与推荐
 
 [harmony-speech](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Fharmony-speech)
-语音合成、语音识别、朗读控件。
+语音合成、语音识别、朗读控件 等相关工具库。
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
 一款功能丰富且极易上手的HarmonyOS工具库，借助众多实用工具类，致力于助力开发者迅速构建鸿蒙应用。
@@ -19,18 +19,8 @@ OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 <br>
 
-## 📚API详解 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/plug/MimeTypesPage.ets)
+## 📚API详解 
 
-| Mime方法名                          | 介绍                                       |
-|:---------------------------------|:-----------------------------------------|
-| lookup                           | 根据文件名获取MIME类型                            |
-| contentType                      | 根据文件名的后缀名获取MIME类型                        |
-| extension                        | 根据MIME类型获取文件扩展名                          |
-| getFileExtention                 | 根据 文件名/文件path/文件uri/文件url，获取文件后缀名        |
-| getIconFileByFileExtension       | 根据文件后缀名获取对应文件类型的图标                       |
-| getIconFileByMIMEType            | 根据MIME类型获取对应文件类型的图标                      |
-| getTypeDescriptorByFileExtension | 根据文件后缀名获取TypeDescriptor（标准化数据类型的描述类）     |
-| getTypeDescriptorByMIMEType      | 根据文件MIME类型，获取TypeDescriptor（标准化数据类型的描述类） |
 
 ## 🍎沟通与交流🙏
 

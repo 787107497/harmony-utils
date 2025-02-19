@@ -37,7 +37,7 @@ export { ToastOptions } from './src/main/ets/model/ToastOptions';
 
 export { ToastTipOptions } from './src/main/ets/model/ToastTipOptions';
 
-export { ButtonOptions } from './src/main/ets/model/ButtonOptions';
+export { ButtonOptions } from '@kit.ArkUI';
 
 export { SheetOptions } from './src/main/ets/model/SheetOptions';
 

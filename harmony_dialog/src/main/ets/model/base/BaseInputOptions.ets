@@ -14,9 +14,9 @@
  */
 
 import { ActionStrCallBack, StringCalBack } from '../../utils/constraint';
-import { DialogOptions } from './DialogOptions';
-import { ButtonOptions } from '../ButtonOptions';
+import { ButtonOptions } from '@kit.ArkUI'
 import { InputFilter } from '../InputFilter';
+import { BaseContentOptions } from './BaseContentOptions';
 
 /**
  * TODO Base输入弹出框，参数类
@@ -28,13 +28,7 @@ import { InputFilter } from '../InputFilter';
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 1029219059
  */
-export interface BaseInputOptions extends DialogOptions {
-
-  primaryTitle?: ResourceStr; //弹出框标题。
-  secondaryTitle?: ResourceStr; //弹出框辅助文本。
-  buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。
-  localizedContentAreaPadding?: LocalizedPadding; //弹出框内容区内边距。
-  contentAreaPadding?: Padding; //弹出框内容区内边距。设置了localizedContentAreaPadding属性时该属性不生效。
+export interface BaseInputOptions extends BaseContentOptions {
 
   text: string; //设置输入框当前的文本内容。
   fontColor?: ResourceColor; //字体颜色
@@ -51,6 +45,8 @@ export interface BaseInputOptions extends DialogOptions {
   inputFilter?: InputFilter; //通过正则表达式设置输入过滤器。
 
   onChange?: StringCalBack;
+
+  buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。
   onAction: ActionStrCallBack; //按钮的CallBack事件。
 
 }

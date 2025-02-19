@@ -15,7 +15,7 @@
 
 
 import { BaseDialogOptions } from './BaseDialogOptions';
-import { ButtonOptions } from '../ButtonOptions';
+import { ButtonOptions } from '@kit.ArkUI';
 
 
 /**

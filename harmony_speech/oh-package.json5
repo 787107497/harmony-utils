@@ -1,7 +1,7 @@
 {
   "name": "@pura/harmony-speech",
   "version": "1.0.0",
-  "description": "harmony-speech ",
+  "description": "harmony-speech 语音合成、语音识别、朗读控件 等相关工具库。",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",
   "repository": "https://gitee.com/tongyuyan/harmony-utils",

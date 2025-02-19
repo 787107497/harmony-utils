@@ -14,11 +14,12 @@
  */
 
 import { TextInputOptions } from '../model/TextInputOptions';
-import { CustomContentDialog } from '@kit.ArkUI';
 import { BaseContentOptions } from '../model/base/BaseContentOptions';
-import { CustomContentOptions } from '../model/CustomContentOptions';
 import { TextInputModifier } from '../utils/TextInputModifier';
 import { CacheHelper } from '../utils/CacheHelper';
+import { DialogThemeColorMode } from '../utils/constraint';
+import { DialogOptions } from '../model/base/DialogOptions';
+import { CustomContentDialog } from '@kit.ArkUI';
 
 
 /**
@@ -34,11 +35,13 @@ import { CacheHelper } from '../utils/CacheHelper';
 export struct TextInputDialogView {
   private controller: TextInputController = new TextInputController();
   @Prop options: TextInputOptions;
+  @State customOptions: BaseContentOptions | undefined = undefined;
   @State modifier: TextInputModifier = new TextInputModifier();
-  @State content: CustomContentOptions | null = null;
   @State text: string = '';
   @State showPassword: boolean = false; //是否显示密码
   @State cancelButton: CancelButtonOptions = { style: CancelButtonStyle.INPUT, icon: { size: '16vp', color: '#99ffffff', src: '' } }; //右侧清除按钮样式
+  @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
+    this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
 
 
   aboutToAppear(): void {
@@ -51,64 +54,88 @@ export struct TextInputDialogView {
     if (this.options.cancelButton) {
       this.cancelButton = this.options.cancelButton;
     }
-    this.content = {
-      primaryTitle: this.options.primaryTitle,
-      secondaryTitle: this.options.secondaryTitle,
-      localizedContentAreaPadding: this.options.localizedContentAreaPadding,
-      contentAreaPadding: this.options.contentAreaPadding,
-      contentBuilder: () => {
-        this.InputBuilder()
-      }
+    this.customOptions = (this.options as BaseContentOptions);
+    this.customOptions.contentBuilder = () => {
+      this.InputBuilder()
     }
-    this.content.buttons = this.options.buttons;
     CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, this.text);
   }
 
   build() {
-    CustomContentDialog(this.content as BaseContentOptions)
-      .height(this.options.height)
-      .width(this.options.width)
-      .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
-      .backgroundColor(this.options.backgroundColor)
-      .backgroundBlurStyle(this.options.backgroundBlurStyle)
-      .borderRadius(this.options.cornerRadius)
-      .borderWidth(this.options.borderWidth)
-      .borderColor(this.options.borderColor)
-      .borderStyle(this.options.borderStyle)
+    if (this.themeColorMode === ThemeColorMode.LIGHT) {
+      WithTheme({ colorMode: ThemeColorMode.LIGHT }) {
+        CustomContentDialog(this.customOptions)
+          .height(this.options.height)
+          .width(this.options.width)
+          .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
+          .backgroundColor(this.options.backgroundColor)
+          .backgroundBlurStyle(this.options.backgroundBlurStyle)
+          .borderRadius(this.options.cornerRadius)
+          .borderWidth(this.options.borderWidth)
+          .borderColor(this.options.borderColor)
+          .borderStyle(this.options.borderStyle)
+      }
+    } else if (this.themeColorMode === ThemeColorMode.DARK) {
+      WithTheme({ colorMode: ThemeColorMode.DARK }) {
+        CustomContentDialog(this.customOptions)
+          .height(this.options.height)
+          .width(this.options.width)
+          .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
+          .backgroundColor(this.options.backgroundColor)
+          .backgroundBlurStyle(this.options.backgroundBlurStyle)
+          .borderRadius(this.options.cornerRadius)
+          .borderWidth(this.options.borderWidth)
+          .borderColor(this.options.borderColor)
+          .borderStyle(this.options.borderStyle)
+      }
+    } else {
+      CustomContentDialog(this.customOptions)
+        .height(this.options.height)
+        .width(this.options.width)
+        .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
+        .backgroundColor(this.options.backgroundColor)
+        .backgroundBlurStyle(this.options.backgroundBlurStyle)
+        .borderRadius(this.options.cornerRadius)
+        .borderWidth(this.options.borderWidth)
+        .borderColor(this.options.borderColor)
+        .borderStyle(this.options.borderStyle)
+    }
   }
 
 
   @Builder
   InputBuilder() {
-    TextInput({
-      controller: this.controller,
-      text: $$this.text,
-      placeholder: this.options.placeholder ?? '请输入'
-    })
-      .type(this.options.inputType ?? InputType.Normal)
-      .showPassword(this.showPassword)
-      .showPasswordIcon(this.options.showPasswordIcon)
-      .passwordIcon(this.options.passwordIcon)
-      .passwordRules(this.options.passwordRules)
-      .cancelButton(this.cancelButton)
-      .defaultFocus(this.options.defaultFocus)
-      .fontColor(this.options.fontColor)
-      .fontSize(this.options.fontSize)
-      .placeholderColor(this.options.placeholderColor)
-      .backgroundColor(this.options.inputBackgroundColor)
-      .border(this.options.inputBorder)
-      .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
-      .height(this.options.inputHeight)
-      .attributeModifier(this.modifier)
-      .onChange((value: string, previewText?: PreviewText) => {
-        CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
-        if (this.options.onChange) {
-          this.options.onChange(value);
-        }
+    WithTheme({ colorMode: this.themeColorMode }) {
+      TextInput({
+        controller: this.controller,
+        text: $$this.text,
+        placeholder: this.options.placeholder ?? '请输入'
       })
-      .onSecurityStateChange(show => {
-        this.showPassword = show;
-      })
+        .type(this.options.inputType ?? InputType.Normal)
+        .showPassword(this.showPassword)
+        .showPasswordIcon(this.options.showPasswordIcon)
+        .passwordIcon(this.options.passwordIcon)
+        .passwordRules(this.options.passwordRules)
+        .cancelButton(this.cancelButton)
+        .defaultFocus(this.options.defaultFocus)
+        .fontColor(this.options.fontColor)
+        .fontSize(this.options.fontSize)
+        .placeholderColor(this.options.placeholderColor)
+        .backgroundColor(this.options.inputBackgroundColor)
+        .border(this.options.inputBorder)
+        .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
+        .height(this.options.inputHeight)
+        .attributeModifier(this.modifier)
+        .onChange((value: string, previewText?: PreviewText) => {
+          CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
+          if (this.options.onChange) {
+            this.options.onChange(value);
+          }
+        })
+        .onSecurityStateChange(show => {
+          this.showPassword = show;
+        })
+    }
   }
 
 }

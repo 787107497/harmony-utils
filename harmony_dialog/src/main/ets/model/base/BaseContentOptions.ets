@@ -13,7 +13,10 @@
  * limitations under the License.
  */
 
+
+import { ActionStrCallBack } from '../../utils/constraint';
 import { DialogOptions } from './DialogOptions';
+import { ButtonOptions } from '@kit.ArkUI'
 
 /**
  * TODO 自定义内容区弹出框，参数类
@@ -29,9 +32,12 @@ export interface BaseContentOptions extends DialogOptions {
 
   primaryTitle?: ResourceStr; //弹出框标题。
   secondaryTitle?: ResourceStr; //弹出框辅助文本。
-
-  contentBuilder: () => void; //弹出框内容。
   localizedContentAreaPadding?: LocalizedPadding; //弹出框内容区内边距。
   contentAreaPadding?: Padding; //弹出框内容区内边距。设置了localizedContentAreaPadding属性时该属性不生效。
+
+  // buttons?: Array<ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。
+  onAction?: ActionStrCallBack; //按钮的CallBack事件。
+
+  contentBuilder?: () => void; //弹出框内容，自定义
 
 }

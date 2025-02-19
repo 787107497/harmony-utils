@@ -14,7 +14,7 @@
  */
 
 import { DialogOptions } from './DialogOptions';
-import { ButtonOptions } from '../ButtonOptions';
+import { ButtonOptions } from '@kit.ArkUI';
 import { ActionCallBack } from '../../utils/constraint';
 
 /**

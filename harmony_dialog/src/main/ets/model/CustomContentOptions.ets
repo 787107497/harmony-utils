@@ -15,7 +15,7 @@
 
 import { ActionStrCallBack } from '../utils/constraint';
 import { BaseContentOptions } from './base/BaseContentOptions';
-import { ButtonOptions } from './ButtonOptions';
+import { ButtonOptions } from '@kit.ArkUI'
 
 /**
  * TODO 自定义内容区弹出框，参数类
@@ -31,5 +31,7 @@ export interface CustomContentOptions extends BaseContentOptions {
 
   buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。
   onAction?: ActionStrCallBack; //按钮的CallBack事件。
+
+  contentBuilder: () => void; //弹出框内容，自定义
 
 }

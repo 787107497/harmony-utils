@@ -15,7 +15,7 @@
 
 
 import { TextPickerOptions } from '../model/TextPickerOptions';
-import { ButtonOptions } from '../model/ButtonOptions';
+import { ButtonOptions } from '@kit.ArkUI';
 import { Helper } from '../utils/Helper';
 import { DialogAction, DialogThemeColorMode } from '../utils/constraint';
 import { DialogHelper } from '../dialog/DialogHelper';
