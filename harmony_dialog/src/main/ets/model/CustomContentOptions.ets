@@ -15,7 +15,7 @@
 
 import { ActionStrCallBack } from '../utils/constraint';
 import { BaseContentOptions } from './base/BaseContentOptions';
-import { ButtonOptions } from '@kit.ArkUI'
+import { ButtonOptions } from './ButtonOptions'
 
 /**
  * TODO 自定义内容区弹出框，参数类

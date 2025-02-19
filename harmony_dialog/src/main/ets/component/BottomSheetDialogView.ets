@@ -61,12 +61,7 @@ export struct BottomSheetDialogView {
             .fontColor(this.options.titleFontColor ?? $r('app.color.harmony_dialog_title_color'))
             .align(Alignment.Center)
             .textAlign(TextAlign.Center)
-            .padding({
-              left: 10,
-              right: 10,
-              bottom: 15,
-              top: 15
-            })
+            .padding({ left: 10, right: 10, bottom: 15, top: 15 })
             .width('100%')
           Divider()
             .width('100%')
@@ -98,26 +93,22 @@ export struct BottomSheetDialogView {
           .align(Alignment.Center)
           .textAlign(TextAlign.Center)
           .width('100%')
-          .padding({
-            top: 20,
-            bottom: 20,
-            left: 10,
-            right: 10
-          })
+          .padding({ top: 20, bottom: 20, left: 10, right: 10 })
           .margin({ bottom: this.largeScreen ? 0 : 20 })
           .onClick(() => {
             DialogHelper.closeDialog(this.options.dialogId ?? "");
           })
       }
-      .backgroundColor(this.options.backgroundColor)
-      .backgroundBlurStyle(this.options.backgroundBlurStyle)
-      .borderRadius(this.options.cornerRadius)
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
       .width(this.options.width)
       .height(this.options.height ?? "auto")
       .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
       .margin({ bottom: this.largeScreen ? 30 : 0 })
+      .backgroundColor(this.options.backgroundColor)
+      .backgroundBlurStyle(this.options.backgroundBlurStyle)
+      .borderRadius(this.options.cornerRadius)
+      .clip(true)
     }
   }
 

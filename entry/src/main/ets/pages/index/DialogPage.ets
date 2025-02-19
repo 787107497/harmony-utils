@@ -27,7 +27,6 @@ import { Utils } from '../../utils/Utils';
 @Preview
 @Component
 export struct DialogPage {
-  private controller: TextInputController = new TextInputController();
   private scroller: Scroller = new Scroller();
   @State menuArray: Array<string> = ["相机", "相册", "文件管理器"];
   @State inputText: string = ""; //输入框内容
@@ -498,28 +497,22 @@ export struct DialogPage {
       DialogHelper.showTextInputDialog({
         title: "",
         buttons: [
-          { value: "取消1", fontColor: Color.Red },
-          "确认1"
+          '取消',
+          { value: '保存', fontColor: Color.Red }
         ],
-
-        // buttons: [
-        //   '取消',
-        //   { value: '保存', fontColor: Color.Red }
-        // ],
-        // alignment: DialogAlignment.Bottom,
-        // offset: { dx: 0, dy: -35 },
-        // contentAreaPadding: { top: 30, bottom: 10, left: 15, right: 15 },
+        alignment: DialogAlignment.Bottom,
+        offset: { dx: 0, dy: -35 },
+        contentAreaPadding: { top: 30, bottom: 10, left: 15, right: 15 },
         text: this.inputText,
-        // placeholder: "请输入人员年龄",
-        // inputType: InputType.Number,
-        controller: this.controller,
-        // maxLength: 3,
-        // inputFilter: {
-        //   value: "[0-9]",
-        //   error: (value) => {
-        //     console.error("inputFilter: " + value);
-        //   }
-        // },
+        placeholder: "请输入人员年龄",
+        inputType: InputType.Number,
+        maxLength: 3,
+        inputFilter: {
+          value: "[0-9]",
+          error: (value) => {
+            console.error("inputFilter: " + value);
+          }
+        },
         onChange: (text) => {
           console.error("onChange: " + text);
         },

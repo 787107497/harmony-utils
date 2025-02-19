@@ -14,28 +14,21 @@
  */
 
 
-import { ActionStrCallBack } from '../../utils/constraint';
-import { DialogOptions } from './DialogOptions';
-
 /**
- * TODO 自定义内容区弹出框，参数类
+ * TODO Dialog按钮参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
+ * QQ交流群: 569512366
  */
-export interface BaseContentOptions extends DialogOptions {
-
-  primaryTitle?: ResourceStr; //弹出框标题。
-  secondaryTitle?: ResourceStr; //弹出框辅助文本。
-  localizedContentAreaPadding?: LocalizedPadding; //弹出框内容区内边距。
-  contentAreaPadding?: Padding; //弹出框内容区内边距。设置了localizedContentAreaPadding属性时该属性不生效。
-
-  onAction?: ActionStrCallBack; //按钮的CallBack事件。
-
-  contentBuilder?: () => void; //弹出框内容，自定义
-
+export class ButtonOptions {
+  value: ResourceStr = ''; //按钮的内容。
+  fontColor?: ResourceColor; //按钮的字体颜色。
+  action?: VoidCallback; //按钮的点击事件，大多数按钮不需要实现这个点击事件
+  background?: ResourceColor; //按钮的背景。
+  buttonStyle?: ButtonStyleMode; //按钮的样式。默认值：2in1设备为ButtonStyleMode.NORMAL，其他设备为ButtonStyleMode.TEXTUAL。
+  role?: ButtonRole; //按钮的角色。默认值：ButtonRole.NORMAL。
 }

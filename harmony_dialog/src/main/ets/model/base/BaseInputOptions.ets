@@ -14,7 +14,7 @@
  */
 
 import { ActionStrCallBack, StringCalBack } from '../../utils/constraint';
-import { ButtonOptions } from '@kit.ArkUI'
+import { ButtonOptions } from '../ButtonOptions'
 import { InputFilter } from '../InputFilter';
 import { BaseContentOptions } from './BaseContentOptions';
 
@@ -41,9 +41,7 @@ export interface BaseInputOptions extends BaseContentOptions {
 
   defaultFocus?: boolean //设置弹框默认获得焦点，打开弹窗同时弹出输入法
   maxLength?: number; //文本的最大输入字符数。  默认值：Infinity，可以无限输入。
-  controller?: TextInputController; //TextInput组件的控制器
   inputFilter?: InputFilter; //通过正则表达式设置输入过滤器。
-
   onChange?: StringCalBack;
 
   buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。

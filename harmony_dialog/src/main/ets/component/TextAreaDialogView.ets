@@ -19,7 +19,6 @@ import { TextAreaOptions } from '../model/TextAreaOptions';
 import { DialogThemeColorMode, TextAlignment } from '../utils/constraint';
 import { TextAreaModifier } from '../utils/TextAreaModifier';
 import { CacheHelper } from '../utils/CacheHelper';
-import { DialogOptions } from '../model/base/DialogOptions';
 
 
 /**
@@ -46,9 +45,6 @@ export struct TextAreaDialogView {
   aboutToAppear(): void {
     this.text = this.options.text ?? "";
     this.modifier.inputFilter = this.options.inputFilter;
-    if (this.options.controller) {
-      this.controller = this.options.controller;
-    }
     if (this.options.align == TextAlignment.Bottom) {
       this.textAlignment = Alignment.Bottom;
     } else if (this.options.align == TextAlignment.Center) {
@@ -64,48 +60,81 @@ export struct TextAreaDialogView {
   }
 
   build() {
-    CustomContentDialog(this.customOptions)
-      .height(this.options.height)
-      .width(this.options.width)
-      .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
-      .backgroundColor(this.options.backgroundColor)
-      .backgroundBlurStyle(this.options.backgroundBlurStyle)
-      .borderRadius(this.options.cornerRadius)
-      .borderWidth(this.options.borderWidth)
-      .borderColor(this.options.borderColor)
-      .borderStyle(this.options.borderStyle)
+    if (this.themeColorMode === ThemeColorMode.LIGHT) {
+      WithTheme({ colorMode: ThemeColorMode.LIGHT }) {
+        CustomContentDialog(this.customOptions)
+          .height(this.options.height)
+          .width(this.options.width)
+          .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
+          .backgroundColor(this.options.backgroundColor)
+          .backgroundBlurStyle(this.options.backgroundBlurStyle)
+          .borderRadius(this.options.cornerRadius)
+          .borderWidth(this.options.borderWidth)
+          .borderColor(this.options.borderColor)
+          .borderStyle(this.options.borderStyle)
+          .clip(true)
+      }
+    } else if (this.themeColorMode === ThemeColorMode.DARK) {
+      WithTheme({ colorMode: ThemeColorMode.DARK }) {
+        CustomContentDialog(this.customOptions)
+          .height(this.options.height)
+          .width(this.options.width)
+          .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
+          .backgroundColor(this.options.backgroundColor)
+          .backgroundBlurStyle(this.options.backgroundBlurStyle)
+          .borderRadius(this.options.cornerRadius)
+          .borderWidth(this.options.borderWidth)
+          .borderColor(this.options.borderColor)
+          .borderStyle(this.options.borderStyle)
+          .clip(true)
+      }
+    } else {
+      CustomContentDialog(this.customOptions)
+        .height(this.options.height)
+        .width(this.options.width)
+        .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
+        .backgroundColor(this.options.backgroundColor)
+        .backgroundBlurStyle(this.options.backgroundBlurStyle)
+        .borderRadius(this.options.cornerRadius)
+        .borderWidth(this.options.borderWidth)
+        .borderColor(this.options.borderColor)
+        .borderStyle(this.options.borderStyle)
+        .clip(true)
+    }
   }
 
 
   @Builder
   InputBuilder() {
-    TextArea({
-      controller: this.controller,
-      text: $$this.text,
-      placeholder: this.options.placeholder ?? '请输入'
-    })
-      .type(this.options.inputType ?? TextAreaType.NORMAL)
-      .defaultFocus(this.options.defaultFocus)
-      .fontSize(this.options.fontSize)
-      .fontColor(this.options.fontColor)
-      .fontSize(this.options.fontSize)
-      .placeholderColor(this.options.placeholderColor)
-      .textAlign(this.options.textAlign)
-      .align(this.textAlignment)
-      .lineHeight(this.options.inputLineHeight)
-      .backgroundColor(this.options.inputBackgroundColor)
-      .border(this.options.inputBorder ?? { radius: 8 })
-      .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
-      .attributeModifier(this.modifier)
-      .width('100%')
-      .height(this.options.inputHeight ?? 155)//默认155
-      .padding({ top: 12, bottom: 12 })
-      .onChange((value: string, previewText?: PreviewText) => {
-        CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
-        if (this.options.onChange) {
-          this.options.onChange(value);
-        }
+    WithTheme({ colorMode: this.themeColorMode }) {
+      TextArea({
+        controller: this.controller,
+        text: $$this.text,
+        placeholder: this.options.placeholder ?? '请输入'
       })
+        .type(this.options.inputType ?? TextAreaType.NORMAL)
+        .defaultFocus(this.options.defaultFocus)
+        .fontSize(this.options.fontSize)
+        .fontColor(this.options.fontColor)
+        .fontSize(this.options.fontSize)
+        .placeholderColor(this.options.placeholderColor)
+        .textAlign(this.options.textAlign)
+        .align(this.textAlignment)
+        .lineHeight(this.options.inputLineHeight)
+        .backgroundColor(this.options.inputBackgroundColor)
+        .border(this.options.inputBorder ?? { radius: 8 })
+        .maxLength(this.options.maxLength == 0 ? Infinity : this.options.maxLength)
+        .attributeModifier(this.modifier)
+        .width('100%')
+        .height(this.options.inputHeight ?? 155)//默认155
+        .padding({ top: 12, bottom: 12 })
+        .onChange((value: string, previewText?: PreviewText) => {
+          CacheHelper.put(`${CacheHelper.CACHE_LABEL}${this.options.dialogId ?? ""}`, value ?? "");
+          if (this.options.onChange) {
+            this.options.onChange(value);
+          }
+        })
+    }
   }
 
 

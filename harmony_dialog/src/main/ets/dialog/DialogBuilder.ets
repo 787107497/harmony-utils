@@ -50,6 +50,7 @@ export function AlertDialogBuilder(options: DialogOptions) {
     .borderWidth(options.borderWidth)
     .borderColor(options.borderColor)
     .borderStyle(options.borderStyle)
+    .clip(true)
 }
 
 
@@ -68,6 +69,7 @@ export function ConfirmDialogBuilder(options: DialogOptions) {
     .borderWidth(options.borderWidth)
     .borderColor(options.borderColor)
     .borderStyle(options.borderStyle)
+    .clip(true)
 }
 
 
@@ -86,6 +88,7 @@ export function TipsDialogBuilder(options: DialogOptions) {
     .borderWidth(options.borderWidth)
     .borderColor(options.borderColor)
     .borderStyle(options.borderStyle)
+    .clip(true)
 }
 
 
@@ -104,6 +107,7 @@ export function SelectDialogBuilder(options: DialogOptions) {
     .borderWidth(options.borderWidth)
     .borderColor(options.borderColor)
     .borderStyle(options.borderStyle)
+    .clip(true)
 }
 
 
@@ -122,6 +126,7 @@ export function CustomContentDialogBuilder(options: BaseContentOptions) {
     .borderWidth(options.borderWidth)
     .borderColor(options.borderColor)
     .borderStyle(options.borderStyle)
+    .clip(true)
 }
 
 

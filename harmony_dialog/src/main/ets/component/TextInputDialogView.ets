@@ -18,7 +18,6 @@ import { BaseContentOptions } from '../model/base/BaseContentOptions';
 import { TextInputModifier } from '../utils/TextInputModifier';
 import { CacheHelper } from '../utils/CacheHelper';
 import { DialogThemeColorMode } from '../utils/constraint';
-import { DialogOptions } from '../model/base/DialogOptions';
 import { CustomContentDialog } from '@kit.ArkUI';
 
 
@@ -47,9 +46,6 @@ export struct TextInputDialogView {
   aboutToAppear(): void {
     this.text = this.options.text ?? "";
     this.modifier.inputFilter = this.options.inputFilter;
-    if (this.options.controller) {
-      this.controller = this.options.controller;
-    }
     this.showPassword = this.options.showPassword ?? false;
     if (this.options.cancelButton) {
       this.cancelButton = this.options.cancelButton;
@@ -74,6 +70,7 @@ export struct TextInputDialogView {
           .borderWidth(this.options.borderWidth)
           .borderColor(this.options.borderColor)
           .borderStyle(this.options.borderStyle)
+          .clip(true)
       }
     } else if (this.themeColorMode === ThemeColorMode.DARK) {
       WithTheme({ colorMode: ThemeColorMode.DARK }) {
@@ -87,6 +84,7 @@ export struct TextInputDialogView {
           .borderWidth(this.options.borderWidth)
           .borderColor(this.options.borderColor)
           .borderStyle(this.options.borderStyle)
+          .clip(true)
       }
     } else {
       CustomContentDialog(this.customOptions)
@@ -99,6 +97,7 @@ export struct TextInputDialogView {
         .borderWidth(this.options.borderWidth)
         .borderColor(this.options.borderColor)
         .borderStyle(this.options.borderStyle)
+        .clip(true)
     }
   }
 

@@ -15,7 +15,7 @@
 
 
 import { TextPickerOptions } from '../model/TextPickerOptions';
-import { ButtonOptions } from '@kit.ArkUI';
+import { ButtonOptions } from '../model/ButtonOptions';
 import { Helper } from '../utils/Helper';
 import { DialogAction, DialogThemeColorMode } from '../utils/constraint';
 import { DialogHelper } from '../dialog/DialogHelper';
@@ -161,13 +161,13 @@ export struct TextPickerDialogView {
       .backgroundColor(this.options.backgroundColor)
       .backgroundBlurStyle(this.options.backgroundBlurStyle)
       .borderRadius(this.options.cornerRadius)
-      .clip(true)
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
       .width(this.options.width)
       .constraintSize({ maxWidth: this.options.maxWidth })
       .padding({ bottom: this.largeScreen ? 0 : 25 })
       .margin({ bottom: this.largeScreen ? 30 : 0 })
+      .clip(true)
     }
   }
 

@@ -55,7 +55,7 @@ import { TextPickerOptions } from '../model/TextPickerOptions';
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
 import { BasePickerOptions } from '../model/base/BasePickerOptions';
 import { CacheHelper } from '../utils/CacheHelper';
-import { ButtonOptions } from '@kit.ArkUI'
+import { ButtonOptions } from '../model/ButtonOptions';
 
 
 /**
@@ -421,12 +421,6 @@ export class DialogHelper {
     if (options.maxWidth || DialogHelper.config.maxWidth) {
       options.maxWidth = options.maxWidth ?? DialogHelper.config.maxWidth; //弹窗的高度最大宽度。
     }
-    if (options.backgroundColor || DialogHelper.config.backgroundColor) {
-      options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
-    }
-    if (options.backgroundBlurStyle || DialogHelper.config.backgroundBlurStyle) {
-      options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogHelper.config.backgroundBlurStyle; //弹窗背板模糊材质。
-    }
     if (options.cornerRadius || DialogHelper.config.cornerRadius) {
       options.cornerRadius = options.cornerRadius ?? DialogHelper.config.cornerRadius; //弹框圆角半径。
     }
@@ -438,6 +432,18 @@ export class DialogHelper {
     }
     if (options.borderStyle || DialogHelper.config.borderStyle) {
       options.borderStyle = options.borderStyle ?? DialogHelper.config.borderStyle; //弹框背板的边框样式。
+    }
+    if (options.backgroundColor || DialogHelper.config.backgroundColor) {
+      options.backgroundColor = options.backgroundColor ?? DialogHelper.config.backgroundColor; //弹窗背板颜色。
+    }
+    if (options.backgroundBlurStyle || DialogHelper.config.backgroundBlurStyle) {
+      options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogHelper.config.backgroundBlurStyle; //弹窗背板模糊材质。
+    }
+    if (options.theme || DialogHelper.config.theme) {
+      options.theme = options.theme ?? DialogHelper.config.theme; //主题信息。
+    }
+    if (options.themeColorMode || DialogHelper.config.themeColorMode) {
+      options.themeColorMode = options.themeColorMode ?? DialogHelper.config.themeColorMode; //设置深色浅色，默认跟随系统。
     }
   }
 

@@ -51,7 +51,6 @@ export class DialogConfig {
   title: ResourceStr = '温馨提示'; //弹框标题
   primaryButton: ResourceStr = '取消'; //弹框左侧按钮。
   secondaryButton: ResourceStr = '确定'; //弹框右侧按钮。
-  theme?: Theme | CustomTheme; //主题信息，可以是CustomTheme或从onWillApplyTheme中获取的Theme实例。
   actionCancel: boolean = true; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。
 
   imageRes?: ResourceStr | PixelMap; //TipsDialog用到，展示的图片。
@@ -59,12 +58,15 @@ export class DialogConfig {
 
   width: Dimension | Length = 'calc(100% - 32vp)'; //设置弹窗的宽度，弹窗宽度默认值：'calc(100% - 32vp)'、100%。
   maxWidth?: Length = 360; //弹窗宽度默认最大值：360vp/400vp。
-  backgroundColor: ResourceColor = Color.Transparent //弹窗背板颜色。默认值：Color.Transparent
-  backgroundBlurStyle: BlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK
-  cornerRadius: Length | BorderRadiuses | LocalizedBorderRadiuses = { topLeft: '20vp', topRight: '20vp', bottomLeft: '20vp', bottomRight: '20vp' }; //设置背板的圆角半径。可分别设置4个圆角的半径。
+  cornerRadius: Length | BorderRadiuses | LocalizedBorderRadiuses = { topLeft: '16vp', topRight: '16vp', bottomLeft: '16vp', bottomRight: '16vp' }; //设置背板的圆角半径。可分别设置4个圆角的半径。
   borderWidth: Dimension | EdgeWidths | LocalizedEdgeWidths = 0; //可分别设置4个边框宽度。默认值：0。
   borderColor: ResourceColor | EdgeColors | LocalizedEdgeColors = Color.Black; //设置弹窗背板的边框颜色。默认值：Color.Black。
   borderStyle: BorderStyle | EdgeStyles = BorderStyle.Solid; //设置弹窗背板的边框样式。默认值：BorderStyle.Solid。
+
+  backgroundColor: ResourceColor = Color.Transparent //弹窗背板颜色。默认值：Color.Transparent，，目前只支持ThemeColorMode.SYSTEM。
+  backgroundBlurStyle: BlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK，
+  theme?: Theme | CustomTheme; //主题信息，可以是CustomTheme或从onWillApplyTheme中获取的Theme实例。
+  themeColorMode: ThemeColorMode = ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统，目前只支持ThemeColorMode.SYSTEM。
   //---------------------------------------弹框Dialog-------------------------------------------------------------------
 
 

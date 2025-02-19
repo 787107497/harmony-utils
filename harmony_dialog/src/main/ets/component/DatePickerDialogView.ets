@@ -14,7 +14,7 @@
  */
 
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
-import { ButtonOptions } from '@kit.ArkUI';
+import { ButtonOptions } from '../model/ButtonOptions';
 import { DateType, DialogAction, DialogHelper, DialogThemeColorMode } from '../../../../Index';
 import { DateHelper } from '../utils/DateHelper';
 import { Helper } from '../utils/Helper';

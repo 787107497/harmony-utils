@@ -80,13 +80,14 @@ export struct ActionSheetDialogView {
         }
         .justifyContent(FlexAlign.Center)
         .alignItems(HorizontalAlign.Center)
+        .width('100%')
+        .margin({ bottom: 10 })
+        .layoutWeight(this.options.maxHeight ? 1 : 0)
         .backgroundColor(this.options.backgroundColor)
         .backgroundBlurStyle(this.options.backgroundBlurStyle)
         .borderRadius(this.options.cornerRadius)
         .shadow(ShadowStyle.OUTER_DEFAULT_SM)
-        .width('100%')
-        .margin({ bottom: 10 })
-        .layoutWeight(this.options.maxHeight ? 1 : 0)
+        .clip(true)
 
         Text(this.options.cancelValue)
           .fontSize(this.fontSize)
@@ -100,7 +101,7 @@ export struct ActionSheetDialogView {
           .backgroundBlurStyle(this.options.backgroundBlurStyle)
           .borderRadius(this.options.cornerRadius)
           .shadow(ShadowStyle.OUTER_DEFAULT_SM)
-          .width('100%')
+          .clip(true)
           .onClick(()=>{
             DialogHelper.closeDialog(this.options.dialogId ?? "");
           })
