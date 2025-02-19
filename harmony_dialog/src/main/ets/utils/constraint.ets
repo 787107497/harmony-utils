@@ -54,3 +54,6 @@ export enum Orientation {
   VERTICAL, //垂直
   HORIZONTAL //水平
 }
+
+//系统深浅色模式切换监听
+export const DialogThemeColorMode: string = "harmony-dialog_ThemeColorMode";

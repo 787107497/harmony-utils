@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { DialogThemeColorMode } from '../../../../Index';
 import { DialogHelper } from '../dialog/DialogHelper';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { SheetOptions } from '../model/SheetOptions';
@@ -31,9 +32,10 @@ import { Helper } from '../utils/Helper';
 @Component
 export struct ActionSheetDialogView {
   @Prop options: BottomSheetOptions;
-  @State themeColorMode?: ThemeColorMode = this.options.themeColorMode; //设置深色浅色。
   @State title: string = ""; //标题
   @State fontSize: number | string | Resource = 16; //按钮的文字大小，字体大小16。
+  @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
+    this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
 
   aboutToAppear(): void {
     if (this.options.title) {

@@ -17,7 +17,7 @@
 import { TextPickerOptions } from '../model/TextPickerOptions';
 import { ButtonOptions } from '../model/ButtonOptions';
 import { Helper } from '../utils/Helper';
-import { DialogAction } from '../utils/constraint';
+import { DialogAction, DialogThemeColorMode } from '../utils/constraint';
 import { DialogHelper } from '../dialog/DialogHelper';
 
 
@@ -40,7 +40,8 @@ export struct TextPickerDialogView {
   @State value: string | string[] = '';
   @State range: string[] | string[][] | Resource | TextPickerRangeContent[] | TextCascadePickerRangeContent[] = [];
   @State largeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
-
+  @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
+    this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
 
   aboutToAppear(): void {
     this.largeScreen = Helper.isLargeScreen();
@@ -92,81 +93,82 @@ export struct TextPickerDialogView {
 
 
   build() {
-    Column() {
-      Row() {
-        Button(this.primaryButton?.value)
-          .buttonStyle(this.primaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
-          .role(this.primaryButton?.role ?? ButtonRole.NORMAL)
-          .type(ButtonType.Capsule)
-          .fontColor(this.primaryButton?.fontColor)
-          .backgroundColor(this.primaryButton?.background ?? Color.Transparent)
-          .margin({ top: 10, bottom: 10, left: 10 })
-          .alignSelf(ItemAlign.Center)
-          .align(Alignment.Center)
-          .onClick(() => {
-            if (this.options.actionCancel){
-              DialogHelper.closeDialog(this.options.dialogId ?? "");
-            }
-            if (this.options.onAction) {
-              this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.value);
-            }
-          })
-        Text(this.title)
-          .fontWeight(FontWeight.Bold)
-          .textAlign(TextAlign.Center)
-          .fontColor(this.options.titleFontColor)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .ellipsisMode(EllipsisMode.END)
-          .maxLines(1)
-          .layoutWeight(1)
-          .margin(5)
-        Button(this.secondaryButton?.value)
-          .buttonStyle(this.secondaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
-          .role(this.secondaryButton?.role ?? ButtonRole.NORMAL)
-          .fontColor(this.secondaryButton?.fontColor)
-          .backgroundColor(this.secondaryButton?.background ?? Color.Transparent)
-          .type(ButtonType.Capsule)
-          .margin({ top: 10, bottom: 10, right: 10 })
-          .alignSelf(ItemAlign.Center)
-          .align(Alignment.Center)
-          .onClick(() => {
-            if (this.options.actionCancel){
-              DialogHelper.closeDialog(this.options.dialogId ?? "");
-            }
-            if (this.options.onAction) {
-              this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.value);
+    WithTheme({ colorMode: this.themeColorMode }) {
+      Column() {
+        Row() {
+          Button(this.primaryButton?.value)
+            .buttonStyle(this.primaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
+            .role(this.primaryButton?.role ?? ButtonRole.NORMAL)
+            .type(ButtonType.Capsule)
+            .fontColor(this.primaryButton?.fontColor)
+            .backgroundColor(this.primaryButton?.background ?? Color.Transparent)
+            .margin({ top: 10, bottom: 10, left: 10 })
+            .alignSelf(ItemAlign.Center)
+            .align(Alignment.Center)
+            .onClick(() => {
+              if (this.options.actionCancel) {
+                DialogHelper.closeDialog(this.options.dialogId ?? "");
+              }
+              if (this.options.onAction) {
+                this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.value);
+              }
+            })
+          Text(this.title)
+            .fontWeight(FontWeight.Bold)
+            .textAlign(TextAlign.Center)
+            .fontColor(this.options.titleFontColor)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+            .ellipsisMode(EllipsisMode.END)
+            .maxLines(1)
+            .layoutWeight(1)
+            .margin(5)
+          Button(this.secondaryButton?.value)
+            .buttonStyle(this.secondaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
+            .role(this.secondaryButton?.role ?? ButtonRole.NORMAL)
+            .fontColor(this.secondaryButton?.fontColor)
+            .backgroundColor(this.secondaryButton?.background ?? Color.Transparent)
+            .type(ButtonType.Capsule)
+            .margin({ top: 10, bottom: 10, right: 10 })
+            .alignSelf(ItemAlign.Center)
+            .align(Alignment.Center)
+            .onClick(() => {
+              if (this.options.actionCancel) {
+                DialogHelper.closeDialog(this.options.dialogId ?? "");
+              }
+              if (this.options.onAction) {
+                this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.value);
+              }
+            })
+        }
+        .backgroundColor(this.options.titleBackground)
+        .width('100%')
+
+        TextPicker({ range: this.options.range, value: this.value })
+          .textStyle(this.options.textStyle)
+          .selectedTextStyle(this.options.selectedTextStyle)
+          .disappearTextStyle(this.options.disappearTextStyle)
+          .divider(this.options.divider)
+          .canLoop(this.options.canLoop)
+          .margin({ top: 20, bottom: 20 })
+          .width('100%')
+          .onChange((value: string | string[], index: number | number[]) => {
+            this.value = value;
+            if (this.options.onChange) {
+              this.options.onChange(value, index)
             }
           })
       }
-      .backgroundColor(this.options.titleBackground)
-      .width('100%')
-
-      TextPicker({ range: this.options.range, value: this.value })
-        .textStyle(this.options.textStyle)
-        .selectedTextStyle(this.options.selectedTextStyle)
-        .disappearTextStyle(this.options.disappearTextStyle)
-        .divider(this.options.divider)
-        .canLoop(this.options.canLoop)
-        .margin({ top: 20, bottom: 20 })
-        .width('100%')
-        .onChange((value: string | string[], index: number | number[]) => {
-          this.value = value;
-          if (this.options.onChange) {
-            this.options.onChange(value, index)
-          }
-        })
+      .backgroundColor(this.options.backgroundColor)
+      .backgroundBlurStyle(this.options.backgroundBlurStyle)
+      .borderRadius(this.options.cornerRadius)
+      .clip(true)
+      .justifyContent(FlexAlign.Center)
+      .alignItems(HorizontalAlign.Center)
+      .width(this.options.width)
+      .constraintSize({ maxWidth: this.options.maxWidth })
+      .padding({ bottom: this.largeScreen ? 0 : 25 })
+      .margin({ bottom: this.largeScreen ? 30 : 0 })
     }
-    .backgroundColor(this.options.backgroundColor)
-    .backgroundBlurStyle(this.options.backgroundBlurStyle)
-    .borderRadius(this.options.cornerRadius)
-    .clip(true)
-    .justifyContent(FlexAlign.Center)
-    .alignItems(HorizontalAlign.Center)
-    .width(this.options.width)
-    .constraintSize({ maxWidth: this.options.maxWidth })
-    .padding({ bottom: this.largeScreen ? 0 : 25 })
-    .margin({ bottom: this.largeScreen ? 30 : 0 })
   }
-
 
 }

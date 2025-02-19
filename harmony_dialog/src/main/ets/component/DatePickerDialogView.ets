@@ -15,7 +15,7 @@
 
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
 import { ButtonOptions } from '../model/ButtonOptions';
-import { DateType, DialogAction, DialogHelper } from '../../../../Index';
+import { DateType, DialogAction, DialogHelper, DialogThemeColorMode } from '../../../../Index';
 import { DateHelper } from '../utils/DateHelper';
 import { Helper } from '../utils/Helper';
 
@@ -59,7 +59,8 @@ export struct DatePickerDialogView {
   @State primaryButton?: ButtonOptions = undefined; //弹框左侧按钮。
   @State secondaryButton?: ButtonOptions = undefined; //弹框右侧按钮。
   @State largeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
-
+  @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
+    this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
 
   aboutToAppear(): void {
     this.largeScreen = Helper.isLargeScreen();
@@ -143,114 +144,119 @@ export struct DatePickerDialogView {
   }
 
   build() {
-    Column() {
-      Row() {
-        Button(this.primaryButton?.value)
-          .buttonStyle(this.primaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
-          .role(this.primaryButton?.role ?? ButtonRole.NORMAL)
-          .type(ButtonType.Capsule)
-          .fontColor(this.primaryButton?.fontColor)
-          .backgroundColor(this.primaryButton?.background ?? Color.Transparent)
-          .margin({ top: 10, bottom: 10, left: 10 })
-          .alignSelf(ItemAlign.Center)
-          .align(Alignment.Center)
-          .onClick(() => {
-            if (this.options.actionCancel) {
-              DialogHelper.closeDialog(this.options.dialogId ?? "");
-            }
-            if (this.options.onAction) {
-              this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
-                this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute, this.second);
-              this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.selectDate);
-            }
-          })
-        Text(this.title)
-          .fontWeight(FontWeight.Bold)
-          .textAlign(TextAlign.Center)
-          .fontColor(this.options.titleFontColor)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .ellipsisMode(EllipsisMode.END)
-          .maxLines(1)
-          .layoutWeight(1)
-          .margin(5)
-        Button(this.secondaryButton?.value)
-          .buttonStyle(this.secondaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
-          .role(this.secondaryButton?.role ?? ButtonRole.NORMAL)
-          .fontColor(this.secondaryButton?.fontColor)
-          .backgroundColor(this.secondaryButton?.background ?? Color.Transparent)
-          .type(ButtonType.Capsule)
-          .margin({ top: 10, bottom: 10, right: 10 })
-          .alignSelf(ItemAlign.Center)
-          .align(Alignment.Center)
-          .onClick(() => {
-            if (this.options.actionCancel) {
-              DialogHelper.closeDialog(this.options.dialogId ?? "");
-            }
-            if (this.options.onAction) {
-              this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
-                this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute, this.second);
-              this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.selectDate);
-            }
-          })
-      }
-      .backgroundColor(this.options.titleBackground)
-      .width('100%')
+    WithTheme({ colorMode: this.themeColorMode }) {
+      Column() {
+        Row() {
+          Button(this.primaryButton?.value)
+            .buttonStyle(this.primaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
+            .role(this.primaryButton?.role ?? ButtonRole.NORMAL)
+            .type(ButtonType.Capsule)
+            .fontColor(this.primaryButton?.fontColor)
+            .backgroundColor(this.primaryButton?.background ?? Color.Transparent)
+            .margin({ top: 10, bottom: 10, left: 10 })
+            .alignSelf(ItemAlign.Center)
+            .align(Alignment.Center)
+            .onClick(() => {
+              if (this.options.actionCancel) {
+                DialogHelper.closeDialog(this.options.dialogId ?? "");
+              }
+              if (this.options.onAction) {
+                this.selectDate =
+                  DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
+                    this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute,
+                    this.second);
+                this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.selectDate);
+              }
+            })
+          Text(this.title)
+            .fontWeight(FontWeight.Bold)
+            .textAlign(TextAlign.Center)
+            .fontColor(this.options.titleFontColor)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+            .ellipsisMode(EllipsisMode.END)
+            .maxLines(1)
+            .layoutWeight(1)
+            .margin(5)
+          Button(this.secondaryButton?.value)
+            .buttonStyle(this.secondaryButton?.buttonStyle ?? ButtonStyleMode.TEXTUAL)
+            .role(this.secondaryButton?.role ?? ButtonRole.NORMAL)
+            .fontColor(this.secondaryButton?.fontColor)
+            .backgroundColor(this.secondaryButton?.background ?? Color.Transparent)
+            .type(ButtonType.Capsule)
+            .margin({ top: 10, bottom: 10, right: 10 })
+            .alignSelf(ItemAlign.Center)
+            .align(Alignment.Center)
+            .onClick(() => {
+              if (this.options.actionCancel) {
+                DialogHelper.closeDialog(this.options.dialogId ?? "");
+              }
+              if (this.options.onAction) {
+                this.selectDate =
+                  DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
+                    this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute,
+                    this.second);
+                this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.selectDate);
+              }
+            })
+        }
+        .backgroundColor(this.options.titleBackground)
+        .width('100%')
 
-      Row() {
-        TextPicker({ range: this.years, value: this.year })
-          .TextPickerStyle(this.options, this.containYear, 10)
-          .onChange((value) => {
-            this.year = value as string;
-            this.onChangeData(1);
-          })
-        TextPicker({ range: this.months, value: this.month })
-          .TextPickerStyle(this.options, this.containMonth, 9)
-          .onChange((value) => {
-            this.month = value as string;
-            this.onChangeData(2);
-          })
-        TextPicker({ range: this.days, value: this.day })
-          .TextPickerStyle(this.options, this.containDay, 9)
-          .onChange((value) => {
-            this.day = value as string;
-            this.onChangeData(3);
-          })
-        TextPicker({ range: this.hours, value: this.hour })
-          .TextPickerStyle(this.options, this.containHour, 9)
-          .onChange((value) => {
-            this.hour = value as string;
-            this.onChangeData(4);
-          })
-        TextPicker({ range: this.minutes, value: this.minute })
-          .TextPickerStyle(this.options, this.containMinute, 9)
-          .onChange((value) => {
-            this.minute = value as string;
-            this.onChangeData(5);
-          })
-        TextPicker({ range: this.seconds, value: this.second })
-          .TextPickerStyle(this.options, this.containSecond, 9)
-          .onChange((value) => {
-            this.second = value as string;
-            this.onChangeData(6);
-          })
+        Row() {
+          TextPicker({ range: this.years, value: this.year })
+            .TextPickerStyle(this.options, this.containYear, 10)
+            .onChange((value) => {
+              this.year = value as string;
+              this.onChangeData(1);
+            })
+          TextPicker({ range: this.months, value: this.month })
+            .TextPickerStyle(this.options, this.containMonth, 9)
+            .onChange((value) => {
+              this.month = value as string;
+              this.onChangeData(2);
+            })
+          TextPicker({ range: this.days, value: this.day })
+            .TextPickerStyle(this.options, this.containDay, 9)
+            .onChange((value) => {
+              this.day = value as string;
+              this.onChangeData(3);
+            })
+          TextPicker({ range: this.hours, value: this.hour })
+            .TextPickerStyle(this.options, this.containHour, 9)
+            .onChange((value) => {
+              this.hour = value as string;
+              this.onChangeData(4);
+            })
+          TextPicker({ range: this.minutes, value: this.minute })
+            .TextPickerStyle(this.options, this.containMinute, 9)
+            .onChange((value) => {
+              this.minute = value as string;
+              this.onChangeData(5);
+            })
+          TextPicker({ range: this.seconds, value: this.second })
+            .TextPickerStyle(this.options, this.containSecond, 9)
+            .onChange((value) => {
+              this.second = value as string;
+              this.onChangeData(6);
+            })
+        }
+        .alignItems(VerticalAlign.Center)
+        .justifyContent(FlexAlign.Center)
+        .margin({ top: 20, bottom: 20 })
+        .width('100%')
       }
-      .alignItems(VerticalAlign.Center)
+      .backgroundColor(this.options.backgroundColor)
+      .backgroundBlurStyle(this.options.backgroundBlurStyle)
+      .borderRadius(this.options.cornerRadius)
+      .clip(true)
       .justifyContent(FlexAlign.Center)
-      .margin({ top: 20, bottom: 20 })
-      .width('100%')
+      .alignItems(HorizontalAlign.Center)
+      .width(this.options.width)
+      .constraintSize({ maxWidth: this.options.maxWidth })
+      .padding({ bottom: this.largeScreen ? 0 : 25 })
+      .margin({ bottom: this.largeScreen ? 30 : 0 })
     }
-    .backgroundColor(this.options.backgroundColor)
-    .backgroundBlurStyle(this.options.backgroundBlurStyle)
-    .borderRadius(this.options.cornerRadius)
-    .clip(true)
-    .justifyContent(FlexAlign.Center)
-    .alignItems(HorizontalAlign.Center)
-    .width(this.options.width)
-    .constraintSize({ maxWidth: this.options.maxWidth })
-    .padding({ bottom: this.largeScreen ? 0 : 25 })
-    .margin({ bottom: this.largeScreen ? 30 : 0 })
   }
-
 }
 
 

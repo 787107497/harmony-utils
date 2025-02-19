@@ -19,6 +19,8 @@ import { PromptActionArg } from '../model/base/PromptActionArg';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { CacheHelper } from '../utils/CacheHelper';
 import { ToastOptions } from '../model/ToastOptions';
+import { DialogThemeColorMode } from '../../../../Index';
+import { ConfigurationConstant } from '@kit.AbilityKit';
 
 
 /**
@@ -43,6 +45,7 @@ export class BasePromptAction {
   static getInstance(): BasePromptAction {
     if (!BasePromptAction.instance) {
       BasePromptAction.instance = new BasePromptAction();
+      BasePromptAction.instance.onColorModeListener();
     }
     return BasePromptAction.instance;
   }
@@ -246,5 +249,24 @@ export class BasePromptAction {
     }
   }
 
+
+  /**
+   * 监听深浅色模式变化
+   */
+  private onColorModeListener() {
+    const appContext = getContext().getApplicationContext()
+    appContext.on('environment', {
+      onConfigurationUpdated(config) { // 0-深色、1-浅色
+        if (config.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK) {
+          AppStorage.setOrCreate(DialogThemeColorMode, ThemeColorMode.DARK)
+        } else if (config.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT) {
+          AppStorage.setOrCreate(DialogThemeColorMode, ThemeColorMode.LIGHT)
+        } else {
+          AppStorage.setOrCreate(DialogThemeColorMode, ThemeColorMode.SYSTEM)
+        }
+      },
+      onMemoryLevel() {}
+    })
+  }
 
 }
