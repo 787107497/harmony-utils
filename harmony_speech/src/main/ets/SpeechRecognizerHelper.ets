@@ -5,7 +5,7 @@ import { Helper } from './Helper';
  * 语音识别
  */
 export class SpeechRecognizerHelper {
-  private static recognitionEngine: speechRecognizer.SpeechRecognitionEngine | null = null;
+  private static recognitionEngine: speechRecognizer.SpeechRecognitionEngine | undefined = undefined;
 
   /**
    * 创建SpeechRecognitionEngine实例，并初始化引擎。
