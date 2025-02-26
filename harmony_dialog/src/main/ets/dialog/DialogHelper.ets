@@ -29,7 +29,7 @@ import {
   TipsDialogBuilder,
   ToastTipBuilder
 } from './DialogBuilder';
-import { BasePromptAction } from './BasePromptAction';
+import { BaseActionCore } from './BaseActionCore';
 import { DialogOptions } from '../model/base/DialogOptions';
 import { TipsOptions } from '../model/TipsOptions';
 import { DialogConfig } from '../model/DialogConfig';
@@ -102,7 +102,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initPrimarySecondaryButton(options);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(AlertDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(AlertDialogBuilder), options);
     return dialogId;
   }
 
@@ -115,7 +115,7 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initDialogDefault(options);
     DialogHelper.initPrimarySecondaryButton(options);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ConfirmDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(ConfirmDialogBuilder), options);
     return dialogId;
   }
 
@@ -129,7 +129,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initPrimarySecondaryButton(options);
     DialogHelper.initImageResSize(options);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TipsDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(TipsDialogBuilder), options);
     return dialogId;
   }
 
@@ -142,7 +142,7 @@ export class DialogHelper {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initDialogDefault(options);
     DialogHelper.initSelect(options);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(SelectDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(SelectDialogBuilder), options);
     return dialogId;
   }
 
@@ -157,7 +157,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initButtons(options, true);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextInputDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(TextInputDialogBuilder), options);
     return dialogId;
   }
 
@@ -172,7 +172,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initButtons(options, true);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextAreaDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(TextAreaDialogBuilder), options);
     return dialogId;
   }
 
@@ -185,7 +185,7 @@ export class DialogHelper {
     DialogHelper.initDialogDefault(options);
     DialogHelper.initAlertTitle(options);
     DialogHelper.initButtons(options, false);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(CustomContentDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(CustomContentDialogBuilder), options);
     return dialogId;
   }
 
@@ -196,7 +196,7 @@ export class DialogHelper {
   static showBottomSheetDialog(options: BottomSheetOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initBottomSheetDefault(options, true);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(BottomSheetDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(BottomSheetDialogBuilder), options);
     return dialogId;
   }
 
@@ -207,7 +207,7 @@ export class DialogHelper {
   static showActionSheetDialog(options: BottomSheetOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initBottomSheetDefault(options, false);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ActionSheetDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(ActionSheetDialogBuilder), options);
     return dialogId;
   }
 
@@ -220,7 +220,7 @@ export class DialogHelper {
   static showTextPickerDialog(options: TextPickerOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initTextPickerDefault(options);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(TextPickerDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(TextPickerDialogBuilder), options);
     return dialogId;
   }
 
@@ -233,7 +233,7 @@ export class DialogHelper {
   static showDatePickerDialog(options: DateTimePickerOptions): string {
     DialogHelper.initBaseDefault(options);
     DialogHelper.initTextPickerDefault(options);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(DatePickerDialogBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(DatePickerDialogBuilder), options);
     return dialogId;
   }
 
@@ -245,7 +245,7 @@ export class DialogHelper {
    */
   static showCustomDialog<T extends BaseDialogOptions>(builder: WrappedBuilder<[T]>, options: T): string {
     DialogHelper.initBaseDefault(options);
-    const dialogId = BasePromptAction.getInstance().openCustomDialog(builder, options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(builder, options);
     return dialogId;
   }
 
@@ -254,7 +254,7 @@ export class DialogHelper {
    * 刷新自定义弹窗
    */
   static update<T extends BaseDialogOptions>(dialogId: string, options: T) {
-    BasePromptAction.getInstance().update(dialogId, options);
+    BaseActionCore.getInstance().update(dialogId, options);
   }
 
 
@@ -263,7 +263,7 @@ export class DialogHelper {
    * @param dialogId 目前弹框id
    */
   static isShowing(dialogId: string): boolean {
-    return BasePromptAction.getInstance().exist(dialogId);
+    return BaseActionCore.getInstance().exist(dialogId);
   }
 
 
@@ -272,7 +272,7 @@ export class DialogHelper {
    * @param dialogId 目前弹框id
    */
   static closeDialog(dialogId: string) {
-    BasePromptAction.getInstance().closeCustomDialog(dialogId);
+    BaseActionCore.getInstance().closeCustomDialog(dialogId);
   }
 
 
@@ -282,7 +282,7 @@ export class DialogHelper {
   static showLoadingDialog(options?: LoadingOptions) {
     options = options ?? {};
     DialogHelper.initLoadingDefault(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(LoadingBuilder), options);
+    let dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(LoadingBuilder), options);
     CacheHelper.put(`${CacheHelper.CACHE_LABEL}${dialogId}`, options); //缓存加载框options
     return dialogId;
   }
@@ -293,7 +293,7 @@ export class DialogHelper {
    */
   static showLoadingProgress(options: LoadingProgressOptions): string {
     DialogHelper.initLoadingDefault(options);
-    let dialogId = BasePromptAction.getInstance().openCustomDialog(wrapBuilder(LoadingProgressBuilder), options);
+    let dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(LoadingProgressBuilder), options);
     CacheHelper.put(`${CacheHelper.CACHE_LABEL}${dialogId}`, options); //缓存加载框options
     return dialogId;
   }
@@ -328,7 +328,7 @@ export class DialogHelper {
     options.message = message;
     options.duration = options.duration ?? DialogHelper.config.toast_duration;
     DialogHelper.initToastDefault(options);
-    BasePromptAction.getInstance().showToast(options);
+    BaseActionCore.getInstance().showToast(options);
   }
 
 
@@ -342,7 +342,7 @@ export class DialogHelper {
     options.message = message;
     options.duration = options.duration ?? DialogHelper.config.toast_durationLong;
     DialogHelper.initToastDefault(options);
-    BasePromptAction.getInstance().showToast(options);
+    BaseActionCore.getInstance().showToast(options);
   }
 
 
@@ -356,7 +356,7 @@ export class DialogHelper {
     options.orientation = options.orientation ?? DialogHelper.config.toast_orientation; //吐司的布局方向。
     options.imageSize = options.imageSize ?? DialogHelper.config.toast_imageSize;
     options.duration = options.duration ?? DialogHelper.config.toast_duration;
-    BasePromptAction.getInstance().openCustomDialog(wrapBuilder(ToastTipBuilder), options);
+    BaseActionCore.getInstance().openCustomDialog(wrapBuilder(ToastTipBuilder), options);
     let timeID = setTimeout(() => {
       DialogHelper.closeDialog(options.dialogId ?? "");
       clearTimeout(timeID);
@@ -368,7 +368,7 @@ export class DialogHelper {
    * 生成弹框id
    */
   static generateId() {
-    return BasePromptAction.getInstance().generateDialogId();
+    return BaseActionCore.getInstance().generateDialogId();
   }
 
 

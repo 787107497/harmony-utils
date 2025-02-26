@@ -15,7 +15,7 @@
 
 import { ComponentContent, promptAction, window } from '@kit.ArkUI';
 import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
-import { PromptActionArg } from '../model/base/PromptActionArg';
+import { ActionCoreArg } from '../model/base/ActionCoreArg';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { CacheHelper } from '../utils/CacheHelper';
 import { ToastOptions } from '../model/ToastOptions';
@@ -25,7 +25,7 @@ import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
 
 
 /**
- * TODO PromptAction基类
+ * TODO BaseActionCore，弹框、半模态、土司，核心类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/01
  * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
@@ -33,9 +33,9 @@ import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * QQ交流群: 1029219059
  */
-export class BasePromptAction {
-  private static instance: BasePromptAction;
-  private caches: Array<PromptActionArg> = new Array<PromptActionArg>();
+export class BaseActionCore {
+  private static instance: BaseActionCore;
+  private caches: Array<ActionCoreArg> = new Array<ActionCoreArg>();
 
 
   private constructor() {
@@ -43,12 +43,12 @@ export class BasePromptAction {
   }
 
 
-  static getInstance(): BasePromptAction {
-    if (!BasePromptAction.instance) {
-      BasePromptAction.instance = new BasePromptAction();
-      BasePromptAction.instance.onColorModeListener();
+  static getInstance(): BaseActionCore {
+    if (!BaseActionCore.instance) {
+      BaseActionCore.instance = new BaseActionCore();
+      BaseActionCore.instance.onColorModeListener();
     }
-    return BasePromptAction.instance;
+    return BaseActionCore.instance;
   }
 
 
@@ -80,66 +80,92 @@ export class BasePromptAction {
   }
 
 
-
   /**
-   * 创建并弹出dialogContent对应的自定义弹窗
-   * @param uiContext UIContext。
-   * @param wrappedBuilder 自定义弹窗中显示的组件内容。
-   * @param options 弹窗样式。
+   * 创建并弹出以bindSheetContent作为内容的半模态。
+   * @param wrappedBuilder 自定义半模态中显示的组件内容。
+   * @param options 半模态样式。
    */
-  private openBaseBindSheet<T extends BaseSheetOptions>(uiContext: UIContext, wrappedBuilder: WrappedBuilder<[T]>, options: T) {
-
-      const componentContent = new ComponentContent(uiContext, wrappedBuilder, options);
-
-      uiContext.openBindSheet(componentContent, options,options.targetId)
-
-    // if (!this.exist(options.dialogId ?? "")) { //判断dialogId是否存在
-    //   const componentContent = new ComponentContent(uiContext, wrappedBuilder, options);
-    //
-    //   uiContext.openBindSheet(componentContent,option ,"")
-    //
-    //   const option: promptAction.BaseDialogOptions = {
-    //     alignment: options.alignment, //弹窗的对齐方式。
-    //     offset: options.offset, //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
-    //     maskRect: options.maskRect, //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
-    //     maskColor: options.maskColor, //自定义蒙层颜色。默认值 0x33000000
-    //     isModal: options.isModal, //弹窗是否为模态窗口，模态窗口有蒙层，非模态窗口无蒙层。默认值：true，此时弹窗有蒙层。
-    //     showInSubWindow: options.showInSubWindow, //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
-    //     autoCancel: options.autoCancel, //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
-    //     keyboardAvoidMode: options.keyboardAvoidMode, //用于设置弹窗是否在拉起软键盘时进行自动避让。默认值：KeyboardAvoidMode.DEFAULT
-    //     transition: options.transition, //设置弹窗显示和退出的过渡效果。
-    //     onWillAppear: options.onWillAppear, //弹窗显示动效前的事件回调。
-    //     onWillDisappear: options.onWillDisappear, //弹窗退出动效前的事件回调。
-    //     onDidAppear: options.onDidAppear, //弹窗弹出时的事件回调。
-    //     onDidDisappear: () => { //弹窗消失时的事件回调。
-    //       this.removeArg(options.dialogId ?? ''); //弹窗关闭时，移除
-    //       this.onDestroy(options.dialogId ?? '');
-    //       if (options.onDidDisappear) {
-    //         options.onDidDisappear();
-    //       }
-    //     },
-    //     //交互式关闭回调函数。
-    //     onWillDismiss: (action: DismissDialogAction) => {
-    //       if (options.onWillDismiss) {
-    //         options.onWillDismiss(action);
-    //       }else {
-    //         if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
-    //           action.dismiss();
-    //         } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-    //           action.dismiss();
-    //         }
-    //       }
-    //     },
-    //   }
-    //   this.addArg(options.dialogId ?? "", uiContext, componentContent); //显示弹框时，添加
-    //   const promptAction = uiContext.getPromptAction();
-    //   promptAction.openCustomDialog(componentContent, option);
-    // } else {
-    //   console.error(`该弹框已存在，dialogId：${options.dialogId}`);
-    // }
+  private openBindSheet<T extends BaseSheetOptions>(wrappedBuilder: WrappedBuilder<[T]>, options: T) {
+    if (!this.exist(options.dialogId ?? "")) { //判断dialogId是否存在
+      if (!options.dialogId) {
+        options.dialogId = this.generateDialogId();
+      }
+      const onDisappear = options.onDisappear; //弹窗消失时的事件回调。
+      options.onDisappear = () => {
+        this.removeArg(options.dialogId ?? ''); //弹窗关闭时，移除
+        this.onDestroy(options.dialogId ?? '');
+        if (onDisappear) {
+          onDisappear();
+        }
+      }
+      const onWillDismiss = options.onWillDismiss; //交互式关闭回调函数。
+      options.onWillDismiss = (action: DismissDialogAction) => {
+        if (onWillDismiss) {
+          onWillDismiss(action);
+        } else {
+          if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
+            action.dismiss();
+          } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
+            action.dismiss();
+          }
+        }
+      }
+      if (options.uiContext) {
+        const componentContent = new ComponentContent(options.uiContext, wrappedBuilder, options);
+        this.addArg(options.dialogId ?? "", options.uiContext, componentContent); //显示弹框时，添加
+        options.uiContext.openBindSheet(componentContent, options, options.targetId);
+      } else {
+        window.getLastWindow(getContext()).then((result: window.Window) => {
+          options.uiContext = result.getUIContext();
+          const componentContent = new ComponentContent(options.uiContext, wrappedBuilder, options);
+          this.addArg(options.dialogId ?? "", options.uiContext, componentContent); //显示弹框时，添加
+          options.uiContext.openBindSheet(componentContent, options, options.targetId);
+        });
+      }
+    } else {
+      console.error(`该弹框已存在，dialogId：${options.dialogId}`);
+    }
+    return options.dialogId;
   }
 
 
+  /**
+   * 关闭bindSheetContent对应的半模态页面
+   * @param dialogId
+   */
+  closeBindSheet(dialogId: string) {
+    try {
+      const promptActionArg = this.getArgById(dialogId);
+      if (promptActionArg && promptActionArg.uiContext && promptActionArg.componentContent) {
+        promptActionArg.uiContext.closeBindSheet(promptActionArg.componentContent).then(() => {
+          promptActionArg.componentContent.dispose(); //立即释放当前ComponentContent
+        });
+      }
+    } catch (e) {
+      const error = e as BusinessError;
+      console.info(`closeBindSheet-Error ~ code: ${error.code} -·- message: ${error.message}`);
+    }
+  }
+
+
+  /**
+   * 更新bindSheetContent对应的半模态
+   * @param dialogId
+   * @param params 半模态样式。
+   * @param partialUpdate 半模态页面更新方式, 默认值为false。说明：1. true为增量更新，保留当前值，更新SheetOptions中的指定属性。2. false为全量更新，除SheetOptions中的指定属性，其他属性恢复默认值。
+   */
+  updateBindSheet<T extends BaseSheetOptions>(dialogId: string, params: T, partialUpdate: boolean = false) {
+    try {
+      const promptActionArg = this.getArgById(dialogId);
+      if (promptActionArg && promptActionArg.uiContext && promptActionArg.componentContent) {
+        promptActionArg.componentContent.update(params);
+        promptActionArg.uiContext.updateBindSheet(promptActionArg.componentContent, params, partialUpdate);
+      }
+    } catch (e) {
+      const error = e as BusinessError;
+      console.info(`updateBindSheet-Error ~ code: ${error.code} -·- message: ${error.message}`);
+    }
+  }
 
 
 
@@ -192,8 +218,7 @@ export class BasePromptAction {
             options.onDidDisappear();
           }
         },
-         //交互式关闭回调函数。
-        onWillDismiss: (action: DismissDialogAction) => {
+        onWillDismiss: (action: DismissDialogAction) => { //交互式关闭回调函数。
           if (options.onWillDismiss) {
             options.onWillDismiss(action);
           }else {
@@ -241,7 +266,7 @@ export class BasePromptAction {
    * 刷新自定义弹窗
    */
   update<T extends BaseDialogOptions>(dialogId: string, params: T) {
-    const promptActionArg: PromptActionArg | undefined = this.getArgById(dialogId);
+    const promptActionArg = this.getArgById(dialogId);
     if (promptActionArg) {
       promptActionArg.componentContent.update(params);
     }
@@ -271,7 +296,7 @@ export class BasePromptAction {
    * @param dialogId
    * @returns
    */
-  getArgById(dialogId: string): PromptActionArg | undefined {
+  getArgById(dialogId: string): ActionCoreArg | undefined {
     return this.caches.find(item => dialogId == item.dialogId);
   }
 
@@ -282,7 +307,7 @@ export class BasePromptAction {
    * @param componentContent
    */
   private addArg(dialogId: string, uiContext: UIContext, componentContent: ComponentContent<Object>) {
-    const arg: PromptActionArg = { dialogId: dialogId, uiContext: uiContext, componentContent: componentContent }
+    const arg: ActionCoreArg = { dialogId: dialogId, uiContext: uiContext, componentContent: componentContent }
     this.caches.unshift(arg);
   }
 
@@ -292,7 +317,7 @@ export class BasePromptAction {
    * @param dialogId
    */
   private removeArg(dialogId: string) {
-    const args = BasePromptAction.getInstance().caches;
+    const args = BaseActionCore.getInstance().caches;
     const index = args.findIndex((item) => item.dialogId == dialogId);
     if (index >= 0) {
       args.splice(index, 1);

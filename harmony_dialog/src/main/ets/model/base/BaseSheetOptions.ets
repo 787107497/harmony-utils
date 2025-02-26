@@ -27,16 +27,14 @@ import { UIContext } from '@kit.ArkUI';
  */
 export interface BaseSheetOptions extends SheetOptions {
 
+  uiContext?: UIContext; //在UIContext实例对应的窗口中显示半模态。说明：使用openBindSheet启动的半模态页面，不支持设置、更新该属性。
+  backCancel?: boolean; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
+  autoCancel?: boolean; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
+  dialogId?: string; //弹框id，具有唯一性
   targetId?: number;
 
-  // uiContext?: UIContext; //UIContext上下文
-  // backCancel?: boolean; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
-  // onAction?: ActionCallBack | ActionStrCallBack | ActionValueCallBack | ActionDateCallBack; //按钮的CallBack事件。
-  // autoCancel?: boolean; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
-  //
-  dialogId?: string; //弹框id，具有唯一性
 
-  uiContext?: UIContext; //在UIContext实例对应的窗口中显示半模态。说明：使用openBindSheet启动的半模态页面，不支持设置、更新该属性。
+
   maskColor?: ResourceColor; //半模态页面的背景蒙层颜色。
   keyboardAvoidMode?: SheetKeyboardAvoidMode; //设置半模态激活输入法时对软键盘的避让方式。默认值：TRANSLATE_AND_SCROLL。
   mode?: SheetMode; //设置半模态页面的显示层级。默认值：SheetMode.OVERLAY。
@@ -59,18 +57,5 @@ export interface BaseSheetOptions extends SheetOptions {
 
   dragBar?: boolean; //是否显示控制条。说明：半模态面板的detents属性设置多个不同高度并且设置生效时，默认显示控制条。否则不显示控制条。
   scrollSizeMode?: ScrollSizeMode; //设置半模态面板滑动时，内容区域刷新时机。默认值：ScrollSizeMode.FOLLOW_DETENT。
-
-  // onHeightDidChange?: Callback<number>; //半模态页面高度变化回调函数。
-  // onDetentsDidChange?: Callback<number>; //半模态页面档位变化回调函数。
-  // onWidthDidChange?: Callback<number>; //半模态页面宽度变化回调函数。
-  // onTypeDidChange?: Callback<SheetType>; //半模态页面形态变化回调函数。
-  // shouldDismiss?: Callback<SheetDismiss>; //半模态页面交互式关闭回调函数。
-  // onWillSpringBackWhenDismiss?: SpringBackAction; //半模态页面交互式关闭前控制回弹函数允许开发者注册，以控制半模态页面交互式关闭时的回弹效果。
-
-  // onWillAppear?: VoidCallback; //半模态页面显示（动画开始前）回调函数。
-  // onWillDisappear?: VoidCallback; //半模态页面回退（动画开始前）回调函数。
-  // onAppear?: VoidCallback; //半模态页面显示（动画结束后）回调函数。
-  // onDisappear?: VoidCallback; //半模态页面回退（动画结束后）回调函数。
-  // onWillDismiss?: DismissSheetAction; //半模态页面的交互式关闭回调函数允许开发者注册，以获取关闭操作的类型，并决定是否关闭半模态状态。
 
 }
