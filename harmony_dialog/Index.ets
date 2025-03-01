@@ -37,8 +37,8 @@ export { ToastOptions } from './src/main/ets/model/ToastOptions';
 
 export { ToastTipOptions } from './src/main/ets/model/ToastTipOptions';
 
-export { ButtonOptions } from '@kit.ArkUI';
+export { ButtonOptions } from './src/main/ets/model/ButtonOptions';
 
-export { SheetOptions } from './src/main/ets/model/SheetOptions';
+export { ActionSheetOptions } from './src/main/ets/model/ActionSheetOptions';
 
 export { SpinType, SpinKit } from '@pura/spinkit';

@@ -14,7 +14,7 @@
  */
 
 import { BaseDialogOptions } from './base/BaseDialogOptions';
-import { SheetOptions } from '../model/SheetOptions';
+import { ActionSheetOptions } from './ActionSheetOptions';
 import { ActionCallBack } from '../utils/constraint';
 
 /**
@@ -34,7 +34,7 @@ export interface BottomSheetOptions extends BaseDialogOptions {
   cancelValue?: ResourceStr; //取消按钮
   cancelFontColor?: ResourceColor; //取消按钮的字体颜色。
   cancelFontWeight?: FontWeight; //取消按钮的字体粗细。
-  sheets: Array<SheetOptions> | Array<ResourceStr>; //BottomSheet弹出框操作区按钮。
+  sheets: Array<ActionSheetOptions> | Array<ResourceStr>; //BottomSheet弹出框操作区按钮。
   onAction: ActionCallBack; //按钮的CallBack事件。
 
   actionCancel?: boolean; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。

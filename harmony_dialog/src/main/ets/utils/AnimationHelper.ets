@@ -36,12 +36,13 @@ export class AnimationHelper {
    */
   static transitionInUp(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
-      TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration })),
-      TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration }))
-    )
+      TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration * 0.4 })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
+      TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+    );
   }
+
 
   /**
    * InDown动画
@@ -50,12 +51,13 @@ export class AnimationHelper {
    */
   static transitionInDown(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
-      TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration })),
-      TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration }))
-    )
+      TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration * 0.4 })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
+      TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+    );
   }
+
 
   /**
    * InLeft动画
@@ -64,11 +66,11 @@ export class AnimationHelper {
    */
   static transitionInLeft(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
-      TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.START).animation({ duration: duration })),
-      TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.START).animation({ duration: duration }))
-    )
+      TransitionEffect.move(TransitionEdge.START).animation({ duration: duration * 0.4 })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
+      TransitionEffect.move(TransitionEdge.START).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+    );
   }
 
 
@@ -79,11 +81,11 @@ export class AnimationHelper {
    */
   static transitionInRight(duration: number = 300): TransitionEffect {
     return TransitionEffect.asymmetric(
-      TransitionEffect.OPACITY.animation({ duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.END).animation({ duration: duration })),
-      TransitionEffect.OPACITY.animation({ delay: duration, duration: duration }).combine(
-        TransitionEffect.move(TransitionEdge.END).animation({ duration: duration }))
-    )
+      TransitionEffect.move(TransitionEdge.END).animation({ duration: duration * 0.4 })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
+      TransitionEffect.move(TransitionEdge.END).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
+        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+    );
   }
 
 

@@ -47,7 +47,7 @@ import { TextAreaOptions } from '../model/TextAreaOptions';
 import { BaseInputOptions } from '../model/base/BaseInputOptions';
 import { HmDialogOptions } from '../model/base/HmDialogOptions';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
-import { SheetOptions } from '../model/SheetOptions';
+import { ActionSheetOptions } from '../model/ActionSheetOptions';
 import { DialogAction } from '../utils/constraint';
 import { promptAction, UIContext } from '@kit.ArkUI';
 import { Helper } from '../utils/Helper';
@@ -56,6 +56,7 @@ import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
 import { BasePickerOptions } from '../model/base/BasePickerOptions';
 import { CacheHelper } from '../utils/CacheHelper';
 import { ButtonOptions } from '../model/ButtonOptions';
+import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
 
 
 /**
@@ -293,7 +294,7 @@ export class DialogHelper {
    */
   static showLoadingProgress(options: LoadingProgressOptions): string {
     DialogHelper.initLoadingDefault(options);
-    let dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(LoadingProgressBuilder), options);
+    const dialogId = BaseActionCore.getInstance().openCustomDialog(wrapBuilder(LoadingProgressBuilder), options);
     CacheHelper.put(`${CacheHelper.CACHE_LABEL}${dialogId}`, options); //缓存加载框options
     return dialogId;
   }
@@ -315,6 +316,36 @@ export class DialogHelper {
         DialogHelper.update(dialogId, cacheOptions);
       }
     }
+  }
+
+
+  /**
+   * 显示自定义半模态
+   * @param wrappedBuilder 自定义半模态中显示的组件内容
+   * @param options
+   * @returns
+   */
+  static showBindSheet<T extends BaseSheetOptions>(wrappedBuilder: WrappedBuilder<[T]>, options: T): string {
+    DialogHelper.initBindSheetDefault(options);
+    const dialogId = BaseActionCore.getInstance().openBindSheet(wrappedBuilder, options);
+    return dialogId;
+  }
+
+
+  /**
+   * 刷新自定义半模态
+   */
+  static updateBindSheet<T extends BaseSheetOptions>(dialogId: string, options: T, partialUpdate: boolean = false) {
+    BaseActionCore.getInstance().updateBindSheet(dialogId, options, partialUpdate);
+  }
+
+
+  /**
+   * 关闭半模态
+   * @param dialogId 目前半模态id
+   */
+  static closeBindSheet(dialogId: string) {
+    BaseActionCore.getInstance().closeBindSheet(dialogId);
   }
 
 
@@ -482,9 +513,9 @@ export class DialogHelper {
     }
     if (options.sheets && options.sheets.length > 0) {
       if (typeof options.sheets[0] == 'string') {
-        let sheets = new Array<SheetOptions>();
+        let sheets = new Array<ActionSheetOptions>();
         for (let index = 0; index < options.sheets.length; index++) {
-          let sheet: SheetOptions = { value: options.sheets[index] as ResourceStr };
+          let sheet: ActionSheetOptions = { value: options.sheets[index] as ResourceStr };
           sheets.push(sheet);
         }
         options.sheets = sheets;
@@ -873,6 +904,15 @@ export class DialogHelper {
       options.padding = options.padding ?? DialogHelper.config.loading_padding; //padding。
     }
     options.shadow = options.shadow ?? ShadowStyle.OUTER_DEFAULT_SM;
+  }
+
+
+  /**
+   * 初始化BaseSheetOptions参数
+   * @param options
+   */
+  private static initBindSheetDefault(options: BaseSheetOptions) {
+
   }
 
 

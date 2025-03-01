@@ -34,7 +34,6 @@ export interface BaseSheetOptions extends SheetOptions {
   targetId?: number;
 
 
-
   maskColor?: ResourceColor; //半模态页面的背景蒙层颜色。
   keyboardAvoidMode?: SheetKeyboardAvoidMode; //设置半模态激活输入法时对软键盘的避让方式。默认值：TRANSLATE_AND_SCROLL。
   mode?: SheetMode; //设置半模态页面的显示层级。默认值：SheetMode.OVERLAY。

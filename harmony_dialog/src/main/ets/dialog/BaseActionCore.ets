@@ -85,7 +85,7 @@ export class BaseActionCore {
    * @param wrappedBuilder 自定义半模态中显示的组件内容。
    * @param options 半模态样式。
    */
-  private openBindSheet<T extends BaseSheetOptions>(wrappedBuilder: WrappedBuilder<[T]>, options: T) {
+  openBindSheet<T extends BaseSheetOptions>(wrappedBuilder: WrappedBuilder<[T]>, options: T): string {
     if (!this.exist(options.dialogId ?? "")) { //判断dialogId是否存在
       if (!options.dialogId) {
         options.dialogId = this.generateDialogId();
@@ -125,7 +125,7 @@ export class BaseActionCore {
     } else {
       console.error(`该弹框已存在，dialogId：${options.dialogId}`);
     }
-    return options.dialogId;
+    return options.dialogId ?? "";
   }
 
 

@@ -886,6 +886,7 @@ export struct DialogPage {
     } else if (index == 1) {
       //自定义一个底部的MenuLayout
       let menuOptions: MenuOptions = {
+        transition:AnimationHelper.transitionInDown(),
         alignment: DialogAlignment.Bottom,
         title: "分享",
         menus: Utils.getMenus(),
@@ -898,6 +899,7 @@ export struct DialogPage {
     } else if (index == 2) {
       //自定义一个Tip弹出框
       let tipOptions: TipOptions = {
+        transition:AnimationHelper.transitionInUp(),
         autoCancel: false,
         backCancel: false,
         title: "提交成功",

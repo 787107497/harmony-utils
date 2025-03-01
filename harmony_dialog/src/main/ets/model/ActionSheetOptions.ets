@@ -24,7 +24,7 @@
  * CSDN: https://blog.csdn.net/qq_32922545
  * QQ交流群: 1029219059
  */
-export class SheetOptions {
+export class ActionSheetOptions {
   value: ResourceStr = ''; //按钮的内容。
   fontColor?: ResourceColor; //按钮的字体颜色。
   fontSize?: number | string | Resource; //按钮的文字大小，，默认16。

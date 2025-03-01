@@ -16,7 +16,7 @@
 import { DialogThemeColorMode } from '../../../../Index';
 import { DialogHelper } from '../dialog/DialogHelper';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
-import { SheetOptions } from '../model/SheetOptions';
+import { ActionSheetOptions } from '../model/ActionSheetOptions';
 import { Helper } from '../utils/Helper';
 
 
@@ -42,7 +42,7 @@ export struct ActionSheetDialogView {
       this.title = Helper.getResourceStr(this.options.title) ?? "";
     }
     if (this.options.sheets && this.options.sheets.length >= 1) {
-      let fontSize = (this.options.sheets[0] as SheetOptions).fontSize;
+      let fontSize = (this.options.sheets[0] as ActionSheetOptions).fontSize;
       if (fontSize) {
         this.fontSize = fontSize;
       }
@@ -70,9 +70,9 @@ export struct ActionSheetDialogView {
           .visibility(this.title.length > 0 ? Visibility.Visible : Visibility.None)
 
           List() {
-            ForEach(this.options.sheets, (sheet: SheetOptions, index: number) => {
+            ForEach(this.options.sheets, (sheet: ActionSheetOptions, index: number) => {
               this.TextBuilder(sheet.value, sheet.fontColor ?? $r('app.color.harmony_dialog_text_color'), sheet.fontSize ?? 16, index)
-            }, (sheet: SheetOptions, index: number) => `${index}-${sheet.value}`)
+            }, (sheet: ActionSheetOptions, index: number) => `${index}-${sheet.value}`)
           }
           .divider({ strokeWidth: 1, color: $r('app.color.harmony_dialog_divider_color') })
           .width('100%')
