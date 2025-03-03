@@ -87,8 +87,8 @@ struct Index {
           Button("savePhoto()")
             .btnStyle()
             .onClick(() => {
-              let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}.png`;
-              let imgName1 = `漂亮小妹妹_${DateUtil.getTodayTime()}.png`;
+              let imgName = `大漂亮_${DateUtil.getTodayTime()}.png`;
+              let imgName1 = `小漂亮_${DateUtil.getTodayTime()}.png`;
               PickerUtil.savePhoto([imgName, imgName1]).then(async (uris) => {
                 let uri = uris[0];
                 this.uriStr = `调用保存图片，返回uris：\n${uri}`
