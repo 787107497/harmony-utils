@@ -28,8 +28,6 @@ import { UIContext } from '@kit.ArkUI';
 export interface BaseSheetOptions extends SheetOptions {
 
   uiContext?: UIContext; //在UIContext实例对应的窗口中显示半模态。说明：使用openBindSheet启动的半模态页面，不支持设置、更新该属性。
-  backCancel?: boolean; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
-  autoCancel?: boolean; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
   dialogId?: string; //弹框id，具有唯一性
   targetId?: number;
 

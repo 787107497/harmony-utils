@@ -98,28 +98,24 @@ export class BaseActionCore {
           onDisappear();
         }
       }
-      const onWillDismiss = options.onWillDismiss; //交互式关闭回调函数。
-      options.onWillDismiss = (action: DismissDialogAction) => {
-        if (onWillDismiss) {
-          onWillDismiss(action);
-        } else {
-          if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
-            action.dismiss();
-          } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-            action.dismiss();
-          }
-        }
-      }
       if (options.uiContext) {
         const componentContent = new ComponentContent(options.uiContext, wrappedBuilder, options);
         this.addArg(options.dialogId ?? "", options.uiContext, componentContent); //显示弹框时，添加
-        options.uiContext.openBindSheet(componentContent, options, options.targetId);
+        if (options.targetId) {
+          options.uiContext.openBindSheet(componentContent, options, options.targetId);
+        } else {
+          options.uiContext.openBindSheet(componentContent, options);
+        }
       } else {
         window.getLastWindow(getContext()).then((result: window.Window) => {
           options.uiContext = result.getUIContext();
           const componentContent = new ComponentContent(options.uiContext, wrappedBuilder, options);
           this.addArg(options.dialogId ?? "", options.uiContext, componentContent); //显示弹框时，添加
-          options.uiContext.openBindSheet(componentContent, options, options.targetId);
+          if (options.targetId) {
+            options.uiContext.openBindSheet(componentContent, options, options.targetId);
+          } else {
+            options.uiContext.openBindSheet(componentContent, options);
+          }
         });
       }
     } else {

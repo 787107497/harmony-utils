@@ -1,14 +1,13 @@
-import { DialogHelper } from '@pura/harmony-dialog';
-import { MenuOptions } from '../model/MenuOptions';
 import { Callback } from '@ohos.base';
 import { MenuBean } from '../model/MenuBean';
 import { DisplayUtil, RandomUtil } from '@pura/harmony-utils';
+import { MenuSheetOptions } from '../model/MenuSheetOptions';
 
 
-//自定义弹框，底部菜单
+//自定义半模态，底部菜单
 @Builder
-export function MenuBuilder(options: MenuOptions) {
-  MenuLayout({ options: options, onItemClick: options.onItemClick })
+export function MenuSheetBuilder(options: MenuSheetOptions) {
+  MenuSheetLayout({ options: options, onItemClick: options.onItemClick })
 }
 
 /**
@@ -16,44 +15,17 @@ export function MenuBuilder(options: MenuOptions) {
  */
 @Preview
 @ComponentV2
-export struct MenuLayout {
-  @Require @Param options: MenuOptions;
+export struct MenuSheetLayout {
+  @Require @Param options: MenuSheetOptions;
   @Event onItemClick: Callback<MenuBean>;
 
 
   aboutToAppear(): void {
     this.options.backgroundColor = this.options.backgroundColor ?? $r('app.color.main_background');
-    this.options.backgroundBlurStyle = this.options.backgroundBlurStyle ?? BlurStyle.COMPONENT_ULTRA_THICK;
   }
 
   build() {
     Column() {
-      Stack({ alignContent: Alignment.End }) {
-        Text(this.options.title)
-          .fontSize(18)
-          .fontWeight(FontWeight.Bold)
-          .textAlign(TextAlign.Center)
-          .align(Alignment.TopStart)
-          .width('100%')
-
-        Image($r('sys.media.ohos_ic_public_close'))
-          .width(28)
-          .aspectRatio(1)
-          .margin({
-            top: 12,
-            bottom: 12,
-            left: 12,
-            right: 20
-          })
-          .padding(5)
-          .borderRadius(50)
-          .border({ width: 1, color: $r('app.color.color_line'), style: BorderStyle.Solid })
-          .backgroundColor($r('app.color.card_background'))
-          .onClick((event) => {
-            DialogHelper.closeDialog(this.options.dialogId ?? "");
-          })
-      }
-      .width('100%')
 
       Divider()
         .color($r('app.color.color_line'))
@@ -93,7 +65,6 @@ export struct MenuLayout {
     }
     .width('100%')
     .backgroundColor(this.options.backgroundColor)
-    .backgroundBlurStyle(this.options.backgroundBlurStyle)
     .borderRadius({ topLeft: 12, topRight: 12 })
     .clip(true)
   }

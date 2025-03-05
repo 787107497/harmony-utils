@@ -41,4 +41,6 @@ export { ButtonOptions } from './src/main/ets/model/ButtonOptions';
 
 export { ActionSheetOptions } from './src/main/ets/model/ActionSheetOptions';
 
+export { BaseSheetOptions } from './src/main/ets/model/base/BaseSheetOptions';
+
 export { SpinType, SpinKit } from '@pura/spinkit';

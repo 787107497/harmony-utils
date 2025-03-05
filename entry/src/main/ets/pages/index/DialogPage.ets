@@ -1,18 +1,25 @@
 import { AreaHelper } from '@nutpi/china_area';
 import { AnimationHelper, DateType, DialogAction, DialogHelper, Orientation } from '@pura/harmony-dialog';
-import { DateUtil, DisplayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { AppUtil, DateUtil, DisplayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { CardButton } from '../../component/CardButton';
+import { CustomImageView } from '../../component/CustomImageView';
+import { CustomTextViewBuilder } from '../../component/CustomTextView';
 import { DrawerBuilder } from '../../component/DrawerLayout';
 import { LottieBuilder } from '../../component/LottieView';
 import { MenuBuilder } from '../../component/MenuLayout';
+import { MenuSheetBuilder } from '../../component/MenuSheetLayout';
 import { TipBuilder } from '../../component/TipLayout';
 import { TitleView } from '../../component/TitleView';
 import { DrawerOptions } from '../../model/DrawerOptions';
 import { LoadOptions } from '../../model/LoadOptions';
 import { MenuOptions } from '../../model/MenuOptions';
+import { MenuSheetOptions } from '../../model/MenuSheetOptions';
 import { TipOptions } from '../../model/TipOptions';
 import { Utils } from '../../utils/Utils';
+
+
+
 
 /**
  * TODO 弹窗工具
@@ -37,6 +44,7 @@ export struct DialogPage {
   private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
   private multis: string[][] = [this.apfruits, this.orfruits, this.pefruits]
 
+  @BuilderParam customTextBuilderParam: (str: string | Resource) => void = CustomTextViewBuilder; //之定义文本内容
 
   /**
    * 统一配置一
@@ -596,6 +604,7 @@ export struct DialogPage {
     }
   }
 
+
   /**
    * 自定义内容区弹出框
    */
@@ -604,21 +613,21 @@ export struct DialogPage {
       //简单使用
       DialogHelper.showCustomContentDialog({
         contentBuilder: () => {
-          this.customTextBuilder("我是一个自定义弹框！")
+          this.customTextBuilder("我是一个自定义文本内的弹框！")
         },
         onAction: (action) => {
           ToastUtil.showToast(`${action}`);
         }
       })
     } else if (index == 1) {
+      //自定义文本内容，使用全局 @Builder
       DialogHelper.showCustomContentDialog({
-        primaryTitle: "爱心提示",
-        secondaryTitle: "其实我是一个二级标题",
+        title: "哈哈哈哈哈哈",
         contentBuilder: () => {
-          this.customTextImgBuilder("我是一个自定义弹框！")
+          this.customTextBuilderParam($r('app.string.module_desc'))
         },
         buttons: [
-          { value: '取消', fontColor: Color.Black },
+          '取消',
           { value: '知道了', fontColor: Color.Red }
         ],
         onAction: (action) => {
@@ -626,13 +635,15 @@ export struct DialogPage {
         }
       })
     } else if (index == 2) {
+      //自定义图文，使用局部 @Builder 和 自定义组件
       DialogHelper.showCustomContentDialog({
-        title: "哈哈哈哈哈哈",
+        primaryTitle: "爱心提示",
+        secondaryTitle: "其实我是一个二级标题",
         contentBuilder: () => {
-          this.customText2Builder("我是一个自定义弹框呀！")
+          this.customTextImgBuilder("最受欢迎的三方库，@pura/harmony-utils",$r('app.media.test_as2'))
         },
         buttons: [
-          '取消',
+          { value: '取消', fontColor: Color.Black },
           { value: '知道了', fontColor: Color.Red }
         ],
         onAction: (action) => {
@@ -1192,6 +1203,11 @@ export struct DialogPage {
             onClickAction: (index: number): void => this.customDialog(index)
           })
           CardButton({
+            label: "BindSheet",
+            content: "自定义半模态",
+            onClickAction: (index: number): void => this.showBindSheet(index)
+          })
+          CardButton({
             label: "LoadingDialog",
             content: "进度加载类弹出框",
             onClickAction: (index: number): void => this.loadingDialog(index)
@@ -1213,7 +1229,6 @@ export struct DialogPage {
             onClickAction: (index: number): void => this.toastTip(index)
           })
             .margin({ bottom: 15 })
-
         }
       }
       .layoutWeight(1)
@@ -1222,48 +1237,51 @@ export struct DialogPage {
     }
   }
 
+
   //自定义文本
   @Builder
   customTextBuilder(content: string) {
     Text(content)
-      .fontColor(Color.Black)
+      .fontFamily('MyFont')
+      .fontColor($r('app.color.font_title'))
       .fontSize(16)
-      .padding(10)
+      .padding(5)
+      .textShadow({
+        color: Color.Brown,
+        type: ShadowType.COLOR,
+        radius: 3,
+        offsetX: 5,
+        offsetY: 5,
+        fill: false
+      })
   }
+
 
   //自定义文本和图片
   @Builder
-  customTextImgBuilder(content: string) {
-    Scroll() {
-      Column() {
-        Text(content)
-          .fontColor(Color.Pink)
-          .fontSize(16)
-        Image($r('app.media.test_as2'))
-          .width("100%")
-      }
-      .width("100%")
-      .backgroundColor(Color.White)
-      .padding(10)
-    }
+  customTextImgBuilder(content: ResourceStr, src: Resource) {
+    CustomImageView({ content: content, src: src })
   }
 
-  //自定义文本2
-  @Builder
-  customText2Builder(content: string) {
-    Column() {
-      Text(content)
-        .fontColor(Color.Black)
-        .fontSize(16)
-        .padding(10)
-      Text(content)
-        .fontColor(Color.Black)
-        .fontSize(16)
-        .padding(10)
-    }
-    .width("100%")
-    .padding(10)
+  /**
+   * 显示自定义半模态
+   */
+  showBindSheet(index: number) {
+
+    //自定义一个底部的MenuLayout
+    let menuOptions: MenuSheetOptions = {
+      dialogId: DialogHelper.generateId(),
+      uiContext: AppUtil.getUIContext(),
+      preferType:SheetType.CENTER,
+      menus: Utils.getMenus(),
+      onItemClick: (menu) => {
+        DialogHelper.showToast(menu.text);
+        DialogHelper.closeDialog(menuOptions.dialogId ?? "");
+      }
+    };
+    DialogHelper.showBindSheet(wrapBuilder(MenuSheetBuilder), menuOptions);
   }
 
 
 }
+

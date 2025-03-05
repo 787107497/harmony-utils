@@ -11,8 +11,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
  */
 
 
@@ -38,8 +36,8 @@ export class AnimationHelper {
     return TransitionEffect.asymmetric(
       TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration * 0.4 })
         .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
-      TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
-        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+      TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear })
+        .combine(TransitionEffect.move(TransitionEdge.TOP).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear }))
     );
   }
 
@@ -53,8 +51,8 @@ export class AnimationHelper {
     return TransitionEffect.asymmetric(
       TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration * 0.4 })
         .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
-      TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
-        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+      TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear })
+        .combine(TransitionEffect.move(TransitionEdge.BOTTOM).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear }))
     );
   }
 
@@ -68,8 +66,8 @@ export class AnimationHelper {
     return TransitionEffect.asymmetric(
       TransitionEffect.move(TransitionEdge.START).animation({ duration: duration * 0.4 })
         .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
-      TransitionEffect.move(TransitionEdge.START).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
-        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+      TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear })
+        .combine(TransitionEffect.move(TransitionEdge.START).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear }))
     );
   }
 
@@ -83,8 +81,8 @@ export class AnimationHelper {
     return TransitionEffect.asymmetric(
       TransitionEffect.move(TransitionEdge.END).animation({ duration: duration * 0.4 })
         .combine(TransitionEffect.OPACITY.animation({ duration: duration })),
-      TransitionEffect.move(TransitionEdge.END).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear })
-        .combine(TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear }))
+      TransitionEffect.OPACITY.animation({ duration: duration, curve: Curve.Linear })
+        .combine(TransitionEffect.move(TransitionEdge.END).animation({ duration: duration * 0.4, delay: duration * 0.4, curve: Curve.Linear }))
     );
   }
 

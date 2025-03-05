@@ -17,6 +17,10 @@
       "value": "#0A59F7"
     },
     {
+      "name": "font_title",
+      "value": "#222222"
+    },
+    {
       "name": "color_default",
       "value": "#666666"
     },
