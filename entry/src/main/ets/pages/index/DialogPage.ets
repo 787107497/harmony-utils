@@ -44,7 +44,7 @@ export struct DialogPage {
   private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
   private multis: string[][] = [this.apfruits, this.orfruits, this.pefruits]
 
-  @BuilderParam customTextBuilderParam: (str: string | Resource) => void = CustomTextViewBuilder; //之定义文本内容
+  @BuilderParam customTextBuilderParam: (str: string | Resource) => void = CustomTextViewBuilder; //自定义文本内容
 
   /**
    * 统一配置一
@@ -610,7 +610,7 @@ export struct DialogPage {
    */
   customContentDialog(index: number) {
     if (index == 0) {
-      //简单使用
+      //简单使用，局部 @Builder
       DialogHelper.showCustomContentDialog({
         contentBuilder: () => {
           this.customTextBuilder("我是一个自定义文本内的弹框！")
@@ -620,7 +620,7 @@ export struct DialogPage {
         }
       })
     } else if (index == 1) {
-      //自定义文本内容，使用全局 @Builder
+      //自定义文本内容，使用全局 @Builder 和 自定义组件
       DialogHelper.showCustomContentDialog({
         title: "哈哈哈哈哈哈",
         contentBuilder: () => {
@@ -1267,7 +1267,6 @@ export struct DialogPage {
    * 显示自定义半模态
    */
   showBindSheet(index: number) {
-
     //自定义一个底部的MenuLayout
     let menuOptions: MenuSheetOptions = {
       dialogId: DialogHelper.generateId(),
