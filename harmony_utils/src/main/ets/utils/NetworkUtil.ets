@@ -19,7 +19,7 @@ import { connection } from '@kit.NetworkKit';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { wifiManager } from '@kit.ConnectivityKit';
 import { LogUtil } from './LogUtil';
-
+import { netQuality } from '@kit.NetworkBoostKit';
 
 /**
  * TODO 网络相关工具类
@@ -51,6 +51,98 @@ export class NetworkUtil {
   static hasDefaultNetSync(): boolean {
     return connection.hasDefaultNetSync();
   }
+
+
+  /**
+   * 获取默认激活的数据网络
+   * @returns
+   */
+  static getDefaultNet(): Promise<connection.NetHandle> {
+    return connection.getDefaultNet();
+  }
+
+  /**
+   * 获取默认激活的数据网络
+   * @returns
+   */
+  static getDefaultNetSync(): connection.NetHandle {
+    return connection.getDefaultNetSync();
+  }
+
+  /**
+   * 获取所有处于连接状态的网络列表
+   * @returns
+   */
+  static getAllNets(): Promise<Array<connection.NetHandle>> {
+    return connection.getAllNets();
+  }
+
+  /**
+   * 获取所有处于连接状态的网络列表
+   * @returns
+   */
+  static getAllNetsSync(): Array<connection.NetHandle> {
+    return connection.getAllNetsSync();
+  }
+
+
+  /**
+   * 网络是否可用
+   * @returns
+   */
+  static isNetworkAvailable(): Boolean {
+    let allNets = connection.getAllNetsSync();
+    if (allNets && allNets.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+  /**
+   * 网络可用事件回调
+   * @param callback
+   */
+  static onNetAvailable(callback: Callback<connection.NetHandle>) {
+    connection.getDefaultNet((err: BusinessError, data: connection.NetHandle) => {
+      callback(data);
+    });
+    if (!NetworkUtil.netConnection) {
+      NetworkUtil.netConnection = connection.createNetConnection();
+    }
+    NetworkUtil.netConnection.register((error: BusinessError) => {
+      console.log(JSON.stringify(error));
+    });
+    NetworkUtil.netConnection.on('netAvailable', (data: connection.NetHandle) => {
+      callback(data);
+    });
+  }
+
+
+
+  test(){
+
+
+    try {
+      netQuality.on('netSceneChange', (list: Array<netQuality.NetworkScene>) => {
+        if (list.length > 0) {
+          list.forEach((sceneInfo) => {
+            // 网络场景识别回调信息处理
+            if (sceneInfo.scene == 'congestion') {
+              // 网络拥塞分支处理
+            }
+            if (sceneInfo.weakSignalPrediction) {
+              // 存在弱信号预测信息，对弱信号预测信息进行处理
+            }
+          });
+        }
+      });
+    } catch (err) {
+      console.error('errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);
+    }
+  }
+
 
 
   /**
