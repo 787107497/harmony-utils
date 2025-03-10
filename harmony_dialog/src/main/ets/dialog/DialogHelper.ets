@@ -57,6 +57,7 @@ import { BasePickerOptions } from '../model/base/BasePickerOptions';
 import { CacheHelper } from '../utils/CacheHelper';
 import { ButtonOptions } from '../model/ButtonOptions';
 import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
+import { common } from '@kit.AbilityKit';
 
 
 /**
@@ -91,6 +92,18 @@ export class DialogHelper {
       return DialogHelper.mainUIContext;
     }
     return DialogHelper.config?.uiAbilityContext?.windowStage?.getMainWindowSync()?.getUIContext();
+  }
+
+
+  /**
+   * 获取UIAbilityContext
+   * @returns
+   */
+  static getUIAbilityContext(): common.UIAbilityContext {
+    if (DialogHelper.config?.uiAbilityContext) {
+      return DialogHelper.config?.uiAbilityContext;
+    }
+    return getContext() as common.UIAbilityContext;
   }
 
 

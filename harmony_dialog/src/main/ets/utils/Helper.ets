@@ -17,6 +17,7 @@ import { common } from '@kit.AbilityKit';
 import { display, window } from '@kit.ArkUI';
 import { resourceManager } from '@kit.LocalizationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { DialogHelper } from '../dialog/DialogHelper';
 
 
 /**
@@ -78,17 +79,45 @@ export class Helper {
 
 
   /**
+   * 获取状态栏的高度，单位为px。
+   * @returns
+   */
+  static getStatusBarHeight(uiContext?: common.UIAbilityContext): number {
+    try {
+      if (!uiContext) {
+        uiContext = DialogHelper.getUIAbilityContext();
+      }
+      let height = uiContext.windowStage.getMainWindowSync()
+        .getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
+        .topRect.height;
+      if (height > 0) {
+        return px2vp(height);
+      }
+      return 32;
+    } catch (err) {
+      return 32;
+    }
+  }
+
+
+  /**
    * 获取底部导航条的高度，单位为vp。
    * @returns
    */
-  static getNavigationIndicatorHeight(uiContext: common.UIAbilityContext): number {
+  static getIndicatorHeight(uiContext?: common.UIAbilityContext): number {
     try {
-      let windowClass = uiContext.windowStage.getMainWindowSync();
-      let avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
-      let height = avoidArea.bottomRect.height;
-      return px2vp(height);
+      if (!uiContext) {
+        uiContext = DialogHelper.getUIAbilityContext();
+      }
+      let height = uiContext.windowStage.getMainWindowSync()
+        .getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR)
+        .topRect.height;
+      if (height > 0) {
+        return px2vp(height);
+      }
+      return 28;
     } catch (err) {
-      return 30;
+      return 28;
     }
   }
 

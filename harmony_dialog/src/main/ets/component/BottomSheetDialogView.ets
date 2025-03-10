@@ -34,12 +34,14 @@ export struct BottomSheetDialogView {
   @Prop options: BottomSheetOptions;
   @State title: string = ""; //标题
   @State fontSize: number | string | Resource = 16; //按钮的文字大小，字体大小16。
-  @State largeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
+  @State statusBarHeight: number = 0; //状态栏高度
+  @State indicatorHeight: number = 0; //底部导航条的高度
   @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
     this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
 
   aboutToAppear(): void {
-    this.largeScreen=  Helper.isLargeScreen();
+    this.statusBarHeight = Helper.getStatusBarHeight();
+    this.indicatorHeight = Helper.isLargeScreen() ? Helper.getIndicatorHeight() : 0;
     if (this.options.title) {
       this.title = Helper.getResourceStr(this.options.title) ?? "";
     }
@@ -51,60 +53,24 @@ export struct BottomSheetDialogView {
     }
   }
 
-
   build() {
     WithTheme({ colorMode: this.themeColorMode }) {
-      Column({ space: 0 }) {
-        Column() {
-          Text(this.title)
-            .fontSize(14)
-            .fontColor(this.options.titleFontColor ?? $r('app.color.harmony_dialog_title_color'))
-            .align(Alignment.Center)
-            .textAlign(TextAlign.Center)
-            .padding({ left: 10, right: 10, bottom: 15, top: 15 })
-            .width('100%')
-          Divider()
-            .width('100%')
-            .strokeWidth(1)
-            .color($r('app.color.harmony_dialog_divider_color'))
-        }
-        .width('100%')
-        .visibility(this.title.length > 0 ? Visibility.Visible : Visibility.None)
-
-        List() {
+      List() {
+        ListItemGroup({ header: this.headBuilder(), footer: this.footBuilder() }) {
           ForEach(this.options.sheets, (sheet: ActionSheetOptions, index: number) => {
-            this.TextBuilder(sheet.value, sheet.fontColor ?? $r('app.color.harmony_dialog_text_color'),
+            this.itemBuilder(sheet.value, sheet.fontColor ?? $r('app.color.harmony_dialog_text_color'),
               sheet.fontSize ?? 16, index)
           }, (sheet: ActionSheetOptions, index: number) => `${index}-${sheet.value}`)
         }
         .divider({ strokeWidth: 1, color: $r('app.color.harmony_dialog_divider_color') })
-        .width('100%')
-        .layoutWeight(this.options.maxHeight ? 1 : 0)
-
-        Divider()
-          .width('100%')
-          .strokeWidth(10)
-          .color($r('app.color.harmony_dialog_divider_color'))
-
-        Text(this.options.cancelValue)
-          .fontSize(this.fontSize)
-          .fontColor(this.options.cancelFontColor ?? $r('sys.color.ohos_id_picker_button_text_color'))
-          .fontWeight(this.options.cancelFontWeight ?? FontWeight.Bold)
-          .align(Alignment.Center)
-          .textAlign(TextAlign.Center)
-          .width('100%')
-          .padding({ top: 20, bottom: 20, left: 10, right: 10 })
-          .margin({ bottom: this.largeScreen ? 0 : 20 })
-          .onClick(() => {
-            DialogHelper.closeDialog(this.options.dialogId ?? "");
-          })
+        .backgroundColor(Color.Transparent)
       }
-      .justifyContent(FlexAlign.Center)
-      .alignItems(HorizontalAlign.Center)
+      .sticky(StickyStyle.Header | StickyStyle.Footer)
+      .edgeEffect(EdgeEffect.None)
       .width(this.options.width)
       .height(this.options.height ?? "auto")
       .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
-      .margin({ bottom: this.largeScreen ? 30 : 0 })
+      .margin({ top: this.statusBarHeight, bottom: this.indicatorHeight })
       .backgroundColor(this.options.backgroundColor)
       .backgroundBlurStyle(this.options.backgroundBlurStyle)
       .borderRadius(this.options.cornerRadius)
@@ -113,15 +79,18 @@ export struct BottomSheetDialogView {
   }
 
 
+  //列表Item
   @Builder
-  TextBuilder(value: ResourceStr, fontColor: ResourceColor, fontSize: number | string | Resource, index: number) {
+  itemBuilder(value: ResourceStr, fontColor: ResourceColor, fontSize: number | string | Resource, index: number) {
     Text(value)
       .fontSize(fontSize)
       .fontColor(fontColor)
       .align(Alignment.Center)
       .textAlign(TextAlign.Center)
+      .padding({ top: 18, bottom: 18, left: 10, right: 10 })
       .width('100%')
-      .padding({ top: 20, bottom: 20, left: 10, right: 10 })
+      .backgroundColor(this.options.backgroundColor)
+      .backgroundBlurStyle(this.options.backgroundBlurStyle)
       .onClick(() => {
         if (this.options.actionCancel){
           DialogHelper.closeDialog(this.options.dialogId ?? "");
@@ -130,6 +99,57 @@ export struct BottomSheetDialogView {
           this.options.onAction(index, this.options.dialogId ?? "");
         }
       })
+  }
+
+
+  //标题
+  @Builder
+  headBuilder() {
+    Column() {
+      Text(this.title)
+        .fontSize(14)
+        .fontColor(this.options.titleFontColor ?? $r('app.color.harmony_dialog_title_color'))
+        .align(Alignment.Center)
+        .textAlign(TextAlign.Center)
+        .padding({ left: 10, right: 10, bottom: 15, top: 15 })
+        .width('100%')
+      Divider()
+        .width('100%')
+        .strokeWidth(1)
+        .color($r('app.color.harmony_dialog_divider_color'))
+    }
+    .width('100%')
+    .backgroundColor(this.options.backgroundColor)
+    .backgroundBlurStyle(this.options.backgroundBlurStyle)
+    .visibility(this.title.length > 0 ? Visibility.Visible : Visibility.None)
+  }
+
+
+  //底部按钮
+  @Builder
+  footBuilder() {
+    Column({ space: 0 }) {
+      Divider()
+        .width('100%')
+        .strokeWidth(10)
+        .color($r('app.color.harmony_dialog_divider_color'))
+
+      Text(this.options.cancelValue)
+        .fontSize(this.fontSize)
+        .fontColor(this.options.cancelFontColor ?? $r('sys.color.ohos_id_picker_button_text_color'))
+        .fontWeight(this.options.cancelFontWeight ?? FontWeight.Bold)
+        .align(Alignment.Center)
+        .textAlign(TextAlign.Center)
+        .width('100%')
+        .padding({ top: 18, bottom: 10, left: 10, right: 10 })
+        .margin({ bottom: Helper.getIndicatorHeight() })
+        .onClick(() => {
+          DialogHelper.closeDialog(this.options.dialogId ?? "");
+        })
+    }
+    .width('100%')
+    .backgroundColor(this.options.backgroundColor)
+    .backgroundBlurStyle(this.options.backgroundBlurStyle)
   }
 
 
