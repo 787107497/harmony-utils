@@ -1,6 +1,6 @@
 import { AreaHelper } from '@nutpi/china_area';
 import { AnimationHelper, DateType, DialogAction, DialogHelper, Orientation } from '@pura/harmony-dialog';
-import { AppUtil, DateUtil, DisplayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { DateUtil, DisplayUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { SpinType } from '@pura/spinkit';
 import { CardButton } from '../../component/CardButton';
 import { CustomImageView } from '../../component/CustomImageView';
@@ -17,8 +17,7 @@ import { MenuOptions } from '../../model/MenuOptions';
 import { MenuSheetOptions } from '../../model/MenuSheetOptions';
 import { TipOptions } from '../../model/TipOptions';
 import { Utils } from '../../utils/Utils';
-
-
+import { router } from '@kit.ArkUI';
 
 
 /**
@@ -1207,6 +1206,7 @@ export struct DialogPage {
             content: "自定义半模态",
             onClickAction: (index: number): void => this.showBindSheet(index)
           })
+            .id("10001")
           CardButton({
             label: "LoadingDialog",
             content: "进度加载类弹出框",
@@ -1267,15 +1267,24 @@ export struct DialogPage {
    * 显示自定义半模态
    */
   showBindSheet(index: number) {
+    let uniqueId = this.getUniqueId();
+    let targetId = DialogHelper.getTargetId("10001", this.getUIContext());
     //自定义一个底部的MenuLayout
     let menuOptions: MenuSheetOptions = {
       dialogId: DialogHelper.generateId(),
-      uiContext: AppUtil.getUIContext(),
-      preferType:SheetType.CENTER,
+      title: {
+        title: "分享我的动态",
+      },
+      detents: [SheetSize.FIT_CONTENT, SheetSize.MEDIUM, SheetSize.FIT_CONTENT],
+      borderWidth: 10,
+      borderColor: Color.White,
+      targetId: targetId,
+      mode: SheetMode.EMBEDDED,
+      preferType: SheetType.BOTTOM,
       menus: Utils.getMenus(),
       onItemClick: (menu) => {
+        router.pushUrl({ url: "pages/spinkit/SpinKit1" })
         DialogHelper.showToast(menu.text);
-        DialogHelper.closeDialog(menuOptions.dialogId ?? "");
       }
     };
     DialogHelper.showBindSheet(wrapBuilder(MenuSheetBuilder), menuOptions);

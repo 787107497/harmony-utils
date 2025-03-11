@@ -26,12 +26,6 @@ export struct MenuSheetLayout {
 
   build() {
     Column() {
-
-      Divider()
-        .color($r('app.color.color_line'))
-        .strokeWidth(1)
-        .width('100%')
-
       Grid() {
         ForEach(this.options.menus, (bean: MenuBean, index: number) => {
           GridItem() {
@@ -59,13 +53,13 @@ export struct MenuSheetLayout {
       .rowsGap(20)
       .columnsGap(5)
       .layoutDirection(GridDirection.Row)
-      .margin({ top: 20, bottom: 25 })
+      .margin({ top: 15, bottom: 10 })
       .width('100%')
       .height(`${px2vp(DisplayUtil.getWidth()) * 0.72}`)
     }
     .width('100%')
-    .backgroundColor(this.options.backgroundColor)
-    .borderRadius({ topLeft: 12, topRight: 12 })
+    .backgroundColor(Color.Transparent)
+    .borderRadius(5)
     .clip(true)
   }
 
