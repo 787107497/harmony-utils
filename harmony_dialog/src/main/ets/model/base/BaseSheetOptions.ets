@@ -31,5 +31,4 @@ export interface BaseSheetOptions extends SheetOptions {
   dialogId?: string; //弹框id，具有唯一性
   targetId?: number; //需要绑定组件的ID，若不指定则不绑定任何组件。
 
-
 }
