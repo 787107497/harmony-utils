@@ -1,3 +1,4 @@
+import { ArrayUtil } from '@pura/harmony-utils';
 import { MenuBean } from '../model/MenuBean';
 
 export class Utils{
@@ -72,5 +73,24 @@ export class Utils{
     });
     return menus;
   }
+
+
+  /**
+   * 大概判断是否是图片选择
+   * @param types  .tif,.pjp,.jfif,.bmp,.webp,.svg,.gif,.svgz,.jpg,.hevc,.jpeg,.pjpeg,.png,.ico,.avif,.apng,.heic,.xbm,.tiff,.heif
+   */
+  static isPhoto(types: string[]) {
+    return ArrayUtil.contain(types, ".jpg") && ArrayUtil.contain(types, ".jpeg") && ArrayUtil.contain(types, ".png");
+  }
+
+  /**
+   * 大概判断是否是视频片选择
+   * @param types  .ogm,.ogv,.mpg,.mp4,.mpeg,.m4v,.webm
+   */
+  static isVideo(types: string[]) {
+    return ArrayUtil.contain(types, ".mp4") && ArrayUtil.contain(types, ".m4v");
+  }
+
+
 
 }

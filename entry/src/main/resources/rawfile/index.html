@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport"
+			content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+		<title>测试网页</title>
+	</head>
+	<body>
+		<div id="app">
+
+			<div class="card_item">
+				<h4 class="font-title">onOverrideUrlLoading</h4>
+				<div class="margin-top5">
+					<a class="margin-right10" href="about:blank">空白页</a>
+					<a class="margin-right10" href="https://www.nutpi.net">坚果派</a>
+					<a href="https://www.baidu.com/">百度一下</a>
+				</div>
+			</div>
+
+			<div class="card_item">
+				<h4>onAlert</h4>
+				<div class="margin-top5">
+					<button id='btn_alert1' class="margin-right10" onclick="onAlertFun(1)">Alert弹框1</button>
+					<button id='btn_alert2' onclick="onAlertFun(2)">Alert按钮2</button>
+				</div>
+			</div>
+
+			<div class="card_item">
+				<h4>onConfirm</h4>
+				<div class="margin-top5">
+					<button id='btn_confirm1' class="margin-right10" onclick="onConfirmFun(1)">Confirm弹框1</button>
+					<button id='btn_confirm2' onclick="onConfirmFun(2)">Confirm按钮2</button>
+				</div>
+			</div>
+
+			<div class="card_item">
+				<h4>onPrompt</h4>
+				<div class="margin-top5">
+					<button id='btn_prompt1' class="margin-right10" onclick="onPromptFun(1)">Prompt弹框1</button>
+					<button id='btn_prompt2' onclick="onPromptFun(2)">Prompt按钮2</button>
+				</div>
+				<span id="span_prompt" class="font-content margin-top5"></span>
+			</div>
+
+			<div class="card_item">
+				<h4>onConsole</h4>
+				<div class="margin-top5">
+					<button class="margin-right10" onclick="onConsoleFun(1)">打印日志1</button>
+					<button onclick="onConsoleFun(2)">打印日志2</button>
+				</div>
+				<span id="span_console" class="font-content margin-top5">222222222</span>
+			</div>
+
+			<div class="card_item">
+				<h4>onRenderExited</h4>
+				<div class="margin-top5">
+					<button class="margin-right10" onclick="onPromptFun(1)">异常1</button>
+					<a class="margin-right10" href="chrome://crash">异常2</a>
+				</div>
+			</div>
+
+			<div class="card_item">
+				<h4>ontest</h4>
+				<div class="margin-top5">
+					<button class="margin-right10" onclick="onTest(0)">测试1</button>
+					<button class="margin-right10" onclick="onTest(1)">测试2</button>
+				</div>
+			</div>
+
+
+
+			<div class="card_item">
+				<h5>onOverrideUrlLoading</h5>
+				<div class="margin-top5">
+					<a class="margin-right10">百度一下</a>
+						<input type="file" accept="image/*" multiple />
+						<input type="file" accept="video/*" />
+						<input type="file" accept="image/*" capture />
+				</div>
+			</div>
+		</div>
+		<script>
+			//onAlert弹框
+			function onAlertFun(arg) {
+				if (arg == 1) {
+					alert("Alert提示弹框！");
+					document.querySelector('#btn_alert1').innerText = 'Alert弹框1-同意了';
+					console.log("点击了确认按钮！");
+				} else {
+					alert("请确认提交内容！");
+					document.querySelector('#btn_alert2').innerText = 'Alert弹框2-确定了';
+					console.log("点击了确认按钮！");
+				}
+			}
+
+			//onConfirm弹框
+			function onConfirmFun(arg) {
+				if (arg == 1) {
+					var result = confirm("Confirm提示弹框！");
+					if (result) {
+						document.getElementById('btn_confirm1').innerText = 'Confirm弹框1-确定了';
+					} else {
+						document.getElementById('btn_confirm1').innerText = 'Confirm弹框1-取消了';
+					}
+					console.log("点击了按钮！" + result);
+				} else {
+					var result = confirm("是否保存表单内容！");
+					if (result) {
+						document.getElementById('btn_confirm2').innerText = 'Confirm弹框1-确定了';
+					} else {
+						document.getElementById('btn_confirm2').innerText = 'Confirm弹框1-取消了';
+					}
+					console.log("点击了按钮！" + result);
+				}
+			}
+
+			//onPrompt弹框
+			function onPromptFun(arg) {
+				if (arg == 1) {
+					var result = prompt("Prompt提示弹框！");
+					document.getElementById('span_prompt').innerText = result;
+					if (result != null) {
+						document.getElementById('btn_prompt1').innerText = 'Prompt弹框1-确定了';
+					} else {
+						document.getElementById('btn_prompt1').innerText = 'Prompt弹框1-取消了';
+					}
+					console.log("点击了按钮！" + result);
+				} else {
+					var result = prompt("输入正确的人员姓名！", "张三忿");
+					document.getElementById('span_prompt').innerText = result;
+					if (result != null) {
+						document.getElementById('btn_prompt2').innerText = 'Prompt弹框1-确定了';
+					} else {
+						document.getElementById('btn_prompt2').innerText = 'Prompt弹框1-取消了';
+					}
+					console.log("点击了按钮！" + result);
+				}
+			}
+
+			//onConsole日志打印
+			function onConsoleFun(arg) {
+				if (arg == 1) {
+					console.log("我是H5打印的日志！");
+				} else {
+					console.error("我是h5平台的错误日志！");
+					console.log("我是H5打印的日志！~·~哈哈哈哈哈哈。");
+				}
+				document.getElementById('span_console').innerText = '请在DevEco Studio上查看日志, ' + Date.now();
+			}
+
+			//测试逻辑
+			function onTest(arg) {
+				console.log("测试按钮：" + arg);
+				if (arg == 1) {
+					JsBridge.closePage();
+				} else {
+					JsBridge.closePage("222222");
+				}
+			}
+
+			function add(arg) {
+				alert("arg: "+arg);
+				return "成功了";
+			}
+		</script>
+	</body>
+	<style>
+		.card_item {
+			background-color: white;
+			margin: 10px 10px 10px 10px;
+			padding: 10px;
+			border: 1px solid #eee;
+			border-radius: 10px;
+			box-shadow: 2px 2px #ddd;
+		}
+
+		#app {
+			background-color: transparent;
+		}
+
+		.margin10 {
+			margin: 10px 10px 10px 10px;
+		}
+
+		.margin-left10 {
+			margin-left: 10px;
+		}
+
+		.margin-right10 {
+			margin-right: 10px;
+		}
+
+		.margin-top10 {
+			margin-top: 10px;
+		}
+
+		.margin-bottom10 {
+			margin-bottom: 10px;
+		}
+
+		.margin5 {
+			margin: 5px 5px 5px 5px;
+		}
+
+		.margin-left5 {
+			margin-left: 5px;
+		}
+
+		.margin-right5 {
+			margin-right: 5px;
+		}
+
+		.margin-top5 {
+			margin-top: 5px;
+		}
+
+		.margin-bottom5 {
+			margin-bottom: 5px;
+		}
+
+		.padding10 {
+			padding: 10px 10px 10px 10px;
+		}
+
+		.padding5 {
+			padding: 5px 5px 5px 5px;
+		}
+
+		.font-title {
+			text-shadow: 1px 1px #ddd;
+		}
+
+		.font-content {
+			display: flex;
+			font-size: 14px;
+			color: #333;
+			font-style: oblique;
+			font-family: sans-serif;
+			text-shadow: 1px 1px #ccc;
+		}
+
+		body {
+			background-color: aliceblue;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</html>
