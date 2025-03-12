@@ -12,7 +12,7 @@ export class User {
   salary?: number;
 
   say(msg: string) {
-    LogUtil.error(`我想吃：${msg}`);
+    LogUtil.error(`${this.name}想吃：${msg}`);
   }
 
   print() {
