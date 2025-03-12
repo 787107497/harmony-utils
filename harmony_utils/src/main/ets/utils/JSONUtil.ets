@@ -16,6 +16,8 @@
 import { JSON } from '@kit.ArkTS';
 import { LogUtil } from './LogUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { ObjectUtil } from './ObjectUtil';
+import { Constructor } from '../entity/constraints';
 
 
 /**
@@ -35,9 +37,16 @@ export class JSONUtil {
    * @param jsonStr JSON字符串
    * @returns
    */
-  static jsonToBean<T>(jsonStr: string): T | null {
+  static jsonToBean<T>(jsonStr: string, clazz?: Constructor<T>, reviver?: JSON.Transformer, options?: JSON.ParseOptions): T | null {
     try {
-      return JSON.parse(jsonStr) as T;
+      if (!options) {
+        options = { bigIntMode: JSON.BigIntMode.PARSE_AS_BIGINT };
+      }
+      const bean = JSON.parse(jsonStr, reviver, options) as T;
+      if (clazz) {
+        return ObjectUtil.objToClass(clazz, bean);
+      }
+      return bean;
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`JSONUtil-jsonToBean-异常 ~ code: ${error.code} -·- message: ${error.message}`);

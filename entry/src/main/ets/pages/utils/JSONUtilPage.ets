@@ -4,7 +4,7 @@ import { JSONUtil, LogUtil, ResUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { User } from '../../model/User';
-import { JSON } from '@kit.ArkTS';
+
 
 /**
  * JSON工具类
@@ -14,8 +14,8 @@ import { JSON } from '@kit.ArkTS';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
-  private readonly objStr: string = '{"id":"No_1060701","name":"张三","age":20,"addr":"乌市天山区","work":"工程师","user":{"id":"No_1060701","name":"张三","age":20,"addr":"乌市天山区","work":"工程师"}}';
-  private readonly mapStr: string = '{"id":"NO_10000011","name":"王五五","age":"30","addr":"乌市天山区","work":"攻城狮"}';
+  private readonly objStr: string = '{"id":"No_1060701","name":"张三","age":20,"addr":"乌市天山区","work":"工程师","salary":9223372036854775807.2512,"user":{"id":"No_1060701","name":"张三","age":20,"addr":"乌市天山区","work":"工程师"}}';
+  private readonly mapStr: string = '{"id":"NO_10000011","name":"王五五","age":"30","addr":"乌市天山区","work":"攻城狮","salary":9223372036854775807.2512}';
   @State arrayStr: string = '';
 
   @MockSetup
@@ -42,8 +42,9 @@ struct Index {
           Button("jsonToBean()")
             .btnStyle()
             .onClick(() => {
-              let user = JSONUtil.jsonToBean<User>(this.objStr);
-              LogUtil.error(`${user?.name} - ${user?.age} - ${user?.addr} - ${user?.work} - ${user?.id}`)
+              let user = JSONUtil.jsonToBean(this.objStr,User);
+              LogUtil.error(`${user?.name} - ${user?.age} - ${user?.addr} - ${user?.work} - ${user?.salary} - ${user?.id}`)
+              user?.say("麻辣豆腐！");
               ToastUtil.showToast("请查看Log日志");
             })
           Button("beanToJsonStr()")

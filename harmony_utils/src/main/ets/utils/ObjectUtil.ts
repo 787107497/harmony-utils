@@ -15,7 +15,7 @@
 
 import util from '@ohos.util';
 import { ArrayList, HashMap, List } from '@kit.ArkTS';
-import { CommonAllType } from '../entity/constraints';
+import { CommonAllType, Constructor } from '../entity/constraints';
 
 /**
  * TODO 对象工具类
@@ -157,7 +157,7 @@ export class ObjectUtil {
    * @param obj
    * @returns
    */
-  static objToClass<T>(clazz: new (...args: any[]) => T, obj: any): T {
+  static objToClass<T>(clazz: Constructor<T>, obj: any): T {
     const instance = new clazz();
     Object.assign(instance, obj);
     return instance;

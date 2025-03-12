@@ -124,6 +124,7 @@ struct Index {
             .onClick(() => {
               let user: User = JSON.parse(this.userJsonStr);
               let user4 = ObjectUtil.objToClass(User, user);
+              user
               this.resultStr = `user:\n${JSON.stringify(user)}\n\nuser4:\n${JSON.stringify(user4)}`
               LogUtil.error(this.resultStr);
               user4.say("烤包子......");
