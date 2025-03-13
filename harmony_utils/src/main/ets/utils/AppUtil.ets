@@ -19,7 +19,7 @@ import { BusinessError } from '@ohos.base';
 import { KeyboardAvoidMode, window } from '@kit.ArkUI';
 import { DeviceUtil } from './DeviceUtil';
 import { resourceManager } from '@kit.LocalizationKit';
-import { common } from '@kit.AbilityKit';
+import { common, ConfigurationConstant } from '@kit.AbilityKit';
 
 
 /**
@@ -98,6 +98,30 @@ export class AppUtil {
       }
     }
   }
+
+  /**
+   * 设置应用的颜色模式。仅支持主线程调用。设置颜色模式，包括：深色模式、浅色模式、不设置（跟随系统）
+   * @param colorMode
+   */
+  static setColorMode(colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET) {
+    AppUtil.getContext().getApplicationContext().setColorMode(colorMode);
+  }
+
+  /**
+   * 设置应用的字体类型。仅支持主线程调用。
+   * @param fontSizeScale
+   */
+  static setFont(font: string){
+    AppUtil.getContext().getApplicationContext().setFont(font);
+  }
+
+  /**
+   * 设置应用字体大小缩放比例。仅支持主线程调用。
+   * @param fontSizeScale
+   */
+  // static setFontSizeScale(fontSizeScale: number){
+  //   AppUtil.getContext().getApplicationContext().setFontSizeScale(fontSizeScale);
+  // }
 
 
   /**

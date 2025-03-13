@@ -103,7 +103,7 @@ export class DialogHelper {
     if (DialogHelper.config?.uiAbilityContext) {
       return DialogHelper.config?.uiAbilityContext;
     }
-    return getContext() as common.UIAbilityContext;
+    return getContext() as common.UIAbilityContext; //兜底
   }
 
   /**
