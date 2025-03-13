@@ -16,10 +16,10 @@
 import { ComponentContent, promptAction, window } from '@kit.ArkUI';
 import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
 import { ActionCoreArg } from '../model/base/ActionCoreArg';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError, systemDateTime } from '@kit.BasicServicesKit';
 import { CacheHelper } from '../utils/CacheHelper';
 import { ToastOptions } from '../model/ToastOptions';
-import { DialogThemeColorMode } from '../../../../Index';
+import { DialogThemeColorMode } from '../utils/constraint';
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
 
@@ -102,7 +102,8 @@ export class BaseActionCore {
         const componentContent = new ComponentContent(options.uiContext, wrappedBuilder, options);
         this.addArg(options.dialogId ?? "", options.uiContext, componentContent); //显示弹框时，添加
         if (options.targetId) {
-          options.uiContext.openBindSheet(componentContent, options, options.targetId);
+          const targetId = this.getTargetId(options.uiContext, options.targetId);
+          options.uiContext.openBindSheet(componentContent, options, targetId);
         } else {
           options.uiContext.openBindSheet(componentContent, options);
         }
@@ -112,7 +113,8 @@ export class BaseActionCore {
           const componentContent = new ComponentContent(options.uiContext, wrappedBuilder, options);
           this.addArg(options.dialogId ?? "", options.uiContext, componentContent); //显示弹框时，添加
           if (options.targetId) {
-            options.uiContext.openBindSheet(componentContent, options, options.targetId);
+            const targetId = this.getTargetId(options.uiContext, options.targetId);
+            options.uiContext.openBindSheet(componentContent, options,targetId);
           } else {
             options.uiContext.openBindSheet(componentContent, options);
           }
@@ -283,7 +285,26 @@ export class BaseActionCore {
    * @returns
    */
   generateDialogId(): string {
-    return `${new Date().getTime()}${Math.floor(Math.random() * (1000 - 100) + 100)}`;
+    return `${systemDateTime.getTime(true)}${Math.floor(Math.random() * 10)}`;
+  }
+
+
+  /**
+   * 获取 targetId，半模态用到
+   * @param uiContext
+   * @param uniqueIdOrStrId 组件的id 或组件的uniqueId，this.getUniqueId()。
+   * @returns
+   */
+   getTargetId(uiContext: UIContext, uniqueIdOrStrId: number | string): number | undefined {
+    if (typeof uniqueIdOrStrId === 'number') {
+      let frameNode: FrameNode | null | undefined = uiContext?.getFrameNodeByUniqueId(uniqueIdOrStrId);
+      let targetId = frameNode?.getFirstChild()?.getUniqueId();
+      return targetId;
+    } else {
+      let frameNode: FrameNode | null | undefined = uiContext?.getFrameNodeById(uniqueIdOrStrId);
+      let targetId = frameNode?.getFirstChild()?.getUniqueId();
+      return targetId;
+    }
   }
 
 

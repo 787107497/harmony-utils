@@ -1267,8 +1267,9 @@ export struct DialogPage {
    * 显示自定义半模态
    */
   showBindSheet(index: number) {
-    let uniqueId = this.getUniqueId();
-    let targetId = DialogHelper.getTargetId("10001", this.getUIContext());
+    // let targetId = this.getUniqueId();
+    let targetId = "10001";
+
     //自定义一个底部的MenuLayout
     let menuOptions: MenuSheetOptions = {
       dialogId: DialogHelper.generateId(),

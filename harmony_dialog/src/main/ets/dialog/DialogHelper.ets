@@ -49,7 +49,7 @@ import { HmDialogOptions } from '../model/base/HmDialogOptions';
 import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { ActionSheetOptions } from '../model/ActionSheetOptions';
 import { DialogAction } from '../utils/constraint';
-import { promptAction, UIContext } from '@kit.ArkUI';
+import { promptAction, UIContext, window } from '@kit.ArkUI';
 import { Helper } from '../utils/Helper';
 import { TextPickerOptions } from '../model/TextPickerOptions';
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
@@ -84,18 +84,6 @@ export class DialogHelper {
 
 
   /**
-   * 获取MainWindow的UIContext
-   * @returns
-   */
-  static getMainUIContext(): UIContext | undefined {
-    if (DialogHelper.mainUIContext) {
-      return DialogHelper.mainUIContext;
-    }
-    return DialogHelper.config?.uiAbilityContext?.windowStage?.getMainWindowSync()?.getUIContext();
-  }
-
-
-  /**
    * 获取UIAbilityContext
    * @returns
    */
@@ -106,25 +94,38 @@ export class DialogHelper {
     return getContext() as common.UIAbilityContext; //兜底
   }
 
+
+  /**
+   * 获取MainWindow的UIContext
+   * @returns
+   */
+  static getMainUIContext(): UIContext | undefined {
+    if (DialogHelper.mainUIContext) {
+      return DialogHelper.mainUIContext;
+    }
+    const uiContext = DialogHelper.getUIAbilityContext().windowStage.getMainWindowSync().getUIContext();
+    if (uiContext) {
+      DialogHelper.mainUIContext = uiContext;
+    }
+    return DialogHelper.mainUIContext;
+  }
+
+
+  /**
+   * 获取当前应用内最上层的子窗口的UIContext
+   * @returns
+   */
+  static async getLastUIContext(): Promise<UIContext> {
+    const lastWindow = await window.getLastWindow(DialogHelper.getUIAbilityContext());
+    return lastWindow.getUIContext();
+  }
+
+
   /**
    * 生成弹框id
    */
   static generateId() {
     return BaseActionCore.getInstance().generateDialogId();
-  }
-
-
-  static getTargetId(uniqueIdOrStrId: number | string, uiContext?: UIContext): number | undefined {
-    uiContext = uiContext ?? DialogHelper.getMainUIContext();
-    if (typeof uniqueIdOrStrId === 'number') {
-      let frameNode: FrameNode | null | undefined = uiContext?.getFrameNodeByUniqueId(uniqueIdOrStrId);
-      let targetId = frameNode?.getFirstChild()?.getUniqueId();
-      return targetId;
-    } else {
-      let frameNode: FrameNode | null | undefined = uiContext?.getFrameNodeById(uniqueIdOrStrId);
-      let targetId = frameNode?.getFirstChild()?.getUniqueId();
-      return targetId;
-    }
   }
 
 

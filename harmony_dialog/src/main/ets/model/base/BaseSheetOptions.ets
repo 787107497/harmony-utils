@@ -29,6 +29,6 @@ export interface BaseSheetOptions extends SheetOptions {
 
   uiContext?: UIContext; //在UIContext实例对应的窗口中显示半模态。说明：使用openBindSheet启动的半模态页面，不支持设置、更新该属性。
   dialogId?: string; //弹框id，具有唯一性
-  targetId?: number; //需要绑定组件的ID，若不指定则不绑定任何组件。
+  targetId?: number | string; //需要绑定组件的ID，若不指定则不绑定任何组件。string类型：传入组件的id，number类型：传入组件的UniqueId this.getUniqueId()。
 
 }
