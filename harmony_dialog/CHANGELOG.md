@@ -1,5 +1,11 @@
 # 版本记录
 
+## 1.1.4
+1. 修复BottomSheetDialog和ActionSheetDialog 列表项过多导致显示异常的问题。
+2. 优化TextPickerDialog和DatePickerDialog 在折叠屏显示效果。
+3. 优化大屏设备判断逻辑。
+4. 新增 半模态（showBindSheet、updateBindSheet、closeBindSheet）。
+
 ## 1.1.3
 1. 升级SpinKit。
 2. 优化LoadingDialog大小（大小由60改为48）。

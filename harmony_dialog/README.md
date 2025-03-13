@@ -1,4 +1,4 @@
-# harmony-dialog (API12 - 5.0.3.800)
+# harmony-dialog (API12 - 5.0.5.315)
 
 ## 🏆简介与推荐
 
@@ -43,6 +43,9 @@ OpenHarmony ohpm
 | showLoadingDialog       | 显示加载类弹出框                                                                                                          |
 | showLoadingProgress     | 显示进度条加载弹框                                                                                                         |
 | updateLoading           | 刷新加载弹框                                                                                                            |
+| showBindSheet           | 显示自定义半模态                                                                                                          |
+| updateBindSheet         | 刷新自定义半模态                                                                                                          |
+| closeBindSheet          | 显示带图形的吐司                                                                                                          |
 | showToast               | 显示吐司                                                                                                              |
 | showToastLong           | 显示长吐司                                                                                                             |
 | showToastTip            | 显示带图形的吐司                                                                                                          |

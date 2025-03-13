@@ -18,6 +18,7 @@ import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { ActionSheetOptions } from '../model/ActionSheetOptions';
 import { DialogThemeColorMode } from '../utils/constraint';
 import { Helper } from '../utils/Helper';
+import { display } from '@kit.ArkUI';
 
 
 /**
@@ -36,12 +37,14 @@ export struct BottomSheetDialogView {
   @State fontSize: number | string | Resource = 16; //按钮的文字大小，字体大小16。
   @State statusBarHeight: number = 0; //状态栏高度
   @State indicatorHeight: number = 0; //底部导航条的高度
+  @State isLargeScreen: boolean = false; //是否是大屏
   @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
     this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
+  private foldStatusCallback: Callback<display.FoldStatus> = (foldStatus: display.FoldStatus) => {
+    this.isLargeScreen = Helper.isLargeScreen();
+  }
 
   aboutToAppear(): void {
-    this.statusBarHeight = Helper.getStatusBarHeight();
-    this.indicatorHeight = Helper.isLargeScreen() ? Helper.getIndicatorHeight() : 0;
     if (this.options.title) {
       this.title = Helper.getResourceStr(this.options.title) ?? "";
     }
@@ -51,7 +54,18 @@ export struct BottomSheetDialogView {
         this.fontSize = fontSize;
       }
     }
+    this.statusBarHeight = Helper.getStatusBarHeight();
+    this.indicatorHeight = Helper.getIndicatorHeight();
+    this.isLargeScreen = Helper.isLargeScreen();
+    //开启折叠设备折叠状态变化的监听。
+    display.on('foldStatusChange', this.foldStatusCallback);
   }
+
+  aboutToDisappear(): void {
+    //关闭折叠设备折叠状态变化的监听。
+    display.off('foldStatusChange', this.foldStatusCallback);
+  }
+
 
   build() {
     WithTheme({ colorMode: this.themeColorMode }) {
@@ -70,7 +84,7 @@ export struct BottomSheetDialogView {
       .width(this.options.width)
       .height(this.options.height ?? "auto")
       .constraintSize({ maxWidth: this.options.maxWidth, maxHeight: this.options.maxHeight })
-      .margin({ top: this.statusBarHeight, bottom: this.indicatorHeight })
+      .margin({ top: this.statusBarHeight, bottom: this.isLargeScreen ? this.indicatorHeight : 0 })
       .backgroundColor(this.options.backgroundColor)
       .backgroundBlurStyle(this.options.backgroundBlurStyle)
       .borderRadius(this.options.cornerRadius)
@@ -141,8 +155,8 @@ export struct BottomSheetDialogView {
         .align(Alignment.Center)
         .textAlign(TextAlign.Center)
         .width('100%')
-        .padding({ top: 18, bottom: 10, left: 10, right: 10 })
-        .margin({ bottom: Helper.getIndicatorHeight() })
+        .padding({ top: 18, bottom: this.isLargeScreen ? 18 : 10, left: 10, right: 10 })
+        .margin({ bottom: this.isLargeScreen ? 0 : Helper.getIndicatorHeight() })
         .onClick(() => {
           DialogHelper.closeDialog(this.options.dialogId ?? "");
         })

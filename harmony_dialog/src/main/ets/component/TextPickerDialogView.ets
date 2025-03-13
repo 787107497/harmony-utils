@@ -19,6 +19,7 @@ import { ButtonOptions } from '../model/ButtonOptions';
 import { Helper } from '../utils/Helper';
 import { DialogAction, DialogThemeColorMode } from '../utils/constraint';
 import { DialogHelper } from '../dialog/DialogHelper';
+import { display } from '@kit.ArkUI';
 
 
 /**
@@ -39,12 +40,13 @@ export struct TextPickerDialogView {
   @State secondaryButton?: ButtonOptions = undefined; //弹框右侧按钮。
   @State value: string | string[] = '';
   @State range: string[] | string[][] | Resource | TextPickerRangeContent[] | TextCascadePickerRangeContent[] = [];
-  @State largeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
+  @State isLargeScreen: boolean = false; //是否是大屏手机，例如Pad和展开的折叠屏；默认正常手机
   @StorageProp(DialogThemeColorMode) themeColorMode: ThemeColorMode =
     this.options.themeColorMode ?? ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统。
-
+  private foldStatusCallback: Callback<display.FoldStatus> = (foldStatus: display.FoldStatus) => {
+    this.isLargeScreen = Helper.isLargeScreen();
+  }
   aboutToAppear(): void {
-    this.largeScreen = Helper.isLargeScreen();
     if (this.options.value) {
       this.value = this.options.value;
     } else {
@@ -77,8 +79,15 @@ export struct TextPickerDialogView {
     }
     this.primaryButton = this.options.primaryButton as ButtonOptions;
     this.secondaryButton = this.options.secondaryButton as ButtonOptions;
+    this.isLargeScreen = Helper.isLargeScreen();
+    //开启折叠设备折叠状态变化的监听。
+    display.on('foldStatusChange', this.foldStatusCallback);
   }
 
+  aboutToDisappear(): void {
+    //关闭折叠设备折叠状态变化的监听。
+    display.off('foldStatusChange', this.foldStatusCallback);
+  }
 
   /**
    * 递归获取默认值
@@ -165,8 +174,8 @@ export struct TextPickerDialogView {
       .alignItems(HorizontalAlign.Center)
       .width(this.options.width)
       .constraintSize({ maxWidth: this.options.maxWidth })
-      .padding({ bottom: this.largeScreen ? 0 : 25 })
-      .margin({ bottom: this.largeScreen ? 30 : 0 })
+      .padding({ bottom: this.isLargeScreen ? 0 : 25 })
+      .margin({ bottom: this.isLargeScreen ? 30 : 0 })
       .clip(true)
     }
   }

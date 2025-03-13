@@ -123,19 +123,19 @@ export class Helper {
 
 
   /**
-   * 获取设备的屏幕宽度，单位为px。
+   * 获取设备的屏幕宽度，单位为VP。
    * @returns
    */
   static getDisplayWidth(): number {
-    return display.getDefaultDisplaySync().width;
+    return px2vp(display.getDefaultDisplaySync().width);
   }
 
 
   /**
-   * 是否是大屏，大于手机屏幕宽度1600
+   * 是否是大屏，大于手机屏幕宽度500vp
    */
   static isLargeScreen(): boolean {
-    return Helper.getDisplayWidth() > 1600;
+    return Helper.getDisplayWidth() > 500;
   }
 
 
@@ -164,13 +164,13 @@ export class Helper {
         let error = e as BusinessError;
         console.log(`getMaxWidth-Error ~ code: ${error.code} -·- message: ${error.message}`);
       }
-      const width = px2vp(Helper.getDisplayWidth());
+      const width = Helper.getDisplayWidth();
       if (width < oldWidth + 40) { //当宽度大于屏幕宽度，默认为宽度。
         return width;
       }
       return oldWidth + 40;
     } else { //小屏幕直接获取屏幕宽度。
-      return px2vp(Helper.getDisplayWidth());
+      return Helper.getDisplayWidth();
     }
   }
 
