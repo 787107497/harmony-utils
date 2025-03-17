@@ -2,8 +2,7 @@ import { fileUri } from "@kit.CoreFileKit";
 import fs, { ListFileOptions, ReadOptions, ReadTextOptions, WriteOptions } from '@ohos.file.fs';
 
 /**
- * 工具类
- */
+ * 工具类 */
 export class Helper {
   static readonly separator: string = '/';
 

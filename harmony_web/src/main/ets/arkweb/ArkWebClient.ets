@@ -1,8 +1,7 @@
 import { webview } from '@kit.ArkWeb';
 
 /**
- * ArkWeb事件分发
- */
+ * ArkWeb事件分发 */
 export interface ArkWebClient {
 
 

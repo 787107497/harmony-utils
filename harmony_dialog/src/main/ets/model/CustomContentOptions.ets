@@ -25,8 +25,7 @@ import { ButtonOptions } from './ButtonOptions'
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
- */
+ * QQ交流群: 1029219059 */
 export interface CustomContentOptions extends BaseContentOptions {
 
   buttons?: Array<ResourceStr | ButtonOptions>; //弹出框操作区按钮，最多支持4个按钮。

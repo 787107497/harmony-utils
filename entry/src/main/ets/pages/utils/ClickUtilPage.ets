@@ -5,8 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * 节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）
- */
+ * 节流、防抖 工具类（可用于点击事件，防止按钮被重复点击） */
 @Entry
 @Component
 struct Index {

@@ -11,8 +11,7 @@ export function LottieBuilder(options: LoadOptions) {
 
 
 /**
- * 加载动画自定义组件
- */
+ * 加载动画自定义组件 */
 @Preview
 @ComponentV2
 export struct LottieView {

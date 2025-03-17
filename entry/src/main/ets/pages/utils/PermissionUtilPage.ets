@@ -6,8 +6,7 @@ import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * 申请授权工具类
- */
+ * 申请授权工具类 */
 @Entry
 @Component
 struct Index {

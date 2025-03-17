@@ -12,8 +12,7 @@ export function MenuBuilder(options: MenuOptions) {
 }
 
 /**
- * 自定义底部菜单组件
- */
+ * 自定义底部菜单组件 */
 @Preview
 @ComponentV2
 export struct MenuLayout {

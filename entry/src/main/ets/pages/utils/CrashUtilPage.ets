@@ -5,8 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * 全局异常捕获，崩溃日志收集
- */
+ * 全局异常捕获，崩溃日志收集 */
 @Entry
 @Component
 struct Index {

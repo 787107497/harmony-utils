@@ -4,8 +4,7 @@ import { LogUtil } from '@pura/harmony-utils';
 
 
 /**
- * JS交互
- */
+ * JS交互 */
 export class MyJsObject extends ArkJsObject {
 
   //关闭页面

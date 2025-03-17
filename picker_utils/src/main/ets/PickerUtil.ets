@@ -15,11 +15,9 @@
 
 import picker from '@ohos.file.picker';
 import { camera, cameraPicker } from '@kit.CameraKit';
-import { CameraOptions } from '../entity/CameraOptions';
-import { AppUtil } from './AppUtil';
-import { PICKER_DEFAULT_SELECT_NUMBER } from '../entity/constraint';
-import { FileUtil } from './FileUtil';
 import { fileShare } from '@kit.CoreFileKit';
+import { CameraOptions, PICKER_DEFAULT_SELECT_NUMBER } from './CameraOptions';
+import { Utils } from './Utils';
 
 
 /**
@@ -27,11 +25,6 @@ import { fileShare } from '@kit.CoreFileKit';
  *
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 export class PickerUtil {
 
@@ -58,7 +51,7 @@ export class PickerUtil {
       videoDuration: options.videoDuration,
       saveUri: options.saveUri
     };
-    let pickerResult = await cameraPicker.pick(AppUtil.getContext(), options.mediaTypes, pickerProfile);
+    let pickerResult = await cameraPicker.pick(getContext(), options.mediaTypes, pickerProfile);
     return pickerResult;
   }
 
@@ -76,7 +69,7 @@ export class PickerUtil {
       options.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE; //可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9。
     }
-    const photoPicker = new picker.PhotoViewPicker(AppUtil.getContext());
+    const photoPicker = new picker.PhotoViewPicker(getContext());
     let photoSelectResult: picker.PhotoSelectResult = await photoPicker.select(options);
     return photoSelectResult.photoUris;
   }
@@ -88,7 +81,7 @@ export class PickerUtil {
    * @returns
    */
   static async savePhoto(newFileNames?: Array<string>): Promise<Array<string>> {
-    const photoPicker = new picker.PhotoViewPicker(AppUtil.getContext());
+    const photoPicker = new picker.PhotoViewPicker(getContext());
     const PhotoSaveOptions = new picker.PhotoSaveOptions();
     if (newFileNames !== undefined && newFileNames.length > 0) {
       PhotoSaveOptions.newFileNames = newFileNames;
@@ -130,7 +123,7 @@ export class PickerUtil {
       documentSaveOptions.newFileNames = newFileNames;
     }
     let downloadUri = await PickerUtil.saveDocument(documentSaveOptions);
-    const path = FileUtil.getFileUri(downloadUri[0]).path;
+    const path = Utils.getFileUri(downloadUri[0]).path;
     let uris = new Array<string>();
     for (let index = 0; index < newFileNames.length; index++) {
       uris.push(`${path}/${newFileNames[index]}`);
@@ -149,7 +142,7 @@ export class PickerUtil {
    * @returns
    */
   static async saveDocument(options?: picker.DocumentSaveOptions): Promise<Array<string>> {
-    const documentPicker = new picker.DocumentViewPicker(AppUtil.getContext());
+    const documentPicker = new picker.DocumentViewPicker(getContext());
     return documentPicker.save(options);
   }
 
@@ -159,14 +152,14 @@ export class PickerUtil {
    * @param maxSelectNumber number 选择媒体文件数量的最大值(默认值为50，最大值为500)。
    * @returns
    */
-  static async selectAudio(options?: picker.AudioSelectOptions): Promise<Array<string>> {
-    if (options === undefined) {
-      options = new picker.AudioSelectOptions();
-      options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
-    }
-    const audioPicker = new picker.AudioViewPicker(AppUtil.getContext());
-    return audioPicker.select(options);
-  }
+  // static async selectAudio(options?: picker.AudioSelectOptions): Promise<Array<string>> {
+  //   if (options === undefined) {
+  //     options = new picker.AudioSelectOptions();
+  //     options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
+  //   }
+  //   const audioPicker = new picker.AudioViewPicker(getContext());
+  //   return audioPicker.select(options);
+  // }
 
 
   /**
@@ -174,14 +167,14 @@ export class PickerUtil {
    * @param newFileNames 拉起audioPicker进行保存音频资源的文件名，若无此参数，则默认需要用户自行输入。
    * @returns 返回保存文件的uri数组。
    */
-  static async saveAudio(newFileNames?: Array<string>): Promise<Array<string>> {
-    const audioPicker = new picker.AudioViewPicker(AppUtil.getContext());
-    const audioSaveOptions = new picker.AudioSaveOptions();
-    if (newFileNames !== undefined && newFileNames.length > 0) {
-      audioSaveOptions.newFileNames = newFileNames;
-    }
-    return audioPicker.save(audioSaveOptions);
-  }
+  // static async saveAudio(newFileNames?: Array<string>): Promise<Array<string>> {
+  //   const audioPicker = new picker.AudioViewPicker(getContext());
+  //   const audioSaveOptions = new picker.AudioSaveOptions();
+  //   if (newFileNames !== undefined && newFileNames.length > 0) {
+  //     audioSaveOptions.newFileNames = newFileNames;
+  //   }
+  //   return audioPicker.save(audioSaveOptions);
+  // }
 
 
   /**

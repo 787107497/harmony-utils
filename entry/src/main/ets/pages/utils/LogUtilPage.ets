@@ -7,8 +7,7 @@ import { User } from '../../model/User';
 import { JSON } from '@kit.ArkTS';
 
 /**
- * 日志工具类
- */
+ * 日志工具类 */
 @Entry
 @Component
 struct Index {

@@ -5,8 +5,6 @@ import {
   ImageUtil,
   LogUtil,
   PermissionUtil,
-  PhotoHelper,
-  PickerUtil,
   StrUtil,
   ToastUtil,
   WantUtil
@@ -19,11 +17,11 @@ import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DialogHelper } from '@pura/harmony-dialog';
+import { PhotoHelper, PickerUtil } from '@pura/picker_utils';
 
 
 /**
- * 相册选择和保存,工具类
- */
+ * 相册选择和保存,工具类 */
 @Entry
 @Component
 struct Index {

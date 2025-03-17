@@ -1,0 +1,35 @@
+{
+  "name": "@pura/harmony-utils",
+  "version": "1.0.0",
+  "description": "[harmony-utils]拆分出来的一个子库，包含PhotoHelper、PickerUtil、ScanUtil。 主要解决：当使用 harmony-utils 三方库且未使用picker能力时，隐私政策中无需声明相机权限与储存权限。",
+  "author": "桃花镇童长老",
+  "homepage": "https://gitee.com/tongyuyan",
+  "repository": "https://gitee.com/tongyuyan/harmony-utils",
+  "main": "Index.ets",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "keywords": [
+    "工具类",
+    "picker",
+    "拍照",
+    "相册",
+    "文件",
+    "图片",
+    "授权",
+    "photoAccessHelper",
+    "photo",
+    "harmony-utils"
+  ],
+  "tags": [
+    "工具类",
+    "picker",
+    "拍照",
+    "相册",
+    "文件",
+    "图片",
+    "授权",
+    "photoAccessHelper",
+    "photo",
+    "harmony-utils"
+  ]
+}

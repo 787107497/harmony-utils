@@ -5,8 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * 正则工具类
- */
+ * 正则工具类 */
 @Entry
 @Component
 struct Index {

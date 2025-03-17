@@ -9,8 +9,7 @@ export function TipBuilder(options: TipOptions) {
 }
 
 /**
- * 自定义底部菜单组件
- */
+ * 自定义底部菜单组件 */
 @Preview
 @ComponentV2
 export struct TipLayout {

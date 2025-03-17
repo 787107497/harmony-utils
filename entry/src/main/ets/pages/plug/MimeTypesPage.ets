@@ -5,8 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * @nutpi/mime-types，使用案例
- */
+ * @nutpi/mime-types，使用案例 */
 @Entry
 @ComponentV2
 export struct MimeTypesPage {

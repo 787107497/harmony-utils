@@ -15,10 +15,9 @@
 
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { dataSharePredicates } from '@kit.ArkData';
-import { FileUtil } from '../utils/FileUtil';
 import fs from '@ohos.file.fs';
-import { AppUtil } from '../utils/AppUtil';
-import { PICKER_DEFAULT_SELECT_NUMBER } from '../entity/constraint';
+import { Utils } from './Utils';
+import { PICKER_DEFAULT_SELECT_NUMBER } from './CameraOptions';
 
 
 /**
@@ -29,11 +28,6 @@ import { PICKER_DEFAULT_SELECT_NUMBER } from '../entity/constraint';
  *
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 export class PhotoHelper {
 
@@ -80,7 +74,7 @@ export class PhotoHelper {
    * @returns
    */
   static async save(photoType: photoAccessHelper.PhotoType, extension: string, options?: photoAccessHelper.CreateOptions): Promise<string> {
-    const photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    const photoHelper = photoAccessHelper.getPhotoAccessHelper(getContext());
     let uri = await photoHelper.createAsset(photoType, extension, options);
     await photoHelper.release();
     return uri;
@@ -95,12 +89,12 @@ export class PhotoHelper {
    */
   static async showAssetsCreationDialog(srcFileUris: Array<string>, photoCreationConfigs?: Array<photoAccessHelper.PhotoCreationConfig>): Promise<Array<string>>{
     const ImageExtensions = ["jpeg", "jpg", "png", "gif", "webp", "bmp", "heic", "heif", , "ico", "svg"]; //图片文件后缀
-    const photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    const photoHelper = photoAccessHelper.getPhotoAccessHelper(getContext());
     if (photoCreationConfigs == undefined || photoCreationConfigs == null) {
       photoCreationConfigs = new Array<photoAccessHelper.PhotoCreationConfig>();
       for (let index = 0; index < srcFileUris.length; index++) {
-        let fileName = FileUtil.getFileName(srcFileUris[index]); //文件名
-        let fileExtention = FileUtil.getFileExtention(fileName); //文件后缀
+        let fileName = Utils.getFileName(srcFileUris[index]); //文件名
+        let fileExtention = Utils.getFileExtention(fileName); //文件后缀
         fileName = fileName.replace(`.${fileExtention}`, "");
         let photoType = ImageExtensions.includes(fileExtention.toLowerCase()) ? photoAccessHelper.PhotoType.IMAGE : photoAccessHelper.PhotoType.VIDEO;
         let photoCreationConfig: photoAccessHelper.PhotoCreationConfig = {
@@ -128,11 +122,11 @@ export class PhotoHelper {
     let desFileUris: Array<string> = await PhotoHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
     for (let index = 0; index < desFileUris.length; index++) {
       //将来源于应用沙箱的照片内容写入媒体库的目标uri
-      let srcFile: fs.File = await FileUtil.open(srcFileUris[index], fs.OpenMode.READ_ONLY);
-      let desFile: fs.File = await FileUtil.open(desFileUris[index], fs.OpenMode.WRITE_ONLY);
-      await FileUtil.copyFile(srcFile.fd, desFile.fd);
-      await FileUtil.close(srcFile);
-      await FileUtil.close(desFile);
+      let srcFile: fs.File = await Utils.open(srcFileUris[index], fs.OpenMode.READ_ONLY);
+      let desFile: fs.File = await Utils.open(desFileUris[index], fs.OpenMode.WRITE_ONLY);
+      await Utils.copyFile(srcFile.fd, desFile.fd);
+      await Utils.close(srcFile);
+      await Utils.close(desFile);
     }
     return desFileUris;
   }
@@ -143,7 +137,7 @@ export class PhotoHelper {
    * @param srcFileUri 需要确保srcFileUri对应的资源存在
    */
   static async applyChanges(srcFileUri: string): Promise<photoAccessHelper.PhotoAsset> {
-    const context = AppUtil.getContext();
+    const context = getContext();
     const photoHelper = photoAccessHelper.getPhotoAccessHelper(context);
     const assetChangeRequest: photoAccessHelper.MediaAssetChangeRequest =
       photoAccessHelper.MediaAssetChangeRequest.createImageAssetRequest(context, srcFileUri);
@@ -172,7 +166,7 @@ export class PhotoHelper {
    * @returns
    */
   static async getPhotoAsset(uri: string): Promise<photoAccessHelper.PhotoAsset> {
-    const photoHelper = photoAccessHelper.getPhotoAccessHelper(AppUtil.getContext());
+    const photoHelper = photoAccessHelper.getPhotoAccessHelper(getContext());
     const predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
     //配置查询条件，使用PhotoViewPicker选择图片返回的uri进行查询
     predicates.equalTo('uri', uri);

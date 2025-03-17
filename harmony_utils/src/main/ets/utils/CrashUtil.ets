@@ -11,9 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- */
+*/
 
 import errorManager from '@ohos.app.ability.errorManager';
 import { appRecovery, common, Want } from '@kit.AbilityKit';
@@ -21,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { DateUtil } from './DateUtil';
 import { LogUtil } from './LogUtil';
 import { FileUtil } from './FileUtil';
-import { PickerUtil } from './PickerUtil';
+import { PickerUtil } from 'picker_utils/src/main/ets/PickerUtil';
 import { StrUtil } from './StrUtil';
 import { ToastUtil } from '../action/ToastUtil';
 import { GlobalContext } from './GlobalContext';
@@ -32,11 +30,6 @@ import { CRASH_ID_KEY } from '../entity/constraint';
  * TODO 全局异常捕获，崩溃日志收集
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 export class CrashUtil {
 

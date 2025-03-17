@@ -4,8 +4,7 @@ import { LogUtil } from '@pura/harmony-utils';
 
 
 /**
- * 窗口工具类
- */
+ * 窗口工具类 */
 export class WindowUtil {
   private constructor() {
   }
@@ -81,8 +80,7 @@ export class WindowUtil {
 
 
 /**
- * 窗口参数
- */
+ * 窗口参数 */
 class WinOptions {
   name?: string; //窗口名称
   windowType?: window.WindowType; //窗口类型 默认TYPE_DIALOG

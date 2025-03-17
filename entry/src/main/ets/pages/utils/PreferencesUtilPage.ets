@@ -7,8 +7,7 @@ import { preferences } from '@kit.ArkData';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * Preferences（用户首选项）工具类
- */
+ * Preferences（用户首选项）工具类 */
 @Entry
 @Component
 struct Index {

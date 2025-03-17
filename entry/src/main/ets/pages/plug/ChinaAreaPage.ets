@@ -7,8 +7,7 @@ import { JSON } from '@kit.ArkTS';
 import { DialogAction, DialogHelper } from '@pura/harmony-dialog';
 
 /**
- * @nutpi/china_area，使用案例
- */
+ * @nutpi/china_area，使用案例 */
 @Entry
 @ComponentV2
 export struct ChinaAreaPage {

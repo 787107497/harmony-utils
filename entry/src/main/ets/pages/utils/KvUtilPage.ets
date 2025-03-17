@@ -7,8 +7,7 @@ import { Callback } from '@kit.BasicServicesKit';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * KvUtil，键值型数据库工具类
- */
+ * KvUtil，键值型数据库工具类 */
 @Entry
 @Component
 struct Index {

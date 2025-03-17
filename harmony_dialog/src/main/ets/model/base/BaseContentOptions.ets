@@ -25,8 +25,7 @@ import { DialogOptions } from './DialogOptions';
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
- */
+ * QQ交流群: 1029219059 */
 export interface BaseContentOptions extends DialogOptions {
 
   primaryTitle?: ResourceStr; //弹出框标题。

@@ -6,8 +6,7 @@ import { TitleView } from '../../component/TitleView';
 import { CardLabel } from '../../component/CardLabel';
 
 /**
- * 工具包主页面
- */
+ * 工具包主页面 */
 @Preview
 @Component
 export struct UtilsPage {

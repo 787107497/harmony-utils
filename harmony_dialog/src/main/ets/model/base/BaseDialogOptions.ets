@@ -24,8 +24,7 @@ import { ActionCallBack, ActionDateCallBack, ActionStrCallBack, ActionValueCallB
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
- */
+ * QQ交流群: 1029219059 */
 export interface BaseDialogOptions {
   uiContext?: UIContext; //UIContext上下文
   backCancel?: boolean; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。

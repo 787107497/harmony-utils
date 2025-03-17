@@ -8,8 +8,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
- * Web事件
- */
+ * Web事件 */
 export class MyWebClient implements ArkWebClient {
   controller?: webview.WebviewController;
 

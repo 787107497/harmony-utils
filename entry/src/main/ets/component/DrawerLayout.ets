@@ -10,8 +10,7 @@ export function DrawerBuilder(options: DrawerOptions) {
 
 
 /**
- * 自定义DrawerLayout组件
- */
+ * 自定义DrawerLayout组件 */
 @Preview
 @ComponentV2
 export struct DrawerLayout {

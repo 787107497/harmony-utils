@@ -11,9 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- */
+*/
 
 
 import { notificationManager } from '@kit.NotificationKit';
@@ -25,11 +23,6 @@ import { image } from '@kit.ImageKit';
  * TODO 通知工具类,默认配置参数
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 export class NotificationConfig {
   notificationSlotType: notificationManager.SlotType = notificationManager.SlotType.SERVICE_INFORMATION; //通道类型，默认服务类型。

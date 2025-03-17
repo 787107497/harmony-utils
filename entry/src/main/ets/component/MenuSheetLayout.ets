@@ -11,8 +11,7 @@ export function MenuSheetBuilder(options: MenuSheetOptions) {
 }
 
 /**
- * 自定义底部菜单组件
- */
+ * 自定义底部菜单组件 */
 @Preview
 @ComponentV2
 export struct MenuSheetLayout {

@@ -2,8 +2,7 @@ import { speechRecognizer } from '@kit.CoreSpeechKit';
 import { Helper } from './Helper';
 
 /**
- * 语音识别
- */
+ * 语音识别 */
 export class SpeechRecognizerHelper {
   private static recognitionEngine: speechRecognizer.SpeechRecognitionEngine | undefined = undefined;
 

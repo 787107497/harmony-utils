@@ -4,8 +4,7 @@ import { window } from '@kit.ArkUI';
 import { TextReaderListener } from './TextReaderListener';
 
 /**
- * 朗读控件
- */
+ * 朗读控件 */
 export class TextReaderHelper {
 
 

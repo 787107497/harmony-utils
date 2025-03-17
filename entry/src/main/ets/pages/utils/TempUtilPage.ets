@@ -5,8 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * 温度转换工具类，华氏度与摄氏度相互转换
- */
+ * 温度转换工具类，华氏度与摄氏度相互转换 */
 @Entry
 @Component
 struct Index {

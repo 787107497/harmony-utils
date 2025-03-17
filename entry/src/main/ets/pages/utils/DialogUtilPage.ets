@@ -5,8 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * 弹窗工具类（AlertDialog）
- */
+ * 弹窗工具类（AlertDialog） */
 @Entry
 @Component
 struct Index {

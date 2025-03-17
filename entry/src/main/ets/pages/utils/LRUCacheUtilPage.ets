@@ -5,8 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * "LRUCache缓存工具类
- */
+ * "LRUCache缓存工具类 */
 @Entry
 @Component
 struct Index {

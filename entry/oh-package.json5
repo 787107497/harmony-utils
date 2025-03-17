@@ -10,6 +10,7 @@
     "@ohos/hamock": "1.0.0",
     //本地引用
     "@pura/harmony-utils": "file:../harmony_utils",
+    "@pura/picker_utils": "file:../picker_utils",
     "@pura/harmony-dialog": "file:../harmony_dialog",
     "@pura/harmony-web": "file:../harmony_web",
     "@pura/spinkit": "file:../spinkit",

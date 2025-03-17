@@ -7,8 +7,7 @@ import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * 手机的生物认证（指纹、人脸、密码）工具类
- */
+ * 手机的生物认证（指纹、人脸、密码）工具类 */
 @Entry
 @Component
 struct Index {

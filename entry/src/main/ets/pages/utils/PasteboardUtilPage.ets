@@ -6,8 +6,7 @@ import { Permissions } from '@kit.AbilityKit';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * 剪贴板工具类
- */
+ * 剪贴板工具类 */
 @Entry
 @Component
 struct Index {

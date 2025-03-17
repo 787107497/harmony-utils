@@ -14,21 +14,15 @@
  */
 
 import { detectBarcode, generateBarcode, scanBarcode, scanCore } from '@kit.ScanKit';
-import { image } from '@kit.ImageKit';
-import { AppUtil } from './AppUtil';
-import { PhotoHelper } from '../photo/PhotoHelper';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { image } from '@kit.ImageKit';
+import { PhotoHelper } from './PhotoHelper';
 
 
 /**
  * TODO 码工具类（扫码、码图生成、图片识码）
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 export class ScanUtil {
 
@@ -48,7 +42,7 @@ export class ScanUtil {
     if (options === undefined) {
       options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
     }
-    return scanBarcode.startScanForResult(AppUtil.getContext(), options); //启动扫码，拉起扫码界面
+    return scanBarcode.startScanForResult(getContext(), options); //启动扫码，拉起扫码界面
   }
 
 

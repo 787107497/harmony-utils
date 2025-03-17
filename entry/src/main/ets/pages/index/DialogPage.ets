@@ -28,8 +28,7 @@ import { router } from '@kit.ArkUI';
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
- */
+ * QQ交流群: 1029219059 */
 @Preview
 @Component
 export struct DialogPage {

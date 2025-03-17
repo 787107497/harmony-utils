@@ -43,8 +43,6 @@ export const CRASH_ID_KEY: string = 'crash_observer_id_key' //Crash的ID的key
 
 export const DEFAULT_PREFERENCE_NAME: string = "SP_HARMONY_UTILS_PREFERENCES"; //Preferences实例的名称。
 
-export const PICKER_DEFAULT_SELECT_NUMBER: number = 9; //选择器默认选择数量
-
 
 
 
@@ -63,8 +61,7 @@ export enum DialogAction {
  * 弹框操作按钮Callback
  * action：
  * 1、当action小于0时，对应弹框操作按钮的Action，类型为DialogAction。
- * 2、当action大于等于0时，对选的是选项索引值。
- */
+ * 2、当action大于等于0时，对选的是选项索引值。 */
 export declare type ActionCallBack = (action: number) => void;
 
 

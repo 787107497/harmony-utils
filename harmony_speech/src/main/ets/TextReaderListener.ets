@@ -1,8 +1,7 @@
 import { TextReader } from '@kit.SpeechKit';
 
 /**
- * 朗读控件回调事件
- */
+ * 朗读控件回调事件 */
 export class TextReaderListener {
   onStateChange?: Callback<TextReader.ReadState>; //当前正在播放的文章状态变更时，触发该回调执行。
 

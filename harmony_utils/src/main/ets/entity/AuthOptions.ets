@@ -1,8 +1,7 @@
 import { userAuth } from '@kit.UserAuthenticationKit';
 
 /**
- * 认证参数类
- */
+ * 认证参数类 */
 export class AuthOptions {
   challenge?: Uint8Array; //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])。
   authType: userAuth.UserAuthType[] = [userAuth.UserAuthType.FINGERPRINT, userAuth.UserAuthType.FACE, userAuth.UserAuthType.PIN]; //认证类型列表，用来指定用户认证界面提供的认证方法。
@@ -14,8 +13,7 @@ export class AuthOptions {
 
 
 /**
- * 查询认证能力是否支持的 返回参数类
- */
+ * 查询认证能力是否支持的 返回参数类 */
 export interface StatusResult {
   status: boolean;
   errorCode?: number;

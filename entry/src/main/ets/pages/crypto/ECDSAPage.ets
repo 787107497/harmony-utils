@@ -9,11 +9,6 @@ import { TitleBarView } from '../../component/TitleBarView';
  * ECDSA工具类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/07/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 @Entry
 @Component

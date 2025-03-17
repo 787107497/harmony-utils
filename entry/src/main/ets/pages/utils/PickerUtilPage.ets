@@ -1,11 +1,9 @@
 import { router } from '@kit.ArkUI';
 import {
-  CameraOptions,
   DateUtil,
   FileUtil,
   ImageUtil,
   LogUtil,
-  PickerUtil,
   PreferencesUtil,
   StrUtil,
   ToastUtil
@@ -17,11 +15,11 @@ import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 import { camera, cameraPicker } from '@kit.CameraKit';
 import { fileShare, picker } from '@kit.CoreFileKit';
+import { CameraOptions, PickerUtil } from '@pura/picker_utils';
 
 
 /**
- * 拍照、文件(文件、图片、视频、音频)选择和保存,工具类
- */
+ * 拍照、文件(文件、图片、视频、音频)选择和保存,工具类 */
 @Entry
 @Component
 struct Index {

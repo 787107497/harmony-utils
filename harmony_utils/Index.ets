@@ -26,15 +26,9 @@ export { GlobalContext } from './src/main/ets/utils/GlobalContext';
 
 export { FileUtil } from './src/main/ets/utils/FileUtil';
 
-export { PickerUtil } from './src/main/ets/utils/PickerUtil';
-
-export { PhotoHelper } from './src/main/ets/photo/PhotoHelper';
-
 export { ImageUtil } from './src/main/ets/utils/ImageUtil';
 
 export { SnapshotUtil } from './src/main/ets/utils/SnapshotUtil';
-
-export { ScanUtil } from './src/main/ets/utils/ScanUtil';
 
 export { PreviewUtil } from './src/main/ets/utils/PreviewUtil';
 
@@ -109,8 +103,6 @@ export { RSA } from './src/main/ets/crypto/RSA';
 export { ECDSA } from './src/main/ets/crypto/ECDSA';
 
 export * from './src/main/ets/entity/constraint';
-
-export { CameraOptions } from './src/main/ets/entity/CameraOptions';
 
 export { ToastOptions } from './src/main/ets/entity/ToastOptions';
 

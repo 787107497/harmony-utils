@@ -1,14 +1,14 @@
 import { router } from '@kit.ArkUI';
 import { DescribeBean } from '../../model/DescribeBean';
 import { image } from '@kit.ImageKit';
-import { FileUtil, ImageUtil, LogUtil, ScanUtil, ToastUtil } from '@pura/harmony-utils';
+import { FileUtil, ImageUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { ScanUtil } from '@pura/picker_utils';
 
 /**
- * 码工具类（扫码、码图生成、图片识码）
- */
+ * 码工具类（扫码、码图生成、图片识码） */
 @Entry
 @Component
 struct Index {

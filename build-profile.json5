@@ -55,6 +55,10 @@
       "srcPath": "./harmony_utils"
     },
     {
+      "name": "picker_utils",
+      "srcPath": "./picker_utils",
+    },
+    {
       "name": "harmony_dialog",
       "srcPath": "./harmony_dialog",
     },
@@ -77,6 +81,6 @@
     {
       "name": "harmony_speech",
       "srcPath": "./harmony_speech",
-    }
+    },
   ]
 }

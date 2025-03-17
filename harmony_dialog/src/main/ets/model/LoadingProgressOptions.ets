@@ -24,8 +24,7 @@ import { LoadingOptions } from './LoadingOptions';
  * github: https://github.com/787107497
  * gitee: https://gitee.com/tongyuyan/harmony-utils
  * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
- */
+ * QQ交流群: 1029219059 */
 export interface LoadingProgressOptions extends LoadingOptions {
 
   progress: number //设置当前进度值。设置小于0的数值时置为0，设置大于total的数值时置为total。非法数值不生效。

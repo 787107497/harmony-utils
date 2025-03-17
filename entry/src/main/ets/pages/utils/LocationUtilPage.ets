@@ -8,8 +8,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { mapCommon } from '@kit.MapKit';
 
 /**
- * 定位工具类(WGS-84坐标系)
- */
+ * 定位工具类(WGS-84坐标系) */
 @Entry
 @Component
 struct Index {

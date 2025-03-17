@@ -11,20 +11,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- */
+*/
 
 
 /**
  * TODO 弹窗工具类（AlertDialog）基本参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 import { ActionCallBack } from './constraint';
 
@@ -60,16 +53,14 @@ export class DialogOptions {
 
 
 /**
- * 确认AlertDialog参数类
- */
+ * 确认AlertDialog参数类 */
 export class ConfirmDialogOptions extends DialogOptions {
   confirm?: ButtonOptions | ResourceStr;
 }
 
 
 /**
- * 两个按钮的AlertDialog参数类
- */
+ * 两个按钮的AlertDialog参数类 */
 export class PrimaryDialogOptions extends DialogOptions {
   primaryButton?: ButtonOptions | ResourceStr;
   secondaryButton?: ButtonOptions | ResourceStr;
@@ -77,8 +68,7 @@ export class PrimaryDialogOptions extends DialogOptions {
 
 
 /**
- * 多个按钮的AlertDialog参数类
- */
+ * 多个按钮的AlertDialog参数类 */
 export class OptionDialogOptions extends DialogOptions {
   buttons?: Array<ButtonOptions | ResourceStr> //弹窗容器中的多个按钮。
   buttonDirection?: DialogButtonDirection //按钮排布方向默认值为DialogButtonDirection.AUTO，建议3个以上按钮使用Auto模式（两个以上按钮会切换为纵向模式，通常能显示更多按钮），非Auto模式下，3个以上按钮可能会显示不全，超出显示范围的按钮会被截断。
@@ -86,8 +76,7 @@ export class OptionDialogOptions extends DialogOptions {
 
 
 /**
- * ActionSheet参数类
- */
+ * ActionSheet参数类 */
 export class ActionSheetOptions extends DialogOptions {
   sheets: Array<SheetInfo | ResourceStr> = []; //title-选项的文本内容、icon-选项的图标、action-选项选中的回调。
   confirm?: SheetConfirm | ResourceStr;
@@ -95,8 +84,7 @@ export class ActionSheetOptions extends DialogOptions {
 
 
 /**
- * ActionSheet,confirm按钮参数类
- */
+ * ActionSheet,confirm按钮参数类 */
 export class SheetConfirm {
   value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
   action: () => void = () => {}; //Button选中时的回调。
@@ -107,8 +95,7 @@ export class SheetConfirm {
 
 
 /**
- * 简单易用的ActionSheet的选中参数类
- */
+ * 简单易用的ActionSheet的选中参数类 */
 export class SelectSheet {
   position: number = 0; //选中位置
   defaultIcon: ResourceStr = ''; //默认显示的图标
@@ -117,8 +104,7 @@ export class SelectSheet {
 
 
 /**
- * AlertDialog按钮参数类
- */
+ * AlertDialog按钮参数类 */
 export class ButtonOptions {
   value: ResourceStr = ''; //Button的文本内容，若值为null，则该按钮不显示。
   action: VoidCallback = () => {}; //Button选中时的回调。

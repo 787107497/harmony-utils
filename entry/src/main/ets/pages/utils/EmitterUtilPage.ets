@@ -10,11 +10,6 @@ import { TitleBarView } from '../../component/TitleBarView';
  * TODO Emitter工具类（进行线程间通信）
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 @Entry
 @Component
@@ -194,8 +189,7 @@ function textStyle() {
 
 
 /**
- * 学生对象
- */
+ * 学生对象 */
 interface Student {
   id: string;
   name: string;

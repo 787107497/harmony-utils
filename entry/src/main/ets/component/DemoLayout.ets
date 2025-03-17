@@ -1,7 +1,6 @@
 
 /**
- * Demo
- */
+ * Demo */
 @Preview
 @ComponentV2
 export struct DemoLayout {

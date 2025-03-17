@@ -1,6 +1,5 @@
 /**
- * showCustomContentDialog - 自定义的图片文本组件
- */
+ * showCustomContentDialog - 自定义的图片文本组件 */
 @ComponentV2
 export struct CustomImageView {
   @Require @Param content: ResourceStr;

@@ -8,8 +8,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import fs from '@ohos.file.fs';
 
 /**
- * 图片相关工具类
- */
+ * 图片相关工具类 */
 @Entry
 @Component
 struct Index {

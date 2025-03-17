@@ -6,8 +6,7 @@ export function CustomTextViewBuilder(content: string | Resource): void {
 }
 
 /**
- * showCustomContentDialog - 自定义的文本组件
- */
+ * showCustomContentDialog - 自定义的文本组件 */
 @ComponentV2
 export struct CustomTextView {
   @Require @Param content: string | Resource;

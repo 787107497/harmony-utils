@@ -6,8 +6,7 @@ import { JSON } from '@kit.ArkTS';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * 资源工具类
- */
+ * 资源工具类 */
 @Entry
 @Component
 struct Index {

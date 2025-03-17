@@ -11,9 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- */
+*/
 
 import geoLocationManager from '@ohos.geoLocationManager';
 import { BusinessError, Callback } from '@ohos.base';
@@ -26,11 +24,6 @@ import { map, mapCommon } from '@kit.MapKit';
  * TODO 定位工具类(WGS-84坐标系)
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059
  */
 export class LocationUtil {
 
