@@ -8,7 +8,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { ScanUtil } from '@pura/picker_utils';
 
 /**
- * 码工具类（扫码、码图生成、图片识码） */
+ * 码工具类（扫码、码图生成、图片识码）
+ */
 @Entry
 @Component
 struct Index {

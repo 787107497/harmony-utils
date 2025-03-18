@@ -6,7 +6,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * Want工具类 */
+ * Want工具类
+ */
 @Entry
 @Component
 struct Index {

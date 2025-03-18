@@ -4,7 +4,8 @@ import { LogUtil } from '@pura/harmony-utils';
 
 
 /**
- * 窗口工具类 */
+ * 窗口工具类
+ */
 export class WindowUtil {
   private constructor() {
   }

@@ -21,7 +21,8 @@ import { PhotoHelper, PickerUtil } from '@pura/picker_utils';
 
 
 /**
- * 相册选择和保存,工具类 */
+ * 相册选择和保存,工具类
+ */
 @Entry
 @Component
 struct Index {

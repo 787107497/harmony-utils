@@ -93,14 +93,14 @@
   {
     "name": "PickerUtil",
     "desc": "拍照、文件(文件、图片、视频、音频)选择和保存,工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/PickerUtil.ets",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/PickerUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets",
     "type": 1
   },
   {
     "name": "PhotoHelper",
     "desc": "相册选择和保存,工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/photo/PhotoHelper.ets",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/PhotoHelper.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets",
     "type": 1
   },
@@ -128,7 +128,7 @@
   {
     "name": "ScanUtil",
     "desc": "码工具类（扫码、码图生成、图片识码）",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/ScanUtil.ets",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/ScanUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets",
     "type": 1
   },

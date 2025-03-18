@@ -5,7 +5,8 @@ import fs from '@ohos.file.fs';
 import { Helper } from './Helper';
 
 /**
- * 录音工具类 */
+ * 录音工具类
+ */
 export class AudioCapturerHelper{
 
   private static audioCapturer: audio.AudioCapturer | undefined = undefined;

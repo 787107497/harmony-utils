@@ -5,7 +5,8 @@ import { AssetUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 
 /**
- * 关键资产存储服务工具类 */
+ * 关键资产存储服务工具类
+ */
 @Entry
 @Component
 struct Index {

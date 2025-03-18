@@ -5,7 +5,8 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * Base64工具类 */
+ * Base64工具类
+ */
 @Entry
 @Component
 struct Index {

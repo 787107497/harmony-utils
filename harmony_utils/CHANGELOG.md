@@ -1,5 +1,10 @@
 # 版本记录
 
+## 1.3.0（API12 ）
+1. 拆分PhotoHelper、PickerUtil、ScanUtil，到子库 [picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
+中。 主要解决：当使用 harmony-utils 三方库且未使用picker能力时，隐私政策中无需声明相机权限与储存权限。
+2. 暂时屏蔽CrashUtil的onExportErrorLog方法，下个版本优化。
+
 ## 1.2.9（API12 - 5.0.3.906）
 1. 优化JSONUtil的jsonToBean方法。
 2. 增加上架配置。

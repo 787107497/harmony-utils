@@ -6,7 +6,8 @@ import { DescribeBean } from '../../model/DescribeBean';
 import { User } from '../../model/User';
 
 /**
- * 对象工具类 */
+ * 对象工具类
+ */
 @Entry
 @Component
 struct Index {

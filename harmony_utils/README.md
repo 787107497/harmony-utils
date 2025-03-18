@@ -8,7 +8,6 @@
 [harmony-dialog](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog)
 一款极为简单易用的零侵入弹窗，仅需一行代码即可轻松实现，无论在何处都能够轻松弹出。
 
-[SpinKit](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit) 是一个适用于OpenHarmony/HarmonyOS的加载动画库。
 
 ## 🌞下载安装与使用说明🙏
 
@@ -348,7 +347,7 @@ OpenHarmony ohpm
 | deactivatePermission<br>deactivatePermissionEasy | 取消使能授权过的多个文件或目录。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                          |
 | checkPersistentPermission                        | 校验所选择的多个文件或目录URI持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                    |
 
-## PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
+## PickerUtil（拍照、文件选择和保存,工具类）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
 
 | 方法             | 介绍                                                  |
 |:---------------|:----------------------------------------------------|
@@ -360,7 +359,7 @@ OpenHarmony ohpm
 | selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
 | saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
 
-## PhotoHelper（相册相关,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
+## PhotoHelper（相册相关,工具类）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
 
 | 方法                           | 介绍                                     |
 |:-----------------------------|:---------------------------------------|
@@ -416,7 +415,7 @@ OpenHarmony ohpm
 | getMimeType         | 根据文件后缀名获取文件mimeType                  |
 | getIconFileStr      | 根据文件后缀名获取对应文件类型的图标                   |
 
-## ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
+## ScanUtil（码工具类(扫码、码图生成、图片识码)）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
 
 | 方法                    | 介绍                           |
 |:----------------------|:-----------------------------|

@@ -1,5 +1,6 @@
 /**
- * ArkWeb参数 */
+ * ArkWeb参数
+ */
 export class ArkWebOptions {
   /**
    * 设置是否开启文档对象模型存储接口（DOM Storage API）权限，默认开启。

@@ -5,7 +5,8 @@ import { MyPage } from './index/MyPage';
 import { TabItemView } from '../component/TabItemView';
 
 /**
- * 主页面 */
+ * 主页面
+ */
 @Entry
 @Component
 struct Index {

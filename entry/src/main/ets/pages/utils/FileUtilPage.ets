@@ -8,7 +8,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { fileShare } from '@kit.CoreFileKit';
 
 /**
- * 文件操作相关工具类 */
+ * 文件操作相关工具类
+ */
 @Entry
 @Component
 struct Index {

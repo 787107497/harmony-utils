@@ -7,9 +7,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 
 
 /**
- * TODO Emitter工具类（进行线程间通信）
- * author: 桃花镇童长老ᥫ᭡
- * since: 2024/05/01
+ * Emitter工具类（进行线程间通信）
  */
 @Entry
 @Component

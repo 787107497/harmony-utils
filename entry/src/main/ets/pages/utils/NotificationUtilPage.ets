@@ -12,7 +12,8 @@ import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
- * 通知工具类 */
+ * 通知工具类
+ */
 @Entry
 @Component
 struct Index {

@@ -1,13 +1,13 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil, ObjectUtil } from '@pura/harmony-utils';
+import { LogUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { User } from '../../model/User';
-import { JSON } from '@kit.ArkTS';
 
 /**
- * 日志工具类 */
+ * 日志工具类
+ */
 @Entry
 @Component
 struct Index {

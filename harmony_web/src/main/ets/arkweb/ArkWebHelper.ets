@@ -1,7 +1,8 @@
 import { webview } from '@kit.ArkWeb';
 
 /**
- * ArkWeb工具类 */
+ * ArkWeb工具类
+ */
 export class ArkWebHelper {
 
   /**

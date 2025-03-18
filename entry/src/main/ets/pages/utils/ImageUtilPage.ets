@@ -9,7 +9,8 @@ import fs from '@ohos.file.fs';
 import { PhotoHelper, PickerUtil } from '@pura/picker_utils';
 
 /**
- * 图片相关工具类 */
+ * 图片相关工具类
+ */
 @Entry
 @Component
 struct Index {

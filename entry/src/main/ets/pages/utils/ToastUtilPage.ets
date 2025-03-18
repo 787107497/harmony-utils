@@ -5,7 +5,9 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * 土司工具类（promptAction） */
+ * 土司工具类（promptAction）
+ */
+@Preview
 @Entry
 @Component
 struct Index {
