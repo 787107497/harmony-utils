@@ -1,9 +1,8 @@
 import { webview } from '@kit.ArkWeb';
 import { DialogAction, DialogHelper } from '@pura/harmony-dialog';
-import { DateUtil, LogUtil, ObjectUtil, PickerUtil } from '@pura/harmony-utils';
+import { DateUtil, LogUtil, ObjectUtil } from '@pura/harmony-utils';
 import { ArkJsObject } from './ArkJsObject';
 import { ArkWebClient } from './ArkWebClient';
-
 import { ArkWebOptions } from './ArkWebOptions';
 import { BaseArkWebClient } from './BaseArkWebClient';
 
@@ -170,23 +169,23 @@ export struct ArkWeb {
             return this.webClient.onShowFileSelector(event);
           }
           const isCapture = event.fileSelector.isCapture(); //是否拍照
-          if (isCapture) { //拍照
-            PickerUtil.cameraEasy().then((result) => {
-              event.result.handleFileList([result]);
-            });
-          } else {
-            const types = event.fileSelector.getAcceptType() ?? [];
-            const mode = event.fileSelector.getMode();
-            if (types && types.length > 0) {
-              PickerUtil.selectDocument({
-                maxSelectNumber: mode === FileSelectorMode.FileOpenMode ? 1 : 9,
-                fileSuffixFilters: types
-              }).then((result) => {
-                event.result.handleFileList(result);
-              })
-              return true;
-            }
-          }
+          // if (isCapture) { //拍照
+          //   PickerUtil.cameraEasy().then((result) => {
+          //     event.result.handleFileList([result]);
+          //   });
+          // } else {
+          //   const types = event.fileSelector.getAcceptType() ?? [];
+          //   const mode = event.fileSelector.getMode();
+          //   if (types && types.length > 0) {
+          //     PickerUtil.selectDocument({
+          //       maxSelectNumber: mode === FileSelectorMode.FileOpenMode ? 1 : 9,
+          //       fileSuffixFilters: types
+          //     }).then((result) => {
+          //       event.result.handleFileList(result);
+          //     })
+          //     return true;
+          //   }
+          // }
           return false;
         })
         .onPermissionRequest((event) => {

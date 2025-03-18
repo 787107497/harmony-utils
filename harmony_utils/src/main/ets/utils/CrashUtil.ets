@@ -19,7 +19,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { DateUtil } from './DateUtil';
 import { LogUtil } from './LogUtil';
 import { FileUtil } from './FileUtil';
-import { PickerUtil } from 'picker_utils/src/main/ets/PickerUtil';
+
 import { StrUtil } from './StrUtil';
 import { ToastUtil } from '../action/ToastUtil';
 import { GlobalContext } from './GlobalContext';
@@ -95,15 +95,15 @@ export class CrashUtil {
   static onExportErrorLog() {
     CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
     if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
-      PickerUtil.saveDocumentEasy(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
-        if (documentSaveResult && documentSaveResult.length > 0) {
-          let saveUri = documentSaveResult[0];
-          let file = FileUtil.openSync(saveUri);
-          FileUtil.copyFile(CrashUtil.ErrorFilePath, file.fd).then(() => {
-            FileUtil.close(file.fd);
-          });
-        }
-      })
+      // PickerUtil.saveDocumentEasy(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
+      //   if (documentSaveResult && documentSaveResult.length > 0) {
+      //     let saveUri = documentSaveResult[0];
+      //     let file = FileUtil.openSync(saveUri);
+      //     FileUtil.copyFile(CrashUtil.ErrorFilePath, file.fd).then(() => {
+      //       FileUtil.close(file.fd);
+      //     });
+      //   }
+      // })
     } else {
       ToastUtil.showToast("暂无日志文件");
     }

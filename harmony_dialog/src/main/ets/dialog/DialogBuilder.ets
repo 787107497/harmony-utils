@@ -36,7 +36,8 @@ import { ToastTipOptions } from '../model/ToastTipOptions'
 
 
 /**
- * AlertDialog */
+ * AlertDialog
+ */
 @Builder
 export function AlertDialogBuilder(options: DialogOptions) {
   AlertDialog(options)
@@ -54,7 +55,8 @@ export function AlertDialogBuilder(options: DialogOptions) {
 
 
 /**
- * ConfirmDialog */
+ * ConfirmDialog
+ */
 @Builder
 export function ConfirmDialogBuilder(options: DialogOptions) {
   ConfirmDialog(options)
@@ -72,7 +74,8 @@ export function ConfirmDialogBuilder(options: DialogOptions) {
 
 
 /**
- * TipsDialog */
+ * TipsDialog
+ */
 @Builder
 export function TipsDialogBuilder(options: DialogOptions) {
   TipsDialog(options)
@@ -90,7 +93,8 @@ export function TipsDialogBuilder(options: DialogOptions) {
 
 
 /**
- * SelectDialog */
+ * SelectDialog
+ */
 @Builder
 export function SelectDialogBuilder(options: DialogOptions) {
   SelectDialog(options)
@@ -108,7 +112,8 @@ export function SelectDialogBuilder(options: DialogOptions) {
 
 
 /**
- * CustomContentDialog */
+ * CustomContentDialog
+ */
 @Builder
 export function CustomContentDialogBuilder(options: BaseContentOptions) {
   CustomContentDialog(options)
@@ -127,7 +132,8 @@ export function CustomContentDialogBuilder(options: BaseContentOptions) {
 
 /**
  * TextInputDialog
- * @param options */
+ * @param options
+ */
 @Builder
 export function TextInputDialogBuilder(options: TextInputOptions) {
   TextInputDialogView({ options: options });
@@ -136,7 +142,8 @@ export function TextInputDialogBuilder(options: TextInputOptions) {
 
 /**
  * TextAreaDialog
- * @param options */
+ * @param options
+ */
 @Builder
 export function TextAreaDialogBuilder(options: TextAreaOptions) {
   TextAreaDialogView({ options: options });
@@ -145,7 +152,8 @@ export function TextAreaDialogBuilder(options: TextAreaOptions) {
 
 /**
  * BottomSheetDialog
- * @param options */
+ * @param options
+ */
 @Builder
 export function BottomSheetDialogBuilder(options: BottomSheetOptions) {
   BottomSheetDialogView({ options: options });
@@ -154,7 +162,8 @@ export function BottomSheetDialogBuilder(options: BottomSheetOptions) {
 
 /**
  * ActionSheetDialog
- * @param options */
+ * @param options
+ */
 @Builder
 export function ActionSheetDialogBuilder(options: BottomSheetOptions) {
   ActionSheetDialogView({ options: options });
@@ -163,7 +172,8 @@ export function ActionSheetDialogBuilder(options: BottomSheetOptions) {
 
 /**
  * TextPickerDialog
- * @param options */
+ * @param options
+ */
 @Builder
 export function TextPickerDialogBuilder(options: TextPickerOptions) {
   TextPickerDialogView({ options: options })
@@ -172,7 +182,8 @@ export function TextPickerDialogBuilder(options: TextPickerOptions) {
 
 /**
  * DatePickerDialog
- * @param options */
+ * @param options
+ */
 @Builder
 export function DatePickerDialogBuilder(options: DateTimePickerOptions) {
   DatePickerDialogView({ options: options });
@@ -180,7 +191,8 @@ export function DatePickerDialogBuilder(options: DateTimePickerOptions) {
 
 
 /**
- * LoadingDialog */
+ * LoadingDialog
+ */
 @Builder
 export function LoadingBuilder(options: LoadingOptions) {
   LoadingView({ options: options });
@@ -188,7 +200,8 @@ export function LoadingBuilder(options: LoadingOptions) {
 
 
 /**
- * LoadingProgress */
+ * LoadingProgress
+ */
 @Builder
 export function LoadingProgressBuilder(options: LoadingProgressOptions) {
   LoadingProgressView({ options: options });
@@ -196,7 +209,8 @@ export function LoadingProgressBuilder(options: LoadingProgressOptions) {
 
 
 /**
- * ToastTip */
+ * ToastTip
+ */
 @Builder
 export function ToastTipBuilder(options: ToastTipOptions) {
   ToastTipView({ options: options });

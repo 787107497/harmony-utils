@@ -19,11 +19,7 @@ import { UIContext } from '@kit.ArkUI';
  * TODO 半模态工具类，Base参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059 */
+ */
 export interface BaseSheetOptions extends SheetOptions {
 
   uiContext?: UIContext; //在UIContext实例对应的窗口中显示半模态。说明：使用openBindSheet启动的半模态页面，不支持设置、更新该属性。

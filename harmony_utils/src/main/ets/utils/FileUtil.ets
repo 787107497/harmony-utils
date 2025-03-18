@@ -16,6 +16,7 @@
 import fileUri from '@ohos.file.fileuri';
 import fs, { ListFileOptions, ReadOptions, ReadTextOptions, WriteOptions } from '@ohos.file.fs';
 import { StrUtil } from './StrUtil';
+import { fileShare } from '@kit.CoreFileKit';
 
 /**
  * TODO 文件操作相关工具类
@@ -818,6 +819,117 @@ export class FileUtil {
     } else {
       return (fileSize / (1024 * 1024 * 1024 * 1024)).toFixed(1) + "TB";
     }
+  }
+
+
+  /**
+   * 对所选择的多个文件或目录URI持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @param uris string 需要授予或使能权限的URI。
+   * @param operationMode  number 授予或使能权限的URI访问模式，参考OperationMode，例如： fileShare.OperationMode.READ_MODE ：允许读授权。fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE ：允许读写授权。
+   * @returns 无返回结果的Promise对象。
+   */
+  static async persistPermissionEasy(uris: Array<string>,
+    operationMode: number = fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE): Promise<void> {
+    let policies: Array<fileShare.PolicyInfo> = new Array<fileShare.PolicyInfo>();
+    for (let index = 0; index < uris.length; index++) {
+      let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
+      policies.push(policyInfo);
+    }
+    return fileShare.persistPermission(policies);
+  }
+
+  /**
+   * 对所选择的多个文件或目录URI持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @returns 无返回结果的Promise对象。
+   */
+  static async persistPermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
+    return fileShare.persistPermission(policies);
+  }
+
+
+  /**
+   * 对所选择的多个文件或目录uri取消持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @param uris string 需要授予或使能权限的URI。
+   * @param operationMode  number 授予或使能权限的URI访问模式，参考OperationMode，例如： fileShare.OperationMode.READ_MODE ：允许读授权。fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE ：允许读写授权。
+   * @returns 无返回结果的Promise对象。
+   */
+  static async revokePermissionEasy(uris: Array<string>,
+    operationMode: number = fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE): Promise<void> {
+    let policies: Array<fileShare.PolicyInfo> = new Array<fileShare.PolicyInfo>();
+    for (let index = 0; index < uris.length; index++) {
+      let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
+      policies.push(policyInfo);
+    }
+    return fileShare.revokePermission(policies);
+  }
+
+  /**
+   * 对所选择的多个文件或目录uri取消持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @returns 无返回结果的Promise对象。
+   */
+  static async revokePermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
+    return fileShare.revokePermission(policies);
+  }
+
+
+  /**
+   * 对已经持久化授权的权限进行使能操作，否则已经持久化授权的权限仍存在不能使用的情况。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @param uris string 需要授予或使能权限的URI。
+   * @param operationMode  number 授予或使能权限的URI访问模式，参考OperationMode，例如： fileShare.OperationMode.READ_MODE ：允许读授权。fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE ：允许读写授权。
+   * @returns 无返回结果的Promise对象。
+   */
+  static async activatePermissionEasy(uris: Array<string>,
+    operationMode: number = fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE): Promise<void> {
+    let policies: Array<fileShare.PolicyInfo> = new Array<fileShare.PolicyInfo>();
+    for (let index = 0; index < uris.length; index++) {
+      let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
+      policies.push(policyInfo);
+    }
+    return fileShare.activatePermission(policies);
+  }
+
+  /**
+   * 对已经持久化授权的权限进行使能操作，否则已经持久化授权的权限仍存在不能使用的情况。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @returns 无返回结果的Promise对象。
+   */
+  static async activatePermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
+    return fileShare.activatePermission(policies);
+  }
+
+
+  /**
+   * 取消使能授权过的多个文件或目录。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @param uris string 需要授予或使能权限的URI。
+   * @param operationMode  number 授予或使能权限的URI访问模式，参考OperationMode，例如： fileShare.OperationMode.READ_MODE ：允许读授权。fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE ：允许读写授权。
+   * @returns 无返回结果的Promise对象。
+   */
+  static async deactivatePermissionEasy(uris: Array<string>,
+    operationMode: number = fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE): Promise<void> {
+    let policies: Array<fileShare.PolicyInfo> = new Array<fileShare.PolicyInfo>();
+    for (let index = 0; index < uris.length; index++) {
+      let policyInfo: fileShare.PolicyInfo = { uri: uris[index], operationMode: operationMode };
+      policies.push(policyInfo);
+    }
+    return fileShare.deactivatePermission(policies);
+  }
+
+  /**
+   * 取消使能授权过的多个文件或目录。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @returns 无返回结果的Promise对象。
+   */
+  static async deactivatePermission(policies: Array<fileShare.PolicyInfo>): Promise<void> {
+    return fileShare.deactivatePermission(policies);
+  }
+
+
+  /**
+   * 校验所选择的多个文件或目录URI持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）
+   * @param uris string 需要授予或使能权限的URI。
+   * @param operationMode  number 授予或使能权限的URI访问模式，参考OperationMode，例如： fileShare.OperationMode.READ_MODE ：允许读授权。fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE ：允许读写授权。
+   * @returns Promise对象，返回true表示有持久化授权，false表示不具有持久化授权。
+   */
+  static async checkPersistentPermission(policies: Array<fileShare.PolicyInfo>): Promise<Array<boolean>> {
+    return fileShare.checkPersistentPermission(policies);
   }
 
 

@@ -1,10 +1,11 @@
-import { CameraOptions, ImageUtil, LogUtil, PickerUtil } from '@pura/harmony-utils';
+import { ImageUtil, LogUtil } from '@pura/harmony-utils';
 import { ArkWebClient } from '@pura/harmony-web';
 import { webview } from '@kit.ArkWeb';
 import { Utils } from './Utils';
 import { DialogHelper } from '@pura/harmony-dialog';
 import { cameraPicker } from '@kit.CameraKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { CameraOptions, PickerUtil } from '@pura/picker_utils';
 
 
 /**

@@ -18,11 +18,7 @@
  * TODO BottomSheetDialog按钮参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059 */
+ */
 export class ActionSheetOptions {
   value: ResourceStr = ''; //按钮的内容。
   fontColor?: ResourceColor; //按钮的字体颜色。

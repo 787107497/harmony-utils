@@ -299,49 +299,54 @@ OpenHarmony ohpm
 
 ## FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
-| 方法                                | 介绍                                     |
-|:----------------------------------|:---------------------------------------|
-| getFilesDirPath                   | 获取文件目录下的文件夹路径或文件路径                     |
-| getCacheDirPath                   | 获取缓存目录下的文件夹路径或文件路径                     |
-| getTempDirPath                    | 获取临时目录下的文件夹路径或文件路径                     |
-| hasDirPath                        | 判断是否是完整路径                              |
-| getFileUri                        | 通过URI或路径，获取FileUri                     |
-| getFileName                       | 通过URI或路径，获取文件名                         |
-| getFilePath                       | 通过URI或路径，获取文件路径                        |
-| getParentUri                      | 通过URI或路径，获取对应文件父目录的URI                 |
-| getParentPath                     | 通过URI或路径，获取对应文件父目录的路径名                 |
-| getUriFromPath                    | 以同步方法获取文件URI                           |
-| getFileExtention                  | 根据文件名获取文件后缀                            |
-| getFileDirSize                    | 获取指定文件夹下所有文件的大小或指定文件大小                 |
-| isFile                            | 判断文件是否是普通文件                            |
-| isDirectory                       | 判断文件是否是目录                              |
-| rename<br/>renameSync             | 重命名文件或文件夹，使用Promise异步回调                |
-| mkdir<br/>mkdirSync               | 创建目录，当recursion指定为true，可多层级创建目录        |
-| rmdir<br/>rmdirSync               | 删除整个目录，使用Promise异步回调                   |
-| unlink<br/>unlinkSync             | 删除单个文件，使用Promise异步回调                   |
-| access<br/>accessSync             | 检查文件是否存在，使用Promise异步回调                 |
-| open<br/>openSync                 | 打开文件，支持使用URI打开文件                       |
-| read<br/>readSync                 | 从文件读取数据                                |
-| readText<br/>readTextSync         | 基于文本方式读取文件（即直接读取文件的文本内容）               |
-| write<br/>writeSync               | 将数据写入文件                                |
-| writeEasy                         | 将数据写入文件，并关闭文件                          |
-| close<br/>closeSync               | 关闭文件                                   |
-| listFile<br/>listFileSync         | 列出文件夹下所有文件名，支持递归列出所有文件名（包含子目录下），支持文件过滤 |
-| stat<br/>statSync                 | 获取文件详细属性信息                             |
-| copy                              | 拷贝文件或者目录，支持拷贝进度监听                      |
-| copyFile<br/>copyFileSync         | 复制文件                                   |
-| moveFile<br/>moveFileSync         | 移动文件                                   |
-| moveDir<br/>moveDirSync           | 移动源文件夹至目标路径下                           |
-| truncate<br/>truncateSync         | 截断文件                                   |
-| lstat<br/>lstatSync               | 获取链接文件信息                               |
-| fsync<br/>fsyncSync               | 同步文件数据                                 |
-| fdatasync<br/>fdatasyncSync       | 实现文件内容数据同步                             |
-| createStream<br/>createStreamSync | 基于文件路径打开文件流                            |
-| fdopenStream<br/>fdopenStreamSync | 基于文件描述符打开文件流                           |
-| mkdtemp<br/>mkdtempSync           | 创建临时目录                                 |
-| dup                               | 将文件描述符转化为File                          |
-| utimes                            | 修改文件最近访问时间属性                           |
-| getFormatFileSize                 | 格式化文件大小                                |
+| 方法                                               | 介绍                                                                                  |
+|:-------------------------------------------------|:------------------------------------------------------------------------------------|
+| getFilesDirPath                                  | 获取文件目录下的文件夹路径或文件路径                                                                  |
+| getCacheDirPath                                  | 获取缓存目录下的文件夹路径或文件路径                                                                  |
+| getTempDirPath                                   | 获取临时目录下的文件夹路径或文件路径                                                                  |
+| hasDirPath                                       | 判断是否是完整路径                                                                           |
+| getFileUri                                       | 通过URI或路径，获取FileUri                                                                  |
+| getFileName                                      | 通过URI或路径，获取文件名                                                                      |
+| getFilePath                                      | 通过URI或路径，获取文件路径                                                                     |
+| getParentUri                                     | 通过URI或路径，获取对应文件父目录的URI                                                              |
+| getParentPath                                    | 通过URI或路径，获取对应文件父目录的路径名                                                              |
+| getUriFromPath                                   | 以同步方法获取文件URI                                                                        |
+| getFileExtention                                 | 根据文件名获取文件后缀                                                                         |
+| getFileDirSize                                   | 获取指定文件夹下所有文件的大小或指定文件大小                                                              |
+| isFile                                           | 判断文件是否是普通文件                                                                         |
+| isDirectory                                      | 判断文件是否是目录                                                                           |
+| rename<br/>renameSync                            | 重命名文件或文件夹，使用Promise异步回调                                                             |
+| mkdir<br/>mkdirSync                              | 创建目录，当recursion指定为true，可多层级创建目录                                                     |
+| rmdir<br/>rmdirSync                              | 删除整个目录，使用Promise异步回调                                                                |
+| unlink<br/>unlinkSync                            | 删除单个文件，使用Promise异步回调                                                                |
+| access<br/>accessSync                            | 检查文件是否存在，使用Promise异步回调                                                              |
+| open<br/>openSync                                | 打开文件，支持使用URI打开文件                                                                    |
+| read<br/>readSync                                | 从文件读取数据                                                                             |
+| readText<br/>readTextSync                        | 基于文本方式读取文件（即直接读取文件的文本内容）                                                            |
+| write<br/>writeSync                              | 将数据写入文件                                                                             |
+| writeEasy                                        | 将数据写入文件，并关闭文件                                                                       |
+| close<br/>closeSync                              | 关闭文件                                                                                |
+| listFile<br/>listFileSync                        | 列出文件夹下所有文件名，支持递归列出所有文件名（包含子目录下），支持文件过滤                                              |
+| stat<br/>statSync                                | 获取文件详细属性信息                                                                          |
+| copy                                             | 拷贝文件或者目录，支持拷贝进度监听                                                                   |
+| copyFile<br/>copyFileSync                        | 复制文件                                                                                |
+| moveFile<br/>moveFileSync                        | 移动文件                                                                                |
+| moveDir<br/>moveDirSync                          | 移动源文件夹至目标路径下                                                                        |
+| truncate<br/>truncateSync                        | 截断文件                                                                                |
+| lstat<br/>lstatSync                              | 获取链接文件信息                                                                            |
+| fsync<br/>fsyncSync                              | 同步文件数据                                                                              |
+| fdatasync<br/>fdatasyncSync                      | 实现文件内容数据同步                                                                          |
+| createStream<br/>createStreamSync                | 基于文件路径打开文件流                                                                         |
+| fdopenStream<br/>fdopenStreamSync                | 基于文件描述符打开文件流                                                                        |
+| mkdtemp<br/>mkdtempSync                          | 创建临时目录                                                                              |
+| dup                                              | 将文件描述符转化为File                                                                       |
+| utimes                                           | 修改文件最近访问时间属性                                                                        |
+| getFormatFileSize                                | 格式化文件大小                                                                             |
+| persistPermission<br>persistPermissionEasy       | 对所选择的多个文件或目录URI持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                     |
+| revokePermission<br>revokePermissionEasy         | 对所选择的多个文件或目录uri取消持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                   |
+| activatePermission<br>activatePermissionEasy     | 对已经持久化授权的权限进行使能操作，否则已经持久化授权的权限仍存在不能使用的情况。（需要权限：ohos.permission.FILE_ACCESS_PERSIST） |
+| deactivatePermission<br>deactivatePermissionEasy | 取消使能授权过的多个文件或目录。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                          |
+| checkPersistentPermission                        | 校验所选择的多个文件或目录URI持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                    |
 
 ## PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
 

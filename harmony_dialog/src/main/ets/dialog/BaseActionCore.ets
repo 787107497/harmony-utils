@@ -28,10 +28,7 @@ import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
  * TODO BaseActionCore，弹框、半模态、土司，核心类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * QQ交流群: 1029219059 */
+ */
 export class BaseActionCore {
   private static instance: BaseActionCore;
   private caches: Array<ActionCoreArg> = new Array<ActionCoreArg>();

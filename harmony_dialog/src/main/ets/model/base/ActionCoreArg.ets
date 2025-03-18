@@ -18,10 +18,7 @@
  * TODO BaseActionCore类的参数
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/01
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * QQ交流群: 1029219059 */
+ */
 export interface ActionCoreArg {
   dialogId: string;
   uiContext: UIContext;

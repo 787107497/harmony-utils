@@ -18,7 +18,8 @@ import { InputFilter } from '../model/InputFilter';
 
 
 /**
- * 给TextArea 设置过滤器 */
+ * 给TextArea 设置过滤器
+ */
 export class TextAreaModifier implements AttributeModifier<TextAreaAttribute> {
   inputFilter?: InputFilter; //通过正则表达式设置输入过滤器。
 

@@ -1,11 +1,12 @@
 import { router } from '@kit.ArkUI';
-import { DateUtil, FileUtil, ImageUtil, LogUtil, PhotoHelper, PickerUtil, ToastUtil } from '@pura/harmony-utils';
+import { DateUtil, FileUtil, ImageUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
 import { image } from '@kit.ImageKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 import { BusinessError } from '@kit.BasicServicesKit';
 import fs from '@ohos.file.fs';
+import { PhotoHelper, PickerUtil } from '@pura/picker_utils';
 
 /**
  * 图片相关工具类 */

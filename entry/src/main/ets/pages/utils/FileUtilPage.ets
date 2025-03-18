@@ -1,8 +1,11 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { FileUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { DateUtil, FileUtil, LogUtil, PreferencesUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { PickerUtil } from '@pura/picker_utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { fileShare } from '@kit.CoreFileKit';
 
 /**
  * 文件操作相关工具类 */
@@ -19,6 +22,7 @@ struct Index {
   @State bufferStr: string = ''
   @State listFileStr: string = ''
   @State jsonStr: string = ''
+  @State cacheUri: string = ''; //缓存本地Uri，上次保存的Uri。
 
   @MockSetup
   mock() {
@@ -173,6 +177,102 @@ struct Index {
               FileUtil.rmdir(dirPath).then(() => {
                 ToastUtil.showToast("删除整个目录成功")
               })
+            })
+
+          Button("saveDocument()")
+            .btnStyle()
+            .onClick(() => {
+              let fileName = `test_${DateUtil.getTodayTime()}.txt`;
+              PickerUtil.saveDocument({newFileNames:[fileName]}).then((uris) => {
+                let uri = uris[0];
+                this.cacheUri = uri
+                PreferencesUtil.put("picker_cache_uri", this.cacheUri);
+                let txtStr = `“harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。\n\n`;
+                FileUtil.writeEasy(uri, txtStr).then(() => {
+                  this.jsonStr = `文件保存成功，返回uris：\n${uri}`;
+                  ToastUtil.showToast("文件保存成功！");
+                }).catch((err: BusinessError) => {
+                  this.jsonStr = `文件保存，异常：\n${JSON.stringify(err)}`;
+                })
+              }).catch((err: BusinessError) => {
+                this.jsonStr = `调用保存文件，异常：\n${JSON.stringify(err)}`;
+              })
+            })
+          Button("checkPersistentPermission()")
+            .btnStyle()
+            .onClick(() => {
+              LogUtil.error("授权uri："+this.cacheUri)
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+                let policie: fileShare.PolicyInfo = {
+                  uri: this.cacheUri,
+                  operationMode: fileShare.OperationMode.READ_MODE | fileShare.OperationMode.WRITE_MODE
+                }
+                FileUtil.checkPersistentPermission([policie]).then(() => {
+                  this.jsonStr = `检查权限，成功！\n${this.cacheUri}`;
+                }).catch((err: BusinessError) => {
+                  this.jsonStr = `检查权限，异常：\n${JSON.stringify(err)}`;
+                });
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，在操作！");
+              }
+            })
+          Button("persistPermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+                FileUtil.persistPermissionEasy([this.cacheUri]).then(() => {
+                  this.jsonStr = `授权，已授权！\n${this.cacheUri}`;
+                  let file = FileUtil.openSync(this.cacheUri); //uri是否可用，读取文件
+                  this.jsonStr = this.jsonStr + `\n\n文件名：${file.name}`;
+                  LogUtil.error("file: " + file.name);
+                }).catch((err: BusinessError) => {
+                  this.jsonStr = `授权，异常：\n${JSON.stringify(err)}`;
+                });
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，在操作！");
+              }
+            })
+          Button("revokePermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+                FileUtil.revokePermissionEasy([this.cacheUri]).then(() => {
+                  this.jsonStr = `移除授权，成功！`;
+                  let file = FileUtil.openSync(this.cacheUri); //uri是否可用，读取文件
+                  this.jsonStr = this.jsonStr + `\n\n文件名：${file.name}`;
+                  LogUtil.error("file: " + file.name);
+                }).catch((err: BusinessError) => {
+                  this.jsonStr = `移除授权，异常：\n${JSON.stringify(err)}`;
+                });
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，在操作！");
+              }
+            })
+          Button("activatePermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+                FileUtil.activatePermissionEasy([this.cacheUri]).then(() => {
+                  this.jsonStr = `使能操作，成功！\n${this.cacheUri}`;
+                }).catch((err: BusinessError) => {
+                  this.jsonStr = `使能操作，异常：\n${JSON.stringify(err)}`;
+                })
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，在操作！");
+              }
+            })
+          Button("deactivatePermissionEasy()")
+            .btnStyle()
+            .onClick(() => {
+              if (StrUtil.isNotEmpty(this.cacheUri)) {
+                FileUtil.deactivatePermissionEasy([this.cacheUri]).then(() => {
+                  this.jsonStr = `取消使能授权，成功！\n${this.cacheUri}`;
+                }).catch((err: BusinessError) => {
+                  this.jsonStr = `取消使能授权，异常：\n${JSON.stringify(err)}`;
+                })
+              } else {
+                ToastUtil.showToast("请先调用saveDocument()保存文件，在操作！");
+              }
             })
 
           Text(this.jsonStr)

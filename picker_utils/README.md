@@ -27,13 +27,13 @@ OpenHarmony ohpm
 
 ## PickerUtil（拍照、文件选择和保存,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets)
 
-| 方法             | 介绍                                                  |
-|:---------------|:----------------------------------------------------|
-| camera         | 调用系统相机，拍照、录视频                                       |
-| selectPhoto    | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频              |
-| savePhoto      | 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无参数，则默认需要用户自行输入 |
-| selectDocument | 通过选择模式拉起documentPicker界面，用户可以选择一个或多个文件              |
-| saveDocument   | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
+| 方法                               | 介绍                                                  |
+|:---------------------------------|:----------------------------------------------------|
+| camera<br>cameraEasy             | 调用系统相机，拍照、录视频                                       |
+| selectPhoto                      | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频              |
+| savePhoto                        | 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无参数，则默认需要用户自行输入 |
+| selectDocument                   | 通过选择模式拉起documentPicker界面，用户可以选择一个或多个文件              |
+| saveDocument<br>saveDocumentEasy | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
 
 ## PhotoHelper（相册相关,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
 

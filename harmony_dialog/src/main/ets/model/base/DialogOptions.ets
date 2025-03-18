@@ -21,11 +21,7 @@ import { BaseDialogOptions } from './BaseDialogOptions';
  * TODO 弹窗工具类，Base参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059 */
+ */
 export interface DialogOptions extends BaseDialogOptions {
   title?: ResourceStr; //弹框标题
   actionCancel?: boolean; //点击操作按钮时，是否关闭弹窗。false表示不关闭弹窗。默认值：true。

@@ -10,7 +10,6 @@ AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
 一款功能丰富且极易上手的HarmonyOS工具库，借助众多实用工具类，致力于助力开发者迅速构建鸿蒙应用。
 
-[SpinKit](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fspinkit) 是一个适用于OpenHarmony/HarmonyOS的加载动画库。
 
 ## 🌞下载安装
 

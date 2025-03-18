@@ -19,11 +19,7 @@ import { HmDialogOptions } from './base/HmDialogOptions';
  * TODO 提示弹出框，即为带图形确认框，参数类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/18
- * 仓库主页：https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog
- * github: https://github.com/787107497
- * gitee: https://gitee.com/tongyuyan/harmony-utils
- * CSDN: https://blog.csdn.net/qq_32922545
- * QQ交流群: 1029219059 */
+ */
 export interface TipsOptions extends HmDialogOptions {
 
   imageRes?: ResourceStr | PixelMap; //展示的图片。

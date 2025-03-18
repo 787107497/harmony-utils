@@ -14,7 +14,8 @@ export declare type StringCalBack = (content: string) => void;
  * dialogId: 对应弹框的id。
  * value: string 弹框内容回调，如输入框的输入内容。
  * value: string | string[] picker选中值
- * date: Date 选中日期 */
+ * date: Date 选中日期
+ */
 export declare type ActionCallBack = (action: number, dialogId: string) => void;
 export declare type ActionStrCallBack = (action: number, dialogId: string, value: string) => void;
 export declare type ActionValueCallBack = (action: number, dialogId: string, value: string | string[]) => void;
