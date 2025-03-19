@@ -168,24 +168,6 @@ export struct ArkWeb {
           if (this.webClient.onShowFileSelector) {
             return this.webClient.onShowFileSelector(event);
           }
-          const isCapture = event.fileSelector.isCapture(); //是否拍照
-          // if (isCapture) { //拍照
-          //   PickerUtil.cameraEasy().then((result) => {
-          //     event.result.handleFileList([result]);
-          //   });
-          // } else {
-          //   const types = event.fileSelector.getAcceptType() ?? [];
-          //   const mode = event.fileSelector.getMode();
-          //   if (types && types.length > 0) {
-          //     PickerUtil.selectDocument({
-          //       maxSelectNumber: mode === FileSelectorMode.FileOpenMode ? 1 : 9,
-          //       fileSuffixFilters: types
-          //     }).then((result) => {
-          //       event.result.handleFileList(result);
-          //     })
-          //     return true;
-          //   }
-          // }
           return false;
         })
         .onPermissionRequest((event) => {
