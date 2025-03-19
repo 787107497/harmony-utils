@@ -67,3 +67,14 @@ export declare type ActionCallBack = (action: number) => void;
 
 //KeyboardUtil回调
 export declare type KeyboardCallBack = (show: boolean, height: number) => void;
+
+
+//网络类型。
+export enum NetworkType {
+  NETWORK_TYPE_UNKNOWN = 0,
+  NETWORK_TYPE_WIFI = 1,
+  NETWORK_TYPE_2G = 2,
+  NETWORK_TYPE_3G = 3,
+  NETWORK_TYPE_4G = 4,
+  NETWORK_TYPE_5G = 5
+}

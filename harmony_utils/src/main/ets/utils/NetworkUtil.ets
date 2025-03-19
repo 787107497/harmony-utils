@@ -18,12 +18,13 @@ import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { wifiManager } from '@kit.ConnectivityKit';
 import { LogUtil } from './LogUtil';
 import { netQuality } from '@kit.NetworkBoostKit';
+import { radio } from '@kit.TelephonyKit';
+import { NetworkType } from '../entity/constraint';
 
 /**
  * TODO 网络相关工具类
  * 需要 ohos.permission.GET_NETWORK_INFO、ohos.permission.GET_WIFI_INFO 权限。
- *
- * author: 桃花镇童长老ᥫ᭡
+ * author: 桃花镇童长老
  * since: 2024/05/01
  */
 export class NetworkUtil {
@@ -39,12 +40,11 @@ export class NetworkUtil {
   }
 
   /**
-   * 检查默认数据网络是否被激活
+   * 检查默认数据网络是否被激活，是否有网络
    */
   static hasDefaultNetSync(): boolean {
     return connection.hasDefaultNetSync();
   }
-
 
   /**
    * 获取默认激活的数据网络
@@ -94,6 +94,178 @@ export class NetworkUtil {
 
 
   /**
+   * 判断当前网络是否是蜂窝网络（移动网络）。
+   */
+  static hasNetMobile(): boolean {
+    return NetworkUtil.hasNetBearType(connection.NetBearType.BEARER_CELLULAR);
+  }
+
+  /**
+   * 判断当前网络是否是Wi-Fi网络。
+   */
+  static hasNetWiFi(): boolean {
+    return NetworkUtil.hasNetBearType(connection.NetBearType.BEARER_WIFI);
+  }
+
+  /**
+   * 判断当前网络是否是以太网网络。
+   */
+  static hasNetEthernet(): boolean {
+    return NetworkUtil.hasNetBearType(connection.NetBearType.BEARER_ETHERNET);
+  }
+
+  /**
+   * 判断当前网络是否是VPN网络。
+   */
+  static hasNetVPN(): boolean {
+    return NetworkUtil.hasNetBearType(connection.NetBearType.BEARER_VPN);
+  }
+
+  /**
+   * 是否存在指定的网络
+   * @param netType 网络类型。
+   * @returns
+   */
+  private static hasNetBearType(netType: connection.NetBearType): boolean {
+    const netBearTypes = NetworkUtil.getNetBearTypes()
+    for (let item of netBearTypes.values()) {
+      if (item === netType) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * 获取网络类型，数组里面只包含了一种具体的网络类型。
+   */
+  static getNetBearTypes(): Array<connection.NetBearType> {
+    const netCapabilities = connection.getNetCapabilitiesSync(NetworkUtil.getDefaultNetSync());
+    return netCapabilities.bearerTypes;
+  }
+
+  /**
+   * 获取网络类型。
+   */
+  static getNetBearType(): connection.NetBearType {
+    return NetworkUtil.getNetBearTypes()[0];
+  }
+
+
+  /**
+   * 判断当前设备是否支持NR(New Radio)。也就是5G。
+   * @param slotId 卡槽ID，不传默认主卡。
+   */
+  static isNRSupported(slotId?: number): boolean {
+    if (slotId) {
+      return radio.isNRSupported(slotId);
+    }
+    return radio.isNRSupported();
+  }
+
+
+  /**
+   * 判断Radio是否打开。
+   * @param slotId 卡槽ID，如果不指定slotId，默认主卡。
+   * @returns
+   */
+  static async isRadioOn(slotId?: number): Promise<boolean> {
+    if (slotId) {
+      return radio.isRadioOn(slotId);
+    }
+    return radio.isRadioOn();
+  }
+
+
+  /**
+   * 获取运营商名称
+   * @param slotId 卡槽ID，如果不指定slotId，默认主卡。
+   * @returns
+   */
+  static async getOperatorName(slotId?: number): Promise<string> {
+    slotId = slotId ?? await radio.getPrimarySlotId(); //获取主卡所在卡槽的索引号
+    return radio.getOperatorName(slotId);
+  }
+
+  /**
+   * 获取网络状态
+   * @param slotId 卡槽ID，如果不指定slotId，默认主卡。
+   * @returns
+   */
+  static async getNetworkState(slotId?: number): Promise<radio.NetworkState> {
+    slotId = slotId ?? await radio.getPrimarySlotId(); //获取主卡所在卡槽的索引号
+    let networkState = await radio.getNetworkState(slotId)
+    return networkState
+  }
+
+
+  /**
+   * 获取指定SIM卡槽对应的注册网络信号强度信息列表。
+   * @param slotId 卡槽ID，如果不指定slotId，默认主卡。
+   * @returns
+   */
+  static async getSignalInformation(slotId?: number): Promise<Array<radio.SignalInformation>> {
+    slotId = slotId ?? await radio.getPrimarySlotId(); //获取主卡所在卡槽的索引号。
+    let signalInfo: Array<radio.SignalInformation> = await radio.getSignalInformation(slotId);
+    return signalInfo;
+  }
+
+
+  /**
+   * 获取网络类型。
+   */
+  static async getNetworkType(): Promise<NetworkType> {
+    try {
+      if (NetworkUtil.hasNetWiFi()) {
+        return NetworkType.NETWORK_TYPE_WIFI
+      }
+      if (NetworkUtil.hasNetMobile()) {
+        let signalInfo: Array<radio.SignalInformation> = await NetworkUtil.getSignalInformation();
+        for (let item of signalInfo) {
+          if (item.signalType === radio.NetworkType.NETWORK_TYPE_UNKNOWN) {
+            return NetworkType.NETWORK_TYPE_UNKNOWN;
+          } else if (item.signalType === radio.NetworkType.NETWORK_TYPE_GSM ||
+            item.signalType === radio.NetworkType.NETWORK_TYPE_CDMA) {
+            return NetworkType.NETWORK_TYPE_2G;
+          } else if (item.signalType === radio.NetworkType.NETWORK_TYPE_WCDMA ||
+            item.signalType === radio.NetworkType.NETWORK_TYPE_TDSCDMA) {
+            return NetworkType.NETWORK_TYPE_3G;
+          } else if (item.signalType === radio.NetworkType.NETWORK_TYPE_LTE) {
+            return NetworkType.NETWORK_TYPE_4G;
+          } else if (item.signalType === radio.NetworkType.NETWORK_TYPE_NR) {
+            return NetworkType.NETWORK_TYPE_5G;
+          }
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return NetworkType.NETWORK_TYPE_UNKNOWN;
+  }
+
+
+  /**
+   * 获取网络类型 字符。
+   */
+  static async getNetworkTypeStr(): Promise<string> {
+    const networkType = await NetworkUtil.getNetworkType();
+    switch (networkType) {
+      case NetworkType.NETWORK_TYPE_WIFI:
+        return "Wi-Fi";
+      case NetworkType.NETWORK_TYPE_2G:
+        return "2G";
+      case NetworkType.NETWORK_TYPE_3G:
+        return "3G";
+      case NetworkType.NETWORK_TYPE_4G:
+        return "4G";
+      case NetworkType.NETWORK_TYPE_5G:
+        return "5G";
+    }
+    return "UNKNOWN";
+  }
+
+
+  /**
    * 网络可用事件回调
    * @param callback
    */
@@ -136,31 +308,6 @@ export class NetworkUtil {
     }
   }
 
-
-
-  /**
-   * 判断当前网络是否是Wi-Fi，否则是移动流量热点网络。
-   */
-  static async hasNetWiFi(): Promise<boolean> {
-    let net = await connection.getDefaultNet();
-    let netCapabilities = await connection.getNetCapabilities(net);
-    let networkCap = netCapabilities.networkCap;
-    if (networkCap) { //判断是否具有NET_CAPABILITY_NOT_METERED属性，如果具有NET_CAPABILITY_NOT_METERED，说明是普通Wi-Fi，否则是移动流量热点网络。
-      return networkCap.indexOf(connection.NetCap.NET_CAPABILITY_NOT_METERED) >= 0
-    }
-    return false;
-  }
-
-
-  /**
-   * 获取网络类型
-   */
-  static async getNetBearType(): Promise<connection.NetBearType> {
-    let net = await connection.getDefaultNet();
-    let netCapabilities = await connection.getNetCapabilities(net);
-    let netBearType = netCapabilities.bearerTypes[0];
-    return netBearType;
-  }
 
 
   /**
