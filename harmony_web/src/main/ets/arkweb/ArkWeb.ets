@@ -1,6 +1,7 @@
 import { webview } from '@kit.ArkWeb';
 import { DialogAction, DialogHelper } from '@pura/harmony-dialog';
-import { DateUtil, LogUtil, ObjectUtil } from '@pura/harmony-utils';
+import { CacheUtil, DateUtil, FileUtil, LogUtil, NotificationUtil, ObjectUtil } from '@pura/harmony-utils';
+import { Utils } from '../utils/Utils';
 import { ArkJsObject } from './ArkJsObject';
 import { ArkWebClient } from './ArkWebClient';
 import { ArkWebOptions } from './ArkWebOptions';
@@ -19,8 +20,10 @@ export struct ArkWeb {
   // @Param renderMode?: RenderMode;
   // @Param incognitoMode?: boolean;
   // @Param sharedRenderProcessToken?: string;
+
   private beginTime: number = 0; //页面开始加载时间戳
   private downloadDelegate: webview.WebDownloadDelegate = new webview.WebDownloadDelegate(); //下载任务的状态会通过该类的回调接口通知给用户。
+
 
 
   aboutToAppear(): void {
@@ -86,6 +89,7 @@ export struct ArkWeb {
         .keyboardAvoidMode(this.options.keyboardAvoidMode)
         .onControllerAttached(() => {
           this.webClient.setWebviewController?.(this.controller);
+          this.initDownloadDelegate();
           this.arkJsObjects.forEach((jsObject) => {
             jsObject?.setWebviewController(this.controller)
             this.controller.registerJavaScriptProxy(jsObject, jsObject.getName(), ObjectUtil.getMethodsNames(jsObject));
@@ -408,6 +412,48 @@ export struct ArkWeb {
     .width('100%')
     .height('100%')
   }
+
+
+  /**
+   * 初始化WebDownloadDelegate，下载任务的状态会通过该类的回调接口通知给用户。
+   */
+  private initDownloadDelegate() {
+    Utils.setDownloadPath(this.options.downloadPath ?? FileUtil.getCacheDirPath()); //ArkWeb文件下载路径
+    //下载开始前通知给用户，用户需要在此接口中调用WebDownloadItem.start("xxx")并提供下载路径，否则下载会一直处于PENDING状态。
+    this.downloadDelegate.onBeforeDownload(async (item: webview.WebDownloadItem) => {
+      CacheUtil.put<number>(item.getGuid(), NotificationUtil.generateNotificationId()); //缓存通知id
+      const fileName = item.getSuggestedFileName();
+      let savePath = `${Utils.getArkDownloadPath()}/${fileName}`; //下载文件路径
+      try {
+        item.start(savePath);
+      } catch (error) {
+        LogUtil.error(`下载文件 ${fileName} 时出错: `, error);
+      }
+    });
+    //下载过程中的回调，通过该回调的参数可以了解下载进度等信息。
+    this.downloadDelegate.onDownloadUpdated((item: webview.WebDownloadItem) => {
+      const notificationKey = item.getGuid();
+      const fileName = item.getSuggestedFileName();
+      const percent = item.getPercentComplete();
+      Utils.sendNotification(notificationKey, fileName, percent, 0);
+    });
+    //下载完成的通知。
+    this.downloadDelegate.onDownloadFinish((item: webview.WebDownloadItem) => {
+      const notificationKey = item.getGuid();
+      const fileName = item.getSuggestedFileName();
+      Utils.sendNotification(notificationKey, fileName, 100, 1);
+    });
+    //下载失败的通知。
+    this.downloadDelegate.onDownloadFailed((item: webview.WebDownloadItem) => {
+      const notificationKey = item.getGuid();
+      const fileName = item.getSuggestedFileName();
+      Utils.sendNotification(notificationKey, fileName, 0, -1);
+    });
+    this.controller?.setDownloadDelegate(this.downloadDelegate);
+  }
+
+
+
 
 
 }

@@ -1,7 +1,14 @@
+import { FileUtil } from '@pura/harmony-utils';
+
 /**
  * ArkWeb参数
  */
 export class ArkWebOptions {
+
+  downloadPath: string = FileUtil.getCacheDirPath(); //ArkWeb下载文件夹的路径
+
+
+
   /**
    * 设置是否开启文档对象模型存储接口（DOM Storage API）权限，默认开启。
    */

@@ -1,6 +1,6 @@
 {
   "name": "@pura/harmony-web",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ArkWeb 是一款基于鸿蒙 WebView 打造的功能强大且极易上手的库，它不仅轻巧灵便、灵活度极高，还提供了一系列针对鸿蒙 WebView 的问题解决方案，助力开发者轻松应对各类开发挑战。",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",
