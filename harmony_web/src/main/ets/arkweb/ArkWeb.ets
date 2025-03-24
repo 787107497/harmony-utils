@@ -10,17 +10,17 @@ import { BaseArkWebClient } from './BaseArkWebClient';
 @ComponentV2
 export struct ArkWeb {
 
-  private beginTime: number = 0; //页面开始加载时间戳
   @Require @Param controller: webview.WebviewController;
   @Require @Param src: ResourceStr;
-
-  // @Param renderMode?: RenderMode;
-  // @Param incognitoMode?: boolean;
-  // @Param sharedRenderProcessToken?: string;
   @Param options: ArkWebOptions = new ArkWebOptions();
   @Param webClient: ArkWebClient = new BaseArkWebClient();
   @Param arkJsObject: ArkJsObject | ArkJsObject[] = new ArkJsObject();
   @Local arkJsObjects: ArkJsObject[] = []; //需要注册的接口对象
+  // @Param renderMode?: RenderMode;
+  // @Param incognitoMode?: boolean;
+  // @Param sharedRenderProcessToken?: string;
+  private beginTime: number = 0; //页面开始加载时间戳
+  private downloadDelegate: webview.WebDownloadDelegate = new webview.WebDownloadDelegate(); //下载任务的状态会通过该类的回调接口通知给用户。
 
 
   aboutToAppear(): void {
