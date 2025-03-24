@@ -15,8 +15,9 @@
 
 
 import { AppUtil } from './AppUtil';
-import { Want } from '@kit.AbilityKit';
+import { Want, wantConstant } from '@kit.AbilityKit';
 import { PreviewUtil } from './PreviewUtil';
+import { FileUtil } from './FileUtil';
 
 
 /**
@@ -238,7 +239,16 @@ export class WantUtil {
    * 调用三方软件打开文件
    */
   static async openFile(uri: string, write: boolean = true): Promise<void> {
-    return PreviewUtil.onSharePreview(uri, write);
+    const fileExtention = FileUtil.getFileExtention(uri);
+    const mimeType = PreviewUtil.getMimeType(fileExtention);
+    const want: Want = {
+      flags: write ? (wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION) :
+      wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION, //配置被分享文件的读写权限，例如对被分享应用进行读写授权
+      action: 'ohos.want.action.sendData', //配置分享应用的隐式拉起规则
+      uri: uri,
+      type: mimeType
+    }
+    return AppUtil.getContext().startAbility(want);
   }
 
 

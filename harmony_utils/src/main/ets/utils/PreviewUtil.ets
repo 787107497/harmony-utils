@@ -15,9 +15,9 @@
 
 import { uniformTypeDescriptor } from '@kit.ArkData';
 import { filePreview } from '@kit.PreviewKit';
-import { Want, wantConstant } from '@kit.AbilityKit';
 import { FileUtil } from './FileUtil';
 import { AppUtil } from './AppUtil';
+import { WantUtil } from './WantUtil';
 
 
 /**
@@ -101,16 +101,7 @@ export class PreviewUtil {
    * @returns
    */
   static onSharePreview(uri: string, write: boolean = true): Promise<void> {
-    const fileExtention = FileUtil.getFileExtention(uri);
-    const mimeType = PreviewUtil.getMimeType(fileExtention);
-    const want: Want = {
-      flags: write ? (wantConstant.Flags.FLAG_AUTH_WRITE_URI_PERMISSION | wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION) :
-      wantConstant.Flags.FLAG_AUTH_READ_URI_PERMISSION, //配置被分享文件的读写权限，例如对被分享应用进行读写授权
-      action: 'ohos.want.action.sendData', //配置分享应用的隐式拉起规则
-      uri: uri,
-      type: mimeType
-    }
-    return AppUtil.getContext().startAbility(want);
+    return WantUtil.openFile(uri, write);
   }
 
 
