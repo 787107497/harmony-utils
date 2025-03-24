@@ -435,7 +435,11 @@ export struct ArkWeb {
       const notificationKey = item.getGuid();
       const fileName = item.getSuggestedFileName();
       const percent = item.getPercentComplete();
-      Utils.sendNotification(notificationKey, fileName, percent, 0);
+      if (percent >= 100) {
+        Utils.sendNotification(notificationKey, fileName, 100, 1);
+      } else {
+        Utils.sendNotification(notificationKey, fileName, percent, 0);
+      }
     });
     //下载完成的通知。
     this.downloadDelegate.onDownloadFinish((item: webview.WebDownloadItem) => {
