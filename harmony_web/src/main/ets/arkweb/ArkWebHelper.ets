@@ -1,4 +1,6 @@
 import { webview } from '@kit.ArkWeb';
+import { common } from '@kit.AbilityKit';
+import { Utils } from '../utils/Utils';
 
 /**
  * ArkWeb工具类
@@ -9,8 +11,9 @@ export class ArkWebHelper {
    * 初始化
    * @param debug
    */
-  static init(debug?: boolean) {
+  static init(context: common.UIAbilityContext, debug?: boolean) {
     webview.WebviewController.initializeWebEngine();
+    Utils.onAbilityLifecycle(context);
   }
 
   /**

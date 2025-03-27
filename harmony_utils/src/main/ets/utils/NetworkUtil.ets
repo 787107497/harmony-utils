@@ -11,13 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 import { connection } from '@kit.NetworkKit';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { wifiManager } from '@kit.ConnectivityKit';
 import { LogUtil } from './LogUtil';
-import { netQuality } from '@kit.NetworkBoostKit';
 import { radio } from '@kit.TelephonyKit';
 import { NetworkType } from '../entity/constraint';
 
@@ -266,51 +265,6 @@ export class NetworkUtil {
 
 
   /**
-   * 网络可用事件回调
-   * @param callback
-   */
-  static onNetAvailable(callback: Callback<connection.NetHandle>) {
-    connection.getDefaultNet((err: BusinessError, data: connection.NetHandle) => {
-      callback(data);
-    });
-    if (!NetworkUtil.netConnection) {
-      NetworkUtil.netConnection = connection.createNetConnection();
-    }
-    NetworkUtil.netConnection.register((error: BusinessError) => {
-      console.log(JSON.stringify(error));
-    });
-    NetworkUtil.netConnection.on('netAvailable', (data: connection.NetHandle) => {
-      callback(data);
-    });
-  }
-
-
-
-  test(){
-
-
-    try {
-      netQuality.on('netSceneChange', (list: Array<netQuality.NetworkScene>) => {
-        if (list.length > 0) {
-          list.forEach((sceneInfo) => {
-            // 网络场景识别回调信息处理
-            if (sceneInfo.scene == 'congestion') {
-              // 网络拥塞分支处理
-            }
-            if (sceneInfo.weakSignalPrediction) {
-              // 存在弱信号预测信息，对弱信号预测信息进行处理
-            }
-          });
-        }
-      });
-    } catch (err) {
-      console.error('errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);
-    }
-  }
-
-
-
-  /**
    * 获取当前设备的IP地址(设备连接Wi-Fi后)
    */
   static getIpAddress() {
@@ -338,6 +292,14 @@ export class NetworkUtil {
     if (!NetworkUtil.netConnection) {
       NetworkUtil.netConnection = connection.createNetConnection(); //创建NetConnection对象
     }
+    connection.getDefaultNet((error: BusinessError, netHandle: connection.NetHandle) => {
+      if (error) {
+        LogUtil.error(`NetworkUtil-getDefaultNet-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      }
+      if (netHandle && netAvailableCallback) {
+        netAvailableCallback(netHandle);
+      }
+    });
     //先使用register接口注册订阅事件
     NetworkUtil.netConnection.register((error: BusinessError) => {
       if (error) {

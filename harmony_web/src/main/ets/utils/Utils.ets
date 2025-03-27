@@ -1,6 +1,14 @@
 import { AbilityLifecycleCallback, common, UIAbility, WantAgent, wantAgent } from '@kit.AbilityKit';
-import { CacheUtil, FileUtil, NotificationBasicOptions, NotificationUtil, PreviewUtil } from '@pura/harmony-utils';
+import {
+  CacheUtil,
+  FileUtil,
+  LogUtil,
+  NotificationBasicOptions,
+  NotificationUtil,
+  PreviewUtil
+} from '@pura/harmony-utils';
 import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * ArkWeb内部工具类
@@ -28,54 +36,59 @@ export class Utils {
   /**
    * 注册监听应用内生命周期。
    */
-  static onAbilityLifecycle() {
-    let abilityLifecycleCallback: AbilityLifecycleCallback = {
-      onAbilityCreate: (ability: UIAbility): void => {
+  static onAbilityLifecycle(context: common.UIAbilityContext) {
+    try {
+      const abilityLifecycleCallback: AbilityLifecycleCallback = {
+        onAbilityCreate: (ability: UIAbility): void => {
 
-      },
-      onNewWant:(ability: UIAbility): void => {
-        let parameters = ability.lastRequestWant.parameters;
-        if (parameters) {
-          let uri = parameters["uri"] as string;
-          let filePreview = parameters["filePreview"];
-          if ('filePreview' === filePreview && uri) {
-            PreviewUtil.openPreviewEasy(uri)
+        },
+        onNewWant:(ability: UIAbility): void => {
+          let parameters = ability.lastRequestWant.parameters;
+          if (parameters) {
+            let uri = parameters["uri"] as string;
+            let filePreview = parameters["filePreview"];
+            if ('filePreview' === filePreview && uri) {
+              PreviewUtil.openPreviewEasy(uri)
+            }
           }
-        }
-      },
-      onWindowStageCreate: (ability: UIAbility, windowStage: window.WindowStage): void => {
-        let parameters = ability.lastRequestWant.parameters;
-        if (parameters) {
-          let uri = parameters["uri"] as string;
-          let filePreview = parameters["filePreview"];
-          if ('filePreview' === filePreview && uri) {
-            PreviewUtil.openPreviewEasy(uri)
+        },
+        onWindowStageCreate: (ability: UIAbility, windowStage: window.WindowStage): void => {
+          let parameters = ability.lastRequestWant.parameters;
+          if (parameters) {
+            let uri = parameters["uri"] as string;
+            let filePreview = parameters["filePreview"];
+            if ('filePreview' === filePreview && uri) {
+              PreviewUtil.openPreviewEasy(uri)
+            }
           }
+        },
+        onWindowStageActive: (ability: UIAbility, windowStage: window.WindowStage): void => {
+
+        },
+        onWindowStageInactive: (ability: UIAbility, windowStage: window.WindowStage): void => {
+
+        },
+        onWindowStageDestroy: (ability: UIAbility, windowStage: window.WindowStage): void => {
+
+        },
+        onAbilityDestroy: (ability: UIAbility): void => {
+
+        },
+        onAbilityForeground: (ability: UIAbility): void => {
+
+        },
+        onAbilityBackground: (ability: UIAbility): void => {
+
+        },
+        onAbilityContinue: (ability: UIAbility): void => {
+
         }
-      },
-      onWindowStageActive: (ability: UIAbility, windowStage: window.WindowStage): void => {
-
-      },
-      onWindowStageInactive: (ability: UIAbility, windowStage: window.WindowStage): void => {
-
-      },
-      onWindowStageDestroy: (ability: UIAbility, windowStage: window.WindowStage): void => {
-
-      },
-      onAbilityDestroy: (ability: UIAbility): void => {
-
-      },
-      onAbilityForeground: (ability: UIAbility): void => {
-
-      },
-      onAbilityBackground: (ability: UIAbility): void => {
-
-      },
-      onAbilityContinue: (ability: UIAbility): void => {
-
       }
+      context.getApplicationContext().on('abilityLifecycle', abilityLifecycleCallback);
+    } catch (err) {
+      let error = err as BusinessError;
+      LogUtil.error(`abilityLifecycleCallback-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
-    getContext().getApplicationContext().on('abilityLifecycle',abilityLifecycleCallback);
   }
 
 
@@ -95,7 +108,6 @@ export class Utils {
       content = `下载失败`;
     }
     let savePath = `${Utils.getArkDownloadPath()}/${fileName}`; //下载文件路径
-
     let want = await Utils.getDownloadWantAgent(FileUtil.getUriFromPath(savePath));
     let basicOptions: NotificationBasicOptions = {
       id: notificationId,
