@@ -15,8 +15,8 @@
 
 import hilog from '@ohos.hilog';
 import { JSON } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { StrUtil } from './StrUtil';
-import { LOGGER_DOMAIN, LOGGER_TAG } from '../entity/constraint';
 
 
 /**
@@ -27,10 +27,10 @@ import { LOGGER_DOMAIN, LOGGER_TAG } from '../entity/constraint';
 export class LogUtil {
 
   private static logSize: number = 2048;
-  private static domain: number = LOGGER_DOMAIN;
-  private static tag: string = LOGGER_TAG; //日志Tag
+  private static domain: number = 0x0000;
+  private static tag: string = 'HarmonyUtilsLog'; //日志Tag
   private static showLog: boolean = true; //是否显示打印日志
-  private static isHilog: boolean = false; //true-hilog、false-console
+  private static isHilog: boolean = true; //true-hilog、false-console
 
 
   /**
@@ -39,7 +39,7 @@ export class LogUtil {
    * @param tag
    * @param showLog
    */
-  static init(domain: number = LOGGER_DOMAIN, tag: string = LOGGER_TAG, showLog: boolean = true, isHilog: boolean = true) {
+  static init(domain: number = LogUtil.domain, tag: string = LogUtil.tag, showLog: boolean = true, isHilog: boolean = true) {
     LogUtil.domain = domain;
     LogUtil.tag = tag;
     LogUtil.showLog = showLog;
@@ -50,7 +50,7 @@ export class LogUtil {
    * 设置日志对应的领域标识，范围是0x0~0xFFFF。（该方法建议在Ability里调用）
    * @param domain
    */
-  static setDomain(domain: number = LOGGER_DOMAIN) {
+  static setDomain(domain: number = LogUtil.domain) {
     LogUtil.domain = domain
   }
 
@@ -58,7 +58,7 @@ export class LogUtil {
    * 设置日志标识（该方法建议在Ability里调用）
    * @param tag
    */
-  static setTag(tag: string = LOGGER_TAG) {
+  static setTag(tag: string = LogUtil.tag) {
     LogUtil.tag = tag
   }
 
@@ -117,6 +117,39 @@ export class LogUtil {
    */
   static fatal(...args: string[]): void {
     LogUtil.uniLog(args, hilog.LogLevel.FATAL);
+  }
+
+
+  /**
+   * 打印JSON对象和JSON字符串
+   * @param msg
+   */
+  static print(msg: object | string) {
+    try {
+      let content = '';
+      if (typeof msg === 'object') {
+        content = content + LogUtil.getObjectToJson(msg, false);
+      } else if (typeof msg === 'string') {
+        if ((StrUtil.startsWith(msg, '{') && StrUtil.endsWith(msg, '}')) || (StrUtil.startsWith(msg, '[') && StrUtil.endsWith(msg, ']'))) {
+          let obj = JSON.parse(msg.toString()) ?? new Object(msg);
+          content = content + LogUtil.getObjectToJson(obj, false);
+        } else {
+          content = content + msg;
+        }
+      }
+      const len = Math.ceil(content.length / LogUtil.logSize);
+      for (let i = 0; i < len; i++) {
+        let end = (i + 1) * LogUtil.logSize;
+        if (i === (len - 1)) {
+          end = content.length;
+        }
+        let msg = '\n' + content.substring(i * LogUtil.logSize, end);
+        LogUtil.levelLog(msg, hilog.LogLevel.DEBUG);
+      }
+    } catch (err) {
+      let error = err as BusinessError; //异常了，说明不是JSON字符串
+      console.error(`LogUtil-print-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+    }
   }
 
 
@@ -218,14 +251,16 @@ export class LogUtil {
   /**
    * 对象转JSON字符串
    */
-  private static getObjectToJson(obj: object): string {
+  private static getObjectToJson(obj: object, line: boolean = true): string {
     try {
       let jsonStr = JSON.stringify(obj, null, 2);
-      jsonStr = jsonStr.replace(/\n/g, '\n|\t');
-      if (jsonStr.endsWith('\t]')) {
-        jsonStr = jsonStr.replace(/..$/, '  ]');
-      } else if (jsonStr.endsWith('\t}')) {
-        jsonStr = jsonStr.replace(/..$/, '  }');
+      if (line) {
+        jsonStr = jsonStr.replace(/\n/g, '\n|\t');
+        if (jsonStr.endsWith('\t]')) {
+          jsonStr = jsonStr.replace(/..$/, '  ]');
+        } else if (jsonStr.endsWith('\t}')) {
+          jsonStr = jsonStr.replace(/..$/, '  }');
+        }
       }
       return jsonStr;
     } catch (err) {
@@ -257,5 +292,3 @@ export class LogUtil {
 
 
 }
-
-// export default new LogUtil() //单例（在ES6模块中，当你使用 import 导入一个模块时，实际上是在导入该模块的值的一个引用。这意味着在另一个模块中修改该值会影响原始模块中的值。）

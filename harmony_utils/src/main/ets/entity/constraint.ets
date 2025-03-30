@@ -33,10 +33,6 @@ export const DATE_FORMAT16: string = "HH时mm分ss秒"; //14时06分55秒
 export const DATE_FORMAT17: string = "HH时mm分"; //14时06分
 
 
-export const LOGGER_DOMAIN: number = 0x0000
-
-export const LOGGER_TAG: string = 'HarmonyLogUtil'
-
 export const DEVICE_ID_KEY: string = "device_id_cache_harmony_key"; //设备ID的Key
 
 export const CRASH_ID_KEY: string = 'crash_observer_id_key' //Crash的ID的key
