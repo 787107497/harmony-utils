@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 import { WantAgent } from '@kit.AbilityKit';
 import { notificationManager } from '@kit.NotificationKit';
@@ -51,7 +51,8 @@ export interface NotificationOptions {
 
 
 /**
- * 描述普通文本通知 */
+ * 描述普通文本通知
+ */
 export interface NotificationBasicOptions extends NotificationOptions {
   title: string; //通知标题（不可为空字符串）。
   text: string; //通知内容（不可为空字符串）。
@@ -61,7 +62,8 @@ export interface NotificationBasicOptions extends NotificationOptions {
 
 
 /**
- * 描述长文本通知 */
+ * 描述长文本通知
+ */
 export interface NotificationLongTextOptions extends NotificationBasicOptions {
   briefText: string; //通知概要内容，是对通知内容的总结（不可为空字符串）。
   longText: string; //通知的长文本（不可为空字符串）。
@@ -70,7 +72,8 @@ export interface NotificationLongTextOptions extends NotificationBasicOptions {
 
 
 /**
- * 描述多行文本通知。 */
+ * 描述多行文本通知。
+ */
 export interface NotificationMultiLineOptions extends NotificationBasicOptions {
   briefText: string; //通知概要内容，是对通知内容的总结（不可为空字符串）。
   longTitle: string; //通知展开时的标题（不可为空字符串）。
@@ -79,7 +82,8 @@ export interface NotificationMultiLineOptions extends NotificationBasicOptions {
 
 
 /**
- * 描述附有图片的通知。 */
+ * 描述附有图片的通知。
+ */
 export interface NotificationPictureOptions extends NotificationBasicOptions {
   briefText: string; //通知概要内容，是对通知内容的总结（不可为空字符串）。
   expandedTitle: string; //通知展开时的标题（不可为空字符串）。
@@ -88,7 +92,8 @@ export interface NotificationPictureOptions extends NotificationBasicOptions {
 
 
 /**
- * 描述模板的通知。 */
+ * 描述模板的通知。
+ */
 export interface NotificationTemplateOptions extends NotificationBasicOptions {
   // title: string; //通知标题 和 下载标题，共用一个字段。
   fileName: string; //表示下载文件名。必填字段，值为字符串类型。

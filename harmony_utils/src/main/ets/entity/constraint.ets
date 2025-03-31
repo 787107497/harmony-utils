@@ -33,10 +33,6 @@ export const DATE_FORMAT16: string = "HH时mm分ss秒"; //14时06分55秒
 export const DATE_FORMAT17: string = "HH时mm分"; //14时06分
 
 
-export const LOGGER_DOMAIN: number = 0x0000
-
-export const LOGGER_TAG: string = 'HarmonyLogUtil'
-
 export const DEVICE_ID_KEY: string = "device_id_cache_harmony_key"; //设备ID的Key
 
 export const CRASH_ID_KEY: string = 'crash_observer_id_key' //Crash的ID的key
@@ -61,7 +57,8 @@ export enum DialogAction {
  * 弹框操作按钮Callback
  * action：
  * 1、当action小于0时，对应弹框操作按钮的Action，类型为DialogAction。
- * 2、当action大于等于0时，对选的是选项索引值。 */
+ * 2、当action大于等于0时，对选的是选项索引值。
+ */
 export declare type ActionCallBack = (action: number) => void;
 
 
