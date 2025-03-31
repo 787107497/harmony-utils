@@ -1,9 +1,40 @@
 # 版本记录
 
+## 1.3.1（API12 ）
+1. 移除module.json5中配置的权限。
+```typescript
+//1.3.1版本适配指南：
+ 在代码中自行配置 使用到的权限
+ "ohos.permission.GET_BUNDLE_INFO" //允许查询应用的基本信息。
+ "ohos.permission.STORE_PERSISTENT_DATA" //允许应用存储持久化的数据，该数据直到设备恢复出厂设置或重装系统才会被清除
+ "ohos.permission.PRIVACY_WINDOW" //允许应用将窗口设置为隐私窗口，禁止截屏录屏
+ "ohos.permission.ACCESS_BIOMETRIC" //允许应用使用生物特征识别能力进行身份认证。
+ "ohos.permission.GET_NETWORK_INFO" //允许应用获取数据网络信息。
+ "ohos.permission.GET_WIFI_INFO" //允许应用获取Wi-Fi信息。
+ "ohos.permission.VIBRATE" //允许应用控制马达振动。
+```
+
 ## 1.3.0（API12 ）
 1. 拆分PhotoHelper、PickerUtil、ScanUtil，到子库 [picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
 中。 主要解决：当使用 harmony-utils 三方库且未使用picker能力时，隐私政策中无需声明相机权限与储存权限。
 2. 暂时屏蔽CrashUtil的onExportErrorLog方法，下个版本优化。
+```typescript
+//1.3.0版本适配指南：
+
+引入  "@pura/picker_utils": "^1.0.0"
+
+import { CameraOptions, PickerUtil } from '@pura/harmony-utils';
+改为
+import { CameraOptions, PickerUtil } from '@pura/picker_utils';
+
+import { PhotoHelper, PickerUtil } from '@pura/harmony-utils';
+改为
+import { PhotoHelper, PickerUtil } from '@pura/picker_utils';
+
+import { ScanUtil } from '@pura/harmony-utils';
+改为
+import { ScanUtil } from '@pura/picker_utils';
+```
 
 ## 1.2.9（API12 - 5.0.3.906）
 1. 优化JSONUtil的jsonToBean方法。
