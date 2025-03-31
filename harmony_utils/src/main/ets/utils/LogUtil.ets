@@ -157,18 +157,6 @@ export class LogUtil {
   }
 
 
-  private static getErrorStr(error: Error, line: boolean = true): string {
-    let errObj: Record<string, string | number> = {};
-    errObj['name'] = error.name;
-    errObj['code'] = (error as BusinessError)?.code ?? '';
-    errObj['message'] = error.message;
-    errObj['stack'] = error.stack ?? '';
-    let errorStr = LogUtil.getObjectToJson(errObj, line);
-    return errorStr;
-  }
-
-
-
   /**
    * 统一日志输出
    */
@@ -286,6 +274,19 @@ export class LogUtil {
     } catch (err) {
       return '';
     }
+  }
+
+  /**
+   * 获取Error字符串
+   */
+  private static getErrorStr(error: Error, line: boolean = true): string {
+    let errObj: Record<string, string | number> = {};
+    errObj['name'] = error.name;
+    errObj['code'] = (error as BusinessError)?.code ?? '';
+    errObj['message'] = error.message;
+    errObj['stack'] = error.stack ?? '';
+    let errorStr = LogUtil.getObjectToJson(errObj, line);
+    return errorStr;
   }
 
   /**
