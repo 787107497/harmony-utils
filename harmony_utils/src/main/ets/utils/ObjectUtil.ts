@@ -180,4 +180,15 @@ export class ObjectUtil {
   }
 
 
+  /**
+   * 给Object赋值
+   * @param obj
+   * @param key
+   * @param value
+   */
+  static setValue<T>(obj: Object, key: string, value: T) {
+    obj[key] = value;
+  }
+
+
 }
