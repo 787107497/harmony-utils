@@ -128,7 +128,11 @@ export class LogUtil {
     try {
       let content = '';
       if (typeof msg === 'object') {
-        content = content + LogUtil.getObjectToJson(msg, false);
+        if (msg instanceof Error) {
+          content = content + LogUtil.getErrorStr(msg, false);
+        } else {
+          content = content + LogUtil.getObjectToJson(msg, false);
+        }
       } else if (typeof msg === 'string') {
         if ((StrUtil.startsWith(msg, '{') && StrUtil.endsWith(msg, '}')) || (StrUtil.startsWith(msg, '[') && StrUtil.endsWith(msg, ']'))) {
           let obj = JSON.parse(msg.toString()) ?? new Object(msg);
@@ -151,6 +155,18 @@ export class LogUtil {
       console.error(`LogUtil-print-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
+
+
+  private static getErrorStr(error: Error, line: boolean = true): string {
+    let errObj: Record<string, string | number> = {};
+    errObj['name'] = error.name;
+    errObj['code'] = (error as BusinessError)?.code ?? '';
+    errObj['message'] = error.message;
+    errObj['stack'] = error.stack ?? '';
+    let errorStr = LogUtil.getObjectToJson(errObj, line);
+    return errorStr;
+  }
+
 
 
   /**
@@ -232,7 +248,11 @@ export class LogUtil {
       let logMessage = '';
       message.forEach((msg: string | object) => {
         if (typeof msg === 'object') {
-          logMessage = logMessage + LogUtil.getObjectToJson(msg);
+          if (msg instanceof Error) {
+            logMessage = logMessage + LogUtil.getErrorStr(msg);
+          } else {
+            logMessage = logMessage + LogUtil.getObjectToJson(msg);
+          }
         } else if (typeof msg === 'string') {
           if ((StrUtil.startsWith(msg, '{') && StrUtil.endsWith(msg, '}')) || (StrUtil.startsWith(msg, '[') && StrUtil.endsWith(msg, ']'))) {
             let obj = JSON.parse(msg.toString()) ?? new Object(msg);
@@ -274,19 +294,19 @@ export class LogUtil {
   private static getLogLocation(): string {
     const errorStack = new Error().stack;
     const stackArray = errorStack?.split('\n');
-    let errorLocation: string = stackArray?.filter(item => item !== null && item.length > 6).splice(-2).join('\n') ?? '';
-    errorLocation = errorLocation.replaceAll(' ', '').replaceAll('\n', '\n|\t');
-    return `\n|  ${errorLocation}`;
+    let errorLocation: string = stackArray?.filter(item => item !== null && item.length > 1)
+    ?.splice(3).join('')?.replaceAll(' ', '') ?? '';
+    return `\n|  ${errorLocation}\n| ${StrUtil.repeat('┄┄┄┄┄┄┄', 20)}`;
   }
 
   /**
    * 获取生成的日志边框
    */
-  private static getLine(tag: string = '', length: number = 160): string {
+  private static getLine(tag: string = '', length: number = 130): string {
     if (StrUtil.isNotEmpty(tag)) {
-      return `┌${StrUtil.repeat('─', 10)} ${tag} ${StrUtil.repeat('─', length - tag.length - 2)}`;
+      return `┌${StrUtil.repeat('─', 11)} ${tag} ${StrUtil.repeat('─', length - tag.length - 2)}`;
     } else {
-      return `└${StrUtil.repeat('─', 10)}${StrUtil.repeat('─', length)}`;
+      return `└${StrUtil.repeat('─', 11)}${StrUtil.repeat('─', length)}`;
     }
   }
 

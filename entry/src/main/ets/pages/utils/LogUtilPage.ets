@@ -1,9 +1,10 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { LogUtil, ResUtil } from '@pura/harmony-utils';
+import { FileUtil, LogUtil, ResUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { User } from '../../model/User';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 日志工具类
@@ -80,9 +81,22 @@ struct Index {
           Button("print()")
             .btnStyle()
             .onClick(() => {
-              let user = new User();
-              user.user = new User();
-              LogUtil.print(user);
+              // let user = new User();
+              // user.user = new User();
+              // LogUtil.print(user);
+
+              try {
+                let path = 'null';
+                FileUtil.openSync(path)
+              } catch (e) {
+               let err=e as BusinessError
+
+                //instanceof
+                // name: string;
+                // message: string;
+                // stack?: string;
+                LogUtil.error(e);
+              }
             })
 
           Blank().layoutWeight(1)
