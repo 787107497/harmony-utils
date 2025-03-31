@@ -17,7 +17,7 @@
 ## 1.3.0（API12 ）
 1. 拆分PhotoHelper、PickerUtil、ScanUtil，到子库 [picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
 中。 主要解决：当使用 harmony-utils 三方库且未使用picker能力时，隐私政策中无需声明相机权限与储存权限。
-2. 暂时屏蔽CrashUtil的onExportErrorLog方法，下个版本优化。          
+2. 暂时屏蔽CrashUtil的onExportErrorLog方法，下个版本优化。    
 ```typescript
 //1.3.0版本适配指南：
 
