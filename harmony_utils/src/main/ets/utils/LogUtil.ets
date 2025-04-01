@@ -83,7 +83,7 @@ export class LogUtil {
    * 打印DEBUG级别日志
    * @param args
    */
-  static debug(...args: string[]): void {
+  static debug(...args: string[] | object[]): void {
     LogUtil.uniLog(args, hilog.LogLevel.DEBUG);
   }
 
@@ -91,7 +91,7 @@ export class LogUtil {
    * 打印INFO级别日志
    * @param args
    */
-  static info(...args: string[]): void {
+  static info(...args: string[] | object[]): void {
     LogUtil.uniLog(args, hilog.LogLevel.INFO);
   }
 
@@ -99,7 +99,7 @@ export class LogUtil {
    * 打印WARN级别日志
    * @param args
    */
-  static warn(...args: string[]): void {
+  static warn(...args: string[] | object[]): void {
     LogUtil.uniLog(args, hilog.LogLevel.WARN);
   }
 
@@ -115,7 +115,7 @@ export class LogUtil {
    * 打印FATAL级别日志
    * @param args
    */
-  static fatal(...args: string[]): void {
+  static fatal(...args: string[] | object[]): void {
     LogUtil.uniLog(args, hilog.LogLevel.FATAL);
   }
 

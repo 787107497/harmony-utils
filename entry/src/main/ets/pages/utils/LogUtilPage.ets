@@ -4,7 +4,7 @@ import { FileUtil, LogUtil, ResUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { User } from '../../model/User';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { DialogHelper } from '@pura/harmony-dialog';
 
 /**
  * 日志工具类
@@ -31,72 +31,88 @@ struct Index {
           Button("init()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.init(0x1010, 'Pura', true)
+              LogUtil.init(0x1010, 'Pura', true, true);
+              DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("setDomain()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.setDomain(0x0010)
+              LogUtil.setDomain(0x0010);
+              DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("setTag()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.setTag("Pura-X")
+              LogUtil.setTag("Pura-X");
+              DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("setTag()")
             .btnStyle()
             .onClick(() => {
               LogUtil.setHilog(this.isHilog);
               this.isHilog = !this.isHilog;
+              DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("debug()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.debug("日志工具类-debug我是一个日志-·#￥%……&*—+我是一个日志。我是一个日志-·#￥%……哈哈哈哈哈哈");
+              LogUtil.debug("我是一个debug日志-日志工具类-*…^·^…*-哈哈哈哈哈哈!");
+              DialogHelper.showToast('请查看日志输出！');
             })
           Button("info()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.info("我是一个日志-·#￥%……&*—+我是一个日志。");
+              LogUtil.info("我是一个info日志-*￥…^·^…￥*—我是一个日志。");
+              let user = new User();
+              user.user = user;
+              LogUtil.info(user);
+              DialogHelper.showToast('请查看日志输出！');
             })
           Button("warn()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.warn("日志工具类-warn\t", "我是一个日志-·#￥%……&*—+我是一个日志。");
+              LogUtil.warn("我是一个warn日志\t", "日志工具类^·^…￥…&!。");
               let jsonStr = ResUtil.getRawFileContentStrSync('data_utils.json');
               LogUtil.warn(jsonStr);
+              DialogHelper.showToast('请查看日志输出！');
             })
           Button("error()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.error("日志工具类-error\t", "我是一个日志-·#￥%……&*—+我是一个日志。", "你是谁？", "我在哪？", "嘿嘿嘿嘿嘿嘿嘿嘿！");
+              LogUtil.error("我是一个error日志\t", "我是一个日志工具类-·-。", "你是谁？", "我在哪？", "嘿嘿嘿嘿嘿嘿嘿嘿！");
               let user = new User();
               LogUtil.error(user);
+              DialogHelper.showToast('请查看日志输出！');
             })
           Button("fatal()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.fatal("日志工具类-fatal\t", "我是一个日志-·#￥%……&*—+我是一个日志。")
+              LogUtil.fatal("我是一个fatal日志^·^\t", "我是一个日志工具类^·^。")
+              DialogHelper.showToast('请查看日志输出！');
             })
           Button("print()")
             .btnStyle()
             .onClick(() => {
-              // let user = new User();
-              // user.user = new User();
-              // LogUtil.print(user);
-
+              let user = new User();
+              user.user = new User();
+              LogUtil.print(user);
+              DialogHelper.showToast('请查看日志输出！');
+            })
+          Button("打印Error")
+            .btnStyle()
+            .onClick(() => {
               try {
                 let path = 'null';
                 FileUtil.openSync(path)
-              } catch (e) {
-               let err=e as BusinessError
-
-                //instanceof
-                // name: string;
-                // message: string;
-                // stack?: string;
-                LogUtil.error(e);
+              } catch (err) {
+                LogUtil.error(err); //打印error
               }
+              try {
+                throw new Error('除数不能为 0');
+              } catch (err) {
+                LogUtil.warn(err); //打印error
+              }
+              DialogHelper.showToast('请查看日志输出！');
             })
 
           Blank().layoutWeight(1)
