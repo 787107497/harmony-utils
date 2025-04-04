@@ -14,16 +14,16 @@
  */
 
 import bundleManager from '@ohos.bundle.bundleManager';
-import { LogUtil } from './LogUtil';
-import { BusinessError } from '@ohos.base';
 import { KeyboardAvoidMode, window } from '@kit.ArkUI';
-import { DeviceUtil } from './DeviceUtil';
+import { BusinessError } from '@ohos.base';
 import { resourceManager } from '@kit.LocalizationKit';
-import { common, ConfigurationConstant } from '@kit.AbilityKit';
+import { appRecovery, common, ConfigurationConstant, Want } from '@kit.AbilityKit';
+import { LogUtil } from './LogUtil';
+import { DeviceUtil } from './DeviceUtil';
 
 
 /**
- * TODO App相关工具类(使用该工具前请在UIAbility的onWindowStageCreate方法中调用AppUtil的init方法初始化)
+ * TODO App相关工具类(使用该工具前请在UIAbility的onCreate方法中调用AppUtil的init方法初始化)
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  */
@@ -343,14 +343,36 @@ export class AppUtil {
    * 获取当前应用的BundleInfo
    */
   static async getBundleInfo(): Promise<bundleManager.BundleInfo> {
-    return bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+    const bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_EXTENSION_ABILITY |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_METADATA |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SIGNATURE_INFO |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ROUTER_MAP |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_MENU |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SKILL |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_DISABLE;
+    return bundleManager.getBundleInfoForSelf(bundleFlags);
   }
 
   /**
    * 获取当前应用的BundleInfo
    */
   static getBundleInfoSync(): bundleManager.BundleInfo {
-    return bundleManager.getBundleInfoForSelfSync(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+    const bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_EXTENSION_ABILITY |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_METADATA |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SIGNATURE_INFO |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ROUTER_MAP |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_MENU |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SKILL |
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_DISABLE;
+    return bundleManager.getBundleInfoForSelfSync(bundleFlags);
   }
 
 
@@ -376,10 +398,43 @@ export class AppUtil {
   }
 
   /**
-   * 获取运行应用包所需要最高SDK版本号。
+   * 获取应用运行目标版本。
    */
   static getTargetVersion(): number {
     return AppUtil.getBundleInfoSync().targetVersion;
+  }
+
+  /**
+   * 应用包安装时间。
+   * @returns
+   */
+  static getInstallTime(): number {
+    return AppUtil.getBundleInfoSync().installTime;
+  }
+
+  /**
+   * 应用包更新时间。
+   * @returns
+   */
+  static getUpdateTime(): number {
+    return AppUtil.getBundleInfoSync().updateTime;
+  }
+
+
+  /**
+   * 获取应用包的签名信息
+   * @returns
+   */
+  static async getSignatureInfo(): Promise<bundleManager.SignatureInfo> {
+    return (await AppUtil.getBundleInfo()).signatureInfo;
+  }
+
+  /**
+   * 获取应用包的签名信息
+   * @returns
+   */
+  static getSignatureInfoSync(): bundleManager.SignatureInfo {
+    return AppUtil.getBundleInfoSync().signatureInfo;
   }
 
 
@@ -406,6 +461,63 @@ export class AppUtil {
   static exit() {
     AppUtil.getContext().terminateSelf();
     AppUtil.getContext().getApplicationContext().killAllProcesses();
+  }
+
+
+  /**
+   * 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。
+   * @param restart RestartFlag 应用重启标志。
+   *    ALWAYS_RESTART  0  总是重启应用。
+   *    RESTART_WHEN_JS_CRASH  0x0001  发生JS_CRASH时重启应用。
+   *    RESTART_WHEN_APP_FREEZE  0x0002  发生APP_FREEZE时重启应用。
+   *    NO_RESTART  0xFFFF  总是不重启应用。
+   * @param saveOccasion SaveOccasionFlag 保存条件标志
+   *    SAVE_WHEN_ERROR  0x0001  当发生应用故障时保存。
+   *    SAVE_WHEN_BACKGROUND  0x0002  当应用切入后台时保存。
+   * @param saveMode SaveModeFlag  状态保存标志
+   *    SAVE_WITH_FILE  0x0001  每次状态保存都会写入到本地文件缓存。
+   *    SAVE_WITH_SHARED_MEMORY  0x0002  状态先保存在内存中，应用故障退出时写入到本地文件缓存。
+   */
+  static enableAppRecovery(restart: appRecovery.RestartFlag = appRecovery.RestartFlag.ALWAYS_RESTART,
+    saveOccasion: appRecovery.SaveOccasionFlag = appRecovery.SaveOccasionFlag.SAVE_WHEN_ERROR,
+    saveMode: appRecovery.SaveModeFlag.SAVE_WITH_FILE = appRecovery.SaveModeFlag.SAVE_WITH_FILE) {
+    appRecovery.enableAppRecovery(restart, saveOccasion, saveMode);
+  }
+
+
+  /**
+   * 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用。
+   * 如果该Ability存在已经保存的状态，这些状态数据会在Ability的OnCreate生命周期回调的want参数中作为wantParam属性传入。
+   * API10时将启动由setRestartWant指定的Ability。如果没有指定则按以下规则启动：
+   *   如果当前应用前台的Ability支持恢复，则重新拉起该Ability。
+   *   如果存在多个支持恢复的Ability处于前台，则只拉起最后一个。
+   *   如果没有Ability处于前台，则不拉起。
+   */
+  static restartApp() {
+    appRecovery.restartApp()
+  }
+
+
+  /**
+   * 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility。
+   * @param want 通过设置Want中"bundleName"和"abilityName"字段来指定恢复重启的Ability。
+   */
+  static setRestartWant(want: Want) {
+    appRecovery.setRestartWant(want);
+  }
+
+
+  /**
+   * 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用
+   * @param context UIAbilityContext  需要保存状态的UIAbility所对应的context。
+   * @returns
+   */
+  static saveAppState(context?: common.UIAbilityContext): boolean {
+    if (context) {
+      return appRecovery.saveAppState(context) //主动保存Ability的状态
+    } else {
+      return appRecovery.saveAppState() //保存当前App状态
+    }
   }
 
 

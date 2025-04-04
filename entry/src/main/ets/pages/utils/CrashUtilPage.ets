@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { CrashUtil, FileUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { AppUtil, CrashUtil, FileUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
@@ -56,13 +56,14 @@ struct Index {
           Button("重启APP")
             .btnStyle()
             .onClick(() => {
-              CrashUtil.restartApp();
+              // CrashUtil.restartApp();
+              AppUtil.restartApp();
             })
           Text(this.errorTxt)
             .visibility(StrUtil.isNotEmpty(this.errorTxt) ? Visibility.Visible : Visibility.None)
             .textStyle()
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
