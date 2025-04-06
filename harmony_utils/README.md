@@ -93,14 +93,6 @@ OpenHarmony ohpm
 | setKeyboardAvoidMode                      | 设置虚拟键盘弹出时，页面的避让模式                                                        |
 | isPortrait                                | 当前设备是否以竖屏方式显示                                                            |
 | isLandscape                               | 当前设备是否以横屏方式显示                                                            |
-| setPreferredOrientation                   | 设置窗口的显示方向属性                                                              |
-| getWindowProperties                       | 获取当前窗口的属性                                                                |
-| setWindowBrightness                       | 设置屏幕亮度值                                                                  |
-| setWindowKeepScreenOn                     | 设置屏幕是否为常亮状态                                                              |
-| setWindowPrivacyMode                      | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                                     |
-| setWindowBackgroundColor                  | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用              |
-| setWindowFocusable                        | 设置点击时是否支持切换焦点窗口                                                          |
-| setWindowTouchable                        | 设置窗口是否为可触状态                                                              |
 | getStatusBarHeight                        | 获取状态栏的高度，单位为px                                                           |
 | getNavigationIndicatorHeight              | 获取底部导航条的高度，单位为px。                                                        |
 | setStatusBar                              | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用）        |
@@ -118,6 +110,24 @@ OpenHarmony ohpm
 | restartApp                                | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                          |
 | saveAppState                              | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用        |
 | setRestartWant                            | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                          |
+
+
+## WindowUtil（窗口相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WindowUtilPage.ets)
+
+| 方法                                        | 介绍                                                                       |
+|:------------------------------------------|:-------------------------------------------------------------------------|
+
+
+
+
+| setPreferredOrientation                   | 设置窗口的显示方向属性                                                              |
+| getWindowProperties                       | 获取当前窗口的属性                                                                |
+| setWindowBrightness                       | 设置屏幕亮度值                                                                  |
+| setWindowKeepScreenOn                     | 设置屏幕是否为常亮状态                                                              |
+| setWindowPrivacyMode                      | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                                     |
+| setWindowBackgroundColor                  | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用              |
+| setWindowFocusable                        | 设置点击时是否支持切换焦点窗口                                                          |
+| setWindowTouchable                        | 设置窗口是否为可触状态                                                              |
 
 ## DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 

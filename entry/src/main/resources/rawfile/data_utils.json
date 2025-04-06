@@ -14,6 +14,13 @@
     "type": 1
   },
   {
+    "name": "WindowUtil",
+    "desc": "窗口相关工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/WindowUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WindowUtilPage.ets",
+    "type": 1
+  },
+  {
     "name": "DisplayUtil",
     "desc": "屏幕相关工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/DisplayUtil.ets",

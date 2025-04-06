@@ -1,6 +1,3 @@
-/**
- * 窗口工具
- */
 import { window } from '@kit.ArkUI';
 import { AppUtil } from './AppUtil';
 import { LogUtil } from './LogUtil';
@@ -193,8 +190,6 @@ export class WindowUtil {
   static getBrightness(windowClass: window.Window = AppUtil.getMainWindow()): number {
     return AppUtil.getWindowProperties(windowClass).brightness;
   }
-
-
 
 
 

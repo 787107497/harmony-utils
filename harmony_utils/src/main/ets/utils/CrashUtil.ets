@@ -14,17 +14,13 @@
  */
 
 import errorManager from '@ohos.app.ability.errorManager';
-// import fs, { WriteOptions } from '@ohos.file.fs';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { WriteOptions } from '@kit.CoreFileKit';
+import { appRecovery, common, Want } from '@kit.AbilityKit';
 import { DateUtil } from './DateUtil';
 import { LogUtil } from './LogUtil';
 import { FileUtil } from './FileUtil';
-import { StrUtil } from './StrUtil';
-import { ToastUtil } from '../action/ToastUtil';
-import { GlobalContext } from './GlobalContext';
-import { CRASH_ID_KEY } from '../entity/constraint';
-
-
+import { AppUtil } from './AppUtil';
 
 
 /**
@@ -34,43 +30,31 @@ import { CRASH_ID_KEY } from '../entity/constraint';
  */
 export class CrashUtil {
 
-  private static observerId: number = -100;
-  private static ErrorFilePath: string =""
-  // private static ErrorFilePath: string = FileUtil.getFilesDirPath("harmony_utils_error_log", "ErrorLog.json"); //错误日志文件路径
+  private static observerId: number | undefined = undefined;
+  private static errorFilePath: string | undefined = undefined; //错误日志文件路径
 
-
-  static onHandledException() {
-
-  }
-
-  // export declare function onExceptionDestroy(): void;
-  // export declare function onHandledException(bean?: ErrorInitBean): void;
 
 
 
   /**
    * 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件。
    */
-  static onError() {
+  static onHandledException() {
     try {
-      let cacheId = GlobalContext.getContext().getObject(CRASH_ID_KEY) as number;
-      if (cacheId !== undefined && cacheId !== -100) {
-        CrashUtil.offError(); //如果存在，就先注销错误观测器。
-      }
-      CrashUtil.observerId = errorManager.on('error', {
-        onUnhandledException(errMsg) {
-          let errStr = `${DateUtil.getTodayStr()} - 异常信息：\n${errMsg}\n\n\n`;
+      if (CrashUtil.observerId === undefined) {
+        CrashUtil.observerId = errorManager.on('error', {
+          onUnhandledException(errMsg) {
+            let errStr = `${DateUtil.getTodayStr()} - 异常信息：\n${errMsg}\n\n\n`;
 
-          FileUtil.writeEasy(CrashUtil.ErrorFilePath, errStr);
-        },
-        onException(errObject) {
-          // let errStr = `${DateUtil.getTodayStr()} - 异常信息2：\n${JSON.stringify(errObject)}\n\n\n`;
-        }
-      });
-      GlobalContext.getContext().setObject(CRASH_ID_KEY, CrashUtil.observerId);
+            // FileUtil.writeEasy(CrashUtil.ErrorFilePath, errStr);
+          },
+          onException(errObject) {
+            // let errStr = `${DateUtil.getTodayStr()} - 异常信息2：\n${JSON.stringify(errObject)}\n\n\n`;
+          }
+        });
+      }
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`CrashUtil-onError-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
     }
   }
 
@@ -78,82 +62,116 @@ export class CrashUtil {
   /**
    * 注销错误观测器。
    */
-  static offError() {
+  static onExceptionDestroy() {
     try {
-      if (CrashUtil.observerId === -100) {
-        let cacheId = GlobalContext.getContext().getObject(CRASH_ID_KEY) as number;
-        if (cacheId && cacheId != -100) {
-          CrashUtil.observerId = cacheId;
-        }
+      if (CrashUtil.observerId) {
+        errorManager.off('error', CrashUtil.observerId, (err: BusinessError) => {
+          if (err) {
+            LogUtil.error("CrashUtil：" + JSON.stringify(err));
+          }
+        });
       }
-      errorManager.off('error', CrashUtil.observerId, (err: BusinessError) => {
-        if (err) {
-          LogUtil.error("CrashUtil：" + JSON.stringify(err))
-          return;
-        }
-        GlobalContext.getContext().setObject(CRASH_ID_KEY, -100);
-      });
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`CrashUtil-offError-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
     }
   }
 
 
+  // /**
+  //  * 导出错误日志
+  //  */
+  // static onExportErrorLog() {
+  //   CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
+  //   if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
+  //     // PickerUtil.saveDocumentEasy(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
+  //     //   if (documentSaveResult && documentSaveResult.length > 0) {
+  //     //     let saveUri = documentSaveResult[0];
+  //     //     let file = FileUtil.openSync(saveUri);
+  //     //     FileUtil.copyFile(CrashUtil.ErrorFilePath, file.fd).then(() => {
+  //     //       FileUtil.close(file.fd);
+  //     //     });
+  //     //   }
+  //     // })
+  //   } else {
+  //     ToastUtil.showToast("暂无日志文件");
+  //   }
+  // }
+
+
   /**
-   * 导出错误日志
+   * 获取错误日志文件路径
+   * @returns
    */
-  static onExportErrorLog() {
-    CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
-    if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
-      // PickerUtil.saveDocumentEasy(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
-      //   if (documentSaveResult && documentSaveResult.length > 0) {
-      //     let saveUri = documentSaveResult[0];
-      //     let file = FileUtil.openSync(saveUri);
-      //     FileUtil.copyFile(CrashUtil.ErrorFilePath, file.fd).then(() => {
-      //       FileUtil.close(file.fd);
-      //     });
-      //   }
-      // })
-    } else {
-      ToastUtil.showToast("暂无日志文件");
+  static getErrorFilePath(): string {
+    if (CrashUtil.errorFilePath === undefined) {
+      CrashUtil.errorFilePath = FileUtil.getFilesDirPath("harmony_utils_error_log", "ErrorLog.json"); //错误日志文件路径
     }
+    return CrashUtil.errorFilePath;
   }
 
 
   /**
-   * 读取错误日志文件
+   * 读取错误日志文件的JSON字符串。
    */
-  static async readErrorText(): Promise<string> {
-    CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
-    if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
-      if (FileUtil.accessSync(CrashUtil.ErrorFilePath)) {
-        return await FileUtil.readText(CrashUtil.ErrorFilePath);
-      }
+  static async getErrorJson(): Promise<string> {
+    const errorFilePath = CrashUtil.getErrorFilePath();
+    if (FileUtil.accessSync(errorFilePath)) {
+      return await FileUtil.readText(errorFilePath);
     }
     return '';
   }
 
 
 
+
   /**
    * 将数据写入文件，并关闭文件。
-   * @param path string 文件的应用沙箱路径或URI。
-   * @param str string 待写入文件的数据，可来自缓冲区或字符串。。
    */
-  // static writeStr(path: string, str: string): number {
-  //   const file = FileUtil.openSync(path, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-  //   const offset = FileUtil.statSync(file.fd).size;
-  //   if (offset === 0) {
-  //     str = `[${str}]`;
-  //   } else {
-  //     str = `,${str}`;
-  //   }
-  //   const options: WriteOptions = { offset: offset, encoding: 'utf-8' };
-  //   let result = FileUtil.writeSync(file.fd, str, options);
-  //   FileUtil.closeSync(file.fd); //关闭文件
-  //   return result;
-  // }
+  private static writeStr(path: string, str: string): number {
+    const file = FileUtil.openSync(path);
+    const offset = FileUtil.statSync(file.fd).size;
+    if (offset === 0) {
+      str = `[${str}]`;
+    } else {
+      str = `,${str}`;
+    }
+    const options: WriteOptions = { offset: offset, encoding: 'utf-8' };
+    let result = FileUtil.writeSync(file.fd, str, options);
+    FileUtil.closeSync(file.fd); //关闭文件
+    return result;
+  }
+
+
+
+  /**
+   * 启用应用恢复功能，参数按顺序填入；该接口调用后，应用从启动器启动时第一个Ability支持恢复。该方法已过时，推荐使用：AppUtil.enableAppRecovery()
+   */
+  static enableAppRecovery(restart: appRecovery.RestartFlag = appRecovery.RestartFlag.ALWAYS_RESTART,
+    saveOccasion: appRecovery.SaveOccasionFlag = appRecovery.SaveOccasionFlag.SAVE_WHEN_ERROR,
+    saveMode: appRecovery.SaveModeFlag.SAVE_WITH_FILE = appRecovery.SaveModeFlag.SAVE_WITH_FILE) {
+    AppUtil.enableAppRecovery(restart, saveOccasion, saveMode);
+  }
+
+  /**
+   * 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用。该方法已过时，推荐使用：AppUtil.restartApp()
+   */
+  static restartApp() {
+    AppUtil.restartApp()
+  }
+
+  /**
+   * 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility。该方法已过时，推荐使用：AppUtil.setRestartWant()
+   */
+  static setRestartWant(want: Want) {
+    AppUtil.setRestartWant(want);
+  }
+
+  /**
+   * 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用。该方法已过时，推荐使用：AppUtil.saveAppState()
+   */
+  static saveAppState(context?: common.UIAbilityContext): boolean {
+    return AppUtil.saveAppState(context);
+  }
 
 
 }

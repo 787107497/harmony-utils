@@ -35,8 +35,6 @@ export const DATE_FORMAT17: string = "HH时mm分"; //14时06分
 
 export const DEVICE_ID_KEY: string = "device_id_cache_harmony_key"; //设备ID的Key
 
-export const CRASH_ID_KEY: string = 'crash_observer_id_key' //Crash的ID的key
-
 export const DEFAULT_PREFERENCE_NAME: string = "SP_HARMONY_UTILS_PREFERENCES"; //Preferences实例的名称。
 
 
