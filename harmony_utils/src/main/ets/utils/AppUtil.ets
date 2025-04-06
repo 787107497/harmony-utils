@@ -20,6 +20,7 @@ import { resourceManager } from '@kit.LocalizationKit';
 import { appRecovery, common, ConfigurationConstant, Want } from '@kit.AbilityKit';
 import { LogUtil } from './LogUtil';
 import { DeviceUtil } from './DeviceUtil';
+import { WindowUtil } from './WindowUtil';
 
 
 /**
@@ -53,6 +54,13 @@ export class AppUtil {
     return AppUtil.context;
   }
 
+  /**
+   * 获取UIContext
+   * @returns
+   */
+  static getUIContext(): UIContext {
+    return AppUtil.getMainWindow().getUIContext();
+  }
 
   /**
    * 获取WindowStage
@@ -67,14 +75,6 @@ export class AppUtil {
    */
   static getMainWindow(): window.Window {
     return AppUtil.getContext().windowStage.getMainWindowSync();
-  }
-
-  /**
-   * 获取UIContext
-   * @returns
-   */
-  static getUIContext(): UIContext {
-    return AppUtil.getMainWindow().getUIContext();
   }
 
 
@@ -120,16 +120,6 @@ export class AppUtil {
 
 
   /**
-   * 获取当前窗口的属性
-   * @param windowClass 不传该值，获取主窗口的属性
-   * @returns
-   */
-  static getWindowProperties(windowClass: window.Window = AppUtil.getMainWindow()): window.WindowProperties {
-    return windowClass.getWindowProperties();
-  }
-
-
-  /**
    * 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）。
    */
   static getKeyboardAvoidMode(): KeyboardAvoidMode {
@@ -143,7 +133,6 @@ export class AppUtil {
     }
     return mode;
   }
-
 
   /**
    * 设置虚拟键盘弹出时，页面的避让模式。
@@ -175,96 +164,6 @@ export class AppUtil {
   static isLandscape(): Boolean {
     const direction = DeviceUtil.getDirection();
     return direction === resourceManager.Direction.DIRECTION_HORIZONTAL;
-  }
-
-
-  /**
-   * 设置窗口的显示方向属性，使用Promise异步回调。
-   * Orientation 窗口显示方向类型枚举:
-   *   UNSPECIFIED  0  表示未定义方向模式，由系统判定。
-   *   PORTRAIT  1  表示竖屏显示模式。
-   *   LANDSCAPE  2  表示横屏显示模式。
-   *   PORTRAIT_INVERTED  3  表示反向竖屏显示模式。
-   *   LANDSCAPE_INVERTED  4  表示反向横屏显示模式。
-   *   AUTO_ROTATION  5  表示传感器自动旋转模式。
-   *   AUTO_ROTATION_PORTRAIT  6  表示传感器自动竖向旋转模式。
-   *   AUTO_ROTATION_LANDSCAPE  7  表示传感器自动横向旋转模式。
-   *   AUTO_ROTATION_RESTRICTED  8  表示受开关控制的自动旋转模式。
-   *   AUTO_ROTATION_PORTRAIT_RESTRICTED  9  表示受开关控制的自动竖向旋转模式。
-   *   AUTO_ROTATION_LANDSCAPE_RESTRICTED  10  表示受开关控制的自动横向旋转模式。
-   *   LOCKED  11  表示锁定模式。
-   */
-  static async setPreferredOrientation(orientation: window.Orientation,
-    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return windowClass.setPreferredOrientation(orientation);
-  }
-
-
-  /**
-   * 设置屏幕亮度值，使用Promise异步回调。
-   * @param brightness  屏幕亮度值。该参数为浮点数，取值范围为[0.0, 1.0]或-1.0。1.0表示最亮，-1.0表示默认亮度。
-   * @returns
-   */
-  static async setWindowBrightness(brightness: number,
-    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return windowClass.setWindowBrightness(brightness);
-  }
-
-
-  /**
-   * 设置屏幕是否为常亮状态，使用Promise异步回调。
-   * @param isKeepScreenOn  true表示常亮；false表示不常亮。
-   * @returns
-   */
-  static async setWindowKeepScreenOn(isKeepScreenOn: boolean,
-    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return windowClass.setWindowKeepScreenOn(isKeepScreenOn);
-  }
-
-
-  /**
-   * 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏。
-   * @param isPrivacyMode 窗口是否为隐私模式。true表示模式开启；false表示模式关闭。
-   * @returns
-   */
-  static async setWindowPrivacyMode(isPrivacyMode: boolean,
-    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return windowClass.setWindowPrivacyMode(isPrivacyMode);
-  }
-
-
-  /**
-   * 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用。
-   * @param color 需要设置的背景色，为十六进制RGB或ARGB颜色，不区分大小写，例如#00FF00或#FF00FF00。
-   * @returns
-   */
-  static setWindowBackgroundColor(color: string, windowClass: window.Window = AppUtil.getMainWindow()) {
-    try {
-      windowClass.setWindowBackgroundColor(color);
-    } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AppUtil-setWindowBackgroundColor-异常 ~ code: ${error.code} -·- message: ${error.message}`);
-    }
-  }
-
-  /**
-   * 设置点击时是否支持切换焦点窗口，使用Promise异步回调。
-   * @param isFocusable 点击时是否支持切换焦点窗口。true表示支持；false表示不支持。
-   * @returns
-   */
-  static async setWindowFocusable(isFocusable: boolean,
-    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return windowClass.setWindowFocusable(isFocusable);
-  }
-
-  /**
-   * 设置窗口是否为可触状态，使用Promise异步回调。
-   * @param isTouchable 窗口是否为可触状态。true表示可触；false表示不可触。
-   * @returns
-   */
-  static async setWindowTouchable(isTouchable: boolean,
-    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
-    return windowClass.setWindowTouchable(isTouchable);
   }
 
 
@@ -377,6 +276,40 @@ export class AppUtil {
 
 
   /**
+   * 获取应用程序的配置信息
+   * @returns
+   */
+  static async getAppInfo(): Promise<bundleManager.ApplicationInfo> {
+    return (await AppUtil.getBundleInfo()).appInfo;
+  }
+
+  /**
+   * 获取应用程序的配置信息
+   * @returns
+   */
+  static getAppInfoSync(): bundleManager.ApplicationInfo {
+    return AppUtil.getBundleInfoSync().appInfo;
+  }
+
+
+  /**
+   * 获取应用包的签名信息
+   * @returns
+   */
+  static async getSignatureInfo(): Promise<bundleManager.SignatureInfo> {
+    return (await AppUtil.getBundleInfo()).signatureInfo;
+  }
+
+  /**
+   * 获取应用包的签名信息
+   * @returns
+   */
+  static getSignatureInfoSync(): bundleManager.SignatureInfo {
+    return AppUtil.getBundleInfoSync().signatureInfo;
+  }
+
+
+  /**
    * 获取应用包的名称。
    */
   static getBundleName(): string {
@@ -418,40 +351,6 @@ export class AppUtil {
    */
   static getUpdateTime(): number {
     return AppUtil.getBundleInfoSync().updateTime;
-  }
-
-
-  /**
-   * 获取应用包的签名信息
-   * @returns
-   */
-  static async getSignatureInfo(): Promise<bundleManager.SignatureInfo> {
-    return (await AppUtil.getBundleInfo()).signatureInfo;
-  }
-
-  /**
-   * 获取应用包的签名信息
-   * @returns
-   */
-  static getSignatureInfoSync(): bundleManager.SignatureInfo {
-    return AppUtil.getBundleInfoSync().signatureInfo;
-  }
-
-
-  /**
-   * 获取应用程序的配置信息
-   * @returns
-   */
-  static async getAppInfo(): Promise<bundleManager.ApplicationInfo> {
-    return (await AppUtil.getBundleInfo()).appInfo;
-  }
-
-  /**
-   * 获取应用程序的配置信息
-   * @returns
-   */
-  static getAppInfoSync(): bundleManager.ApplicationInfo {
-    return AppUtil.getBundleInfoSync().appInfo;
   }
 
 
@@ -518,6 +417,66 @@ export class AppUtil {
     } else {
       return appRecovery.saveAppState() //保存当前App状态
     }
+  }
+
+
+
+  /**
+   * 获取当前窗口的属性。该方法已过时，推荐使用：WindowUtil.getWindowProperties()
+   * @param windowClass 不传该值，获取主窗口的属性
+   * @returns
+   */
+  static getWindowProperties(windowClass: window.Window = AppUtil.getMainWindow()): window.WindowProperties {
+    return WindowUtil.getWindowProperties(windowClass);
+  }
+
+  /**
+   * 设置窗口的显示方向属性。该方法已过时，推荐使用：WindowUtil.setPreferredOrientation()
+   */
+  static async setPreferredOrientation(orientation: window.Orientation, windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return WindowUtil.setPreferredOrientation(orientation, windowClass);
+  }
+
+  /**
+   * 设置屏幕亮度值。该方法已过时，推荐使用：WindowUtil.setWindowBrightness()
+   */
+  static async setWindowBrightness(brightness: number, windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return WindowUtil.setWindowBrightness(brightness, windowClass);
+  }
+
+  /**
+   * 设置屏幕是否为常亮状态。该方法已过时，推荐使用：WindowUtil.setWindowKeepScreenOn()
+   */
+  static async setWindowKeepScreenOn(isKeepScreenOn: boolean, windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return WindowUtil.setWindowKeepScreenOn(isKeepScreenOn, windowClass);
+  }
+
+  /**
+   * 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏。该方法已过时，推荐使用：WindowUtil.setWindowPrivacyMode()
+   */
+  static async setWindowPrivacyMode(isPrivacyMode: boolean, windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return WindowUtil.setWindowPrivacyMode(isPrivacyMode, windowClass);
+  }
+
+  /**
+   * 设置窗口的背景色。该方法已过时，推荐使用：WindowUtil.setWindowBackgroundColor()
+   */
+  static setWindowBackgroundColor(color: string, windowClass: window.Window = AppUtil.getMainWindow()) {
+    WindowUtil.setWindowBackgroundColor(color, windowClass);
+  }
+
+  /**
+   * 设置点击时是否支持切换焦点窗口。该方法已过时，推荐使用：WindowUtil.setWindowFocusable()
+   */
+  static async setWindowFocusable(isFocusable: boolean, windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return WindowUtil.setWindowFocusable(isFocusable, windowClass);
+  }
+
+  /**
+   * 设置窗口是否为可触状态。该方法已过时，推荐使用：WindowUtil.setWindowTouchable()
+   */
+  static async setWindowTouchable(isTouchable: boolean, windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return WindowUtil.setWindowTouchable(isTouchable, windowClass);
   }
 
 

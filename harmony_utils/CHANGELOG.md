@@ -1,5 +1,15 @@
 # 版本记录
 
+## 1.3.2（API12 ）
+1. AppUtil，新增setColorMode、setFont、getTargetVersion、getInstallTime、getUpdateTime等方法。
+2. 将CrashUtil的enableAppRecovery、restartApp、setRestartWant、saveAppState方法迁移到AppUtil。
+3. 
+```typescript
+//1.3.1版本适配指南：
+
+```
+
+
 ## 1.3.1（API12 ）
 1. 移除module.json5中配置的权限。
 ```typescript

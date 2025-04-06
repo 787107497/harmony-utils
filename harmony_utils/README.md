@@ -29,86 +29,95 @@ OpenHarmony ohpm
 
 ## 📂模块介绍
 
-| 模块                                                                                | 介绍                                                                       |
-|:----------------------------------------------------------------------------------|:-------------------------------------------------------------------------|
-| AppUtil                                                                           | APP相关工具类                                                                 |
-| DeviceUtil                                                                        | 设备相关工具类                                                                  |
-| DisplayUtil                                                                       | 屏幕相关工具类                                                                  |
-| PermissionUtil                                                                    | 申请授权工具类                                                                  |
-| NotificationUtil                                                                  | 通知工具类                                                                    |
-| EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                      |
-| WantUtil                                                                          | Want工具类                                                                  |
-| AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                     |
-| PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                    |
-| KvUtil                                                                            | 键值型数据库工具类                                                                |
-| CacheUtil                                                                         | 缓存工具类                                                                    |
-| LRUCacheUtil                                                                      | LRUCache缓存工具类                                                            |
-| FileUtil                                                                          | 文件操作相关工具类                                                                |
-| PickerUtil                                                                        | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类                                              |
-| PhotoHelper                                                                       | 相册相关工具类                                                                  |
-| ImageUtil                                                                         | 图片相关工具类                                                                  |
-| SnapshotUtil                                                                      | 组件截图和窗口截图工具类                                                             |
-| PreviewUtil                                                                       | 文件预览工具类                                                                  |
-| ScanUtil                                                                          | 码工具类（扫码、码图生成、图片识码）                                                       |
-| LocationUtil                                                                      | 定位工具类(WGS-84坐标系)                                                         |
-| LogUtil                                                                           | 日志工具类                                                                    |
-| ResUtil                                                                           | 资源工具类                                                                    |
-| DateUtil                                                                          | 日期工具类                                                                    |
-| StrUtil                                                                           | 字符串工具类                                                                   |
-| RegexUtil                                                                         | 正则工具类                                                                    |
-| FormatUtil                                                                        | 格式化工具类                                                                   |
-| CharUtil                                                                          | 字符工具类                                                                    |
-| Base64Util                                                                        | Base64工具类                                                                |
-| NumberUtil                                                                        | number工具类                                                                |
-| ArrayUtil                                                                         | 集合工具类                                                                    |
-| RandomUtil                                                                        | 随机工具类                                                                    |
-| ObjectUtil                                                                        | 对象工具类                                                                    |
-| JSONUtil                                                                          | JSON工具类                                                                  |
-| ClickUtil                                                                         | 节流、防抖 工具类（用于点击事件，防止按钮被重复点击）                                              |
-| CrashUtil                                                                         | 全局异常捕获，崩溃日志收集                                                            |
-| KeyboardUtil                                                                      | 键盘工具类                                                                    |
-| PasteboardUtil                                                                    | 剪贴板工具类                                                                   |
-| NetworkUtil                                                                       | 网络相关工具类                                                                  |
-| AssetUtil                                                                         | 关键资产存储服务工具类                                                              |
-| TempUtil                                                                          | 温度转换工具类，华氏度与摄氏度相互转换                                                      |
-| DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                       |
-| ToastUtil                                                                         | 吐司工具类（promptAction）                                                      |
-| SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。 |
+| 模块                                                                                | 介绍                                                                                                           |
+|:----------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------|
+| AppUtil                                                                           | APP相关工具类                                                                                                     |
+| DeviceUtil                                                                        | 设备相关工具类                                                                                                      |
+| DisplayUtil                                                                       | 屏幕相关工具类                                                                                                      |
+| PermissionUtil                                                                    | 申请授权工具类                                                                                                      |
+| NotificationUtil                                                                  | 通知工具类                                                                                                        |
+| EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                                                          |
+| WantUtil                                                                          | Want工具类                                                                                                      |
+| AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                                                         |
+| PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                                                        |
+| KvUtil                                                                            | 键值型数据库工具类                                                                                                    |
+| CacheUtil                                                                         | 缓存工具类                                                                                                        |
+| LRUCacheUtil                                                                      | LRUCache缓存工具类                                                                                                |
+| FileUtil                                                                          | 文件操作相关工具类                                                                                                    |
+| ImageUtil                                                                         | 图片相关工具类                                                                                                      |
+| PreviewUtil                                                                       | 文件预览工具类                                                                                                      |
+| SnapshotUtil                                                                      | 组件截图和窗口截图工具类。                                                                                                |
+| LocationUtil                                                                      | 定位工具类(WGS-84坐标系)                                                                                             |
+| LogUtil                                                                           | 日志工具类                                                                                                        |
+| ResUtil                                                                           | 资源工具类                                                                                                        |
+| DateUtil                                                                          | 日期工具类                                                                                                        |
+| StrUtil                                                                           | 字符串工具类                                                                                                       |
+| RegexUtil                                                                         | 正则工具类                                                                                                        |
+| FormatUtil                                                                        | 格式化工具类                                                                                                       |
+| CharUtil                                                                          | 字符工具类                                                                                                        |
+| Base64Util                                                                        | Base64工具类                                                                                                    |
+| NumberUtil                                                                        | number工具类                                                                                                    |
+| ArrayUtil                                                                         | 集合工具类                                                                                                        |
+| RandomUtil                                                                        | 随机工具类                                                                                                        |
+| ObjectUtil                                                                        | 对象工具类                                                                                                        |
+| JSONUtil                                                                          | JSON工具类                                                                                                      |
+| ClickUtil                                                                         | 节流、防抖 工具类（用于点击事件，防止按钮被重复点击）                                                                                  |
+| CrashUtil                                                                         | 全局异常捕获，崩溃日志收集                                                                                                |
+| KeyboardUtil                                                                      | 键盘工具类                                                                                                        |
+| PasteboardUtil                                                                    | 剪贴板工具类                                                                                                       |
+| NetworkUtil                                                                       | 网络相关工具类                                                                                                      |
+| AssetUtil                                                                         | 关键资产存储服务工具类                                                                                                  |
+| TempUtil                                                                          | 温度转换工具类，华氏度与摄氏度相互转换                                                                                          |
+| DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                                                           |
+| ToastUtil                                                                         | 吐司工具类（promptAction）                                                                                          |
+| SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。                                     |
+| PickerUtil                                                                        | 拍照、文件(文件、图片、视频、音频)选择和保存,工具类。[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils) |
+| PhotoHelper                                                                       | 相册相关工具类。[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)                     |
+| ScanUtil                                                                          | 码工具类（扫码、码图生成、图片识码）。[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)          |
 
 <br>
 
 ## AppUtil（APP相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AppUtilPage.ets)
 
-| 方法                           | 介绍                                                                       |
-|:-----------------------------|:-------------------------------------------------------------------------|
-| init                         | 初始化方法,缓存全局变量，在UIAbility的onCreate方法中初始化该方法                                |
-| getContext                   | 获取上下文，common.UIAbilityContext                                            |
-| getWindowStage               | 获取WindowStage                                                            |
-| getMainWindow                | 获取主窗口                                                                    |
-| getUIContext                 | 获取UIContext                                                              |
-| setGrayScale                 | 设置灰阶，APP一键置灰                                                             |
-| setStatusBar                 | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用）        |
-| getWindowProperties          | 获取当前窗口的属性                                                                |
-| getKeyboardAvoidMode         | 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）                                |
-| setKeyboardAvoidMode         | 设置虚拟键盘弹出时，页面的避让模式                                                        |
-| isPortrait                   | 当前设备是否以竖屏方式显示                                                            |
-| isLandscape                  | 当前设备是否以横屏方式显示                                                            |
-| setPreferredOrientation      | 设置窗口的显示方向属性                                                              |
-| setWindowBrightness          | 设置屏幕亮度值                                                                  |
-| setWindowKeepScreenOn        | 设置屏幕是否为常亮状态                                                              |
-| setWindowPrivacyMode         | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                                     |
-| setWindowBackgroundColor     | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用              |
-| setWindowFocusable           | 设置点击时是否支持切换焦点窗口                                                          |
-| setWindowTouchable           | 设置窗口是否为可触状态                                                              |
-| getStatusBarHeight           | 获取状态栏的高度，单位为px                                                           |
-| getNavigationIndicatorHeight | 获取底部导航条的高度，单位为px。                                                        |
-| getBundleInfo                | 获取当前应用的BundleInfo                                                        |
-| getBundleName                | 获取应用包的名称                                                                 |
-| getVersionCode               | 获取应用版本号                                                                  |
-| getVersionName               | 获取应用版本名                                                                  |
-| getTargetVersion             | 获取运行应用包所需要最高SDK版本号                                                       |
-| getAppInfo                   | 获取应用程序的配置信息                                                              |
-| exit                         | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
+| 方法                                        | 介绍                                                                       |
+|:------------------------------------------|:-------------------------------------------------------------------------|
+| init                                      | 初始化方法,缓存全局变量，在UIAbility的onCreate方法中初始化该方法                                |
+| getContext                                | 获取上下文，common.UIAbilityContext                                            |
+| getUIContext                              | 获取UIContext                                                              |
+| getWindowStage                            | 获取WindowStage                                                            |
+| getMainWindow                             | 获取主窗口                                                                    |
+| setGrayScale                              | 设置灰阶，APP一键置灰                                                             |
+| setColorMode                              | 设置应用的颜色模式。仅支持主线程调用。设置颜色模式，包括：深色模式、浅色模式、不设置（跟随系统）                         |
+| setFont                                   | 设置应用的字体类型。仅支持主线程调用                                                       |
+| getKeyboardAvoidMode                      | 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）                                |
+| setKeyboardAvoidMode                      | 设置虚拟键盘弹出时，页面的避让模式                                                        |
+| isPortrait                                | 当前设备是否以竖屏方式显示                                                            |
+| isLandscape                               | 当前设备是否以横屏方式显示                                                            |
+| setPreferredOrientation                   | 设置窗口的显示方向属性                                                              |
+| getWindowProperties                       | 获取当前窗口的属性                                                                |
+| setWindowBrightness                       | 设置屏幕亮度值                                                                  |
+| setWindowKeepScreenOn                     | 设置屏幕是否为常亮状态                                                              |
+| setWindowPrivacyMode                      | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                                     |
+| setWindowBackgroundColor                  | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用              |
+| setWindowFocusable                        | 设置点击时是否支持切换焦点窗口                                                          |
+| setWindowTouchable                        | 设置窗口是否为可触状态                                                              |
+| getStatusBarHeight                        | 获取状态栏的高度，单位为px                                                           |
+| getNavigationIndicatorHeight              | 获取底部导航条的高度，单位为px。                                                        |
+| setStatusBar                              | 设置沉浸式状态栏（需要配合getStatusBarHeight和getNavigationIndicatorHeight一起使用）        |
+| getBundleInfo<br/>getBundleInfoSync       | 获取当前应用的BundleInfo                                                        |
+| getAppInfo<br/>getAppInfoSync             | 获取应用程序的配置信息                                                              |
+| getSignatureInfo<br/>getSignatureInfoSync | 获取应用包的签名信息                                                               |
+| getBundleName                             | 获取应用包的名称                                                                 |
+| getVersionCode                            | 获取应用版本号                                                                  |
+| getVersionName                            | 获取应用版本名                                                                  |
+| getTargetVersion                          | 获取运行应用包所需要最高SDK版本号                                                       |
+| getInstallTime                            | 应用包安装时间                                                                  |
+| getUpdateTime                             | 应用包更新时间                                                                  |
+| exit                                      | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
+| enableAppRecovery                         | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                         |
+| restartApp                                | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                          |
+| saveAppState                              | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用        |
+| setRestartWant                            | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                          |
 
 ## DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
@@ -347,29 +356,6 @@ OpenHarmony ohpm
 | deactivatePermission<br>deactivatePermissionEasy | 取消使能授权过的多个文件或目录。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                          |
 | checkPersistentPermission                        | 校验所选择的多个文件或目录URI持久化授权。（需要权限：ohos.permission.FILE_ACCESS_PERSIST）                    |
 
-## PickerUtil（拍照、文件选择和保存,工具类）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
-
-| 方法             | 介绍                                                  |
-|:---------------|:----------------------------------------------------|
-| camera         | 调用系统相机，拍照、录视频                                       |
-| selectPhoto    | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频              |
-| savePhoto      | 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无参数，则默认需要用户自行输入 |
-| selectDocument | 通过选择模式拉起documentPicker界面，用户可以选择一个或多个文件              |
-| saveDocument   | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
-| selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
-| saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
-
-## PhotoHelper（相册相关,工具类）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
-
-| 方法                           | 介绍                                     |
-|:-----------------------------|:---------------------------------------|
-| select                       | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频 |
-| save                         | 申请权限保存，保存图片或视频到相册。                     |
-| showAssetsCreationDialog     | 弹窗授权保存，调用接口拉起保存确认弹窗。                   |
-| showAssetsCreationDialogEasy | 弹窗授权保存，调用接口拉起保存确认弹窗，并保存。               |
-| applyChanges                 | 安全控件保存，提交媒体变更请求，插入图片/视频。               |
-| getPhotoAsset                | 获取对应uri的PhotoAsset对象,用于读取文件信息          |
-
 ## ImageUtil（图片相关工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ImageUtilPage.ets)
 
 | 方法                        | 介绍                                |
@@ -414,16 +400,6 @@ OpenHarmony ohpm
 | getTypeDescriptor   | 根据文件后缀名获取TypeDescriptor（标准化数据类型的描述类） |
 | getMimeType         | 根据文件后缀名获取文件mimeType                  |
 | getIconFileStr      | 根据文件后缀名获取对应文件类型的图标                   |
-
-## ScanUtil（码工具类(扫码、码图生成、图片识码)）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
-
-| 方法                    | 介绍                           |
-|:----------------------|:-----------------------------|
-| startScanForResult    | 调用默认界面扫码，使用Promise方式异步返回解码结果 |
-| generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
-| onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码    |
-| onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
-| canIUseScan           | 判断当前设备是否支持码能力                |
 
 ## LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
 
@@ -693,10 +669,6 @@ OpenHarmony ohpm
 | offError          | 注销错误观测器                                                           |
 | readErrorText     | 读取错误日志文件                                                          |
 | onExportErrorLog  | 导出错误日志文件                                                          |
-| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                  |
-| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
-| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
-| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
 
 ## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 
@@ -922,6 +894,40 @@ OpenHarmony ohpm
 | toHexWithPaddingZero     | 补零操作                  |
 | stringToHex              | 字符串转Hex字符串            |
 | uint8ArrayToString       | 字节流转成可理解的字符串          |
+
+## PickerUtil（拍照、文件选择和保存,工具类）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
+
+| 方法             | 介绍                                                  |
+|:---------------|:----------------------------------------------------|
+| camera         | 调用系统相机，拍照、录视频                                       |
+| selectPhoto    | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频              |
+| savePhoto      | 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无参数，则默认需要用户自行输入 |
+| selectDocument | 通过选择模式拉起documentPicker界面，用户可以选择一个或多个文件              |
+| saveDocument   | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
+| selectAudio    | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
+| saveAudio      | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
+
+## PhotoHelper（相册相关,工具类）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
+
+| 方法                           | 介绍                                     |
+|:-----------------------------|:---------------------------------------|
+| select                       | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频 |
+| save                         | 申请权限保存，保存图片或视频到相册。                     |
+| showAssetsCreationDialog     | 弹窗授权保存，调用接口拉起保存确认弹窗。                   |
+| showAssetsCreationDialogEasy | 弹窗授权保存，调用接口拉起保存确认弹窗，并保存。               |
+| applyChanges                 | 安全控件保存，提交媒体变更请求，插入图片/视频。               |
+| getPhotoAsset                | 获取对应uri的PhotoAsset对象,用于读取文件信息          |
+
+## ScanUtil（码工具类(扫码、码图生成、图片识码)）[拆分至 picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
+
+| 方法                    | 介绍                           |
+|:----------------------|:-----------------------------|
+| startScanForResult    | 调用默认界面扫码，使用Promise方式异步返回解码结果 |
+| generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
+| onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码    |
+| onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
+| canIUseScan           | 判断当前设备是否支持码能力                |
+
 
 ## 🍎贡献代码与技术交流
 

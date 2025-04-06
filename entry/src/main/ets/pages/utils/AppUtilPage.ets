@@ -1,9 +1,10 @@
-import { KeyboardAvoidMode, router, window } from '@kit.ArkUI';
+import { font, KeyboardAvoidMode, router, window } from '@kit.ArkUI';
 import { AppUtil, DialogUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { ConfigurationConstant } from '@kit.AbilityKit';
 
 /**
  * APP相关工具类
@@ -23,6 +24,9 @@ struct Index {
   @State bundleInfoStr: string = ''
   @State infoStr: string = ''
   @State appInfoStr: string = ''
+  @State blGray: boolean = false; //置灰状态
+  @State colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT; //深浅色模式
+
 
   @MockSetup
   mock() {
@@ -39,13 +43,13 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let context = AppUtil.getContext();
-              ToastUtil.showToast("成功获取上下文")
+              ToastUtil.showToast("成功获取上下文");
             })
           Button("getUIContext()")
             .btnStyle()
             .onClick(() => {
               let uiContext = AppUtil.getUIContext();
-              ToastUtil.showToast("成功获取UIContext")
+              ToastUtil.showToast("成功获取UIContext");
             })
           Button("getWindowStage()")
             .btnStyle()
@@ -61,37 +65,44 @@ struct Index {
               LogUtil.error(JSON.stringify(mainWindow, null, 2));
               ToastUtil.showToast("成功获取主窗口");
             })
+
+
+
           Button("setGrayScale()")
             .btnStyle()
             .onClick(() => {
-              AppUtil.setGrayScale(1);
-              ToastUtil.showToast("APP一键置灰成功");
-            })
-          Button("setStatusBar()")
-            .btnStyle()
-            .onClick(() => {
-              this.statusBar = this.statusBar ? false : true;
-              if (this.statusBar) {
-                AppUtil.setStatusBar()
+              if (!this.blGray) {
+                this.blGray = true;
+                AppUtil.setGrayScale(1);
+                ToastUtil.showToast("一键置灰成功");
               } else {
-                AppUtil.setStatusBar(false, true)
+                this.blGray = false;
+                AppUtil.setGrayScale(0);
+                ToastUtil.showToast("取消置灰成功");
               }
             })
-          Button("getWindowProperties()")
+          Button("setColorMode()")
             .btnStyle()
             .onClick(() => {
-              let p = AppUtil.getWindowProperties();
-              this.properties = `${JSON.stringify(p, null, 2)}`
+              if (this.colorMode !== ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT) {
+                this.colorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
+                AppUtil.setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
+              } else {
+                this.colorMode = ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+                AppUtil.setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+              }
             })
-          Text(this.properties)
-            .visibility(StrUtil.isNotEmpty(this.properties) ? Visibility.Visible : Visibility.None)
-            .textStyle()
+          Button("setFont()")
+            .btnStyle()
+            .onClick(() => {
+              font.registerFont({ familyName: 'WCSF', familySrc: $rawfile('wcsf.ttf') })
+              AppUtil.setFont('WCSF');
+            })
           Button("getKeyboardAvoidMode()")
             .btnStyle()
             .onClick(() => {
               this.mode = AppUtil.getKeyboardAvoidMode();
-              ToastUtil.showToast(`当前模式为: ${StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ? "上抬模式" :
-                "压缩模式"}`)
+              ToastUtil.showToast(`当前模式为: ${StrUtil.equal(this.mode, KeyboardAvoidMode.OFFSET) ? "上抬模式" : "压缩模式"}`)
             })
           Button("setKeyboardAvoidMode()")
             .btnStyle()
@@ -134,7 +145,7 @@ struct Index {
             .onClick(() => {
               this.bright = this.bright === 1.0 ? 0.0 : 1.0;
               AppUtil.setWindowBrightness(this.bright).then(() => {
-                ToastUtil.showToast(`您已设置亮度: ${this.bright}`)
+                ToastUtil.showToast(`您已设置亮度: ${this.bright}`);
               }).catch((err: BusinessError) => {
                 LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
               });
@@ -162,8 +173,26 @@ struct Index {
           Button("setWindowBackgroundColor()")
             .btnStyle()
             .onClick(() => {
-              AppUtil.setWindowBackgroundColor("#FF00F0")
-              ToastUtil.showToast("设置背景色成功")
+              AppUtil.setWindowBackgroundColor("#FF00F0");
+              ToastUtil.showToast("设置背景色成功");
+            })
+          Button("setWindowFocusable()")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setWindowFocusable(true).then(() => {
+                ToastUtil.showToast("设置成功啦^·^");
+              }).catch((err) => {
+                ToastUtil.showToast("设置失败！");
+              });
+            })
+          Button("setWindowTouchable()")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setWindowTouchable(true).then(() => {
+                ToastUtil.showToast("设置成功啦^·^");
+              }).catch((err) => {
+                ToastUtil.showToast("设置失败！");
+              });
             })
           Button("getStatusBarHeight()")
             .btnStyle()
@@ -177,6 +206,29 @@ struct Index {
               let indicatorHeight = AppUtil.getNavigationIndicatorHeight();
               ToastUtil.showToast(`底部导航条的高度为：${indicatorHeight}px`)
             })
+          Button("setStatusBar()")
+            .btnStyle()
+            .onClick(() => {
+              this.statusBar = this.statusBar ? false : true;
+              if (this.statusBar) {
+                AppUtil.setStatusBar();
+              } else {
+                AppUtil.setStatusBar(false, true);
+              }
+            })
+          Button("getWindowProperties()")
+            .btnStyle()
+            .onClick(() => {
+              let p = AppUtil.getWindowProperties();
+              this.properties = `${JSON.stringify(p, null, 2)}`;
+            })
+          Text(this.properties)
+            .visibility(StrUtil.isNotEmpty(this.properties) ? Visibility.Visible : Visibility.None)
+            .textStyle()
+
+
+
+
           Button("getBundleInfo()")
             .btnStyle()
             .onClick(async () => {
