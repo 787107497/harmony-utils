@@ -177,7 +177,7 @@ export class LogUtil {
       if (i === (len - 1)) {
         end = content.length;
       }
-      let msg = '\n|│  ' + content.substring(i * LogUtil.logSize, end);
+      let msg = '\n│  ' + content.substring(i * LogUtil.logSize, end);
       LogUtil.levelLog(msg, level);
     }
     let bottomLine = LogUtil.getLine('');
@@ -263,7 +263,7 @@ export class LogUtil {
     try {
       let jsonStr = JSON.stringify(obj, null, 2);
       if (line) {
-        jsonStr = jsonStr.replace(/\n/g, '\n|│\t');
+        jsonStr = jsonStr.replace(/\n/g, '\n│\t');
         if (jsonStr.endsWith('\t]')) {
           jsonStr = jsonStr.replace(/..$/, '  ]');
         } else if (jsonStr.endsWith('\t}')) {
@@ -297,7 +297,7 @@ export class LogUtil {
     const stackArray = errorStack?.split('\n');
     let errorLocation: string = stackArray?.filter(item => item !== null && item.length > 1)
     ?.splice(3).join('')?.replaceAll(' ', '') ?? '';
-    return `\n|│  ${errorLocation}\n|│ ${StrUtil.repeat('┄┄┄┄┄┄┄', 20)}`;
+    return `\n│  ${errorLocation}\n│➼${StrUtil.repeat('┄┄┄┄┄┄┄', 21)}`;
   }
 
   /**
@@ -305,9 +305,9 @@ export class LogUtil {
    */
   private static getLine(tag: string = '', length: number = 130): string {
     if (StrUtil.isNotEmpty(tag)) {
-      return `┌${StrUtil.repeat('─', 11)} ${tag} ${StrUtil.repeat('─', length - tag.length - 2)}`;
+      return `┌${StrUtil.repeat('─', 15)}► ${tag} ◄${StrUtil.repeat('─', length - tag.length)}`;
     } else {
-      return `└${StrUtil.repeat('─', 11)}${StrUtil.repeat('─', length)}`;
+      return `└${StrUtil.repeat('─', 19)}${StrUtil.repeat('─', length)}`;
     }
   }
 

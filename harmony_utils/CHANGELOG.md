@@ -3,7 +3,8 @@
 ## 1.3.2（API12 ）
 1. AppUtil，新增setColorMode、setFont、getTargetVersion、getInstallTime、getUpdateTime等方法。
 2. 将CrashUtil的enableAppRecovery、restartApp、setRestartWant、saveAppState方法迁移到AppUtil。
-3. 
+3. 新增WindowUtil工具类。
+4. 
 ```typescript
 //1.3.1版本适配指南：
 

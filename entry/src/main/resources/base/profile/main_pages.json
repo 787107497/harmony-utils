@@ -3,6 +3,7 @@
     "pages/Index",
     "pages/utils/AppUtilPage",
     "pages/utils/DeviceUtilPage",
+    "pages/utils/WindowUtilPage",
     "pages/utils/DisplayUtilPage",
     "pages/utils/PermissionUtilPage",
     "pages/utils/NotificationUtilPage",

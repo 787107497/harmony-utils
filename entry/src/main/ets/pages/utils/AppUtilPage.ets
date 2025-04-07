@@ -1,7 +1,6 @@
-import { font, KeyboardAvoidMode, router, window } from '@kit.ArkUI';
+import { font, KeyboardAvoidMode, router } from '@kit.ArkUI';
 import { AppUtil, DialogUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 import { ConfigurationConstant } from '@kit.AbilityKit';
@@ -14,16 +13,12 @@ import { ConfigurationConstant } from '@kit.AbilityKit';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
-  @State properties: string = '' //主窗口的属性
   @State mode: number = KeyboardAvoidMode.OFFSET; //上抬模式
-  @State num: number = 4;
   @State bright: number = 0.0; //屏幕亮度值
   @State isKeepScreenOn: boolean = false; //屏幕是否为常亮状态
   @State privacyMode: boolean = false; //是否隐私模式
   @State statusBar: boolean = false;
-  @State bundleInfoStr: string = ''
   @State infoStr: string = ''
-  @State appInfoStr: string = ''
   @State blGray: boolean = false; //置灰状态
   @State colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT; //深浅色模式
 
@@ -65,9 +60,6 @@ struct Index {
               LogUtil.error(JSON.stringify(mainWindow, null, 2));
               ToastUtil.showToast("成功获取主窗口");
             })
-
-
-
           Button("setGrayScale()")
             .btnStyle()
             .onClick(() => {
@@ -128,72 +120,6 @@ struct Index {
               let isLandscape = AppUtil.isLandscape();
               ToastUtil.showToast(`当前是否横屏: ${isLandscape}`)
             })
-          Button("setPreferredOrientation()")
-            .btnStyle()
-            .onClick(() => {
-              AppUtil.setPreferredOrientation(AppUtil.isLandscape() ? window.Orientation.PORTRAIT :
-              window.Orientation.LANDSCAPE)
-                .then(() => {
-                  ToastUtil.showToast(`设置成功！`)
-                })
-                .catch((err: BusinessError) => {
-                  LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
-                });
-            })
-          Button("setWindowBrightness()")
-            .btnStyle()
-            .onClick(() => {
-              this.bright = this.bright === 1.0 ? 0.0 : 1.0;
-              AppUtil.setWindowBrightness(this.bright).then(() => {
-                ToastUtil.showToast(`您已设置亮度: ${this.bright}`);
-              }).catch((err: BusinessError) => {
-                LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
-              });
-            })
-          Button("setWindowKeepScreenOn()")
-            .btnStyle()
-            .onClick(() => {
-              this.isKeepScreenOn = this.isKeepScreenOn ? false : true;
-              AppUtil.setWindowKeepScreenOn(this.isKeepScreenOn).then(() => {
-                ToastUtil.showToast(`${this.isKeepScreenOn ? "你已设置常亮" : "你已取消常亮"}`);
-              }).catch((err: BusinessError) => {
-                LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
-              });
-            })
-          Button("setWindowPrivacyMode()")
-            .btnStyle()
-            .onClick(() => {
-              this.privacyMode = this.privacyMode ? false : true;
-              AppUtil.setWindowPrivacyMode(this.privacyMode).then(() => {
-                ToastUtil.showToast(`${this.privacyMode ? "你已设置隐私模式，禁止截屏、录像" : "你已取消隐私模式"}`);
-              }).catch((err: BusinessError) => {
-                LogUtil.error(`异常信息-code: ${err.code} - msg: ${err.message}`)
-              });
-            })
-          Button("setWindowBackgroundColor()")
-            .btnStyle()
-            .onClick(() => {
-              AppUtil.setWindowBackgroundColor("#FF00F0");
-              ToastUtil.showToast("设置背景色成功");
-            })
-          Button("setWindowFocusable()")
-            .btnStyle()
-            .onClick(() => {
-              AppUtil.setWindowFocusable(true).then(() => {
-                ToastUtil.showToast("设置成功啦^·^");
-              }).catch((err) => {
-                ToastUtil.showToast("设置失败！");
-              });
-            })
-          Button("setWindowTouchable()")
-            .btnStyle()
-            .onClick(() => {
-              AppUtil.setWindowTouchable(true).then(() => {
-                ToastUtil.showToast("设置成功啦^·^");
-              }).catch((err) => {
-                ToastUtil.showToast("设置失败！");
-              });
-            })
           Button("getStatusBarHeight()")
             .btnStyle()
             .onClick(() => {
@@ -216,54 +142,48 @@ struct Index {
                 AppUtil.setStatusBar(false, true);
               }
             })
-          Button("getWindowProperties()")
-            .btnStyle()
-            .onClick(() => {
-              let p = AppUtil.getWindowProperties();
-              this.properties = `${JSON.stringify(p, null, 2)}`;
-            })
-          Text(this.properties)
-            .visibility(StrUtil.isNotEmpty(this.properties) ? Visibility.Visible : Visibility.None)
-            .textStyle()
-
-
-
-
           Button("getBundleInfo()")
             .btnStyle()
             .onClick(async () => {
               let bundleInfo = await AppUtil.getBundleInfo();
-              this.bundleInfoStr = JSON.stringify(bundleInfo, null, 2)
+              this.infoStr = JSON.stringify(bundleInfo, null, 2)
             })
-          Text(this.bundleInfoStr)
-            .visibility(StrUtil.isNotEmpty(this.bundleInfoStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
+          Button("getAppInfoSync()")
+            .btnStyle()
+            .onClick(() => {
+              let bundleInfo = AppUtil.getAppInfoSync();
+              this.infoStr = JSON.stringify(bundleInfo, null, 2)
+            })
+          Button("getSignatureInfo()")
+            .btnStyle()
+            .onClick(async () => {
+              let bundleInfo = await AppUtil.getSignatureInfo();
+              this.infoStr = JSON.stringify(bundleInfo, null, 2)
+            })
           Button("getBundleName()\ngetVersionCode()\ngetVersionName()\ngetTargetVersion()")
             .labelStyle({ maxLines: 5 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
-            .onClick(async () => {
-              let bundleName = await AppUtil.getBundleName();
-              let versionCode = await AppUtil.getVersionCode();
-              let versionName = await AppUtil.getVersionName();
-              let targetVersion = await AppUtil.getTargetVersion();
-              this.infoStr =
-                `bundleName: ${bundleName}\nversionCode: ${versionCode}\nversionName: ${versionName}\ntargetVersion: ${targetVersion}`;
+            .onClick(() => {
+              let bundleName = AppUtil.getBundleName();
+              let versionCode = AppUtil.getVersionCode();
+              let versionName = AppUtil.getVersionName();
+              let targetVersion = AppUtil.getTargetVersion();
+              this.infoStr = `bundleName: ${bundleName}\nversionCode: ${versionCode}\nversionName: ${versionName}\ntargetVersion: ${targetVersion}`;
             })
-          Text(this.infoStr)
-            .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
-          Button("getAppInfo()")
+          Button("getInstallTime()\ngetUpdateTime()")
+            .labelStyle({ maxLines: 5 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
             .btnStyle()
-            .onClick(async () => {
-              let appInfo = await AppUtil.getAppInfo();
-              this.appInfoStr = JSON.stringify(appInfo, null, 2)
+            .onClick(() => {
+              let installTime = AppUtil.getInstallTime();
+              let updateTime = AppUtil.getUpdateTime();
+              this.infoStr = `installTime: ${installTime}\nupdateTime: ${updateTime}`;
             })
-          Text(this.appInfoStr)
-            .visibility(StrUtil.isNotEmpty(this.appInfoStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
           Button("exit()")
             .btnStyle()
             .onClick(() => {
@@ -283,6 +203,9 @@ struct Index {
                 }
               })
             })
+          Text(this.infoStr)
+            .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)
+            .textStyle()
         }
         .margin({ top: 5, bottom: 5 })
       }

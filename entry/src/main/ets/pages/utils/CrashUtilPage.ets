@@ -28,24 +28,24 @@ struct Index {
           Button("onError()")
             .btnStyle()
             .onClick(() => {
-              CrashUtil.onError(); //注册错误观测器
+              // CrashUtil.onError(); //注册错误观测器
               ToastUtil.showToast("注册错误观测器,成功")
             })
           Button("offError()")
             .btnStyle()
             .onClick(() => {
-              CrashUtil.offError(); //注销错误观测器
+              // CrashUtil.offError(); //注销错误观测器
               ToastUtil.showToast("注销错误观测器,成功")
             })
           Button("onExportErrorLog()")
             .btnStyle()
             .onClick(() => {
-              CrashUtil.onExportErrorLog(); //导出错误日志文件
+              // CrashUtil.onExportErrorLog(); //导出错误日志文件
             })
           Button("readErrorText")
             .btnStyle()
             .onClick(async () => {
-              this.errorTxt = await CrashUtil.readErrorText(); //读取错误文件
+              // this.errorTxt = await CrashUtil.readErrorText(); //读取错误文件
             })
           Button("制造异常")
             .btnStyle()
