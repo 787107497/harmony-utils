@@ -177,7 +177,7 @@ export class LogUtil {
       if (i === (len - 1)) {
         end = content.length;
       }
-      let msg = '\n|  ' + content.substring(i * LogUtil.logSize, end);
+      let msg = '\n|│  ' + content.substring(i * LogUtil.logSize, end);
       LogUtil.levelLog(msg, level);
     }
     let bottomLine = LogUtil.getLine('');
@@ -263,7 +263,7 @@ export class LogUtil {
     try {
       let jsonStr = JSON.stringify(obj, null, 2);
       if (line) {
-        jsonStr = jsonStr.replace(/\n/g, '\n|\t');
+        jsonStr = jsonStr.replace(/\n/g, '\n|│\t');
         if (jsonStr.endsWith('\t]')) {
           jsonStr = jsonStr.replace(/..$/, '  ]');
         } else if (jsonStr.endsWith('\t}')) {
@@ -297,7 +297,7 @@ export class LogUtil {
     const stackArray = errorStack?.split('\n');
     let errorLocation: string = stackArray?.filter(item => item !== null && item.length > 1)
     ?.splice(3).join('')?.replaceAll(' ', '') ?? '';
-    return `\n|  ${errorLocation}\n| ${StrUtil.repeat('┄┄┄┄┄┄┄', 20)}`;
+    return `\n|│  ${errorLocation}\n|│ ${StrUtil.repeat('┄┄┄┄┄┄┄', 20)}`;
   }
 
   /**
