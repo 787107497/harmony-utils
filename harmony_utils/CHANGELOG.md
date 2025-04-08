@@ -4,7 +4,8 @@
 1. AppUtil，新增setColorMode、setFont、getTargetVersion、getInstallTime、getUpdateTime等方法。
 2. 将CrashUtil的enableAppRecovery、restartApp、setRestartWant、saveAppState方法迁移到AppUtil。
 3. 新增WindowUtil工具类。
-4. 
+4. 优化LogUtil，解决了打印不全的问题。
+5. 
 ```typescript
 //1.3.1版本适配指南：
 

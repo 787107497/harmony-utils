@@ -1,5 +1,7 @@
 export { AppUtil } from './src/main/ets/utils/AppUtil';
 
+export { WindowUtil } from './src/main/ets/utils/WindowUtil';
+
 export { DeviceUtil } from './src/main/ets/utils/DeviceUtil';
 
 export { DisplayUtil } from './src/main/ets/utils/DisplayUtil';

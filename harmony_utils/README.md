@@ -33,6 +33,7 @@ OpenHarmony ohpm
 |:----------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------|
 | AppUtil                                                                           | APP相关工具类                                                                                                     |
 | DeviceUtil                                                                        | 设备相关工具类                                                                                                      |
+| WindowUtil                                                                        | 窗口相关工具类                                                                                                      |
 | DisplayUtil                                                                       | 屏幕相关工具类                                                                                                      |
 | PermissionUtil                                                                    | 申请授权工具类                                                                                                      |
 | NotificationUtil                                                                  | 通知工具类                                                                                                        |
@@ -102,7 +103,7 @@ OpenHarmony ohpm
 | getBundleName                             | 获取应用包的名称                                                                 |
 | getVersionCode                            | 获取应用版本号                                                                  |
 | getVersionName                            | 获取应用版本名                                                                  |
-| getTargetVersion                          | 获取运行应用包所需要最高SDK版本号                                                       |
+| getTargetVersion                          | 获取应用运行目标版本                                                               |
 | getInstallTime                            | 应用包安装时间                                                                  |
 | getUpdateTime                             | 应用包更新时间                                                                  |
 | exit                                      | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
@@ -111,23 +112,27 @@ OpenHarmony ohpm
 | saveAppState                              | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用        |
 | setRestartWant                            | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                          |
 
-
 ## WindowUtil（窗口相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WindowUtilPage.ets)
 
-| 方法                                        | 介绍                                                                       |
-|:------------------------------------------|:-------------------------------------------------------------------------|
-
-
-
-
-| setPreferredOrientation                   | 设置窗口的显示方向属性                                                              |
-| getWindowProperties                       | 获取当前窗口的属性                                                                |
-| setWindowBrightness                       | 设置屏幕亮度值                                                                  |
-| setWindowKeepScreenOn                     | 设置屏幕是否为常亮状态                                                              |
-| setWindowPrivacyMode                      | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                                     |
-| setWindowBackgroundColor                  | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用              |
-| setWindowFocusable                        | 设置点击时是否支持切换焦点窗口                                                          |
-| setWindowTouchable                        | 设置窗口是否为可触状态                                                              |
+| 方法                        | 介绍                                                          |
+|:--------------------------|:------------------------------------------------------------|
+| setPreferredOrientation   | 设置窗口的显示方向属性                                                 |
+| setWindowPrivacyMode      | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                        |
+| setWindowBackgroundColor  | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用 |
+| setWindowLayoutFullScreen | 设置窗口的布局是否为沉浸式布局（该沉浸式布局状态栏、导航栏仍然显示）                          |
+| setWindowKeepScreenOn     | 设置屏幕是否为常亮状态                                                 |
+| setWindowBrightness       | 设置屏幕亮度值                                                     |
+| setWindowFocusable        | 设置点击时是否支持切换焦点窗口                                             |
+| setWindowTouchable        | 设置窗口是否为可触状态                                                 |
+| getWindowProperties       | 获取当前窗口的属性，默认主窗口。                                            |
+| getWindowType             | 获取窗口类型，默认主窗口。                                               |
+| isPrivacyMode             | 窗口是否隐私模式，默认主窗口。                                             |
+| isTransparent             | 窗口是否透明，默认主窗口。                                               |
+| isFullScreen              | 判断窗口是否全屏，默认主窗口。                                             |
+| isLayoutFullScreen        | 判断窗口是否为沉浸式，默认主窗口。                                           |
+| getBrightness             | 获取屏幕亮度，默认主窗口。                                               |
+| isFocusable               | 窗口是否可聚焦，默认主窗口。                                              |
+| isTouchable               | 窗口是否可触摸，默认主窗口。                                              |
 
 ## DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
