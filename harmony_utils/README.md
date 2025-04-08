@@ -107,10 +107,6 @@ OpenHarmony ohpm
 | getInstallTime                            | 应用包安装时间                                                                  |
 | getUpdateTime                             | 应用包更新时间                                                                  |
 | exit                                      | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
-| enableAppRecovery                         | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                         |
-| restartApp                                | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                          |
-| saveAppState                              | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用        |
-| setRestartWant                            | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                          |
 
 ## WindowUtil（窗口相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WindowUtilPage.ets)
 
@@ -684,6 +680,10 @@ OpenHarmony ohpm
 | offError          | 注销错误观测器                                                           |
 | readErrorText     | 读取错误日志文件                                                          |
 | onExportErrorLog  | 导出错误日志文件                                                          |
+| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                  |
+| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
+| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
+| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
 
 ## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 

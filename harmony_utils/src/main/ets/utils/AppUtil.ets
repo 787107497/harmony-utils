@@ -17,7 +17,15 @@ import bundleManager from '@ohos.bundle.bundleManager';
 import { KeyboardAvoidMode, window } from '@kit.ArkUI';
 import { BusinessError } from '@ohos.base';
 import { resourceManager } from '@kit.LocalizationKit';
-import { appRecovery, common, ConfigurationConstant, Want } from '@kit.AbilityKit';
+import {
+  AbilityLifecycleCallback,
+  ApplicationStateChangeCallback,
+  appManager,
+  common,
+  ConfigurationConstant,
+  EnvironmentCallback,
+  Want
+} from '@kit.AbilityKit';
 import { LogUtil } from './LogUtil';
 import { DeviceUtil } from './DeviceUtil';
 import { WindowUtil } from './WindowUtil';
@@ -110,6 +118,16 @@ export class AppUtil {
     AppUtil.getContext().getApplicationContext().setFont(font);
   }
 
+
+  /**
+   * 设置应用的语言。仅支持主线程调用。
+   * @param language 设置语言，当前支持的语言列表可以通过getSystemLanguages()获取。
+   */
+  static setLanguage(language: string) {
+    AppUtil.getContext().getApplicationContext().setLanguage(language);
+  }
+
+
   /**
    * 设置应用字体大小缩放比例。仅支持主线程调用。
    * @param fontSizeScale
@@ -117,6 +135,123 @@ export class AppUtil {
   // static setFontSizeScale(fontSizeScale: number){
   //   AppUtil.getContext().getApplicationContext().setFontSizeScale(fontSizeScale);
   // }
+
+
+  /**
+   * 应用设置自身是否支持缓存后快速启动。仅支持主线程调用。
+   * @param isSupported 表示应用是否支持缓存后快速启动。true表示支持，false表示不支持。
+   */
+  static setSupportedProcessCache(isSupported: boolean) {
+    AppUtil.getContext().getApplicationContext().setSupportedProcessCache(isSupported);
+  }
+
+
+  /**
+   * 清理应用本身的数据，同时撤销应用向用户申请的权限。使用Promise异步回调。仅支持主线程调用。
+   */
+  static async clearUpApplicationData(): Promise<void> {
+    return AppUtil.getContext().getApplicationContext().clearUpApplicationData();
+  }
+
+
+  /**
+   * 终止应用的所有进程，进程退出时不会正常走完应用生命周期。使用Promise异步回调。仅支持主线程调用。
+   */
+  static async killAllProcesses(): Promise<void> {
+    return AppUtil.getContext().getApplicationContext().killAllProcesses();
+  }
+
+
+  /**
+   * 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。
+   */
+  static async exit(): Promise<void> {
+    await AppUtil.getContext().terminateSelf();
+    await AppUtil.killAllProcesses();
+  }
+
+
+  /**
+   * 应用重启并拉起自身指定UIAbility。重启时不会收到onDestroy回调。仅支持主线程调用，且待重启的应用需要处于获焦状态。
+   * @param want Want类型参数，传入需要启动的UIAbility的信息，Bundle名称不做校验。
+   */
+  static restartApp(want?: Want) {
+    if (want === undefined) {
+      want = {
+        bundleName: AppUtil.getBundleName(), //设置应用bundleName
+        abilityName: AppUtil.getContext().abilityInfo.name, //设置应用abilityName
+      }
+    }
+    AppUtil.getContext().getApplicationContext().restartApp(want);
+  }
+
+
+  /**
+   * 获取有关运行进程的信息。使用Promise异步回调。
+   */
+  static async getRunningProcessInformation(): Promise<Array<appManager.ProcessInformation>> {
+    return AppUtil.getContext().getApplicationContext().getRunningProcessInformation();
+  }
+
+
+  /**
+   * 注册对当前应用前后台变化的监听。使用callback异步回调。仅支持主线程调用。
+   * @param callback 回调函数。可以对应用从后台切换到前台，以及前台切换到后台分别定义回调。
+   */
+  static onApplicationStateChange(callback: ApplicationStateChangeCallback) {
+    AppUtil.getContext().getApplicationContext().on('applicationStateChange', callback);
+  }
+
+  /**
+   * 取消对应用前后台切换事件的监听。使用callback异步回调。仅支持主线程调用。
+   * @param callback 回调函数。取值可以为使用ApplicationContext.on('applicationStateChange')方法定义的callback回调，也可以为空。
+   *   如果传入已定义的回调，则取消该监听。如果未传入参数，则取消当前应用对所有前后台切换事件的监听。
+   */
+  static offApplicationStateChange(callback?: ApplicationStateChangeCallback) {
+    AppUtil.getContext().getApplicationContext().off('applicationStateChange', callback);
+  }
+
+
+  /**
+   * 注册对系统环境变化的监听。使用callback异步回调。仅支持主线程调用。
+   * @param callback 回调方法，提供应用上下文ApplicationContext对系统环境变量监听回调的能力。
+   * @returns 返回的此次注册监听系统环境变化的ID（每次注册该ID会自增+1，当超过监听上限数量2^63-1时，返回-1）。
+   */
+  static onEnvironment(callback: EnvironmentCallback): number {
+    return AppUtil.getContext().getApplicationContext().on('environment', callback);
+  }
+
+  /**
+   * 取消对系统环境变化的监听。使用Promise异步回调。仅支持主线程调用。
+   * @param callback 注册监听系统环境变化的ID。
+   * @returns
+   */
+  static async offEnvironment(callbackId: number): Promise<void> {
+    return AppUtil.getContext().getApplicationContext().off('environment', callbackId);
+  }
+
+
+  /**
+   * 注册监听应用内生命周期。使用callback异步回调。仅支持主线程调用。
+   * @param callback 回调方法，返回注册监听事件的ID。
+   * @returns
+   */
+  static onAbilityLifecycle(callback: AbilityLifecycleCallback): number {
+    return AppUtil.getContext().getApplicationContext().on('abilityLifecycle', callback);
+  }
+
+  /**
+   * 注册监听应用内生命周期。使用callback异步回调。仅支持主线程调用。
+   * @param callbackId 回调方法，返回注册监听事件的ID。
+   * @returns
+   */
+  static async offAbilityLifecycle(callbackId: number): Promise<void> {
+    return AppUtil.getContext().getApplicationContext().off('abilityLifecycle', callbackId);
+  }
+
+
+
+
 
 
   /**
@@ -177,8 +312,7 @@ export class AppUtil {
       const avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
       return avoidArea.topRect.height;
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AppUtil-getStatusBarHeight-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
       return 0;
     }
   }
@@ -193,8 +327,7 @@ export class AppUtil {
       const avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
       return avoidArea.bottomRect.height;
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AppUtil-getNavigationIndicatorHeight-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
       return 0;
     }
   }
@@ -352,78 +485,6 @@ export class AppUtil {
   static getUpdateTime(): number {
     return AppUtil.getBundleInfoSync().updateTime;
   }
-
-
-  /**
-   * 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。
-   */
-  static exit() {
-    AppUtil.getContext().terminateSelf();
-    AppUtil.getContext().getApplicationContext().killAllProcesses();
-  }
-
-
-  static restartAppEasy() {
-    AppUtil.getContext().getApplicationContext().restartApp(undefined)
-  }
-
-
-  /**
-   * 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。
-   * @param restart RestartFlag 应用重启标志。
-   *    ALWAYS_RESTART  0  总是重启应用。
-   *    RESTART_WHEN_JS_CRASH  0x0001  发生JS_CRASH时重启应用。
-   *    RESTART_WHEN_APP_FREEZE  0x0002  发生APP_FREEZE时重启应用。
-   *    NO_RESTART  0xFFFF  总是不重启应用。
-   * @param saveOccasion SaveOccasionFlag 保存条件标志
-   *    SAVE_WHEN_ERROR  0x0001  当发生应用故障时保存。
-   *    SAVE_WHEN_BACKGROUND  0x0002  当应用切入后台时保存。
-   * @param saveMode SaveModeFlag  状态保存标志
-   *    SAVE_WITH_FILE  0x0001  每次状态保存都会写入到本地文件缓存。
-   *    SAVE_WITH_SHARED_MEMORY  0x0002  状态先保存在内存中，应用故障退出时写入到本地文件缓存。
-   */
-  static enableAppRecovery(restart: appRecovery.RestartFlag = appRecovery.RestartFlag.ALWAYS_RESTART,
-    saveOccasion: appRecovery.SaveOccasionFlag = appRecovery.SaveOccasionFlag.SAVE_WHEN_ERROR,
-    saveMode: appRecovery.SaveModeFlag.SAVE_WITH_FILE = appRecovery.SaveModeFlag.SAVE_WITH_FILE) {
-    appRecovery.enableAppRecovery(restart, saveOccasion, saveMode);
-  }
-
-
-  /**
-   * 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用。
-   * 如果该Ability存在已经保存的状态，这些状态数据会在Ability的OnCreate生命周期回调的want参数中作为wantParam属性传入。
-   * API10时将启动由setRestartWant指定的Ability。如果没有指定则按以下规则启动：
-   *   如果当前应用前台的Ability支持恢复，则重新拉起该Ability。
-   *   如果存在多个支持恢复的Ability处于前台，则只拉起最后一个。
-   *   如果没有Ability处于前台，则不拉起。
-   */
-  static restartApp() {
-    appRecovery.restartApp()
-  }
-
-
-  /**
-   * 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility。
-   * @param want 通过设置Want中"bundleName"和"abilityName"字段来指定恢复重启的Ability。
-   */
-  static setRestartWant(want: Want) {
-    appRecovery.setRestartWant(want);
-  }
-
-
-  /**
-   * 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用
-   * @param context UIAbilityContext  需要保存状态的UIAbility所对应的context。
-   * @returns
-   */
-  static saveAppState(context?: common.UIAbilityContext): boolean {
-    if (context) {
-      return appRecovery.saveAppState(context) //主动保存Ability的状态
-    } else {
-      return appRecovery.saveAppState() //保存当前App状态
-    }
-  }
-
 
 
   /**

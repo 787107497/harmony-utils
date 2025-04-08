@@ -56,8 +56,7 @@ struct Index {
           Button("重启APP")
             .btnStyle()
             .onClick(() => {
-              // CrashUtil.restartApp();
-              AppUtil.restartApp();
+              CrashUtil.restartApp();
             })
           Text(this.errorTxt)
             .visibility(StrUtil.isNotEmpty(this.errorTxt) ? Visibility.Visible : Visibility.None)
