@@ -363,6 +363,11 @@ export class AppUtil {
   }
 
 
+  static restartAppEasy() {
+    AppUtil.getContext().getApplicationContext().restartApp(undefined)
+  }
+
+
   /**
    * 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。
    * @param restart RestartFlag 应用重启标志。

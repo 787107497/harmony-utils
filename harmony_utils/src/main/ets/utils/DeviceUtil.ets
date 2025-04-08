@@ -109,6 +109,14 @@ export class DeviceUtil {
   }
 
   /**
+   * 外部产品系列。示例：HUAWEI Mate 60 Pro
+   */
+  static getMarketName(): string {
+    return deviceInfo.marketName;
+  }
+
+
+  /**
    * 硬件版本号。示例：HL1CMSM
    */
   static getHardwareModel(): string {
