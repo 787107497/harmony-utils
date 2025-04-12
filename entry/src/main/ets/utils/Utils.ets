@@ -1,7 +1,29 @@
+import { DialogHelper } from '@pura/harmony-dialog';
 import { ArrayUtil } from '@pura/harmony-utils';
+import { TextSheetBuilder } from '../component/TextSheetView';
 import { MenuBean } from '../model/MenuBean';
+import { TextSheetOptions } from '../model/TextSheetOptions';
 
-export class Utils{
+export class Utils {
+
+
+  /**
+   * 文本展示Sheet
+   * @param content
+   */
+  static showSheetText(content: string) {
+    let options: TextSheetOptions = {
+      title: {
+        title: "结果展示",
+      },
+      content: content,
+      detents: [SheetSize.FIT_CONTENT, SheetSize.MEDIUM, SheetSize.FIT_CONTENT],
+      borderWidth: 0,
+      mode: SheetMode.EMBEDDED,
+      preferType: SheetType.BOTTOM,
+    };
+    DialogHelper.showBindSheet(wrapBuilder(TextSheetBuilder), options);
+  }
 
 
   /**
@@ -90,7 +112,4 @@ export class Utils{
   static isVideo(types: string[]) {
     return ArrayUtil.contain(types, ".mp4") && ArrayUtil.contain(types, ".m4v");
   }
-
-
-
 }

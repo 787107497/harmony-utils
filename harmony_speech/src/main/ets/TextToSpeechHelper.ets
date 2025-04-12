@@ -57,115 +57,115 @@ export class TextToSpeechHelper {
 
 
 
-    let speakParams: textToSpeech.SpeakParams = {
-
-      requestId: this.requestId, // requestId在同一实例内仅能用一次，请勿重复设置
-
-      extraParams: extraParam
-
-    };
-
-    // 调用播报方法
-
-    this.ttsEngine?.speak(originalText, speakParams);
-
-  }
-
-  /** 停止转换 */
-
-  async stop() {
-
-    this.ttsEngine?.stop()
-
-  }
-
-
-  /** 创建引擎 */
-  async createEngine1() {
-
-    return this.ttsEngine = await textToSpeech.createEngine(TextToSpeechHelper.initParamsInfo)
-
-  }
-
-
-
-  /** 创建引擎的配置参数 */
-
-  private static extraParam: Record<string, Object> =
-
-    {
-
-    }
-
-
-  /** 会话ID，一个实例只能使用一次 */
-
-  private requestId: string
-
-  constructor() {
-
-    this.requestId = `tts` + Date.now()
-
-  }
-
-
-  /** 设置回调监听 */
-
-  async setListener(callback?: (res: textToSpeech.CompleteResponse) => void) {
-
-    // 设置speak的回调信息
-
-    let speakListener: textToSpeech.SpeakListener = {
-
-      // 开始播报回调
-
-      onStart(requestId: string, response: textToSpeech.StartResponse) {
-
-        console.info(`onStart, requestId: ${requestId} response: ${JSON.stringify(response)}`);
-
-      },
-
-      // 合成完成及播报完成回调
-
-      onComplete(requestId: string, response: textToSpeech.CompleteResponse) {
-
-        console.info(`onComplete, requestId: ${requestId} response: ${JSON.stringify(response)}`);
-
-        callback && callback(response)
-
-      },
-
-      // 停止播报回调
-
-      onStop(requestId: string, response: textToSpeech.StopResponse) {
-
-        console.info(`onStop, requestId: ${requestId} response: ${JSON.stringify(response)}`);
-
-      },
-
-      // 返回音频流
-
-      onData(requestId: string, audio: ArrayBuffer, response: textToSpeech.SynthesisResponse) {
-
-        console.info(`onData, requestId: ${requestId} sequence: ${JSON.stringify(response)} audio: ${JSON.stringify(audio)}`);
-
-      },
-
-      // 错误回调
-
-      onError(requestId: string, errorCode: number, errorMessage: string) {
-
-        console.error(`onError, requestId: ${requestId} errorCode: ${errorCode} errorMessage: ${errorMessage}`);
-
-      }
-
-    };
-
-    // 设置回调
-
-    this.ttsEngine?.setListener(speakListener);
-
-  }
+  //   let speakParams: textToSpeech.SpeakParams = {
+  //
+  //     requestId: this.requestId, // requestId在同一实例内仅能用一次，请勿重复设置
+  //
+  //     extraParams: extraParam
+  //
+  //   };
+  //
+  //   // 调用播报方法
+  //
+  //   this.ttsEngine?.speak(originalText, speakParams);
+  //
+  // }
+  //
+  // /** 停止转换 */
+  //
+  // async stop() {
+  //
+  //   this.ttsEngine?.stop()
+  //
+  // }
+  //
+  //
+  // /** 创建引擎 */
+  // async createEngine1() {
+  //
+  //   return this.ttsEngine = await textToSpeech.createEngine(TextToSpeechHelper.initParamsInfo)
+  //
+  // }
+  //
+  //
+  //
+  // /** 创建引擎的配置参数 */
+  //
+  // private static extraParam: Record<string, Object> =
+  //
+  //   {
+  //
+  //   }
+  //
+  //
+  // /** 会话ID，一个实例只能使用一次 */
+  //
+  // private requestId: string
+  //
+  // constructor() {
+  //
+  //   this.requestId = `tts` + Date.now()
+  //
+  // }
+  //
+  //
+  // /** 设置回调监听 */
+  //
+  // async setListener(callback?: (res: textToSpeech.CompleteResponse) => void) {
+  //
+  //   // 设置speak的回调信息
+  //
+  //   let speakListener: textToSpeech.SpeakListener = {
+  //
+  //     // 开始播报回调
+  //
+  //     onStart(requestId: string, response: textToSpeech.StartResponse) {
+  //
+  //       console.info(`onStart, requestId: ${requestId} response: ${JSON.stringify(response)}`);
+  //
+  //     },
+  //
+  //     // 合成完成及播报完成回调
+  //
+  //     onComplete(requestId: string, response: textToSpeech.CompleteResponse) {
+  //
+  //       console.info(`onComplete, requestId: ${requestId} response: ${JSON.stringify(response)}`);
+  //
+  //       callback && callback(response)
+  //
+  //     },
+  //
+  //     // 停止播报回调
+  //
+  //     onStop(requestId: string, response: textToSpeech.StopResponse) {
+  //
+  //       console.info(`onStop, requestId: ${requestId} response: ${JSON.stringify(response)}`);
+  //
+  //     },
+  //
+  //     // 返回音频流
+  //
+  //     onData(requestId: string, audio: ArrayBuffer, response: textToSpeech.SynthesisResponse) {
+  //
+  //       console.info(`onData, requestId: ${requestId} sequence: ${JSON.stringify(response)} audio: ${JSON.stringify(audio)}`);
+  //
+  //     },
+  //
+  //     // 错误回调
+  //
+  //     onError(requestId: string, errorCode: number, errorMessage: string) {
+  //
+  //       console.error(`onError, requestId: ${requestId} errorCode: ${errorCode} errorMessage: ${errorMessage}`);
+  //
+  //     }
+  //
+  //   };
+  //
+  //   // 设置回调
+  //
+  //   this.ttsEngine?.setListener(speakListener);
+  //
+  // }
 
 
 }

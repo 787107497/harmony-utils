@@ -15,8 +15,8 @@
 
 import bundleManager from '@ohos.bundle.bundleManager';
 import { KeyboardAvoidMode, window } from '@kit.ArkUI';
-import { BusinessError } from '@ohos.base';
 import { resourceManager } from '@kit.LocalizationKit';
+import { BusinessError } from '@ohos.base';
 import {
   AbilityLifecycleCallback,
   ApplicationStateChangeCallback,
@@ -163,15 +163,6 @@ export class AppUtil {
 
 
   /**
-   * 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。
-   */
-  static async exit(): Promise<void> {
-    await AppUtil.getContext().terminateSelf();
-    await AppUtil.killAllProcesses();
-  }
-
-
-  /**
    * 应用重启并拉起自身指定UIAbility。重启时不会收到onDestroy回调。仅支持主线程调用，且待重启的应用需要处于获焦状态。
    * @param want Want类型参数，传入需要启动的UIAbility的信息，Bundle名称不做校验。
    */
@@ -183,6 +174,15 @@ export class AppUtil {
       }
     }
     AppUtil.getContext().getApplicationContext().restartApp(want);
+  }
+
+
+  /**
+   * 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。
+   */
+  static async exit(): Promise<void> {
+    await AppUtil.getContext().terminateSelf();
+    await AppUtil.killAllProcesses();
   }
 
 
@@ -241,17 +241,13 @@ export class AppUtil {
   }
 
   /**
-   * 注册监听应用内生命周期。使用callback异步回调。仅支持主线程调用。
+   * 取消监听应用内生命周期。使用callback异步回调。仅支持主线程调用。
    * @param callbackId 回调方法，返回注册监听事件的ID。
    * @returns
    */
   static async offAbilityLifecycle(callbackId: number): Promise<void> {
     return AppUtil.getContext().getApplicationContext().off('abilityLifecycle', callbackId);
   }
-
-
-
-
 
 
   /**
@@ -351,22 +347,21 @@ export class AppUtil {
       const windowClass = AppUtil.getMainWindow();
       windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
         windowClass.setWindowBackgroundColor(color);
-      }).catch((error: BusinessError) => {
-        LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      }).catch((err: BusinessError) => {
+        LogUtil.error(err);
       });
       windowClass.setWindowSystemBarEnable(enable ? ['status', 'navigation'] : []).then(() => {
         windowClass.setSpecificSystemBarEnabled("navigationIndicator", enable); //底部导航条。
-      }).catch((error: BusinessError) => {
-        LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      }).catch((err: BusinessError) => {
+        LogUtil.error(err);
       });
       if (systemBarProperties) {
-        windowClass.setWindowSystemBarProperties(systemBarProperties).catch((error: BusinessError) => {
-          LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+        windowClass.setWindowSystemBarProperties(systemBarProperties).catch((err: BusinessError) => {
+          LogUtil.error(err);
         });
       }
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`AppUtil-setStatusBar-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
     }
   }
 
@@ -485,6 +480,7 @@ export class AppUtil {
   static getUpdateTime(): number {
     return AppUtil.getBundleInfoSync().updateTime;
   }
+
 
 
   /**

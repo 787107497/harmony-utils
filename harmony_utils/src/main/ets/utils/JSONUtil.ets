@@ -15,7 +15,6 @@
 
 import { JSON } from '@kit.ArkTS';
 import { LogUtil } from './LogUtil';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { ObjectUtil } from './ObjectUtil';
 import { Constructor } from '../entity/constraints';
 
@@ -26,6 +25,8 @@ import { Constructor } from '../entity/constraints';
  * since: 2024/05/01
  */
 export class JSONUtil {
+
+
   /**
    * JSON字符串转Class对象
    * @param cls 类名
@@ -43,11 +44,11 @@ export class JSONUtil {
       }
       return bean;
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`JSONUtil-jsonToBean-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
       return null
     }
   }
+
 
   /**
    * 对象转JSON字符串
@@ -61,8 +62,7 @@ export class JSONUtil {
       }
       return JSON.stringify(data);
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`JSONUtil-beanToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
       return ""
     }
   }
@@ -78,8 +78,7 @@ export class JSONUtil {
     try {
       return JSON.parse(jsonStr) as Array<T>
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`JSONUtil-jsonToArray-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
       return []
     }
   }
@@ -94,7 +93,8 @@ export class JSONUtil {
     try {
       let commRecord = JSON.parse(jsonStr) as Record<string, Object>;
       return new Map(Object.entries(commRecord));
-    } catch (e) {
+    } catch (err) {
+      LogUtil.error(err);
       return new Map();
     }
   }
@@ -115,11 +115,11 @@ export class JSONUtil {
       })
       return JSON.stringify(jsonObject);
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`JSONUtil-mapToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
       return ""
     }
   }
+
 
   /**
    * 判断是否是字符串格式json
@@ -134,4 +134,6 @@ export class JSONUtil {
       return false;
     }
   }
+
+
 }

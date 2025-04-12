@@ -90,6 +90,19 @@ OpenHarmony ohpm
 | setGrayScale                              | 设置灰阶，APP一键置灰                                                             |
 | setColorMode                              | 设置应用的颜色模式。仅支持主线程调用。设置颜色模式，包括：深色模式、浅色模式、不设置（跟随系统）                         |
 | setFont                                   | 设置应用的字体类型。仅支持主线程调用                                                       |
+| setLanguage                               | 设置应用的语言                                                                  |
+| setSupportedProcessCache                  | 设置应用自身是否支持缓存后快速启动                                                        |
+| clearUpApplicationData                    | 清理应用本身的数据，同时撤销应用向用户申请的权限。                                                |
+| killAllProcesses                          | 终止应用的所有进程，进程退出时不会正常走完应用生命周期。                                             |
+| restartApp                                | 重启应用并拉起自身指定UIAbility。重启时不会收到onDestroy回调。                                 |
+| exit                                      | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
+| getRunningProcessInformation              | 获取有关运行进程的信息                                                              |
+| onApplicationStateChange                  | 注册对当前应用前后台变化的监听                                                          |
+| offApplicationStateChange                 | 取消对应用前后台切换事件的监听                                                          |
+| onEnvironment                             | 注册对系统环境变化的监听                                                             |
+| offEnvironment                            | 取消对系统环境变化的监听                                                             |
+| onAbilityLifecycle                        | 注册监听应用内生命周期                                                              |
+| offAbilityLifecycle                       | 取消监听应用内生命周期                                                              |
 | getKeyboardAvoidMode                      | 获取虚拟键盘抬起时的页面避让模式（OFFSET-上抬模式、RESIZE-压缩模式）                                |
 | setKeyboardAvoidMode                      | 设置虚拟键盘弹出时，页面的避让模式                                                        |
 | isPortrait                                | 当前设备是否以竖屏方式显示                                                            |
@@ -106,29 +119,6 @@ OpenHarmony ohpm
 | getTargetVersion                          | 获取应用运行目标版本                                                               |
 | getInstallTime                            | 应用包安装时间                                                                  |
 | getUpdateTime                             | 应用包更新时间                                                                  |
-| exit                                      | 主动退出整个应用；调用该方法后，任务中心的任务默认不会清理，如需清理，需要配置removeMissionAfterTerminate为true。 |
-
-## WindowUtil（窗口相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WindowUtilPage.ets)
-
-| 方法                        | 介绍                                                          |
-|:--------------------------|:------------------------------------------------------------|
-| setPreferredOrientation   | 设置窗口的显示方向属性                                                 |
-| setWindowPrivacyMode      | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                        |
-| setWindowBackgroundColor  | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用 |
-| setWindowLayoutFullScreen | 设置窗口的布局是否为沉浸式布局（该沉浸式布局状态栏、导航栏仍然显示）                          |
-| setWindowKeepScreenOn     | 设置屏幕是否为常亮状态                                                 |
-| setWindowBrightness       | 设置屏幕亮度值                                                     |
-| setWindowFocusable        | 设置点击时是否支持切换焦点窗口                                             |
-| setWindowTouchable        | 设置窗口是否为可触状态                                                 |
-| getWindowProperties       | 获取当前窗口的属性，默认主窗口。                                            |
-| getWindowType             | 获取窗口类型，默认主窗口。                                               |
-| isPrivacyMode             | 窗口是否隐私模式，默认主窗口。                                             |
-| isTransparent             | 窗口是否透明，默认主窗口。                                               |
-| isFullScreen              | 判断窗口是否全屏，默认主窗口。                                             |
-| isLayoutFullScreen        | 判断窗口是否为沉浸式，默认主窗口。                                           |
-| getBrightness             | 获取屏幕亮度，默认主窗口。                                               |
-| isFocusable               | 窗口是否可聚焦，默认主窗口。                                              |
-| isTouchable               | 窗口是否可触摸，默认主窗口。                                              |
 
 ## DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
@@ -152,6 +142,46 @@ OpenHarmony ohpm
 | getScreenDensity                                | 获取当前设备屏幕密度                          |
 | startVibration                                  | 开启设备振动                              |
 | stopVibration                                   | 停止设备振动（按照VIBRATOR_STOP_MODE_TIME模式） |
+
+## WindowUtil（窗口相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WindowUtilPage.ets)
+
+| 方法                           | 介绍                                                                                  |
+|:-----------------------------|:------------------------------------------------------------------------------------|
+| setPreferredOrientation      | 设置窗口的显示方向属性                                                                         |
+| getPreferredOrientation      | 获取窗口的显示方向属性，主窗口调用。                                                                  |
+| setWindowPrivacyMode         | 设置窗口是否为隐私模式。设置为隐私模式的窗口，窗口内容将无法被截屏或录屏                                                |
+| isPrivacyMode                | 窗口是否隐私模式，默认主窗口。                                                                     |
+| setWindowLayoutFullScreen    | 设置窗口的布局是否为沉浸式布局（该沉浸式布局状态栏、导航栏仍然显示）                                                  |
+| isLayoutFullScreen           | 判断窗口是否为沉浸式，默认主窗口。                                                                   |
+| setWindowSystemBarProperties | 设置主窗口三键导航栏、状态栏的属性。                                                                  |
+| getWindowSystemBarProperties | 获取主窗口三键导航栏、状态栏的属性。                                                                  |
+| setImmersiveModeEnabledState | 设置当前窗口是否开启沉浸式布局，该调用不会改变窗口模式和窗口大小。                                                   |
+| getImmersiveModeEnabledState | 查询当前窗口是否已经开启沉浸式布局。                                                                  |
+| setWindowGrayScale           | 设置窗口灰阶。该接口需要在调用loadContent()或setUIContent()使窗口加载页面内容后调用。                            |
+| setWindowBackgroundColor     | 设置窗口的背景色。Stage模型下，该接口需要在loadContent()或setUIContent()调用生效后使用                         |
+| setWindowSystemBarEnable     | 设置主窗口三键导航栏、状态栏、底部导航条的可见模式，状态栏与底部导航条通过status控制、三键导航栏通过navigation控制。                  |
+| setSpecificSystemBarEnabled  | 设置主窗口三键导航栏、状态栏、底部导航条的显示和隐藏。                                                         |
+| setWindowKeepScreenOn        | 设置屏幕是否为常亮状态                                                                         |
+| isKeepScreenOn               | 屏幕是否常亮                                                                              |
+| setWindowBrightness          | 设置屏幕亮度值                                                                             |
+| getBrightness                | 获取屏幕亮度。该参数为浮点数，可设置的亮度范围为[0.0, 1.0]，其取1.0时表示最大亮度值。如果窗口没有设置亮度值，表示亮度跟随系统，此时获取到的亮度值为-1。 |
+| setWindowFocusable           | 设置使用点击或其他方式使该窗口获焦的场景时，该窗口是否支持窗口焦点从点击前的获焦窗口切换到该窗口                                    |
+| isFocusable                  | 窗口是否可聚焦，默认主窗口。                                                                      |
+| setWindowTouchable           | 设置窗口是否为可触状态                                                                         |
+| isTouchable                  | 窗口是否可触摸，默认主窗口。                                                                      |
+| getWindowProperties          | 获取当前窗口的属性，默认主窗口。                                                                    |
+| getWindowAvoidArea           | 获取当前应用窗口内容规避的区域。如系统栏区域、刘海屏区域、手势区域、软键盘区域等与窗口内容重叠时，需要窗口内容避让的区域。                       |
+| getWindowType                | 获取窗口类型，默认主窗口。                                                                       |
+| getWindowStatus              | 获取当前应用窗口的模式                                                                         |
+| isFullScreen                 | 判断窗口是否全屏，默认主窗口。                                                                     |
+| isFocused                    | 判断当前窗口是否已获焦                                                                         |
+| isTransparent                | 窗口是否透明，默认主窗口。                                                                       |
+| isWindowShowing              | 判断当前窗口是否已显示，默认主窗口。                                                                  |
+| isWindowSupportWideGamut     | 判断当前窗口是否支持广色域模式，，默认主窗口。                                                             |
+| createWindow                 | 创建子窗口或者系统窗口，使用Promise异步回调。                                                          |
+| findWindow                   | 查找name所对应的窗口。                                                                       |
+| getLastWindow                | 获取当前应用内最上层的子窗口，若无应用子窗口，则返回应用主窗口。                                                    |
+| shiftAppWindowFocus          | 在同应用内将窗口焦点从源窗口转移到目标窗口，仅支持应用主窗和子窗的焦点转移。                                              |
 
 ## DisplayUtil（屏幕相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DisplayUtilPage.ets)
 

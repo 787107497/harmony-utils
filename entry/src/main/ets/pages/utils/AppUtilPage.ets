@@ -1,9 +1,16 @@
 import { font, KeyboardAvoidMode, router } from '@kit.ArkUI';
-import { AppUtil, DialogUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { AppUtil, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
-import { ConfigurationConstant } from '@kit.AbilityKit';
+import {
+  AbilityLifecycleCallback,
+  ApplicationStateChangeCallback,
+  ConfigurationConstant,
+  EnvironmentCallback
+} from '@kit.AbilityKit';
+import { DialogAction, DialogHelper } from '@pura/harmony-dialog';
+import { JSON } from '@kit.ArkTS';
 
 /**
  * APP相关工具类
@@ -21,6 +28,59 @@ struct Index {
   @State infoStr: string = ''
   @State blGray: boolean = false; //置灰状态
   @State colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT; //深浅色模式
+  @State blZhCn: boolean = false; //默认中文
+
+  private applicationStateChangeCallback: ApplicationStateChangeCallback = {
+    onApplicationForeground() {
+      LogUtil.warn('applicationStateChangeCallback onApplicationForeground');
+    },
+    onApplicationBackground() {
+      LogUtil.warn('applicationStateChangeCallback onApplicationBackground');
+    }
+  };
+  @State callback1: number = -1;
+  private environmentCallback: EnvironmentCallback = {
+    onConfigurationUpdated(config) {
+      LogUtil.warn(`onConfigurationUpdated config:\n${JSON.stringify(config, null)}`);
+    },
+    onMemoryLevel(level) {
+      LogUtil.warn(`onMemoryLevel level: ${level}`);
+    }
+  };
+  @State callback2: number = -1;
+  private abilityLifecycleCallback: AbilityLifecycleCallback = {
+    onAbilityCreate(ability) {
+      LogUtil.info(`AbilityLifecycleCallback onAbilityCreate ability: ${ability}`);
+    },
+    onWindowStageCreate(ability, windowStage) {
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageCreate ability: ${ability}`);
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageCreate windowStage: ${windowStage}`);
+    },
+    onWindowStageActive(ability, windowStage) {
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageActive ability: ${ability}`);
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageActive windowStage: ${windowStage}`);
+    },
+    onWindowStageInactive(ability, windowStage) {
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageInactive ability: ${ability}`);
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageInactive windowStage: ${windowStage}`);
+    },
+    onWindowStageDestroy(ability, windowStage) {
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageDestroy ability: ${ability}`);
+      LogUtil.info(`AbilityLifecycleCallback onWindowStageDestroy windowStage: ${windowStage}`);
+    },
+    onAbilityDestroy(ability) {
+      LogUtil.info(`AbilityLifecycleCallback onAbilityDestroy ability: ${ability}`);
+    },
+    onAbilityForeground(ability) {
+      LogUtil.info(`AbilityLifecycleCallback onAbilityForeground ability: ${ability}`);
+    },
+    onAbilityBackground(ability) {
+      LogUtil.info(`AbilityLifecycleCallback onAbilityBackground ability: ${ability}`);
+    },
+    onAbilityContinue(ability) {
+      LogUtil.info(`AbilityLifecycleCallback onAbilityContinue ability: ${ability}`);
+    }
+  };
 
 
   @MockSetup
@@ -87,8 +147,131 @@ struct Index {
           Button("setFont()")
             .btnStyle()
             .onClick(() => {
-              font.registerFont({ familyName: 'WCSF', familySrc: $rawfile('wcsf.ttf') })
+              font.registerFont({ familyName: 'WCSF', familySrc: $rawfile('wcsf.ttf') });
               AppUtil.setFont('WCSF');
+            })
+          Button("setLanguage()")
+            .btnStyle()
+            .onClick(() => {
+              if (this.blZhCn) {
+                this.blZhCn = false;
+                AppUtil.setLanguage('en-us');
+              } else {
+                this.blZhCn = true;
+                AppUtil.setLanguage('zh-cn');
+              }
+              ToastUtil.showToast("设置成功！");
+            })
+          Button("setSupportedProcessCache()")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setSupportedProcessCache(true);
+              ToastUtil.showToast("设置成功！");
+            })
+          Button("clearUpApplicationData()")
+            .btnStyle()
+            .onClick(() => {
+              DialogHelper.showAlertDialog({
+                content: '是否清理应用本身的数据？',
+                primaryButton:'取消',
+                secondaryButton:'清理',
+                onAction: (action) => {
+                  if (action === DialogAction.SURE) {
+                    AppUtil.clearUpApplicationData();
+                  }
+                }
+              });
+            })
+          Button("killAllProcesses()")
+            .btnStyle()
+            .onClick(() => {
+              DialogHelper.showAlertDialog({
+                content: '是否终止应用的所有进程？',
+                primaryButton:'取消',
+                secondaryButton:'终止',
+                onAction: (action) => {
+                  if (action === DialogAction.SURE) {
+                    AppUtil.killAllProcesses();
+                  }
+                }
+              });
+            })
+          Button("restartApp()")
+            .btnStyle()
+            .onClick(() => {
+              DialogHelper.showAlertDialog({
+                autoCancel: false,
+                backCancel: false,
+                content: '是否重启应用？',
+                primaryButton:'取消',
+                secondaryButton:'重启',
+                onAction: (action) => {
+                  if (action === DialogAction.SURE) {
+                    AppUtil.restartApp();
+                  }
+                }
+              });
+            })
+          Button("exit()")
+            .btnStyle()
+            .onClick(() => {
+              DialogHelper.showAlertDialog({
+                content: '是否重退出应用？',
+                primaryButton:'取消',
+                secondaryButton:'退出',
+                onAction: (action) => {
+                  if (action === DialogAction.SURE) {
+                    AppUtil.exit();
+                  }
+                }
+              });
+            })
+          Button("getRunningProcessInformation()")
+            .btnStyle()
+            .onClick(async () => {
+              let processInformation = await AppUtil.getRunningProcessInformation();
+              this.infoStr = JSON.stringify(processInformation, null, 2);
+            })
+
+          Button("onApplicationStateChange()")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.onApplicationStateChange(this.applicationStateChangeCallback);
+              DialogHelper.showToast('添加“applicationStateChange”监听成功！');
+            })
+          Button("offApplicationStateChange()")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.offApplicationStateChange(this.applicationStateChangeCallback);
+              DialogHelper.showToast('移除“applicationStateChange”监听成功！');
+            })
+          Button("onEnvironment()")
+            .btnStyle()
+            .onClick(() => {
+              this.callback1 = AppUtil.onEnvironment(this.environmentCallback);
+              DialogHelper.showToast('添加“environment”监听成功！');
+            })
+          Button("offEnvironment()")
+            .btnStyle()
+            .onClick(() => {
+              if (this.callback1 !== -1) {
+                AppUtil.offEnvironment(this.callback1);
+                DialogHelper.showToast('移除“environment”监听成功！');
+              }
+            })
+          Button("onAbilityLifecycle()")
+            .btnStyle()
+            .onClick(() => {
+              this.callback2 = AppUtil.onAbilityLifecycle(this.abilityLifecycleCallback);
+              DialogHelper.showToast('添加“abilityLifecycle”监听成功！');
+            })
+          Button("offAbilityLifecycle()")
+            .btnStyle()
+            .onClick(() => {
+              if (this.callback2 !== -1) {
+                AppUtil.offAbilityLifecycle(this.callback2);
+                DialogHelper.showToast('移除“abilityLifecycle”监听成功！');
+              }
             })
           Button("getKeyboardAvoidMode()")
             .btnStyle()
@@ -108,6 +291,7 @@ struct Index {
           TextInput({ placeholder: '设置模式后点击输入框查看效果' })
             .width("95%")
             .margin({ bottom: 10 })
+
           Button("isPortrait()")
             .btnStyle()
             .onClick(() => {
@@ -184,25 +368,7 @@ struct Index {
               let updateTime = AppUtil.getUpdateTime();
               this.infoStr = `installTime: ${installTime}\nupdateTime: ${updateTime}`;
             })
-          Button("exit()")
-            .btnStyle()
-            .onClick(() => {
-              DialogUtil.showPrimaryDialog({
-                title: '提示',
-                message: '是否退出应用？',
-                primaryButton: {
-                  value: '取消',
-                  action: () => {
-                  }
-                },
-                secondaryButton: {
-                  value: '退出',
-                  action: () => {
-                    AppUtil.exit();
-                  }
-                }
-              })
-            })
+
           Text(this.infoStr)
             .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
