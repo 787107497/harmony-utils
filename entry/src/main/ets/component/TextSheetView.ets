@@ -23,27 +23,25 @@ export struct TextSheetView {
   }
 
   build() {
-    Scroll(this.scroller) {
-      Text(this.content)
-        .textStyle()
+    Column() {
+      Scroll(this.scroller) {
+        Text(this.content)
+          .width('100%')
+      }
+      .layoutWeight(this.content.length > 200 ? 1 : 0)
+      .width('calc(100% - 30vp)')
+      .margin({ top: 6, bottom: 30 })
+      .padding(12)
+      .border({
+        width: 1,
+        color: Color.Grey,
+        radius: 10,
+        style: BorderStyle.Dashed
+      })
     }
     .width('100%')
     .backgroundColor(Color.Transparent)
     .borderRadius(5)
     .clip(true)
   }
-}
-
-
-@Styles
-function textStyle() {
-  .width('calc(100% - 30vp)')
-  .padding(12)
-  .margin({ top: 6, bottom: 30 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

@@ -11,6 +11,7 @@ import {
 } from '@kit.AbilityKit';
 import { DialogAction, DialogHelper } from '@pura/harmony-dialog';
 import { JSON } from '@kit.ArkTS';
+import { Utils } from '../../utils/Utils';
 
 /**
  * APP相关工具类
@@ -25,7 +26,6 @@ struct Index {
   @State isKeepScreenOn: boolean = false; //屏幕是否为常亮状态
   @State privacyMode: boolean = false; //是否隐私模式
   @State statusBar: boolean = false;
-  @State infoStr: string = ''
   @State blGray: boolean = false; //置灰状态
   @State colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT; //深浅色模式
   @State blZhCn: boolean = false; //默认中文
@@ -230,9 +230,9 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let processInformation = await AppUtil.getRunningProcessInformation();
-              this.infoStr = JSON.stringify(processInformation, null, 2);
+               let jsonStr = JSON.stringify(processInformation, null, 2);
+               Utils.showSheetText(jsonStr);
             })
-
           Button("onApplicationStateChange()")
             .btnStyle()
             .onClick(() => {
@@ -330,22 +330,25 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let bundleInfo = await AppUtil.getBundleInfo();
-              this.infoStr = JSON.stringify(bundleInfo, null, 2)
+              let infoStr = JSON.stringify(bundleInfo, null, 2);
+              Utils.showSheetText(infoStr);
             })
           Button("getAppInfoSync()")
             .btnStyle()
             .onClick(() => {
               let bundleInfo = AppUtil.getAppInfoSync();
-              this.infoStr = JSON.stringify(bundleInfo, null, 2)
+              let infoStr = JSON.stringify(bundleInfo, null, 2);
+              Utils.showSheetText(infoStr);
             })
           Button("getSignatureInfo()")
             .btnStyle()
             .onClick(async () => {
               let bundleInfo = await AppUtil.getSignatureInfo();
-              this.infoStr = JSON.stringify(bundleInfo, null, 2)
+              let infoStr = JSON.stringify(bundleInfo, null, 2);
+              Utils.showSheetText(infoStr);
             })
-          Button("getBundleName()\ngetVersionCode()\ngetVersionName()\ngetTargetVersion()")
-            .labelStyle({ maxLines: 5 })
+          Button("getBundleName()\ngetVersionCode()\ngetVersionName()\ngetTargetVersion()\ngetInstallTime()\ngetUpdateTime()")
+            .labelStyle({ maxLines: 8 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
@@ -355,23 +358,12 @@ struct Index {
               let versionCode = AppUtil.getVersionCode();
               let versionName = AppUtil.getVersionName();
               let targetVersion = AppUtil.getTargetVersion();
-              this.infoStr = `bundleName: ${bundleName}\nversionCode: ${versionCode}\nversionName: ${versionName}\ntargetVersion: ${targetVersion}`;
-            })
-          Button("getInstallTime()\ngetUpdateTime()")
-            .labelStyle({ maxLines: 5 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
-            .btnStyle()
-            .onClick(() => {
+              let infoStr = `bundleName: ${bundleName}\nversionCode: ${versionCode}\nversionName: ${versionName}\ntargetVersion: ${targetVersion}`;
               let installTime = AppUtil.getInstallTime();
               let updateTime = AppUtil.getUpdateTime();
-              this.infoStr = `installTime: ${installTime}\nupdateTime: ${updateTime}`;
+              infoStr = infoStr + `\ninstallTime: ${installTime}\nupdateTime: ${updateTime}`;
+              Utils.showSheetText(infoStr);
             })
-
-          Text(this.infoStr)
-            .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -389,18 +381,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }
