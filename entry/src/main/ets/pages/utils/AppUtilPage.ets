@@ -347,8 +347,8 @@ struct Index {
               let infoStr = JSON.stringify(bundleInfo, null, 2);
               Utils.showSheetText(infoStr);
             })
-          Button("getBundleName()\ngetVersionCode()\ngetVersionName()\ngetTargetVersion()\ngetInstallTime()\ngetUpdateTime()")
-            .labelStyle({ maxLines: 8 })
+          Button("getBundleName()\ngetVersionCode()\ngetVersionName()\ngetTargetVersion()\ngetInstallTime()\ngetUpdateTime()\ngetAppProvisionType()\ndebug()")
+            .labelStyle({ maxLines: 10 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
@@ -362,6 +362,9 @@ struct Index {
               let installTime = AppUtil.getInstallTime();
               let updateTime = AppUtil.getUpdateTime();
               infoStr = infoStr + `\ninstallTime: ${installTime}\nupdateTime: ${updateTime}`;
+              let appProvisionType = AppUtil.getAppProvisionType();
+              let debug = AppUtil.debug();
+              infoStr = infoStr + `\nappProvisionType: ${appProvisionType}\ndebug: ${debug}`;
               Utils.showSheetText(infoStr);
             })
         }

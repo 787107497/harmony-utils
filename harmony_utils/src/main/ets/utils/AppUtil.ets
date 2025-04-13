@@ -466,7 +466,7 @@ export class AppUtil {
   }
 
   /**
-   * 应用包安装时间。
+   * 获取应用包安装时间。
    * @returns
    */
   static getInstallTime(): number {
@@ -474,11 +474,27 @@ export class AppUtil {
   }
 
   /**
-   * 应用包更新时间。
+   * 获取应用包更新时间。
    * @returns
    */
   static getUpdateTime(): number {
     return AppUtil.getBundleInfoSync().updateTime;
+  }
+
+  /**
+   * 获取应用程序签名证书文件的类型，分为debug和release两种类型。
+   * @returns
+   */
+  static getAppProvisionType(): string {
+    return AppUtil.getAppInfoSync().appProvisionType;
+  }
+
+  /**
+   * 标识应用是否处于调试模式，取值为true表示应用处于调试模式，取值为false表示应用处于非调试模式。
+   * @returns
+   */
+  static debug(): boolean {
+    return AppUtil.getAppInfoSync().debug;
   }
 
 

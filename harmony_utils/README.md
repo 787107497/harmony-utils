@@ -119,29 +119,51 @@ OpenHarmony ohpm
 | getTargetVersion                          | 获取应用运行目标版本                                                               |
 | getInstallTime                            | 应用包安装时间                                                                  |
 | getUpdateTime                             | 应用包更新时间                                                                  |
+| getAppProvisionType                       | 获取应用程序签名证书文件的类型，分为debug和release两种类型。                                     |
+| debug                                     | 标识应用是否处于调试模式，取值为true表示应用处于调试模式，取值为false表示应用处于非调试模式。                      |
 
 ## DeviceUtil（设备相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DeviceUtilPage.ets)
 
-| 方法                                              | 介绍                                  |
-|:------------------------------------------------|:------------------------------------|
-| getDeviceId                                     | 获取设备ID（卸载APP后依旧不变）                  |
-| deleteDeviceId                                  | 移除设备ID                              |
-| getBrand                                        | 获取设备品牌名称                            |
-| getProductModel                                 | 获取认证型号                              |
-| getOsReleaseType                                | 获取系统的发布类型，取值为：Canary、Beta、Release   |
-| getOsFullName                                   | 获取系统版本                              |
-| getDisplayVersion                               | 获取产品版本                              |
-| getSdkApiVersion                                | 获取系统软件API版本                         |
-| getBuildVersion                                 | 获取Build版本号，标识编译构建的版本号               |
-| getODID                                         | 获取开发者匿名设备标识符                        |
-| getConfiguration<br/>getConfigurationSync       | 获取设备的Configuration                  |
-| getDirection                                    | 获取当前设备屏幕方向                          |
-| getDeviceCapability<br/>getDeviceCapabilitySync | 获取设备的DeviceCapability               |
-| getDeviceType                                   | 获取当前设备类型                            |
-| getDeviceTypeStr                                | 获取当前设备类型，返回字符串                      |
-| getScreenDensity                                | 获取当前设备屏幕密度                          |
-| startVibration                                  | 开启设备振动                              |
-| stopVibration                                   | 停止设备振动（按照VIBRATOR_STOP_MODE_TIME模式） |
+| 方法                                              | 介绍                                                     |
+|:------------------------------------------------|:-------------------------------------------------------|
+| getDeviceId                                     | 获取设备ID（卸载APP后依旧不变）                                     |
+| deleteDeviceId                                  | 移除设备ID                                                 |
+| getODID                                         | 获取开发者匿名设备标识符，ODID。                                     |
+| getOAID                                         | 获取开放匿名设备标识符，OAID。                                      |
+| getAAID                                         | 获取AAID。                                                |
+| deleteAAID                                      | 删除AAID。                                                |
+| getSerial                                       | 获取设备序列号。说明：可作为设备唯一识别码。示例：序列号随设备差异。                     |
+| getUdid                                         | 获取设备Udid。                                              |
+| getBrand                                        | 获取设备品牌名称。示例：HUAWEI。                                    |
+| getProductModel                                 | 获取认证型号。示例：ALN-AL00。                                    |
+| getBrandModel                                   | 获取设备品牌名称 认证型号。示例：HUAWEI ALN-AL00。                      |
+| getMarketName                                   | 获取外部产品系列名称。示例：HUAWEI Mate 60 Pro。                      |
+| getHardwareModel                                | 获取硬件版本号。示例：HL1CMSM。                                    |
+| getManufacture                                  | 获取设备厂家名称。示例：HUAWEI。                                    |
+| getOsFullName                                   | 获取系统版本                                                 |
+| getDisplayVersion                               | 获取产品版本。示例：ALN-AL00 5.0.0.1(XXX)                        |
+| getBuildVersion                                 | 获取Build版本号，标识编译构建的版本号                                  |
+| getSdkApiVersion                                | 获取系统软件API版本。示例：12                                      |
+| getOsVersion                                    | 获取OS版本号（Major版本号,示例：5；Senior版本号，示例：0；Feature版本号，示例：0）。 |
+| getAbiList                                      | 应用二进制接口（Abi）。示例：arm64-v8a                              |
+| getOsReleaseType                                | 获取系统的发布类型，取值为：Canary、Beta、Release                      |
+| getDeviceType                                   | 获取当前设备类型                                               |
+| getDeviceTypeStr                                | 获取当前设备类型，返回字符串。                                        |
+| getConfiguration<br/>getConfigurationSync       | 获取设备的Configuration                                     |
+| getDirection                                    | 获取当前设备屏幕方向                                             |
+| getDeviceCapability<br/>getDeviceCapabilitySync | 获取设备的DeviceCapability                                  |
+| getScreenDensity                                | 获取当前设备屏幕密度                                             |
+| getBatterySOC                                   | 获取当前设备剩余电池电量百分比。                                       |
+| getBatteryCapacityLevel                         | 获取当前设备电池电量的等级。                                         |
+| getHealthStatus                                 | 获取当前设备电池的健康状态。                                         |
+| getBatteryTemperature                           | 获取当前设备电池的温度，单位0.1摄氏度。                                  |
+| getVoltage                                      | 获取当前设备电池的电压，单位微伏。                                      |
+| getNowCurrent                                   | 获取当前设备电池的电流，单位毫安。                                      |
+| isActive                                        | 检测当前设备是否处于活动状态。有屏的设备为亮屏状态，无屏的设备为非休眠状态。                 |
+| isStandby                                       | 检测当前设备是否进入待机低功耗续航模式。                                   |
+| getPowerMode                                    | 获取当前设备的电源模式。                                           |
+| startVibration                                  | 开启设备振动                                                 |
+| stopVibration                                   | 停止设备振动（按照VIBRATOR_STOP_MODE_TIME模式）                    |
 
 ## WindowUtil（窗口相关工具类） [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WindowUtilPage.ets)
 

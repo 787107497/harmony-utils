@@ -90,111 +90,12 @@ export class DeviceUtil {
 
 
   /**
-   * 获取设备品牌名称。示例：HUAWEI。
-   */
-  static getBrand(): string {
-    return deviceInfo.brand;
-  }
-
-  /**
-   * 获取认证型号。示例：ALN-AL00。
-   */
-  static getProductModel(): string {
-    return deviceInfo.productModel;
-  }
-
-  /**
-   * 获取认证型号。示例：HUAWEI ALN-AL00。
-   */
-  static getBrandModel(): string {
-    return `${deviceInfo.brand} ${deviceInfo.productModel}`;
-  }
-
-  /**
-   * 外部产品系列。示例：HUAWEI Mate 60 Pro
-   */
-  static getMarketName(): string {
-    return deviceInfo.marketName;
-  }
-
-
-  /**
-   * 硬件版本号。示例：HL1CMSM
-   */
-  static getHardwareModel(): string {
-    return deviceInfo.hardwareModel;
-  }
-
-  /**
-   * 设备厂家名称。示例：HUAWEI
-   */
-  static getManufacture(): string {
-    return deviceInfo.manufacture;
-  }
-
-  /**
-   * 获取系统版本。
-   */
-  static getOsFullName(): string {
-    return deviceInfo.osFullName;
-  }
-
-
-  /**
-   * 获取产品版本。示例：ALN-AL00 5.0.0.1(XXX)
-   */
-  static getDisplayVersion(): string {
-    return deviceInfo.displayVersion;
-  }
-
-  /**
-   * 获取系统软件API版本。示例：12
-   */
-  static getSdkApiVersion(): number {
-    return deviceInfo.sdkApiVersion;
-  }
-
-  /**
-   * 获取Build版本号，标识编译构建的版本号。
-   */
-  static getBuildVersion(): number {
-    return deviceInfo.buildVersion;
-  }
-
-  /**
-   * 获取OS版本号。
-   * Major版本号,示例：5；Senior版本号，示例：0；Feature版本号，示例：0。
-   */
-  static getOsVersion(): string {
-    return `${deviceInfo.majorVersion}.${deviceInfo.seniorVersion}.${deviceInfo.featureVersion}`;
-  }
-
-
-
-
-  /**
-   * 获取设备序列号。说明：可作为设备唯一识别码。示例：序列号随设备差异
-   * 需要权限：ohos.permission.sec.ACCESS_UDID
-   */
-  getSerial(): string {
-    return deviceInfo.serial;
-  }
-
-  /**
-   * 获取设备Udid。说明：数据长度为65字节。可作为设备唯一识别码。 示例：9D6AABD147XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXE5536412
-   * 需要权限：ohos.permission.sec.ACCESS_UDID
-   */
-  static getUdid(): string {
-    return deviceInfo.udid;
-  }
-
-
-  /**
    * 获取开发者匿名设备标识符，ODID。
    */
   static getODID(): string {
     return deviceInfo.ODID;
   }
+
 
   /**
    * 获取开放匿名设备标识符，OAID。
@@ -219,6 +120,103 @@ export class DeviceUtil {
    */
   static async deleteAAID(): Promise<void> {
     return AAID.deleteAAID();
+  }
+
+
+  /**
+   * 获取设备序列号。说明：可作为设备唯一识别码。示例：序列号随设备差异
+   * 需要权限：ohos.permission.sec.ACCESS_UDID (目前只限系统应用使用，不对三方应用开放)
+   */
+  static getSerial(): string {
+    return deviceInfo.serial;
+  }
+
+  /**
+   * 获取设备Udid。说明：数据长度为65字节。可作为设备唯一识别码。 示例：9D6AABD147XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXE5536412
+   * 需要权限：ohos.permission.sec.ACCESS_UDID (目前只限系统应用使用，不对三方应用开放)
+   */
+  static getUdid(): string {
+    return deviceInfo.udid;
+  }
+
+
+  /**
+   * 获取设备品牌名称。示例：HUAWEI。
+   */
+  static getBrand(): string {
+    return deviceInfo.brand;
+  }
+
+  /**
+   * 获取认证型号。示例：ALN-AL00。
+   */
+  static getProductModel(): string {
+    return deviceInfo.productModel;
+  }
+
+  /**
+   * 获取设备品牌名称 认证型号。示例：HUAWEI ALN-AL00。
+   */
+  static getBrandModel(): string {
+    return `${deviceInfo.brand} ${deviceInfo.productModel}`;
+  }
+
+  /**
+   * 获取外部产品系列名称。示例：HUAWEI Mate 60 Pro
+   */
+  static getMarketName(): string {
+    return deviceInfo.marketName;
+  }
+
+
+  /**
+   * 获取硬件版本号。示例：HL1CMSM
+   */
+  static getHardwareModel(): string {
+    return deviceInfo.hardwareModel;
+  }
+
+  /**
+   * 获取设备厂家名称。示例：HUAWEI。
+   */
+  static getManufacture(): string {
+    return deviceInfo.manufacture;
+  }
+
+
+  /**
+   * 获取系统版本。
+   */
+  static getOsFullName(): string {
+    return deviceInfo.osFullName;
+  }
+
+  /**
+   * 获取产品版本。示例：ALN-AL00 5.0.0.1(XXX)
+   */
+  static getDisplayVersion(): string {
+    return deviceInfo.displayVersion;
+  }
+
+  /**
+   * 获取Build版本号，标识编译构建的版本号。
+   */
+  static getBuildVersion(): number {
+    return deviceInfo.buildVersion;
+  }
+
+  /**
+   * 获取系统软件API版本。示例：12
+   */
+  static getSdkApiVersion(): number {
+    return deviceInfo.sdkApiVersion;
+  }
+
+  /**
+   * 获取OS版本号（Major版本号,示例：5；Senior版本号，示例：0；Feature版本号，示例：0）。
+   */
+  static getOsVersion(): string {
+    return `${deviceInfo.majorVersion}.${deviceInfo.seniorVersion}.${deviceInfo.featureVersion}`;
   }
 
 
@@ -297,6 +295,7 @@ export class DeviceUtil {
     return ResUtil.getConfigurationSync();
   }
 
+
   /**
    * 获取当前设备屏幕方向。
    * resourceManager.Direction:
@@ -325,6 +324,7 @@ export class DeviceUtil {
     return ResUtil.getDeviceCapabilitySync();
   }
 
+
   /**
    * 获取当前设备屏幕密度。
    * resourceManager.ScreenDensity:
@@ -342,23 +342,6 @@ export class DeviceUtil {
 
 
   /**
-   * 开启振动，ohos.permission.VIBRATE
-   * @param duration
-   * @param usage
-   */
-  static startVibration(duration: number = 1000, usage: vibrator.Usage = 'media'): Promise<void> {
-    return vibrator.startVibration({ type: 'time', duration: duration }, { id: 0, usage: usage });
-  }
-
-  /**
-   * 停止振动（按照VIBRATOR_STOP_MODE_TIME模式），ohos.permission.VIBRATE
-   */
-  static stopVibration(): Promise<void> {
-    return vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
-  }
-
-
-  /**
    * 获取当前设备剩余电池电量百分比。
    * @returns
    */
@@ -368,6 +351,13 @@ export class DeviceUtil {
 
   /**
    * 获取当前设备电池电量的等级。
+   *  LEVEL_FULL  1  表示电池电量等级为满电量。
+   *  LEVEL_HIGH  2  表示电池电量等级为高电量。
+   *  LEVEL_NORMAL  3  表示电池电量等级为正常电量。
+   *  LEVEL_LOW  4  表示电池电量等级为低电量。
+   *  LEVEL_WARNING  5  表示电池电量等级为告警电量。
+   *  LEVEL_CRITICAL  6  表示电池电量等级为极低电量。
+   *  LEVEL_SHUTDOWN  7  表示电池电量等级为关机电量。
    * @returns
    */
   static getBatteryCapacityLevel(): batteryInfo.BatteryCapacityLevel {
@@ -376,6 +366,12 @@ export class DeviceUtil {
 
   /**
    * 获取当前设备电池的健康状态。
+   *  UNKNOWN  0  表示电池健康状态未知。
+   *  GOOD  1  表示电池健康状态为正常。
+   *  OVERHEAT  2  表示电池健康状态为过热。
+   *  OVERVOLTAGE  3  表示电池健康状态为过压。
+   *  COLD  4  表示电池健康状态为低温。
+   *  DEAD  5  表示电池健康状态为僵死状态。
    * @returns
    */
   static getHealthStatus(): batteryInfo.BatteryHealthState {
@@ -433,6 +429,23 @@ export class DeviceUtil {
    */
   static getPowerMode(): power.DevicePowerMode {
     return power.getPowerMode();
+  }
+
+
+  /**
+   * 开启振动，ohos.permission.VIBRATE
+   * @param duration
+   * @param usage
+   */
+  static startVibration(duration: number = 1000, usage: vibrator.Usage = 'media'): Promise<void> {
+    return vibrator.startVibration({ type: 'time', duration: duration }, { id: 0, usage: usage });
+  }
+
+  /**
+   * 停止振动（按照VIBRATOR_STOP_MODE_TIME模式），ohos.permission.VIBRATE
+   */
+  static stopVibration(): Promise<void> {
+    return vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
   }
 
 
