@@ -14,13 +14,15 @@
  */
 
 import errorManager from '@ohos.app.ability.errorManager';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { WriteOptions } from '@kit.CoreFileKit';
 import { appRecovery, common, Want } from '@kit.AbilityKit';
 import { DateUtil } from './DateUtil';
 import { LogUtil } from './LogUtil';
 import { FileUtil } from './FileUtil';
-import { AppUtil } from './AppUtil';
+import { ExceptionInfo } from '../entity/ExceptionInfo';
+import { JSONUtil } from './JSONUtil';
+import { StrUtil } from './StrUtil';
 
 
 /**
@@ -35,20 +37,23 @@ export class CrashUtil {
 
 
 
-
   /**
    * 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件。
    */
-  static onHandledException() {
+  static onHandledException(callback: Callback<ExceptionInfo>) {
     try {
       if (CrashUtil.observerId === undefined) {
         CrashUtil.observerId = errorManager.on('error', {
+          //将在js运行时引发用户未捕获的异常时调用。
           onUnhandledException(errMsg) {
             let errStr = `${DateUtil.getTodayStr()} - 异常信息：\n${errMsg}\n\n\n`;
 
+
             // FileUtil.writeEasy(CrashUtil.ErrorFilePath, errStr);
           },
+          //将在js运行时引发用户未捕获的异常时调用。
           onException(errObject) {
+            errObject.name
             // let errStr = `${DateUtil.getTodayStr()} - 异常信息2：\n${JSON.stringify(errObject)}\n\n\n`;
           }
         });
@@ -67,7 +72,7 @@ export class CrashUtil {
       if (CrashUtil.observerId) {
         errorManager.off('error', CrashUtil.observerId, (err: BusinessError) => {
           if (err) {
-            LogUtil.error("CrashUtil：" + JSON.stringify(err));
+            LogUtil.error(err);
           }
         });
       }
@@ -77,68 +82,37 @@ export class CrashUtil {
   }
 
 
-  // /**
-  //  * 导出错误日志
-  //  */
-  // static onExportErrorLog() {
-  //   CrashUtil.ErrorFilePath = FileUtil.getFilesDirPath("ErrorLog", "errorLog.txt")
-  //   if (StrUtil.isNotEmpty(CrashUtil.ErrorFilePath)) {
-  //     // PickerUtil.saveDocumentEasy(['errorLog.txt']).then((documentSaveResult: Array<string>) => {
-  //     //   if (documentSaveResult && documentSaveResult.length > 0) {
-  //     //     let saveUri = documentSaveResult[0];
-  //     //     let file = FileUtil.openSync(saveUri);
-  //     //     FileUtil.copyFile(CrashUtil.ErrorFilePath, file.fd).then(() => {
-  //     //       FileUtil.close(file.fd);
-  //     //     });
-  //     //   }
-  //     // })
-  //   } else {
-  //     ToastUtil.showToast("暂无日志文件");
-  //   }
-  // }
-
-
   /**
-   * 获取错误日志文件路径
+   * 获取异常日志文件路径（用于读取异常文件、导出异常文件）。
    * @returns
    */
-  static getErrorFilePath(): string {
+  static getExceptionFilePath(): string {
     if (CrashUtil.errorFilePath === undefined) {
       CrashUtil.errorFilePath = FileUtil.getFilesDirPath("harmony_utils_error_log", "ErrorLog.json"); //错误日志文件路径
     }
     return CrashUtil.errorFilePath;
   }
 
-
   /**
-   * 读取错误日志文件的JSON字符串。
+   * 获取异常日志的JSON字符串。
    */
-  static async getErrorJson(): Promise<string> {
-    const errorFilePath = CrashUtil.getErrorFilePath();
+  static async getExceptionJson(): Promise<string> {
+    const errorFilePath = CrashUtil.getExceptionFilePath();
     if (FileUtil.accessSync(errorFilePath)) {
       return await FileUtil.readText(errorFilePath);
     }
     return '';
   }
 
-
-
-
   /**
-   * 将数据写入文件，并关闭文件。
+   * 获取异常日志的集合。
    */
-  private static writeStr(path: string, str: string): number {
-    const file = FileUtil.openSync(path);
-    const offset = FileUtil.statSync(file.fd).size;
-    if (offset === 0) {
-      str = `[${str}]`;
-    } else {
-      str = `,${str}`;
+  static async getExceptionList(): Promise<ExceptionInfo[]> {
+    let json = await CrashUtil.getExceptionJson();
+    if (StrUtil.isNotEmpty(json)) {
+      return JSONUtil.jsonToArray<ExceptionInfo>(json);
     }
-    const options: WriteOptions = { offset: offset, encoding: 'utf-8' };
-    let result = FileUtil.writeSync(file.fd, str, options);
-    FileUtil.closeSync(file.fd); //关闭文件
-    return result;
+    return [];
   }
 
 
@@ -172,7 +146,7 @@ export class CrashUtil {
    *   如果没有Ability处于前台，则不拉起。
    */
   static restartApp() {
-    appRecovery.restartApp()
+    appRecovery.restartApp();
   }
 
 
@@ -192,11 +166,30 @@ export class CrashUtil {
    */
   static saveAppState(context?: common.UIAbilityContext): boolean {
     if (context) {
-      return appRecovery.saveAppState(context) //主动保存Ability的状态
+      return appRecovery.saveAppState(context); //主动保存Ability的状态
     } else {
-      return appRecovery.saveAppState() //保存当前App状态
+      return appRecovery.saveAppState(); //保存当前App状态
     }
   }
+
+
+  /**
+   * 将数据写入文件，并关闭文件。
+   */
+  private static writeStr(path: string, str: string): number {
+    const file = FileUtil.openSync(path);
+    const offset = FileUtil.statSync(file.fd).size;
+    if (offset === 0) {
+      str = `[${str}]`;
+    } else {
+      str = `,${str}`;
+    }
+    const options: WriteOptions = { offset: offset, encoding: 'utf-8' };
+    let result = FileUtil.writeSync(file.fd, str, options);
+    FileUtil.closeSync(file.fd); //关闭文件
+    return result;
+  }
+
 
 
 }

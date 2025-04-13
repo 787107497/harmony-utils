@@ -296,7 +296,7 @@ export class LogUtil {
     const errorStack = new Error().stack;
     const stackArray = errorStack?.split('\n');
     let errorLocation: string = stackArray?.filter(item => item !== null && item.length > 1)
-    ?.splice(3).join('')?.replaceAll(' ', '') ?? '';
+    ?.splice(3).join('')?.replaceAll('  ', '') ?? '';
     return `\n│  ${errorLocation}\n│➼${StrUtil.repeat('┄┄┄┄┄┄┄', 21)}`;
   }
 

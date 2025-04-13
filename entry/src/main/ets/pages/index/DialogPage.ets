@@ -37,8 +37,8 @@ export struct DialogPage {
   private orfruits: string[] = ['orange1', 'orange2', 'orange3', 'orange4']
   private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
   private multis: string[][] = [this.apfruits, this.orfruits, this.pefruits]
-
   @BuilderParam customTextBuilderParam: (str: string | Resource) => void = CustomTextViewBuilder; //自定义文本内容
+
 
   /**
    * 统一配置一
@@ -191,10 +191,7 @@ export struct DialogPage {
       DialogHelper.showAlertDialog({
         title: "提示",
         content: "确定保存该视频文件吗？",
-        // primaryButton: {
-        //   value: "取消",
-        //   fontColor: Color.Red
-        // },
+        // primaryButton:'取消',
         secondaryButton: {
           value: "确认",
           fontColor: Color.Brown

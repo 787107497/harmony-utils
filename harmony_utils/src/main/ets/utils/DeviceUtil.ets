@@ -25,6 +25,8 @@ import deviceInfo from '@ohos.deviceInfo';
 import { ResUtil } from './ResUtil';
 import { identifier } from '@kit.AdsKit';
 import { DEVICE_ID_KEY } from '../entity/constraint';
+import { AAID } from '@kit.PushKit';
+import { batteryInfo, power } from '@kit.BasicServicesKit';
 
 
 /**
@@ -168,15 +170,10 @@ export class DeviceUtil {
   }
 
 
-  /**
-   * 获取开发者匿名设备标识符。
-   */
-  static getODID(): string {
-    return deviceInfo.ODID;
-  }
+
 
   /**
-   * 设备序列号。说明：可作为设备唯一识别码。示例：序列号随设备差异
+   * 获取设备序列号。说明：可作为设备唯一识别码。示例：序列号随设备差异
    * 需要权限：ohos.permission.sec.ACCESS_UDID
    */
   getSerial(): string {
@@ -184,19 +181,44 @@ export class DeviceUtil {
   }
 
   /**
-   * 设备Udid。说明：数据长度为65字节。可作为设备唯一识别码。 示例：9D6AABD147XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXE5536412
+   * 获取设备Udid。说明：数据长度为65字节。可作为设备唯一识别码。 示例：9D6AABD147XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXE5536412
    * 需要权限：ohos.permission.sec.ACCESS_UDID
    */
   static getUdid(): string {
     return deviceInfo.udid;
   }
 
+
   /**
-   * 获取开放匿名设备标识符
+   * 获取开发者匿名设备标识符，ODID。
+   */
+  static getODID(): string {
+    return deviceInfo.ODID;
+  }
+
+  /**
+   * 获取开放匿名设备标识符，OAID。
    * 需要权限：ohos.permission.APP_TRACKING_CONSENT
    */
   static async getOAID(): Promise<string> {
     return identifier.getOAID();
+  }
+
+
+  /**
+   * 获取AAID，使用Promise异步返回结果。
+   * @returns
+   */
+  static async getAAID(): Promise<string> {
+    return AAID.getAAID();
+  }
+
+  /**
+   * 删除AAID，使用Promise异步返回结果。
+   * @returns
+   */
+  static async deleteAAID(): Promise<void> {
+    return AAID.deleteAAID();
   }
 
 
@@ -336,6 +358,82 @@ export class DeviceUtil {
   }
 
 
+  /**
+   * 获取当前设备剩余电池电量百分比。
+   * @returns
+   */
+  static getBatterySOC(): number {
+    return batteryInfo.batterySOC;
+  }
+
+  /**
+   * 获取当前设备电池电量的等级。
+   * @returns
+   */
+  static getBatteryCapacityLevel(): batteryInfo.BatteryCapacityLevel {
+    return batteryInfo.batteryCapacityLevel;
+  }
+
+  /**
+   * 获取当前设备电池的健康状态。
+   * @returns
+   */
+  static getHealthStatus(): batteryInfo.BatteryHealthState {
+    return batteryInfo.healthStatus;
+  }
+
+  /**
+   * 获取当前设备电池的温度，单位0.1摄氏度。
+   * @returns
+   */
+  static getBatteryTemperature(): number {
+    return batteryInfo.batteryTemperature;
+  }
+
+  /**
+   * 获取当前设备电池的电压，单位微伏。
+   * @returns
+   */
+  static getVoltage(): number {
+    return batteryInfo.voltage;
+  }
+
+  /**
+   * 获取当前设备电池的电流，单位毫安。
+   * @returns
+   */
+  static getNowCurrent(): number {
+    return batteryInfo.nowCurrent;
+  }
+
+
+  /**
+   * 检测当前设备是否处于活动状态。有屏的设备为亮屏状态，无屏的设备为非休眠状态。
+   * @returns
+   */
+  static isActive(): boolean {
+    return power.isActive();
+  }
+
+  /**
+   * 检测当前设备是否进入待机低功耗续航模式。
+   * @returns
+   */
+  static isStandby(): boolean {
+    return power.isStandby();
+  }
+
+  /**
+   * 获取当前设备的电源模式。
+   *  MODE_NORMAL  600  表示标准模式，默认值。
+   *  MODE_POWER_SAVE  601  表示省电模式。
+   *  MODE_PERFORMANCE  602  表示性能模式。
+   *  MODE_EXTREME_POWER_SAVE  603  表示超级省电模式。
+   * @returns
+   */
+  static getPowerMode(): power.DevicePowerMode {
+    return power.getPowerMode();
+  }
 
 
 }
