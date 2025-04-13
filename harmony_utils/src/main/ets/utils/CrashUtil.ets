@@ -17,12 +17,12 @@ import errorManager from '@ohos.app.ability.errorManager';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { WriteOptions } from '@kit.CoreFileKit';
 import { appRecovery, common, Want } from '@kit.AbilityKit';
-import { DateUtil } from './DateUtil';
 import { LogUtil } from './LogUtil';
 import { FileUtil } from './FileUtil';
 import { ExceptionInfo } from '../entity/ExceptionInfo';
 import { JSONUtil } from './JSONUtil';
 import { StrUtil } from './StrUtil';
+import { JSON } from '@kit.ArkTS';
 
 
 /**
@@ -40,21 +40,19 @@ export class CrashUtil {
   /**
    * 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件。
    */
-  static onHandledException(callback: Callback<ExceptionInfo>) {
+  static onHandled(callback: Callback<ExceptionInfo>) {
     try {
       if (CrashUtil.observerId === undefined) {
         CrashUtil.observerId = errorManager.on('error', {
           //将在js运行时引发用户未捕获的异常时调用。
-          onUnhandledException(errMsg) {
-            let errStr = `${DateUtil.getTodayStr()} - 异常信息：\n${errMsg}\n\n\n`;
-
-
-            // FileUtil.writeEasy(CrashUtil.ErrorFilePath, errStr);
-          },
+          onUnhandledException(errMsg) {},
           //将在js运行时引发用户未捕获的异常时调用。
           onException(errObject) {
-            errObject.name
-            // let errStr = `${DateUtil.getTodayStr()} - 异常信息2：\n${JSON.stringify(errObject)}\n\n\n`;
+            let info: ExceptionInfo = new ExceptionInfo(errObject.name, errObject.message, errObject.stack ?? "");
+            let filePath = CrashUtil.getExceptionFilePath();
+            let infoJson = JSON.stringify(info, null, 2);
+            CrashUtil.writeStr(filePath, infoJson);
+            callback(info);
           }
         });
       }
@@ -67,7 +65,7 @@ export class CrashUtil {
   /**
    * 注销错误观测器。
    */
-  static onExceptionDestroy() {
+  static onDestroy() {
     try {
       if (CrashUtil.observerId) {
         errorManager.off('error', CrashUtil.observerId, (err: BusinessError) => {
@@ -75,6 +73,7 @@ export class CrashUtil {
             LogUtil.error(err);
           }
         });
+        CrashUtil.observerId = undefined;
       }
     } catch (err) {
       LogUtil.error(err);
@@ -93,6 +92,7 @@ export class CrashUtil {
     return CrashUtil.errorFilePath;
   }
 
+
   /**
    * 获取异常日志的JSON字符串。
    */
@@ -103,6 +103,7 @@ export class CrashUtil {
     }
     return '';
   }
+
 
   /**
    * 获取异常日志的集合。
@@ -178,11 +179,12 @@ export class CrashUtil {
    */
   private static writeStr(path: string, str: string): number {
     const file = FileUtil.openSync(path);
-    const offset = FileUtil.statSync(file.fd).size;
+    let offset = FileUtil.statSync(file.fd).size;
     if (offset === 0) {
       str = `[${str}]`;
     } else {
-      str = `,${str}`;
+      offset = offset - 1;
+      str = `,${str}]`;
     }
     const options: WriteOptions = { offset: offset, encoding: 'utf-8' };
     let result = FileUtil.writeSync(file.fd, str, options);

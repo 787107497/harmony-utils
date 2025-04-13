@@ -1,8 +1,12 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { AppUtil, CrashUtil, FileUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { CrashUtil, FileUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
+import { JSON } from '@kit.ArkTS';
+import { DialogHelper } from '@pura/harmony-dialog';
+import { Utils } from '../../utils/Utils';
+import { PickerUtil } from '@pura/picker_utils';
 
 /**
  * 全局异常捕获，崩溃日志收集
@@ -25,27 +29,19 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("onError()")
+          Button("onHandled()")
             .btnStyle()
             .onClick(() => {
-              // CrashUtil.onError(); //注册错误观测器
-              ToastUtil.showToast("注册错误观测器,成功")
+              CrashUtil.onHandled((exceptionInfo)=>{
+                LogUtil.error(JSON.stringify(exceptionInfo, null, 2));
+              });
+              ToastUtil.showToast("注册观测器，成功！")
             })
-          Button("offError()")
+          Button("onDestroy()")
             .btnStyle()
             .onClick(() => {
-              // CrashUtil.offError(); //注销错误观测器
-              ToastUtil.showToast("注销错误观测器,成功")
-            })
-          Button("onExportErrorLog()")
-            .btnStyle()
-            .onClick(() => {
-              // CrashUtil.onExportErrorLog(); //导出错误日志文件
-            })
-          Button("readErrorText")
-            .btnStyle()
-            .onClick(async () => {
-              // this.errorTxt = await CrashUtil.readErrorText(); //读取错误文件
+               CrashUtil.onDestroy(); //注销错误观测器
+              ToastUtil.showToast("注销误观测器,成功！")
             })
           Button("制造异常")
             .btnStyle()
@@ -53,20 +49,48 @@ struct Index {
               let path = 'null';
               FileUtil.openSync(path)
             })
+
+          Button("getExceptionFilePath()")
+            .btnStyle()
+            .onClick(() => {
+              let path = CrashUtil.getExceptionFilePath();
+              LogUtil.error(`异常日志文件路径：${path}`);
+              if (FileUtil.accessSync(path)) { //文件存在，导出文件
+                PickerUtil.saveDocumentEasy(['异常日志文件.txt']).then((documentSaveResult: Array<string>) => {
+                  if (documentSaveResult && documentSaveResult.length > 0) {
+                    let saveUri = documentSaveResult[0];
+                    let file = FileUtil.openSync(saveUri);
+                    FileUtil.copyFile(path, file.fd).then(() => {
+                      FileUtil.close(file.fd);
+                    });
+                  }
+                });
+              } else {
+                ToastUtil.showToast("暂无日志文件");
+              }
+            })
+          Button("getExceptionJson()")
+            .btnStyle()
+            .onClick(async () => {
+              let jsonStr = await CrashUtil.getExceptionJson(); //读取JSON
+              Utils.showSheetText(jsonStr);
+            })
+          Button("getExceptionList()")
+            .btnStyle()
+            .onClick(async () => {
+              let list = await CrashUtil.getExceptionList();
+              DialogHelper.showToast(`异常个数：${list.length}`);
+            })
           Button("重启APP")
             .btnStyle()
             .onClick(() => {
               CrashUtil.restartApp();
             })
-          Text(this.errorTxt)
-            .visibility(StrUtil.isNotEmpty(this.errorTxt) ? Visibility.Visible : Visibility.None)
-            .textStyle()
 
           Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
-
       .layoutWeight(1)
     }
     .width('100%')
@@ -81,13 +105,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

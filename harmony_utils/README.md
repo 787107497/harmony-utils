@@ -491,12 +491,13 @@ OpenHarmony ohpm
 | setDomain  | 设置日志对应的领域标识，范围是0x0~0xFFFF。（该方法建议在Ability里调用） |
 | setTag     | 设置日志标识（该方法建议在Ability里调用）                     |
 | setShowLog | 是否打印日志（该方法建议在Ability里调用）                     |
+| setHilog   | 日志打印方式（该方法建议在Ability里调用）                     |
 | debug      | 打印DEBUG级别日志                                  |
 | info       | 打印INFO级别日志                                   |
 | warn       | 打印WARN级别日志                                   |
 | error      | 打印ERROR级别日志                                  |
 | fatal      | 打印FATAL级别日志                                  |
-| print      | 打印JSON对象和JSON字符串（日志过滤tag为：JSAPP）             |
+| print      | 打印日志，无边框。                                    |
 
 ## ResUtil（资源工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ResUtilPage.ets)
 
@@ -726,16 +727,17 @@ OpenHarmony ohpm
 
 ## CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
 
-| 方法                | 介绍                                                                |
-|:------------------|:------------------------------------------------------------------|
-| onError           | 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件             |
-| offError          | 注销错误观测器                                                           |
-| readErrorText     | 读取错误日志文件                                                          |
-| onExportErrorLog  | 导出错误日志文件                                                          |
-| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                  |
-| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
-| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
-| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
+| 方法                   | 介绍                                                                |
+|:---------------------|:------------------------------------------------------------------|
+| onHandled            | 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件             |
+| onDestroy            | 注销错误观测器                                                           |
+| getExceptionFilePath | 获取异常日志文件路径（用于读取异常文件、导出异常文件）                                       |
+| getExceptionJson     | 获取异常日志的JSON字符串                                                    |
+| getExceptionList     | 获取异常日志的集合                                                         |
+| enableAppRecovery    | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                  |
+| restartApp           | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
+| saveAppState         | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
+| setRestartWant       | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
 
 ## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 

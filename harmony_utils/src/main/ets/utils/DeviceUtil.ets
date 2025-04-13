@@ -213,7 +213,7 @@ export class DeviceUtil {
   }
 
   /**
-   * 获取OS版本号（Major版本号,示例：5；Senior版本号，示例：0；Feature版本号，示例：0）。
+   * 获取OS版本号（5.0.4）（Major版本号,示例：5；Senior版本号，示例：0；Feature版本号，示例：0）。
    */
   static getOsVersion(): string {
     return `${deviceInfo.majorVersion}.${deviceInfo.seniorVersion}.${deviceInfo.featureVersion}`;

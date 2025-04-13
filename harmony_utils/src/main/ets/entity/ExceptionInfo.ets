@@ -1,58 +1,52 @@
-import { FaultLogger } from "@kit.PerformanceAnalysisKit";
+import { AppUtil } from '../utils/AppUtil';
+import { DeviceUtil } from '../utils/DeviceUtil';
+import { systemDateTime } from '@kit.BasicServicesKit';
 
 /**
  * 异常信息对象
  */
-export class ExceptionInfo{
-  deviceInfo?: string;
-  buildInfo?: string;
-  version?: string;
-  versionCode?: string;
-  pid?: number;
-  uid?: number;
-  timestamp?: number;
-  module?: string;
-  summary?: string;
-  fullLog?: string;
-  reason?: string;
-  type?: FaultLogger.FaultType;
-  nowTime?: string;
+export class ExceptionInfo {
 
 
+  constructor(name: string, message: string, stack: string) {
+    this.name = name;
+    this.message = message;
+    this.stack = stack;
+    this.crashTime = systemDateTime.getTime(false);
+    this.brandModel = DeviceUtil.getBrandModel();
+    this.marketName = DeviceUtil.getMarketName();
+    this.osFullName = DeviceUtil.getOsFullName();
+    this.displayVersion = DeviceUtil.getDisplayVersion();
+    this.sdkApiVersion = DeviceUtil.getSdkApiVersion();
+    this.osVersion = DeviceUtil.getOsVersion();
+    this.bundleName = AppUtil.getBundleName();
+    this.versionName = AppUtil.getVersionName();
+    this.versionCode = AppUtil.getVersionCode();
+    this.installTime = AppUtil.getInstallTime();
+    this.updateTime = AppUtil.getUpdateTime();
+    this.provisionType = AppUtil.getAppProvisionType();
+  }
+
+
+
+  brandModel?: string; //设备品牌及型号
+  marketName?: string; //设备产品系列名称
+  osFullName?: string; //系统版本
+  displayVersion?: string; //产品版本。示例：ALN-AL00 5.0.0.1(XXX)
+  sdkApiVersion?: number; //系统软件API版本，示例：12
+  osVersion?: string; //OS版本号，示例：5.0.4
+
+  bundleName?: string; //应用包的名称
+  versionName?: string; //应用版本名
+  versionCode?: number; //应用版本号
+  installTime?: number; //应用包安装时间
+  updateTime?: number; //应用包更新时间
+  provisionType?: string; //应用程序签名证书文件的类型，分为debug和release两种类型。
+
+  crashTime?: number; //崩溃的时间
   name?: string;
   message?: string;
   stack?: string;
-
-
-
-  // StringBuilder sb = new StringBuilder();
-  // sb.append("\n软件App的Id:").append(BuildConfig.LIBRARY_PACKAGE_NAME);
-  // sb.append("\n是否是DEBUG版本:").append(BuildConfig.BUILD_TYPE);
-  // sb.append("\n崩溃的时间:").append(crashTime);
-  // sb.append("\n是否root:").append(NetDeviceUtils.isDeviceRooted());
-  // sb.append("\n系统硬件商:").append(NetDeviceUtils.getManufacturer());
-  // sb.append("\n设备的品牌:").append(NetDeviceUtils.getBrand());
-  // sb.append("\n手机的型号:").append(NetDeviceUtils.getModel());
-  // sb.append("\n设备版本号:").append(NetDeviceUtils.getId());
-  // sb.append("\nCPU的类型:").append(NetDeviceUtils.getCpuType());
-  // sb.append("\n系统的版本:").append(NetDeviceUtils.getSDKVersionName());
-  // sb.append("\n系统版本值:").append(NetDeviceUtils.getSDKVersionCode());
-  // sb.append("\n当前的版本:").append(versionName).append("—").append(versionCode);
-
-
-  // String now = dataFormat.format(new Date());
-  // sb.append("TIME:").append(now);//崩溃时间
-  // //程序信息
-  // sb.append("\nAPPLICATION_ID:").append(BuildConfig.LIBRARY_PACKAGE_NAME);//软件APPLICATION_ID
-  // sb.append("\nVERSION_CODE:").append(BuildConfig.VERSION_CODE);//软件版本号
-  // sb.append("\nVERSION_NAME:").append(BuildConfig.VERSION_NAME);//VERSION_NAME
-  // sb.append("\nBUILD_TYPE:").append(BuildConfig.BUILD_TYPE);//是否是DEBUG版本
-  // //设备信息
-  // sb.append("\nMODEL:").append(Build.MODEL);
-  // sb.append("\nRELEASE:").append(Build.VERSION.RELEASE);
-  // sb.append("\nSDK:").append(Build.VERSION.SDK_INT);
-  // sb.append("\nEXCEPTION:").append(ex.getLocalizedMessage());
-  // sb.append("\nSTACK_TRACE:").append(result);
 
 
 }
