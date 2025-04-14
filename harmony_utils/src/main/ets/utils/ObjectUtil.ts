@@ -119,6 +119,9 @@ export class ObjectUtil {
    * @returns
    */
   static deepCopy<T>(obj: T): T {
+    if (obj === undefined || obj === null) {
+      return obj; //为undefined和null
+    }
     let newObj: Record<string, Object> | Object[] = Array.isArray(obj) ? [] : {};
     for (let key of Object.keys(obj)) {
       if (typeof obj[key] === 'object') {

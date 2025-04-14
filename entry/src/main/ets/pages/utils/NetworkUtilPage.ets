@@ -12,10 +12,20 @@ import { DescribeBean } from '../../model/DescribeBean';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
+  private autoCancel?: boolean=undefined;
 
   @MockSetup
   mock() {
     this.describe = new DescribeBean("NetworkUtil", "网络相关工具类");
+  }
+
+  aboutToAppear(): void {
+    LogUtil.error(`${this.autoCancel}`);
+    let autoCancel = this.autoCancel ?? true
+    LogUtil.error(`${autoCancel}`);
+    let  autoCancel1 = this.autoCancel ?? false
+    LogUtil.error(`${autoCancel1}`);
+
   }
 
 

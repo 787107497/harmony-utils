@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { ComponentContent, promptAction, window } from '@kit.ArkUI';
+import { ComponentContent, FrameNode, promptAction, window } from '@kit.ArkUI';
 import { BaseDialogOptions } from '../model/base/BaseDialogOptions';
 import { ActionCoreArg } from '../model/base/ActionCoreArg';
 import { BusinessError, systemDateTime } from '@kit.BasicServicesKit';
@@ -137,7 +137,7 @@ export class BaseActionCore {
       }
     } catch (e) {
       const error = e as BusinessError;
-      console.info(`closeBindSheet-Error ~ code: ${error.code} -·- message: ${error.message}`);
+      console.error(`closeBindSheet-Error ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -157,7 +157,7 @@ export class BaseActionCore {
       }
     } catch (e) {
       const error = e as BusinessError;
-      console.info(`updateBindSheet-Error ~ code: ${error.code} -·- message: ${error.message}`);
+      console.error(`updateBindSheet-Error ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

@@ -98,20 +98,6 @@
     "type": 1
   },
   {
-    "name": "PickerUtil",
-    "desc": "拍照、文件(文件、图片、视频、音频)选择和保存,工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/PickerUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "PhotoHelper",
-    "desc": "相册选择和保存,工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/PhotoHelper.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets",
-    "type": 1
-  },
-  {
     "name": "ImageUtil",
     "desc": "图片相关工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/ImageUtil.ets",
@@ -133,13 +119,6 @@
     "type": 1
   },
   {
-    "name": "ScanUtil",
-    "desc": "码工具类（扫码、码图生成、图片识码）",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/ScanUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets",
-    "type": 1
-  },
-  {
     "name": "LocationUtil",
     "desc": "定位工具类(WGS-84坐标系)",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/LocationUtil.ets",
@@ -154,10 +133,59 @@
     "type": 1
   },
   {
+    "name": "CrashUtil",
+    "desc": "全局异常捕获，崩溃日志收集",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/CrashUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "KeyboardUtil",
+    "desc": "键盘工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/KeyboardUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "NetworkUtil",
+    "desc": "网络相关工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/NetworkUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "PasteboardUtil",
+    "desc": "剪贴板工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/PasteboardUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "AssetUtil",
+    "desc": "关键资产存储服务工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/AssetUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets",
+    "type": 1
+  },
+  {
     "name": "ResUtil",
     "desc": "资源工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/ResUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ResUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "ObjectUtil",
+    "desc": "对象工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/ObjectUtil.ts",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "JSONUtil",
+    "desc": "JSON工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/JSONUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets",
     "type": 1
   },
   {
@@ -168,24 +196,17 @@
     "type": 1
   },
   {
+    "name": "Base64Util",
+    "desc": "Base64工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/Base64Util.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets",
+    "type": 1
+  },
+  {
     "name": "StrUtil",
     "desc": "字符串工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/StrUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "RegexUtil",
-    "desc": "正则工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/RegexUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "FormatUtil",
-    "desc": "格式化工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/FormatUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets",
     "type": 1
   },
   {
@@ -217,24 +238,17 @@
     "type": 1
   },
   {
-    "name": "ObjectUtil",
-    "desc": "对象工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/ObjectUtil.ts",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets",
+    "name": "RegexUtil",
+    "desc": "正则工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/RegexUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets",
     "type": 1
   },
   {
-    "name": "Base64Util",
-    "desc": "Base64工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/Base64Util.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "JSONUtil",
-    "desc": "JSON工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/JSONUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets",
+    "name": "FormatUtil",
+    "desc": "格式化工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/FormatUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets",
     "type": 1
   },
   {
@@ -242,41 +256,6 @@
     "desc": "节流、防抖 工具类（可用于点击事件，防止按钮被重复点击）",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/ClickUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ClickUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "CrashUtil",
-    "desc": "全局异常捕获，崩溃日志收集",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/CrashUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "KeyboardUtil",
-    "desc": "键盘工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/KeyboardUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "PasteboardUtil",
-    "desc": "剪贴板工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/PasteboardUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "NetworkUtil",
-    "desc": "网络相关工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/NetworkUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "AssetUtil",
-    "desc": "关键资产存储服务工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/AssetUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets",
     "type": 1
   },
   {
@@ -362,5 +341,26 @@
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/crypto/ECDSA.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/crypto/ECDSAPage.ets",
     "type": 2
+  },
+  {
+    "name": "PickerUtil",
+    "desc": "拍照、文件(文件、图片、视频、音频)选择和保存,工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/PickerUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PickerUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "PhotoHelper",
+    "desc": "相册选择和保存,工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/PhotoHelper.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets",
+    "type": 1
+  },
+  {
+    "name": "ScanUtil",
+    "desc": "码工具类（扫码、码图生成、图片识码）",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/picker_utils/src/main/ets/ScanUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets",
+    "type": 1
   }
 ]
