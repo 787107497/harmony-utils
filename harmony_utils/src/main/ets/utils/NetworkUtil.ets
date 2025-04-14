@@ -79,7 +79,7 @@ export class NetworkUtil {
 
 
   /**
-   * 网络是否可用
+   * 判断当前网络是否可用
    * @returns
    */
   static isNetworkAvailable(): Boolean {
@@ -237,14 +237,14 @@ export class NetworkUtil {
         }
       }
     } catch (err) {
-      console.error(err);
+      LogUtil.error(err);
     }
     return NetworkType.NETWORK_TYPE_UNKNOWN;
   }
 
 
   /**
-   * 获取网络类型 字符。
+   * 获取网络类型，返回字符类型。
    */
   static async getNetworkTypeStr(): Promise<string> {
     const networkType = await NetworkUtil.getNetworkType();

@@ -36,9 +36,10 @@ export class CrashUtil {
   private static errorFilePath: string | undefined = undefined; //错误日志文件路径
 
 
-
   /**
-   * 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件。
+   * 注册错误观测器。
+   * 注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件。
+   * @param callback 异常回调，可以在该回调里上传异常信息；
    */
   static onHandled(callback: Callback<ExceptionInfo>) {
     try {
@@ -49,7 +50,7 @@ export class CrashUtil {
           //将在js运行时引发用户未捕获的异常时调用。
           onException(errObject) {
             let info: ExceptionInfo = new ExceptionInfo(errObject.name, errObject.message, errObject.stack ?? "");
-            let filePath = CrashUtil.getExceptionFilePath();
+            let filePath = CrashUtil.getFilePath();
             let infoJson = JSON.stringify(info, null, 2);
             CrashUtil.writeStr(filePath, infoJson);
             callback(info);
@@ -67,13 +68,15 @@ export class CrashUtil {
    */
   static onDestroy() {
     try {
-      if (CrashUtil.observerId) {
+      if (CrashUtil.observerId !== undefined) {
         errorManager.off('error', CrashUtil.observerId, (err: BusinessError) => {
+          LogUtil.error('observerId: '+CrashUtil.observerId)
           if (err) {
             LogUtil.error(err);
+            return
           }
+          CrashUtil.observerId = undefined;
         });
-        CrashUtil.observerId = undefined;
       }
     } catch (err) {
       LogUtil.error(err);
@@ -82,14 +85,43 @@ export class CrashUtil {
 
 
   /**
-   * 获取异常日志文件路径（用于读取异常文件、导出异常文件）。
+   * 判断错误观测器是否存在
    * @returns
    */
-  static getExceptionFilePath(): string {
+  static isHandled(): boolean {
+    return CrashUtil.observerId !== undefined;
+  }
+
+
+  /**
+   * 获取日志文件路径（用于读取日志文件、导出日志文件）。
+   * @returns
+   */
+  static getFilePath(): string {
     if (CrashUtil.errorFilePath === undefined) {
-      CrashUtil.errorFilePath = FileUtil.getFilesDirPath("harmony_utils_error_log", "ErrorLog.json"); //错误日志文件路径
+      CrashUtil.errorFilePath = FileUtil.getFilesDirPath("harmony_utils_log", "ExceptionLog.json"); //错误日志文件路径
     }
     return CrashUtil.errorFilePath;
+  }
+
+  /**
+   * 判断日志文件是否存在
+   * @returns
+   */
+  static access(): boolean {
+    const path = CrashUtil.getFilePath();
+    return FileUtil.accessSync(path);
+  }
+
+  /**
+   * 删除日志文件
+   * @returns
+   */
+  static delete() {
+    if (CrashUtil.access()) {
+      const path = CrashUtil.getFilePath();
+      FileUtil.unlinkSync(path);
+    }
   }
 
 
@@ -97,7 +129,7 @@ export class CrashUtil {
    * 获取异常日志的JSON字符串。
    */
   static async getExceptionJson(): Promise<string> {
-    const errorFilePath = CrashUtil.getExceptionFilePath();
+    const errorFilePath = CrashUtil.getFilePath();
     if (FileUtil.accessSync(errorFilePath)) {
       return await FileUtil.readText(errorFilePath);
     }
@@ -191,7 +223,6 @@ export class CrashUtil {
     FileUtil.closeSync(file.fd); //关闭文件
     return result;
   }
-
 
 
 }

@@ -28,7 +28,7 @@ export struct TextSheetView {
         Text(this.content)
           .width('100%')
       }
-      .layoutWeight(this.content.length > 200 ? 1 : 0)
+      .layoutWeight(this.content.length > 360 ? 1 : 0)
       .width('calc(100% - 30vp)')
       .margin({ top: 6, bottom: 30 })
       .padding(12)

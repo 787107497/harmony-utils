@@ -706,6 +706,8 @@ OpenHarmony ohpm
 | objToClass      | obj转class，解决obj as class后丢失方法的问题 |
 | deleteRecord    | 删除Record中的元素                     |
 | getValue        | 通过key获取对象值                       |
+| setValue        | 给对象obj动态添加或者修改属性                 |
+| getErrorStr     | 获取Error的JSON字符串                  |
 
 ## JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
 
@@ -727,17 +729,20 @@ OpenHarmony ohpm
 
 ## CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
 
-| 方法                   | 介绍                                                                |
-|:---------------------|:------------------------------------------------------------------|
-| onHandled            | 注册错误观测器。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件             |
-| onDestroy            | 注销错误观测器                                                           |
-| getExceptionFilePath | 获取异常日志文件路径（用于读取异常文件、导出异常文件）                                       |
-| getExceptionJson     | 获取异常日志的JSON字符串                                                    |
-| getExceptionList     | 获取异常日志的集合                                                         |
-| enableAppRecovery    | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                  |
-| restartApp           | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                   |
-| saveAppState         | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用 |
-| setRestartWant       | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                   |
+| 方法                | 介绍                                                                                  |
+|:------------------|:------------------------------------------------------------------------------------|
+| onHandled         | 注册错误观测器（该方法建议在Ability里调用） 。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件            |
+| onDestroy         | 注销错误观测器                                                                             |
+| isHandled         | 判断错误观测器是否存在                                                                         |
+| getFilePath       | 获取日志文件路径（用于读取异常文件、导出异常文件）                                                           |
+| access            | 判断日志文件是否存在                                                                          |
+| delete            | 删除日志文件                                                                              |
+| getExceptionJson  | 获取异常日志的JSON字符串                                                                      |
+| getExceptionList  | 获取异常日志的集合                                                                           |
+| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                                    |
+| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                                     |
+| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用                   |
+| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                                     |
 
 ## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 
@@ -762,15 +767,29 @@ OpenHarmony ohpm
 
 ## NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
 
-| 方法                | 介绍                         |
-|:------------------|:---------------------------|
-| hasDefaultNet     | 检查默认数据网络是否被激活              |
-| hasDefaultNetSync | 检查默认数据网络是否被激活              |
-| hasNetWiFi        | 判断当前网络是否是Wi-Fi，否则是移动流量热点网络 |
-| getNetBearType    | 获取网络类型                     |
-| getIpAddress      | 获取当前设备的IP地址(设备连接Wi-Fi后)    |
-| register          | 订阅指定网络状态变化的通知，支持多事件监听回调    |
-| unregister        | 取消订阅默认网络状态变化的通知            |
+| 方法                                  | 介绍                             |
+|:------------------------------------|:-------------------------------|
+| hasDefaultNet<br/>hasDefaultNetSync | 检查默认数据网络是否被激活                  |
+| getDefaultNet<br/>getDefaultNetSync | 获取默认激活的数据网络                    |
+| getAllNets<br/>getAllNetsSync       | 获取所有处于连接状态的网络列表                |
+| isNetworkAvailable                  | 判断当前网络是否可用                     |
+| hasNetMobile                        | 判断当前网络是否是蜂窝网络（移动网络）。           |
+| hasNetWiFi                          | 判断当前网络是否是Wi-Fi网络。              |
+| hasNetEthernet                      | 判断当前网络是否是以太网网络。                |
+| hasNetVPN                           | 判断当前网络是否是VPN网络。                |
+| hasNetBearType                      | 是否存在指定的网络                      |
+| getNetBearTypes                     | 获取网络类型，数组里面只包含了一种具体的网络类型。      |
+| getNetBearType                      | 获取网络类型                         |
+| isNRSupported                       | 判断当前设备是否支持NR(New Radio)。也就是5G。 |
+| isRadioOn                           | 判断Radio是否打开                    |
+| getOperatorName                     | 获取运营商名称                        |
+| getNetworkState                     | 获取网络状态                         |
+| getSignalInformation                | 获取指定SIM卡槽对应的注册网络信号强度信息列表。      |
+| getNetworkType                      | 获取网络类型                         |
+| getNetworkTypeStr                   | 获取网络类型，返回字符类型。                 |
+| getIpAddress                        | 获取当前设备的IP地址(设备连接Wi-Fi后)        |
+| register                            | 订阅指定网络状态变化的通知，支持多事件监听回调        |
+| unregister                          | 取消订阅默认网络状态变化的通知                |
 
 ## AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 

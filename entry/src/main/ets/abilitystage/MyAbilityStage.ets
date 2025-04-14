@@ -1,5 +1,5 @@
-import { AbilityStage, Configuration, ConfigurationConstant, Want } from '@kit.AbilityKit';
-import { AppUtil, CrashUtil, LogUtil } from '@pura/harmony-utils';
+import { AbilityStage, Configuration, Want } from '@kit.AbilityKit';
+import { CrashUtil, LogUtil } from '@pura/harmony-utils';
 
 export default class MyAbilityStage extends AbilityStage {
 

@@ -34,6 +34,12 @@ struct Index {
               LogUtil.init(0x1010, 'Pura', true, true);
               DialogHelper.showToast('日志输出，设置成功！');
             })
+          Button("setShowLog()")
+            .btnStyle()
+            .onClick(() => {
+              LogUtil.setShowLog(true);
+              DialogHelper.showToast('日志输出，设置成功！');
+            })
           Button("setDomain()")
             .btnStyle()
             .onClick(() => {
@@ -43,10 +49,10 @@ struct Index {
           Button("setTag()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.setTag("Pura-X");
+              LogUtil.setTag("童长老");
               DialogHelper.showToast('日志输出，设置成功！');
             })
-          Button("setTag()")
+          Button("setHilog()")
             .btnStyle()
             .onClick(() => {
               LogUtil.setHilog(this.isHilog);
@@ -64,7 +70,7 @@ struct Index {
             .onClick(() => {
               LogUtil.info("我是一个info日志-*￥…^·^…￥*—我是一个日志。");
               let user = new User();
-              user.user = user;
+              user.user = new User();
               LogUtil.info(user);
               DialogHelper.showToast('请查看日志输出！');
             })
@@ -94,7 +100,6 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let user = new User();
-              user.user = new User();
               LogUtil.print(user);
               DialogHelper.showToast('请查看日志输出！');
             })
@@ -129,18 +134,8 @@ struct Index {
 }
 
 
-
 @Styles
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

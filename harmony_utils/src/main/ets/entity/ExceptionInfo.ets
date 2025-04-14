@@ -7,34 +7,32 @@ import { systemDateTime } from '@kit.BasicServicesKit';
  */
 export class ExceptionInfo {
 
-
   constructor(name: string, message: string, stack: string) {
-    this.name = name;
-    this.message = message;
-    this.stack = stack;
-    this.crashTime = systemDateTime.getTime(false);
     this.brandModel = DeviceUtil.getBrandModel();
     this.marketName = DeviceUtil.getMarketName();
     this.osFullName = DeviceUtil.getOsFullName();
     this.displayVersion = DeviceUtil.getDisplayVersion();
-    this.sdkApiVersion = DeviceUtil.getSdkApiVersion();
     this.osVersion = DeviceUtil.getOsVersion();
+    this.sdkApiVersion = DeviceUtil.getSdkApiVersion();
     this.bundleName = AppUtil.getBundleName();
     this.versionName = AppUtil.getVersionName();
     this.versionCode = AppUtil.getVersionCode();
     this.installTime = AppUtil.getInstallTime();
     this.updateTime = AppUtil.getUpdateTime();
     this.provisionType = AppUtil.getAppProvisionType();
+    this.crashTime = systemDateTime.getTime(false);
+    this.name = name;
+    this.message = message;
+    this.stack = stack;
   }
-
 
 
   brandModel?: string; //设备品牌及型号
   marketName?: string; //设备产品系列名称
   osFullName?: string; //系统版本
   displayVersion?: string; //产品版本。示例：ALN-AL00 5.0.0.1(XXX)
-  sdkApiVersion?: number; //系统软件API版本，示例：12
   osVersion?: string; //OS版本号，示例：5.0.4
+  sdkApiVersion?: number; //系统软件API版本，示例：12
 
   bundleName?: string; //应用包的名称
   versionName?: string; //应用版本名

@@ -166,7 +166,7 @@ export class LogUtil {
     }
     let topLine = LogUtil.getLine(LogUtil.tag);
     LogUtil.levelLog(topLine, level);
-    if (level === hilog.LogLevel.ERROR) {
+    if (level === hilog.LogLevel.ERROR || level === hilog.LogLevel.FATAL) {
       let locationLog = LogUtil.getLogLocation(); //代码位置
       LogUtil.levelLog(locationLog, level);
     }
