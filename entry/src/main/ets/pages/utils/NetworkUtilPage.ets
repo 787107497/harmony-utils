@@ -3,6 +3,8 @@ import { MockSetup } from '@ohos/hamock';
 import { LogUtil, NetworkUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
+import { JSON } from '@kit.ArkTS';
+import { Utils } from '../../utils/Utils';
 
 /**
  * 对象工具类
@@ -63,6 +65,52 @@ struct Index {
               let type = await NetworkUtil.getNetBearType();
               ToastUtil.showToast(`网络类型：${type}`)
             })
+
+
+          Button("isNRSupported()")
+            .btnStyle()
+            .onClick(() => {
+              let isNRSupported = NetworkUtil.isNRSupported();
+              ToastUtil.showToast(`当前设备是否支持NR：${isNRSupported}`);
+            })
+          Button("isRadioOn()")
+            .btnStyle()
+            .onClick(() => {
+              let isRadioOn = NetworkUtil.isRadioOn();
+              ToastUtil.showToast(`Radio是否打开：${isRadioOn}`);
+            })
+          Button("getOperatorName()")
+            .btnStyle()
+            .onClick(async () => {
+              let operatorName = await NetworkUtil.getOperatorName();
+              ToastUtil.showToast(`运营商名称：${operatorName}`);
+            })
+          Button("getNetworkState()")
+            .btnStyle()
+            .onClick(async () => {
+              let networkState = await NetworkUtil.getNetworkState();
+              let jsonStr = JSON.stringify(networkState, null, 2);
+              Utils.showSheetText(jsonStr);
+            })
+          Button("getSignalInformation()")
+            .btnStyle()
+            .onClick(async () => {
+              let signalInformation = await NetworkUtil.getSignalInformation();
+              let jsonStr = JSON.stringify(signalInformation, null, 2);
+              Utils.showSheetText(jsonStr);
+            })
+          Button("getNetworkType()")
+            .btnStyle()
+            .onClick(async () => {
+              let networkType = await NetworkUtil.getNetworkType();
+              ToastUtil.showToast(`网络类型：${networkType}`);
+            })
+          Button("getNetworkTypeStr()")
+            .btnStyle()
+            .onClick(async () => {
+              let networkType = await NetworkUtil.getNetworkTypeStr();
+              ToastUtil.showToast(`网络类型：${networkType}`);
+            })
           Button("getIpAddress()")
             .btnStyle()
             .onClick(() => {
@@ -94,8 +142,7 @@ struct Index {
               ToastUtil.showToast("取消订阅默认网络状态变化监听")
             })
 
-
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -113,13 +160,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

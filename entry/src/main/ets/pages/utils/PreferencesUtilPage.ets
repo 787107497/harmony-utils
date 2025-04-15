@@ -106,7 +106,7 @@ struct Index {
             .onClick(() => {
               PreferencesUtil.clear();
               PreferencesUtil.clearSync();
-              ToastUtil.showToast('清空缓存成功')
+              ToastUtil.showToast('清空缓存成功');
             })
           Button("putSync()，其他使用\ngetStringSync()，其他使用")
             .labelStyle({ maxLines: 2 })
