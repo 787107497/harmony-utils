@@ -113,7 +113,7 @@ export class NetworkUtil {
 
 
   /**
-   * 判断当前网络是否可用
+   * 判断当前设备网络是否可用
    * @returns
    */
   static isNetworkAvailable(): Boolean {
@@ -529,96 +529,11 @@ export class NetworkUtil {
 
   /**
    * 获取指定卡槽SIM卡是否激活
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
    * @returns
    */
   static isSimActiveSync(slotId: number): boolean {
     return sim.isSimActiveSync(slotId);
-  }
-
-
-  /**
-   * 获取默认语音业务的卡槽ID。使用Promise异步回调。
-   * @returns 卡槽ID。 0-卡槽1、 1-卡槽2、 -1=未设置或服务不可用。
-   */
-  static async getDefaultVoiceSlotId(): Promise<number> {
-    return sim.getDefaultVoiceSlotId();
-  }
-
-
-  /**
-   * 获取指定卡槽SIM卡的归属PLMN（Public Land Mobile Network）号。使用Promise异步回调。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static async getSimOperatorNumeric(slotId: number): Promise<string> {
-    return sim.getSimOperatorNumeric(slotId);
-  }
-
-  /**
-   * 获取指定卡槽SIM卡的归属PLMN（Public Land Mobile Network）号。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static getSimOperatorNumericSync(slotId: number): string {
-    return sim.getSimOperatorNumericSync(slotId);
-  }
-
-
-  /**
-   * 获取指定卡槽SIM卡的服务提供商名称（Service Provider Name，SPN）。使用Promise异步回调。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static async getSimSpn(slotId: number): Promise<string> {
-    return sim.getSimSpn(slotId);
-  }
-
-  /**
-   * 获取指定卡槽SIM卡的服务提供商名称（Service Provider Name，SPN）。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static getSimSpnSync(slotId: number): string {
-    return sim.getSimSpnSync(slotId);
-  }
-
-
-  /**
-   * 获取指定卡槽的SIM卡状态。使用Promise异步回调。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static async getSimState(slotId: number): Promise<sim.SimState> {
-    return sim.getSimState(slotId);
-  }
-
-  /**
-   * 获取指定卡槽的SIM卡状态。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static getSimStateSync(slotId: number): sim.SimState {
-    return sim.getSimStateSync(slotId);
-  }
-
-
-  /**
-   * 获取指定卡槽SIM卡的卡类型。使用Promise异步回调。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static async getCardType(slotId: number): Promise<sim.CardType> {
-    return sim.getCardType(slotId);
-  }
-
-  /**
-   * 获取指定卡槽SIM卡的卡类型。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
-   * @returns
-   */
-  static getCardTypeSync(slotId: number): sim.CardType {
-    return sim.getCardTypeSync(slotId);
   }
 
 
@@ -651,40 +566,86 @@ export class NetworkUtil {
 
 
   /**
-   * 获取指定卡槽中SIM卡的opkey。使用Promise异步回调。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
+   * 获取指定卡槽SIM卡的归属PLMN（Public Land Mobile Network）号。使用Promise异步回调。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
    * @returns
    */
-  static async getOpKey(slotId: number): Promise<string> {
-    return sim.getOpKey(slotId);
+  static async getSimOperatorNumeric(slotId?: number): Promise<string> {
+    slotId = slotId ?? await NetworkUtil.getDefaultCellularDataSlotId(); //默认移动数据的SIM卡
+    return sim.getSimOperatorNumeric(slotId);
   }
 
   /**
-   * 获取指定卡槽中SIM卡的opkey。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
+   * 获取指定卡槽SIM卡的归属PLMN（Public Land Mobile Network）号。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
    * @returns
    */
-  static getOpKeySync(slotId: number): string {
-    return sim.getOpKeySync(slotId);
+  static getSimOperatorNumericSync(slotId?: number): string {
+    slotId = slotId ?? NetworkUtil.getDefaultCellularDataSlotIdSync(); //默认移动数据的SIM卡
+    return sim.getSimOperatorNumericSync(slotId);
   }
 
 
   /**
-   * 获取指定卡槽中SIM卡的OpName。使用Promise异步回调。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
+   * 获取指定卡槽SIM卡的服务提供商名称（Service Provider Name，SPN）。使用Promise异步回调。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
    * @returns
    */
-  static async getOpName(slotId: number): Promise<string> {
-    return sim.getOpName(slotId);
+  static async getSimSpn(slotId?: number): Promise<string> {
+    slotId = slotId ?? await NetworkUtil.getDefaultCellularDataSlotId(); //默认移动数据的SIM卡
+    return sim.getSimSpn(slotId);
   }
 
   /**
-   * 获取指定卡槽中SIM卡的OpName。
-   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。
+   * 获取指定卡槽SIM卡的服务提供商名称（Service Provider Name，SPN）。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
    * @returns
    */
-  static getOpNameSync(slotId: number): string {
-    return sim.getOpNameSync(slotId);
+  static getSimSpnSync(slotId?: number): string {
+    slotId = slotId ?? NetworkUtil.getDefaultCellularDataSlotIdSync(); //默认移动数据的SIM卡
+    return sim.getSimSpnSync(slotId);
+  }
+
+
+  /**
+   * 获取指定卡槽的SIM卡状态。使用Promise异步回调。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
+   * @returns
+   */
+  static async getSimState(slotId?: number): Promise<sim.SimState> {
+    slotId = slotId ?? await NetworkUtil.getDefaultCellularDataSlotId(); //默认移动数据的SIM卡
+    return sim.getSimState(slotId);
+  }
+
+  /**
+   * 获取指定卡槽的SIM卡状态。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
+   * @returns
+   */
+  static getSimStateSync(slotId?: number): sim.SimState {
+    slotId = slotId ?? NetworkUtil.getDefaultCellularDataSlotIdSync(); //默认移动数据的SIM卡
+    return sim.getSimStateSync(slotId);
+  }
+
+
+  /**
+   * 获取指定卡槽SIM卡的卡类型。使用Promise异步回调。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
+   * @returns
+   */
+  static async getCardType(slotId?: number): Promise<sim.CardType> {
+    slotId = slotId ?? await NetworkUtil.getDefaultCellularDataSlotId(); //默认移动数据的SIM卡
+    return sim.getCardType(slotId);
+  }
+
+  /**
+   * 获取指定卡槽SIM卡的卡类型。
+   * @param slotId 卡槽ID（0-卡槽1、1-卡槽2）。 默认移动数据的SIM卡。
+   * @returns
+   */
+  static getCardTypeSync(slotId?: number): sim.CardType {
+    slotId = slotId ?? NetworkUtil.getDefaultCellularDataSlotIdSync(); //默认移动数据的SIM卡
+    return sim.getCardTypeSync(slotId);
   }
 
 

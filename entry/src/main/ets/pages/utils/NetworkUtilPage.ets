@@ -5,6 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { Utils } from '../../utils/Utils';
 import { connection } from '@kit.NetworkKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 对象工具类
@@ -167,7 +168,7 @@ struct Index {
               NetworkUtil.unregister()
               ToastUtil.showToast("取消订阅默认网络状态变化监听")
             })
-          Divider().strokeWidth(1).color(Color.Grey).margin(12)
+          Divider().strokeWidth(1).color("#D6D6D6").margin(15)
           Button("isNRSupported()")
             .btnStyle()
             .onClick(() => {
@@ -225,7 +226,7 @@ struct Index {
               let networkType = await NetworkUtil.getNetworkTypeStr();
               ToastUtil.showToast(`网络类型：${networkType}`);
             })
-          Divider().strokeWidth(3).color(Color.Gray).margin(12)
+          Divider().strokeWidth(1).color("#D6D6D6").margin(15)
           Button("getDefaultCellularDataSlotId()")
             .btnStyle()
             .onClick(async () => {
@@ -236,8 +237,7 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let dataFlowType = await NetworkUtil.getCellularDataFlowType();
-              let jsonStr = JSON.stringify(dataFlowType, null, 2);
-              Utils.showSheetText(jsonStr);
+              ToastUtil.showToast(`蜂窝数据业务的上下行状态：${dataFlowType}`);
             })
           Button("getCellularDataState()")
             .btnStyle()
@@ -251,10 +251,61 @@ struct Index {
               let enabled = await NetworkUtil.isCellularDataEnabled();
               ToastUtil.showToast(`蜂窝数据业务是否启用：${enabled}`);
             })
-
-
-
-          Divider().strokeWidth(3).color(Color.Gray).margin(12)
+          Button("isCellularDataRoamingEnabled()")
+            .btnStyle()
+            .onClick(async () => {
+              let enabled = await NetworkUtil.isCellularDataRoamingEnabled();
+              ToastUtil.showToast(`蜂窝数据业务是否启用漫游：${enabled}`);
+            })
+          Button("getDefaultCellularDataSimId()")
+            .btnStyle()
+            .onClick(() => {
+              let simId = NetworkUtil.getDefaultCellularDataSimId();
+              ToastUtil.showToast(`默认移动数据的SIM卡ID：${simId}`);
+            })
+          Divider().strokeWidth(1).color("#D6D6D6").margin(15)
+          Button("isSimActive()")
+            .btnStyle()
+            .onClick(async () => {
+              let isSimActive = await NetworkUtil.isSimActive(1);
+              ToastUtil.showToast(`卡槽2SIM卡是否激活：${isSimActive}`);
+            })
+          Button("hasSimCard()")
+            .btnStyle()
+            .onClick(async () => {
+              let hasSimCard = await NetworkUtil.hasSimCard(1);
+              ToastUtil.showToast(`卡槽2SIM卡是否插卡：${hasSimCard}`);
+            })
+          Button("getMaxSimCount()")
+            .btnStyle()
+            .onClick(() => {
+              let count = NetworkUtil.getMaxSimCount();
+              ToastUtil.showToast(`卡槽数量：${count}`);
+            })
+          Button("getSimOperatorNumeric()")
+            .btnStyle()
+            .onClick(async () => {
+              let simOperatorNumeric = await NetworkUtil.getSimOperatorNumeric();
+              ToastUtil.showToast(`指定卡槽SIM卡的归属PLMN：${simOperatorNumeric}`);
+            })
+          Button("getSimSpn()")
+            .btnStyle()
+            .onClick(async () => {
+              let simSpn = await NetworkUtil.getSimSpn();
+              ToastUtil.showToast(`指定卡槽SIM卡的服务提供商名称：${simSpn}`);
+            })
+          Button("getSimState()")
+            .btnStyle()
+            .onClick(async () => {
+              let simState = await NetworkUtil.getSimState();
+              ToastUtil.showToast(`指定卡槽的SIM卡状态：${simState}`);
+            })
+          Button("getCardType()")
+            .btnStyle()
+            .onClick(async () => {
+              let cardType = await NetworkUtil.getCardType();
+              ToastUtil.showToast(`指定卡槽SIM卡的卡类型：${cardType}`);
+            })
 
           Blank().layoutWeight(1)
         }

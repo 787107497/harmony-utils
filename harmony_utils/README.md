@@ -242,29 +242,48 @@ OpenHarmony ohpm
 
 ## NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
 
-| 方法                                  | 介绍                             |
-|:------------------------------------|:-------------------------------|
-| hasDefaultNet<br/>hasDefaultNetSync | 检查默认数据网络是否被激活                  |
-| getDefaultNet<br/>getDefaultNetSync | 获取默认激活的数据网络                    |
-| getAllNets<br/>getAllNetsSync       | 获取所有处于连接状态的网络列表                |
-| isNetworkAvailable                  | 判断当前网络是否可用                     |
-| hasNetMobile                        | 判断当前网络是否是蜂窝网络（移动网络）。           |
-| hasNetWiFi                          | 判断当前网络是否是Wi-Fi网络。              |
-| hasNetEthernet                      | 判断当前网络是否是以太网网络。                |
-| hasNetVPN                           | 判断当前网络是否是VPN网络。                |
-| hasNetBearType                      | 是否存在指定的网络                      |
-| getNetBearTypes                     | 获取网络类型，数组里面只包含了一种具体的网络类型。      |
-| getNetBearType                      | 获取网络类型                         |
-| isNRSupported                       | 判断当前设备是否支持NR(New Radio)。也就是5G。 |
-| isRadioOn                           | 判断Radio是否打开                    |
-| getOperatorName                     | 获取运营商名称                        |
-| getNetworkState                     | 获取网络状态                         |
-| getSignalInformation                | 获取指定SIM卡槽对应的注册网络信号强度信息列表。      |
-| getNetworkType                      | 获取网络类型                         |
-| getNetworkTypeStr                   | 获取网络类型，返回字符类型。                 |
-| getIpAddress                        | 获取当前设备的IP地址(设备连接Wi-Fi后)        |
-| register                            | 订阅指定网络状态变化的通知，支持多事件监听回调        |
-| unregister                          | 取消订阅默认网络状态变化的通知                |
+| 方法                                                                | 介绍                                              |
+|:------------------------------------------------------------------|:------------------------------------------------|
+| isDefaultNetMetered<br/>isDefaultNetMeteredSync                   | 检查当前网络上的数据流量使用是否被计量                             |
+| hasDefaultNet<br/>hasDefaultNetSync                               | 检查默认数据网络是否被激活                                   |
+| getDefaultNet<br/>getDefaultNetSync                               | 获取默认激活的数据网络                                     |
+| getAppNet<br/>getAppNetSync                                       | 获取App绑定的网络信息                                    |
+| getAllNets<br/>getAllNetsSync                                     | 获取所有处于连接状态的网络列表                                 |
+| isNetworkAvailable                                                | 判断当前设备网络是否可用                                    |
+| hasNetMobile                                                      | 判断当前网络是否是蜂窝网络（移动网络）。                            |
+| hasNetWiFi                                                        | 判断当前网络是否是Wi-Fi网络。                               |
+| hasNetEthernet                                                    | 判断当前网络是否是以太网网络。                                 |
+| hasNetVPN                                                         | 判断当前网络是否是VPN网络。                                 |
+| hasNetBearType                                                    | 是否存在指定的网络                                       |
+| getNetBearTypes                                                   | 获取网络类型，数组里面只包含了一种具体的网络类型。                       |
+| getNetBearType                                                    | 获取网络类型                                          |
+| getNetCapabilities<br/>getNetCapabilitiesSync                     | 获取netHandle对应的网络的能力信息                           |
+| getConnectionProperties<br/>getConnectionPropertiesSync           | 获取netHandle对应的网络的连接信息                           |
+| getIpAddress                                                      | 获取当前设备的IP地址(设备连接Wi-Fi后)                         |
+| register                                                          | 订阅指定网络状态变化的通知，支持多事件监听回调                         |
+| unregister                                                        | 取消订阅默认网络状态变化的通知                                 |
+| isNRSupported                                                     | 判断当前设备是否支持NR(New Radio)。也就是5G。                  |
+| isRadioOn                                                         | 判断Radio是否打开                                     |
+| getPrimarySlotId                                                  | 获取主卡所在卡槽的索引号                                    |
+| getOperatorName                                                   | 获取运营商名称                                         |
+| getNetworkState                                                   | 获取网络状态                                          |
+| getNetworkSelectionMode                                           | 获取当前选网模式                                        |
+| getSignalInformation                                              | 获取指定SIM卡槽对应的注册网络信号强度信息列表。                       |
+| getNetworkType                                                    | 获取网络类型                                          |
+| getNetworkTypeStr                                                 | 获取网络类型，返回字符类型。                                  |
+| getDefaultCellularDataSlotId<br/>getDefaultCellularDataSlotIdSync | 获取默认移动数据的SIM卡                                   |
+| getCellularDataFlowType                                           | 获取蜂窝数据业务的上下行状态                                  |
+| getCellularDataState                                              | 获取分组交换域(PS域)的连接状态                               |
+| isCellularDataEnabled<br/>isCellularDataEnabledSync               | 检查蜂窝数据业务是否启用                                    |
+| isCellularDataRoamingEnabled<br/>isCellularDataRoamingEnabledSync | 检查蜂窝数据业务是否启用漫游                                  |
+| getDefaultCellularDataSimId                                       | 获取默认移动数据的SIM卡ID。与SIM卡绑定，从1开始递增。                 |
+| isSimActive<br/>isSimActiveSync                                   | 获取指定卡槽SIM卡是否激活                                  |
+| hasSimCard<br/>hasSimCardSync                                     | 获取指定卡槽SIM卡是否插卡                                  |
+| getMaxSimCount                                                    | 获取卡槽数量                                          |
+| getSimOperatorNumeric<br/>getSimOperatorNumericSync               | 获取指定卡槽SIM卡的归属PLMN（Public Land Mobile Network）号。 |
+| getSimSpn<br/>getSimSpnSync                                       | 获取指定卡槽SIM卡的服务提供商名称                              |
+| getSimState<br/>getSimStateSync                                   | 获取指定卡槽的SIM卡状态                                   |
+| getCardType <br/>getCardTypeSync                                  | 获取指定卡槽SIM卡的卡类型                                  |
 
 ## FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
