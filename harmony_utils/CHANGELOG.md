@@ -1,19 +1,22 @@
 # 版本记录
 
-## 1.3.2（API12 ）
-1. AppUtil，新增若干实用方法。
-2. 
-3. 新增WindowUtil，工具类。
-4. 优化LogUtil，解决了打印不全的问题。
-5. 将CrashUtil的enableAppRecovery、restartApp、setRestartWant、saveAppState方法迁移到AppUtil。
-6. 
+## 1.3.2（API12）
+1. AppUtil，新增若干实用方法。    
+2. DeviceUtil，新增若干实用方法。    
+3. 新增WindowUtil工具类。
+4. NetworkUtil，新增若干实用方法。
+4. 优化LogUtil，解决了打印不全的问题。    
+5. 将CrashUtil的。
+6. StrUtil，Bug修复，新增3个实用方法。
+7. ObjectUtil，代码优化。
+8. 
 ```typescript
 //1.3.1版本适配指南：
 
 ```
 
 
-## 1.3.1（API12 ）
+## 1.3.1（API12）
 1. 移除module.json5中配置的权限。
 ```typescript
 //1.3.1版本适配指南：
@@ -27,7 +30,7 @@
  "ohos.permission.VIBRATE" //允许应用控制马达振动。
 ```
 
-## 1.3.0（API12 ）
+## 1.3.0（API12）
 1. 拆分PhotoHelper、PickerUtil、ScanUtil，到子库 [picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
 中。 主要解决：当使用 harmony-utils 三方库且未使用picker能力时，隐私政策中无需声明相机权限与储存权限。
 2. 暂时屏蔽CrashUtil的onExportErrorLog方法，下个版本优化。    

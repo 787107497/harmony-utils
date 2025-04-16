@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\Admin\\.ohos\\config\\default_harmony-utils_-lITh-BIVUuE-3TBuGWmIGBLgxgHzqYA1xLtk7GxPA4=.cer",
-          "storePassword": "0000001BDEBA0B6AA051C498A3DB612E6065A4F83F7BB30D007D1B7E050057FFAFA56B36A8D2F9008FFCB0",
+          "certpath": "C:\\Users\\Administrator\\.ohos\\config\\default_HarmonyUtils_CMdHBmfPiA_XUKbuKPjuQjwbq8ZkGKaaSQqm0yqzRtU=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001BC23BE8213A9E37198EC92F24B446553D16420B81DFB550DF0480AA05D13D862314FC4B4246E011",
-          "profile": "C:\\Users\\Admin\\.ohos\\config\\default_harmony-utils_-lITh-BIVUuE-3TBuGWmIGBLgxgHzqYA1xLtk7GxPA4=.p7b",
+          "keyPassword": "0000001BD20D4D065CA44325A96C6127BAC4F6B848FD97A94E78AABC33DE8BEC0997EAB255BC65674157F7",
+          "profile": "C:\\Users\\Administrator\\.ohos\\config\\default_HarmonyUtils_CMdHBmfPiA_XUKbuKPjuQjwbq8ZkGKaaSQqm0yqzRtU=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\Admin\\.ohos\\config\\default_harmony-utils_-lITh-BIVUuE-3TBuGWmIGBLgxgHzqYA1xLtk7GxPA4=.p12"
+          "storeFile": "C:\\Users\\Administrator\\.ohos\\config\\default_HarmonyUtils_CMdHBmfPiA_XUKbuKPjuQjwbq8ZkGKaaSQqm0yqzRtU=.p12",
+          "storePassword": "0000001BBAE8D8D4DCEC9AA7AD373B828F1BFB9E66B4CD5366E82F66F99A81A68381C709A4C44F27DA81A1"
         }
       }
     ],

@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-import { CharUtil } from './CharUtil';
 import util from '@ohos.util';
 import { buffer } from '@kit.ArkTS';
 import { Base64Util } from './Base64Util';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
@@ -71,16 +71,11 @@ export class StrUtil {
    * @returns
    */
   static isBlank(str: string | undefined | null): boolean {
-    let length: number = 0;
-    if ((str === undefined) || (str === null) || ((length = str.length) === 0)) {
+    if ((str === undefined) || (str === null)) {
       return true;
     }
-    for (let i = 0; i < length; i++) {
-      if (false == CharUtil.isBlankChar(str.charCodeAt(i))) {
-        return false;  //只要有一个非空字符即为非空字符串
-      }
-    }
-    return true;
+    let trimStr = StrUtil.trimAll(str);
+    return trimStr.length === 0;
   }
 
   /**
@@ -94,12 +89,31 @@ export class StrUtil {
 
 
   /**
+   * 去除字符串两端的空格
+   * @param str
+   * @returns
+   */
+  static trim(str: string): string {
+    return str.trim();
+  }
+
+  /**
+   * 去除字符串里的所有空格
+   * @param str
+   * @returns
+   */
+  static trimAll(str: string): string {
+    return str.replace(/\s/g,"");
+  }
+
+
+  /**
    * 格式化字符串
    * @param source
    * @param defaultValue
    * @returns
    */
-  static toStr(source: string | null | undefined, defaultValue = ""): string {
+  static toStr(source: number | boolean | string | null | undefined, defaultValue = ""): string {
     if (source === null || source === undefined) {
       return defaultValue;
     }
@@ -353,6 +367,19 @@ export class StrUtil {
   static unit8ArrayToBuffer(src: Uint8Array): ArrayBuffer {
     // return buffer.from(src).buffer;
     return src.buffer as ArrayBuffer;
+  }
+
+
+  /**
+   * 获取Error的JSON字符串
+   */
+  static getErrorStr(error: BusinessError): string {
+    const errObj: Record<string, string | number> = {};
+    errObj['name'] = error.name;
+    errObj['code'] = error.code;
+    errObj['message'] = error.message;
+    errObj['stack'] = error.stack ?? '';
+    return JSON.stringify(errObj);
   }
 
 

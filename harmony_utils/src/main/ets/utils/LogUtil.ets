@@ -151,7 +151,7 @@ export class LogUtil {
         LogUtil.levelLog(msg, hilog.LogLevel.DEBUG);
       }
     } catch (err) {
-      let error = err as BusinessError; //异常了，说明不是JSON字符串
+      let error = err as BusinessError; //异常了
       console.error(`LogUtil-print-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
@@ -247,6 +247,7 @@ export class LogUtil {
             logMessage = logMessage + LogUtil.getObjectToJson(obj);
           } else {
             logMessage = logMessage + msg;
+            logMessage = logMessage.replaceAll('\n', '\n│  ');
           }
         }
       });

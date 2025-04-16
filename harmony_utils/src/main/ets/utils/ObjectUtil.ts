@@ -14,9 +14,8 @@
  */
 
 import util from '@ohos.util';
-import { ArrayList, HashMap, JSON, List } from '@kit.ArkTS';
+import { ArrayList, HashMap, List } from '@kit.ArkTS';
 import { CommonAllType, Constructor } from '../entity/constraints';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * TODO 对象工具类
@@ -192,19 +191,6 @@ export class ObjectUtil {
    */
   static setValue<T>(obj: Object, key: string, value: T) {
     obj[key] = value;
-  }
-
-
-  /**
-   * 获取Error的JSON字符串
-   */
-  static getErrorStr(error: BusinessError): string {
-    const errObj: Record<string, string | number> = {};
-    errObj['name'] = error.name;
-    errObj['code'] = error.code;
-    errObj['message'] = error.message;
-    errObj['stack'] = error.stack ?? '';
-    return JSON.stringify(errObj);
   }
 
 

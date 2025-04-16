@@ -25,8 +25,6 @@ OpenHarmony ohpm
   }
  ```
 
-<br>
-
 ## 📂模块介绍
 
 | 模块                                                                                | 介绍                                                                                                           |
@@ -36,23 +34,23 @@ OpenHarmony ohpm
 | WindowUtil                                                                        | 窗口相关工具类                                                                                                      |
 | DisplayUtil                                                                       | 屏幕相关工具类                                                                                                      |
 | PermissionUtil                                                                    | 申请授权工具类                                                                                                      |
-| NotificationUtil                                                                  | 通知工具类                                                                                                        |
-| EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                                                          |
-| WantUtil                                                                          | Want工具类                                                                                                      |
 | AuthUtil                                                                          | 手机的生物认证（指纹、人脸、密码）工具类                                                                                         |
-| KvUtil                                                                            | 键值型数据库工具类                                                                                                    |
-| PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                                                        |
-| CacheUtil                                                                         | 缓存工具类                                                                                                        |
-| LRUCacheUtil                                                                      | LRUCache缓存工具类                                                                                                |
+| NetworkUtil                                                                       | 网络相关工具类                                                                                                      |
 | FileUtil                                                                          | 文件操作相关工具类                                                                                                    |
 | ImageUtil                                                                         | 图片相关工具类                                                                                                      |
-| SnapshotUtil                                                                      | 组件截图和窗口截图工具类。                                                                                                |
 | PreviewUtil                                                                       | 文件预览工具类                                                                                                      |
 | LocationUtil                                                                      | 定位工具类(WGS-84坐标系)                                                                                             |
 | LogUtil                                                                           | 日志工具类                                                                                                        |
 | CrashUtil                                                                         | 全局异常捕获，崩溃日志收集                                                                                                |
+| EmitterUtil                                                                       | Emitter工具类（进行线程间通信）                                                                                          |
+| WantUtil                                                                          | Want工具类                                                                                                      |
+| KvUtil                                                                            | 键值型数据库工具类                                                                                                    |
+| PreferencesUtil                                                                   | Preferences（用户首选项）工具类                                                                                        |
+| CacheUtil                                                                         | 缓存工具类                                                                                                        |
+| LRUCacheUtil                                                                      | LRUCache缓存工具类                                                                                                |
+| NotificationUtil                                                                  | 通知工具类                                                                                                        |
+| SnapshotUtil                                                                      | 组件截图和窗口截图工具类。                                                                                                |
 | KeyboardUtil                                                                      | 键盘工具类                                                                                                        |
-| NetworkUtil                                                                       | 网络相关工具类                                                                                                      |
 | PasteboardUtil                                                                    | 剪贴板工具类                                                                                                       |
 | AssetUtil                                                                         | 关键资产存储服务工具类                                                                                                  |
 | ResUtil                                                                           | 资源工具类                                                                                                        |
@@ -233,71 +231,6 @@ OpenHarmony ohpm
 | requestPermissionOnSetting     | 二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。  |
 | requestPermissionOnSettingEasy | 二次向用户申请授权（多个权限建议使用该方法）。           |
 
-## NotificationUtil（通知工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
-
-| 方法                                                  | 介绍                          |
-|:----------------------------------------------------|:----------------------------|
-| setDefaultConfig                                    | 设置通知的默认统一配置                 |
-| isNotificationEnabled<br/>isNotificationEnabledSync | 查询通知是否授权                    |
-| authorizeNotification                               | 请求通知授权，第一次调用会弹窗让用户选择。       |
-| isSupportTemplate                                   | 查询模板是否存在，目前仅支持进度条模板。        |
-| isDistributedEnabled                                | 查询设备是否支持分布式通知               |
-| publishBasic                                        | 发布普通文本通知                    |
-| publishMultiLine                                    | 发布多文本通知                     |
-| publishLongText                                     | 发布长文本通知                     |
-| publishPicture                                      | 发布带有图片的通知                   |
-| publishTemplate                                     | 发布模板通知                      |
-| cancel                                              | 取消通知                        |
-| cancelGroup                                         | 取消本应用指定组下的通知                |
-| cancelAll                                           | 取消所有通知                      |
-| setBadge                                            | 设置桌面角标个数                    |
-| clearBadge                                          | 清空桌面角标                      |
-| setBadgeFromNotificationCount                       | 设置桌面角标数量，来自于通知数量            |
-| getActiveNotificationCount                          | 获取当前应用未删除的通知数量              |
-| getActiveNotifications                              | 获取当前应用未删除的通知列表              |
-| addSlot                                             | 创建指定类型的通知渠道                 |
-| getSlot                                             | 获取一个指定类型的通知渠道               |
-| getSlots                                            | 获取此应用程序的所有通知渠道              |
-| removeSlot                                          | 删除此应用程序指定类型的通知渠道            |
-| removeAllSlots                                      | 删除此应用程序所有通知渠道               |
-| generateNotificationId                              | 生成通知id（用时间戳当id）             |
-| getDefaultWantAgent                                 | 创建一个可拉起Ability的Want         |
-| getCompressedPicture                                | 获取压缩通知的图片（图像像素的总字节数不能超过2MB） |
-| getCompressedIcon                                   | 获取压缩通知图标（图标像素的总字节数不超过192KB） |
-
-## EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
-
-| 方法               | 介绍                  |
-|:-----------------|:--------------------|
-| post             | 发送事件                |
-| onSubscribe      | 订阅事件                |
-| onceSubscribe    | 单次订阅指定事件            |
-| unSubscribe      | 取消事件订阅              |
-| getListenerCount | 获取指定事件的订阅数          |
-| on               | 订阅事件，支持Callback     |
-| once             | 单次订阅指定事件，支持Callback |
-| off              | 取消事件订阅，支持Callback   |
-
-## WantUtil（Want工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets)
-
-| 方法                    | 介绍                                         |
-|:----------------------|:-------------------------------------------|
-| toSetting             | 跳转系统设置页面（配合WantUtil里的URI常量一起使用，可跳转更多的设置页面） |
-| toAppSetting          | 跳转应用设置页面                                   |
-| toNotificationSetting | 跳转通知设置页面                                   |
-| toNetworkSetting      | 跳转移动网络设置页面                                 |
-| toWifiSetting         | 跳转WLAN设置页面                                 |
-| toBluetoothSetting    | 跳转蓝牙设置页面                                   |
-| toNfcSetting          | 跳转NFC设置页面                                  |
-| toVolumeSetting       | 跳转声音和振动设置页面                                |
-| toStorageSetting      | 跳转存储设置页面                                   |
-| toBatterySetting      | 跳转电池设置页面                                   |
-| toWebBrowser          | 拉起系统浏览器                                    |
-| toAppGalleryDetail    | 拉起应用市场对应的应用详情界面                            |
-| toFileManagement      | 拉起系统文件管理器                                  |
-| startMMS              | 拉起短信界面并指定联系人                               |
-| openFile              | 调用三方软件打开文件                                 |
-
 ## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 
 | 方法                 | 介绍                 |
@@ -307,66 +240,31 @@ OpenHarmony ohpm
 | onStart            | 开始认证，用户指定类型认证      |
 | cancel             | 取消认证               |
 
-## KvUtil（键值型数据库工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets)
+## NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
 
-| 方法                                                               | 介绍                        |
-|:-----------------------------------------------------------------|:--------------------------|
-| put                                                              | 添加指定类型的键值对到数据库            |
-| get<br/>getString<br/>getNumber<br/>getBoolean<br/>getUint8Array | 获取指定键的值                   |
-| delete                                                           | 从数据库中删除指定键值的数据            |
-| putBatch                                                         | 批量插入键值对到SingleKVStore数据库中 |
-| deleteBatch                                                      | 批量删除SingleKVStore数据库中的键值对 |
-| getEntries                                                       | 获取匹配指定键前缀的所有键值对           |
-| backup                                                           | 以指定名称备份数据库                |
-| restore                                                          | 从指定的数据库文件恢复数据库            |
-| deleteBackup                                                     | 根据指定名称删除备份文件              |
-| onDataChange                                                     | 订阅指定类型的数据变更通知             |
-| offDataChange                                                    | 取消订阅数据变更通知                |
-
-## PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
-
-| 方法                            | 介绍                                                          |
-|:------------------------------|:------------------------------------------------------------|
-| init                          | 初始化                                                         |
-| put<br/>putSync               | 将数据缓存                                                       |
-| get<br/>getSync               | 获取缓存值                                                       |
-| getString<br/>getStringSync   | 获取string类型的缓存值                                              |
-| getNumber<br/>getNumberSync   | 获取number类型的缓存值                                              |
-| getBoolean<br/>getBooleanSync | 获取boolean类型的缓存值                                             |
-| has<br/>hasSync               | 检查缓存实例中是否包含给定Key的存储键值对                                      |
-| getBoolean<br/>getBooleanSync | 获取boolean类型的缓存值                                             |
-| delete<br/>deleteSync         | 删除缓存值                                                       |
-| clear<br/>clearSync           | 清空缓存                                                        |
-| deletePreferences             | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
-| onChange                      | 订阅数据变更，订阅的Key的值发生变更后，在执行flush方法后，触发callback回调               |
-| offChange                     | 取消订阅数据变更                                                    |
-| onDataChange                  | 精确订阅数据变更，只有被订阅的key值发生变更后，在执行flush方法后，触发callback回调           |
-| offDataChange                 | 取消精确订阅数据变更                                                  |
-
-## CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
-
-| 方法      | 介绍         |
-|:--------|:-----------|
-| has     | 缓存中的数据是否存在 |
-| get     | 获取缓存中的数据   |
-| put     | 将数据存入缓存中   |
-| remove  | 删除key对应的缓存 |
-| isEmpty | 判断缓存是否为空   |
-| clear   | 清除缓存数据     |
-
-## LRUCacheUtil（LRUCache缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LRUCacheUtilPage.ets)
-
-| 方法             | 介绍                    |
-|:---------------|:----------------------|
-| getInstance    | 获取LRUCacheUtil的单例     |
-| has            | 判断是否包含key对应的缓存        |
-| get            | 获取key对应的缓存            |
-| put            | 添加缓存到lruCache中        |
-| remove         | 删除key对应的缓存            |
-| isEmpty        | 判断lruCache缓存是否为空      |
-| getCapacity    | 获取当前缓冲区的容量            |
-| updateCapacity | 重新设置lruCache的容量       |
-| clear          | 清除缓存数据，并重置lruCache的大小 |
+| 方法                                  | 介绍                             |
+|:------------------------------------|:-------------------------------|
+| hasDefaultNet<br/>hasDefaultNetSync | 检查默认数据网络是否被激活                  |
+| getDefaultNet<br/>getDefaultNetSync | 获取默认激活的数据网络                    |
+| getAllNets<br/>getAllNetsSync       | 获取所有处于连接状态的网络列表                |
+| isNetworkAvailable                  | 判断当前网络是否可用                     |
+| hasNetMobile                        | 判断当前网络是否是蜂窝网络（移动网络）。           |
+| hasNetWiFi                          | 判断当前网络是否是Wi-Fi网络。              |
+| hasNetEthernet                      | 判断当前网络是否是以太网网络。                |
+| hasNetVPN                           | 判断当前网络是否是VPN网络。                |
+| hasNetBearType                      | 是否存在指定的网络                      |
+| getNetBearTypes                     | 获取网络类型，数组里面只包含了一种具体的网络类型。      |
+| getNetBearType                      | 获取网络类型                         |
+| isNRSupported                       | 判断当前设备是否支持NR(New Radio)。也就是5G。 |
+| isRadioOn                           | 判断Radio是否打开                    |
+| getOperatorName                     | 获取运营商名称                        |
+| getNetworkState                     | 获取网络状态                         |
+| getSignalInformation                | 获取指定SIM卡槽对应的注册网络信号强度信息列表。      |
+| getNetworkType                      | 获取网络类型                         |
+| getNetworkTypeStr                   | 获取网络类型，返回字符类型。                 |
+| getIpAddress                        | 获取当前设备的IP地址(设备连接Wi-Fi后)        |
+| register                            | 订阅指定网络状态变化的通知，支持多事件监听回调        |
+| unregister                          | 取消订阅默认网络状态变化的通知                |
 
 ## FileUtil（文件操作相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FileUtilPage.ets)
 
@@ -437,16 +335,6 @@ OpenHarmony ohpm
 | compressedImage           | 图片压缩                              |
 | compressPhoto             | 图片压缩，返回压缩后的图片文件路径                 |
 
-## SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
-
-| 方法                     | 介绍                               |
-|:-----------------------|:---------------------------------|
-| get<br/>getSync        | 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图 |
-| createFromBuilder      | 在应用后台渲染CustomBuilder自定义组件，并输出其截图 |
-| snapshot               | 获取窗口截图，使用Promise异步回调             |
-| onSnapshotListener     | 开启系统截屏事件的监听                      |
-| removeSnapshotListener | 关闭系统截屏事件的监听                      |
-
 ## PreviewUtil（文件预览工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreviewUtilPage.ets)
 
 | 方法                  | 介绍                                   |
@@ -499,6 +387,189 @@ OpenHarmony ohpm
 | fatal      | 打印FATAL级别日志                                  |
 | print      | 打印日志，无边框。                                    |
 
+## CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
+
+| 方法                | 介绍                                                                       |
+|:------------------|:-------------------------------------------------------------------------|
+| onHandled         | 注册错误观测器（该方法建议在Ability里调用） 。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件 |
+| onDestroy         | 注销错误观测器                                                                  |
+| isHandled         | 判断错误观测器是否存在                                                              |
+| getFilePath       | 获取日志文件路径（用于读取异常文件、导出异常文件）                                                |
+| access            | 判断日志文件是否存在                                                               |
+| delete            | 删除日志文件                                                                   |
+| getExceptionJson  | 获取异常日志的JSON字符串                                                           |
+| getExceptionList  | 获取异常日志的集合                                                                |
+| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                         |
+| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                          |
+| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用        |
+| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                          |
+
+## EmitterUtil（Emitter工具类（进行线程间通信））[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets)
+
+| 方法               | 介绍                  |
+|:-----------------|:--------------------|
+| post             | 发送事件                |
+| onSubscribe      | 订阅事件                |
+| onceSubscribe    | 单次订阅指定事件            |
+| unSubscribe      | 取消事件订阅              |
+| getListenerCount | 获取指定事件的订阅数          |
+| on               | 订阅事件，支持Callback     |
+| once             | 单次订阅指定事件，支持Callback |
+| off              | 取消事件订阅，支持Callback   |
+
+## WantUtil（Want工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets)
+
+| 方法                    | 介绍                                         |
+|:----------------------|:-------------------------------------------|
+| toSetting             | 跳转系统设置页面（配合WantUtil里的URI常量一起使用，可跳转更多的设置页面） |
+| toAppSetting          | 跳转应用设置页面                                   |
+| toNotificationSetting | 跳转通知设置页面                                   |
+| toNetworkSetting      | 跳转移动网络设置页面                                 |
+| toWifiSetting         | 跳转WLAN设置页面                                 |
+| toBluetoothSetting    | 跳转蓝牙设置页面                                   |
+| toNfcSetting          | 跳转NFC设置页面                                  |
+| toVolumeSetting       | 跳转声音和振动设置页面                                |
+| toStorageSetting      | 跳转存储设置页面                                   |
+| toBatterySetting      | 跳转电池设置页面                                   |
+| toWebBrowser          | 拉起系统浏览器                                    |
+| toAppGalleryDetail    | 拉起应用市场对应的应用详情界面                            |
+| toFileManagement      | 拉起系统文件管理器                                  |
+| startMMS              | 拉起短信界面并指定联系人                               |
+| openFile              | 调用三方软件打开文件                                 |
+
+## KvUtil（键值型数据库工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets)
+
+| 方法                                                               | 介绍                        |
+|:-----------------------------------------------------------------|:--------------------------|
+| put                                                              | 添加指定类型的键值对到数据库            |
+| get<br/>getString<br/>getNumber<br/>getBoolean<br/>getUint8Array | 获取指定键的值                   |
+| delete                                                           | 从数据库中删除指定键值的数据            |
+| putBatch                                                         | 批量插入键值对到SingleKVStore数据库中 |
+| deleteBatch                                                      | 批量删除SingleKVStore数据库中的键值对 |
+| getEntries                                                       | 获取匹配指定键前缀的所有键值对           |
+| backup                                                           | 以指定名称备份数据库                |
+| restore                                                          | 从指定的数据库文件恢复数据库            |
+| deleteBackup                                                     | 根据指定名称删除备份文件              |
+| onDataChange                                                     | 订阅指定类型的数据变更通知             |
+| offDataChange                                                    | 取消订阅数据变更通知                |
+
+## PreferencesUtil（Preferences工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets)
+
+| 方法                            | 介绍                                                          |
+|:------------------------------|:------------------------------------------------------------|
+| init                          | 初始化                                                         |
+| put<br/>putSync               | 将数据缓存                                                       |
+| get<br/>getSync               | 获取缓存值                                                       |
+| getString<br/>getStringSync   | 获取string类型的缓存值                                              |
+| getNumber<br/>getNumberSync   | 获取number类型的缓存值                                              |
+| getBoolean<br/>getBooleanSync | 获取boolean类型的缓存值                                             |
+| has<br/>hasSync               | 检查缓存实例中是否包含给定Key的存储键值对                                      |
+| getBoolean<br/>getBooleanSync | 获取boolean类型的缓存值                                             |
+| delete<br/>deleteSync         | 删除缓存值                                                       |
+| clear<br/>clearSync           | 清空缓存                                                        |
+| deletePreferences             | 从缓存中移出指定的Preferences实例，若Preferences实例有对应的持久化文件，则同时删除其持久化文件。 |
+| onChange                      | 订阅数据变更，订阅的Key的值发生变更后，在执行flush方法后，触发callback回调               |
+| offChange                     | 取消订阅数据变更                                                    |
+| onDataChange                  | 精确订阅数据变更，只有被订阅的key值发生变更后，在执行flush方法后，触发callback回调           |
+| offDataChange                 | 取消精确订阅数据变更                                                  |
+
+## CacheUtil（缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets)
+
+| 方法      | 介绍         |
+|:--------|:-----------|
+| has     | 缓存中的数据是否存在 |
+| get     | 获取缓存中的数据   |
+| put     | 将数据存入缓存中   |
+| remove  | 删除key对应的缓存 |
+| isEmpty | 判断缓存是否为空   |
+| clear   | 清除缓存数据     |
+
+## LRUCacheUtil（LRUCache缓存工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LRUCacheUtilPage.ets)
+
+| 方法             | 介绍                    |
+|:---------------|:----------------------|
+| getInstance    | 获取LRUCacheUtil的单例     |
+| has            | 判断是否包含key对应的缓存        |
+| get            | 获取key对应的缓存            |
+| put            | 添加缓存到lruCache中        |
+| remove         | 删除key对应的缓存            |
+| isEmpty        | 判断lruCache缓存是否为空      |
+| getCapacity    | 获取当前缓冲区的容量            |
+| updateCapacity | 重新设置lruCache的容量       |
+| clear          | 清除缓存数据，并重置lruCache的大小 |
+
+## NotificationUtil（通知工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets)
+
+| 方法                                                  | 介绍                          |
+|:----------------------------------------------------|:----------------------------|
+| setDefaultConfig                                    | 设置通知的默认统一配置                 |
+| isNotificationEnabled<br/>isNotificationEnabledSync | 查询通知是否授权                    |
+| authorizeNotification                               | 请求通知授权，第一次调用会弹窗让用户选择。       |
+| isSupportTemplate                                   | 查询模板是否存在，目前仅支持进度条模板。        |
+| isDistributedEnabled                                | 查询设备是否支持分布式通知               |
+| publishBasic                                        | 发布普通文本通知                    |
+| publishMultiLine                                    | 发布多文本通知                     |
+| publishLongText                                     | 发布长文本通知                     |
+| publishPicture                                      | 发布带有图片的通知                   |
+| publishTemplate                                     | 发布模板通知                      |
+| cancel                                              | 取消通知                        |
+| cancelGroup                                         | 取消本应用指定组下的通知                |
+| cancelAll                                           | 取消所有通知                      |
+| setBadge                                            | 设置桌面角标个数                    |
+| clearBadge                                          | 清空桌面角标                      |
+| setBadgeFromNotificationCount                       | 设置桌面角标数量，来自于通知数量            |
+| getActiveNotificationCount                          | 获取当前应用未删除的通知数量              |
+| getActiveNotifications                              | 获取当前应用未删除的通知列表              |
+| addSlot                                             | 创建指定类型的通知渠道                 |
+| getSlot                                             | 获取一个指定类型的通知渠道               |
+| getSlots                                            | 获取此应用程序的所有通知渠道              |
+| removeSlot                                          | 删除此应用程序指定类型的通知渠道            |
+| removeAllSlots                                      | 删除此应用程序所有通知渠道               |
+| generateNotificationId                              | 生成通知id（用时间戳当id）             |
+| getDefaultWantAgent                                 | 创建一个可拉起Ability的Want         |
+| getCompressedPicture                                | 获取压缩通知的图片（图像像素的总字节数不能超过2MB） |
+| getCompressedIcon                                   | 获取压缩通知图标（图标像素的总字节数不超过192KB） |
+
+## SnapshotUtil（组件截图和窗口截图工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets)
+
+| 方法                     | 介绍                               |
+|:-----------------------|:---------------------------------|
+| get<br/>getSync        | 获取已加载的组件的截图，传入组件的组件id，找到对应组件进行截图 |
+| createFromBuilder      | 在应用后台渲染CustomBuilder自定义组件，并输出其截图 |
+| snapshot               | 获取窗口截图，使用Promise异步回调             |
+| onSnapshotListener     | 开启系统截屏事件的监听                      |
+| removeSnapshotListener | 关闭系统截屏事件的监听                      |
+
+## KeyboardUtil（键盘工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets)
+
+| 方法                     | 介绍                |
+|:-----------------------|:------------------|
+| show                   | 拉起键盘              |
+| hide                   | 隐藏键盘              |
+| onKeyboardListener     | 订阅输入法软键盘显示和隐藏事件   |
+| removeKeyboardListener | 取消订阅输入法软键盘显示或隐藏事件 |
+
+## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
+
+| 方法                            | 介绍            |
+|:------------------------------|:--------------|
+| setDataText                   | 将纯文本数据写入系统剪贴板 |
+| setDataHtml                   | 将Htm数据写入系统剪贴板 |
+| setDataUri                    | 将Uri数据写入系统剪贴板 |
+| getData<br/>getDataSync       | 读取系统剪贴板内容     |
+| getDataStr<br/>getDataSyncStr | 读取系统剪贴板里的字符串  |
+| hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
+| clearData                     | 清空系统剪贴板内容     |
+
+## AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
+
+| 方法                    | 介绍          |
+|:----------------------|:------------|
+| add<br/>addSync       | 新增一条关键资产    |
+| get<br/>getSync       | 查询关键资产      |
+| remove<br/>removeSync | 删除关键资产      |
+| canIUse               | 当前设备是否支持该模块 |
+
 ## ResUtil（资源工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ResUtilPage.ets)
 
 | 方法                                                  | 介绍                                                                 |
@@ -530,6 +601,35 @@ OpenHarmony ohpm
 | isRawDir                                            | 用户判断指定路径是否是rawfile下的目录（true：表示是rawfile下的目录，false：表示不是rawfile下的目录）  |
 | getConfiguration<br/>getConfigurationSync           | 获取设备的Configuration                                                 |
 | getDeviceCapability<br/>getDeviceCapabilitySync     | 获取设备的DeviceCapability                                              |
+
+## ObjectUtil（对象工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets)
+
+| 方法              | 介绍                               |
+|-----------------|:---------------------------------|
+| getHash         | 获取对象的Hash值                       |
+| getClassName    | 获取对象的Class名称                     |
+| getMethodsNames | 获取对象的所有方法名                       |
+| isString        | 判断是否是String                      |
+| isNull          | 判断对象是否为空                         |
+| isEmpty         | 判断属性内容是否为空                       |
+| shallowCopy     | 浅拷贝                              |
+| deepCopy        | 深度拷贝对象                           |
+| assign          | 合并两个或多个对象                        |
+| objToClass      | obj转class，解决obj as class后丢失方法的问题 |
+| deleteRecord    | 删除Record中的元素                     |
+| getValue        | 通过key获取对象值                       |
+| setValue        | 给对象obj动态添加或者修改属性                 |
+
+## JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
+
+| 方法            | 介绍             |
+|:--------------|:---------------|
+| jsonToBean    | JSON字符串转对象     |
+| beanToJsonStr | 对象转JSON字符串     |
+| jsonToArray   | JSON字符串转Array  |
+| jsonToMap     | JSON字符串转Map    |
+| mapToJsonStr  | Map转JSON字符串    |
+| isJSONStr     | 判断是否是字符串格式json |
 
 ## DateUtil（日期工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DateUtilPage.ets)
 
@@ -571,6 +671,14 @@ OpenHarmony ohpm
 | getFormatRelativeTime | 格式化相对时间                     |
 | getTipDateStr         | 格式化时间戳，获取提示性时间字符串           |
 
+## Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
+
+| 方法                              | 介绍                           |
+|:--------------------------------|:-----------------------------|
+| decode<br/>encodeSync           | 解码，通过输入参数解码后输出对应Uint8Array对象 |
+| encode<br/>decodeSync           | 编码，通过输入参数编码后输出Uint8Array对象   |
+| encodeToStr<br/>encodeToStrSync | 编码，通过输入参数编码后输出对应文本           |
+
 ## StrUtil（字符串工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/StrUtilPage.ets)
 
 | 方法                 | 介绍                                    |
@@ -581,6 +689,8 @@ OpenHarmony ohpm
 | isNotEmpty         | 判断字符串是否为非空                            |
 | isBlank            | 判断字符串是否为空和空白符(空白符包括空格、制表符、全角空格和不间断空格) |
 | isNotBlank         | 判断字符串是否为非空                            |
+| trim               | 去除字符串两端的空格                            |
+| trimAll            | 去除字符串里的所有空格                           |
 | replace            | 替换字符串中匹配的正则为给定的字符串                    |
 | replaceAll         | 替换字符串中所有匹配的正则为给定的字符串                  |
 | startsWith         | 判断字符串是否以给定的字符串开头                      |
@@ -599,26 +709,8 @@ OpenHarmony ohpm
 | bufferToStr        | ArrayBuffer转字符串                       |
 | bufferToUint8Array | ArrayBuffer转Uint8Array                |
 | unit8ArrayToBuffer | Uint8Array转ArrayBuffer                |
+| getErrorStr        | 获取Error的JSON字符串                       |
 | getErrnoToString   | 获取系统错误码对应的详细信息                        |
-
-## RegexUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets)
-
-| 方法      | 介绍                                |
-|:--------|:----------------------------------|
-| isPhone | 判断传入的电话号码格式是否正确                   |
-| isMatch | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
-| isEmail | 判断传入的邮箱格式是否正确                     |
-| isEmoji | 判断字符串是否包含表情                       |
-
-## FormatUtil（格式化工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets)
-
-| 方法                   | 介绍                          |
-|:---------------------|:----------------------------|
-| isPhone              | 判断传入的电话号码格式是否正确             |
-| getPhoneFormat       | 对电话号码进行格式化                  |
-| getPhoneLocationName | 获取电话号码归属地                   |
-| transliterator       | 将输入字符串从源格式转换为目标格式（中文汉字转为拼音） |
-| getIconFont          | 解析iconFont字符                |
 
 ## CharUtil（字符工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CharUtilPage.ets)
 
@@ -634,14 +726,6 @@ OpenHarmony ohpm
 | isIdeograph  | 判断字符串char是否是表意文字               |
 | isBlankChar  | 判断是否空白符 空白符包括空格、制表符、全角空格和不间断空格 |
 | isAscii      | 判断字符是否位于ASCII范围内（0~127）        |
-
-## Base64Util（Base64工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/Base64UtilPage.ets)
-
-| 方法                              | 介绍                           |
-|:--------------------------------|:-----------------------------|
-| decode<br/>encodeSync           | 解码，通过输入参数解码后输出对应Uint8Array对象 |
-| encodeToStr<br/>encodeToStrSync | 编码，通过输入参数编码后输出对应文本           |
-| encode<br/>decodeSync           | 编码，通过输入参数编码后输出Uint8Array对象   |
 
 ## NumberUtil（number工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NumberUtilPage.ets)
 
@@ -690,35 +774,24 @@ OpenHarmony ohpm
 | generateRandomUUID       | 使用加密安全随机数生成器生成随机的RFC 4122版本4的string类型UUID     |
 | generateRandomBinaryUUID | 使用加密安全随机数生成器生成随机的RFC 4122版本4的Uint8Array类型UUID |
 
-## ObjectUtil（对象工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ObjectUtilPage.ets)
+## RegexUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets)
 
-| 方法              | 介绍                               |
-|-----------------|:---------------------------------|
-| getHash         | 获取对象的Hash值                       |
-| getClassName    | 获取对象的Class名称                     |
-| getMethodsNames | 获取对象的所有方法名                       |
-| isString        | 判断是否是String                      |
-| isNull          | 判断对象是否为空                         |
-| isEmpty         | 判断属性内容是否为空                       |
-| shallowCopy     | 浅拷贝                              |
-| deepCopy        | 深度拷贝对象                           |
-| assign          | 合并两个或多个对象                        |
-| objToClass      | obj转class，解决obj as class后丢失方法的问题 |
-| deleteRecord    | 删除Record中的元素                     |
-| getValue        | 通过key获取对象值                       |
-| setValue        | 给对象obj动态添加或者修改属性                 |
-| getErrorStr     | 获取Error的JSON字符串                  |
+| 方法      | 介绍                                |
+|:--------|:----------------------------------|
+| isPhone | 判断传入的电话号码格式是否正确                   |
+| isMatch | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
+| isEmail | 判断传入的邮箱格式是否正确                     |
+| isEmoji | 判断字符串是否包含表情                       |
 
-## JSONUtil（JSON工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/JSONUtilPage.ets)
+## FormatUtil（格式化工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets)
 
-| 方法            | 介绍             |
-|:--------------|:---------------|
-| jsonToBean    | JSON字符串转对象     |
-| beanToJsonStr | 对象转JSON字符串     |
-| jsonToArray   | JSON字符串转Array  |
-| jsonToMap     | JSON字符串转Map    |
-| mapToJsonStr  | Map转JSON字符串    |
-| isJSONStr     | 判断是否是字符串格式json |
+| 方法                   | 介绍                          |
+|:---------------------|:----------------------------|
+| isPhone              | 判断传入的电话号码格式是否正确             |
+| getPhoneFormat       | 对电话号码进行格式化                  |
+| getPhoneLocationName | 获取电话号码归属地                   |
+| transliterator       | 将输入字符串从源格式转换为目标格式（中文汉字转为拼音） |
+| getIconFont          | 解析iconFont字符                |
 
 ## ClickUtil（节流、防抖 工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ClickUtilPage.ets)
 
@@ -726,79 +799,6 @@ OpenHarmony ohpm
 |:---------|:---------------------------------|
 | throttle | 节流：在一定时间内，只触发一次                  |
 | debounce | 防抖：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数 |
-
-## CrashUtil（全局异常捕获，崩溃日志收集）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CrashUtilPage.ets)
-
-| 方法                | 介绍                                                                                  |
-|:------------------|:------------------------------------------------------------------------------------|
-| onHandled         | 注册错误观测器（该方法建议在Ability里调用） 。注册后可以捕获到应用产生的js crash，应用崩溃时进程不会退出。将异常信息写入本地文件            |
-| onDestroy         | 注销错误观测器                                                                             |
-| isHandled         | 判断错误观测器是否存在                                                                         |
-| getFilePath       | 获取日志文件路径（用于读取异常文件、导出异常文件）                                                           |
-| access            | 判断日志文件是否存在                                                                          |
-| delete            | 删除日志文件                                                                              |
-| getExceptionJson  | 获取异常日志的JSON字符串                                                                      |
-| getExceptionList  | 获取异常日志的集合                                                                           |
-| enableAppRecovery | 启用应用恢复功能，参数按顺序填入。该接口调用后，应用从启动器启动时第一个Ability支持恢复。                                    |
-| restartApp        | 重启APP，并拉起应用启动时第一个Ability，可以配合errorManager相关接口使用                                     |
-| saveAppState      | 保存当前App状态 或 主动保存Ability的状态，这个状态将在下次恢复启动时使用。可以配合errorManager相关接口使用                   |
-| setRestartWant    | 设置下次恢复主动拉起场景下的Ability。该Ability必须为当前包下的UIAbility                                     |
-
-## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
-
-| 方法                            | 介绍            |
-|:------------------------------|:--------------|
-| setDataText                   | 将纯文本数据写入系统剪贴板 |
-| setDataHtml                   | 将Htm数据写入系统剪贴板 |
-| setDataUri                    | 将Uri数据写入系统剪贴板 |
-| getData<br/>getDataSync       | 读取系统剪贴板内容     |
-| getDataStr<br/>getDataSyncStr | 读取系统剪贴板里的字符串  |
-| hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
-| clearData                     | 清空系统剪贴板内容     |
-
-## KeyboardUtil（键盘工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets)
-
-| 方法                     | 介绍                |
-|:-----------------------|:------------------|
-| show                   | 拉起键盘              |
-| hide                   | 隐藏键盘              |
-| onKeyboardListener     | 订阅输入法软键盘显示和隐藏事件   |
-| removeKeyboardListener | 取消订阅输入法软键盘显示或隐藏事件 |
-
-## NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
-
-| 方法                                  | 介绍                             |
-|:------------------------------------|:-------------------------------|
-| hasDefaultNet<br/>hasDefaultNetSync | 检查默认数据网络是否被激活                  |
-| getDefaultNet<br/>getDefaultNetSync | 获取默认激活的数据网络                    |
-| getAllNets<br/>getAllNetsSync       | 获取所有处于连接状态的网络列表                |
-| isNetworkAvailable                  | 判断当前网络是否可用                     |
-| hasNetMobile                        | 判断当前网络是否是蜂窝网络（移动网络）。           |
-| hasNetWiFi                          | 判断当前网络是否是Wi-Fi网络。              |
-| hasNetEthernet                      | 判断当前网络是否是以太网网络。                |
-| hasNetVPN                           | 判断当前网络是否是VPN网络。                |
-| hasNetBearType                      | 是否存在指定的网络                      |
-| getNetBearTypes                     | 获取网络类型，数组里面只包含了一种具体的网络类型。      |
-| getNetBearType                      | 获取网络类型                         |
-| isNRSupported                       | 判断当前设备是否支持NR(New Radio)。也就是5G。 |
-| isRadioOn                           | 判断Radio是否打开                    |
-| getOperatorName                     | 获取运营商名称                        |
-| getNetworkState                     | 获取网络状态                         |
-| getSignalInformation                | 获取指定SIM卡槽对应的注册网络信号强度信息列表。      |
-| getNetworkType                      | 获取网络类型                         |
-| getNetworkTypeStr                   | 获取网络类型，返回字符类型。                 |
-| getIpAddress                        | 获取当前设备的IP地址(设备连接Wi-Fi后)        |
-| register                            | 订阅指定网络状态变化的通知，支持多事件监听回调        |
-| unregister                          | 取消订阅默认网络状态变化的通知                |
-
-## AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
-
-| 方法                    | 介绍          |
-|:----------------------|:------------|
-| add<br/>addSync       | 新增一条关键资产    |
-| get<br/>getSync       | 查询关键资产      |
-| remove<br/>removeSync | 删除关键资产      |
-| canIUse               | 当前设备是否支持该模块 |
 
 ## TempUtil(温度转换工具类)[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets)
 
@@ -1014,8 +1014,7 @@ OpenHarmony ohpm
 | generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
 | onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码    |
 | onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
-| canIUseScan           | 判断当前设备是否支持码能力                |
-
+| canIUseScan           | 判断当前设备是否支持码能力                |~~~~
 
 ## 🍎贡献代码与技术交流
 

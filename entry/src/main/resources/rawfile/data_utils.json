@@ -35,27 +35,6 @@
     "type": 1
   },
   {
-    "name": "NotificationUtil",
-    "desc": "通知工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/NotificationUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "EmitterUtil",
-    "desc": "Emitter工具类（进行线程间通信）",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/EmitterUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "WantUtil",
-    "desc": "Want工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/WantUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets",
-    "type": 1
-  },
-  {
     "name": "AuthUtil",
     "desc": "手机的生物认证（指纹、人脸、密码）工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/AuthUtil.ets",
@@ -63,31 +42,10 @@
     "type": 1
   },
   {
-    "name": "KvUtil",
-    "desc": "键值型数据库工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/KvUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "PreferencesUtil",
-    "desc": "Preferences（用户首选项）工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/PreferencesUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "CacheUtil",
-    "desc": "缓存工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/CacheUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "LRUCacheUtil",
-    "desc": "LRUCache缓存工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/LRUCacheUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LRUCacheUtilPage.ets",
+    "name": "NetworkUtil",
+    "desc": "网络相关工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/NetworkUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets",
     "type": 1
   },
   {
@@ -102,13 +60,6 @@
     "desc": "图片相关工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/ImageUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ImageUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "SnapshotUtil",
-    "desc": "组件截图和窗口截图工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/SnapshotUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets",
     "type": 1
   },
   {
@@ -140,17 +91,66 @@
     "type": 1
   },
   {
+    "name": "EmitterUtil",
+    "desc": "Emitter工具类（进行线程间通信）",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/EmitterUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/EmitterUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "WantUtil",
+    "desc": "Want工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/WantUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/WantUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "KvUtil",
+    "desc": "键值型数据库工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/KvUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KvUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "PreferencesUtil",
+    "desc": "Preferences（用户首选项）工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/PreferencesUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PreferencesUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "CacheUtil",
+    "desc": "缓存工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/CacheUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/CacheUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "LRUCacheUtil",
+    "desc": "LRUCache缓存工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/LRUCacheUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LRUCacheUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "NotificationUtil",
+    "desc": "通知工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/NotificationUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NotificationUtilPage.ets",
+    "type": 1
+  },
+  {
+    "name": "SnapshotUtil",
+    "desc": "组件截图和窗口截图工具类",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/SnapshotUtil.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/SnapshotUtilPage.ets",
+    "type": 1
+  },
+  {
     "name": "KeyboardUtil",
     "desc": "键盘工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/KeyboardUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/KeyboardUtilPage.ets",
-    "type": 1
-  },
-  {
-    "name": "NetworkUtil",
-    "desc": "网络相关工具类",
-    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/NetworkUtil.ets",
-    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets",
     "type": 1
   },
   {

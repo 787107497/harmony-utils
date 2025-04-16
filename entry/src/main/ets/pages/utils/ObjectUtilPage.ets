@@ -1,12 +1,11 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { DialogHelper } from '@pura/harmony-dialog';
-import { FileUtil, ObjectUtil } from '@pura/harmony-utils';
+import { ObjectUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { User } from '../../model/User';
 import { Utils } from '../../utils/Utils';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 
 /**
@@ -146,19 +145,6 @@ struct Index {
               ObjectUtil.setValue(this.user, "job", "表演");
               let str = `user:\n${userStr}\n\n赋值后:\n${JSON.stringify(this.user)}`;
               Utils.showSheetText(str);
-            })
-          Button("getErrorStr()")
-            .btnStyle()
-            .onClick(() => {
-              let error = new Error("未知异常！");
-              let errorStr = ObjectUtil.getErrorStr(error as BusinessError);
-              try {
-                let path = 'null';
-                FileUtil.openSync(path);
-              } catch (err) {
-                let errStr = ObjectUtil.getErrorStr(err);
-                Utils.showSheetText(`${errorStr}\n\n${errStr}`);
-              }
             })
 
           Blank().layoutWeight(1)

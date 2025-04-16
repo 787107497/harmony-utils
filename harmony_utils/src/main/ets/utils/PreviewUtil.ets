@@ -164,6 +164,8 @@ export class PreviewUtil {
    * @returns
    */
   static canIUsePreview() {
-    return canIUse("SystemCapability.Filemanagement.FilePreview.Core")
+    return canIUse("SystemCapability.FileManagement.FilePreview.Core")
   }
+
+
 }
