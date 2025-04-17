@@ -38,6 +38,24 @@ export struct DialogPage {
   private pefruits: string[] = ['peach1', 'peach2', 'peach3', 'peach4']
   private multis: string[][] = [this.apfruits, this.orfruits, this.pefruits]
   @BuilderParam customTextBuilderParam: (str: string | Resource) => void = CustomTextViewBuilder; //自定义文本内容
+  private rangeContent: TextPickerRangeContent[] = [{
+    icon: $r('sys.media.ohos_ic_normal_white_grid_doc'),
+    text: 'DOC'
+  }, {
+    icon: $r('sys.media.ohos_ic_normal_white_grid_pdf'),
+    text: 'PDF'
+  }, {
+    icon: $r('sys.media.ohos_ic_normal_white_grid_xls'),
+    text: 'XLS'
+  }, {
+    icon: $r('sys.media.ohos_ic_normal_white_grid_image'),
+    text: 'IMAGE'
+  }, {
+    icon: $r('sys.media.ohos_ic_normal_white_grid_html'),
+    text: 'HTML'
+  }];
+
+
 
 
   /**
@@ -751,7 +769,8 @@ export struct DialogPage {
     if (index == 0) {
       DialogHelper.showTextPickerDialog({
         title: "请选择",
-        range: this.likes,
+        // range: this.likes,
+        range: this.rangeContent,
         onAction: (action: number, dialogId: string, value: string | string[]) => {
           if (action == DialogAction.SURE) {
             ToastUtil.showToast(`已选择：${value as string}`);
@@ -1182,6 +1201,7 @@ export struct DialogPage {
             num: 4,
             onClickAction: (index: number): void => this.textPickerDialog(index)
           })
+          TextPicker({ range: this.rangeContent,selected:2})
           CardButton({
             label: "DatePickerDialog",
             content: "日期选择器弹框",

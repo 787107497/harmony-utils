@@ -30,6 +30,7 @@ import { display } from '@kit.ArkUI';
 @Preview
 @Component
 export struct TextPickerDialogView {
+  @State selectValue: string | string[] = '';
   @Prop options: TextPickerOptions;
   @State title: string = ""; //标题
   @State primaryButton?: ButtonOptions = undefined; //弹框左侧按钮。
@@ -70,6 +71,7 @@ export struct TextPickerDialogView {
         }
       }
     }
+    this.selectValue = this.value;
     if (this.options.title) {
       this.title = Helper.getResourceStr(this.options.title) ?? "";
     }
@@ -115,7 +117,7 @@ export struct TextPickerDialogView {
                 DialogHelper.closeDialog(this.options.dialogId ?? "");
               }
               if (this.options.onAction) {
-                this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.value);
+                this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.selectValue);
               }
             })
           Text(this.title)
@@ -141,7 +143,7 @@ export struct TextPickerDialogView {
                 DialogHelper.closeDialog(this.options.dialogId ?? "");
               }
               if (this.options.onAction) {
-                this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.value);
+                this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.selectValue);
               }
             })
         }
@@ -157,7 +159,7 @@ export struct TextPickerDialogView {
           .margin({ top: 20, bottom: 20 })
           .width('100%')
           .onChange((value: string | string[], index: number | number[]) => {
-            this.value = value;
+            this.selectValue = value;
             if (this.options.onChange) {
               this.options.onChange(value, index)
             }

@@ -40,12 +40,12 @@ export struct DatePickerDialogView {
   @State containHour: boolean = true; //是否包含时
   @State containMinute: boolean = true; //是否包含秒
   @State containSecond: boolean = true; //是否包含年
-  @State year: string = ""; //选中日期的年
-  @State month: string = ""; //选中日期的月
-  @State day: string = ""; //选中日期的日
-  @State hour: string = ""; //选中日期的时
-  @State minute: string = ""; //选中日期的分
-  @State second: string = ""; //选中日期的秒
+  @State year: string = ""; //日期的年
+  @State month: string = ""; //日期的月
+  @State day: string = ""; //日期的日
+  @State hour: string = ""; //日期的时
+  @State minute: string = ""; //日期的分
+  @State second: string = ""; //日期的秒
   @State years: string[] = []; //年的可选范围
   @State months: string[] = []; //月的可选范围
   @State days: string[] = []; //日的可选范围
@@ -61,6 +61,12 @@ export struct DatePickerDialogView {
   private foldStatusCallback: Callback<display.FoldStatus> = (foldStatus: display.FoldStatus) => {
     this.isLargeScreen = Helper.isLargeScreen();
   }
+  @State selectYear: string = ""; //选中日期的年
+  @State selectMonth: string = ""; //选中日期的月
+  @State selectDay: string = ""; //选中日期的日
+  @State selectHour: string = ""; //选中日期的时
+  @State selectMinute: string = ""; //选中日期的分
+  @State selectSecond: string = ""; //选中日期的秒
 
 
   aboutToAppear(): void {
@@ -116,6 +122,12 @@ export struct DatePickerDialogView {
     this.hour = DateHelper.getSelectStr(this.containHour, 4, this.selectDate);
     this.minute = DateHelper.getSelectStr(this.containMinute, 5, this.selectDate);
     this.second = DateHelper.getSelectStr(this.containSecond, 6, this.selectDate);
+    this.selectYear = this.year;
+    this.selectMonth = this.month;
+    this.selectDay = this.day;
+    this.selectHour = this.hour;
+    this.selectMinute = this.minute;
+    this.selectSecond = this.second;
   }
 
 
@@ -124,30 +136,38 @@ export struct DatePickerDialogView {
    * @param type 1-年、2-月、3-日、4-时、5-分、6-秒
    */
   onChangeData(type: number) {
-    this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
-      this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute, this.second);
+
+    console.log(`type:${type} ~ ${this.selectYear}-${this.selectMonth}-${this.selectDay} ${this.selectHour}:${this.selectMinute}:${this.selectSecond}`);
+    if (type <= 2 && this.containMonth) { //处理一些特殊情况下的日期，例如2月的28、29。
+      this.selectDay = DateHelper.getResetDay(this.year, this.month, this.selectDay);
+    }
+    this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour, this.containMinute, this.containSecond,
+      this.selectYear, this.selectMonth, this.selectDay, this.selectHour, this.selectMinute, this.selectSecond);
     if (type <= 1 && this.containYear) {
       this.months = DateHelper.getRanges(this.containMonth, 2, this.startDate, this.endDate, this.selectDate);
-      this.month = DateHelper.getSelectValue(this.months, this.month);
+      this.selectMonth = DateHelper.getSelectValue(this.months, this.selectMonth);
     }
     if (type <= 2 && this.containMonth) {
-      this.day = DateHelper.getResetDay(this.year, this.month, this.day);
-      this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
-        this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute, this.second);
       this.days = DateHelper.getRanges(this.containDay, 3, this.startDate, this.endDate, this.selectDate);
-      this.day = DateHelper.getSelectValue(this.days, this.day);
+      this.selectDay = DateHelper.getSelectValue(this.days, this.selectDay);
     }
     if (type <= 3 && this.containDay) {
       this.hours = DateHelper.getRanges(this.containHour, 4, this.startDate, this.endDate, this.selectDate);
-      this.hour = DateHelper.getSelectValue(this.hours, this.hour);
+      this.selectHour = DateHelper.getSelectValue(this.hours, this.selectHour);
     }
     if (type <= 4 && this.containHour) {
       this.minutes = DateHelper.getRanges(this.containMinute, 5, this.startDate, this.endDate, this.selectDate);
-      this.minute = DateHelper.getSelectValue(this.minutes, this.minute);
+      this.selectMinute = DateHelper.getSelectValue(this.minutes, this.selectMinute);
     }
     if (type <= 5 && this.containMinute) {
-      this.seconds = DateHelper.getRanges(this.containSecond, 6, this.startDate, this.endDate, this.selectDate);
-      this.second = DateHelper.getSelectValue(this.seconds, this.second);
+     let  seconds1= DateHelper.getRanges(this.containSecond, 6, this.startDate, this.endDate, this.selectDate);
+      console.log("MinuteS: "+(this.seconds.toString()))
+     console.log("Minute1: "+(this.seconds.toString() == seconds1.toString()))
+      console.log("Minute2: "+(this.seconds.toString() === seconds1.toString()))
+
+      this.seconds = seconds1;
+      this.selectSecond = DateHelper.getSelectValue(this.seconds, this.selectSecond);
+
     }
   }
 
@@ -169,10 +189,8 @@ export struct DatePickerDialogView {
                 DialogHelper.closeDialog(this.options.dialogId ?? "");
               }
               if (this.options.onAction) {
-                this.selectDate =
-                  DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
-                    this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute,
-                    this.second);
+                this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
+                    this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute, this.second);
                 this.options.onAction(DialogAction.ONE, this.options.dialogId ?? "", this.selectDate);
               }
             })
@@ -199,10 +217,8 @@ export struct DatePickerDialogView {
                 DialogHelper.closeDialog(this.options.dialogId ?? "");
               }
               if (this.options.onAction) {
-                this.selectDate =
-                  DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
-                    this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute,
-                    this.second);
+                this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour, this.containMinute, this.containSecond,
+                  this.selectYear, this.selectMonth, this.selectDay, this.selectHour, this.selectMinute, this.selectSecond);
                 this.options.onAction(DialogAction.TWO, this.options.dialogId ?? "", this.selectDate);
               }
             })
@@ -214,37 +230,37 @@ export struct DatePickerDialogView {
           TextPicker({ range: this.years, value: this.year })
             .TextPickerStyle(this.options, this.containYear, 10)
             .onChange((value) => {
-              this.year = value as string;
+              this.selectYear = value as string;
               this.onChangeData(1);
             })
           TextPicker({ range: this.months, value: this.month })
             .TextPickerStyle(this.options, this.containMonth, 9)
             .onChange((value) => {
-              this.month = value as string;
+              this.selectMonth = value as string;
               this.onChangeData(2);
             })
           TextPicker({ range: this.days, value: this.day })
             .TextPickerStyle(this.options, this.containDay, 9)
             .onChange((value) => {
-              this.day = value as string;
+              this.selectDay = value as string;
               this.onChangeData(3);
             })
           TextPicker({ range: this.hours, value: this.hour })
             .TextPickerStyle(this.options, this.containHour, 9)
             .onChange((value) => {
-              this.hour = value as string;
+              this.selectHour = value as string;
               this.onChangeData(4);
             })
           TextPicker({ range: this.minutes, value: this.minute })
             .TextPickerStyle(this.options, this.containMinute, 9)
             .onChange((value) => {
-              this.minute = value as string;
+              this.selectMinute = value as string;
               this.onChangeData(5);
             })
           TextPicker({ range: this.seconds, value: this.second })
             .TextPickerStyle(this.options, this.containSecond, 9)
             .onChange((value) => {
-              this.second = value as string;
+              this.selectSecond = value as string;
               this.onChangeData(6);
             })
         }
