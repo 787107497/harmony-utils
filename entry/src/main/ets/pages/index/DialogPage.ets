@@ -769,8 +769,8 @@ export struct DialogPage {
     if (index == 0) {
       DialogHelper.showTextPickerDialog({
         title: "请选择",
-        // range: this.likes,
-        range: this.rangeContent,
+        range: this.likes,
+        // range: this.rangeContent,
         onAction: (action: number, dialogId: string, value: string | string[]) => {
           if (action == DialogAction.SURE) {
             ToastUtil.showToast(`已选择：${value as string}`);
@@ -1201,7 +1201,6 @@ export struct DialogPage {
             num: 4,
             onClickAction: (index: number): void => this.textPickerDialog(index)
           })
-          TextPicker({ range: this.rangeContent,selected:2})
           CardButton({
             label: "DatePickerDialog",
             content: "日期选择器弹框",

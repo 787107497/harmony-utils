@@ -5,7 +5,7 @@
 
 [harmony-dialog](https://gitee.com/tongyuyan/harmony-utils/tree/master/harmony_dialog)
 一款极为简单易用的零侵入弹窗，仅需一行代码即可轻松实现，无论在何处都能够轻松弹出。其涵盖了
-AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、TextPickerDialog、DatePickerDialog、CustomDialog、LoadingDialog、LoadingProgress、Toast、ToastTip
+AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、TextPickerDialog、DatePickerDialog、CustomDialog、BindSheet、LoadingDialog、LoadingProgress、Toast、ToastTip
 等多种类型，能够满足各种不同的弹窗开发需求。
 
 [harmony-web](https://gitee.com/tongyuyan/harmony-utils/tree/master/harmony_web)

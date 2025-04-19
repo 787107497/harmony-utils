@@ -1,5 +1,9 @@
 # 版本记录
 
+## 1.1.5
+1. 修复canLoop参数导致的Bug。    
+2. 优化TextPickerDialog和DatePickerDialog。    
+
 ## 1.1.4
 1. 修复BottomSheetDialog和ActionSheetDialog 列表项过多导致显示异常的问题。
 2. 优化TextPickerDialog和DatePickerDialog 在折叠屏显示效果。

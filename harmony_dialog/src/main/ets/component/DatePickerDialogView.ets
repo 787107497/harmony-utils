@@ -129,23 +129,38 @@ export struct DatePickerDialogView {
     this.selectDate = DateHelper.getDateByStr(this.containYear, this.containMonth, this.containDay, this.containHour,
       this.containMinute, this.containSecond, this.year, this.month, this.day, this.hour, this.minute, this.second);
     if (type <= 1 && this.containYear) {
-      this.months = DateHelper.getRanges(this.containMonth, 2, this.startDate, this.endDate, this.selectDate);
+      let temp1 = DateHelper.getRanges(this.containMonth, 2, this.startDate, this.endDate, this.selectDate);
+      if (temp1.toString() !== this.months.toString()) {
+        this.months = temp1;
+      }
       this.month = DateHelper.getSelectValue(this.months, this.month);
     }
     if (type <= 2 && this.containMonth) {
-      this.days = DateHelper.getRanges(this.containDay, 3, this.startDate, this.endDate, this.selectDate);
+      let temp2 = DateHelper.getRanges(this.containDay, 3, this.startDate, this.endDate, this.selectDate);
+      if (temp2.toString() !== this.days.toString()) {
+        this.days = temp2;
+      }
       this.day = DateHelper.getSelectValue(this.days, this.day);
     }
     if (type <= 3 && this.containDay) {
-      this.hours = DateHelper.getRanges(this.containHour, 4, this.startDate, this.endDate, this.selectDate);
+      let temp3 = DateHelper.getRanges(this.containHour, 4, this.startDate, this.endDate, this.selectDate);
+      if (temp3.toString() !== this.hours.toString()) {
+        this.hours = temp3;
+      }
       this.hour = DateHelper.getSelectValue(this.hours, this.hour);
     }
     if (type <= 4 && this.containHour) {
-      this.minutes = DateHelper.getRanges(this.containMinute, 5, this.startDate, this.endDate, this.selectDate);
+      let temp4 = DateHelper.getRanges(this.containMinute, 5, this.startDate, this.endDate, this.selectDate);
+      if (temp4.toString() !== this.minutes.toString()) {
+        this.minutes = temp4;
+      }
       this.minute = DateHelper.getSelectValue(this.minutes, this.minute);
     }
     if (type <= 5 && this.containMinute) {
-      this.seconds = DateHelper.getRanges(this.containSecond, 6, this.startDate, this.endDate, this.selectDate);
+      let temp5 = DateHelper.getRanges(this.containSecond, 6, this.startDate, this.endDate, this.selectDate);
+      if (temp5.toString() !== this.seconds.toString()) {
+        this.seconds = temp5;
+      }
       this.second = DateHelper.getSelectValue(this.seconds, this.second);
     }
   }
@@ -206,40 +221,34 @@ export struct DatePickerDialogView {
         .width('100%')
 
         Row() {
-          TextPicker({ range: this.years, value: this.year })
+          TextPicker({ range: this.years, value: $$this.year })
             .TextPickerStyle(this.options, this.containYear, 10)
-            .onChange((value) => {
-              this.year = value as string;
+            .onChange(() => {
               this.onChangeData(1);
             })
-          TextPicker({ range: this.months, value: this.month })
+          TextPicker({ range: this.months, value: $$this.month })
             .TextPickerStyle(this.options, this.containMonth, 9)
-            .onChange((value) => {
-              this.month = value as string;
+            .onChange(() => {
               this.onChangeData(2);
             })
-          TextPicker({ range: this.days, value: this.day })
+          TextPicker({ range: this.days, value: $$this.day })
             .TextPickerStyle(this.options, this.containDay, 9)
-            .onChange((value) => {
-              this.day = value as string;
+            .onChange(() => {
               this.onChangeData(3);
             })
-          TextPicker({ range: this.hours, value: this.hour })
+          TextPicker({ range: this.hours, value: $$this.hour })
             .TextPickerStyle(this.options, this.containHour, 9)
-            .onChange((value) => {
-              this.hour = value as string;
+            .onChange(() => {
               this.onChangeData(4);
             })
-          TextPicker({ range: this.minutes, value: this.minute })
+          TextPicker({ range: this.minutes, value: $$this.minute })
             .TextPickerStyle(this.options, this.containMinute, 9)
-            .onChange((value) => {
-              this.minute = value as string;
+            .onChange(() => {
               this.onChangeData(5);
             })
-          TextPicker({ range: this.seconds, value: this.second })
+          TextPicker({ range: this.seconds, value: $$this.second })
             .TextPickerStyle(this.options, this.containSecond, 9)
-            .onChange((value) => {
-              this.second = value as string;
+            .onChange(() => {
               this.onChangeData(6);
             })
         }

@@ -1,20 +1,14 @@
 # 版本记录
 
 ## 1.3.2（API12）
-1. AppUtil，新增若干实用方法。    
-2. DeviceUtil，新增若干实用方法。    
+1. AppUtil，新增若干实用方法。
+2. DeviceUtil，新增若干实用方法。
 3. 新增WindowUtil工具类。
 4. NetworkUtil，新增若干实用方法。
-4. 优化LogUtil，解决了打印不全的问题。    
-5. 将CrashUtil的。
+4. 优化LogUtil，解决了打印不全的问题。
+5. CrashUtil，代码重构。
 6. StrUtil，Bug修复，新增3个实用方法。
 7. ObjectUtil，代码优化。
-8. 
-```typescript
-//1.3.1版本适配指南：
-
-```
-
 
 ## 1.3.1（API12）
 1. 移除module.json5中配置的权限。
