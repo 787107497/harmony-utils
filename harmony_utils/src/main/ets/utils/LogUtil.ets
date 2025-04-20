@@ -296,8 +296,8 @@ export class LogUtil {
   private static getLogLocation(): string {
     const errorStack = new Error().stack;
     const stackArray = errorStack?.split('\n');
-    let errorLocation: string = stackArray?.filter(item => item !== null && item.length > 1)
-    ?.splice(3).join('')?.replaceAll('  ', '') ?? '';
+    let errorLocation: string = stackArray?.filter(item => item !== null && item.length > 1)?.map(value => value.trim()
+      .concat('\t'))?.splice(3).join('') ?? '';
     return `\n│  ${errorLocation}\n│➼${StrUtil.repeat('┄┄┄┄┄┄┄', 21)}`;
   }
 
