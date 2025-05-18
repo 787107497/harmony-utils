@@ -13,8 +13,16 @@ export class ArkWebHelper {
    */
   static init(context: common.UIAbilityContext, debug?: boolean) {
     webview.WebviewController.initializeWebEngine();
+    webview.WebviewController.setWebDebuggingAccess(debug);
     Utils.onAbilityLifecycle(context);
   }
+
+static configCookieSync(){
+  webview.WebCookieManager.configCookieSync('https://www.example.com', 'value=test');
+  
+}
+
+
 
   /**
    * 预连接url，在加载url之前调用此API。
@@ -29,6 +37,45 @@ export class ArkWebHelper {
       webview.WebviewController.prepareForPageLoad(url, preconnectable, numSockets);
     }
   }
+
+
+  /**
+   * 异步执行JavaScript脚本，并通过Promise方式返回脚本执行的结果。runJavaScript需要在loadUrl完成后，比如onPageEnd中调用。
+   * @param webController
+   * @param script JavaScript脚本
+   * @returns
+   */
+  static async runJavaScript(webController: webview.WebviewController, script: string): Promise<string> {
+    return webController.runJavaScript(script);
+  }
+
+  /**
+   * 异步执行JavaScript脚本，并通过Promise方式返回脚本执行的结果。runJavaScriptExt需要在loadUrl完成后，比如onPageEnd中调用。
+   * @param webController
+   * @param script JavaScript脚本。
+   * @returns
+   */
+  static async runJavaScriptExt(webController: webview.WebviewController, script: string | ArrayBuffer): Promise<webview.JsMessageExt> {
+    return webController.runJavaScriptExt(script);
+  }
+
+  /**
+   * 异步执行JavaScript方法
+   * @param webController
+   * @param funName 方法名
+   * @param param 方法参数
+   * @returns
+   */
+  static async runJavaScriptFun(webController: webview.WebviewController, funName: string, param?: string): Promise<string> {
+    if (param) {
+      return ArkWebHelper.runJavaScript(webController, `${funName}(${param})`);
+    } else {
+      return ArkWebHelper.runJavaScript(webController, `${funName}()`);
+    }
+  }
+
+
+
 
 
 }

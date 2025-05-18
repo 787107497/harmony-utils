@@ -1,11 +1,14 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import {
-    ImageUtil,
-    LogUtil,
-    NotificationBasicOptions, NotificationMultiLineOptions,
-    NotificationUtil, StrUtil, ToastUtil,
-    WantUtil
+  ImageUtil,
+  LogUtil,
+  NotificationBasicOptions,
+  NotificationMultiLineOptions,
+  NotificationUtil,
+  StrUtil,
+  ToastUtil,
+  WantUtil
 } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
@@ -74,12 +77,14 @@ struct Index {
             })
           Button("publishBasic()")
             .btnStyle()
-            .onClick(() => {
+            .onClick(async () => {
+              let wantAgent = await NotificationUtil.getDefaultWantAgent();
               let id = NotificationUtil.generateNotificationId(); //通知id
               let basicOptions: NotificationBasicOptions = {
                 id: id,
                 title: "鸿蒙工具包",
                 text: "HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用",
+                wantAgent: wantAgent
               }
               NotificationUtil.publishBasic(basicOptions).then((id) => {
                 ToastUtil.showToast(`通知发送成功，id为：${id}`);

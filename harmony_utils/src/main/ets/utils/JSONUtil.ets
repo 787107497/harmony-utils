@@ -30,8 +30,8 @@ export class JSONUtil {
 
   /**
    * JSON字符串转Class对象
-   * @param cls 类名
    * @param jsonStr JSON字符串
+   * @param cls 类名
    * @returns
    */
   static jsonToBean<T>(jsonStr: string, clazz?: Constructor<T>, reviver?: JSON.Transformer, options?: JSON.ParseOptions): T | null {

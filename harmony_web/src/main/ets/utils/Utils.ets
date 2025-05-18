@@ -86,8 +86,7 @@ export class Utils {
       }
       context.getApplicationContext().on('abilityLifecycle', abilityLifecycleCallback);
     } catch (err) {
-      let error = err as BusinessError;
-      LogUtil.error(`abilityLifecycleCallback-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      LogUtil.error(err);
     }
   }
 

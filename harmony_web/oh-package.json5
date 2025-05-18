@@ -8,8 +8,8 @@
   "main": "Index.ets",
   "license": "Apache-2.0",
   "dependencies": {
-    "@pura/harmony-dialog": "^1.1.2",
-    "@pura/harmony-utils": "^1.2.8"
+    "@pura/harmony-dialog": "^1.1.5",
+    "@pura/harmony-utils": "^1.3.2"
   },
   "keywords": [
     "ArkWeb",

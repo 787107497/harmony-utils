@@ -4,84 +4,111 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport"
-			content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+			content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, user-scalable=yes,viewport-fit=cover" />
 		<title>测试网页</title>
 	</head>
 	<body>
 		<div id="app">
-
-			<div class="card_item">
-				<h4 class="font-title">onOverrideUrlLoading</h4>
-				<div class="margin-top5">
-					<a class="margin-right10" href="about:blank">空白页</a>
-					<a class="margin-right10" href="https://www.nutpi.net">坚果派</a>
-					<a href="https://www.baidu.com/">百度一下</a>
+			<div class="card_layout">
+				<h2 class="margin10">生命周期方法</h2>
+				<div class="card_item">
+					<h4 class="font-title">onOverrideUrlLoading</h4>
+					<div class="margin-top5">
+						<a class="margin-right10" href="about:blank">空白页</a>
+						<a class="margin-right10" href="https://www.nutpi.net">坚果派</a>
+						<a href="https://www.baidu.com/">百度一下</a>
+					</div>
 				</div>
-			</div>
 
-			<div class="card_item">
-				<h4>onAlert</h4>
-				<div class="margin-top5">
-					<button id='btn_alert1' class="margin-right10" onclick="onAlertFun(1)">Alert弹框1</button>
-					<button id='btn_alert2' onclick="onAlertFun(2)">Alert按钮2</button>
+				<div class="card_item">
+					<h4>onAlert</h4>
+					<div class="margin-top5">
+						<button id='btn_alert1' class="margin-right10" onclick="onAlertFun(1)">Alert弹框1</button>
+						<button id='btn_alert2' onclick="onAlertFun(2)">Alert按钮2</button>
+					</div>
 				</div>
-			</div>
 
-			<div class="card_item">
-				<h4>onConfirm</h4>
-				<div class="margin-top5">
-					<button id='btn_confirm1' class="margin-right10" onclick="onConfirmFun(1)">Confirm弹框1</button>
-					<button id='btn_confirm2' onclick="onConfirmFun(2)">Confirm按钮2</button>
+				<div class="card_item">
+					<h4>onConfirm</h4>
+					<div class="margin-top5">
+						<button id='btn_confirm1' class="margin-right10" onclick="onConfirmFun(1)">Confirm弹框1</button>
+						<button id='btn_confirm2' onclick="onConfirmFun(2)">Confirm按钮2</button>
+					</div>
 				</div>
-			</div>
 
-			<div class="card_item">
-				<h4>onPrompt</h4>
-				<div class="margin-top5">
-					<button id='btn_prompt1' class="margin-right10" onclick="onPromptFun(1)">Prompt弹框1</button>
-					<button id='btn_prompt2' onclick="onPromptFun(2)">Prompt按钮2</button>
+				<div class="card_item">
+					<h4>onPrompt</h4>
+					<div class="margin-top5">
+						<button id='btn_prompt1' class="margin-right10" onclick="onPromptFun(1)">Prompt弹框1</button>
+						<button id='btn_prompt2' onclick="onPromptFun(2)">Prompt按钮2</button>
+					</div>
+					<span id="span_prompt" class="font-content margin-top5"></span>
 				</div>
-				<span id="span_prompt" class="font-content margin-top5"></span>
-			</div>
 
-			<div class="card_item">
-				<h4>onConsole</h4>
-				<div class="margin-top5">
-					<button class="margin-right10" onclick="onConsoleFun(1)">打印日志1</button>
-					<button onclick="onConsoleFun(2)">打印日志2</button>
+				<div class="card_item">
+					<h4>onConsole</h4>
+					<div class="margin-top5">
+						<button class="margin-right10" onclick="onConsoleFun(1)">打印日志1</button>
+						<button onclick="onConsoleFun(2)">打印日志2</button>
+					</div>
+					<span id="span_console" class="font-content margin-top5">222222222</span>
 				</div>
-				<span id="span_console" class="font-content margin-top5">222222222</span>
-			</div>
 
-			<div class="card_item">
-				<h4>onRenderExited</h4>
-				<div class="margin-top5">
-					<button class="margin-right10" onclick="onPromptFun(1)">异常1</button>
-					<a class="margin-right10" href="chrome://crash">异常2</a>
+				<div class="card_item">
+					<h4>onRenderExited</h4>
+					<div class="margin-top5">
+						<button class="margin-right10" onclick="onPromptFun(1)">异常1</button>
+						<a class="margin-right10" href="chrome://crash">异常2</a>
+					</div>
 				</div>
-			</div>
 
-			<div class="card_item">
-				<h4>ontest</h4>
-				<div class="margin-top5">
-					<button class="margin-right10" onclick="onTest(0)">测试1</button>
-					<button class="margin-right10" onclick="onTest(1)">测试2</button>
+				<div class="card_item">
+					<h4>ontest</h4>
+					<div class="margin-top5">
+						<button class="margin-right10" onclick="onTest(0)">测试1</button>
+						<button class="margin-right10" onclick="onTest(1)">测试2</button>
+					</div>
 				</div>
-			</div>
 
-
-
-			<div class="card_item">
-				<h5>onOverrideUrlLoading</h5>
-				<div class="margin-top5">
-					<a class="margin-right10">百度一下</a>
+				<div class="card_item">
+					<h5>onOverrideUrlLoading</h5>
+					<div class="margin-top5">
+						<a class="margin-right10">百度一下</a>
 						<input type="file" accept="image/*" multiple />
 						<input type="file" accept="video/*" />
 						<input type="file" accept="image/*" capture />
+					</div>
 				</div>
 			</div>
+
+			<div class="card_layout">
+				<h2 class="margin10">生命周期方法</h2>
+				<div class="card_item">
+					<h4>onAlert</h4>
+					<div class="margin-top5">
+						<button id='btn_alert1' class="margin-right10" onclick="onAlertFun(1)">Alert弹框1</button>
+						<button id='btn_alert2' onclick="onAlertFun(2)">Alert按钮2</button>
+					</div>
+				</div>
+
+			</div>
+
+
 		</div>
 		<script>
+			const isHarmonyOS = () => /OpenHarmony/i.test(navigator.userAgent); //检测是否为HarmonyOS系统 
+			console.log("是否为HarmonyOS系统：" + isHarmonyOS());
+			const osVersion = navigator.userAgent.match(/OpenHarmony (\d+\.?\d*)/); //HarmonyOS系统及系统版本 
+			console.log("版本号：" + osVersion?.[0]);
+			console.log("版本号：" + osVersion?.[1]);
+
+			const isPhone = () => /Phone/i.test(navigator.userAgent); //检测是否为手机设备
+			const isTablet = () => /Tablet/i.test(navigator.userAgent); //检测是否为平板设备
+			const is2in1 = () => /PC/i.test(navigator.userAgent); //检测是否为2in1设备 
+			console.log("是否为手机设备：" + isPhone());
+			console.log("是否为平板设备：" + isTablet());
+			console.log("是否为2in1设备：" + is2in1());
+
 			//onAlert弹框
 			function onAlertFun(arg) {
 				if (arg == 1) {
@@ -161,19 +188,24 @@
 			}
 
 			function add(arg) {
-				alert("arg: "+arg);
+				alert("arg: " + arg);
 				return "成功了";
 			}
 		</script>
 	</body>
 	<style>
-		.card_item {
+		.card_layout {
 			background-color: white;
-			margin: 10px 10px 10px 10px;
+			margin: 10px 10px 20px 10px;
 			padding: 10px;
 			border: 1px solid #eee;
 			border-radius: 10px;
 			box-shadow: 2px 2px #ddd;
+		}
+
+		.card_item {
+			padding: 10px;
+			border-top: 1px solid #eee;
 		}
 
 		#app {
