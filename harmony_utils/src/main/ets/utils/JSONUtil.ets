@@ -17,6 +17,7 @@ import { JSON } from '@kit.ArkTS';
 import { LogUtil } from './LogUtil';
 import { ObjectUtil } from './ObjectUtil';
 import { Constructor } from '../entity/constraints';
+import { StrUtil } from '../utils/StrUtil';
 
 
 /**
@@ -35,6 +36,9 @@ export class JSONUtil {
    */
   static jsonToBean<T>(jsonStr: string, clazz?: Constructor<T>, reviver?: JSON.Transformer, options?: JSON.ParseOptions): T | null {
     try {
+      if (StrUtil.isEmpty(jsonStr)) {
+        return null;
+      }
       if (!options) {
         options = { bigIntMode: JSON.BigIntMode.PARSE_AS_BIGINT };
       }

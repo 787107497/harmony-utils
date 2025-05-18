@@ -42,7 +42,8 @@ struct Index {
           Button("jsonToBean()")
             .btnStyle()
             .onClick(() => {
-              let user = JSONUtil.jsonToBean(this.objStr,User);
+              let user = JSONUtil.jsonToBean(this.objStr, User);
+              LogUtil.error(`${user instanceof User}`);
               LogUtil.error(`${user?.name} - ${user?.age} - ${user?.addr} - ${user?.work} - ${user?.salary} - ${user?.id}`)
               user?.say("麻辣豆腐！");
               ToastUtil.showToast("请查看Log日志");
