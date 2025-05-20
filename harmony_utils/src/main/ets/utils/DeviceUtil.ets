@@ -70,6 +70,10 @@ export class DeviceUtil {
           PreferencesUtil.putSync(DEVICE_ID_KEY, deviceId);
           LogUtil.error(`当前设备不支持,关键资产存储服务`);
         }
+      } else {
+        if (!rule) {
+          deviceId = deviceId.replace(/-/g, ''); //去除-
+        }
       }
       DeviceUtil.deviceId = deviceId;
     }

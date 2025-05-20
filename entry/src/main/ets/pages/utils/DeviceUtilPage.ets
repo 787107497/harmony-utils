@@ -31,8 +31,8 @@ struct Index {
         Column() {
           Button("getDeviceId()")
             .btnStyle()
-            .onClick(async () => {
-              let id = await DeviceUtil.getDeviceId();
+            .onClick(() => {
+              let id = DeviceUtil.getDeviceId();
               DialogHelper.showToast(`当前设备号为：${id}`);
             })
           Button("deleteDeviceId()")
@@ -60,7 +60,7 @@ struct Index {
                 } else {
                   ToastUtil.showToast("您拒绝了权限！")
                 }
-              })
+              });
             })
           Button("getAAID()")
             .btnStyle()
