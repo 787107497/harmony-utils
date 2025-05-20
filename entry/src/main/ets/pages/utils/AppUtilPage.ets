@@ -230,8 +230,8 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let processInformation = await AppUtil.getRunningProcessInformation();
-               let jsonStr = JSON.stringify(processInformation, null, 2);
-               Utils.showSheetText(jsonStr);
+              let jsonStr = JSON.stringify(processInformation, null, 2);
+              Utils.showSheetText(jsonStr);
             })
           Button("onApplicationStateChange()")
             .btnStyle()
@@ -296,13 +296,13 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let isPortrait = AppUtil.isPortrait();
-              ToastUtil.showToast(`当前是否竖屏: ${isPortrait}`)
+              ToastUtil.showToast(`当前是否竖屏: ${isPortrait}`);
             })
           Button("isLandscape()")
             .btnStyle()
             .onClick(() => {
               let isLandscape = AppUtil.isLandscape();
-              ToastUtil.showToast(`当前是否横屏: ${isLandscape}`)
+              ToastUtil.showToast(`当前是否横屏: ${isLandscape}`);
             })
           Button("getStatusBarHeight()")
             .btnStyle()
@@ -336,15 +336,15 @@ struct Index {
           Button("getAppInfoSync()")
             .btnStyle()
             .onClick(() => {
-              let bundleInfo = AppUtil.getAppInfoSync();
-              let infoStr = JSON.stringify(bundleInfo, null, 2);
+              let appInfo = AppUtil.getAppInfoSync();
+              let infoStr = JSON.stringify(appInfo, null, 2);
               Utils.showSheetText(infoStr);
             })
           Button("getSignatureInfo()")
             .btnStyle()
             .onClick(async () => {
-              let bundleInfo = await AppUtil.getSignatureInfo();
-              let infoStr = JSON.stringify(bundleInfo, null, 2);
+              let signatureInfo = await AppUtil.getSignatureInfo();
+              let infoStr = JSON.stringify(signatureInfo, null, 2);
               Utils.showSheetText(infoStr);
             })
           Button("getBundleName()\ngetVersionCode()\ngetVersionName()\ngetTargetVersion()\ngetInstallTime()\ngetUpdateTime()\ngetAppProvisionType()\ndebug()")
