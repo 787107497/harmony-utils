@@ -80,6 +80,8 @@ OpenHarmony ohpm
 | 方法                                        | 介绍                                                                       |
 |:------------------------------------------|:-------------------------------------------------------------------------|
 | init                                      | 初始化方法,缓存全局变量，在UIAbility的onCreate方法中初始化该方法                                |
+| isApiSupported                            | 检查API版本是否安全                                                              |
+| getApplicationContext                     | 获取应用级别的上下文的能力，ApplicationContext                                         |
 | getContext                                | 获取上下文，common.UIAbilityContext                                            |
 | getUIContext                              | 获取UIContext                                                              |
 | getWindowStage                            | 获取WindowStage                                                            |
@@ -87,6 +89,7 @@ OpenHarmony ohpm
 | setGrayScale                              | 设置灰阶，APP一键置灰                                                             |
 | setColorMode                              | 设置应用的颜色模式。仅支持主线程调用。设置颜色模式，包括：深色模式、浅色模式、不设置（跟随系统）                         |
 | setFont                                   | 设置应用的字体类型。仅支持主线程调用                                                       |
+| setFontSizeScale                          | 设置应用字体大小缩放比例。仅支持主线程调用。<API13+>                                           |
 | setLanguage                               | 设置应用的语言                                                                  |
 | setSupportedProcessCache                  | 设置应用自身是否支持缓存后快速启动                                                        |
 | clearUpApplicationData                    | 清理应用本身的数据，同时撤销应用向用户申请的权限。                                                |

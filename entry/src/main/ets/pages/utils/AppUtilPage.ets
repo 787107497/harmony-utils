@@ -94,6 +94,24 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column({ space: 5 }) {
+          Button("isApiSupported()")
+            .btnStyle()
+            .onClick(async () => {
+              let api12 = AppUtil.isApiSupported(12);
+              let api15 = AppUtil.isApiSupported(15);
+              let api17 = AppUtil.isApiSupported(17);
+              let api20 = AppUtil.isApiSupported(20);
+              let api22 = AppUtil.isApiSupported(22);
+              let api31 = AppUtil.isApiSupported(31);
+              let infoStr = `API12: ${api12}\nAPI15: ${api15}\nAPI17: ${api17}\nAPI20: ${api20}\nAPI22: ${api22}\nAPI31: ${api31}`;
+              Utils.showSheetText(infoStr);
+            })
+          Button("getApplicationContext()")
+            .btnStyle()
+            .onClick(() => {
+              let applicationContext = AppUtil.getApplicationContext();
+              ToastUtil.showToast("成功获取applicationContext");
+            })
           Button("getContext()")
             .btnStyle()
             .onClick(() => {
@@ -149,6 +167,11 @@ struct Index {
             .onClick(() => {
               font.registerFont({ familyName: 'WCSF', familySrc: $rawfile('wcsf.ttf') });
               AppUtil.setFont('WCSF');
+            })
+          Button("setFontSizeScale()")
+            .btnStyle()
+            .onClick(() => {
+              AppUtil.setFontSizeScale(2);
             })
           Button("setLanguage()")
             .btnStyle()

@@ -51,6 +51,24 @@ export class AppUtil {
 
 
   /**
+   * 检查API版本是否安全
+   * @param apiVersion API方法支持的最低版本
+   */
+  static isApiSupported(apiVersion: number): boolean {
+    return DeviceUtil.getSdkApiVersion() >= apiVersion;
+  }
+
+
+  /**
+   * 获取应用级别的上下文的能力，ApplicationContext
+   * @returns
+   */
+  static getApplicationContext():common.ApplicationContext{
+    return AppUtil.getContext().getApplicationContext();
+  }
+
+
+  /**
    * 获取上下文，common.UIAbilityContext
    * @returns
    */
@@ -61,6 +79,7 @@ export class AppUtil {
     }
     return AppUtil.context;
   }
+
 
   /**
    * 获取UIContext
@@ -102,6 +121,7 @@ export class AppUtil {
     }
   }
 
+
   /**
    * 设置应用的颜色模式。仅支持主线程调用。设置颜色模式，包括：深色模式、浅色模式、不设置（跟随系统）
    * @param colorMode
@@ -109,6 +129,7 @@ export class AppUtil {
   static setColorMode(colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET) {
     AppUtil.getContext().getApplicationContext().setColorMode(colorMode);
   }
+
 
   /**
    * 设置应用的字体类型。仅支持主线程调用。
@@ -120,21 +141,23 @@ export class AppUtil {
 
 
   /**
+   * 设置应用字体大小缩放比例。仅支持主线程调用。<API13+>
+   * @param fontSizeScale 表示字体缩放比例，取值为非负数。当应用字体跟随系统且该字段取值超过fontSizeMaxScale取值时，实际生效值为fontSizeMaxScale取值。
+   */
+  static setFontSizeScale(fontSizeScale: number) {
+    if (AppUtil.isApiSupported(13)) {
+      AppUtil.getContext().getApplicationContext().setFontSizeScale(fontSizeScale);
+    }
+  }
+
+
+  /**
    * 设置应用的语言。仅支持主线程调用。
    * @param language 设置语言，当前支持的语言列表可以通过getSystemLanguages()获取。
    */
   static setLanguage(language: string) {
     AppUtil.getContext().getApplicationContext().setLanguage(language);
   }
-
-
-  /**
-   * 设置应用字体大小缩放比例。仅支持主线程调用。
-   * @param fontSizeScale
-   */
-  // static setFontSizeScale(fontSizeScale: number){
-  //   AppUtil.getContext().getApplicationContext().setFontSizeScale(fontSizeScale);
-  // }
 
 
   /**
@@ -156,9 +179,15 @@ export class AppUtil {
 
   /**
    * 终止应用的所有进程，进程退出时不会正常走完应用生命周期。使用Promise异步回调。仅支持主线程调用。
+   * @param clearPageStack 表示是否清除页面堆栈。true表示清除，false表示不清除。<API14+>
+   * @returns
    */
-  static async killAllProcesses(): Promise<void> {
-    return AppUtil.getContext().getApplicationContext().killAllProcesses();
+  static async killAllProcesses(clearPageStack: boolean = true): Promise<void> {
+    if (AppUtil.isApiSupported(14)) {
+      return AppUtil.getContext().getApplicationContext().killAllProcesses(clearPageStack);
+    } else {
+      return AppUtil.getContext().getApplicationContext().killAllProcesses();
+    }
   }
 
 
@@ -190,7 +219,7 @@ export class AppUtil {
    * 获取有关运行进程的信息。使用Promise异步回调。
    */
   static async getRunningProcessInformation(): Promise<Array<appManager.ProcessInformation>> {
-    return AppUtil.getContext().getApplicationContext().getRunningProcessInformation();
+    return AppUtil.getApplicationContext().getRunningProcessInformation();
   }
 
 
@@ -199,7 +228,7 @@ export class AppUtil {
    * @param callback 回调函数。可以对应用从后台切换到前台，以及前台切换到后台分别定义回调。
    */
   static onApplicationStateChange(callback: ApplicationStateChangeCallback) {
-    AppUtil.getContext().getApplicationContext().on('applicationStateChange', callback);
+    AppUtil.getApplicationContext().on('applicationStateChange', callback);
   }
 
   /**
@@ -208,7 +237,7 @@ export class AppUtil {
    *   如果传入已定义的回调，则取消该监听。如果未传入参数，则取消当前应用对所有前后台切换事件的监听。
    */
   static offApplicationStateChange(callback?: ApplicationStateChangeCallback) {
-    AppUtil.getContext().getApplicationContext().off('applicationStateChange', callback);
+    AppUtil.getApplicationContext().off('applicationStateChange', callback);
   }
 
 
@@ -218,7 +247,7 @@ export class AppUtil {
    * @returns 返回的此次注册监听系统环境变化的ID（每次注册该ID会自增+1，当超过监听上限数量2^63-1时，返回-1）。
    */
   static onEnvironment(callback: EnvironmentCallback): number {
-    return AppUtil.getContext().getApplicationContext().on('environment', callback);
+    return AppUtil.getApplicationContext().on('environment', callback);
   }
 
   /**
@@ -227,7 +256,7 @@ export class AppUtil {
    * @returns
    */
   static async offEnvironment(callbackId: number): Promise<void> {
-    return AppUtil.getContext().getApplicationContext().off('environment', callbackId);
+    return AppUtil.getApplicationContext().off('environment', callbackId);
   }
 
 
@@ -237,7 +266,7 @@ export class AppUtil {
    * @returns
    */
   static onAbilityLifecycle(callback: AbilityLifecycleCallback): number {
-    return AppUtil.getContext().getApplicationContext().on('abilityLifecycle', callback);
+    return AppUtil.getApplicationContext().on('abilityLifecycle', callback);
   }
 
   /**
@@ -246,7 +275,7 @@ export class AppUtil {
    * @returns
    */
   static async offAbilityLifecycle(callbackId: number): Promise<void> {
-    return AppUtil.getContext().getApplicationContext().off('abilityLifecycle', callbackId);
+    return AppUtil.getApplicationContext().off('abilityLifecycle', callbackId);
   }
 
 

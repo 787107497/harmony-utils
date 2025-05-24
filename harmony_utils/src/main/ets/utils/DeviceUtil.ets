@@ -40,7 +40,7 @@ export class DeviceUtil {
 
 
   /**
-   * 获取设备ID（卸载APP后依旧不变）
+   * 获取设备ID（卸载APP后依旧不变），需要权限：ohos.permission.STORE_PERSISTENT_DATA。
    * @param rule 是否带-
    * @param generateId 自己生成的id，不传使用默认生成的id
    * @returns
