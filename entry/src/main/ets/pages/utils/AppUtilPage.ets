@@ -138,6 +138,12 @@ struct Index {
               LogUtil.error(JSON.stringify(mainWindow, null, 2));
               ToastUtil.showToast("成功获取主窗口");
             })
+          Button("getConfiguration()")
+            .btnStyle()
+            .onClick(() => {
+              let config = AppUtil.getConfiguration();
+              Utils.showSheetText(JSON.stringify(config, null, 2));
+            })
           Button("setGrayScale()")
             .btnStyle()
             .onClick(() => {
@@ -162,6 +168,12 @@ struct Index {
                 AppUtil.setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
               }
             })
+          Button("getColorMode()")
+            .btnStyle()
+            .onClick(() => {
+              let colorMode = AppUtil.getColorMode();
+              ToastUtil.showToast(`应用的颜色模式:${colorMode}`);
+            })
           Button("setFont()")
             .btnStyle()
             .onClick(() => {
@@ -172,6 +184,12 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               AppUtil.setFontSizeScale(2);
+            })
+          Button("getFontSizeScale()")
+            .btnStyle()
+            .onClick(() => {
+              let fontSizeScale = AppUtil.getFontSizeScale();
+              ToastUtil.showToast(`应用字体大小缩放比例:${fontSizeScale}`);
             })
           Button("setLanguage()")
             .btnStyle()
@@ -184,6 +202,12 @@ struct Index {
                 AppUtil.setLanguage('zh-cn');
               }
               ToastUtil.showToast("设置成功！");
+            })
+          Button("getLanguage()")
+            .btnStyle()
+            .onClick(() => {
+              let language = AppUtil.getLanguage();
+              ToastUtil.showToast(`应用的语言:${language}`);
             })
           Button("setSupportedProcessCache()")
             .btnStyle()

@@ -86,11 +86,15 @@ OpenHarmony ohpm
 | getUIContext                              | 获取UIContext                                                              |
 | getWindowStage                            | 获取WindowStage                                                            |
 | getMainWindow                             | 获取主窗口                                                                    |
+| getConfiguration                          | 获取应用的Configuration                                                       |
 | setGrayScale                              | 设置灰阶，APP一键置灰                                                             |
 | setColorMode                              | 设置应用的颜色模式。仅支持主线程调用。设置颜色模式，包括：深色模式、浅色模式、不设置（跟随系统）                         |
+| getColorMode                              | 获取应用的颜色模式                                                                |
 | setFont                                   | 设置应用的字体类型。仅支持主线程调用                                                       |
 | setFontSizeScale                          | 设置应用字体大小缩放比例。仅支持主线程调用。<API13+>                                           |
+| getFontSizeScale                          | 获取应用字体大小缩放比例                                                             |
 | setLanguage                               | 设置应用的语言                                                                  |
+| getLanguage                               | 获取应用的语言                                                                  |
 | setSupportedProcessCache                  | 设置应用自身是否支持缓存后快速启动                                                        |
 | clearUpApplicationData                    | 清理应用本身的数据，同时撤销应用向用户申请的权限。                                                |
 | killAllProcesses                          | 终止应用的所有进程，进程退出时不会正常走完应用生命周期。                                             |

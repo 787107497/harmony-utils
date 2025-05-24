@@ -22,6 +22,7 @@ import {
   ApplicationStateChangeCallback,
   appManager,
   common,
+  Configuration,
   ConfigurationConstant,
   EnvironmentCallback,
   Want
@@ -106,6 +107,15 @@ export class AppUtil {
 
 
   /**
+   * 获取应用的Configuration
+   * @returns
+   */
+  static getConfiguration(): Configuration {
+    return AppUtil.getContext().config;
+  }
+
+
+  /**
    * 设置灰阶，APP一键置灰。
    * @param grayScale  该参数为浮点数，取值范围为[0.0, 1.0]。
    * @param onlyMainWindow 是否只置灰主窗口，默认false。
@@ -127,7 +137,15 @@ export class AppUtil {
    * @param colorMode
    */
   static setColorMode(colorMode: ConfigurationConstant.ColorMode = ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET) {
-    AppUtil.getContext().getApplicationContext().setColorMode(colorMode);
+    AppUtil.getApplicationContext().setColorMode(colorMode);
+  }
+
+  /**
+   * 获取应用的颜色模式
+   * @returns
+   */
+  static getColorMode(): ConfigurationConstant.ColorMode | undefined {
+    return AppUtil.getConfiguration().colorMode
   }
 
 
@@ -136,7 +154,7 @@ export class AppUtil {
    * @param fontSizeScale
    */
   static setFont(font: string){
-    AppUtil.getContext().getApplicationContext().setFont(font);
+    AppUtil.getApplicationContext().setFont(font);
   }
 
 
@@ -146,8 +164,16 @@ export class AppUtil {
    */
   static setFontSizeScale(fontSizeScale: number) {
     if (AppUtil.isApiSupported(13)) {
-      AppUtil.getContext().getApplicationContext().setFontSizeScale(fontSizeScale);
+      AppUtil.getApplicationContext().setFontSizeScale(fontSizeScale);
     }
+  }
+
+  /**
+   * 获取应用字体大小缩放比例。
+   * @returns
+   */
+  static getFontSizeScale(): number | undefined {
+    return AppUtil.getConfiguration().fontSizeScale;
   }
 
 
@@ -156,7 +182,15 @@ export class AppUtil {
    * @param language 设置语言，当前支持的语言列表可以通过getSystemLanguages()获取。
    */
   static setLanguage(language: string) {
-    AppUtil.getContext().getApplicationContext().setLanguage(language);
+    AppUtil.getApplicationContext().setLanguage(language);
+  }
+
+  /**
+   * 获取应用的语言
+   * @returns
+   */
+  static getLanguage(): string | undefined {
+    return AppUtil.getConfiguration().language;
   }
 
 
@@ -165,7 +199,7 @@ export class AppUtil {
    * @param isSupported 表示应用是否支持缓存后快速启动。true表示支持，false表示不支持。
    */
   static setSupportedProcessCache(isSupported: boolean) {
-    AppUtil.getContext().getApplicationContext().setSupportedProcessCache(isSupported);
+    AppUtil.getApplicationContext().setSupportedProcessCache(isSupported);
   }
 
 
@@ -184,9 +218,9 @@ export class AppUtil {
    */
   static async killAllProcesses(clearPageStack: boolean = true): Promise<void> {
     if (AppUtil.isApiSupported(14)) {
-      return AppUtil.getContext().getApplicationContext().killAllProcesses(clearPageStack);
+      return AppUtil.getApplicationContext().killAllProcesses(clearPageStack);
     } else {
-      return AppUtil.getContext().getApplicationContext().killAllProcesses();
+      return AppUtil.getApplicationContext().killAllProcesses();
     }
   }
 
@@ -202,7 +236,7 @@ export class AppUtil {
         abilityName: AppUtil.getContext().abilityInfo.name, //设置应用abilityName
       }
     }
-    AppUtil.getContext().getApplicationContext().restartApp(want);
+    AppUtil.getApplicationContext().restartApp(want);
   }
 
 
