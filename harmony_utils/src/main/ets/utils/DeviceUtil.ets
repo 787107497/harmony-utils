@@ -437,7 +437,7 @@ export class DeviceUtil {
 
 
   /**
-   * 开启振动，ohos.permission.VIBRATE
+   * 开启振动，需要权限：ohos.permission.VIBRATE
    * @param duration
    * @param usage
    */
@@ -446,7 +446,7 @@ export class DeviceUtil {
   }
 
   /**
-   * 停止振动（按照VIBRATOR_STOP_MODE_TIME模式），ohos.permission.VIBRATE
+   * 停止振动（按照VIBRATOR_STOP_MODE_TIME模式），需要权限：ohos.permission.VIBRATE
    */
   static stopVibration(): Promise<void> {
     return vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
