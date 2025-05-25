@@ -15,6 +15,7 @@
 
 import { display } from '@kit.ArkUI';
 import { Callback } from '@kit.BasicServicesKit';
+import { AppUtil } from './AppUtil';
 
 /**
  * TODO 屏幕相关工具类
@@ -30,6 +31,28 @@ export class DisplayUtil {
    */
   static getDefaultDisplaySync(): display.Display {
     return display.getDefaultDisplaySync()
+  }
+
+
+  /**
+   * 获取主屏信息。除2in1之外的设备获取的是设备自带屏幕的Display对象；2in1设备外接屏幕时获取的是当前主屏幕的Display对象；2in1设备没有外接屏幕时获取的是自带屏幕的Display对象。<API14+>
+   * @returns
+   */
+  static getPrimaryDisplaySync(): display.Display {
+    if (AppUtil.isApiSupported(14)) {
+      return display.getPrimaryDisplaySync()
+    } else {
+      return display.getDefaultDisplaySync()
+    }
+  }
+
+
+  /**
+   * 获取当前所有的display对象，使用Promise异步回调。
+   * @returns
+   */
+  static async getAllDisplays(): Promise<Array<display.Display>> {
+    return display.getAllDisplays();
   }
 
 
@@ -144,7 +167,7 @@ export class DisplayUtil {
 
   /**
    * 开启折叠设备折叠状态变化的监听。
-   * @param callback
+   * @param callback 回调函数。表示折叠设备折叠状态。
    */
   static onFoldStatusChange(callback: Callback<display.FoldStatus>) {
     display.on('foldStatusChange', callback)
@@ -152,11 +175,56 @@ export class DisplayUtil {
 
   /**
    * 关闭折叠设备折叠状态变化的监听。
-   * @param callback
+   * @param callback 需要取消注册的回调函数。表示折叠设备折叠状态。若无此参数，则取消注册折叠状态变化监听的所有回调函数。
    */
   static offFoldStatusChange(callback?: Callback<display.FoldStatus>) {
     display.off('foldStatusChange', callback)
   }
+
+
+  /**
+   * 开启折叠设备折叠角度变化的监听。如果是双折轴设备，则有两个角度值；在充电口朝下的状态下，从右到左分别是折轴一和折轴二。
+   * @param callback 回调函数。表示折叠设备屏幕折叠角度值（0度~180度）。如果是双折轴设备，则数组返回两个角度值，第一个值是折轴一的折叠角度值，第二个值是折轴二的折叠角度值。
+   */
+  static onFoldAngleChange(callback: Callback<Array<number>>) {
+    display.on('foldAngleChange', callback);
+  }
+
+  /**
+   * 关闭折叠设备折叠角度变化的监听。
+   * @param callback 需要取消注册的回调函数。表示折叠设备屏幕折叠角度值（0度~180度）。若无此参数，则取消注册折叠角度变化监听的所有回调函数。
+   */
+  static offFoldAngleChange(callback?: Callback<Array<number>>) {
+    display.off('foldAngleChange', callback);
+  }
+
+
+  /**
+   * 检查设备是否正在截屏、投屏、录屏。
+   * @returns 返回当前设备是否有截屏、投屏或者录屏。true表示有截屏、投屏、录屏，否则返回false。
+   */
+  static isCaptured(): boolean {
+    return display.isCaptured();
+  }
+
+
+  /**
+   * 开启屏幕截屏、投屏、录屏状态变化的监听。
+   * @param callback 回调函数。表示设备截屏、投屏或录屏时状态发生变化。true表示设备开始投屏或者录屏，false表示结束投屏或者录屏；截屏仅返回一次true。
+   */
+  static onCaptureStatusChange(callback: Callback<boolean>) {
+    display.on('captureStatusChange', callback);
+  }
+
+  /**
+   * 关闭屏幕截屏、投屏、录屏状态变化的监听。
+   * @param callback 需要取消注册的回调函数。表示设备截屏、投屏或录屏状态发生变化。true表示设备开始投屏或者录屏，false表示结束投屏或者录屏；截屏仅返回一次true。若无此参数，则取消注册截屏、投屏、录屏状态变化监听的所有回调函数。
+   */
+  static offCaptureStatusChange(callback?: Callback<boolean>) {
+    display.off('captureStatusChange', callback);
+  }
+
+
 
 
 }

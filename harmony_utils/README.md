@@ -214,20 +214,27 @@ OpenHarmony ohpm
 
 ## DisplayUtil（屏幕相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DisplayUtilPage.ets)
 
-| 方法                    | 介绍                                   |
-|:----------------------|:-------------------------------------|
-| getDefaultDisplaySync | 获取当前默认的display对象                     |
-| getWidth              | 获取设备的屏幕宽度，单位为px                      |
-| getHeight             | 获取设备的屏幕高度，单位为px                      |
-| getOrientation        | 获取设备当前显示的方向                          |
-| getDisplayState       | 获取设备的状态                              |
-| getCutoutRect         | 获取取挖孔屏、刘海屏、瀑布屏等不可用屏幕区域信息。建议应用布局规避该区域 |
-| getCutoutHeight       | 获取挖孔屏、刘海屏等不可用屏幕区域的高度，单位为px           |
-| isFoldable            | 检查设备是否可折叠                            |
-| getFoldStatus         | 获取可折叠设备的当前折叠状态                       |
-| getFoldDisplayMode    | 获取可折叠设备的显示模式                         |
-| onFoldStatusChange    | 开启折叠设备折叠状态变化的监听                      |
-| offFoldStatusChange   | 关闭折叠设备折叠状态变化的监听                      |
+| 方法                     | 介绍                                                                                                            |
+|:-----------------------|:--------------------------------------------------------------------------------------------------------------|
+| getDefaultDisplaySync  | 获取当前默认的display对象                                                                                              |
+| getPrimaryDisplaySync  | 获取主屏信息。除2in1之外的设备获取的是设备自带屏幕的Display对象；2in1设备外接屏幕时获取的是当前主屏幕的Display对象；2in1设备没有外接屏幕时获取的是自带屏幕的Display对象。<API14+> |
+| getAllDisplays         | 获取当前所有的display对象，使用Promise异步回调                                                                                |
+| getWidth               | 获取设备的屏幕宽度，单位为px                                                                                               |
+| getHeight              | 获取设备的屏幕高度，单位为px                                                                                               |
+| getOrientation         | 获取设备当前显示的方向                                                                                                   |
+| getDisplayState        | 获取设备的状态                                                                                                       |
+| getCutoutRect          | 获取取挖孔屏、刘海屏、瀑布屏等不可用屏幕区域信息。建议应用布局规避该区域                                                                          |
+| getCutoutHeight        | 获取挖孔屏、刘海屏等不可用屏幕区域的高度，单位为px                                                                                    |
+| isFoldable             | 检查设备是否可折叠                                                                                                     |
+| getFoldStatus          | 获取可折叠设备的当前折叠状态                                                                                                |
+| getFoldDisplayMode     | 获取可折叠设备的显示模式                                                                                                  |
+| onFoldStatusChange     | 开启折叠设备折叠状态变化的监听                                                                                               |
+| offFoldStatusChange    | 关闭折叠设备折叠状态变化的监听                                                                                               |
+| onFoldAngleChange      | 开启折叠设备折叠角度变化的监听。如果是双折轴设备，则有两个角度值；在充电口朝下的状态下，从右到左分别是折轴一和折轴二。                                                   |
+| offFoldAngleChange     | 关闭折叠设备折叠角度变化的监听                                                                                               |
+| isCaptured             | 检查设备是否正在截屏、投屏、录屏。                                                                                             |
+| onCaptureStatusChange  | 开启屏幕截屏、投屏、录屏状态变化的监听。                                                                                          |
+| offCaptureStatusChange | 关闭屏幕截屏、投屏、录屏状态变化的监听。                                                                                          |
 
 ## PermissionUtil（申请授权工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PermissionUtilPage.ets)
 
