@@ -240,10 +240,10 @@ OpenHarmony ohpm
 
 | 方法                             | 介绍                                                                                                    |
 |:-------------------------------|:------------------------------------------------------------------------------------------------------|
+| requestPermissionsEasy         | 申请授权，拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。                                                                     |
 | checkPermissions               | 校验当前是否已经授权                                                                                            |
 | checkRequestPermissions        | 校验是否授权后并申请授权                                                                                          |
 | requestPermissions             | 申请授权                                                                                                  |
-| requestPermissionsEasy         | 申请授权，拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。                                                                     |
 | requestPermissionOnSetting     | 二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。                                                                      |
 | requestPermissionOnSettingEasy | 二次向用户申请授权（多个权限建议使用该方法）。                                                                               |
 | requestGlobalSwitch            | 用于UIAbility/UIExtensionAbility拉起全局开关设置弹框。部分情况下，录音、拍照等功能禁用，应用可拉起此弹框请求用户同意开启对应功能。如果当前全局开关的状态为开启，则不拉起弹框。 |
@@ -256,6 +256,8 @@ OpenHarmony ohpm
 | onStartEasy        | 开始认证,使用指纹和密码认证     |
 | onStart            | 开始认证，用户指定类型认证      |
 | cancel             | 取消认证               |
+| generateChallenge  | 生成挑战值,用来防重放攻击      |
+| getErrorMsg        | 获取错误msg            |
 
 ## NetworkUtil（网络相关工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NetworkUtilPage.ets)
 

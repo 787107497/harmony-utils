@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import { RandomUtil } from './RandomUtil';
 import { userAuth } from '@kit.UserAuthenticationKit';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { LogUtil } from './LogUtil';
 import { ToastUtil } from '../action/ToastUtil';
 import { AuthOptions, StatusResult } from '../entity/AuthOptions';
 import { StrUtil } from './StrUtil';
+import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 
 /**
  * TODO 手机的生物认证（指纹、人脸、密码）工具类
@@ -71,7 +71,7 @@ export class AuthUtil {
   static onStart(options: AuthOptions, callBack: Callback<userAuth.UserAuthResult>) {
     try {
       if (options.challenge === undefined) {
-        options.challenge = AuthUtil.getChallenge(); //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])
+        options.challenge = AuthUtil.generateChallenge(); //挑战值，用来防重放攻击。最大长度为32字节，可传Uint8Array([])
       }
       if (options.authType === undefined || options.authType.length <= 0) {
         options.authType = [userAuth.UserAuthType.FINGERPRINT, userAuth.UserAuthType.FACE, userAuth.UserAuthType.PIN]; //认证类型列表，用来指定用户认证界面提供的认证方法。
@@ -125,11 +125,24 @@ export class AuthUtil {
     try {
       if (AuthUtil.userAuthInstance) {
         AuthUtil.userAuthInstance.cancel(); //取消认证
+        AuthUtil.userAuthInstance.off('result'); //取消订阅用户身份认证结果
       }
     } catch (err) {
       let error = err as BusinessError;
       LogUtil.error(`AuthUtil-cancel-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
+  }
+
+
+  /**
+   * 生成挑战值,用来防重放攻击。
+   * @param len  最大长度为32
+   * @returns
+   */
+  static generateChallenge(len: number = 16) {
+    const rand = cryptoFramework.createRandom();
+    const randData: Uint8Array = rand.generateRandomSync((len > 0 && len <= 32) ? len : 16).data;
+    return randData;
   }
 
 
@@ -172,19 +185,6 @@ export class AuthUtil {
     } else {
       return defaultMsg
     }
-  }
-
-
-  /**
-   * 生成挑战值
-   */
-  private static getChallenge() {
-    let array = new Array<number>();
-    for (let index = 0; index < 30; index++) {
-      let num = RandomUtil.getRandomNumber(1, 100);
-      array.push(num)
-    }
-    return new Uint8Array(array);
   }
 
 
