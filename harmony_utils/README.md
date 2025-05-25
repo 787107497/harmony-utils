@@ -238,14 +238,15 @@ OpenHarmony ohpm
 
 ## PermissionUtil（申请授权工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PermissionUtilPage.ets)
 
-| 方法                             | 介绍                                |
-|:-------------------------------|:----------------------------------|
-| checkPermissions               | 校验当前是否已经授权                        |
-| checkRequestPermissions        | 校验是否授权后并申请授权                      |
-| requestPermissions             | 申请授权                              |
-| requestPermissionsEasy         | 申请授权，拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。 |
-| requestPermissionOnSetting     | 二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。  |
-| requestPermissionOnSettingEasy | 二次向用户申请授权（多个权限建议使用该方法）。           |
+| 方法                             | 介绍                                                                                                    |
+|:-------------------------------|:------------------------------------------------------------------------------------------------------|
+| checkPermissions               | 校验当前是否已经授权                                                                                            |
+| checkRequestPermissions        | 校验是否授权后并申请授权                                                                                          |
+| requestPermissions             | 申请授权                                                                                                  |
+| requestPermissionsEasy         | 申请授权，拒绝后并二次向用户申请授权（申请权限，建议使用该方法）。                                                                     |
+| requestPermissionOnSetting     | 二次向用户申请授权（单个权限 或 读写权限组，建议使用该方法）。                                                                      |
+| requestPermissionOnSettingEasy | 二次向用户申请授权（多个权限建议使用该方法）。                                                                               |
+| requestGlobalSwitch            | 用于UIAbility/UIExtensionAbility拉起全局开关设置弹框。部分情况下，录音、拍照等功能禁用，应用可拉起此弹框请求用户同意开启对应功能。如果当前全局开关的状态为开启，则不拉起弹框。 |
 
 ## AuthUtil（手机的生物认证(指纹、人脸、密码)工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AuthUtilPage.ets)
 

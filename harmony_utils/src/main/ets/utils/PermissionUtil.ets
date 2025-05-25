@@ -128,6 +128,18 @@ export class PermissionUtil {
 
 
   /**
+   * 用于UIAbility/UIExtensionAbility拉起全局开关设置弹框。部分情况下，录音、拍照等功能禁用，应用可拉起此弹框请求用户同意开启对应功能。如果当前全局开关的状态为开启，则不拉起弹框
+   * @param type 全局开关类型。
+   * @returns
+   */
+  static async requestGlobalSwitch(type: abilityAccessCtrl.SwitchType): Promise<boolean> {
+    const atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    const context: Context = getContext() as common.UIAbilityContext;
+    return await atManager.requestGlobalSwitch(context, type);
+  }
+
+
+  /**
    * 判断是否授权成功
    */
   private static getGrantSuccess(data: PermissionRequestResult | Array<abilityAccessCtrl.GrantStatus>): boolean {

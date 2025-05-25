@@ -1,9 +1,10 @@
 import { router } from '@kit.ArkUI';
-import { PermissionUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
+import { LogUtil, PermissionUtil, ToastUtil, WantUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
-import { Permissions } from '@kit.AbilityKit';
+import { abilityAccessCtrl, Permissions } from '@kit.AbilityKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 /**
  * 申请授权工具类
@@ -69,6 +70,16 @@ struct Index {
               PermissionUtil.requestPermissionsEasy(p).then((result) => {
                 ToastUtil.showToast(`申请授权，结果：${result}`);
               })
+            })
+          Button("requestGlobalSwitch()")
+            .btnStyle()
+            .onClick(() => {
+              PermissionUtil.requestGlobalSwitch(abilityAccessCtrl.SwitchType.LOCATION).then((result) => {
+                ToastUtil.showToast(`申请结果：${result}`);
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast(err.message);
+                LogUtil.error(err);
+              });
             })
           Button("最佳使用案例")
             .btnStyle()
