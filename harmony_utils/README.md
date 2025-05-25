@@ -204,6 +204,9 @@ OpenHarmony ohpm
 | isTransparent                | 窗口是否透明，默认主窗口。                                                                       |
 | isWindowShowing              | 判断当前窗口是否已显示，默认主窗口。                                                                  |
 | isWindowSupportWideGamut     | 判断当前窗口是否支持广色域模式，，默认主窗口。                                                             |
+| setDialogBackGestureEnabled  | 设置模态窗口是否响应手势返回事件，非模态窗口调用返回错误码                                                       |
+| setGestureBackEnabled        | 设置当前窗口是否禁用返回手势功能，仅主窗全屏模式下生效，2in1设备下不生效。<API13+>                                     |
+| isGestureBackEnabled         | 获取当前窗口是否禁用返回手势功能，仅主窗全屏模式下生效，2in1设备不生效。<API13+>                                      |
 | createWindow                 | 创建子窗口或者系统窗口，使用Promise异步回调。                                                          |
 | findWindow                   | 查找name所对应的窗口。                                                                       |
 | getLastWindow                | 获取当前应用内最上层的子窗口，若无应用子窗口，则返回应用主窗口。                                                    |

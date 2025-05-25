@@ -1,5 +1,5 @@
 import { router, window } from '@kit.ArkUI';
-import { AppUtil, LogUtil, StrUtil, ToastUtil, WindowUtil } from '@pura/harmony-utils';
+import { AppUtil, LogUtil, ToastUtil, WindowUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';
@@ -26,6 +26,7 @@ struct Index {
   @State bright: number = 0.2; //屏幕亮度值
   @State blFocusable: boolean = false; //窗口是否可聚焦
   @State blTouchable: boolean = false; //窗口是否可触摸
+  @State blD1: boolean = false; //模态窗口是否响应手势返回事件
 
 
   @MockSetup
@@ -252,6 +253,32 @@ struct Index {
               let textStr = `windowType: ${windowType}\nWindowStatus: ${status}\nisFocused: ${isFocused}\nisFullScreen: ${isFullScreen}`;
               textStr = textStr + `\nisTransparent: ${isTransparent}\nisWindowShowing: ${isWindowShowing}\nisWindowSupportWideGamut: ${isWindowSupportWideGamut}`;
               Utils.showSheetText(textStr);
+            })
+          Button("setDialogBackGestureEnabled()")
+            .btnStyle()
+            .onClick(() => {
+              this.blD1 = !this.blD1;
+              WindowUtil.setDialogBackGestureEnabled(this.blD1).then(() => {
+                ToastUtil.showToast("设置成功啦^·^");
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast("设置失败！");
+              });
+            })
+          Button("setGestureBackEnabled()")
+            .btnStyle()
+            .onClick(() => {
+              let isGestureBack = WindowUtil.isGestureBackEnabled();
+              WindowUtil.setGestureBackEnabled(!isGestureBack).then(() => {
+                ToastUtil.showToast("设置成功啦^·^");
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast("设置失败！");
+              });
+            })
+          Button("isGestureBackEnabled()")
+            .btnStyle()
+            .onClick(() => {
+              let isGestureBack = WindowUtil.isGestureBackEnabled();
+              ToastUtil.showToast(`当前窗口是否禁用返回：${isGestureBack}`);
             })
         }
         .margin({ top: 5, bottom: 5 })

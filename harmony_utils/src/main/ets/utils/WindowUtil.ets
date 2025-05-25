@@ -376,6 +376,44 @@ export class WindowUtil {
 
 
   /**
+   * 设置模态窗口是否响应手势返回事件，非模态窗口调用返回错误码。
+   * @param enabled 是否响应手势返回事件。true表示响应手势返回事件，触发onBackPress回调；false表示不响应手势返回事件，不触发onBackPress回调。
+   * @param windowClass 不传该值，默认主窗口。
+   * @returns
+   */
+  static async setDialogBackGestureEnabled(enabled: boolean,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    return windowClass.setDialogBackGestureEnabled(enabled);
+  }
+
+
+  /**
+   * 设置当前窗口是否禁用返回手势功能，仅主窗全屏模式下生效，2in1设备下不生效。<API13+>
+   * @param enabled true时开启返回手势功能，false时禁用返回手势功能。
+   * @param windowClass 不传该值，默认主窗口。
+   * @returns
+   */
+  static async setGestureBackEnabled(enabled: boolean,
+    windowClass: window.Window = AppUtil.getMainWindow()): Promise<void> {
+    if (AppUtil.isApiSupported(13)) {
+      return windowClass.setGestureBackEnabled(enabled);
+    }
+  }
+
+  /**
+   * 获取当前窗口是否禁用返回手势功能，仅主窗全屏模式下生效，2in1设备不生效。<API13+>
+   * @param windowClass 不传该值，默认主窗口。
+   * @returns 是否已经禁用返回手势。true表示未禁用返回手势功能，false表示已禁用返回手势功能。
+   */
+  static isGestureBackEnabled(windowClass: window.Window = AppUtil.getMainWindow()): boolean {
+    if (AppUtil.isApiSupported(13)) {
+      return windowClass.isGestureBackEnabled();
+    }
+    return false;
+  }
+
+
+  /**
    * 创建子窗口或者系统窗口，使用Promise异步回调。
    * @param config 创建窗口时的参数。
    *   需要权限： 当创建窗口类型为window.WindowType.TYPE_FLOAT时，需要ohos.permission.SYSTEM_FLOAT_WINDOW权限
