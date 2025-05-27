@@ -74,9 +74,9 @@ export struct DialogPage {
       config.cornerRadius = 35; //设置背板的圆角半径。可分别设置4个圆角的半径。
       // config.maskRect={ x: 'auto', y: 'auto', width: 'auto', height: 'auto' };
 
-      config.title = '友好提示'; //弹框标题
-      config.primaryButton = '取消'; //弹框左侧按钮。
-      config.secondaryButton = '确定'; //弹框右侧按钮。
+      config.title = $r("app.string.dialog_tip"); //弹框标题
+      config.primaryButton = $r("app.string.btn_cancel"); //弹框左侧按钮。
+      config.secondaryButton = $r("app.string.btn_sure"); //弹框右侧按钮。
       config.imageRes = undefined; //TipsDialog用到，展示的图片。
       config.imageSize = { width: '64vp', height: '64vp' }; //TipsDialog用到，自定义图片尺寸。默认值：64*64vp
 
@@ -194,8 +194,6 @@ export struct DialogPage {
       DialogHelper.showAlertDialog({
         uiContext:this.getUIContext(),
         content: "确定保存该WPS文件吗？",
-        // themeColorMode:ThemeColorMode.DARK,
-        backgroundColor:Color.Pink,
         onAction: (action) => {
           if (action == DialogAction.CANCEL) {
             ToastUtil.showToast(`您点击了取消按钮`);

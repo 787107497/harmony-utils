@@ -29,6 +29,10 @@
       "value": "鸿蒙工具"
     },
     {
+      "name": "dialog_tip",
+      "value": "友好提示"
+    },
+    {
       "name": "btn_sure",
       "value": "确定"
     },

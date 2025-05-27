@@ -13,6 +13,10 @@
       "value": "鸿蒙工具"
     },
     {
+      "name": "dialog_tip",
+      "value": "Tips"
+    },
+    {
       "name": "btn_sure",
       "value": "Sure"
     },

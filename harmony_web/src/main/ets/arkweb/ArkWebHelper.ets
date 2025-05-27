@@ -68,7 +68,7 @@ static configCookieSync(){
    */
   static async runJavaScriptFun(webController: webview.WebviewController, funName: string, param?: string): Promise<string> {
     if (param) {
-      return ArkWebHelper.runJavaScript(webController, `${funName}(${param})`);
+      return ArkWebHelper.runJavaScript(webController, `${funName}('${param}')`);
     } else {
       return ArkWebHelper.runJavaScript(webController, `${funName}()`);
     }
