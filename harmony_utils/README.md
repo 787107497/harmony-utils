@@ -1,4 +1,4 @@
-# harmony-utils (API12)
+# harmony-utils
 
 ## 🏆简介与说明
 
@@ -689,9 +689,6 @@ OpenHarmony ohpm
 | isSameMonth           | 判断两个日期是否是同一月                |
 | isSameWeek            | 判断两个日期是否是同一周                |
 | isSameDay             | 判断是否是同一天                    |
-| getCalendar           | 获取日历对象,并设置日历对象内部的时间日期       |
-| getCalendarField      | 获取日历对象中与field相关联的值。         |
-| getCalendarAdd        | 在日历的给定字段进行加减操作              |
 | isWeekend             | 判断指定的日期在日历中是否为周末            |
 | compareDays           | 比较指定日期相差的天数                 |
 | compareDate           | 比较指定日期相差的毫秒数                |

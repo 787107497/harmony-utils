@@ -722,10 +722,11 @@ export class DialogHelper {
       options.secondaryButton = DialogHelper.config.secondaryButton
     }
     if (options.primaryButton) {
-      let primaryValue = Helper.getResourceStr(options.primaryButton);
-      if (primaryValue) {
+      let primaryValue = options.primaryButton;
+      let primaryStr = Helper.getResourceStr(primaryValue);
+      if (primaryStr) {
         options.primaryButton = {
-          value: primaryValue,
+          value: primaryValue as ResourceStr,
           action: () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
               DialogHelper.closeDialog(options.dialogId ?? "");
@@ -752,10 +753,11 @@ export class DialogHelper {
       }
     }
     if (options.secondaryButton) {
-      let secondaryValue = Helper.getResourceStr(options.secondaryButton);
-      if (secondaryValue) {
+      let secondaryValue = options.secondaryButton;
+      let secondaryStr = Helper.getResourceStr(secondaryValue);
+      if (secondaryStr) {
         options.secondaryButton = {
-          value: secondaryValue,
+          value: secondaryValue as ResourceStr,
           action: () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
               DialogHelper.closeDialog(options.dialogId ?? "");

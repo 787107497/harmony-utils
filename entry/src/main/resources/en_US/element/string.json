@@ -11,6 +11,14 @@
     {
       "name": "EntryAbility_label",
       "value": "鸿蒙工具"
+    },
+    {
+      "name": "btn_sure",
+      "value": "Sure"
+    },
+    {
+      "name": "btn_cancel",
+      "value": "Cancel"
     }
   ]
 }

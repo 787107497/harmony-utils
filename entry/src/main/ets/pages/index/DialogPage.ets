@@ -72,7 +72,7 @@ export struct DialogPage {
       config.backgroundColor = Color.White; //弹窗背板颜色。默认值：Color.White
       config.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质
       config.cornerRadius = 35; //设置背板的圆角半径。可分别设置4个圆角的半径。
-      config.maskRect={ x: 'auto', y: 'auto', width: 'auto', height: 'auto' };
+      // config.maskRect={ x: 'auto', y: 'auto', width: 'auto', height: 'auto' };
 
       config.title = '友好提示'; //弹框标题
       config.primaryButton = '取消'; //弹框左侧按钮。

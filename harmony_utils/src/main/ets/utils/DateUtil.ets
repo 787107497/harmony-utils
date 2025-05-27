@@ -247,56 +247,6 @@ export class DateUtil {
 
 
   /**
-   * 获取日历对象,并设置日历对象内部的时间日期
-   * @param date
-   * @param type 合法的日历类型，目前合法的类型有gregory,chinese,buddhist,coptic,ethiopic,hebrew,indian,slamic_civil,islamic_tbla,islamic_umalqura,japanese,persian。默认值：区域默认的日历类型。
-   * @param locale 合法的locale值，例如zh-Hans,zh-Hans-CN
-   * @returns
-   */
-  static getCalendar(date?: number | string | Date, type: string = "gregory", locale: string = "zh-Hans"): i18n.Calendar {
-    date = DateUtil.getFormatDate(date);
-    let calendar: i18n.Calendar = i18n.getCalendar(locale, type);
-    calendar.setTime(date);
-    return calendar;
-  }
-
-
-  /**
-   * 获取日历对象中与field相关联的值。
-   * @param date
-   * @param field 通过field来获取日历对象相应的值。目前支持的field值有 era, year, month, week_of_year, week_of_month, date, day_of_year, day_of_week, day_of_week_in_month, hour, hour_of_day, minute, second, millisecond, zone_offset, dst_offset, year_woy, dow_local, extended_year, julian_day, milliseconds_in_day, is_leap_month。
-   * @param type 合法的日历类型，目前合法的类型有gregory,chinese,buddhist,coptic,ethiopic,hebrew,indian,slamic_civil,islamic_tbla,islamic_umalqura,japanese,persian。默认值：区域默认的日历类型。
-   * @param locale 合法的locale值，例如zh-Hans,zh-Hans-CN
-   * @returns
-   */
-  static getCalendarField(field: string, date?: number | string | Date, type: string = "gregory", locale: string = "zh-Hans"): number {
-    date = DateUtil.getFormatDate(date);
-    let calendar: i18n.Calendar = i18n.getCalendar(locale, type);
-    calendar.setTime(date);
-    return calendar.get(field);
-  }
-
-
-  /**
-   * 在日历的给定字段进行加减操作。
-   * @param date
-   * @param field 指定进行操作的日历字段，目前支持的field值有 year, month, week_of_year, week_of_month, date, day_of_year, day_of_week, day_of_week_in_month, hour, hour_of_day, minute, second, millisecond。
-   * @param amount 进行加减操作的具体数值。
-   * @param type 合法的日历类型，目前合法的类型有gregory,chinese,buddhist,coptic,ethiopic,hebrew,indian,slamic_civil,islamic_tbla,islamic_umalqura,japanese,persian。默认值：区域默认的日历类型。
-   * @param locale 合法的locale值，例如zh-Hans,zh-Hans-CN
-   * @returns
-   */
-  static getCalendarAdd(date: number | string | Date, field: string, amount: number, type: string = "gregory",
-    locale: string = "zh-Hans"): Date {
-    date = DateUtil.getFormatDate(date);
-    let calendar: i18n.Calendar = i18n.getCalendar(locale, type);
-    calendar.setTime(date);
-    calendar.add(field, amount);
-    return new Date(calendar.getTimeInMillis());
-  }
-
-
-  /**
    * 判断指定的日期在日历中是否为周末
    * @param date
    * @returns
@@ -347,8 +297,9 @@ export class DateUtil {
    * @param amount 进行加减操作的具体数值。
    */
   static getAmountDay(date: number | string | Date, amount: number): Date {
-    let dateTime = DateUtil.getFormatDate(date);
-    return DateUtil.getCalendarAdd(dateTime, "date", amount);
+    let relativeDate = DateUtil.getFormatDate(date);
+    relativeDate.setDate(relativeDate.getDate() + amount);
+    return relativeDate;
   }
 
   /**
@@ -395,8 +346,11 @@ export class DateUtil {
    * @returns
    */
   static getWeekOfMonth(date: number | string | Date): number {
-    date = DateUtil.getFormatDate(date);
-    return DateUtil.getCalendarField('week_of_month', date); //一个月中的第几周，按照星期计算周;
+    let currentDate = DateUtil.getFormatDate(date);
+    let firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); //获取该月的第一天
+    let firstDayOfWeek = firstDayOfMonth.getDay(); //获取该月的第一天是星期几
+    let weekNumber = Math.ceil((currentDate.getDate() + firstDayOfWeek) / 7); //计算当前日期是该月的第几周
+    return weekNumber;
   }
 
   /**

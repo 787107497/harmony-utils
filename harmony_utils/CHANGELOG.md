@@ -1,5 +1,9 @@
 # 版本记录
 
+## 1.3.3（DevEco Studio 5.0.5 Release）
+1. 新增几个实用方法。
+2. 剔除DateUtil两个日历相关的方法。
+
 ## 1.3.2（API12）
 1. AppUtil，新增若干实用方法。
 2. DeviceUtil，新增若干实用方法。

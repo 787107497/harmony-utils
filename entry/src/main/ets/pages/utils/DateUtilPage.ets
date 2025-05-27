@@ -143,26 +143,6 @@ struct Index {
               this.txtStr = `是否是同一年: ${isSameYear}\n是否是同一月: ${isSameMonth}\n是否是同一周: ${isSameWeek}\n是否是同一天: ${isSameDay}`;
               LogUtil.error(this.txtStr);
             })
-          Button("getCalendarField()")
-            .btnStyle()
-            .onClick(() => {
-              let month = DateUtil.getCalendarField('month', "2024-08-02");
-              let week_of_year = DateUtil.getCalendarField('week_of_year', DateUtil.getToday());
-              let week_of_month = DateUtil.getCalendarField('week_of_month', DateUtil.getToday());
-              let day_of_week = DateUtil.getCalendarField('day_of_week', DateUtil.getToday());
-              this.txtStr = `获取日历对象中与field相关联的值:\nmonth: ${month}\nweek_of_year: ${week_of_year}\nweek_of_month: ${week_of_month}\nday_of_week: ${day_of_week}`;
-              LogUtil.error(this.txtStr);
-            })
-          Button("getCalendarAdd()")
-            .btnStyle()
-            .onClick(() => {
-              let date1 = DateUtil.getCalendarAdd("2024-08-18", "date", 2);
-              let date2 = DateUtil.getCalendarAdd(DateUtil.getToday(), "month", 1);
-              let date3 = DateUtil.getCalendarAdd(DateUtil.getToday(), "year", 3);
-              let date4 = DateUtil.getCalendarAdd(DateUtil.getToday(), "day_of_week", 3);
-              this.txtStr = `在日历的给定字段进行加减操作:\ndate1: ${DateUtil.getFormatDateStr(date1)}\ndate2: ${DateUtil.getFormatDateStr(date2)}\ndate3: ${DateUtil.getFormatDateStr(date3)}\ndate4: ${DateUtil.getFormatDateStr(date4)}`;
-              LogUtil.error(this.txtStr);
-            })
           Button("isWeekend()")
             .btnStyle()
             .onClick(() => {
