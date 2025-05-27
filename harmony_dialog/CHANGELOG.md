@@ -1,5 +1,8 @@
 # 版本记录
 
+## 1.1.6
+1. 修复弹框按钮国际化问题。
+
 ## 1.1.5
 1. 修复canLoop参数导致的Bug。    
 2. 优化TextPickerDialog和DatePickerDialog。    
