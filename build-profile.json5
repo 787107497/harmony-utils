@@ -82,5 +82,9 @@
       "name": "harmony_speech",
       "srcPath": "./harmony_speech",
     },
+    {
+      "name": "eventbus",
+      "srcPath": "./eventbus",
+    }
   ]
 }
