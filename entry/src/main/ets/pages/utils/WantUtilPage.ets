@@ -169,18 +169,3 @@ function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
 }
-
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
-}

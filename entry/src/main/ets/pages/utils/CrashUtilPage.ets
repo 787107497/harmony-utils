@@ -35,13 +35,13 @@ struct Index {
               CrashUtil.onHandled((exceptionInfo)=>{
                 LogUtil.error(JSON.stringify(exceptionInfo, null, 2));
               });
-              ToastUtil.showToast("注册观测器，成功！")
+              ToastUtil.showToast("注册观测器，成功！");
             })
           Button("onDestroy()")
             .btnStyle()
             .onClick(() => {
               CrashUtil.onDestroy(); //注销错误观测器
-              ToastUtil.showToast("注销误观测器,成功！")
+              ToastUtil.showToast("注销误观测器,成功！");
             })
           Button("isHandled()")
             .btnStyle()

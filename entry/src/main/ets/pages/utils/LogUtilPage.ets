@@ -31,31 +31,31 @@ struct Index {
           Button("init()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.init(0x1010, 'Pura', true, true);
+              LogUtil.init(0x1010, 'Pura', true, true);  //该方法建议在Ability里调用
               DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("setShowLog()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.setShowLog(true);
+              LogUtil.setShowLog(true);  //该方法建议在Ability里调用
               DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("setDomain()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.setDomain(0x0010);
+              LogUtil.setDomain(0x0010);  //该方法建议在Ability里调用
               DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("setTag()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.setTag("童长老");
+              LogUtil.setTag("童长老"); //该方法建议在Ability里调用
               DialogHelper.showToast('日志输出，设置成功！');
             })
           Button("setHilog()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.setHilog(this.isHilog);
+              LogUtil.setHilog(this.isHilog);  //该方法建议在Ability里调用
               this.isHilog = !this.isHilog;
               DialogHelper.showToast('日志输出，设置成功！');
             })
@@ -93,7 +93,7 @@ struct Index {
           Button("fatal()")
             .btnStyle()
             .onClick(() => {
-              LogUtil.fatal("我是一个fatal日志^·^\t", "我是一个日志工具类^·^。")
+              LogUtil.fatal("我是一个fatal日志^·^\t", "我是一个日志工具类^·^。");
               DialogHelper.showToast('请查看日志输出！');
             })
           Button("print()")
