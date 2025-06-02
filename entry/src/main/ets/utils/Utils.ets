@@ -1,8 +1,9 @@
 import { DialogHelper } from '@pura/harmony-dialog';
 import { ArrayUtil } from '@pura/harmony-utils';
+import { ImgSheetBuilder } from '../component/ImgSheetView';
 import { TextSheetBuilder } from '../component/TextSheetView';
 import { MenuBean } from '../model/MenuBean';
-import { TextSheetOptions } from '../model/TextSheetOptions';
+import { TISheetOptions } from '../model/TISheetOptions';
 
 export class Utils {
 
@@ -12,7 +13,7 @@ export class Utils {
    * @param content
    */
   static showSheetText(content: string) {
-    let options: TextSheetOptions = {
+    let options: TISheetOptions = {
       title: {
         title: "结果展示",
       },
@@ -24,6 +25,25 @@ export class Utils {
     };
     DialogHelper.showBindSheet(wrapBuilder(TextSheetBuilder), options);
   }
+
+  /**
+   * 图片展示Sheet
+   * @param src
+   */
+  static showSheetImg(src: string | PixelMap | Resource) {
+    let options: TISheetOptions = {
+      title: {
+        title: "图片展示",
+      },
+      content: src,
+      detents: [SheetSize.FIT_CONTENT, SheetSize.MEDIUM, SheetSize.FIT_CONTENT],
+      borderWidth: 0,
+      mode: SheetMode.EMBEDDED,
+      preferType: SheetType.BOTTOM,
+    };
+    DialogHelper.showBindSheet(wrapBuilder(ImgSheetBuilder), options);
+  }
+
 
 
   /**

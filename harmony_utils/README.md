@@ -392,22 +392,32 @@ OpenHarmony ohpm
 
 ## LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
 
-| 方法                            | 介绍                    |
-|:------------------------------|:----------------------|
-| isLocationEnabled             | 判断位置服务是否已经使能(定位是否开启)。 |
-| requestLocationPermissions    | 申请定位权限                |
-| getCurrentLocationEasy        | 获取当前位置                |
-| getCurrentLocation            | 获取当前位置                |
-| onLocationChangeEasy          | 开启位置变化订阅，并发起定位请求。     |
-| onLocationChange              | 开启位置变化订阅，并发起定位请求      |
-| offLocationChange             | 关闭位置变化订阅，并删除对应的定位请求   |
-| isGeocoderAvailable           | 判断地理编码与逆地理编码服务是否可用    |
-| getAddressFromLocationName    | 地理编码,将地理描述转换为具体坐标     |
-| getGeoAddressFromLocationName | 地理编码,将地理描述转换为具体坐标集合   |
-| getAddressFromLocation        | 逆地理编码,将坐标转换为地理描述      |
-| getGeoAddressFromLocation     | 逆地理编码,将坐标转换为地理描述集合    |
-| getCountryCode                | 获取当前的国家码              |
-| calculateDistance             | 计算这两个点间的直线距离，单位为米     |
+| 方法                                          | 介绍                                                                         |
+|:--------------------------------------------|:---------------------------------------------------------------------------|
+| isLocationEnabled                           | 判断位置服务是否已经使能(定位是否开启)。                                                      |
+| requestLocationPermissions                  | 申请定位权限                                                                     |
+| getCurrentLocationEasy                      | 获取当前位置                                                                     |
+| getCurrentLocation                          | 获取当前位置                                                                     |
+| getLastLocation                             | 获取上一次位置                                                                    |
+| onLocationChangeEasy                        | 开启位置变化订阅，并发起定位请求。                                                          |
+| onLocationChange                            | 开启位置变化订阅，并发起定位请求                                                           |
+| offLocationChange                           | 关闭位置变化订阅，并删除对应的定位请求                                                        |
+| onLocationError                             | 订阅持续定位过程中的错误码                                                              |
+| offLocationError                            | 取消订阅持续定位过程中的错误码                                                            |
+| onLocationEnabledChange                     | 订阅位置服务状态变化                                                                 |
+| offLocationEnabledChange                    | 取消订阅位置服务状态变化                                                               |
+| isGeocoderAvailable                         | 判断地理编码与逆地理编码服务是否可用                                                         |
+| getAddressFromLocationName                  | 地理编码,将地理描述转换为具体坐标                                                          |
+| getGeoAddressFromLocationName               | 地理编码,将地理描述转换为具体坐标集合                                                        |
+| getAddressFromLocation                      | 逆地理编码,将坐标转换为地理描述                                                           |
+| getGeoAddressFromLocation                   | 逆地理编码,将坐标转换为地理描述集合                                                         |
+| getCountryCode                              | 获取当前的国家码                                                                   |
+| calculateDistance                           | 计算这两个点间的直线距离，单位为米                                                          |
+| calculateDistanceEasy                       | 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米                                            |
+| convertCoordinate<br/>convertCoordinateSync | 坐标转换，将WGS84坐标系转换为GCJ02坐标系                                                  |
+| convertCoordinateEasy                       | 坐标转换，将WGS84坐标系转换为GCJ02坐标系                                                  |
+| rectifyCoordinate                           | 坐标纠偏，根据用户输入的坐标系和坐标以及获取当前的路由地，判断是否需要修正坐标。如果需要修正，则返回修正后的坐标系和坐标。使用Promise异步回调 |
+| getErrorMsg                                 | 获取定位相关错误msg                                                                |
 
 ## LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)
 

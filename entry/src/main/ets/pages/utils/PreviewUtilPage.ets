@@ -1,9 +1,10 @@
 import { router } from '@kit.ArkUI';
-import { FileUtil, ImageUtil, LogUtil, PreviewUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { FileUtil, ImageUtil, LogUtil, PreviewUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { Utils } from '../../utils/Utils';
 
 /**
  * 对象工具类
@@ -16,9 +17,6 @@ struct Index {
   @State textPath: string = '' //文件路径
   @State docPath: string = '' //文件路径
   @State imgPath: string = '' //文件路径
-  @State infoStr: string = ''
-  @State iconFileStr: string = ''
-  @State resultStr: string = ''
 
   @MockSetup
   mock() {
@@ -49,18 +47,16 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let bl = PreviewUtil.canIUsePreview();
-              ToastUtil.showToast(`当前设备是否支持文件预览能力:${bl}`)
+              ToastUtil.showToast(`当前设备是否支持文件预览能力:${bl}`);
             })
           Button("generatePreviewInfo()")
             .btnStyle()
             .onClick(() => {
               let uri = FileUtil.getUriFromPath(this.textPath);
               let info = PreviewUtil.generatePreviewInfo(uri);
-              this.infoStr = JSON.stringify(info, null, 2);
+              let infoStr = JSON.stringify(info, null, 2);
+              Utils.showSheetText(infoStr);
             })
-          Text(this.infoStr)
-            .visibility(StrUtil.isNotEmpty(this.infoStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
           Button("openPreview()")
             .btnStyle()
             .onClick(() => {
@@ -81,19 +77,19 @@ struct Index {
             .onClick(async () => {
               let uri = FileUtil.getUriFromPath(this.textPath);
               let canPreview = await PreviewUtil.canPreview(uri);
-              ToastUtil.showToast(`canPreview: ${canPreview}`)
+              ToastUtil.showToast(`canPreview: ${canPreview}`);
             })
           Button("hasDisplayed()")
             .btnStyle()
             .onClick(async () => {
               let hasDisplayed = await PreviewUtil.hasDisplayed();
-              ToastUtil.showToast(`hasDisplayed: ${hasDisplayed}`)
+              ToastUtil.showToast(`hasDisplayed: ${hasDisplayed}`);
             })
           Button("closePreview()")
             .btnStyle()
             .onClick(() => {
               PreviewUtil.closePreview().then(() => {
-                ToastUtil.showToast("已关闭预览")
+                ToastUtil.showToast("已关闭预览");
               })
             })
           Button("loadData()")
@@ -129,35 +125,28 @@ struct Index {
                 LogUtil.error(`onSharePreview-异常 ~ code: ${error.code} -·- message: ${error.message}`);
               });
             })
-
           Button("getTypeDescriptor()")
             .btnStyle()
             .onClick(() => {
-              let mimeType = PreviewUtil.getTypeDescriptor("png");
-              let mimeType2 = PreviewUtil.getMimeType("txt");
-
+              let typeDescriptor = PreviewUtil.getTypeDescriptor("png");
+              ToastUtil.showToast(`${typeDescriptor.mimeTypes}`);
             })
           Button("getMimeType()")
             .btnStyle()
             .onClick(() => {
               let mimeType = PreviewUtil.getMimeType("png");
               let mimeType2 = PreviewUtil.getMimeType("txt");
-              ToastUtil.showToast(`${mimeType} --- ${mimeType2}`)
+              ToastUtil.showToast(`${mimeType} --- ${mimeType2}`);
             })
           Button("getIconFileStr()")
             .btnStyle()
             .onClick(() => {
-              this.iconFileStr = PreviewUtil.getIconFileStr("docx");
-              ToastUtil.showToast(`${this.iconFileStr}`)
+              let iconFileStr = PreviewUtil.getIconFileStr("doc");
+              ToastUtil.showToast(`${iconFileStr}`);
+              Utils.showSheetImg($r(iconFileStr));
             })
-          Image($r(this.iconFileStr))
-            .visibility(StrUtil.isNotEmpty(this.iconFileStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
-          Text(this.resultStr)
-            .visibility(StrUtil.isNotEmpty(this.resultStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -179,9 +168,9 @@ function btnStyle() {
 
 @Styles
 function textStyle() {
-  .width('95%')
+  .width('90%')
   .padding(10)
   .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
+  .margin(15)
   .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

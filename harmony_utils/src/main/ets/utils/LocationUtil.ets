@@ -18,6 +18,7 @@ import { BusinessError, Callback } from '@ohos.base';
 import { LogUtil } from './LogUtil';
 import { PermissionUtil } from './PermissionUtil';
 import { map, mapCommon } from '@kit.MapKit';
+import { AppUtil } from '../../../../Index';
 
 
 /**
@@ -74,6 +75,15 @@ export class LocationUtil {
 
 
   /**
+   * 获取上一次位置
+   * @returns
+   */
+  static getLastLocation(): geoLocationManager.Location {
+    return geoLocationManager.getLastLocation();
+  }
+
+
+  /**
    * 开启位置变化订阅，并发起定位请求。
    * @param callBack
    * @returns 失败返回错误码，成功返回0。
@@ -90,8 +100,8 @@ export class LocationUtil {
       geoLocationManager.on('locationChange', locationRequest, callBack);
       return 0; //成功返回-0
     } catch (err) {
+      LogUtil.error(err);
       let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-onLocationChangeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return error.code; //失败返回-错误码
     }
   }
@@ -109,8 +119,8 @@ export class LocationUtil {
       geoLocationManager.on('locationChange', request, callBack);
       return 0; //成功返回-0
     } catch (err) {
+      LogUtil.error(err);
       let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-onLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return error.code; //失败返回-错误码
     }
   }
@@ -130,9 +140,51 @@ export class LocationUtil {
       }
       return 0; //成功返回-0
     } catch (err) {
+      LogUtil.error(err);
       let error = err as BusinessError;
-      LogUtil.error(`LocationUtil-offLocationChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return error.code; //失败返回-错误码
+    }
+  }
+
+
+  /**
+   * 订阅持续定位过程中的错误码。需要权限：ohos.permission.APPROXIMATELY_LOCATION
+   * @param callback 回调函数，返回持续定位过程中的错误码。
+   */
+  static onLocationError(callback: Callback<geoLocationManager.LocationError>) {
+    geoLocationManager.on('locationError', callback);
+  }
+
+  /**
+   * 取消订阅持续定位过程中的错误码。需要权限：ohos.permission.APPROXIMATELY_LOCATION
+   * @param callback 需要取消订阅的回调函数。该回调函数需要与on接口传入的回调函数保持一致。若无此参数，则取消当前类型的所有订阅
+   */
+  static offLocationError(callback?: Callback<geoLocationManager.LocationError>) {
+    if (callback) {
+      geoLocationManager.off('locationError', callback);
+    } else {
+      geoLocationManager.off('locationError');
+    }
+  }
+
+
+  /**
+   * 订阅位置服务状态变化。
+   * @param callback 回调函数。返回true表示位置信息开关已经开启；返回false表示位置信息开关已经关闭。
+   */
+  static onLocationEnabledChange(callback: Callback<boolean>) {
+    geoLocationManager.on('locationEnabledChange', callback);
+  }
+
+  /**
+   * 取消订阅位置服务状态变化
+   * @param callback 需要取消订阅的回调函数。该回调函数需要与on接口传入的回调函数保持一致。若无此参数，则取消当前类型的所有订阅。
+   */
+  static offLocationEnabledChange(callback?: Callback<boolean>) {
+    if (callback) {
+      geoLocationManager.off('locationEnabledChange', callback);
+    } else {
+      geoLocationManager.off('locationEnabledChange');
     }
   }
 
@@ -232,7 +284,71 @@ export class LocationUtil {
 
 
   /**
-   * 获取错误msg
+   * 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米。
+   * @returns
+   */
+  static calculateDistance(from: mapCommon.LatLng, to: mapCommon.LatLng): number {
+    return map.calculateDistance(from, to);
+  }
+
+
+  /**
+   * 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米。
+   * @returns
+   */
+  static calculateDistanceEasy(fromLat: number, fromLng: number, toLat: number, toLng: number): number {
+    let fromLatLng: mapCommon.LatLng = { latitude: fromLat, longitude: fromLng };
+    let toLatLng: mapCommon.LatLng = { latitude: toLat, longitude: toLng };
+    return map.calculateDistance(fromLatLng, toLatLng);
+  }
+
+
+  /**
+   * 坐标转换，将WGS84坐标系转换为GCJ02坐标系。
+   * @param fromType 转换前坐标类型，当前仅支持WGS84。
+   * @param toType 转换后坐标类型，当前仅支持GCJ02。
+   * @param location 待转换坐标。
+   * @returns
+   */
+  static async convertCoordinate(fromType: mapCommon.CoordinateType, toType: mapCommon.CoordinateType,
+    location: mapCommon.LatLng): Promise<mapCommon.LatLng> {
+    return map.convertCoordinate(fromType, toType, location);
+  }
+
+  /**
+   * 坐标转换，将WGS84坐标系转换为GCJ02坐标系。
+   * @param fromType 转换前坐标类型，当前仅支持WGS84。
+   * @param toType 转换后坐标类型，当前仅支持GCJ02。
+   * @param location 待转换坐标。
+   * @returns
+   */
+  static convertCoordinateSync(fromType: mapCommon.CoordinateType, toType: mapCommon.CoordinateType,
+    location: mapCommon.LatLng): mapCommon.LatLng {
+    return map.convertCoordinateSync(fromType, toType, location);
+  }
+
+  /**
+   * 坐标转换，将WGS84坐标系转换为GCJ02坐标系。
+   * @param location 待转换坐标。
+   * @returns
+   */
+  static convertCoordinateEasy(location: mapCommon.LatLng): mapCommon.LatLng {
+    return LocationUtil.convertCoordinateSync(mapCommon.CoordinateType.WGS84, mapCommon.CoordinateType.GCJ02, location);
+  }
+
+
+  /**
+   * 坐标纠偏，根据用户输入的坐标系和坐标以及获取当前的路由地，判断是否需要修正坐标。如果需要修正，则返回修正后的坐标系和坐标。使用Promise异步回调。
+   * @param locations 输入坐标系和坐标
+   * @returns
+   */
+  static async rectifyCoordinate(locations: Array<mapCommon.CoordinateLatLng>): Promise<Array<mapCommon.CoordinateLatLng>> {
+    return map.rectifyCoordinate(AppUtil.getContext(), locations);
+  }
+
+
+  /**
+   * 获取定位相关错误msg
    * @param code
    * @param defaultMsg
    */
@@ -263,28 +379,6 @@ export class LocationUtil {
       return defaultMsg
     }
   }
-
-
-  /**
-   * 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米。
-   * @returns
-   */
-  static calculateDistance(from: mapCommon.LatLng, to: mapCommon.LatLng): number {
-    return map.calculateDistance(from, to);
-  }
-
-
-  /**
-   * 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米。
-   * @returns
-   */
-  static calculateDistanceEasy(fromLat: number, fromLng: number, toLat: number, toLng: number): number {
-    let fromLatLng: mapCommon.LatLng = { latitude: fromLat, longitude: fromLng };
-    let toLatLng: mapCommon.LatLng = { latitude: toLat, longitude: toLng };
-    return map.calculateDistance(fromLatLng, toLatLng);
-  }
-
-
 
 
 }
