@@ -416,7 +416,6 @@ OpenHarmony ohpm
 | calculateDistanceEasy                       | 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米                                            |
 | convertCoordinate<br/>convertCoordinateSync | 坐标转换，将WGS84坐标系转换为GCJ02坐标系                                                  |
 | convertCoordinateEasy                       | 坐标转换，将WGS84坐标系转换为GCJ02坐标系                                                  |
-| rectifyCoordinate                           | 坐标纠偏，根据用户输入的坐标系和坐标以及获取当前的路由地，判断是否需要修正坐标。如果需要修正，则返回修正后的坐标系和坐标。使用Promise异步回调 |
 | getErrorMsg                                 | 获取定位相关错误msg                                                                |
 
 ## LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)

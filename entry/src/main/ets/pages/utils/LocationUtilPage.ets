@@ -6,6 +6,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { geoLocationManager } from '@kit.LocationKit';
 import { TitleBarView } from '../../component/TitleBarView';
 import { mapCommon } from '@kit.MapKit';
+import { Utils } from '../../utils/Utils';
 
 /**
  * 定位工具类(WGS-84坐标系)
@@ -17,10 +18,12 @@ struct Index {
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State addrStr: string = ''
   private locationCallBack1: Callback<geoLocationManager.Location> = (location) => {
-    this.addrStr = `位置变化订阅1：\n${JSON.stringify(location, null, 2)}`
+    this.addrStr = `位置变化订阅1：\n${JSON.stringify(location, null, 2)}`;
+    LogUtil.info(this.addrStr);
   }
   private locationCallBack2: Callback<geoLocationManager.Location> = (location) => {
-    this.addrStr = `位置变化订阅2：\n${JSON.stringify(location, null, 2)}`
+    this.addrStr = `位置变化订阅2：\n${JSON.stringify(location, null, 2)}`;
+    LogUtil.info(this.addrStr);
   }
 
   @MockSetup
@@ -37,7 +40,7 @@ struct Index {
           Button("isLocationEnabled()")
             .btnStyle()
             .onClick(() => {
-              let isLocationEnabled = LocationUtil.isLocationEnabled()
+              let isLocationEnabled = LocationUtil.isLocationEnabled();
               ToastUtil.showToast(`定位是否开启：${isLocationEnabled}`);
             })
           Button("requestLocationPermissions()")
@@ -50,28 +53,44 @@ struct Index {
                   ToastUtil.showToast("请在设置中开启定位权限");
                   WantUtil.toAppSetting();
                 }
-              })
+              });
             })
           Button("getCurrentLocationEasy()")
             .btnStyle()
             .onClick(() => {
               LocationUtil.getCurrentLocationEasy().then((location) => {
-                this.addrStr = `当前位置1：\n${JSON.stringify(location, null, 2)}\n\n`;
+                let locationStr = `当前位置1：\n${JSON.stringify(location, null, 2)}\n\n`;
                 LocationUtil.getGeoAddressFromLocation(location.latitude, location.longitude, 2).then((address) => {
-                  this.addrStr = this.addrStr + `当前位置2：\n${JSON.stringify(address, null, 2)}`;
-                })
+                  locationStr = locationStr + `当前位置2：\n${JSON.stringify(address, null, 2)}`;
+                  LogUtil.error(locationStr);
+                  Utils.showSheetText(locationStr);
+                });
               }).catch((err: BusinessError) => {
-                this.addrStr = `当前位置~异常信息：\n错误码： ${err.code}\n错误信息：${err.message}`;
+                let locationStr = `当前位置~异常信息：\n错误码： ${err.code}\n错误信息：${err.message}`;
+                LogUtil.error(locationStr);
+                Utils.showSheetText(locationStr);
               });
             })
           Button("getCurrentLocation()")
             .btnStyle()
             .onClick(() => {
               LocationUtil.getCurrentLocation().then((location) => {
-                this.addrStr = `当前位置：\n${JSON.stringify(location, null, 2)}`;
+                let locationStr = `当前位置：\n${JSON.stringify(location, null, 2)}`;
+                LogUtil.error(locationStr);
+                Utils.showSheetText(locationStr);
               }).catch((err: BusinessError) => {
-                this.addrStr = `当前位置~异常信息：\n错误码： ${err.code}\n错误信息：${err.message}`;
+                let locationStr = `当前位置~异常信息：\n错误码： ${err.code}\n错误信息：${err.message}`;
+                LogUtil.error(locationStr);
+                Utils.showSheetText(locationStr);
               });
+            })
+          Button("getLastLocation()")
+            .btnStyle()
+            .onClick(() => {
+              let lastLocation = LocationUtil.getLastLocation();
+              let locationStr = `当前位置：\n${JSON.stringify(lastLocation, null, 2)}`;
+              LogUtil.error(locationStr);
+              Utils.showSheetText(locationStr);
             })
           Button("onLocationChangeEasy()")
             .btnStyle()
@@ -107,6 +126,36 @@ struct Index {
                 this.addrStr = `关闭位置变化订阅~异常信息：\n${LocationUtil.getErrorMsg(errCode, "")}`;
               }
             })
+          Button("onLocationError()")
+            .btnStyle()
+            .onClick(() => {
+              LocationUtil.onLocationError((locationError: geoLocationManager.LocationError) => {
+                LogUtil.error("订阅持续定位过程中的错误码: " + locationError);
+                ToastUtil.showToast("订阅持续定位过程中的错误码: " + locationError);
+              });
+              ToastUtil.showToast("订阅成功");
+            })
+          Button("offLocationError()")
+            .btnStyle()
+            .onClick(() => {
+              LocationUtil.offLocationError();
+              ToastUtil.showToast("取消订阅成功");
+            })
+          Button("onLocationEnabledChange()")
+            .btnStyle()
+            .onClick(() => {
+              LocationUtil.onLocationError((locationError: geoLocationManager.LocationError) => {
+                LogUtil.error("订阅持续定位过程中的错误码: " + locationError);
+                ToastUtil.showToast("订阅持续定位过程中的错误码: " + locationError);
+              });
+              ToastUtil.showToast("订阅成功");
+            })
+          Button("offLocationEnabledChange()")
+            .btnStyle()
+            .onClick(() => {
+              LocationUtil.offLocationEnabledChange();
+              ToastUtil.showToast("取消订阅成功");
+            })
           Button("isGeocoderAvailable")
             .btnStyle()
             .onClick(() => {
@@ -120,11 +169,11 @@ struct Index {
               let locationName: string = '上海市浦东新区'; //上海市浦东新区
               let address = await LocationUtil.getGeoAddressFromLocationName(locationName, 10)
                 .catch((err: BusinessError) => {
-                  LogUtil.error("地理编码-异常信息1：\n" + JSON.stringify(err, null, 2));
+                  return `异常信息：${err.code}  ---  ${err.message}`;
                 });
-              this.addrStr = `地理编码：\n${JSON.stringify(address, null, 2)}`;
-              LogUtil.error(JSON.stringify(address, null, 2));
-              ToastUtil.showToast("请查看Log日志");
+              let addrStr = `地理编码：\n${JSON.stringify(address, null, 2)}`;
+              LogUtil.info(addrStr);
+              Utils.showSheetText(addrStr);
             })
           Button("getAddressFromLocationName()")
             .btnStyle()
@@ -132,37 +181,37 @@ struct Index {
               let locationName: string = '上海市浦东新区'; //上海市浦东新区
               let address = await LocationUtil.getAddressFromLocationName(locationName)
                 .catch((err: BusinessError) => {
-                  LogUtil.error("地理编码-异常信息2：\n" + JSON.stringify(err, null, 2));
+                  return `异常信息：${err.code}  ---  ${err.message}`;
                 });
-              this.addrStr = `地理编码：\n${JSON.stringify(address, null, 2)}`;
-              LogUtil.error(JSON.stringify(address, null, 2));
-              ToastUtil.showToast("请查看Log日志");
+              let addrStr = `地理编码：\n${JSON.stringify(address, null, 2)}`;
+              LogUtil.info(addrStr);
+              Utils.showSheetText(addrStr);
             })
           Button("getGeoAddressFromLocation()")
             .btnStyle()
             .onClick(async () => {
-              let latitude: number = 40;
-              let longitude: number = 117;
+              let latitude: number = 32.28;
+              let longitude: number = 117.618;
               let address = await LocationUtil.getGeoAddressFromLocation(latitude, longitude)
                 .catch((err: BusinessError) => {
-                  LogUtil.error("逆地理编码-异常信息2：\n" + JSON.stringify(err, null, 2));
+                  return `异常信息：${err.code}  ---  ${err.message}`;
                 });
-              this.addrStr = `逆地理编码：\n${JSON.stringify(address, null, 2)}`;
-              LogUtil.error(JSON.stringify(address, null, 2));
-              ToastUtil.showToast("请查看Log日志");
+              let addrStr = `逆地理编码：\n${JSON.stringify(address, null, 2)}`;
+              LogUtil.info(addrStr);
+              Utils.showSheetText(addrStr);
             })
           Button("getAddressFromLocation()")
             .btnStyle()
             .onClick(async () => {
-              let latitude: number = 40;
-              let longitude: number = 117;
+              let latitude: number = 31.8686;
+              let longitude: number = 117.2456;
               let address = await LocationUtil.getAddressFromLocation(latitude, longitude)
                 .catch((err: BusinessError) => {
-                  LogUtil.error("逆地理编码-异常信息2：\n" + JSON.stringify(err, null, 2));
+                  return `异常信息：${err.code}  ---  ${err.message}`;
                 });
-              this.addrStr = `逆地理编码：\n${JSON.stringify(address, null, 2)}`;
-              LogUtil.error(JSON.stringify(address, null, 2));
-              ToastUtil.showToast("请查看Log日志");
+              let addrStr = `逆地理编码：\n${JSON.stringify(address, null, 2)}`;
+              LogUtil.info(addrStr);
+              Utils.showSheetText(addrStr);
             })
           Button("getCountryCode()")
             .btnStyle()
@@ -171,6 +220,10 @@ struct Index {
               ToastUtil.showToast(`当前的国家码：${code}`);
             })
           Button("calculateDistance()\ncalculateDistanceEasy()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
               let fromLatLng: mapCommon.LatLng = { latitude: 38, longitude: 118 };
@@ -178,7 +231,21 @@ struct Index {
               let distance1 = LocationUtil.calculateDistance(fromLatLng, toLatLng);
               let distance2 = LocationUtil.calculateDistanceEasy(38, 118, 39, 119);
               LogUtil.error(`距离1：${distance1}米\t\t距离2：${distance2}米`);
-              ToastUtil.showToast(`距离1：${distance1}米\t\t距离2：${distance2}米`);
+              ToastUtil.showToast(`距离1：${distance1}米\n距离2：${distance2}米`);
+            })
+          Button("convertCoordinate()\nconvertCoordinateEasy()")
+            .labelStyle({ maxLines: 4 })
+            .type(ButtonType.Normal)
+            .borderRadius(10)
+            .padding({ top: 10, bottom: 10 })
+            .btnStyle()
+            .onClick(() => {
+              let latLng: mapCommon.LatLng = { latitude: 31.8462, longitude: 117.2456 };
+              let latLng1 = LocationUtil.convertCoordinateSync(mapCommon.CoordinateType.WGS84, mapCommon.CoordinateType.GCJ02, latLng);
+              LogUtil.error(`坐标转换，latLng1：${JSON.stringify(latLng1, null, 2)}`);
+              let latLng2 = LocationUtil.convertCoordinateEasy(latLng);
+              LogUtil.error(`坐标转换，latLng2：${JSON.stringify(latLng2, null, 2)}`);
+              ToastUtil.showToast(`坐标转换：${JSON.stringify(latLng2, null, 2)}`);
             })
 
           Text(this.addrStr)

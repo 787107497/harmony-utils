@@ -338,16 +338,6 @@ export class LocationUtil {
 
 
   /**
-   * 坐标纠偏，根据用户输入的坐标系和坐标以及获取当前的路由地，判断是否需要修正坐标。如果需要修正，则返回修正后的坐标系和坐标。使用Promise异步回调。
-   * @param locations 输入坐标系和坐标
-   * @returns
-   */
-  static async rectifyCoordinate(locations: Array<mapCommon.CoordinateLatLng>): Promise<Array<mapCommon.CoordinateLatLng>> {
-    return map.rectifyCoordinate(AppUtil.getContext(), locations);
-  }
-
-
-  /**
    * 获取定位相关错误msg
    * @param code
    * @param defaultMsg
