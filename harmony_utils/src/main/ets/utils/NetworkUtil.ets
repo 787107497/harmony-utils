@@ -116,7 +116,7 @@ export class NetworkUtil {
    * 判断当前设备网络是否可用
    * @returns
    */
-  static isNetworkAvailable(): Boolean {
+  static isNetworkAvailable(): boolean {
     let allNets = NetworkUtil.getAllNetsSync();
     if (allNets && allNets.length > 0) {
       return true;
