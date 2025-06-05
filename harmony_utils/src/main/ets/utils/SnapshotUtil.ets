@@ -16,7 +16,6 @@
 import { image } from '@kit.ImageKit';
 import { componentSnapshot, window } from '@kit.ArkUI';
 import { AppUtil } from './AppUtil';
-import { ArrayUtil } from './ArrayUtil';
 
 /**
  * TODO 组件截图和窗口截图工具类
@@ -24,9 +23,6 @@ import { ArrayUtil } from './ArrayUtil';
  * since: 2024/05/01
  */
 export class SnapshotUtil {
-
-  private static callBacks: Array<VoidCallback> = new Array<VoidCallback>(); //缓存的截图回调。
-  private static snapshotCallBack: VoidCallback | undefined = undefined //全局的截图监听回调
 
 
   /**
@@ -45,8 +41,8 @@ export class SnapshotUtil {
    * @param options 截图相关的自定义参数。
    * @returns
    */
-  static getSync(id: string, options?: componentSnapshot.SnapshotOptions): Promise<image.PixelMap> {
-    return componentSnapshot.get(id, options);
+  static getSync(id: string, options?: componentSnapshot.SnapshotOptions): image.PixelMap {
+    return componentSnapshot.getSync(id, options);
   }
 
 
@@ -79,16 +75,7 @@ export class SnapshotUtil {
    * @param callBack 截图回调
    */
   static onSnapshotListener(callback: VoidCallback): void {
-    if (ArrayUtil.contain(SnapshotUtil.callBacks, callback)) {
-    } else {
-      SnapshotUtil.callBacks.push(callback);
-    }
-    if (SnapshotUtil.snapshotCallBack === undefined) {
-      SnapshotUtil.snapshotCallBack = () => { //全局的截图监听回调
-        SnapshotUtil.callBacks.forEach((callback) => callback?.());
-      }
-      AppUtil.getMainWindow().on("screenshot", SnapshotUtil.snapshotCallBack);
-    }
+    AppUtil.getMainWindow().on("screenshot", callback);
   }
 
 
@@ -97,17 +84,12 @@ export class SnapshotUtil {
    * @param callback 监听事件，不传关闭所有监听。
    */
   static removeSnapshotListener(callback?: VoidCallback): void {
-    if (callback && SnapshotUtil.callBacks.length > 1) {
-      ArrayUtil.remove(SnapshotUtil.callBacks, callback);
+    if (callback) {
+      AppUtil.getMainWindow().off('screenshot', callback);
     } else {
-      if (SnapshotUtil.callBacks) {
-        AppUtil.getMainWindow().off('screenshot', SnapshotUtil.snapshotCallBack);
-      } else {
-        AppUtil.getMainWindow().off('screenshot');
-      }
-      SnapshotUtil.snapshotCallBack = undefined;
-      SnapshotUtil.callBacks = new Array<VoidCallback>();
+      AppUtil.getMainWindow().off('screenshot');
     }
   }
+
 
 }

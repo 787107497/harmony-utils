@@ -44,6 +44,12 @@ struct Index {
               let pwd = this.lruCache.has("pwd");
               ToastUtil.showToast(`缓存是否存在：${pwd}`);
             })
+          Button("remove()")
+            .btnStyle()
+            .onClick(() => {
+              this.lruCache.remove("pwd");
+              ToastUtil.showToast(`删除成功！`);
+            })
           Button("isEmpty()")
             .btnStyle()
             .onClick(() => {
@@ -87,18 +93,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

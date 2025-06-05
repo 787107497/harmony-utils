@@ -598,15 +598,26 @@ OpenHarmony ohpm
 
 ## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 
-| 方法                            | 介绍            |
-|:------------------------------|:--------------|
-| setDataText                   | 将纯文本数据写入系统剪贴板 |
-| setDataHtml                   | 将Htm数据写入系统剪贴板 |
-| setDataUri                    | 将Uri数据写入系统剪贴板 |
-| getData<br/>getDataSync       | 读取系统剪贴板内容     |
-| getDataStr<br/>getDataSyncStr | 读取系统剪贴板里的字符串  |
-| hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
-| clearData                     | 清空系统剪贴板内容     |
+| 方法                                      | 介绍                                                |
+|:----------------------------------------|:--------------------------------------------------|
+| requestPermissions                      | 申请剪贴板权限                                           |
+| getSystemPasteboard                     | 获取系统剪贴板对象                                         |
+| hasData<br/>hasDataSync                 | 判断系统剪贴板中是否有内容                                     |
+| setData<br/>setDataSync                 | 将数据写入系统剪贴板                                        |
+| getData<br/>getDataSync                 | 读取系统剪贴板内容                                         |
+| setDataText<br/>setDataTextSync         | 将纯文本数据写入系统剪贴板                                     |
+| getDataText<br/>getDataTextSync         | 读取系统剪贴板纯文本内容                                      |
+| setDataHtml<br/>setDataHtmlSync         | 将HTML数据写入系统剪贴板                                    |
+| getDataHtml<br/>getDataHtmlSync         | 读取系统剪贴板HTML内容                                     |
+| setDataUri<br/>setDataUriSync           | 将URI数据写入系统剪贴板                                     |
+| getDataUri<br/>getDataUriSync           | 读取系统剪贴板URI内容                                      |
+| setDataWant<br/>setDataWantSync         | 将Want数据写入系统剪贴板                                    |
+| getDataWant<br/>getDataWantSync         | 读取系统剪贴板Want内容                                     |
+| setDataPixelMap<br/>setDataPixelMapSync | 将PixelMap数据写入系统剪贴板                                |
+| getDataPixelMap<br/>getDataPixelMapSync | 读取系统剪贴板PixelMap内容                                 |
+| getDataStr<br/>getDataStrSync           | 读取系统剪贴板里的字符串                                      |
+| getDataEasy                             | 读取系统剪贴板里的内容（纯文本内容、HTML内容、URI内容、Want内容、PixelMap内容） |
+| clearData<br/>clearDataSync             | 清空系统剪贴板内容                                         |
 
 ## AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 

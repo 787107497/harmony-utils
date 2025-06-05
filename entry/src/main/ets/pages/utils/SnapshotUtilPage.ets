@@ -1,10 +1,10 @@
 import { router } from '@kit.ArkUI';
 import { LogUtil, SnapshotUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
-import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
+import { Utils } from '../../utils/Utils';
 
 /**
  * 组件截图和窗口截图工具类
@@ -14,9 +14,6 @@ import { TitleBarView } from '../../component/TitleBarView';
 struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
-  @State pixelMap1?: image.PixelMap = undefined;
-  @State pixelMap2?: image.PixelMap = undefined;
-  @State pixelMap3?: image.PixelMap = undefined;
   private snapshotCallBack: VoidCallback = () => { //系统截图监听回调
     ToastUtil.showToast("您已成功截图！");
     LogUtil.error("您已成功截图！");
@@ -36,39 +33,33 @@ struct Index {
           Button("get()")
             .btnStyle()
             .onClick(async () => {
-              this.pixelMap1 = await SnapshotUtil.get('snapshot_id1')
+              let pixelMap1 = await SnapshotUtil.get('snapshot_id1');
+              Utils.showSheetImg(pixelMap1);
             })
           Button("getSync()")
             .btnStyle()
-            .onClick(async () => {
-              this.pixelMap1 = await SnapshotUtil.getSync('snapshot_id2')
+            .onClick(() => {
+              let pixelMap1 = SnapshotUtil.getSync('snapshot_id2');
+              Utils.showSheetImg(pixelMap1);
             })
-          Image(this.pixelMap1)
-            .visibility(this.pixelMap1 ? Visibility.Visible : Visibility.None)
-            .textStyle()
           Button("createFromBuilder()")
             .btnStyle()
             .onClick(() => {
               SnapshotUtil.createFromBuilder(() => {
                 this.RandomBuilder()
               }).then((pixelMap) => {
-                this.pixelMap2 = pixelMap;
+                Utils.showSheetImg(pixelMap);
               }).catch((err: BusinessError) => {
-                LogUtil.error("createFromBuilder-异常信息：" + JSON.stringify(err))
-              })
+                LogUtil.error("createFromBuilder-异常信息：\n" + JSON.stringify(err));
+                ToastUtil.showToast("组件生成图片异常！");
+              });
             })
-          Image(this.pixelMap2)
-            .visibility(this.pixelMap2 ? Visibility.Visible : Visibility.None)
-            .textStyle()
           Button("snapshot()")
             .btnStyle()
             .onClick(async () => {
-              this.pixelMap3 = await SnapshotUtil.snapshot()
+              let pixelMap3 = await SnapshotUtil.snapshot();
+              Utils.showSheetImg(pixelMap3);
             })
-          Image(this.pixelMap3)
-            .visibility(this.pixelMap3 ? Visibility.Visible : Visibility.None)
-            .textStyle()
-
           Button("onSnapshotListener()")
             .btnStyle()
             .onClick(() => {
@@ -129,7 +120,7 @@ struct Index {
           .margin({ top: 50 })
           .id('snapshot_id1')
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -162,6 +153,7 @@ struct Index {
     .margin({ top: 50 })
     .id("rBuilder")
   }
+
 }
 
 
@@ -169,18 +161,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }
