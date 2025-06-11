@@ -43,7 +43,7 @@ export class FileUtil {
         filePath = filePath + FileUtil.separator + dirPath;
       }
       if (!FileUtil.accessSync(filePath)) {
-        FileUtil.mkdirSync(filePath) //如果文件夹不存在就创建
+        FileUtil.mkdirSync(filePath); //如果文件夹不存在就创建
       }
     }
     if (StrUtil.isNotEmpty(fileName)) {
@@ -69,7 +69,7 @@ export class FileUtil {
         filePath = filePath + FileUtil.separator + dirPath;
       }
       if (!FileUtil.accessSync(filePath)) {
-        FileUtil.mkdirSync(filePath) //如果文件夹不存在就创建
+        FileUtil.mkdirSync(filePath); //如果文件夹不存在就创建
       }
     }
     if (StrUtil.isNotEmpty(fileName)) {
@@ -95,7 +95,7 @@ export class FileUtil {
         filePath = filePath + FileUtil.separator + dirPath;
       }
       if (!FileUtil.accessSync(filePath)) {
-        FileUtil.mkdirSync(filePath) //如果文件夹不存在就创建
+        FileUtil.mkdirSync(filePath); //如果文件夹不存在就创建
       }
     }
     if (StrUtil.isNotEmpty(fileName)) {

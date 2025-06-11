@@ -54,7 +54,7 @@ struct Index {
     EmitterUtil.onceSubscribe<string>(10001, (data) => {
       this.txtStr = `单次事件(string)：\n${JSON.stringify(data, null, 2)}`;
       LogUtil.error(this.txtStr);
-    })
+    });
   }
 
 
@@ -106,7 +106,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let count = EmitterUtil.getListenerCount("O123456");
-              LogUtil.error(`获取指定事件的订阅数：${count}`)
+              LogUtil.error(`获取指定事件的订阅数：${count}`);
             })
 
           Divider().margin(12)
@@ -142,12 +142,12 @@ struct Index {
             .onClick(() => {
               EmitterUtil.off(100,this.callback);
             })
-
           Button("取消事件订阅（所有）")
             .btnStyle()
             .onClick(() => {
               EmitterUtil.unSubscribe(100);
             })
+
           Blank().layoutWeight(1)
 
           Text(this.txtStr)

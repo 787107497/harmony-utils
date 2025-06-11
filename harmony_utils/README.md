@@ -392,22 +392,31 @@ OpenHarmony ohpm
 
 ## LocationUtil（定位工具类(WGS-84坐标系)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LocationUtilPage.ets)
 
-| 方法                            | 介绍                    |
-|:------------------------------|:----------------------|
-| isLocationEnabled             | 判断位置服务是否已经使能(定位是否开启)。 |
-| requestLocationPermissions    | 申请定位权限                |
-| getCurrentLocationEasy        | 获取当前位置                |
-| getCurrentLocation            | 获取当前位置                |
-| onLocationChangeEasy          | 开启位置变化订阅，并发起定位请求。     |
-| onLocationChange              | 开启位置变化订阅，并发起定位请求      |
-| offLocationChange             | 关闭位置变化订阅，并删除对应的定位请求   |
-| isGeocoderAvailable           | 判断地理编码与逆地理编码服务是否可用    |
-| getAddressFromLocationName    | 地理编码,将地理描述转换为具体坐标     |
-| getGeoAddressFromLocationName | 地理编码,将地理描述转换为具体坐标集合   |
-| getAddressFromLocation        | 逆地理编码,将坐标转换为地理描述      |
-| getGeoAddressFromLocation     | 逆地理编码,将坐标转换为地理描述集合    |
-| getCountryCode                | 获取当前的国家码              |
-| calculateDistance             | 计算这两个点间的直线距离，单位为米     |
+| 方法                                          | 介绍                                                                         |
+|:--------------------------------------------|:---------------------------------------------------------------------------|
+| isLocationEnabled                           | 判断位置服务是否已经使能(定位是否开启)。                                                      |
+| requestLocationPermissions                  | 申请定位权限                                                                     |
+| getCurrentLocationEasy                      | 获取当前位置                                                                     |
+| getCurrentLocation                          | 获取当前位置                                                                     |
+| getLastLocation                             | 获取上一次位置                                                                    |
+| onLocationChangeEasy                        | 开启位置变化订阅，并发起定位请求。                                                          |
+| onLocationChange                            | 开启位置变化订阅，并发起定位请求                                                           |
+| offLocationChange                           | 关闭位置变化订阅，并删除对应的定位请求                                                        |
+| onLocationError                             | 订阅持续定位过程中的错误码                                                              |
+| offLocationError                            | 取消订阅持续定位过程中的错误码                                                            |
+| onLocationEnabledChange                     | 订阅位置服务状态变化                                                                 |
+| offLocationEnabledChange                    | 取消订阅位置服务状态变化                                                               |
+| isGeocoderAvailable                         | 判断地理编码与逆地理编码服务是否可用                                                         |
+| getAddressFromLocationName                  | 地理编码,将地理描述转换为具体坐标                                                          |
+| getGeoAddressFromLocationName               | 地理编码,将地理描述转换为具体坐标集合                                                        |
+| getAddressFromLocation                      | 逆地理编码,将坐标转换为地理描述                                                           |
+| getGeoAddressFromLocation                   | 逆地理编码,将坐标转换为地理描述集合                                                         |
+| getCountryCode                              | 获取当前的国家码                                                                   |
+| calculateDistance                           | 计算这两个点间的直线距离，单位为米                                                          |
+| calculateDistanceEasy                       | 根据指定的两个经纬度坐标点，计算这两个点间的直线距离，单位为米                                            |
+| convertCoordinate<br/>convertCoordinateSync | 坐标转换，将WGS84坐标系转换为GCJ02坐标系                                                  |
+| convertCoordinateEasy                       | 坐标转换，将WGS84坐标系转换为GCJ02坐标系                                                  |
+| getErrorMsg                                 | 获取定位相关错误msg                                                                |
 
 ## LogUtil（日志工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/LogUtilPage.ets)
 
@@ -589,15 +598,26 @@ OpenHarmony ohpm
 
 ## PasteboardUtil（剪贴板工具类 ）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PasteboardUtilPage.ets)
 
-| 方法                            | 介绍            |
-|:------------------------------|:--------------|
-| setDataText                   | 将纯文本数据写入系统剪贴板 |
-| setDataHtml                   | 将Htm数据写入系统剪贴板 |
-| setDataUri                    | 将Uri数据写入系统剪贴板 |
-| getData<br/>getDataSync       | 读取系统剪贴板内容     |
-| getDataStr<br/>getDataSyncStr | 读取系统剪贴板里的字符串  |
-| hasData<br/>hasDataSync       | 判断系统剪贴板中是否有内容 |
-| clearData                     | 清空系统剪贴板内容     |
+| 方法                                      | 介绍                                                |
+|:----------------------------------------|:--------------------------------------------------|
+| requestPermissions                      | 申请剪贴板权限                                           |
+| getSystemPasteboard                     | 获取系统剪贴板对象                                         |
+| hasData<br/>hasDataSync                 | 判断系统剪贴板中是否有内容                                     |
+| setData<br/>setDataSync                 | 将数据写入系统剪贴板                                        |
+| getData<br/>getDataSync                 | 读取系统剪贴板内容                                         |
+| setDataText<br/>setDataTextSync         | 将纯文本数据写入系统剪贴板                                     |
+| getDataText<br/>getDataTextSync         | 读取系统剪贴板纯文本内容                                      |
+| setDataHtml<br/>setDataHtmlSync         | 将HTML数据写入系统剪贴板                                    |
+| getDataHtml<br/>getDataHtmlSync         | 读取系统剪贴板HTML内容                                     |
+| setDataUri<br/>setDataUriSync           | 将URI数据写入系统剪贴板                                     |
+| getDataUri<br/>getDataUriSync           | 读取系统剪贴板URI内容                                      |
+| setDataWant<br/>setDataWantSync         | 将Want数据写入系统剪贴板                                    |
+| getDataWant<br/>getDataWantSync         | 读取系统剪贴板Want内容                                     |
+| setDataPixelMap<br/>setDataPixelMapSync | 将PixelMap数据写入系统剪贴板                                |
+| getDataPixelMap<br/>getDataPixelMapSync | 读取系统剪贴板PixelMap内容                                 |
+| getDataStr<br/>getDataStrSync           | 读取系统剪贴板里的字符串                                      |
+| getDataEasy                             | 读取系统剪贴板里的内容（纯文本内容、HTML内容、URI内容、Want内容、PixelMap内容） |
+| clearData<br/>clearDataSync             | 清空系统剪贴板内容                                         |
 
 ## AssetUtil（关键资产存储服务工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/AssetUtilPage.ets)
 

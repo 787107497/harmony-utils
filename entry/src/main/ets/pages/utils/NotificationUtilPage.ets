@@ -6,13 +6,13 @@ import {
   NotificationBasicOptions,
   NotificationMultiLineOptions,
   NotificationUtil,
-  StrUtil,
   ToastUtil,
   WantUtil
 } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { Utils } from '../../utils/Utils';
 
 /**
  * 通知工具类
@@ -23,7 +23,6 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State notificationIds: Array<number> = [];
-  @State notificationStr: string = ''
 
   @MockSetup
   mock() {
@@ -73,7 +72,13 @@ struct Index {
                 if (!grant) {
                   WantUtil.toNotificationSetting(); //跳转通知设置页面
                 }
-              })
+              });
+            })
+          Button("isDistributedEnabled()")
+            .btnStyle()
+            .onClick(async () => {
+              let blDistributedEnabled = await NotificationUtil.isDistributedEnabled();
+              ToastUtil.showToast(`查询设备是否支持分布式通知: ${blDistributedEnabled}`);
             })
           Button("publishBasic()")
             .btnStyle()
@@ -130,9 +135,9 @@ struct Index {
           Button("publishPicture()")
             .btnStyle()
             .onClick(async () => {
-             let media= await ImageUtil.getPixelMapFromMedia($r('app.media.test_as5'))
+              let media = await ImageUtil.getPixelMapFromMedia($r('app.media.test_as5'))
               let pixelMap = await NotificationUtil.getCompressedPicture(media);
-              LogUtil.error("图片大小3："+(pixelMap.getPixelBytesNumber()/1024))
+              LogUtil.error("图片大小3：" + (pixelMap.getPixelBytesNumber() / 1024))
               NotificationUtil.publishPicture({
                 title: "鸿蒙工具包",
                 text: "HarmonyOS工具包，封装了常用工具类。帮助开发者快速构建鸿蒙应用",
@@ -171,6 +176,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               NotificationUtil.cancelAll();
+              ToastUtil.showToast(`取消所有通知，成功！`);
             })
           Button("setBadge()")
             .btnStyle()
@@ -188,7 +194,7 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let count = await NotificationUtil.getActiveNotificationCount();
-              ToastUtil.showToast(`当前通知数量为：${count}`)
+              ToastUtil.showToast(`当前通知数量为：${count}`);
             })
           Button("setBadgeFromNotificationCount()")
             .btnStyle()
@@ -198,19 +204,17 @@ struct Index {
               }).catch((err: BusinessError) => {
                 ToastUtil.showToast("设置角标失败，" + NotificationUtil.getErrorMsg(err.code, err.message));
                 LogUtil.error(`设置角标异常：${NotificationUtil.getErrorMsg(err.code, err.code + " - " + err.message)}`);
-              })
+              });
             })
           Button("getActiveNotifications()")
             .btnStyle()
             .onClick(async () => {
               let notifications = await NotificationUtil.getActiveNotifications();
-              this.notificationStr = JSON.stringify(notifications, null, 2);
+              let notificationStr = JSON.stringify(notifications, null, 2);
+              Utils.showSheetText(notificationStr);
             })
-          Text(this.notificationStr)
-            .visibility(StrUtil.isNotEmpty(this.notificationStr) ? Visibility.Visible : Visibility.None)
-            .textStyle()
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -228,18 +232,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

@@ -122,7 +122,7 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let type = await NetworkUtil.getNetBearType();
-              ToastUtil.showToast(`网络类型：${type}`)
+              ToastUtil.showToast(`网络类型：${type}`);
             })
           Button("getNetCapabilitiesSync()")
             .btnStyle()
@@ -142,7 +142,7 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               let ip = NetworkUtil.getIpAddress();
-              ToastUtil.showToast(ip)
+              ToastUtil.showToast(ip);
             })
           Button("register()")
             .btnStyle()
@@ -160,13 +160,13 @@ struct Index {
                 LogUtil.error(`订阅网络阻塞状态事件回调：${JSON.stringify(netBlockStatusInfo)}`);
               }, (netHandle) => {
                 LogUtil.error(`订阅网络丢失事件回调：${JSON.stringify(netHandle)}`);
-              })
+              });
             })
           Button("unregister()")
             .btnStyle()
             .onClick(() => {
-              NetworkUtil.unregister()
-              ToastUtil.showToast("取消订阅默认网络状态变化监听")
+              NetworkUtil.unregister();
+              ToastUtil.showToast("取消订阅默认网络状态变化监听");
             })
           Divider().strokeWidth(1).color("#D6D6D6").margin(15)
           Button("isNRSupported()")

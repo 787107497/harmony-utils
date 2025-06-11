@@ -117,7 +117,7 @@ struct Index {
               let str2 = StrUtil.toStr(null);
               let str3 = StrUtil.toStr("成功了！");
               LogUtil.error(`${num}\n${bl}\n${str1}\n${str2}\n${str3}`);
-              ToastUtil.showToast("请查看Log日志")
+              Utils.showSheetText(`${num}\n${bl}\n${str1}\n${str2}\n${str3}`);
             })
           Button("startsWith()\nendsWith()\nreplace()\nrepeat()\nreplaceAll()")
             .labelStyle({ maxLines: 5 })
@@ -126,16 +126,16 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let str1 = "阿超是一个好人,小阿超也是一个好人";
+              let str1 = "大聪明是一个好人,DSB也是一个好人";
               let str2 = "千秋万代";
-              let startsWith = StrUtil.startsWith(str1, "阿超");
+              let startsWith = StrUtil.startsWith(str1, "大聪明");
               let endsWith = StrUtil.endsWith(str1, "好人");
               let str = StrUtil.replace(str1, "阿超", "张三");
               let strs = StrUtil.repeat(str2, 6);
               let strAll = StrUtil.replaceAll(str1, "好人", " HAO-REN ");
-              LogUtil.error(`startsWith: ${startsWith}\nendsWith: ${endsWith}\nstr: ${str}\nstrs: ${strs}`)
-              LogUtil.error(`replaceAll: ${strAll}`)
-              ToastUtil.showToast("请查看Log日志")
+              LogUtil.error(`startsWith: ${startsWith}\nendsWith: ${endsWith}\nstr: ${str}\nstrs: ${strs}`);
+              LogUtil.error(`replaceAll: ${strAll}`);
+              Utils.showSheetText(`startsWith: ${startsWith}\nendsWith: ${endsWith}\nstr: ${str}\nstrs: ${strs}\n\nreplaceAll: ${strAll}`);
             })
           Button("toLower()\ntoUpper()\ncapitalize()")
             .labelStyle({ maxLines: 3 })
@@ -149,7 +149,7 @@ struct Index {
               let str2 = StrUtil.toUpper(str);
               let str3 = StrUtil.capitalize(str);
               LogUtil.error(`str1: ${str1}\nstr2: ${str2}\nstr3: ${str3}`)
-              ToastUtil.showToast("请查看Log日志")
+              Utils.showSheetText(`str1: ${str1}\nstr2: ${str2}\nstr3: ${str3}`);
             })
           Button("equal()\nnotEqual()")
             .labelStyle({ maxLines: 2 })
@@ -164,9 +164,9 @@ struct Index {
               let bl4 = StrUtil.equal(26, 26);
               let bl5 = StrUtil.equal(26, 29);
               let bl6 = StrUtil.notEqual(22, 32);
-              LogUtil.error(`bl1: ${bl1}\nbl2: ${bl2}\nbl3: ${bl3}`)
-              LogUtil.error(`bl4: ${bl4}\nbl5: ${bl5}\nbl6: ${bl6}`)
-              ToastUtil.showToast("请查看Log日志")
+              LogUtil.error(`bl1: ${bl1}\nbl2: ${bl2}\nbl3: ${bl3}`);
+              LogUtil.error(`bl4: ${bl4}\nbl5: ${bl5}\nbl6: ${bl6}`);
+              Utils.showSheetText(`bl1: ${bl1}\nbl2: ${bl2}\nbl3: ${bl3}\n\nbl4: ${bl4}\nbl5: ${bl5}\nbl6: ${bl6}`);
             })
           Button("strToUint8Array()\nunit8ArrayToStr()")
             .labelStyle({ maxLines: 2 })
@@ -180,7 +180,7 @@ struct Index {
               LogUtil.error(`unit8Array: ${unit8Array}`)
               let str = StrUtil.unit8ArrayToStr(unit8Array);
               LogUtil.error(`str: ${str}`)
-              ToastUtil.showToast("请查看Log日志")
+              Utils.showSheetText(`unit8Array: ${unit8Array}\n\nstr: ${str}`);
             })
           Button("strToBase64()\nbase64ToStr()")
             .labelStyle({ maxLines: 2 })
@@ -194,7 +194,7 @@ struct Index {
               LogUtil.error(`base64Str: ${base64Str}`)
               let str = StrUtil.base64ToStr(base64Str);
               LogUtil.error(`str: ${str}`)
-              ToastUtil.showToast("请查看Log日志")
+              Utils.showSheetText(`base64Str: ${base64Str}\n\nstr: ${str}`);
             })
           Button("strToBuffer()\nbufferToStr()")
             .labelStyle({ maxLines: 2 })
@@ -207,8 +207,8 @@ struct Index {
               let buff = StrUtil.strToBuffer(str1);
               LogUtil.error(`buff: ${buff.byteLength}`)
               let str = StrUtil.bufferToStr(buff);
-              LogUtil.error(`str: ${str}`)
-              ToastUtil.showToast("请查看Log日志")
+              LogUtil.error(`str: ${str}`);
+              Utils.showSheetText(`buff: ${buff.byteLength}\n\nstr: ${str}`);
             })
           Button("bufferToUint8Array()\nunit8ArrayToBuffer()")
             .labelStyle({ maxLines: 2 })
@@ -219,12 +219,12 @@ struct Index {
             .onClick(() => {
               let str1 = "我是甜啦啦";
               let buff1 = StrUtil.strToBuffer(str1);
-              LogUtil.error(`buff1: ${buff1.byteLength}`)
-              let unit8Array = StrUtil.bufferToUint8Array(buff1)
-              LogUtil.error(`unit8Array: ${unit8Array}`)
+              LogUtil.error(`buff1: ${buff1.byteLength}`);
+              let unit8Array = StrUtil.bufferToUint8Array(buff1);
+              LogUtil.error(`unit8Array: ${unit8Array}`);
               let buff = StrUtil.unit8ArrayToBuffer(unit8Array);
-              LogUtil.error(`buff: ${buff.byteLength}`)
-              ToastUtil.showToast("请查看Log日志")
+              LogUtil.error(`buff: ${buff.byteLength}`);
+              Utils.showSheetText(`buff1: ${buff1.byteLength}\n\nunit8Array: ${unit8Array}\n\nbuff: ${buff.byteLength}`);
             })
           Button("getErrorStr()")
             .btnStyle()
@@ -248,9 +248,7 @@ struct Index {
             .onClick(() => {
               let errStr1 = StrUtil.getErrnoToString(202);
               let errStr2 = StrUtil.getErrnoToString(1600004);
-              LogUtil.error(`错误码1: ${errStr1}`);
-              LogUtil.error(`错误码2: ${errStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`错误码1: ${errStr1}\n\n错误码2: ${errStr2}`);
             })
 
           Blank().layoutWeight(1)

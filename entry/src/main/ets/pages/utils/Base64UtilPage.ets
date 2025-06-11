@@ -3,6 +3,7 @@ import { MockSetup } from '@ohos/hamock';
 import { Base64Util, LogUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
+import { Utils } from '../../utils/Utils';
 
 /**
  * Base64工具类
@@ -33,12 +34,12 @@ struct Index {
             .onClick(() => {
               let unit8Array = StrUtil.strToUint8Array("我是甜啦啦");
               let unit8Array1 = Base64Util.encodeSync(unit8Array);
-              LogUtil.error(`unit8Array1: ${unit8Array1}`)
+              LogUtil.error(`unit8Array1: ${unit8Array1}`);
               let str = Base64Util.encodeToStrSync(unit8Array);
-              LogUtil.error(`str: ${str}`)
+              LogUtil.error(`str: ${str}`);
               let unit8Array2 = Base64Util.decodeSync(str);
-              LogUtil.error(`unit8Array2: ${unit8Array2}`)
-              ToastUtil.showToast("请查看Log日志")
+              LogUtil.error(`unit8Array2: ${unit8Array2}`);
+              Utils.showSheetText(`unit8Array1: ${unit8Array1}\n\nstr: ${str}\n\nunit8Array2: ${unit8Array2}`);
             })
           Button("encode()\nencodeToStr()\ndecode()")
             .labelStyle({ maxLines: 3 })
@@ -47,14 +48,15 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(async () => {
-              let unit8Array = StrUtil.strToUint8Array("我是甜啦啦");
+              let unit8Array = StrUtil.strToUint8Array("我是甜啦啦!");
               let unit8Array1 = await Base64Util.encode(unit8Array);
-              LogUtil.error(`unit8Array1S: ${unit8Array1}`)
+              LogUtil.error(`unit8Array1: ${unit8Array1}`);
               let str = await Base64Util.encodeToStr(unit8Array);
-              LogUtil.error(`strS: ${str}`)
+              LogUtil.error(`str: ${str}`);
               let unit8Array2 = await Base64Util.decode(unit8Array1);
-              LogUtil.error(`unit8Array2S: ${unit8Array2}`)
-              ToastUtil.showToast("请查看Log日志")
+              LogUtil.error(`unit8Array2: ${unit8Array2}`);
+              let str2 = StrUtil.unit8ArrayToStr(unit8Array2);
+              Utils.showSheetText(`unit8Array1: ${unit8Array1}\n\nstr: ${str}\n\nunit8Array2: ${unit8Array2}\n\nstr2: ${str2}`);
             })
 
           Blank().layoutWeight(1)
@@ -75,18 +77,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

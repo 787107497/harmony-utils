@@ -1,10 +1,11 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { KvUtil, RandomUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
+import { KvUtil, LogUtil, RandomUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
 import { distributedKVStore } from '@kit.ArkData';
-import { Callback } from '@kit.BasicServicesKit';
+import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { TitleBarView } from '../../component/TitleBarView';
+import { Utils } from '../../utils/Utils';
 
 /**
  * KvUtil，键值型数据库工具类
@@ -17,6 +18,7 @@ struct Index {
   @State pStr: string = ''
   private callBack: Callback<distributedKVStore.ChangeNotification> = (change) => {
     this.pStr = JSON.stringify(change, null, 2);
+    LogUtil.info(this.pStr);
   }
 
   @MockSetup
@@ -71,19 +73,63 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               KvUtil.delete("name");
-              ToastUtil.showToast('删除缓存成功')
+              ToastUtil.showToast('删除缓存成功');
             })
+          Button("putBatch()")
+            .btnStyle()
+            .onClick(async () => {
+              let entries: distributedKVStore.Entry[] = [];
+              for (let i = 0; i < 10; i++) {
+                let key = 'batch_test_string_key';
+                let entry: distributedKVStore.Entry = {
+                  key: key + i,
+                  value: {
+                    type: distributedKVStore.ValueType.STRING,
+                    value: 'batch_test_string_value_' + i + '_' + i
+                  }
+                }
+                entries.push(entry);
+              }
+              KvUtil.putBatch(entries).then(() => {
+                ToastUtil.showToast('批量插入成功');
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast('批量插入异常！');
+              });
+            })
+          Button("deleteBatch()")
+            .btnStyle()
+            .onClick(async () => {
+              let keys = ["batch_test_string_key0","batch_test_string_key1","batch_test_string_key2","batch_test_string_key3"];
+              KvUtil.deleteBatch(keys).then(() => {
+                ToastUtil.showToast('批量删除成功');
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast('批量删除异常！');
+              });
+            })
+          Button("getEntries()")
+            .btnStyle()
+            .onClick(async () => {
+              let keyPrefix = "batch_test_string_key";
+              KvUtil.getEntries(keyPrefix).then((entries: distributedKVStore.Entry[]) => {
+                Utils.showSheetText(JSON.stringify(entries, null, 2))
+              }).catch((err: BusinessError) => {
+                ToastUtil.showToast(`异常信息：${err.message}`);
+              });
+            })
+
+
+
           Button("onDataChange()")
             .btnStyle()
             .onClick(() => {
               KvUtil.onDataChange(distributedKVStore.SubscribeType.SUBSCRIBE_TYPE_ALL, this.callBack);
-              ToastUtil.showToast('订阅指定类型的数据变更通知')
+              ToastUtil.showToast('订阅指定类型的数据变更通知');
             })
           Button("offDataChange()")
             .btnStyle()
             .onClick(() => {
               KvUtil.offDataChange(this.callBack);
-              ToastUtil.showToast('取消订阅数据变更通知')
+              ToastUtil.showToast('取消订阅数据变更通知');
             })
 
           Blank().layoutWeight(1)
