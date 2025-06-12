@@ -15,6 +15,8 @@
 
 
 import { i18n } from '@kit.LocalizationKit';
+import { Any } from '../entity/constraint';
+import { StrUtil } from './StrUtil';
 
 
 /**
@@ -28,45 +30,45 @@ export class FormatUtil {
   /**
    * 判断是否是Boolean类型
    */
-  static isBoolean(value: object): boolean {
+  static isBoolean(value: Any): boolean {
     return typeof value === 'boolean';
   }
 
   /**
    * 判断是否是Number类型
    */
-  static isNumber(value: object): boolean {
+  static isNumber(value: Any): boolean {
     return typeof value === 'number';
   }
 
   /**
    * 判断是否是String类型
    */
-  static isString(value: object): boolean {
+  static isString(value: Any): boolean {
     return typeof value === 'string';
   }
 
   /**
    * 判断是否是Object类型
    */
-  static isObject(value: object): boolean {
+  static isObject(value: Any): boolean {
     return typeof value === 'object';
   }
 
   /**
    * 判断是否是数组类型
    */
-  static isArray(value: object): boolean {
+  static isArray(value: Any): boolean {
     return Array.isArray(value)
   }
 
   /**
    * 判断是否是Resource类型
    */
-  static isResource(value: object) {
+  static isResource(value: Any) {
     if (value) {
       const res = value as Resource;
-      return res?.id && res?.bundleName && res?.moduleName;
+      return StrUtil.isNotNull(res?.id) && StrUtil.isNotNull(res?.bundleName) && StrUtil.isNotNull(res?.moduleName);
     }
     return false;
   }
@@ -74,7 +76,7 @@ export class FormatUtil {
   /**
    * 判断是否是ResourceStr类型
    */
-  static isResourceStr(value: object) {
+  static isResourceStr(value: Any) {
     return FormatUtil.isString(value) || FormatUtil.isResource(value);
   }
 

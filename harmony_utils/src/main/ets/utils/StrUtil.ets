@@ -32,7 +32,7 @@ export class StrUtil {
    * @param str 被检测的字符串
    * @returns 是否为空
    */
-  static isNull(str: string | undefined | null): boolean {
+  static isNull(str: string | number | undefined | null): boolean {
     return str === undefined || str === null;
   }
 
@@ -41,7 +41,7 @@ export class StrUtil {
    * @param str
    * @returns
    */
-  static isNotNull(str: string | undefined | null): boolean {
+  static isNotNull(str: string | number | undefined | null): boolean {
     return false === StrUtil.isNull(str);
   }
 

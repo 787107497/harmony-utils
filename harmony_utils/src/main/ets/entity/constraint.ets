@@ -49,12 +49,13 @@ export const DEFAULT_PREFERENCE_NAME: string = "SP_HARMONY_UTILS_PREFERENCES"; /
  */
 export declare type ActionCallBack = (action: number) => void;
 
-
 //KeyboardUtil回调
 export declare type KeyboardCallBack = (show: boolean, height: number) => void;
 
 
+
 export type Any = number | string | boolean | object | undefined | null;
+
 export type Value = string | number | Decimal;
 
 
