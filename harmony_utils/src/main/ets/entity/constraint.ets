@@ -1,3 +1,6 @@
+import { Decimal } from '@kit.ArkTS';
+
+
 export const DATE_FORMAT1: string = "yyyy-MM-dd HH:mm:ss"; //2025-01-05 14:06:55
 
 export const DATE_FORMAT2: string = "yyyy-MM-dd HH:mm"; //2025-01-05 14:06
@@ -38,19 +41,6 @@ export const DEVICE_ID_KEY: string = "device_id_cache_harmony_key"; //设备ID�
 export const DEFAULT_PREFERENCE_NAME: string = "SP_HARMONY_UTILS_PREFERENCES"; //Preferences实例的名称。
 
 
-
-
-//弹框按钮的Action类型（从左往右，最多四个按钮）
-export enum DialogAction {
-  ONE = -1, //第一个按钮 - 取消。
-  TWO = -2, //第二个按钮 - 确定。
-  THREE = -3, //第三个按钮。
-  FOUR = -4, //第四个按钮。
-  FIVE = -5, //第五个按钮。
-  SIX = -6 //第六个按钮。
-}
-
-
 /**
  * 弹框操作按钮Callback
  * action：
@@ -64,6 +54,22 @@ export declare type ActionCallBack = (action: number) => void;
 export declare type KeyboardCallBack = (show: boolean, height: number) => void;
 
 
+export type Any = number | string | boolean | object | undefined | null;
+export type Value = string | number | Decimal;
+
+
+
+//弹框按钮的Action类型（从左往右，最多四个按钮）
+export enum DialogAction {
+  ONE = -1, //第一个按钮 - 取消。
+  TWO = -2, //第二个按钮 - 确定。
+  THREE = -3, //第三个按钮。
+  FOUR = -4, //第四个按钮。
+  FIVE = -5, //第五个按钮。
+  SIX = -6 //第六个按钮。
+}
+
+
 //网络类型。
 export enum NetworkType {
   NETWORK_TYPE_UNKNOWN = 0,
@@ -73,3 +79,4 @@ export enum NetworkType {
   NETWORK_TYPE_4G = 4,
   NETWORK_TYPE_5G = 5
 }
+

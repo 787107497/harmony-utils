@@ -784,11 +784,27 @@ OpenHarmony ohpm
 
 ## NumberUtil（number工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/NumberUtilPage.ets)
 
-| 方法       | 介绍         |
-|:---------|:-----------|
-| isNumber | 判断是否是数值    |
-| toInt    | 将字符串转换为整数  |
-| toFloat  | 将字符串转换为浮点数 |
+| 方法            | 介绍            |
+|:--------------|:--------------|
+| isNaN         | 检查值是否为NaN     |
+| isFinite      | 检查值是否为有限数字    |
+| isInteger     | 检查值是否为整数      |
+| isSafeInteger | 检查值是否为安全整数    |
+| isNumber      | 判断是否是数值       |
+| isEven        | 检查数字是否为偶数     |
+| isOdd         | 检查数字是否为奇数     |
+| toNumber      | 将字符串转换为Number |
+| toInt         | 将字符串转换为整数     |
+| toFloat       | 将字符串转换为浮点数    |
+| average       | 计算数字的平均值      |
+| add           | 加法            |
+| sub           | 减法            |
+| sum           | 求和            |
+| toDecimal     | 构造Decimal     |
+| addDecimal    | 加法Decimal     |
+| subDecimal    | 减法Decimal     |
+| sumDecimal    | 求和Decimal     |
+
 
 ## ArrayUtil（集合工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ArrayUtilPage.ets)
 
@@ -831,12 +847,13 @@ OpenHarmony ohpm
 
 ## RegexUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets)
 
-| 方法      | 介绍                                |
-|:--------|:----------------------------------|
-| isPhone | 判断传入的电话号码格式是否正确                   |
-| isMatch | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
-| isEmail | 判断传入的邮箱格式是否正确                     |
-| isEmoji | 判断字符串是否包含表情                       |
+| 方法       | 介绍                                |
+|:---------|:----------------------------------|
+| isMatch  | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
+| isPhone  | 判断传入的电话号码格式是否正确                   |
+| isDigits | 检查字符串是否只包含数字字符                    |
+| isEmail  | 判断传入的邮箱格式是否正确                     |
+| isEmoji  | 判断字符串是否包含表情                       |
 
 ## FormatUtil（格式化工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets)
 

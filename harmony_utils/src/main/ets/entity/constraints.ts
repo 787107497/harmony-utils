@@ -1,4 +1,4 @@
-import { ArrayList, HashMap } from '@kit.ArkTS';
+import { ArrayList, HashMap } from "@kit.ArkTS";
 
 
 export type CommonSingleType = Object | String | Number | Boolean | null | undefined; //通用单个联合类型

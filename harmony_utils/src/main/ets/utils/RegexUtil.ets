@@ -204,6 +204,28 @@ export class RegexUtil {
 
 
   /**
+   * 判断传入的电话号码格式是否正确。
+   * @param phone 电话号码
+   */
+  static isPhone(phone: string): boolean {
+    return FormatUtil.isPhone(phone);
+  }
+
+
+  /**
+   * 检查字符串是否只包含数字字符
+   * @param str - 要检查的字符串
+   * @returns 如果字符串只包含数字则返回 true，否则返回 false
+   */
+  static isDigits(str: string): boolean {
+    if (typeof str !== 'string' || str.length === 0) {
+      return false;
+    }
+    return RegexUtil.isMatch(str, RegexUtil.REG_NUMBERS);
+  }
+
+
+  /**
    * 判断传入的邮箱格式是否正确
    * @param content
    * @returns
@@ -221,15 +243,6 @@ export class RegexUtil {
    */
   static isEmoji(content: string): boolean {
     return RegexUtil.isMatch(content, RegexUtil.REG_EMOJI);
-  }
-
-
-  /**
-   * 判断传入的电话号码格式是否正确。
-   * @param phone 电话号码
-   */
-  static isPhone(phone: string): boolean {
-    return FormatUtil.isPhone(phone);
   }
 
 
