@@ -24,14 +24,6 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("isPhone()")
-            .btnStyle()
-            .onClick(() => {
-              let phone: string = "18969062528";
-              let bl = RegexUtil.isPhone(phone);
-              LogUtil.error(`isPhone: ${bl}`);
-              ToastUtil.showToast("请查看Log日志");
-            })
           Button("isMatch()")
             .btnStyle()
             .onClick(() => {
@@ -47,7 +39,22 @@ struct Index {
               LogUtil.error(`是否是数字: ${blNum}`);
               LogUtil.error(`是否是身份证号: ${blCardNo}`);
               LogUtil.error(`是否是时间: ${blDate}`);
-
+              ToastUtil.showToast("请查看Log日志");
+            })
+          Button("isDigits()")
+            .btnStyle()
+            .onClick(() => {
+              let str: string = "18969062528001";
+              let bl = RegexUtil.isDigits(str);
+              LogUtil.error(`isDigits: ${bl}`);
+              ToastUtil.showToast("请查看Log日志");
+            })
+          Button("isPhone()")
+            .btnStyle()
+            .onClick(() => {
+              let phone: string = "18969062528";
+              let bl = RegexUtil.isPhone(phone);
+              LogUtil.error(`isPhone: ${bl}`);
               ToastUtil.showToast("请查看Log日志");
             })
           Button("isEmoji()\nisEmail()")
@@ -84,19 +91,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }
