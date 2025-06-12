@@ -408,10 +408,11 @@ export class DialogUtil {
       options.secondaryButton = DialogUtil.defaultConfig.secondaryButton
     }
     if (options.primaryButton) {
-      let primaryValue = DialogUtil.getResourceStr(options.primaryButton);
-      if (primaryValue) {
+      let primaryValue = options.primaryButton;
+      let primaryStr = DialogUtil.getResourceStr(primaryValue);
+      if (primaryStr) {
         options.primaryButton = {
-          value: primaryValue,
+          value: primaryValue as ResourceStr,
           action: () => {
             if (options.onAction) {
               options.onAction(DialogAction.ONE);
@@ -432,10 +433,11 @@ export class DialogUtil {
       }
     }
     if (options.secondaryButton) {
-      let secondaryValue = DialogUtil.getResourceStr(options.secondaryButton);
-      if (secondaryValue) {
+      let secondaryValue = options.secondaryButton;
+      let secondaryStr = DialogUtil.getResourceStr(secondaryValue);
+      if (secondaryStr) {
         options.secondaryButton = {
-          value: secondaryValue,
+          value: secondaryValue as ResourceStr,
           action: () => {
             if (options.onAction) {
               options.onAction(DialogAction.TWO);
@@ -467,10 +469,10 @@ export class DialogUtil {
       options.buttons = [DialogUtil.defaultConfig.primaryButton, DialogUtil.defaultConfig.secondaryButton]
     }
     if (options.buttons && options.buttons.length > 0) {
-      let button = DialogUtil.getResourceStr(options.buttons[0]);
-      if (button) {
-        let buttons = new Array<ButtonOptions>();
-        for (let index = 0; index < options.buttons.length; index++) {
+      let buttons = new Array<ButtonOptions>();
+      for (let index = 0; index < options.buttons.length; index++) {
+        let btnResStr = DialogUtil.getResourceStr(options.buttons[index]);
+        if (btnResStr) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
             action: () => {
@@ -480,10 +482,7 @@ export class DialogUtil {
             }
           }
           buttons.push(button);
-        }
-        options.buttons = buttons;
-      } else {
-        for (let index = 0; index < options.buttons.length; index++) {
+        } else {
           let btn = options.buttons[index] as ButtonOptions;
           let btnAction = btn.action;
           btn.action = () => {
@@ -494,8 +493,10 @@ export class DialogUtil {
               btnAction();
             }
           }
+          buttons.push(btn);
         }
       }
+      options.buttons = buttons;
     }
   }
 
@@ -506,12 +507,13 @@ export class DialogUtil {
    */
   private static initSheetOptions(options: ActionSheetOptions) {
     if (options.sheets && options.sheets.length > 0) {
-      let radioItem = DialogUtil.getResourceStr(options.sheets[0]);
-      if (radioItem) {
-        let sheetInfos = new Array<SheetInfo>()
-        for (let index = 0; index < options.sheets.length; index++) {
+      let sheetInfos = new Array<SheetInfo>()
+      for (let index = 0; index < options.sheets.length; index++) {
+        let sheetItem = options.sheets[index];
+        let sheetStr = DialogUtil.getResourceStr(sheetItem);
+        if (sheetStr) {
           let sheetInfo: SheetInfo = {
-            title: options.sheets[index] as ResourceStr,
+            title: sheetItem as ResourceStr,
             action: () => {
               if (options.onAction) {
                 options.onAction(index);
@@ -519,13 +521,10 @@ export class DialogUtil {
             }
           }
           sheetInfos.push(sheetInfo);
-        }
-        options.sheets = sheetInfos;
-      } else {
-        for (let index = 0; index < options.sheets.length; index++) {
-          let btn = options.sheets[index] as SheetInfo;
-          let btnAction = btn.action;
-          btn.action = () => {
+        } else {
+          let sheetInfo = sheetItem as SheetInfo;
+          let btnAction = sheetInfo.action;
+          sheetInfo.action = () => {
             if (options.onAction) {
               options.onAction(index);
             }
@@ -533,16 +532,20 @@ export class DialogUtil {
               btnAction();
             }
           }
+          sheetInfos.push(sheetInfo);
         }
       }
+      options.sheets = sheetInfos;
     }
+
     if (!options.confirm) { //选择弹出框底部按钮。
       options.confirm = DialogUtil.defaultConfig.primaryButton
     }
-    let confirmValue = DialogUtil.getResourceStr(options.confirm);
-    if (confirmValue) {
+    let confirmValue = options.confirm;
+    let confirmStr = DialogUtil.getResourceStr(confirmValue);
+    if (confirmStr) {
       options.confirm = {
-        value: confirmValue,
+        value: confirmValue as ResourceStr,
         action: () => {
           if (options.onAction) {
             options.onAction(DialogAction.ONE);

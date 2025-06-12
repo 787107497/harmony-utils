@@ -57,6 +57,8 @@ struct Index {
                 config.offset = { dx: 0, dy: 80 }
                 config.backgroundColor = Color.Red
                 config.textColor = Color.White
+                config.enableHoverMode = true
+                config.hoverModeArea = HoverModeAreaType.BOTTOM_SCREEN
               });
               ToastUtil.showLong("样式(一)设置成功");
             })
@@ -70,6 +72,8 @@ struct Index {
                 config.duration = 2600
                 config.backgroundColor = Color.Blue
                 config.textColor = Color.White
+                config.enableHoverMode = true
+                config.hoverModeArea = HoverModeAreaType.TOP_SCREEN
               });
               ToastUtil.showLong("样式(二)设置成功");
             })
@@ -81,6 +85,7 @@ struct Index {
                 config.offset = { dx: 0, dy: -80 }
                 config.textColor = Color.Red
                 config.backgroundColor = Color.Black
+                config.enableHoverMode = false
               });
               ToastUtil.showLong("样式(三)设置成功");
             })
@@ -103,13 +108,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

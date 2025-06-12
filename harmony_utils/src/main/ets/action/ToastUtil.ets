@@ -43,7 +43,7 @@ export class ToastUtil {
    * @param options (显示时长、距离屏幕底部的位置、是否显示在应用之上)
    */
   static showToast(message: string | Resource, options: ToastOptions = new ToastOptions()) {
-    if ((typeof message === 'string' && message.length > 0) || message) {
+    if (message || (typeof message === 'string' && message.length > 0)) {
       options = ToastUtil.initToastDefault(options, 0);
       promptAction.showToast({
         message: message,
@@ -67,7 +67,7 @@ export class ToastUtil {
    * @param options (距离屏幕底部的位置、是否显示在应用之上)
    */
   static showShort(message: string | Resource, options: ToastOptions = new ToastOptions()) {
-    if ((typeof message === 'string' && message.length > 0) || message) {
+    if (message || (typeof message === 'string' && message.length > 0)) {
       options = ToastUtil.initToastDefault(options, 1);
       promptAction.showToast({
         message: message,
@@ -91,7 +91,7 @@ export class ToastUtil {
    * @param options (距离屏幕底部的位置、是否显示在应用之上)
    */
   static showLong(message: string | Resource, options: ToastOptions = new ToastOptions()) {
-    if ((typeof message === 'string' && message.length > 0) || message) {
+    if (message || (typeof message === 'string' && message.length > 0)) {
       options = ToastUtil.initToastDefault(options, 2);
       promptAction.showToast({
         message: message,
@@ -120,7 +120,6 @@ export class ToastUtil {
     } else {
       options.duration = options.duration ?? ToastUtil.defaultConfig.duration;
     }
-    options.showMode = options.showMode ?? ToastUtil.defaultConfig.showMode;
     options.alignment = options.alignment ?? ToastUtil.defaultConfig.alignment;
     options.bottom = options.bottom ?? ToastUtil.defaultConfig.bottom;
     options.offset = options.offset ?? ToastUtil.defaultConfig.offset;
@@ -128,6 +127,9 @@ export class ToastUtil {
     options.backgroundColor = options.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor;
     options.backgroundBlurStyle = options.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle;
     options.shadow = options.shadow ?? ToastUtil.defaultConfig.shadow;
+    options.showMode = options.showMode ?? ToastUtil.defaultConfig.showMode;
+    options.enableHoverMode = options.enableHoverMode ?? ToastUtil.defaultConfig.enableHoverMode;
+    options.hoverModeArea = options.hoverModeArea ?? ToastUtil.defaultConfig.hoverModeArea;
     return options;
   }
 

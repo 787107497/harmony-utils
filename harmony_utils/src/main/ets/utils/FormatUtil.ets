@@ -26,6 +26,60 @@ export class FormatUtil {
 
 
   /**
+   * 判断是否是Boolean类型
+   */
+  static isBoolean(value: object): boolean {
+    return typeof value === 'boolean';
+  }
+
+  /**
+   * 判断是否是Number类型
+   */
+  static isNumber(value: object): boolean {
+    return typeof value === 'number';
+  }
+
+  /**
+   * 判断是否是String类型
+   */
+  static isString(value: object): boolean {
+    return typeof value === 'string';
+  }
+
+  /**
+   * 判断是否是Object类型
+   */
+  static isObject(value: object): boolean {
+    return typeof value === 'object';
+  }
+
+  /**
+   * 判断是否是数组类型
+   */
+  static isArray(value: object): boolean {
+    return Array.isArray(value)
+  }
+
+  /**
+   * 判断是否是Resource类型
+   */
+  static isResource(value: object) {
+    if (value) {
+      const res = value as Resource;
+      return res?.id && res?.bundleName && res?.moduleName;
+    }
+    return false;
+  }
+
+  /**
+   * 判断是否是ResourceStr类型
+   */
+  static isResourceStr(value: object) {
+    return FormatUtil.isString(value) || FormatUtil.isResource(value);
+  }
+
+
+  /**
    * 判断传入的电话号码格式是否正确。
    * @param phone
    * country string 表示电话号码所属国家或地区代码。
@@ -83,6 +137,7 @@ export class FormatUtil {
   static getIconFont(iconFont: string): string {
     return String.fromCharCode(parseInt(iconFont, 16))
   }
+
 
 
 }

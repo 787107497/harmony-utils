@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ImmersiveMode, LevelMode } from '@kit.ArkUI';
 
 
 /**
@@ -24,6 +25,8 @@ export class DialogConfig {
   subtitle?: ResourceStr; //弹框副标题
   primaryButton: ResourceStr = '取消'; //弹框左侧按钮。
   secondaryButton: ResourceStr = '确定'; //弹框右侧按钮。
+  autoCancel: boolean = false; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
+  backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
 
   alignment: DialogAlignment = DialogAlignment.Center; //弹窗的对齐方式。
   offset: Offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0 , dy: 0 }
@@ -43,7 +46,10 @@ export class DialogConfig {
   width?: Dimension; //设置弹窗背板的宽度。弹窗宽度默认最大值：400vp。
   height?: Dimension; //设置弹窗背板的高度。
 
-  autoCancel: boolean = false; //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
-  backCancel: boolean = true; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。true表示关闭弹窗。false表示不关闭弹窗。默认值：true。
+  enableHoverMode: boolean = false; //是否响应悬停态。默认值：false，默认不响应。<API14+>
+  hoverModeArea: HoverModeAreaType = HoverModeAreaType.BOTTOM_SCREEN; //设置悬停态下弹窗的默认展示区域。默认值：HoverModeAreaType.BOTTOM_SCREEN。<API14+>
+  levelMode: LevelMode = LevelMode.OVERLAY; //设置弹窗显示层级。默认值：LevelMode.OVERLAY。当且仅当showInSubWindow属性设置为false时生效。<API15+>
+  immersiveMode: ImmersiveMode = ImmersiveMode.DEFAULT; //设置页面内弹窗蒙层效果。默认值：ImmersiveMode.DEFAULT。当且仅当levelMode属性设置为LevelMode.EMBEDDED时生效。<API15+>
+
 
 }

@@ -1,0 +1,1 @@
+export type EventAllType = string | object | boolean | number | Object | Number | BigInt;
