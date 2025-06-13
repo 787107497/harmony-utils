@@ -34,5 +34,7 @@ export interface ToastOptions {
   backgroundBlurStyle?: BlurStyle; //文本提示框背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK。说明：设置为BlurStyle.NONE即可关闭背景虚化。当设置了backgroundBlurStyle为非NONE值时，则不要设置backgroundColor，否则颜色显示将不符合预期效果。
   shadow?: ShadowOptions | ShadowStyle; //文本提示框背板阴影。默认值：ShadowStyle.OUTER_DEFAULT_MD
   showMode?: promptAction.ToastShowMode; //设置弹窗是否显示在应用之上。默认值：ToastShowMode.DEFAULT，默认显示在应用内。
+  enableHoverMode?: boolean; //是否响应悬停态。默认值：false，默认不响应。<API14+>
+  hoverModeArea?: HoverModeAreaType; //响应悬停态时，弹窗的显示区域。默认值：HoverModeAreaType.BOTTOM_SCREEN，默认显示在下半屏。<API14+>
 
 }

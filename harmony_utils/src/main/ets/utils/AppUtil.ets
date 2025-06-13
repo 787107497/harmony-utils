@@ -17,6 +17,7 @@ import bundleManager from '@ohos.bundle.bundleManager';
 import { KeyboardAvoidMode, window } from '@kit.ArkUI';
 import { resourceManager } from '@kit.LocalizationKit';
 import { BusinessError } from '@ohos.base';
+import { deviceInfo } from '@kit.BasicServicesKit';
 import {
   AbilityLifecycleCallback,
   ApplicationStateChangeCallback,
@@ -56,7 +57,7 @@ export class AppUtil {
    * @param apiVersion API方法支持的最低版本
    */
   static isApiSupported(apiVersion: number): boolean {
-    return DeviceUtil.getSdkApiVersion() >= apiVersion;
+    return deviceInfo.sdkApiVersion >= apiVersion;
   }
 
 

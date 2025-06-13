@@ -1,3 +1,10 @@
+//系统深浅色模式切换监听
+export const DialogThemeColorMode: string = "harmony-dialog_ThemeColorMode";
+
+
+export type Any = number | string | boolean | object | undefined | null;
+
+
 //number类型Callback
 export declare type NumberCalBack = (index: number) => void;
 
@@ -17,8 +24,11 @@ export declare type StringCalBack = (content: string) => void;
  * date: Date 选中日期
  */
 export declare type ActionCallBack = (action: number, dialogId: string) => void;
+
 export declare type ActionStrCallBack = (action: number, dialogId: string, value: string) => void;
+
 export declare type ActionValueCallBack = (action: number, dialogId: string, value: string | string[]) => void;
+
 export declare type ActionDateCallBack = (action: number, dialogId: string, date: Date) => void;
 
 //多行文本输入弹框Align
@@ -54,6 +64,3 @@ export enum Orientation {
   VERTICAL, //垂直
   HORIZONTAL //水平
 }
-
-//系统深浅色模式切换监听
-export const DialogThemeColorMode: string = "harmony-dialog_ThemeColorMode";

@@ -17,6 +17,9 @@
 import { i18n } from '@kit.LocalizationKit';
 import { Any } from '../entity/constraint';
 import { StrUtil } from './StrUtil';
+import url from '@ohos.url';
+
+// import { uri } from '@kit.ArkTS';
 
 
 /**
@@ -140,6 +143,34 @@ export class FormatUtil {
     return String.fromCharCode(parseInt(iconFont, 16))
   }
 
+
+
+  /**
+   * 获取 url 参数
+  //  */
+  // static getQueryValue(url: string, key: string): string {
+  //   const uriObj = new uri.URI(url);
+  //   return uriObj.getQueryValue(key);
+  // }
+  //
+  //
+  // /**
+  //  * 获取 url 参数
+  //  */
+  // static getQueryValue(url: string, key: string): string {
+  //   const uriObj = new uri.URI(url);
+  //   return uriObj.getQueryValue(key);
+  // }
+
+  /**
+   * 获取 url 参数
+   */
+  static query(url1: string, key: string): string {
+    let urlObject = url.URL.parseURL(url);
+    let paramsObject = new uri.URLParams(urlObject.search.slice(1));
+    let value = paramsObject.get(key);
+    return value || ""
+  }
 
 
 }

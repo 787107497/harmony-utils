@@ -45,18 +45,9 @@ export class ToastUtil {
   static showToast(message: string | Resource, options: ToastOptions = new ToastOptions()) {
     if (message || (typeof message === 'string' && message.length > 0)) {
       options = ToastUtil.initToastDefault(options, 0);
-      promptAction.showToast({
-        message: message,
-        duration: options.duration,
-        showMode: options.showMode,
-        alignment: options.alignment,
-        bottom: options.bottom,
-        offset: options.offset,
-        textColor: options.textColor,
-        backgroundColor: options.backgroundColor,
-        backgroundBlurStyle: options.backgroundBlurStyle,
-        shadow: options.shadow
-      })
+      let toastOptions = options as promptAction.ShowToastOptions;
+      toastOptions.message = message;
+      promptAction.showToast(toastOptions);
     }
   }
 
@@ -69,18 +60,9 @@ export class ToastUtil {
   static showShort(message: string | Resource, options: ToastOptions = new ToastOptions()) {
     if (message || (typeof message === 'string' && message.length > 0)) {
       options = ToastUtil.initToastDefault(options, 1);
-      promptAction.showToast({
-        message: message,
-        duration: options.duration,
-        showMode: options.showMode,
-        alignment: options.alignment,
-        bottom: options.bottom,
-        offset: options.offset,
-        textColor: options.textColor,
-        backgroundColor: options.backgroundColor,
-        backgroundBlurStyle: options.backgroundBlurStyle,
-        shadow: options.shadow
-      })
+      let toastOptions = options as promptAction.ShowToastOptions;
+      toastOptions.message = message;
+      promptAction.showToast(toastOptions);
     }
   }
 
@@ -93,18 +75,9 @@ export class ToastUtil {
   static showLong(message: string | Resource, options: ToastOptions = new ToastOptions()) {
     if (message || (typeof message === 'string' && message.length > 0)) {
       options = ToastUtil.initToastDefault(options, 2);
-      promptAction.showToast({
-        message: message,
-        duration: options.duration,
-        showMode: options.showMode,
-        alignment: options.alignment,
-        bottom: options.bottom,
-        offset: options.offset,
-        textColor: options.textColor,
-        backgroundColor: options.backgroundColor,
-        backgroundBlurStyle: options.backgroundBlurStyle,
-        shadow: options.shadow
-      })
+      let toastOptions = options as promptAction.ShowToastOptions;
+      toastOptions.message = message;
+      promptAction.showToast(toastOptions);
     }
   }
 

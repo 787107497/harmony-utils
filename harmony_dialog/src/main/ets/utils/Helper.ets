@@ -16,8 +16,10 @@
 import { common } from '@kit.AbilityKit';
 import { display, window } from '@kit.ArkUI';
 import { resourceManager } from '@kit.LocalizationKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
 import { DialogHelper } from '../dialog/DialogHelper';
+import { Any } from './constraint';
+
 
 
 /**
@@ -26,6 +28,74 @@ import { DialogHelper } from '../dialog/DialogHelper';
  * since: 2024/08/18
  */
 export class Helper {
+
+  /**
+   * 检查API版本是否安全
+   * @param apiVersion API方法支持的最低版本
+   */
+  static isApiSupported(apiVersion: number): boolean {
+    return deviceInfo.sdkApiVersion >= apiVersion;
+  }
+
+
+  /**
+   * 判断字符串是否为空(undefined、null)
+   * @param str 被检测的字符串
+   * @returns 是否为空
+   */
+  static isNull(str: string | number | undefined | null): boolean {
+    return str === undefined || str === null;
+  }
+
+  /**
+   * 判断字符串是否为非空。true为非空空，否则false
+   * @param str
+   * @returns
+   */
+  static isNotNull(str: string | number | undefined | null): boolean {
+    return false === Helper.isNull(str);
+  }
+
+
+  /**
+   * 判断是否是String类型
+   */
+  static isString(value: Any): boolean {
+    return typeof value === 'string';
+  }
+
+  /**
+   * 判断是否是Object类型
+   */
+  static isObject(value: Any): boolean {
+    return typeof value === 'object';
+  }
+
+  /**
+   * 判断是否是数组类型
+   */
+  static isArray(value: Any): boolean {
+    return Array.isArray(value)
+  }
+
+  /**
+   * 判断是否是Resource类型
+   */
+  static isResource(value: Any) {
+    if (value) {
+      const res = value as Resource;
+      return Helper.isNotNull(res?.id) && Helper.isNotNull(res?.bundleName) && Helper.isNotNull(res?.moduleName);
+    }
+    return false;
+  }
+
+  /**
+   * 判断是否是ResourceStr类型
+   */
+  static isResourceStr(value: Any) {
+    return Helper.isString(value) || Helper.isResource(value);
+  }
+
 
   /**
    * 获取提供访问应用资源的能力

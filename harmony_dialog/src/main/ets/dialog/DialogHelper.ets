@@ -50,7 +50,6 @@ import { BottomSheetOptions } from '../model/BottomSheetOptions';
 import { ActionSheetOptions } from '../model/ActionSheetOptions';
 import { DialogAction } from '../utils/constraint';
 import { promptAction, UIContext, window } from '@kit.ArkUI';
-import { Helper } from '../utils/Helper';
 import { TextPickerOptions } from '../model/TextPickerOptions';
 import { DateTimePickerOptions } from '../model/DateTimePickerOptions';
 import { BasePickerOptions } from '../model/base/BasePickerOptions';
@@ -58,7 +57,7 @@ import { CacheHelper } from '../utils/CacheHelper';
 import { ButtonOptions } from '../model/ButtonOptions';
 import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
 import { common } from '@kit.AbilityKit';
-
+import { Helper } from '../utils/Helper';
 
 /**
  * TODO Dialog帮助工具类（全局自定义弹框，不依赖UI组件）
@@ -535,7 +534,7 @@ export class DialogHelper {
       options.cornerRadius = options.cornerRadius ?? 15; //弹框圆角半径，默认15。
     }
     if (options.sheets && options.sheets.length > 0) {
-      if (typeof options.sheets[0] == 'string') {
+      if (Helper.isResourceStr(options.sheets[0])) {
         let sheets = new Array<ActionSheetOptions>();
         for (let index = 0; index < options.sheets.length; index++) {
           let sheet: ActionSheetOptions = { value: options.sheets[index] as ResourceStr };
@@ -586,52 +585,52 @@ export class DialogHelper {
       options.secondaryButton = DialogHelper.config.secondaryButton
     }
     if (options.primaryButton) { //取消按钮
-      const primaryValue = Helper.getResourceStr(options.primaryButton);
-      if (primaryValue) {
+      if (Helper.isResourceStr(options.primaryButton)) {
         let primaryButton = new ButtonOptions();
-        primaryButton.value = primaryValue;
+        primaryButton.value = options.primaryButton as ResourceStr;
         primaryButton.fontColor = DialogHelper.config.picker_buttonFontColor;
         primaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
         primaryButton.role = ButtonRole.NORMAL;
         primaryButton.background = Color.Transparent
         options.primaryButton = primaryButton;
       } else {
-        if (!(options.primaryButton as ButtonOptions).fontColor) {
-          (options.primaryButton as ButtonOptions).fontColor = DialogHelper.config.picker_buttonFontColor;
+        let primaryButton = options.primaryButton as ButtonOptions;
+        if (!primaryButton.fontColor) {
+          primaryButton.fontColor = DialogHelper.config.picker_buttonFontColor;
         }
-        if (!(options.primaryButton as ButtonOptions).buttonStyle) {
-          (options.primaryButton as ButtonOptions).buttonStyle = ButtonStyleMode.TEXTUAL;
+        if (!primaryButton.buttonStyle) {
+          primaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
         }
-        if (!(options.primaryButton as ButtonOptions).role) {
-          (options.primaryButton as ButtonOptions).role = ButtonRole.NORMAL;
+        if (!primaryButton.role) {
+          primaryButton.role = ButtonRole.NORMAL;
         }
-        if (!(options.primaryButton as ButtonOptions).background) {
-          (options.primaryButton as ButtonOptions).background = Color.Transparent;
+        if (!primaryButton.background) {
+          primaryButton.background = Color.Transparent;
         }
       }
     }
     if (options.secondaryButton) { //确定按钮
-      const secondaryValue = Helper.getResourceStr(options.secondaryButton);
-      if (secondaryValue) {
+      if (Helper.isResourceStr(options.secondaryButton)) {
         let secondaryButton = new ButtonOptions();
-        secondaryButton.value = secondaryValue;
+        secondaryButton.value = options.secondaryButton as ResourceStr;
         secondaryButton.fontColor = DialogHelper.config.picker_buttonFontColor;
         secondaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
         secondaryButton.role = ButtonRole.NORMAL;
         secondaryButton.background = Color.Transparent
         options.secondaryButton = secondaryButton;
       } else {
-        if (!(options.secondaryButton as ButtonOptions).fontColor) {
-          (options.secondaryButton as ButtonOptions).fontColor = DialogHelper.config.picker_buttonFontColor;
+        let secondaryButton = options.secondaryButton as ButtonOptions;
+        if (!secondaryButton.fontColor) {
+          secondaryButton.fontColor = DialogHelper.config.picker_buttonFontColor;
         }
-        if (!(options.secondaryButton as ButtonOptions).buttonStyle) {
-          (options.secondaryButton as ButtonOptions).buttonStyle = ButtonStyleMode.TEXTUAL;
+        if (!secondaryButton.buttonStyle) {
+          secondaryButton.buttonStyle = ButtonStyleMode.TEXTUAL;
         }
-        if (!(options.secondaryButton as ButtonOptions).role) {
-          (options.secondaryButton as ButtonOptions).role = ButtonRole.NORMAL;
+        if (!secondaryButton.role) {
+          secondaryButton.role = ButtonRole.NORMAL;
         }
-        if (!(options.secondaryButton as ButtonOptions).background) {
-          (options.secondaryButton as ButtonOptions).background = Color.Transparent;
+        if (!secondaryButton.background) {
+          secondaryButton.background = Color.Transparent;
         }
       }
     }
@@ -665,8 +664,7 @@ export class DialogHelper {
     if (options.buttons && options.buttons.length > 0) {
       let buttons = new Array<ButtonOptions>();
       for (let index = 0; index < options.buttons.length; index++) {
-        const btnResStr = Helper.getResourceStr(options.buttons[index]);
-        if (btnResStr) {
+        if (Helper.isResourceStr(options.buttons[index])) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
             action: () => {
@@ -686,7 +684,7 @@ export class DialogHelper {
           buttons.push(button);
         } else {
           let btn = options.buttons[index] as ButtonOptions;
-          let btnAction = btn.action;
+          const btnAction = btn.action;
           btn.action = () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
               DialogHelper.closeDialog(options.dialogId ?? "");
@@ -722,11 +720,9 @@ export class DialogHelper {
       options.secondaryButton = DialogHelper.config.secondaryButton
     }
     if (options.primaryButton) {
-      let primaryValue = options.primaryButton;
-      let primaryStr = Helper.getResourceStr(primaryValue);
-      if (primaryStr) {
+      if (Helper.isResourceStr(options.primaryButton)) {
         options.primaryButton = {
-          value: primaryValue as ResourceStr,
+          value: options.primaryButton as ResourceStr,
           action: () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
               DialogHelper.closeDialog(options.dialogId ?? "");
@@ -753,11 +749,9 @@ export class DialogHelper {
       }
     }
     if (options.secondaryButton) {
-      let secondaryValue = options.secondaryButton;
-      let secondaryStr = Helper.getResourceStr(secondaryValue);
-      if (secondaryStr) {
+      if (Helper.isResourceStr(options.secondaryButton)) {
         options.secondaryButton = {
-          value: secondaryValue as ResourceStr,
+          value: options.secondaryButton as ResourceStr,
           action: () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
               DialogHelper.closeDialog(options.dialogId ?? "");
@@ -804,8 +798,7 @@ export class DialogHelper {
   private static initSelect(options: SelectOptions) {
     if (options.radioContent && options.radioContent.length > 0) {
       CacheHelper.put(`${CacheHelper.CACHE_LABEL}${options.dialogId ?? ""}`, "");
-      const radioItem = Helper.getResourceStr(options.radioContent[0]);
-      if (radioItem) {
+      if (Helper.isResourceStr(options.radioContent[0])) {
         let sheetInfos = new Array<SheetInfo>()
         for (let index = 0; index < options.radioContent.length; index++) {
           let sheetInfo: SheetInfo = {
@@ -841,10 +834,9 @@ export class DialogHelper {
       options.confirm = DialogHelper.config.primaryButton
     }
     if (options.confirm) {
-      let confirmResStr = Helper.getResourceStr(options.confirm);
-      if (confirmResStr) {
+      if (Helper.isResourceStr(options.confirm)) {
         options.confirm = {
-          value: confirmResStr,
+          value: options.confirm as ResourceStr,
           action: () => {
             if (options.actionCancel) { //点击操作按钮时，是否关闭弹窗。
               DialogHelper.closeDialog(options.dialogId ?? "");

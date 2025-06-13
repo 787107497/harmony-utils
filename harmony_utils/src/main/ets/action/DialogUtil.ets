@@ -24,7 +24,7 @@ import {
   PrimaryDialogOptions,
   SheetConfirm
 } from '../entity/DialogOptions';
-import { ResUtil } from '../utils/ResUtil';
+import { FormatUtil } from '../utils/FormatUtil';
 
 
 /**
@@ -53,46 +53,7 @@ export class DialogUtil {
   static showConfirmDialog(options: ConfirmDialogOptions) {
     DialogUtil.initDialogDefault(options);
     DialogUtil.initConfirmButton(options);
-    AlertDialog.show({
-      title: options.title,
-      subtitle: options.subtitle,
-      message: options.message,
-      alignment: options.alignment,
-      offset: options.offset,
-      gridCount: options.gridCount,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
-      cornerRadius: options.cornerRadius,
-      borderWidth: options.borderWidth,
-      borderColor: options.borderColor,
-      borderStyle: options.borderStyle,
-      shadow: options.shadow,
-      textStyle: options.textStyle,
-      transition: options.transition,
-      width: options.width,
-      height: options.height,
-      confirm: options.confirm as ButtonOptions,
-      autoCancel: options.autoCancel,
-      cancel: () => {
-        if (options.cancel) {
-          options.cancel()
-        }
-      },
-      onWillDismiss: (action: DismissDialogAction) => {
-        if (options.onWillDismiss) {
-          options.onWillDismiss(action);
-        } else {
-          if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
-            action.dismiss()
-          } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-            action.dismiss()
-          }
-        }
-      }
-    })
+    AlertDialog.show(options as AlertDialogParamWithConfirm);
   }
 
 
@@ -103,47 +64,7 @@ export class DialogUtil {
   static showPrimaryDialog(options: PrimaryDialogOptions) {
     DialogUtil.initDialogDefault(options);
     DialogUtil.initPrimaryButton(options);
-    AlertDialog.show({
-      title: options.title,
-      subtitle: options.subtitle,
-      message: options.message,
-      alignment: options.alignment,
-      offset: options.offset,
-      gridCount: options.gridCount,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
-      cornerRadius: options.cornerRadius,
-      borderWidth: options.borderWidth,
-      borderColor: options.borderColor,
-      borderStyle: options.borderStyle,
-      shadow: options.shadow,
-      textStyle: options.textStyle,
-      transition: options.transition,
-      width: options.width,
-      height: options.height,
-      primaryButton: options.primaryButton as ButtonOptions,
-      secondaryButton: options.secondaryButton as ButtonOptions,
-      autoCancel: options.autoCancel,
-      cancel: () => {
-        if (options.cancel) {
-          options.cancel()
-        }
-      },
-      onWillDismiss: (action: DismissDialogAction) => {
-        if (options.onWillDismiss) {
-          options.onWillDismiss(action);
-        } else {
-          if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
-            action.dismiss()
-          } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-            action.dismiss()
-          }
-        }
-      }
-    })
+    AlertDialog.show(options as AlertDialogParamWithButtons);
   }
 
 
@@ -154,51 +75,12 @@ export class DialogUtil {
   static showDialog(options: OptionDialogOptions) {
     DialogUtil.initDialogDefault(options);
     DialogUtil.initDialogButton(options);
-    AlertDialog.show({
-      title: options.title,
-      subtitle: options.subtitle,
-      message: options.message,
-      alignment: options.alignment,
-      offset: options.offset,
-      gridCount: options.gridCount,
-      maskRect: options.maskRect,
-      showInSubWindow: options.showInSubWindow,
-      isModal: options.isModal,
-      backgroundColor: options.backgroundColor,
-      backgroundBlurStyle: options.backgroundBlurStyle,
-      cornerRadius: options.cornerRadius,
-      borderWidth: options.borderWidth,
-      borderColor: options.borderColor,
-      borderStyle: options.borderStyle,
-      shadow: options.shadow,
-      textStyle: options.textStyle,
-      transition: options.transition,
-      width: options.width,
-      height: options.height,
-      buttons: options.buttons as Array<ButtonOptions>,
-      autoCancel: options.autoCancel,
-      cancel: () => {
-        if (options.cancel) {
-          options.cancel()
-        }
-      },
-      onWillDismiss: (action: DismissDialogAction) => {
-        if (options.onWillDismiss) {
-          options.onWillDismiss(action);
-        } else {
-          if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
-            action.dismiss()
-          } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-            action.dismiss()
-          }
-        }
-      }
-    })
+    AlertDialog.show(options as AlertDialogParamWithOptions);
   }
 
 
   /**
-   * 列表选择弹窗 (ActionSheet)
+   * 列表选择弹窗 (ActionSheetOptions)
    * @param options
    */
   static showActionSheet(options: ActionSheetOptions) {
@@ -226,23 +108,15 @@ export class DialogUtil {
       sheets: options.sheets as Array<SheetInfo>,
       confirm: options.confirm as SheetConfirm,
       autoCancel: options.autoCancel,
-      cancel: () => {
-        if (options.cancel) {
-          options.cancel()
-        }
-      },
-      onWillDismiss: (action: DismissDialogAction) => {
-        if (options.onWillDismiss) {
-          options.onWillDismiss(action);
-        } else {
-          if (action.reason == DismissReason.PRESS_BACK && DialogUtil.defaultConfig.backCancel) {
-            action.dismiss()
-          } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-            action.dismiss()
-          }
-        }
-      }
-    })
+      cancel: options.cancel,
+      onWillDismiss: options.onWillDismiss,
+      enableHoverMode: options.enableHoverMode,
+      hoverModeArea: options.hoverModeArea,
+      levelMode: options.levelMode,
+      levelUniqueId: options.levelUniqueId,
+      immersiveMode: options.immersiveMode,
+      levelOrder: options.levelOrder
+    });
   }
 
 
@@ -260,6 +134,8 @@ export class DialogUtil {
     options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
     options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
     options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
+    options.enableHoverMode = options.enableHoverMode ?? DialogUtil.defaultConfig.enableHoverMode;
+    options.hoverModeArea = options.hoverModeArea ?? DialogUtil.defaultConfig.hoverModeArea;
     CalendarPickerDialog.show(options);
   }
 
@@ -278,12 +154,7 @@ export class DialogUtil {
    *  onCancel:() => void  点击弹窗中的“取消”按钮时触发该回调。
    */
   static showDatePicker(options: DatePickerDialogOptions) {
-    options.alignment = options.alignment ?? DialogUtil.defaultConfig.alignment;
-    options.offset = options.offset ?? DialogUtil.defaultConfig.offset;
-    options.maskRect = options.maskRect ?? DialogUtil.defaultConfig.maskRect;
-    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
-    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
-    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
+    DialogUtil.initPickerDialogDefault(options);
     DatePickerDialog.show(options);
   }
 
@@ -299,12 +170,7 @@ export class DialogUtil {
    *  onCancel:() => void 点击弹窗中的“取消”按钮时触发该回调。
    */
   static showTimePicker(options: TimePickerDialogOptions) {
-    options.alignment = options.alignment ?? DialogUtil.defaultConfig.alignment;
-    options.offset = options.offset ?? DialogUtil.defaultConfig.offset;
-    options.maskRect = options.maskRect ?? DialogUtil.defaultConfig.maskRect;
-    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
-    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
-    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
+    DialogUtil.initPickerDialogDefault(options);
     TimePickerDialog.show(options);
   }
 
@@ -327,12 +193,7 @@ export class DialogUtil {
    *  onCancel:() => void 点击弹窗中的“取消”按钮时触发该回调。
    */
   static showTextPicker(options: TextPickerDialogOptions) {
-    options.alignment = options.alignment ?? DialogUtil.defaultConfig.alignment;
-    options.offset = options.offset ?? DialogUtil.defaultConfig.offset;
-    options.maskRect = options.maskRect ?? DialogUtil.defaultConfig.maskRect;
-    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
-    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
-    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
+    DialogUtil.initPickerDialogDefault(options);
     TextPickerDialog.show(options);
   }
 
@@ -363,6 +224,44 @@ export class DialogUtil {
     options.height = options.height ?? DialogUtil.defaultConfig.height;
     options.autoCancel = options.autoCancel ?? DialogUtil.defaultConfig.autoCancel; //点击遮障层时，是否关闭弹窗。
     options.backCancel = options.backCancel ?? DialogUtil.defaultConfig.backCancel; //点击返回键或手势返回时，是否关闭弹窗；实现onWillDismiss函数时，该参数不起作用。
+    options.enableHoverMode = options.enableHoverMode ?? DialogUtil.defaultConfig.enableHoverMode;
+    options.hoverModeArea = options.hoverModeArea ?? DialogUtil.defaultConfig.hoverModeArea;
+    options.levelMode = options.levelMode ?? DialogUtil.defaultConfig.levelMode;
+    options.immersiveMode = options.immersiveMode ?? DialogUtil.defaultConfig.immersiveMode;
+    const cancelFun = options.cancel;
+    options.cancel = () => {
+      if (cancelFun) {
+        cancelFun()
+      }
+    };
+    const onWillDismissFun = options.onWillDismiss;
+    options.onWillDismiss = (action: DismissDialogAction) => {
+      if (onWillDismissFun) {
+        onWillDismissFun(action);
+      } else {
+        if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
+          action.dismiss()
+        } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
+          action.dismiss()
+        }
+      }
+    };
+  }
+
+
+  /**
+   * 初始化DatePickerDialogOptions、TimePickerDialogOptions、TextPickerDialogOptions参数
+   * @param options
+   */
+  private static initPickerDialogDefault(options: DatePickerDialogOptions | TimePickerDialogOptions | TextPickerDialogOptions) {
+    options.alignment = options.alignment ?? DialogUtil.defaultConfig.alignment;
+    options.offset = options.offset ?? DialogUtil.defaultConfig.offset;
+    options.maskRect = options.maskRect ?? DialogUtil.defaultConfig.maskRect;
+    options.backgroundColor = options.backgroundColor ?? DialogUtil.defaultConfig.backgroundColor;
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? DialogUtil.defaultConfig.backgroundBlurStyle;
+    options.shadow = options.shadow ?? DialogUtil.defaultConfig.shadow;
+    options.enableHoverMode = options.enableHoverMode ?? DialogUtil.defaultConfig.enableHoverMode;
+    options.hoverModeArea = options.hoverModeArea ?? DialogUtil.defaultConfig.hoverModeArea;
   }
 
 
@@ -372,10 +271,9 @@ export class DialogUtil {
    */
   private static initConfirmButton(options: ConfirmDialogOptions) {
     options.confirm = options.confirm ?? DialogUtil.defaultConfig.secondaryButton;
-    let confirmValue = DialogUtil.getResourceStr(options.confirm);
-    if (confirmValue) {
+    if (FormatUtil.isResourceStr(options.confirm)) {
       options.confirm = {
-        value: confirmValue,
+        value: options.confirm as ResourceStr,
         action: () => {
           if (options.onAction) {
             options.onAction(DialogAction.ONE);
@@ -409,8 +307,7 @@ export class DialogUtil {
     }
     if (options.primaryButton) {
       let primaryValue = options.primaryButton;
-      let primaryStr = DialogUtil.getResourceStr(primaryValue);
-      if (primaryStr) {
+      if (FormatUtil.isResourceStr(primaryValue)) {
         options.primaryButton = {
           value: primaryValue as ResourceStr,
           action: () => {
@@ -434,8 +331,7 @@ export class DialogUtil {
     }
     if (options.secondaryButton) {
       let secondaryValue = options.secondaryButton;
-      let secondaryStr = DialogUtil.getResourceStr(secondaryValue);
-      if (secondaryStr) {
+      if (FormatUtil.isResourceStr(secondaryValue)) {
         options.secondaryButton = {
           value: secondaryValue as ResourceStr,
           action: () => {
@@ -471,8 +367,7 @@ export class DialogUtil {
     if (options.buttons && options.buttons.length > 0) {
       let buttons = new Array<ButtonOptions>();
       for (let index = 0; index < options.buttons.length; index++) {
-        let btnResStr = DialogUtil.getResourceStr(options.buttons[index]);
-        if (btnResStr) {
+        if (FormatUtil.isResourceStr(options.buttons[index])) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
             action: () => {
@@ -510,8 +405,7 @@ export class DialogUtil {
       let sheetInfos = new Array<SheetInfo>()
       for (let index = 0; index < options.sheets.length; index++) {
         let sheetItem = options.sheets[index];
-        let sheetStr = DialogUtil.getResourceStr(sheetItem);
-        if (sheetStr) {
+        if (FormatUtil.isResourceStr(sheetItem)) {
           let sheetInfo: SheetInfo = {
             title: sheetItem as ResourceStr,
             action: () => {
@@ -542,8 +436,7 @@ export class DialogUtil {
       options.confirm = DialogUtil.defaultConfig.primaryButton
     }
     let confirmValue = options.confirm;
-    let confirmStr = DialogUtil.getResourceStr(confirmValue);
-    if (confirmStr) {
+    if (FormatUtil.isResourceStr(confirmValue)) {
       options.confirm = {
         value: confirmValue as ResourceStr,
         action: () => {
@@ -583,24 +476,6 @@ export class DialogUtil {
       return DialogAction.FIVE;
     } else {
       return DialogAction.SIX;
-    }
-  }
-
-
-  /**
-   * 获取按钮的字符串
-   * @param resource
-   * @returns
-   */
-  private static getResourceStr(resource: ResourceStr | ButtonOptions | SheetInfo): string | undefined {
-    try {
-      if (typeof resource === 'string') {
-        return resource;
-      } else {
-        return ResUtil.getStringSync((resource as Resource).id);
-      }
-    } catch (e) {
-      return undefined;
     }
   }
 
