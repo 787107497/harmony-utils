@@ -46,6 +46,8 @@ export { StrUtil } from './src/main/ets/utils/StrUtil';
 
 export { RegexUtil } from './src/main/ets/utils/RegexUtil';
 
+export { TypeUtil } from './src/main/ets/utils/TypeUtil';
+
 export { FormatUtil } from './src/main/ets/utils/FormatUtil';
 
 export { CharUtil } from './src/main/ets/utils/CharUtil';

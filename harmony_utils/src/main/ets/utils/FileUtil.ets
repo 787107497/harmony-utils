@@ -804,21 +804,17 @@ export class FileUtil {
 
   /**
    * 格式化文件大小
-   * @param fileSize
-   * @returns
+   * @param bytes 文件大小（字节）
+   * @param decimals 保留的小数位数，默认为 2
+   * @returns 格式化后的文件大小字符串
    */
-  static getFormatFileSize(fileSize: number): string {
-    if (fileSize < 1024) {
-      return fileSize + "B";
-    } else if (fileSize < 1024 * 1024) {
-      return (fileSize / 1024).toFixed(1) + "KB";
-    } else if (fileSize < 1024 * 1024 * 1024) {
-      return (fileSize / (1024 * 1024)).toFixed(1) + "MB";
-    } else if (fileSize < 1024 * 1024 * 1024 * 1024) {
-      return (fileSize / (1024 * 1024 * 1024)).toFixed(1) + "GB";
-    } else {
-      return (fileSize / (1024 * 1024 * 1024 * 1024)).toFixed(1) + "TB";
-    }
+  static getFormatFileSize(bytes: number, decimals: number = 2): string {
+    if (bytes === 0) return '0B';
+    const K = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(K));
+    const formatSize = parseFloat((bytes / Math.pow(K, i)).toFixed(decimals));
+    return `${formatSize}${sizes[i]}`;
   }
 
 

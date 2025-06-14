@@ -1,9 +1,9 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
+import { Any } from '@pura/harmony-dialog';
 import { FormatUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
-import { User } from '../../model/User';
 import { Utils } from '../../utils/Utils';
 
 /**
@@ -26,54 +26,6 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("isBoolean()\nisNumber()\nisString()\nisObject()")
-            .labelStyle({ maxLines: 4 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
-            .btnStyle()
-            .onClick(() => {
-              let bl1 = FormatUtil.isBoolean(true);
-              let bl2 = FormatUtil.isBoolean("true");
-              let num1 = FormatUtil.isNumber(188);
-              let num2 = FormatUtil.isNumber("188");
-              let str1 = FormatUtil.isString("哈哈");
-              let str2 = FormatUtil.isString(null);
-              let obj1 = FormatUtil.isObject(new User());
-              let obj2 = FormatUtil.isObject("Object");
-              let resultStr = `bl1：${bl1}\nbl2：${bl2}\n\nnum1：${num1}\nnum2：${num2}\n\nstr1：${str1}\nstr2：${str2}\n\nobj1：${obj1}\nobj2：${obj2}`;
-              LogUtil.error(resultStr);
-              Utils.showSheetText(resultStr);
-            })
-          Button("isArray()")
-            .btnStyle()
-            .onClick(() => {
-              let array: string[] = ["黑龙江省", "哈尔滨市", "道里区", "砂山", "砀山", "高薪区"];
-              let isArray1 = FormatUtil.isArray(array);
-              let isArray2 = FormatUtil.isArray([]);
-              let isArray3 = FormatUtil.isArray("哈哈哈");
-              let resultStr = `isArray1：${isArray1}\n\nisArray2：${isArray2}\n\nisArray3：${isArray3}`;
-              LogUtil.error(resultStr);
-              Utils.showSheetText(resultStr);
-            })
-          Button("isResource()\nisResourceStr()")
-            .labelStyle({ maxLines: 4 })
-            .type(ButtonType.Normal)
-            .borderRadius(10)
-            .padding({ top: 10, bottom: 10 })
-            .btnStyle()
-            .onClick(() => {
-              let bl1 = FormatUtil.isResource($r('app.string.app_name'));
-              let bl2 = FormatUtil.isResource("哈哈哈");
-              let bl3 = FormatUtil.isResource(new User());
-              let bl4 = FormatUtil.isResource(null);
-              let bl5 = FormatUtil.isResourceStr($r('app.string.app_name'));
-              let bl6 = FormatUtil.isResourceStr("哈哈哈");
-              let bl7 = FormatUtil.isResourceStr(undefined);
-              let resultStr = `bl1：${bl1}\nbl2：${bl2}\nbl3：${bl3}\nbl4：${bl4}\n\nbl5：${bl5}\nbl6：${bl6}\nbl7：${bl7}`;
-              LogUtil.error(resultStr);
-              Utils.showSheetText(resultStr);
-            })
           Button("isPhone()\ngetPhoneFormat()\ngetPhoneLocationName()")
             .labelStyle({ maxLines: 4 })
             .type(ButtonType.Normal)
@@ -96,12 +48,61 @@ struct Index {
               LogUtil.error(`transliterator: ${str}`);
               ToastUtil.showToast(`transliterator: ${str}`);
             })
+          Button("getFormatPhone()")
+            .btnStyle()
+            .onClick(() => {
+              let str = FormatUtil.getFormatPhone("13909606520");
+              LogUtil.error(`格式化后的手机号码: ${str}`);
+              ToastUtil.showToast(`格式化后的手机号码: ${str}`);
+            })
+          Button("getFormatCardNo()")
+            .btnStyle()
+            .onClick(() => {
+              let str = FormatUtil.getFormatCardNo("110101199001011234");
+              LogUtil.error(`格式化后的身份证号: ${str}`);
+              ToastUtil.showToast(`格式化后的身份证号: ${str}`);
+            })
+          Button("getFormatFileSize()")
+            .btnStyle()
+            .onClick(() => {
+              let str = FormatUtil.getFormatFileSize(1024102400);
+              LogUtil.error(`文件大小: ${str}`);
+              ToastUtil.showToast(`文件大小: ${str}`);
+            })
+          Button("getTruncateText()")
+            .btnStyle()
+            .onClick(() => {
+              let str = FormatUtil.getTruncateText("女人什么年龄是最好？任何年龄都可以。因为每个年龄段都有不一样的美。看XX的穿搭你就会发现成熟女性的魅力，反而会更加的吸引人。", 20);
+              LogUtil.error(`缩短长文本: ${str}`);
+              ToastUtil.showToast(`${str}`);
+            })
           Button("getIconFont()")
             .btnStyle()
             .onClick(() => {
               let str = FormatUtil.getIconFont("e631");
               LogUtil.error(`getIconFont: ${str}`);
               ToastUtil.showToast(`getIconFont: ${str}`);
+            })
+          Button("getQueryValue()")
+            .btnStyle()
+            .onClick(() => {
+              let url = "https://blog.csdn.net/article?spm=blog1024&name=李斯";
+              let value1 = FormatUtil.getQueryValue(url, 'spm');
+              let value2 = FormatUtil.getQueryValue(url, 'name');
+              let value3 = FormatUtil.getQueryValue(url, 'mona');
+              LogUtil.error(`value1: ${value1}\nvalue2: ${value2}\nvalue3: ${value3}`);
+              ToastUtil.showToast(`value1: ${value1}\nvalue2: ${value2}\nvalue3: ${value3}`);
+            })
+          Button("getParamsUrl()")
+            .btnStyle()
+            .onClick(() => {
+              let map = new Map<string, Any>();
+              map.set("id", 100011);
+              map.set("name", '王五');
+              map.set("sex", undefined);
+              let url = FormatUtil.getParamsUrl("https://blog.csdn.net?id=100012", map);
+              LogUtil.error(`url: ${url}`);
+              ToastUtil.showToast(`${url}`);
             })
 
           Blank().layoutWeight(1)

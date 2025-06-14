@@ -72,6 +72,16 @@ struct Index {
               LogUtil.error(`判断字符串是否包含表情: ${isEmoji}`);
               ToastUtil.showToast("请查看Log日志");
             })
+          Button("isValidCard()")
+            .btnStyle()
+            .onClick(() => {
+              let bl1 = RegexUtil.isValidCard('11010519491231002X'); //true
+              let bl2 = RegexUtil.isValidCard('110101199001011235'); //false (校验码错误)
+              let bl3 = RegexUtil.isValidCard("110101900101123"); //true (15位格式正确)
+              let bl4 = RegexUtil.isValidCard("123456789012345"); //false (格式错误)
+              LogUtil.error(`bl1: ${bl1}\n\nbl2: ${bl2}\n\nbl3: ${bl3}\n\nbl4: ${bl4}`);
+              ToastUtil.showToast(`bl1: ${bl1}\n\nbl2: ${bl2}\n\nbl3: ${bl3}\n\nbl4: ${bl4}`);
+            })
 
           Blank().layoutWeight(1)
         }

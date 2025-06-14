@@ -847,13 +847,28 @@ OpenHarmony ohpm
 
 ## RegexUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/RegexUtilPage.ets)
 
-| 方法       | 介绍                                |
-|:---------|:----------------------------------|
-| isMatch  | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
-| isPhone  | 判断传入的电话号码格式是否正确                   |
-| isDigits | 检查字符串是否只包含数字字符                    |
-| isEmail  | 判断传入的邮箱格式是否正确                     |
-| isEmoji  | 判断字符串是否包含表情                       |
+| 方法          | 介绍                                |
+|:------------|:----------------------------------|
+| isMatch     | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
+| isPhone     | 判断传入的电话号码格式是否正确                   |
+| isDigits    | 检查字符串是否只包含数字字符                    |
+| isEmail     | 判断传入的邮箱格式是否正确                     |
+| isEmoji     | 判断字符串是否包含表情                       |
+| isValidCard | 验证身份证号码的有效性                       |
+
+
+## TypeUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TypeUtilPage.ets)
+
+| 方法          | 介绍                                |
+|:------------|:----------------------------------|
+| isMatch     | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
+| isPhone     | 判断传入的电话号码格式是否正确                   |
+| isDigits    | 检查字符串是否只包含数字字符                    |
+| isEmail     | 判断传入的邮箱格式是否正确                     |
+| isEmoji     | 判断字符串是否包含表情                       |
+| isValidCard | 验证身份证号码的有效性                       |
+
+
 
 ## FormatUtil（格式化工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets)
 
@@ -863,7 +878,14 @@ OpenHarmony ohpm
 | getPhoneFormat       | 对电话号码进行格式化                  |
 | getPhoneLocationName | 获取电话号码归属地                   |
 | transliterator       | 将输入字符串从源格式转换为目标格式（中文汉字转为拼音） |
+| getFormatPercentage  | 格式化百分比，将数字转化从百分比字符串         |
+| getFormatPhone       | 格式化手机号码，隐藏中间四位              |
+| getFormatCardNo      | 格式化身份证号码，隐藏中间部分数字           |
+| getFormatFileSize    | 格式化文件大小                     |
+| getTruncateText      | 缩短长文本，超出部分用省略号表示            |
 | getIconFont          | 解析iconFont字符                |
+| getQueryValue        | 获取url里的参数，Key对应的Value       |
+| getParamsUrl         | 将参数拼接在url上，返回新的url          |
 
 ## ClickUtil（节流、防抖 工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ClickUtilPage.ets)
 

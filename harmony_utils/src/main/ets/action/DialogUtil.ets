@@ -24,7 +24,7 @@ import {
   PrimaryDialogOptions,
   SheetConfirm
 } from '../entity/DialogOptions';
-import { FormatUtil } from '../utils/FormatUtil';
+import { TypeUtil } from '../utils/TypeUtil';
 
 
 /**
@@ -271,7 +271,7 @@ export class DialogUtil {
    */
   private static initConfirmButton(options: ConfirmDialogOptions) {
     options.confirm = options.confirm ?? DialogUtil.defaultConfig.secondaryButton;
-    if (FormatUtil.isResourceStr(options.confirm)) {
+    if (TypeUtil.isResourceStr(options.confirm)) {
       options.confirm = {
         value: options.confirm as ResourceStr,
         action: () => {
@@ -307,7 +307,7 @@ export class DialogUtil {
     }
     if (options.primaryButton) {
       let primaryValue = options.primaryButton;
-      if (FormatUtil.isResourceStr(primaryValue)) {
+      if (TypeUtil.isResourceStr(primaryValue)) {
         options.primaryButton = {
           value: primaryValue as ResourceStr,
           action: () => {
@@ -331,7 +331,7 @@ export class DialogUtil {
     }
     if (options.secondaryButton) {
       let secondaryValue = options.secondaryButton;
-      if (FormatUtil.isResourceStr(secondaryValue)) {
+      if (TypeUtil.isResourceStr(secondaryValue)) {
         options.secondaryButton = {
           value: secondaryValue as ResourceStr,
           action: () => {
@@ -367,7 +367,7 @@ export class DialogUtil {
     if (options.buttons && options.buttons.length > 0) {
       let buttons = new Array<ButtonOptions>();
       for (let index = 0; index < options.buttons.length; index++) {
-        if (FormatUtil.isResourceStr(options.buttons[index])) {
+        if (TypeUtil.isResourceStr(options.buttons[index])) {
           let button: ButtonOptions = {
             value: options.buttons[index] as ResourceStr,
             action: () => {
@@ -405,7 +405,7 @@ export class DialogUtil {
       let sheetInfos = new Array<SheetInfo>()
       for (let index = 0; index < options.sheets.length; index++) {
         let sheetItem = options.sheets[index];
-        if (FormatUtil.isResourceStr(sheetItem)) {
+        if (TypeUtil.isResourceStr(sheetItem)) {
           let sheetInfo: SheetInfo = {
             title: sheetItem as ResourceStr,
             action: () => {
@@ -436,7 +436,7 @@ export class DialogUtil {
       options.confirm = DialogUtil.defaultConfig.primaryButton
     }
     let confirmValue = options.confirm;
-    if (FormatUtil.isResourceStr(confirmValue)) {
+    if (TypeUtil.isResourceStr(confirmValue)) {
       options.confirm = {
         value: confirmValue as ResourceStr,
         action: () => {

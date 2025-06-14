@@ -246,4 +246,29 @@ export class RegexUtil {
   }
 
 
+  /**
+   * 验证身份证号码的有效性
+   * @param id
+   * @returns
+   */
+  static isValidCard(id: string): boolean {
+    if (id.length === 18) {
+      const factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+      const lastLetter = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];
+      id = id.toLowerCase();
+      const lastChar = id.charAt(17).toLowerCase();
+      let sum = 0;
+      id.substring(0, 17).split('').forEach((value, index) => {
+        sum += factor[index] * parseInt(value, 10);
+      });
+      const mod = sum % lastLetter.length;
+      return lastLetter[mod] === lastChar;
+    } else if (id.length === 15) {
+      const regex15 = "^[1-9]\\d{5}\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}$";
+      return RegexUtil.isMatch(id, regex15);
+    }
+    return false;
+  }
+
+
 }
