@@ -34,12 +34,14 @@ OpenHarmony ohpm
 | savePhoto                        | 通过保存模式拉起photoPicker进行保存图片或视频资源的文件名，若无参数，则默认需要用户自行输入 |
 | selectDocument                   | 通过选择模式拉起documentPicker界面，用户可以选择一个或多个文件              |
 | saveDocument<br>saveDocumentEasy | 通过保存模式拉起documentPicker界面，用户可以保存一个或多个文件              |
+| selectAudio                      | 通过选择模式拉起audioPicker界面，用户可以选择一个或多个音频文件               |
+| saveAudio                        | 通过保存模式拉起audioPicker界面，用户可以保存一个或多个音频文件               |
 
 ## PhotoHelper（相册相关,工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/PhotoHelperPage.ets)
 
 | 方法                           | 介绍                                     |
 |:-----------------------------|:---------------------------------------|
-| select                       | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频 |
+| select<br>selectEasy         | 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频 |
 | save                         | 申请权限保存，保存图片或视频到相册。                     |
 | showAssetsCreationDialog     | 弹窗授权保存，调用接口拉起保存确认弹窗。                   |
 | showAssetsCreationDialogEasy | 弹窗授权保存，调用接口拉起保存确认弹窗，并保存。               |
@@ -48,13 +50,14 @@ OpenHarmony ohpm
 
 ## ScanUtil（码工具类(扫码、码图生成、图片识码)）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/ScanUtilPage.ets)
 
-| 方法                    | 介绍                           |
-|:----------------------|:-----------------------------|
-| startScanForResult    | 调用默认界面扫码，使用Promise方式异步返回解码结果 |
-| generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
-| onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码    |
-| onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
-| canIUseScan           | 判断当前设备是否支持码能力                |
+| 方法                    | 介绍                             |
+|:----------------------|:-------------------------------|
+| startScanForResult    | 调用默认界面扫码，使用Promise方式异步返回解码结果   |
+| generateBarcode       | 码图生成，使用Promise异步返回生成的码图        |
+| decode                | 调用图片识码，使用Promise方式异步返回识码结果     |
+| decodeImage           | 调用图像数据识码能力，使用Promise异步回调返回识码结果 |
+| onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码      |
+| canIUseScan           | 判断当前设备是否支持码能力                  |
 
 ## 🍎沟通与交流🙏
 

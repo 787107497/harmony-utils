@@ -47,8 +47,8 @@ export class PhotoHelper {
    *   subWindowName 子窗窗口名称。
    * @returns
    */
-  static async select(options?: photoAccessHelper.PhotoSelectOptions): Promise<Array<string>> {
-    if (options == undefined) {
+  static async select(options?: photoAccessHelper.PhotoSelectOptions): Promise<photoAccessHelper.PhotoSelectResult> {
+    if (options === undefined) {
       options = new photoAccessHelper.PhotoSelectOptions();
       options.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE; //可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
       options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
@@ -58,6 +58,27 @@ export class PhotoHelper {
     }
     const photoPicker = new photoAccessHelper.PhotoViewPicker();
     let photoSelectResult: photoAccessHelper.PhotoSelectResult = await photoPicker.select(options);
+    return photoSelectResult;
+  }
+
+
+  /**
+   * 通过选择模式拉起photoPicker界面，用户可以选择一个或多个图片/视频。
+   * @param options
+   *   MIMEType 可选择的媒体文件类型，若无此参数，则默认为图片和视频类型。
+   *   maxSelectNumber 选择媒体文件数量的最大值(最大可设置的值为500，若不设置则默认为50或9)。
+   *   isPhotoTakingSupported 是否支持拍照，true表示支持，false表示不支持，默认为true。
+   *   isSearchSupported 是否支持搜索，true表示支持，false表示不支持，默认为true。
+   *   isEditSupported 是否支持编辑照片，true表示支持，false表示不支持，默认为true。
+   *   isOriginalSupported 是否显示选择原图按钮，true表示显示，false表示不显示，默认为false。
+   *   preselectedUris 预选择图片的uri数据。
+   *   isPreviewForSingleSelectionSupported 单选模式下是否需要进大图预览，true表示需要，false表示不需要，默认为true。
+   *   recommendationOptions 图片推荐相关配置参数。
+   *   subWindowName 子窗窗口名称。
+   * @returns
+   */
+  static async selectEasy(options?: photoAccessHelper.PhotoSelectOptions): Promise<Array<string>> {
+    let photoSelectResult: photoAccessHelper.PhotoSelectResult = await PhotoHelper.select(options);
     if (photoSelectResult && photoSelectResult.photoUris && photoSelectResult.photoUris.length > 0) {
       return photoSelectResult.photoUris;
     } else {

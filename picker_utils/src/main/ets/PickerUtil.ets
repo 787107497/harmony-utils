@@ -151,14 +151,14 @@ export class PickerUtil {
    * @param maxSelectNumber number 选择媒体文件数量的最大值(默认值为50，最大值为500)。
    * @returns
    */
-  // static async selectAudio(options?: picker.AudioSelectOptions): Promise<Array<string>> {
-  //   if (options === undefined) {
-  //     options = new picker.AudioSelectOptions();
-  //     options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
-  //   }
-  //   const audioPicker = new picker.AudioViewPicker(getContext());
-  //   return audioPicker.select(options);
-  // }
+  static async selectAudio(options?: picker.AudioSelectOptions): Promise<Array<string>> {
+    if (options === undefined) {
+      options = new picker.AudioSelectOptions();
+      options.maxSelectNumber = PICKER_DEFAULT_SELECT_NUMBER; //选择媒体文件数量的最大值,默认9
+    }
+    const audioPicker = new picker.AudioViewPicker(getContext());
+    return audioPicker.select(options);
+  }
 
 
   /**
@@ -166,14 +166,14 @@ export class PickerUtil {
    * @param newFileNames 拉起audioPicker进行保存音频资源的文件名，若无此参数，则默认需要用户自行输入。
    * @returns 返回保存文件的uri数组。
    */
-  // static async saveAudio(newFileNames?: Array<string>): Promise<Array<string>> {
-  //   const audioPicker = new picker.AudioViewPicker(getContext());
-  //   const audioSaveOptions = new picker.AudioSaveOptions();
-  //   if (newFileNames !== undefined && newFileNames.length > 0) {
-  //     audioSaveOptions.newFileNames = newFileNames;
-  //   }
-  //   return audioPicker.save(audioSaveOptions);
-  // }
+  static async saveAudio(newFileNames?: Array<string>): Promise<Array<string>> {
+    const audioPicker = new picker.AudioViewPicker(getContext());
+    const audioSaveOptions = new picker.AudioSaveOptions();
+    if (newFileNames !== undefined && newFileNames.length > 0) {
+      audioSaveOptions.newFileNames = newFileNames;
+    }
+    return audioPicker.save(audioSaveOptions);
+  }
 
 
 }
