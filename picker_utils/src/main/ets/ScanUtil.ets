@@ -61,9 +61,53 @@ export class ScanUtil {
    */
   static generateBarcode(content: string, options?: generateBarcode.CreateOptions): Promise<image.PixelMap> {
     if (options === undefined) {
-      options = { scanType: scanCore.ScanType.QR_CODE, height: 800, width: 800, margin: 5 };
+      options = {
+        scanType: scanCore.ScanType.QR_CODE,
+        height: 1024,
+        width: 1024,
+        margin: 5
+      };
     }
     return generateBarcode.createBarcode(content, options);
+  }
+
+
+  /**
+   * 调用图片识码，使用Promise方式异步返回识码结果。
+   * @param uri 图片路径。
+   * @param options 启动图片识码参数
+   *   scanTypes 设置扫码类型，默认扫码ALL（全部码类型）。
+   *   enableMultiMode 是否开启多码识别，默认false。true：多码识别、false：单码识别。
+   *   enableAlbum 是否开启相册，默认true。true-开启相册扫码、false-关闭相册扫码。
+   * @returns ScanResult 扫码结果:
+   *   scanType 码类型。
+   *   originalValue 码识别内容结果。
+   *   scanCodeRect 码识别位置信息。
+   */
+  static async decode(uri: string, options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
+    const inputImage: detectBarcode.InputImage = { uri: uri };
+    if (options === undefined) {
+      options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
+    }
+    return await detectBarcode.decode(inputImage, options);
+  }
+
+
+  /**
+   * 调用图像数据识码能力，使用Promise异步回调返回识码结果
+   * @param image 待识别的图像数据
+   * @param options 启动图像数据识码参数
+   *   scanTypes 设置扫码类型，默认扫码ALL（全部码类型）。
+   *   enableMultiMode 是否开启多码识别，默认false。true：多码识别、false：单码识别。
+   *   enableAlbum 是否开启相册，默认true。true-开启相册扫码、false-关闭相册扫码。
+   * @returns
+   */
+  static async decodeImage(image: detectBarcode.ByteImage,
+    options?: scanBarcode.ScanOptions): Promise<detectBarcode.DetectResult> {
+    if (options === undefined) {
+      options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
+    }
+    return await detectBarcode.decodeImage(image, options);
   }
 
 
@@ -80,28 +124,7 @@ export class ScanUtil {
     photoSelectOptions.isEditSupported = false;
     photoSelectOptions.isOriginalSupported = false;
     let uris = await PhotoHelper.select(photoSelectOptions);
-    return ScanUtil.onDetectBarCode(uris[0], options);
-  }
-
-
-  /**
-   * 调用图片识码，使用Promise方式异步返回识码结果。
-   * @param uri 图片路径。
-   * @param options
-   *   scanTypes 设置扫码类型，默认扫码ALL（全部码类型）。
-   *   enableMultiMode 是否开启多码识别，默认false。true：多码识别、false：单码识别。
-   *   enableAlbum 是否开启相册，默认true。true-开启相册扫码、false-关闭相册扫码。
-   * @returns ScanResult 扫码结果:
-   *   scanType 码类型。
-   *   originalValue 码识别内容结果。
-   *   scanCodeRect 码识别位置信息。
-   */
-  static onDetectBarCode(uri: string, options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
-    const inputImage: detectBarcode.InputImage = { uri: uri };
-    if (options === undefined) {
-      options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
-    }
-    return detectBarcode.decode(inputImage, options);
+    return ScanUtil.decode(uris[0], options);
   }
 
 
@@ -111,6 +134,14 @@ export class ScanUtil {
    */
   static canIUseScan() {
     return canIUse('SystemCapability.Multimedia.Scan.ScanBarcode');
+  }
+
+
+  /**
+   * 调用图片识码，该方法已过时，推荐使用：ScanUtil.decode()。
+   */
+  static onDetectBarCode(uri: string, options?: scanBarcode.ScanOptions): Promise<Array<scanBarcode.ScanResult>> {
+    return ScanUtil.decode(uri, options);
   }
 
 

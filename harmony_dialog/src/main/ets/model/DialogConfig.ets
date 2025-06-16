@@ -41,6 +41,11 @@ export class DialogConfig {
   transition?: TransitionEffect; //设置弹窗显示和退出的过渡效果。
   onWillDismiss?: Callback<DismissDialogAction>; //交互式关闭回调函数。
   onDidDisappear?: VoidCallback; //弹窗消失时的事件回调。
+
+  enableHoverMode: boolean = false; //是否响应悬停态。默认值：false，默认不响应。<API14+>
+  hoverModeArea: HoverModeAreaType = HoverModeAreaType.BOTTOM_SCREEN; //设置悬停态下弹窗的默认展示区域。默认值：HoverModeAreaType.BOTTOM_SCREEN。<API14+>
+  levelMode?: LevelMode = Helper.isApiSupported(15) ? LevelMode.OVERLAY : undefined; //设置弹窗显示层级。默认值：LevelMode.OVERLAY。当且仅当showInSubWindow属性设置为false时生效。<API15+>
+  immersiveMode?: ImmersiveMode = Helper.isApiSupported(18) ? ImmersiveMode.DEFAULT : undefined; //设置页面内弹窗蒙层效果。默认值：ImmersiveMode.DEFAULT。当且仅当levelMode属性设置为LevelMode.EMBEDDED时生效。<API15+>
   //-----------------------------------公共参数---promptAction.BaseDialogOptions-----------------------------------------
 
 
@@ -64,11 +69,6 @@ export class DialogConfig {
   backgroundBlurStyle: BlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK，
   theme?: Theme | CustomTheme; //主题信息，可以是CustomTheme或从onWillApplyTheme中获取的Theme实例。
   themeColorMode: ThemeColorMode = ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统，目前只支持ThemeColorMode.SYSTEM。
-
-  enableHoverMode: boolean = false; //是否响应悬停态。默认值：false，默认不响应。<API14+>
-  hoverModeArea: HoverModeAreaType = HoverModeAreaType.BOTTOM_SCREEN; //设置悬停态下弹窗的默认展示区域。默认值：HoverModeAreaType.BOTTOM_SCREEN。<API14+>
-  levelMode?: LevelMode = Helper.isApiSupported(15) ? LevelMode.OVERLAY : undefined; //设置弹窗显示层级。默认值：LevelMode.OVERLAY。当且仅当showInSubWindow属性设置为false时生效。<API15+>
-  immersiveMode?: ImmersiveMode = Helper.isApiSupported(18) ? ImmersiveMode.DEFAULT : undefined; //设置页面内弹窗蒙层效果。默认值：ImmersiveMode.DEFAULT。当且仅当levelMode属性设置为LevelMode.EMBEDDED时生效。<API15+>
   //---------------------------------------弹框Dialog-------------------------------------------------------------------
 
 
@@ -102,6 +102,7 @@ export class DialogConfig {
   //--------------------------------------吐司Toast----------------------------------------------------------------------
   toast_duration: number = 2000; //显示时长(1500ms-10000ms)
   toast_durationLong: number = 10000; //显示时长(10000ms)
+  toast_durationShort: number = 1500; //显示时长(1500ms)
   toast_fontSize: number | string | Resource = 16; //文字大小
   toast_fontColor: ResourceColor = Color.White; //文字颜色
   toast_backgroundColor: ResourceColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度

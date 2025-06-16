@@ -25,12 +25,12 @@ import { BaseSheetOptions } from '../model/base/BaseSheetOptions';
 
 
 /**
- * TODO BaseActionCore，弹框、半模态、土司，核心类
+ * TODO ActionBaseCore，弹框、半模态、土司，核心类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/08/01
  */
-export class BaseActionCore {
-  private static instance: BaseActionCore;
+export class ActionBaseCore {
+  private static instance: ActionBaseCore;
   private caches: Array<ActionCoreArg> = new Array<ActionCoreArg>();
 
 
@@ -39,12 +39,12 @@ export class BaseActionCore {
   }
 
 
-  static getInstance(): BaseActionCore {
-    if (!BaseActionCore.instance) {
-      BaseActionCore.instance = new BaseActionCore();
-      BaseActionCore.instance.onColorModeListener();
+  static getInstance(): ActionBaseCore {
+    if (!ActionBaseCore.instance) {
+      ActionBaseCore.instance = new ActionBaseCore();
+      ActionBaseCore.instance.onColorModeListener();
     }
-    return BaseActionCore.instance;
+    return ActionBaseCore.instance;
   }
 
 
@@ -54,18 +54,7 @@ export class BaseActionCore {
    * @param options 弹窗样式。
    */
   showToast(options: ToastOptions) {
-    const showToastOptions: promptAction.ShowToastOptions = {
-      message: options.message ?? "",
-      duration: options.duration, //默认值1500ms，取值区间：1500ms-10000ms。若小于1500ms则取默认值，若大于10000ms则取上限值10000ms。
-      textColor: options.fontColor ?? Color.Black, // 文本提示框文本颜色。默认值：Color.Black
-      bottom: options.bottom ?? "80vp", //设置弹窗底部边框距离导航条的高度。默认值：80vp。
-      alignment: options.alignment, //对齐方式。默认值：undefined，默认底部偏上位置。
-      offset: options.offset ?? { dx: 0, dy: 0 }, //在对齐方式上的偏移。默认值：{ dx: 0, dy: 0 }，默认没有偏移。说明： 只支持设置px类型的数值，如需设置vp，可以将vp改成px传入。
-      backgroundColor: options.backgroundColor, //文本提示框背板颜色，建议八位色值前两位为透明度。默认值：Color.Transparent。
-      backgroundBlurStyle: options.backgroundBlurStyle ?? BlurStyle.COMPONENT_ULTRA_THICK, //文本提示框背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK。
-      shadow: options.shadow ?? ShadowStyle.OUTER_DEFAULT_MD, //文本提示框背板阴影。默认值：ShadowStyle.OUTER_DEFAULT_MD
-      showMode: options.showMode, //设置弹窗是否显示在应用之上。默认值：ToastShowMode.DEFAULT，默认显示在应用内。
-    }
+    const showToastOptions = options as promptAction.ShowToastOptions;
     if (options.uiContext) {
       options.uiContext.getPromptAction().showToast(showToastOptions);
     } else {
@@ -192,41 +181,30 @@ export class BaseActionCore {
   private openBaseCustomDialog<T extends BaseDialogOptions>(uiContext: UIContext, wrappedBuilder: WrappedBuilder<[T]>, options: T) {
     if (!this.exist(options.dialogId ?? "")) { //判断dialogId是否存在
       const componentContent = new ComponentContent(uiContext, wrappedBuilder, options);
-      const option: promptAction.BaseDialogOptions = {
-        alignment: options.alignment, //弹窗的对齐方式。
-        offset: options.offset, //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
-        maskRect: options.maskRect, //弹窗遮蔽层区域，在遮蔽层区域内的事件不透传，在遮蔽层区域外的事件透传。
-        maskColor: options.maskColor, //自定义蒙层颜色。默认值 0x33000000
-        isModal: options.isModal, //弹窗是否为模态窗口，模态窗口有蒙层，非模态窗口无蒙层。默认值：true，此时弹窗有蒙层。
-        showInSubWindow: options.showInSubWindow, //某弹框需要显示在主窗口之外时，是否在子窗口显示此弹窗。
-        autoCancel: options.autoCancel, //点击遮障层时，是否关闭弹窗，true表示关闭弹窗。false表示不关闭弹窗。默认值：true
-        keyboardAvoidMode: options.keyboardAvoidMode, //用于设置弹窗是否在拉起软键盘时进行自动避让。默认值：KeyboardAvoidMode.DEFAULT
-        transition: options.transition, //设置弹窗显示和退出的过渡效果。
-        onWillAppear: options.onWillAppear, //弹窗显示动效前的事件回调。
-        onWillDisappear: options.onWillDisappear, //弹窗退出动效前的事件回调。
-        onDidAppear: options.onDidAppear, //弹窗弹出时的事件回调。
-        onDidDisappear: () => { //弹窗消失时的事件回调。
-          this.removeArg(options.dialogId ?? ''); //弹窗关闭时，移除
-          this.onDestroy(options.dialogId ?? '');
-          if (options.onDidDisappear) {
-            options.onDidDisappear();
+      const dialogOptions = options as promptAction.BaseDialogOptions;
+      const onDidDisappearFun = options.onDidDisappear;
+      const onWillDismissFun = options.onWillDismiss;
+      dialogOptions.onDidDisappear = () => { //弹窗消失时的事件回调。
+        this.removeArg(options.dialogId ?? ''); //弹窗关闭时，移除
+        this.onDestroy(options.dialogId ?? '');
+        if (onDidDisappearFun) {
+          onDidDisappearFun();
+        }
+      };
+      dialogOptions.onWillDismiss = (action: DismissDialogAction) => { //交互式关闭回调函数。
+        if (onWillDismissFun) {
+          onWillDismissFun(action);
+        } else {
+          if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
+            action.dismiss();
+          } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
+            action.dismiss();
           }
-        },
-        onWillDismiss: (action: DismissDialogAction) => { //交互式关闭回调函数。
-          if (options.onWillDismiss) {
-            options.onWillDismiss(action);
-          }else {
-            if (action.reason == DismissReason.PRESS_BACK && options.backCancel) {
-              action.dismiss();
-            } else if (action.reason == DismissReason.TOUCH_OUTSIDE && options.autoCancel) {
-              action.dismiss();
-            }
-          }
-        },
-      }
+        }
+      };
       this.addArg(options.dialogId ?? "", uiContext, componentContent); //显示弹框时，添加
       const promptAction = uiContext.getPromptAction();
-      promptAction.openCustomDialog(componentContent, option);
+      promptAction.openCustomDialog(componentContent, dialogOptions);
     } else {
       console.error(`该弹框已存在，dialogId：${options.dialogId}`);
     }
@@ -330,7 +308,7 @@ export class BaseActionCore {
    * @param dialogId
    */
   private removeArg(dialogId: string) {
-    const args = BaseActionCore.getInstance().caches;
+    const args = ActionBaseCore.getInstance().caches;
     const index = args.findIndex((item) => item.dialogId == dialogId);
     if (index >= 0) {
       args.splice(index, 1);
