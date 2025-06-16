@@ -1,11 +1,12 @@
 import { router } from '@kit.ArkUI';
 import { DescribeBean } from '../../model/DescribeBean';
-import { image } from '@kit.ImageKit';
 import { FileUtil, ImageUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { ScanUtil } from '@pura/picker_utils';
+import { Utils } from '../../utils/Utils';
+import { detectBarcode } from '@kit.ScanKit';
 
 /**
  * 码工具类（扫码、码图生成、图片识码）
@@ -18,10 +19,7 @@ struct Index {
   private txtStr: string = "harmony-utils 一款高效的OpenHarmony/HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法";
   private readonly fileName: string = "qr_code.png";
   @State filePath: string = '';
-  @State pixelMap?: image.PixelMap = undefined;
-  @State scanStr1: string = '';
-  @State scanStr2: string = '';
-  @State scanStr3: string = '';
+
 
   @MockSetup
   mock() {
@@ -48,65 +46,80 @@ struct Index {
             .onClick(() => {
               if (ScanUtil.canIUseScan()) {
                 ScanUtil.startScanForResult().then((scanResult) => {
-                  this.scanStr1 = JSON.stringify(scanResult, null, 2);
-                })
+                  let scanStr1 = JSON.stringify(scanResult, null, 2);
+                  Utils.showSheetText(scanStr1);
+                });
               } else {
                 ToastUtil.showToast("当前设备不支持码能力！")
               }
             })
-          Text(this.scanStr1)
-            .visibility(this.scanStr1 ? Visibility.Visible : Visibility.None)
-            .textStyle()
           Button("generateBarcode()")
             .btnStyle()
             .onClick(async () => {
               if (ScanUtil.canIUseScan()) {
-                this.pixelMap = await ScanUtil.generateBarcode(this.txtStr);
-                ImageUtil.savePixelMap(this.pixelMap, FileUtil.getFilesDirPath(""), this.fileName)
+                let pixelMap = await ScanUtil.generateBarcode(this.txtStr);
+                ImageUtil.savePixelMap(pixelMap, FileUtil.getFilesDirPath(""), this.fileName);
+                Utils.showSheetImg(pixelMap);
               } else {
-                ToastUtil.showToast("当前设备不支持码能力！")
+                ToastUtil.showToast("当前设备不支持码能力！");
               }
             })
-          Image(this.pixelMap)
-            .visibility(this.pixelMap ? Visibility.Visible : Visibility.None)
-            .textStyle()
+          Button("decode()")
+            .btnStyle()
+            .onClick(() => {
+              if (ScanUtil.canIUseScan()) {
+                if (FileUtil.accessSync(this.filePath)) {
+                  ScanUtil.decode(this.filePath).then((scanResult) => {
+                    let scanStr3 = JSON.stringify(scanResult, null, 2);
+                    Utils.showSheetText(scanStr3);
+                  })
+                } else {
+                  ToastUtil.showToast("请先点击generateBarcode生成二维码图片");
+                }
+              } else {
+                ToastUtil.showToast("当前设备不支持码能力！");
+              }
+            })
+          Button("decodeImage()")
+            .btnStyle()
+            .onClick(async () => {
+                let pixelMap = await ScanUtil.generateBarcode(this.txtStr);
+                let arrayBuffer = await ImageUtil.packingFromPixelMap(pixelMap, { format: 'image/png', quality: 100 });
+                let byteImg: detectBarcode.ByteImage = {
+                  byteBuffer: arrayBuffer,
+                  width: pixelMap.getImageInfoSync().size.width,
+                  height: pixelMap.getImageInfoSync().size.height,
+                  format: detectBarcode.ImageFormat.NV21
+                };
+                ScanUtil.decodeImage(byteImg).then((scanResult) => {
+                  let scanStr3 = JSON.stringify(scanResult, null, 2);
+                  Utils.showSheetText(scanStr3);
+                });
+
+            })
           Button("onPickerScanForResult()")
             .btnStyle()
             .onClick(() => {
               if (ScanUtil.canIUseScan()) {
                 ScanUtil.onPickerScanForResult().then((scanResult) => {
-                  this.scanStr2 = JSON.stringify(scanResult, null, 2);
+                  let scanStr2 = JSON.stringify(scanResult, null, 2);
+                  Utils.showSheetText(scanStr2);
                 }).catch((err: BusinessError) => {
                   ToastUtil.showToast("扫码异常！");
                   LogUtil.error("扫码异常：code:" + err.code + " ~ msg:" + err.message);
-                })
+                });
               } else {
-                ToastUtil.showToast("当前设备不支持扫码能力！")
+                ToastUtil.showToast("当前设备不支持扫码能力！");
               }
             })
-          Text(this.scanStr2)
-            .visibility(this.scanStr2 ? Visibility.Visible : Visibility.None)
-            .textStyle()
-          Button("onDetectBarCode()")
+          Button("canIUseScan()")
             .btnStyle()
             .onClick(() => {
-              if (ScanUtil.canIUseScan()) {
-                if (FileUtil.accessSync(this.filePath)) {
-                  ScanUtil.onDetectBarCode(this.filePath).then((scanResult) => {
-                    this.scanStr3 = JSON.stringify(scanResult, null, 2);
-                  })
-                } else {
-                  ToastUtil.showToast("请先点击generateBarcode生成二维码图片")
-                }
-              } else {
-                ToastUtil.showToast("当前设备不支持码能力！")
-              }
+              let canIUseScan = ScanUtil.canIUseScan();
+              ToastUtil.showToast(`当前设备是否支持码能力：${canIUseScan}`);
             })
-          Text(this.scanStr3)
-            .visibility(this.scanStr3 ? Visibility.Visible : Visibility.None)
-            .textStyle()
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -124,13 +137,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

@@ -145,7 +145,7 @@ struct Index {
           Button("compressPhoto()")
             .btnStyle()
             .onClick(async () => {
-              PhotoHelper.select({ maxSelectNumber: 1 }).then(async (uris) => {
+              PhotoHelper.selectEasy({ maxSelectNumber: 1 }).then(async (uris) => {
                 if (uris?.length > 0) {
                   let uri = uris[0];
                   let filePath = await ImageUtil.compressPhoto(uri, 100).catch((err: BusinessError) => {

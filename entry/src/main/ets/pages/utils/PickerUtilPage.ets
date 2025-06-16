@@ -1,20 +1,12 @@
 import { router } from '@kit.ArkUI';
-import {
-  DateUtil,
-  FileUtil,
-  ImageUtil,
-  LogUtil,
-  PreferencesUtil,
-  StrUtil,
-  ToastUtil
-} from '@pura/harmony-utils';
+import { DateUtil, FileUtil, ImageUtil, LogUtil, PreferencesUtil, StrUtil, ToastUtil } from '@pura/harmony-utils';
 import { DescribeBean } from '../../model/DescribeBean';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { image } from '@kit.ImageKit';
 import { MockSetup } from '@ohos/hamock';
 import { TitleBarView } from '../../component/TitleBarView';
 import { camera, cameraPicker } from '@kit.CameraKit';
-import { fileShare, picker } from '@kit.CoreFileKit';
+import { picker } from '@kit.CoreFileKit';
 import { CameraOptions, PickerUtil } from '@pura/picker_utils';
 
 
@@ -27,7 +19,6 @@ struct Index {
   private scroller: Scroller = new Scroller();
   @State describe: DescribeBean = router.getParams() as DescribeBean;
   @State uriStr: string = ''
-  @State pixelMap?: image.PixelMap | string = undefined
   @State filePath: string = ''; //本地图片path
   @State cacheUri: string = ''; //缓存本地Uri，上次保存的Uri。
 
@@ -58,7 +49,7 @@ struct Index {
                 this.uriStr = `调用相机，返回uri：\n${uri}`;
               }).catch((err: BusinessError) => {
                 this.uriStr = `调用相机，异常：\n${JSON.stringify(err)}`;
-              })
+              });
             })
           Button("camera()")
             .btnStyle()
@@ -80,9 +71,8 @@ struct Index {
                 this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
               }).catch((err: BusinessError) => {
                 this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
-              })
+              });
             })
-
           Button("savePhoto()")
             .btnStyle()
             .onClick(() => {
@@ -162,16 +152,33 @@ struct Index {
                 this.uriStr = `调用保存文件，异常：\n${JSON.stringify(err)}`;
               })
             })
+          Button("selectAudio()")
+            .btnStyle()
+            .onClick(() => {
+              PickerUtil.selectAudio().then((uris) => {
+                this.uriStr = `调用文件管理，返回uris：\n${uris.join('\n')}`;
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用文件管理，异常：\n${JSON.stringify(err)}`;
+              });
+            })
+          Button("saveAudio()")
+            .btnStyle()
+            .onClick(() => {
+              let fileName = `AudioViewPicker001.mp3`;
+              PickerUtil.saveAudio([fileName]).then((uris) => {
+                let uri = uris[0];
+                this.uriStr = `音频文件，返回uris：\n${uri}`;
+              }).catch((err: BusinessError) => {
+                this.uriStr = `调用保存文件，异常：\n${JSON.stringify(err)}`;
+              })
+            })
 
           Text(this.uriStr)
             .visibility(StrUtil.isNotEmpty(this.uriStr) ? Visibility.Visible : Visibility.None)
             .textStyle()
-            .margin(5)
-          Image(this.pixelMap)
-            .width('90%')
-            .margin({ top: 10, bottom: 10 })
+            .margin(12)
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }

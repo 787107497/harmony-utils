@@ -105,7 +105,7 @@ export class ScanUtil {
   static async decodeImage(image: detectBarcode.ByteImage,
     options?: scanBarcode.ScanOptions): Promise<detectBarcode.DetectResult> {
     if (options === undefined) {
-      options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: true };
+      options = { scanTypes: [scanCore.ScanType.ALL], enableMultiMode: true, enableAlbum: false };
     }
     return await detectBarcode.decodeImage(image, options);
   }

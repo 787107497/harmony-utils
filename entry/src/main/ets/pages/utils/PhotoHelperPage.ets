@@ -63,7 +63,7 @@ struct Index {
           Button("select()-多选")
             .btnStyle()
             .onClick(() => this.selectMore())
-          Button("select()-单选")
+          Button("selectEasy()-单选")
             .btnStyle()
             .onClick(() => this.selectSingle())
           Button("save()")
@@ -101,9 +101,10 @@ struct Index {
   }
 
 
-  //相册选择图片/视频
+  //相册选择图片
   selectDefault(){
-    PhotoHelper.select().then((uris) => {
+    PhotoHelper.select().then((result) => {
+      let uris = result.photoUris;
       this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
     }).catch((err: BusinessError) => {
       this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
@@ -120,14 +121,14 @@ struct Index {
       isEditSupported: false,
       isOriginalSupported: true
     }
-    PhotoHelper.select(options).then((uris) => {
+    PhotoHelper.selectEasy(options).then((uris) => {
       this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
     }).catch((err: BusinessError) => {
       this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
     });
   }
 
-  //相册选择图片/视频（单选）
+  //相册选择图片（单选）
   selectSingle(){
     let options: photoAccessHelper.PhotoSelectOptions = {
       MIMEType: photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE,
@@ -135,7 +136,7 @@ struct Index {
       isOriginalSupported: true,
       isPreviewForSingleSelectionSupported: true //单选模式下是否需要进大图预览
     }
-    PhotoHelper.select(options).then((uris) => {
+    PhotoHelper.selectEasy(options).then((uris) => {
       this.uriStr = `调用相册，返回uris：\n${uris.join('\n')}`;
     }).catch((err: BusinessError) => {
       this.uriStr = `调用相册，异常：\n${JSON.stringify(err)}`;
@@ -151,7 +152,7 @@ struct Index {
         let imgName = `漂亮小姐姐_${DateUtil.getTodayTime()}`;
         PhotoHelper.save(photoAccessHelper.PhotoType.IMAGE, 'jpg', { title: imgName }).then(async (uri) => {
           if (uri) {
-            this.uriStr = `保存图片成功，返回uris：\n${uri}`
+            this.uriStr = `保存图片成功，返回uris：\n${uri}`;
             let file = FileUtil.openSync(uri);
             FileUtil.copyFile(this.filePath, file.fd).then(() => {
               FileUtil.close(file.fd);
@@ -159,11 +160,11 @@ struct Index {
             })
           }
         }).catch((err: BusinessError) => {
-          this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`
+          this.uriStr = `调用保存图片，异常：\n${JSON.stringify(err)}`;
         })
       } else {
-        ToastUtil.showLong("请在设置中打开权限")
-        WantUtil.toAppSetting()
+        ToastUtil.showLong("请在设置中打开权限");
+        WantUtil.toAppSetting();
       }
     })
   }
@@ -175,22 +176,22 @@ struct Index {
     let uri2 = FileUtil.getUriFromPath(this.filePath2);
     PhotoHelper.showAssetsCreationDialogEasy([uri, uri2]).then((result) => {
       this.uriStr = `图片保存成功，返回uris：\n${JSON.stringify(result, null, 2)}`;
-      DialogHelper.showToast("图片保存成功！")
+      DialogHelper.showToast("图片保存成功！");
     }).catch((error: BusinessError) => {
       this.uriStr = `保存图片失败 ~ code: ${error.code} -·- message: ${error.message}`;
-      DialogHelper.showToast("图片保存失败！")
-    })
+      DialogHelper.showToast("图片保存失败！");
+    });
   }
 
 
-  //安全控件保存，图片保存进相册。。
+  //安全控件保存，图片保存进相册。
   saveButton() {
     let uri = FileUtil.getUriFromPath(this.filePath);
     PhotoHelper.applyChanges(uri).then((result) => {
       this.uriStr = `保存图片成功：${result.uri}`;
     }).catch((err: BusinessError) => {
       this.uriStr = `保存图片失败：${JSON.stringify(err)}`;
-    })
+    });
   }
 
 
@@ -215,18 +216,19 @@ struct Index {
           photoAsset?.getThumbnail((err, pixelMap) => {
             if (err) {
               LogUtil.error("缩略图-异常：" + JSON.stringify(err));
+              return;
             }
             this.pixelMap = pixelMap;
           })
         }).catch((err: BusinessError) => {
-          this.uriStr = `读取图片异常：\n${JSON.stringify(err)}`
+          this.uriStr = `读取图片异常：\n${JSON.stringify(err)}`;
         });
       } else {
-        ToastUtil.showToast("请选择图片")
+        ToastUtil.showToast("请选择图片");
       }
     }).catch((err: BusinessError) => {
-      this.uriStr = `异常：\n${JSON.stringify(err)}`
-    })
+      this.uriStr = `异常：\n${JSON.stringify(err)}`;
+    });
   }
 
 
