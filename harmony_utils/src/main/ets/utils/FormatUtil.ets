@@ -174,7 +174,7 @@ export class FormatUtil {
     const paramsObj = urlObj.params;
     if (params instanceof Map) {
       params.forEach((value: Any, key: string) => {
-        if (key && value) {
+        if (key && value != undefined) {
           if (append) {
             paramsObj.append(key, value.toString());
           } else {
@@ -185,7 +185,7 @@ export class FormatUtil {
     } else {
       Object.keys(params).forEach(key => {
         let value = params[key];
-        if (key && value) {
+        if (key && value != undefined) {
           if (append) {
             paramsObj.append(key, value.toString());
           } else {

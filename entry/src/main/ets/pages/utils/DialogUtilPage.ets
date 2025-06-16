@@ -30,10 +30,10 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               DialogUtil.setDefaultConfig((config) => {
+                config.title = "温馨提示"
                 config.subtitle = "弹窗副标题"
                 config.alignment = DialogAlignment.Top
-                config.backgroundColor = '#00FF00'
-                config.borderWidth = 2
+                config.borderWidth = 1.2
                 config.autoCancel = true
               });
               ToastUtil.showLong("样式设置成功");
@@ -42,10 +42,10 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               DialogUtil.setDefaultConfig((config) => {
+                config.title = "友好提示"
                 config.alignment = DialogAlignment.Center
-                config.backgroundColor = Color.Transparent
-                config.borderWidth = 0
-                config.autoCancel = false
+                config.borderWidth = 1
+                config.borderColor = Color.Blue
               });
               ToastUtil.showLong("样式设置成功");
             })
@@ -53,9 +53,11 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               DialogUtil.setDefaultConfig((config) => {
+                config.title = "提示"
                 config.alignment = DialogAlignment.Bottom
-                config.backgroundColor = Color.Brown
                 config.borderColor = Color.Blue
+                config.borderWidth = 0
+                config.autoCancel = false
               });
               ToastUtil.showLong("样式设置成功");
             })
@@ -91,8 +93,8 @@ struct Index {
             .onClick(() => {
               DialogUtil.showPrimaryDialog({
                 message: '最新版本可提供更多的工具和功能，欢迎下载更新！！！',
-                // primaryButton: "取消",
-                // secondaryButton: "更新",
+                primaryButton: "取消",
+                secondaryButton: "更新",
                 onAction: (action) => {
                   if (action == DialogAction.ONE) {
                     ToastUtil.showToast("点击了“取消”按钮")
@@ -100,7 +102,7 @@ struct Index {
                     ToastUtil.showToast("点击了“更新”按钮")
                   }
                 }
-              })
+              });
             })
           Button("showPrimaryDialog()")
             .btnStyle()
@@ -110,6 +112,7 @@ struct Index {
                 message: '最新版本可提供更多的工具和功能，欢迎下载更新！',
                 primaryButton: {
                   value: "取消",
+                  fontColor: Color.Black,
                   action: () => {
                     ToastUtil.showToast("点击了“取消”按钮")
                   }
@@ -122,9 +125,9 @@ struct Index {
                   }
                 },
                 onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
-                  LogUtil.error("showPrimaryDialog-onWillDismiss: " + JSON.stringify(dismissDialogAction))
+                  LogUtil.error("onWillDismiss: " + JSON.stringify(dismissDialogAction))
                 }
-              })
+              });
             })
           Button("showDialog()")
             .btnStyle()
@@ -137,7 +140,7 @@ struct Index {
                 onAction: (action) => {
                   ToastUtil.showToast(`点击了：${buttons[Math.abs(action)-1]}`);
                 }
-              })
+              });
             })
           Button("showDialog()")
             .btnStyle()
@@ -165,7 +168,7 @@ struct Index {
                     ToastUtil.showToast(`点击了"更新"`)
                   }
                 }]
-              })
+              });
             })
           Button("showActionSheet()")
             .btnStyle()
@@ -176,22 +179,22 @@ struct Index {
                 onAction: (index) => {
                   ToastUtil.showToast("index: " + index);
                 }
-              })
+              });
             })
           Button("showCalendarPicker()")
             .btnStyle()
             .onClick(() => {
-              let date = DateUtil.getToday()
+              let date = DateUtil.getToday();
               DialogUtil.showCalendarPicker({
                 selected: date,
                 onAccept: (value) => {
-                  LogUtil.error(`选择了： ${JSON.stringify(value)}}`)
-                  ToastUtil.showToast(DateUtil.getFormatDateStr(value, "yyyy年MM月dd日"))
+                  LogUtil.error(`选择了： ${JSON.stringify(value)}}`);
+                  ToastUtil.showToast(DateUtil.getFormatDateStr(value, "yyyy年MM月dd日"));
                 },
                 onCancel: () => {
-                  ToastUtil.showToast(`取消了`)
+                  ToastUtil.showToast(`取消了`);
                 }
-              })
+              });
             })
           Button("showDatePicker()")
             .btnStyle()
@@ -201,13 +204,13 @@ struct Index {
                 selected: date,
                 showTime: true,
                 onDateAccept: (value) => {
-                  LogUtil.error(`选择了： ${JSON.stringify(value)}}`)
-                  ToastUtil.showToast(DateUtil.getFormatDateStr(value, "yyyy年MM月dd日 HH:mm"))
+                  LogUtil.error(`选择了： ${JSON.stringify(value)}}`);
+                  ToastUtil.showToast(DateUtil.getFormatDateStr(value, "yyyy年MM月dd日 HH:mm"));
                 },
                 onCancel: () => {
-                  ToastUtil.showToast(`取消了`)
+                  ToastUtil.showToast(`取消了`);
                 }
-              })
+              });
             })
           Button("showTimePicker()")
             .btnStyle()
@@ -218,13 +221,13 @@ struct Index {
                 format: TimePickerFormat.HOUR_MINUTE,
                 useMilitaryTime: true,
                 onAccept: (value) => {
-                  LogUtil.error(`选择了： ${JSON.stringify(value)}}`)
-                  ToastUtil.showToast(`${value.hour}时${value.minute}分`)
+                  LogUtil.error(`选择了： ${JSON.stringify(value)}}`);
+                  ToastUtil.showToast(`${value.hour}时${value.minute}分`);
                 },
                 onCancel: () => {
-                  ToastUtil.showToast(`取消了`)
+                  ToastUtil.showToast(`取消了`);
                 }
-              })
+              });
             })
           Button("showTextPicker()")
             .btnStyle()
@@ -235,12 +238,12 @@ struct Index {
                 onAccept: (result) => {
                   LogUtil.error(`选择了： ${JSON.stringify(result)}}`);
                   this.selectValue = result.value as string;
-                  ToastUtil.showToast(`${this.selectValue}`)
+                  ToastUtil.showToast(`${this.selectValue}`);
                 },
                 onCancel: () => {
-                  ToastUtil.showToast(`取消了`)
+                  ToastUtil.showToast(`取消了`);
                 }
-              })
+              });
             })
 
           Blank().layoutWeight(1)

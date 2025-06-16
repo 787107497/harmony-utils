@@ -267,7 +267,7 @@
   },
   {
     "name": "TempUtil",
-    "desc": "温度转换工具类，华氏度与摄氏度相互转换",
+    "desc": "温度转换工具类",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/harmony_utils/src/main/ets/utils/TempUtil.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TempUtilPage.ets",
     "type": 1

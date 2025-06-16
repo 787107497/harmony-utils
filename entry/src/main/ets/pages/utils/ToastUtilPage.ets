@@ -45,8 +45,11 @@ struct Index {
             .btnStyle()
             .onClick(() => {
               ToastUtil.showToast("弹出土司，当前样式", {
-                alignment: undefined,
-                offset: { dx: 0, dy: -300 }
+                alignment: Alignment.Top,
+                offset: { dx: 0, dy: 30 },
+                textColor: Color.Pink,
+                backgroundColor: '#00AA88',
+                duration: 6000
               });
             })
           Button("设置默认样式(一)")

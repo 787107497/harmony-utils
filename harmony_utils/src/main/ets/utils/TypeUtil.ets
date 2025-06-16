@@ -30,7 +30,7 @@ export class TypeUtil {
   /**
    * 判断是否是Boolean类型
    */
-  static isBoolean(value: Any): boolean {
+  static isBoolean(value: Object): boolean {
     return typeof value === 'boolean';
   }
 
@@ -78,6 +78,14 @@ export class TypeUtil {
    */
   static isResourceStr(value: Any) {
     return TypeUtil.isString(value) || TypeUtil.isResource(value);
+  }
+
+
+  /**
+   * 判断是否是函数类型
+   */
+  static isFunction(value: Object): boolean {
+    return typeof value === 'function';
   }
 
 

@@ -5,7 +5,7 @@ import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 
 /**
- * 温度转换工具类，华氏度与摄氏度相互转换
+ * 温度转换工具类
  */
 @Entry
 @Component
@@ -15,7 +15,7 @@ struct Index {
 
   @MockSetup
   mock() {
-    this.describe = new DescribeBean("TempUtil", "温度转换工具类，华氏度与摄氏度相互转换");
+    this.describe = new DescribeBean("TempUtil", "温度转换工具类");
   }
 
   build() {
@@ -24,20 +24,44 @@ struct Index {
       Divider()
       Scroll(this.scroller) {
         Column() {
-          Button("F2C()")
-            .btnStyle()
-            .onClick(() => {
-              let c = TempUtil.F2C(81.5)
-              ToastUtil.showToast(`转换后的摄氏度：${c}`)
-            })
           Button("C2F()")
             .btnStyle()
             .onClick(() => {
               let f = TempUtil.C2F(27.5);
-              ToastUtil.showToast(`转换后的华氏度${f}`)
+              ToastUtil.showToast(`转换后的华氏度：${f}`);
+            })
+          Button("F2C()")
+            .btnStyle()
+            .onClick(() => {
+              let c = TempUtil.F2C(81.5)
+              ToastUtil.showToast(`转换后的摄氏度：${c}`);
+            })
+          Button("C2K()")
+            .btnStyle()
+            .onClick(() => {
+              let k = TempUtil.C2K(25);
+              ToastUtil.showToast(`转换后的开尔文：${k}`);
+            })
+          Button("K2C()")
+            .btnStyle()
+            .onClick(() => {
+              let c = TempUtil.K2C(298.15);
+              ToastUtil.showToast(`转换后的摄氏度：${c}`);
+            })
+          Button("F2K()")
+            .btnStyle()
+            .onClick(() => {
+              let k = TempUtil.F2K(77);
+              ToastUtil.showToast(`转换后的开尔文：${k}`);
+            })
+          Button("K2F()")
+            .btnStyle()
+            .onClick(() => {
+              let f = TempUtil.K2F(298.15);
+              ToastUtil.showToast(`转换后的华氏度：${f}`);
             })
 
-          Text('').layoutWeight(1)
+          Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
       }
@@ -55,13 +79,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({ width: 1, color: Color.Grey, radius: 10, style: BorderStyle.Dashed })
 }

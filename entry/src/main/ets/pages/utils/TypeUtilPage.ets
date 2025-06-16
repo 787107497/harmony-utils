@@ -1,6 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
-import { TypeUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { LogUtil, ToastUtil, TypeUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
 import { DescribeBean } from '../../model/DescribeBean';
 import { User } from '../../model/User';
@@ -19,6 +19,11 @@ struct Index {
   mock() {
     this.describe = new DescribeBean("FormatUtil", "格式化工具类");
   }
+
+  aboutToAppear(): void {
+
+  }
+
 
   build() {
     Column() {
@@ -81,20 +86,24 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              // let phone: string = "18969062528";
-              // let bl = FormatUtil.isPhone(phone);
-              // let format = FormatUtil.getPhoneFormat(phone);
-              // let locationName = FormatUtil.getPhoneLocationName(phone);
-              // let resultStr = `isPhone: ${bl}\n\ngetPhoneFormat: ${format}\n\ngetPhoneLocationName: ${locationName}`;
-              // LogUtil.error(resultStr);
-              // Utils.showSheetText(resultStr);
+              let map = new Map<string, object>();
+              let weakMap: WeakMap<object, number> = new WeakMap();
+              let set: Set<number> = new Set();
+              let weakSet = new WeakSet();
+              let isMap = TypeUtil.isMap(map);
+              let isWeakMap = TypeUtil.isWeakMap(weakMap);
+              let isSet = TypeUtil.isSet(set);
+              let isWeakSet = TypeUtil.isWeakSet(weakSet);
+              let resultStr = `isMap: ${isMap}\n\nisWeakMap: ${isWeakMap}\n\nisSet: ${isSet}\n\nisWeakSet: ${isWeakSet}`;
+              LogUtil.error(resultStr);
+              Utils.showSheetText(resultStr);
             })
           Button("isDate()")
             .btnStyle()
             .onClick(() => {
-              // let str = FormatUtil.transliterator("中国");
-              // LogUtil.error(`transliterator: ${str}`);
-              // ToastUtil.showToast(`transliterator: ${str}`);
+              let isDate = TypeUtil.isDate(new Date());
+              LogUtil.error(`isDate: ${isDate}`);
+              ToastUtil.showToast(`isDate: ${isDate}`);
             })
           Button("isArrayBuffer()\nisSharedArrayBuffer()\nisAnyArrayBuffer()")
             .labelStyle({ maxLines: 4 })
@@ -103,13 +112,12 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              // let phone: string = "18969062528";
-              // let bl = FormatUtil.isPhone(phone);
-              // let format = FormatUtil.getPhoneFormat(phone);
-              // let locationName = FormatUtil.getPhoneLocationName(phone);
-              // let resultStr = `isPhone: ${bl}\n\ngetPhoneFormat: ${format}\n\ngetPhoneLocationName: ${locationName}`;
-              // LogUtil.error(resultStr);
-              // Utils.showSheetText(resultStr);
+              let isArrayBuffer = TypeUtil.isArrayBuffer(new ArrayBuffer(0));
+              let isSharedArrayBuffer = TypeUtil.isSharedArrayBuffer(new SharedArrayBuffer(0));
+              let isAnyArrayBuffer = TypeUtil.isAnyArrayBuffer(new ArrayBuffer(0));
+              let resultStr = `isArrayBuffer: ${isArrayBuffer}\n\nisSharedArrayBuffer: ${isSharedArrayBuffer}\n\nisAnyArrayBuffer: ${isAnyArrayBuffer}`;
+              LogUtil.error(resultStr);
+              Utils.showSheetText(resultStr);
             })
           Button("isUint8Array()\nisUint16Array()\nisUint32Array()")
             .labelStyle({ maxLines: 4 })
@@ -118,13 +126,12 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              // let phone: string = "18969062528";
-              // let bl = FormatUtil.isPhone(phone);
-              // let format = FormatUtil.getPhoneFormat(phone);
-              // let locationName = FormatUtil.getPhoneLocationName(phone);
-              // let resultStr = `isPhone: ${bl}\n\ngetPhoneFormat: ${format}\n\ngetPhoneLocationName: ${locationName}`;
-              // LogUtil.error(resultStr);
-              // Utils.showSheetText(resultStr);
+              let isUint8Array = TypeUtil.isUint8Array(new Uint8Array([]));
+              let isUint16Array = TypeUtil.isUint16Array(new Uint16Array([]));
+              let isUint32Array = TypeUtil.isUint32Array(new Uint32Array([]));
+              let resultStr = `isUint8Array: ${isUint8Array}\n\nisUint16Array: ${isUint16Array}\n\nisUint32Array: ${isUint32Array}`;
+              LogUtil.error(resultStr);
+              Utils.showSheetText(resultStr);
             })
           Button("isInt8Array()\nisInt16Array()\nisInt32Array()")
             .labelStyle({ maxLines: 4 })
@@ -133,36 +140,33 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              // let phone: string = "18969062528";
-              // let bl = FormatUtil.isPhone(phone);
-              // let format = FormatUtil.getPhoneFormat(phone);
-              // let locationName = FormatUtil.getPhoneLocationName(phone);
-              // let resultStr = `isPhone: ${bl}\n\ngetPhoneFormat: ${format}\n\ngetPhoneLocationName: ${locationName}`;
-              // LogUtil.error(resultStr);
-              // Utils.showSheetText(resultStr);
+              let isInt8Array = TypeUtil.isInt8Array(new Int8Array([]));
+              let isInt16Array = TypeUtil.isInt16Array(new Int16Array([]));
+              let isInt32Array = TypeUtil.isInt32Array(new Int32Array([]));
+              let resultStr = `isInt8Array: ${isInt8Array}\n\nisInt16Array: ${isInt16Array}\n\nisInt32Array: ${isInt32Array}`;
+              LogUtil.error(resultStr);
+              Utils.showSheetText(resultStr);
             })
           Button("isTypedArray()")
             .btnStyle()
             .onClick(() => {
-              // let str = FormatUtil.getIconFont("e631");
-              // LogUtil.error(`getIconFont: ${str}`);
-              // ToastUtil.showToast(`getIconFont: ${str}`);
+              let isTypedArray = TypeUtil.isTypedArray(new Float64Array([]));
+              LogUtil.error(`isTypedArray: ${isTypedArray}`);
+              ToastUtil.showToast(`isTypedArray: ${isTypedArray}`);
             })
-
-          Button("isAsyncFunction()\nisPromise()")
+          Button("isFunction()\nisAsyncFunction()\nisPromise()")
             .labelStyle({ maxLines: 4 })
             .type(ButtonType.Normal)
             .borderRadius(10)
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              // let phone: string = "18969062528";
-              // let bl = FormatUtil.isPhone(phone);
-              // let format = FormatUtil.getPhoneFormat(phone);
-              // let locationName = FormatUtil.getPhoneLocationName(phone);
-              // let resultStr = `isPhone: ${bl}\n\ngetPhoneFormat: ${format}\n\ngetPhoneLocationName: ${locationName}`;
-              // LogUtil.error(resultStr);
-              // Utils.showSheetText(resultStr);
+              let isFunction = TypeUtil.isFunction(this.aboutToAppear);
+              let isAsyncFunction = TypeUtil.isAsyncFunction(this.aboutToAppear);
+              let isPromise = TypeUtil.isPromise(Promise.resolve(1));
+              let resultStr = `isFunction: ${isFunction}\n\nisAsyncFunction: ${isAsyncFunction}\n\nisPromise: ${isPromise}`;
+              LogUtil.error(resultStr);
+              Utils.showSheetText(resultStr);
             })
           Button("isProxy()\nisRegExp()")
             .labelStyle({ maxLines: 4 })
@@ -171,20 +175,21 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              // let phone: string = "18969062528";
-              // let bl = FormatUtil.isPhone(phone);
-              // let format = FormatUtil.getPhoneFormat(phone);
-              // let locationName = FormatUtil.getPhoneLocationName(phone);
-              // let resultStr = `isPhone: ${bl}\n\ngetPhoneFormat: ${format}\n\ngetPhoneLocationName: ${locationName}`;
-              // LogUtil.error(resultStr);
-              // Utils.showSheetText(resultStr);
+              let user = new User();
+              const proxy = new Proxy(user, user as ProxyHandler<User>);
+              let isProxy = TypeUtil.isProxy(proxy);
+              let isRegExp = TypeUtil.isRegExp(new RegExp('abc'));
+              let resultStr = `isProxy: ${isProxy}\n\nisRegExp: ${isRegExp}`;
+              LogUtil.error(resultStr);
+              Utils.showSheetText(resultStr);
             })
           Button("isDataView()")
             .btnStyle()
             .onClick(() => {
-              // let str = FormatUtil.query("","");
-              // LogUtil.error(`getIconFont: ${str}`);
-              // ToastUtil.showToast(`getIconFont: ${str}`);
+              let dataView = new DataView(new ArrayBuffer(20));
+              let isDataView = TypeUtil.isDataView(dataView);
+              LogUtil.error(`isDataView: ${isDataView}`);
+              ToastUtil.showToast(`isDataView: ${isDataView}`);
             })
           Button("isExternal()\nisNativeError()")
             .labelStyle({ maxLines: 4 })
@@ -193,13 +198,12 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              // let phone: string = "18969062528";
-              // let bl = FormatUtil.isPhone(phone);
-              // let format = FormatUtil.getPhoneFormat(phone);
-              // let locationName = FormatUtil.getPhoneLocationName(phone);
-              // let resultStr = `isPhone: ${bl}\n\ngetPhoneFormat: ${format}\n\ngetPhoneLocationName: ${locationName}`;
-              // LogUtil.error(resultStr);
-              // Utils.showSheetText(resultStr);
+              let isNativeError1 = TypeUtil.isNativeError(new TypeError());
+              let isNativeError2 = TypeUtil.isNativeError(new URIError());
+              let isNativeError3 = TypeUtil.isNativeError("");
+              let resultStr = `isNativeError1: ${isNativeError1}\n\nisNativeError2: ${isNativeError2}\n\nisNativeError3: ${isNativeError3}`;
+              LogUtil.error(resultStr);
+              Utils.showSheetText(resultStr);
             })
 
           Blank().layoutWeight(1)

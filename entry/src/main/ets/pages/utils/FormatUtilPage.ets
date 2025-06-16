@@ -33,7 +33,7 @@ struct Index {
             .padding({ top: 10, bottom: 10 })
             .btnStyle()
             .onClick(() => {
-              let phone: string = "18969062528";
+              let phone: string = "19869062586";
               let bl = FormatUtil.isPhone(phone);
               let format = FormatUtil.getPhoneFormat(phone);
               let locationName = FormatUtil.getPhoneLocationName(phone);
@@ -48,6 +48,14 @@ struct Index {
               LogUtil.error(`transliterator: ${str}`);
               ToastUtil.showToast(`transliterator: ${str}`);
             })
+          Button("getFormatPercentage()")
+            .btnStyle()
+            .onClick(() => {
+              let percentage = FormatUtil.getFormatPercentage(0.491);
+              LogUtil.error(`percentage: ${percentage}`);
+              ToastUtil.showToast(`percentage: ${percentage}`);
+            })
+
           Button("getFormatPhone()")
             .btnStyle()
             .onClick(() => {
@@ -100,9 +108,15 @@ struct Index {
               map.set("id", 100011);
               map.set("name", '王五');
               map.set("sex", undefined);
-              let url = FormatUtil.getParamsUrl("https://blog.csdn.net?id=100012", map);
-              LogUtil.error(`url: ${url}`);
-              ToastUtil.showToast(`${url}`);
+              let url1 = FormatUtil.getParamsUrl("https://blog.csdn.net?id=100012", map);
+              let obj: Record<string, Object> = {};
+              obj['key'] = 'show';
+              obj['user'] = '王五';
+              obj['pd'] = 0;
+              obj['type'] = 'csaitab';
+              let url2 = FormatUtil.getParamsUrl("https://blog.csdn.net?id=100012", obj);
+              LogUtil.error(`url1: ${url1}\n\nurl2: ${url2}`);
+              Utils.showSheetText(`url1: ${url1}\n\nurl2: ${url2}`);
             })
 
           Blank().layoutWeight(1)

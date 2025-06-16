@@ -65,7 +65,7 @@ OpenHarmony ohpm
 | RegexUtil                                                                         | 正则工具类                                                                                                        |
 | FormatUtil                                                                        | 格式化工具类                                                                                                       |
 | ClickUtil                                                                         | 节流、防抖 工具类（用于点击事件，防止按钮被重复点击）                                                                                  |
-| TempUtil                                                                          | 温度转换工具类，华氏度与摄氏度相互转换                                                                                          |
+| TempUtil                                                                          | 温度转换工具类                                                                                                      |
 | DialogUtil                                                                        | 弹窗工具类（AlertDialog）                                                                                           |
 | ToastUtil                                                                         | 吐司工具类（promptAction）                                                                                          |
 | SM2、SM3、SM4、<br/>AES、DES、RSA、<br/>MD5、SHA、ECDSA、<br/>CryptoUtil、<br/>CryptoHelper | 加解密算法工具类<br/>CryptoUtil：加解密公用工具类，配合各个加密模块使用。<br/>CryptoHelper：加解密数据类型转换。                                     |
@@ -856,19 +856,40 @@ OpenHarmony ohpm
 | isEmoji     | 判断字符串是否包含表情                       |
 | isValidCard | 验证身份证号码的有效性                       |
 
+## TypeUtil（类型检查工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TypeUtilPage.ets)
 
-## TypeUtil（正则工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/TypeUtilPage.ets)
-
-| 方法          | 介绍                                |
-|:------------|:----------------------------------|
-| isMatch     | 给定内容是否匹配正则（配合RegexUtil里的正则常量一起使用） |
-| isPhone     | 判断传入的电话号码格式是否正确                   |
-| isDigits    | 检查字符串是否只包含数字字符                    |
-| isEmail     | 判断传入的邮箱格式是否正确                     |
-| isEmoji     | 判断字符串是否包含表情                       |
-| isValidCard | 验证身份证号码的有效性                       |
-
-
+| 方法                  | 介绍                                   |
+|:--------------------|:-------------------------------------|
+| isBoolean           | 判断是否是Boolean类型                       |
+| isNumber            | 判断是否是Number类型                        |
+| isString            | 判断是否是String类型                        |
+| isObject            | 判断是否是Object类型                        |
+| isArray             | 判断是否是数组类型                            |
+| isResource          | 判断是否是Resource类型                      |
+| isResourceStr       | 判断是否是ResourceStr类型                   |
+| isFunction          | 判断是否是函数类型                            |
+| isMap               | 检查是否为Map类型                           |
+| isWeakMap           | 检查是否为WeakMap类型                       |
+| isSet               | 检查是否为Set类型                           |
+| isWeakSet           | 检查是否为WeakSet类型                       |
+| isDate              | 检查是否为Date类型                          |
+| isArrayBuffer       | 检查是否为ArrayBuffer类型                   |
+| isSharedArrayBuffer | 检查是否为SharedArrayBuffer类型             |
+| isAnyArrayBuffer    | 检查是否为ArrayBuffer或SharedArrayBuffer类型 |
+| isUint8Array        | 检查是否为Uint8Array数组类型                  |
+| isUint16Array       | 检查是否为Uint16Array数组类型                 |
+| isUint32Array       | 检查是否为Uint32Array数组类型                 |
+| isInt8Array         | 检查是否为Int8Array数组类型                   |
+| isInt16Array        | 检查是否为Int16Array数组类型                  |
+| isInt32Array        | 检查是否为Int32Array数组类型                  |
+| isTypedArray        | 检查是否为TypedArray类型                    |
+| isAsyncFunction     | 检查是否为异步函数类型                          |
+| isPromise           | 检查是否为Promise类型                       |
+| isProxy             | 检查是否为Proxy类型                         |
+| isRegExp            | 检查是否为RegExp类型                        |
+| isDataView          | 检查是否为DataView类型                      |
+| isExternal          | 检查是否为native External类型               |
+| isNativeError       | 检查是否为Error类型                         |
 
 ## FormatUtil（格式化工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/FormatUtilPage.ets)
 
@@ -898,8 +919,12 @@ OpenHarmony ohpm
 
 | 方法  | 介绍      |
 |:----|:--------|
-| F2C | 华氏度转摄氏度 |
 | C2F | 摄氏度转华氏度 |
+| F2C | 华氏度转摄氏度 |
+| C2K | 摄氏度转开尔文 |
+| K2C | 开尔文转摄氏度 |
+| F2K | 华氏度转开尔文 |
+| K2F | 开尔文转华氏度 |
 
 ## DialogUtil（弹窗工具类）[使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/utils/DialogUtilPage.ets)
 
@@ -1108,7 +1133,7 @@ OpenHarmony ohpm
 | generateBarcode       | 码图生成，使用Promise异步返回生成的码图      |
 | onPickerScanForResult | 通过picker拉起图库并选择图片,并调用图片识码    |
 | onDetectBarCode       | 调用图片识码，使用Promise方式异步返回识码结果   |
-| canIUseScan           | 判断当前设备是否支持码能力                |~~~~
+| canIUseScan           | 判断当前设备是否支持码能力                |
 
 ## 🍎贡献代码与技术交流
 

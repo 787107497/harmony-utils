@@ -15,12 +15,21 @@
 
 
 /**
- * TODO 温度转换工具类，华氏度与摄氏度相互转换
+ * TODO 温度转换工具类
  * author: 桃花镇童长老ᥫ᭡
  * since: 2024/05/01
  */
 export class TempUtil {
 
+
+  /**
+   * 摄氏度转华氏度
+   * @param c 摄氏度
+   * @return 华氏度
+   */
+  static C2F(c: number): number {
+    return c * (9 / 5) + 32
+  }
 
   /**
    * 华氏度转摄氏度
@@ -31,13 +40,43 @@ export class TempUtil {
     return (f - 32) * (5 / 9)
   }
 
+
   /**
-   * 摄氏度转华氏度
-   * @param c 摄氏度
-   * @return 华氏度
+   * 摄氏度转开尔文
+   * @param c 摄氏度温度值
+   * @returns 开尔文温度值
    */
-  static C2F(c: number): number {
-    return c * (9 / 5) + 32
+  static C2K(c: number): number {
+    return c + 273.15;
   }
+
+  /**
+   * 开尔文转摄氏度
+   * @param k 开尔文温度值
+   * @returns 摄氏度温度值
+   */
+  static K2C(k: number): number {
+    return k - 273.15;
+  }
+
+
+  /**
+   * 华氏度转开尔文
+   * @param f - 华氏度温度值
+   * @returns 开尔文温度值
+   */
+  static F2K(f: number): number {
+    return (f - 32) * 5 / 9 + 273.15;
+  }
+
+  /**
+   * 开尔文转华氏度
+   * @param k 开尔文温度值
+   * @returns 华氏度温度值
+   */
+  static K2F(k: number): number {
+    return (k - 273.15) * 9 / 5 + 32;
+  }
+
 
 }
