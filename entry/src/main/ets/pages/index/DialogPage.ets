@@ -17,7 +17,7 @@ import { MenuOptions } from '../../model/MenuOptions';
 import { MenuSheetOptions } from '../../model/MenuSheetOptions';
 import { TipOptions } from '../../model/TipOptions';
 import { Utils } from '../../utils/Utils';
-import { router } from '@kit.ArkUI';
+import { LevelMode, router } from '@kit.ArkUI';
 
 
 /**
@@ -29,7 +29,7 @@ import { router } from '@kit.ArkUI';
 @Component
 export struct DialogPage {
   private scroller: Scroller = new Scroller();
-  @State menuArray: Array<string> = ["相机", "相册", "文件管理器"];
+  @State menuArray: Array<ResourceStr> = [$r('app.string.str_camera'), $r('app.string.str_album'), "文件管理器"];
   @State inputText: string = ""; //输入框内容
   @State progress: number = 1;
   private likes: string[] = ['乒乓球', '鸿蒙手机', 'ArkTS', 'Mate70Pro', '三折叠手机', '小米su7', '红米K80pro', '广东名菜烤乳猪'];
@@ -70,7 +70,7 @@ export struct DialogPage {
       config.offset = { dx: 0, dy: 0 }; //弹窗相对alignment所在位置的偏移量。默认值：{ dx: 0, dy: 0 }
       config.maskColor = 0x11000000; //自定义蒙层颜色。默认值 0x33000000
       config.backgroundColor = Color.White; //弹窗背板颜色。默认值：Color.White
-      config.backgroundBlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质
+      config.backgroundBlurStyle = BlurStyle.NONE; //弹窗背板模糊材质
       config.cornerRadius = 35; //设置背板的圆角半径。可分别设置4个圆角的半径。
       // config.maskRect={ x: 'auto', y: 'auto', width: 'auto', height: 'auto' };
 
@@ -89,7 +89,7 @@ export struct DialogPage {
       config.loading_borderRadius = 10; //背景圆角
 
       config.toast_fontSize = 16; //文字大小
-      config.toast_fontColor = Color.Black; //文字颜色
+      config.toast_fontColor = Color.White; //文字颜色
       config.toast_backgroundColor = '#CC56D866'; //背景颜色，建议八位色值前两位为透明度
       config.toast_alignment = Alignment.Center; //土司居中显示
       config.toast_borderRadius = 8; //背景圆角
@@ -193,6 +193,7 @@ export struct DialogPage {
       //简单使用
       DialogHelper.showAlertDialog({
         uiContext:this.getUIContext(),
+        backgroundColor: Color.Orange,
         content: "确定保存该WPS文件吗？",
         onAction: (action) => {
           if (action == DialogAction.CANCEL) {
@@ -716,6 +717,7 @@ export struct DialogPage {
     if (index == 0) {
       //简单使用
       DialogHelper.showActionSheetDialog({
+        actionCancel: false,
         sheets: this.menuArray,
         onAction: (index) => {
           ToastUtil.showToast(`您点击了，${this.menuArray[index]}`);
@@ -755,6 +757,9 @@ export struct DialogPage {
         }],
         onAction: (index) => {
           ToastUtil.showToast(`您点击了第几个按钮，${index + 1}`);
+        },
+        onDidDisappear: () => {
+          ToastUtil.showToast("ActionSheetDialog关闭了");
         }
       })
     }
@@ -893,15 +898,19 @@ export struct DialogPage {
    */
   customDialog(index: number) {
     if (index == 0) {
-      //自定义一个左边的DrawerLayout
-      let drawer: DrawerOptions = {
-        width: px2vp(DisplayUtil.getWidth()) - 50, //自定义的宽度
-        autoCancel: false,
-        alignment: DialogAlignment.TopStart,
-        keyboardAvoidMode: KeyboardAvoidMode.NONE,
-        transition: AnimationHelper.transitionInLeft(250)
+      //自定义一个Tip弹出框
+      let tipOptions: TipOptions = {
+        autoCancel: true,
+        backCancel: true,
+        title: "提交成功",
+        content: "请假单已成功提交给您的领导啦",
+        levelMode:LevelMode.EMBEDDED,
+        onAction: (action, dialogId) => {
+          router.pushUrl({ url: "pages/spinkit/SpinKit1" });
+          // DialogHelper.closeDialog(dialogId);
+        }
       };
-      DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer);
+      DialogHelper.showCustomDialog(wrapBuilder(TipBuilder), tipOptions);
     } else if (index == 1) {
       //自定义一个底部的MenuLayout
       let menuOptions: MenuOptions = {
@@ -916,18 +925,15 @@ export struct DialogPage {
       };
       DialogHelper.showCustomDialog(wrapBuilder(MenuBuilder), menuOptions);
     } else if (index == 2) {
-      //自定义一个Tip弹出框
-      let tipOptions: TipOptions = {
-        transition:AnimationHelper.transitionInUp(),
+      //自定义一个左边的DrawerLayout
+      let drawer: DrawerOptions = {
+        width: px2vp(DisplayUtil.getWidth()) - 50, //自定义的宽度
         autoCancel: false,
-        backCancel: false,
-        title: "提交成功",
-        content: "请假单已成功提交给您的领导啦",
-        onAction: (action, dialogId) => {
-          DialogHelper.closeDialog(dialogId);
-        }
+        alignment: DialogAlignment.TopStart,
+        keyboardAvoidMode: KeyboardAvoidMode.NONE,
+        transition: AnimationHelper.transitionInLeft(250)
       };
-      DialogHelper.showCustomDialog(wrapBuilder(TipBuilder), tipOptions);
+      DialogHelper.showCustomDialog(wrapBuilder(DrawerBuilder), drawer);
     } else {
       //基于Lottie动画的自定义加载框
       let loadOptions: LoadOptions = new LoadOptions();
@@ -938,6 +944,36 @@ export struct DialogPage {
       }, 10000)
     }
   }
+
+
+  /**
+   * 显示自定义半模态
+   */
+  showBindSheet(index: number) {
+    // let targetId = this.getUniqueId();
+    let targetId = "10001";
+
+    //自定义一个底部的MenuLayout
+    let menuOptions: MenuSheetOptions = {
+      dialogId: DialogHelper.generateId(),
+      title: {
+        title: "分享我的动态",
+      },
+      detents: [SheetSize.FIT_CONTENT, SheetSize.MEDIUM, SheetSize.FIT_CONTENT],
+      borderWidth: 10,
+      borderColor: Color.White,
+      targetId: targetId,
+      mode: SheetMode.EMBEDDED,
+      preferType: SheetType.BOTTOM,
+      menus: Utils.getMenus(),
+      onItemClick: (menu) => {
+        router.pushUrl({ url: "pages/spinkit/SpinKit1" });
+        DialogHelper.showToast(menu.text);
+      }
+    };
+    DialogHelper.showBindSheet(wrapBuilder(MenuSheetBuilder), menuOptions);
+  }
+
 
   /**
    * 显示进度加载类弹出框
@@ -1270,34 +1306,6 @@ export struct DialogPage {
   @Builder
   customTextImgBuilder(content: ResourceStr, src: Resource) {
     CustomImageView({ content: content, src: src })
-  }
-
-  /**
-   * 显示自定义半模态
-   */
-  showBindSheet(index: number) {
-    // let targetId = this.getUniqueId();
-    let targetId = "10001";
-
-    //自定义一个底部的MenuLayout
-    let menuOptions: MenuSheetOptions = {
-      dialogId: DialogHelper.generateId(),
-      title: {
-        title: "分享我的动态",
-      },
-      detents: [SheetSize.FIT_CONTENT, SheetSize.MEDIUM, SheetSize.FIT_CONTENT],
-      borderWidth: 10,
-      borderColor: Color.White,
-      targetId: targetId,
-      mode: SheetMode.EMBEDDED,
-      preferType: SheetType.BOTTOM,
-      menus: Utils.getMenus(),
-      onItemClick: (menu) => {
-        router.pushUrl({ url: "pages/spinkit/SpinKit1" })
-        DialogHelper.showToast(menu.text);
-      }
-    };
-    DialogHelper.showBindSheet(wrapBuilder(MenuSheetBuilder), menuOptions);
   }
 
 

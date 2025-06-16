@@ -23,6 +23,18 @@
     {
       "name": "btn_cancel",
       "value": "Cancel"
+    },
+    {
+      "name": "str_camera",
+      "value": "Camera"
+    },
+    {
+      "name": "str_album",
+      "value": "Album"
+    },
+    {
+      "name": "str_file_manager",
+      "value": "File Manager"
     }
   ]
 }

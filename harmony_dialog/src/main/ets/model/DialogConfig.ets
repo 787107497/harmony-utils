@@ -65,8 +65,8 @@ export class DialogConfig {
   borderColor: ResourceColor | EdgeColors | LocalizedEdgeColors = Color.Black; //设置弹窗背板的边框颜色。默认值：Color.Black。
   borderStyle: BorderStyle | EdgeStyles = BorderStyle.Solid; //设置弹窗背板的边框样式。默认值：BorderStyle.Solid。
 
-  backgroundColor: ResourceColor = Color.Transparent //弹窗背板颜色。默认值：Color.Transparent，，目前只支持ThemeColorMode.SYSTEM。
-  backgroundBlurStyle: BlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK，
+  backgroundBlurStyle: BlurStyle = BlurStyle.COMPONENT_ULTRA_THICK; //弹窗背板模糊材质。默认值：BlurStyle.COMPONENT_ULTRA_THICK。
+  backgroundColor: ResourceColor = Color.Transparent //弹窗背板颜色。默认值：Color.Transparent。backgroundBlurStyle为BlurStyle.NONE时生效。
   theme?: Theme | CustomTheme; //主题信息，可以是CustomTheme或从onWillApplyTheme中获取的Theme实例。
   themeColorMode: ThemeColorMode = ThemeColorMode.SYSTEM; //设置深色浅色，默认跟随系统，目前只支持ThemeColorMode.SYSTEM。
   //---------------------------------------弹框Dialog-------------------------------------------------------------------
@@ -105,7 +105,8 @@ export class DialogConfig {
   toast_durationShort: number = 1500; //显示时长(1500ms)
   toast_fontSize: number | string | Resource = 16; //文字大小
   toast_fontColor: ResourceColor = Color.White; //文字颜色
-  toast_backgroundColor: ResourceColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度
+  toast_backgroundBlurStyle: BlurStyle = BlurStyle.NONE; //弹窗背板模糊材质。默认值：BlurStyle.NONE。
+  toast_backgroundColor: ResourceColor = '#CC000000'; //背景颜色，建议八位色值前两位为透明度。backgroundBlurStyle为BlurStyle.NONE时生效。
   toast_alignment: Alignment | undefined = undefined; //该值仅对Toast有效，对ToastTip无效。当该值为undefined时alignment值起作用。
   toast_borderRadius: Length | BorderRadiuses = 8; //背景圆角，该值仅对ToastTip。
   toast_padding: Padding | Length = { left: 16, right: 16, top: 12, bottom: 12 }; //Padding，该值仅对ToastTip。

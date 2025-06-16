@@ -87,6 +87,18 @@
     {
       "name": "str_num",
       "value": "360vpxx"
+    },
+    {
+      "name": "str_camera",
+      "value": "相机"
+    },
+    {
+      "name": "str_album",
+      "value": "相册"
+    },
+    {
+      "name": "str_file_manager",
+      "value": "文件管理器"
     }
   ]
 }

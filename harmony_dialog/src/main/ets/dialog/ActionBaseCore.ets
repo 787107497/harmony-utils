@@ -55,6 +55,7 @@ export class ActionBaseCore {
    */
   showToast(options: ToastOptions) {
     const showToastOptions = options as promptAction.ShowToastOptions;
+    showToastOptions.textColor = options.fontColor;
     if (options.uiContext) {
       options.uiContext.getPromptAction().showToast(showToastOptions);
     } else {

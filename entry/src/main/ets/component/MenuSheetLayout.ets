@@ -35,7 +35,7 @@ export struct MenuSheetLayout {
                 .width('70%')
                 .aspectRatio(1)
                 .borderRadius(6)
-                .backgroundColor(`${RandomUtil.getRandomColor()}`)
+                .backgroundColor(`#A8A8A8`)
               Text(bean.text)
                 .fontSize(12)
                 .margin({ top: 5 })
