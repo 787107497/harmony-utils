@@ -1,9 +1,25 @@
 {
-  "name": "eventbus",
+  "name": "@nutpi/eventbus",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "EventBus消息总线，支持Sticky，支持跨APP广播",
+  "author": "桃花镇童长老",
+  "homepage": "https://gitee.com/tongyuyan",
+  "repository": "https://gitee.com/tongyuyan/harmony-utils",
   "main": "Index.ets",
-  "author": "",
   "license": "Apache-2.0",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {},
+  "dynamicDependencies": {},
+  "keywords": [
+    "EventBus",
+    "eventbus",
+    "HarmonyOS",
+    "openharmony"
+  ],
+  "tags": [
+    "EventBus",
+    "eventbus",
+    "HarmonyOS",
+    "openharmony"
+  ]
 }
