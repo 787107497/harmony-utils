@@ -1,4 +1,4 @@
-# harmony-dialog (API12 - 5.0.5.315)
+# harmony-dialog(API12+)
 
 ## 🏆简介与推荐
 
@@ -47,6 +47,7 @@ OpenHarmony ohpm
 | closeBindSheet          | 显示带图形的吐司                                                                                                          |
 | showToast               | 显示吐司                                                                                                              |
 | showToastLong           | 显示长吐司                                                                                                             |
+| showToastShort          | 显示短吐司                                                                                                             |
 | showToastTip            | 显示带图形的吐司                                                                                                          |
 | generateId              | 生成弹框id                                                                                                            |
 

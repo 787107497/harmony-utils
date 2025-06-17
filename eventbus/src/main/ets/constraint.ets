@@ -1,1 +1,1 @@
-export type EventAllType = string | object | boolean | number | Object | Number | BigInt;
+export type EventAllType = boolean | number | Number | string | object | Object | BigInt | undefined;

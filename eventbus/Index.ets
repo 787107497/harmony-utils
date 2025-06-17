@@ -1,1 +1,1 @@
-export { MainPage } from './src/main/ets/components/MainPage';
+export { EventBus } from './src/main/ets/EventBus';
