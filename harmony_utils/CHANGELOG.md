@@ -1,5 +1,10 @@
 # 版本记录
 
+## 1.3.4（DevEco Studio 5.1.0 Release）
+1. 新增TypeUtil，类型检查工具类。
+2. 新增了API15-API18的一些新特性。
+3. Bug修复以及代码优化。
+
 ## 1.3.3（DevEco Studio 5.0.5 Release）
 1. 新增几个实用方法。
 2. 剔除DateUtil两个日历相关的方法。
