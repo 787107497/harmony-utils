@@ -5,6 +5,7 @@ import { AES } from '@pura/harmony-utils/src/main/ets/crypto/AES';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { CryptoHelper, CryptoUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { TitleBarView } from '../../component/TitleBarView';
+import { Utils } from '../../utils/Utils';
 
 /**
  * AES加解密
@@ -44,10 +45,12 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let symKey1 = await AES.generateSymKey();
-              LogUtil.error(`对称密钥1：${CryptoHelper.dataBlobToStr(symKey1.getEncoded(), 'hex')}`);
+              let symKeyStr1 = CryptoHelper.dataBlobToStr(symKey1.getEncoded(), 'hex');
+              LogUtil.error(`对称密钥1：${symKeyStr1}`);
               let symKey2 = AES.generateSymKeySync();
-              LogUtil.error(`对称密钥2：${CryptoHelper.dataBlobToStr(symKey2.getEncoded(), 'base64')}`);
-              ToastUtil.showToast("请查看Log日志");
+              let symKeyStr2 = CryptoHelper.dataBlobToStr(symKey2.getEncoded(), 'base64');
+              LogUtil.error(`对称密钥2：${symKeyStr2}`);
+              Utils.showSheetText(`对称密钥1：${symKeyStr1}\n\n对称密钥2：${symKeyStr2}`);
             })
           Button("获取转换的对称密钥，异步/同步")
             .btnStyle()
@@ -67,15 +70,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str1, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await AES.encryptGCM(dataBlob, symKey, this.gcmParams!); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`加密（GCM模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await AES.decryptGCM(encryptDataBlob1, symKey, this.gcmParams!); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`解密（GCM模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = AES.encryptGCMSync(dataBlob, symKey, this.gcmParams!); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密（GCM模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = AES.decryptGCMSync(encryptDataBlob2, symKey, this.gcmParams!); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`解密（GCM模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`加密（GCM模式）,异步：${encryptStr1}\n\n解密（GCM模式）,异步：${decryptStr1}\n\n加密（GCM模式）,同步：${encryptStr2}\n\n解密（GCM模式）,同步：${decryptStr2}`);
             })
           Button("加解密（CBC模式），异步/同步")
             .btnStyle()
@@ -85,15 +92,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str2, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await AES.encryptCBC(dataBlob, symKey, this.ivParams!); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`加密（CBC模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await AES.decryptCBC(encryptDataBlob1, symKey, this.ivParams!); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`解密（CBC模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = AES.encryptCBCSync(dataBlob, symKey, this.ivParams!); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密（CBC模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = AES.decryptCBCSync(encryptDataBlob2, symKey, this.ivParams!); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`解密（CBC模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`加密（CBC模式）,异步：${encryptStr1}\n\n解密（CBC模式）,异步：${decryptStr1}\n\n加密（CBC模式）,同步：${encryptStr2}\n\n解密（CBC模式）,同步：${decryptStr2}`);
             })
           Button("加解密（ECB模式），异步/同步")
             .btnStyle()
@@ -103,15 +114,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str1, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await AES.encryptECB(dataBlob, symKey); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`加密（ECB模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await AES.decryptECB(encryptDataBlob1, symKey); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`解密（ECB模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = AES.encryptECBSync(dataBlob, symKey); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密（ECB模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = AES.decryptECBSync(encryptDataBlob2, symKey); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`解密（ECB模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`加密（ECB模式）,异步：${encryptStr1}\n\n解密（ECB模式）,异步：${decryptStr1}\n\n加密（ECB模式）,同步：${encryptStr2}\n\n解密（ECB模式）,同步：${decryptStr2}`);
             })
           Button("分段加解密（GCM模式），异步/同步")
             .btnStyle()
@@ -121,15 +136,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str3, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await AES.encryptGCMSegment(dataBlob, symKey, this.gcmParams!); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`分段加密（GCM模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await AES.decryptGCMSegment(encryptDataBlob1, symKey, this.gcmParams!); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`分段解密（GCM模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = AES.encryptGCMSegmentSync(dataBlob, symKey, this.gcmParams!); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`分段加密（GCM模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = AES.decryptGCMSegmentSync(encryptDataBlob2, symKey, this.gcmParams!); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`分段解密（GCM模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`分段加密（GCM模式）,异步：${encryptStr1}\n\n分段解密（GCM模式）,异步：${decryptStr1}\n\n分段加密（GCM模式）,同步：${encryptStr2}\n\n分段解密（GCM模式）,同步：${decryptStr2}`);
             })
 
           Blank().layoutWeight(1)
@@ -150,18 +169,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

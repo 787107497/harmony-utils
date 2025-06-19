@@ -959,7 +959,7 @@ OpenHarmony ohpm
 | generateKeyPair<br/>generateKeyPairSync     | 生成非对称密钥KeyPair                            |
 | getConvertKeyPair<br/>getConvertKeyPairSync | 获取转换的非对称密钥KeyPair                         |
 | getSM2PubKey                                | 获取转换SM2公钥, 将C1C2C3格式的SM2公钥转换为鸿蒙所需的ASN.1格式 |
-| getSM2PubKey                                | 获取转换SM2私钥                                 |
+| getSM2PriKey                                | 获取转换SM2私钥                                 |
 | getCipherTextSpec                           | 获取转换SM2密文格式，ASN.1格式转换为C1C2C3或C1C3C2       |
 | sign<br/>signSync                           | 对数据进行签名                                   |
 | verify<br/>verifySync                       | 对数据进行验签                                   |

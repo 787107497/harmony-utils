@@ -85,6 +85,14 @@
     {
       "name": "eventbus",
       "srcPath": "./eventbus",
+    },
+    {
+      "name": "watermark",
+      "srcPath": "./watermark",
+    },
+    {
+      "name": "handwriting",
+      "srcPath": "./handwriting",
     }
   ]
 }

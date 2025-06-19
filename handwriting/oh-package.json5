@@ -1,0 +1,29 @@
+{
+  "name": "@nutpi/handwriting",
+  "version": "1.0.0",
+  "description": "HandWriting，基于Canvas的手写组件",
+  "author": "桃花镇童长老",
+  "homepage": "https://gitee.com/tongyuyan",
+  "repository": "https://gitee.com/tongyuyan/harmony-utils",
+  "main": "Index.ets",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "dynamicDependencies": {},
+  "keywords": [
+    "手写",
+    "签名",
+    "handwriting",
+    "signature",
+    "HarmonyOS",
+    "openharmony"
+  ],
+  "tags": [
+    "手写",
+    "签名",
+    "handwriting",
+    "signature",
+    "HarmonyOS",
+    "openharmony"
+  ]
+}

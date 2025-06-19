@@ -2,9 +2,10 @@ import { DescribeBean } from '../../model/DescribeBean';
 import { router } from '@kit.ArkUI';
 import { MockSetup } from '@ohos/hamock';
 import { SM3 } from '@pura/harmony-utils/src/main/ets/crypto/SM3';
-import { CryptoUtil, LogUtil, ToastUtil } from '@pura/harmony-utils';
+import { CryptoUtil, LogUtil } from '@pura/harmony-utils';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { TitleBarView } from '../../component/TitleBarView';
+import { Utils } from '../../utils/Utils';
 
 /**
  * SM3工具类
@@ -41,52 +42,44 @@ struct Index {
             .onClick(async () => {
               let digest1 = await SM3.digest(this.str1);
               LogUtil.error(`摘要，异步: ${digest1}`);
-
-              let digest2 = SM3.digestSync(this.str1);
-              LogUtil.error(`摘要，同步: ${digest2}`);
-
+              let digest2 = SM3.digestSync(this.str1,'hex');
+              LogUtil.error(`摘要，同步1: ${digest2}`);
               let digest3 = SM3.digestSync(this.str1, 'base64');
-              LogUtil.error(`摘要:\t ${digest3}`);
-              ToastUtil.showToast("请查看Log日志");
+              LogUtil.error(`摘要，同步2: ${digest3}`);
+              Utils.showSheetText(`摘要，异步: ${digest1}\n\n摘要，同步1: ${digest2}\n\n摘要，同步2: ${digest3}`);
             })
           Button("分段摘要，异步/同步")
             .btnStyle()
             .onClick(async () => {
               let digest1 = await SM3.digestSegment(this.str3);
               LogUtil.error(`分段摘要，异步: ${digest1}`);
-
               let digest2 = SM3.digestSegmentSync(this.str3);
-              LogUtil.error(`分段摘要，同步: ${digest2}`);
-
+              LogUtil.error(`分段摘要，同步1: ${digest2}`);
               let digest3 = SM3.digestSegmentSync(this.str3, 'base64', 256);
-              LogUtil.error(`分段摘要:\t ${digest3}`);
-              ToastUtil.showToast("请查看Log日志");
+              LogUtil.error(`分段摘要，同步2: ${digest3}`);
+              Utils.showSheetText(`分段摘要，异步: ${digest1}\n\n分段摘要，同步1: ${digest2}\n\n分段摘要，同步2: ${digest3}`);
             })
           Button("消息认证码计算，异步/同步")
             .btnStyle()
             .onClick(async () => {
               let digest1 = await SM3.hmac(this.str1, this.symKey!);
               LogUtil.error(`消息认证码计算，异步: ${digest1}`);
-
               let digest2 = SM3.hmacSync(this.str1, this.symKey!);
-              LogUtil.error(`消息认证码计算，同步: ${digest2}`);
-
-              let digest3 = SM3.hmacSync(this.str1, this.symKey!);
-              LogUtil.error(`消息认证码计算:\t ${digest3}`);
-              ToastUtil.showToast("请查看Log日志");
+              LogUtil.error(`消息认证码计算，同步1: ${digest2}`);
+              let digest3 = SM3.hmacSync(this.str1, this.symKey!, 'base64');
+              LogUtil.error(`消息认证码计算，同步2: ${digest3}`);
+              Utils.showSheetText(`消息认证码计算，异步: ${digest1}\n\n消息认证码计算，同步1: ${digest2}\n\n消息认证码计算，同步2: ${digest3}`);
             })
           Button("分段消息认证码计算，异步/同步")
             .btnStyle()
             .onClick(async () => {
               let digest1 = await SM3.hmacSegment(this.str3, this.symKey!);
               LogUtil.error(`分段消息认证码计算，异步: ${digest1}`);
-
               let digest2 = SM3.hmacSegmentSync(this.str3, this.symKey!);
-              LogUtil.error(`分段消息认证码计算，同步: ${digest2}`);
-
+              LogUtil.error(`分段消息认证码计算，同步1: ${digest2}`);
               let digest3 = SM3.hmacSegmentSync(this.str3, this.symKey!, 'hex', 256);
-              LogUtil.error(`分段消息认证码计算:\t ${digest3}`);
-              ToastUtil.showToast("请查看Log日志");
+              LogUtil.error(`分段消息认证码计算，同步2: ${digest3}`);
+              Utils.showSheetText(`分段消息认证码计算，异步: ${digest1}\n\n分段消息认证码计算，同步1: ${digest2}\n\n分段消息认证码计算，同步2: ${digest3}`);
             })
 
           Blank().layoutWeight(1)
@@ -107,18 +100,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

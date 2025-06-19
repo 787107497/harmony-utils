@@ -42,12 +42,10 @@ struct Index {
             .onClick(async () => {
               let digest1 = await MD5.digest(this.str1);
               LogUtil.error(`摘要，异步: ${digest1}`);
-
               let digest2 = MD5.digestSync(this.str1);
-              LogUtil.error(`摘要，同步: ${digest2}`);
-
+              LogUtil.error(`摘要，同步1: ${digest2}`);
               let digest3 = MD5.digestSync(this.str1, 'base64');
-              LogUtil.error(`摘要:\t ${digest3}`);
+              LogUtil.error(`摘要，同步2: ${digest3}`);
               ToastUtil.showToast("请查看Log日志");
             })
           Button("分段摘要，异步/同步")
@@ -55,12 +53,10 @@ struct Index {
             .onClick(async () => {
               let digest1 = await MD5.digestSegment(this.str3);
               LogUtil.error(`分段摘要，异步: ${digest1}`);
-
               let digest2 = MD5.digestSegmentSync(this.str3);
-              LogUtil.error(`分段摘要，同步: ${digest2}`);
-
+              LogUtil.error(`分段摘要，同步1: ${digest2}`);
               let digest3 = MD5.digestSegmentSync(this.str3, 'base64', 256);
-              LogUtil.error(`分段摘要:\t ${digest3}`);
+              LogUtil.error(`分段摘要，同步2: ${digest3}`);
               ToastUtil.showToast("请查看Log日志");
             })
           Button("消息认证码计算，异步/同步")
@@ -68,12 +64,10 @@ struct Index {
             .onClick(async () => {
               let digest1 = await MD5.hmac(this.str1, this.symKey!);
               LogUtil.error(`消息认证码计算，异步: ${digest1}`);
-
               let digest2 = MD5.hmacSync(this.str1, this.symKey!);
-              LogUtil.error(`消息认证码计算，同步: ${digest2}`);
-
-              let digest3 = MD5.hmacSync(this.str1, this.symKey!);
-              LogUtil.error(`消息认证码计算:\t ${digest3}`);
+              LogUtil.error(`消息认证码计算，同步1: ${digest2}`);
+              let digest3 = MD5.hmacSync(this.str1, this.symKey!, 'base64');
+              LogUtil.error(`消息认证码计算，同步2: ${digest3}`);
               ToastUtil.showToast("请查看Log日志");
             })
           Button("分段消息认证码计算，异步/同步")
@@ -81,12 +75,10 @@ struct Index {
             .onClick(async () => {
               let digest1 = await MD5.hmacSegment(this.str3, this.symKey!);
               LogUtil.error(`分段消息认证码计算，异步: ${digest1}`);
-
               let digest2 = MD5.hmacSegmentSync(this.str3, this.symKey!);
-              LogUtil.error(`分段消息认证码计算，同步: ${digest2}`);
-
+              LogUtil.error(`分段消息认证码计算，同步1: ${digest2}`);
               let digest3 = MD5.hmacSegmentSync(this.str3, this.symKey!, 'hex', 256);
-              LogUtil.error(`分段消息认证码计算:\t ${digest3}`);
+              LogUtil.error(`分段消息认证码计算，同步2: ${digest3}`);
               ToastUtil.showToast("请查看Log日志");
             })
 
@@ -108,18 +100,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

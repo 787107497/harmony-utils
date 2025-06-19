@@ -4,6 +4,7 @@ import { MockSetup } from '@ohos/hamock';
 import { CryptoHelper, CryptoUtil, DES, LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { TitleBarView } from '../../component/TitleBarView';
+import { Utils } from '../../utils/Utils';
 
 /**
  * DES加解密
@@ -42,10 +43,12 @@ struct Index {
             .btnStyle()
             .onClick(async () => {
               let symKey1 = await DES.generateSymKey();
-              LogUtil.error(`对称密钥1：${CryptoHelper.dataBlobToStr(symKey1.getEncoded(), 'hex')}`);
+              let symKeyStr1 = CryptoHelper.dataBlobToStr(symKey1.getEncoded(), 'hex');
+              LogUtil.error(`对称密钥1：${symKeyStr1}`);
               let symKey2 = DES.generateSymKeySync();
-              LogUtil.error(`对称密钥2：${CryptoHelper.dataBlobToStr(symKey2.getEncoded(), 'base64')}`);
-              ToastUtil.showToast("请查看Log日志");
+              let symKeyStr2 = CryptoHelper.dataBlobToStr(symKey2.getEncoded(), 'base64');
+              LogUtil.error(`对称密钥2：${symKeyStr2}`);
+              Utils.showSheetText(`对称密钥1：${symKeyStr1}\n\n对称密钥2：${symKeyStr2}`);
             })
           Button("获取转换的对称密钥，异步/同步")
             .btnStyle()
@@ -65,15 +68,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str1, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await DES.encryptECB(dataBlob, symKey); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`加密（ECB模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await DES.decryptECB(encryptDataBlob1, symKey); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`解密（ECB模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = DES.encryptECBSync(dataBlob, symKey); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密（ECB模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = DES.decryptECBSync(encryptDataBlob2, symKey); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`解密（ECB模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`加密（ECB模式）,异步：${encryptStr1}\n\n解密（ECB模式）,异步：${decryptStr1}\n\n加密（ECB模式）,同步：${encryptStr2}\n\n解密（ECB模式）,同步：${decryptStr2}`);
             })
           Button("加解密（CBC模式），异步/同步")
             .btnStyle()
@@ -83,15 +90,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str2, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await DES.encryptCBC(dataBlob, symKey, this.ivParams!!); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`加密（CBC模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await DES.decryptCBC(encryptDataBlob1, symKey, this.ivParams!!); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`解密（CBC模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = DES.encryptCBCSync(dataBlob, symKey, this.ivParams!!); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密（CBC模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = DES.decryptCBCSync(encryptDataBlob2, symKey, this.ivParams!!); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`解密（CBC模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`加密（CBC模式）,异步：${encryptStr1}\n\n解密（CBC模式）,异步：${decryptStr1}\n\n加密（CBC模式）,同步：${encryptStr2}\n\n解密（CBC模式）,同步：${decryptStr2}`);
             })
 
           Button("加解密（OFB模式），异步/同步")
@@ -102,15 +113,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str1, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await DES.encrypt(dataBlob, symKey, this.ivParams!!, '3DES192|OFB|PKCS7'); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`加密（OFB模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await DES.decrypt(encryptDataBlob1, symKey, this.ivParams!!, '3DES192|OFB|PKCS7'); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`解密（OFB模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = DES.encryptSync(dataBlob, symKey, this.ivParams!!, '3DES192|OFB|PKCS7'); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密（OFB模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = DES.decryptSync(encryptDataBlob2, symKey, this.ivParams!!, '3DES192|OFB|PKCS7'); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`解密（OFB模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`加密（OFB模式）,异步：${encryptStr1}\n\n解密（OFB模式）,异步：${decryptStr1}\n\n加密（OFB模式）,同步：${encryptStr2}\n\n解密（OFB模式）,同步：${decryptStr2}`);
             })
           Button("加解密（CFB模式），异步/同步")
             .btnStyle()
@@ -120,15 +135,19 @@ struct Index {
               let dataBlob = CryptoHelper.strToDataBlob(this.str1, 'utf-8'); //待加密数据
 
               let encryptDataBlob1 = await DES.encrypt(dataBlob, symKey, this.ivParams!!, '3DES192|CFB|PKCS7'); //加密
+              let encryptStr1 = CryptoHelper.dataBlobToStr(encryptDataBlob1, 'utf-8');
+              LogUtil.error(`加密（CFB模式）,异步：${encryptStr1}`);
               let decryptDataBlob1 = await DES.decrypt(encryptDataBlob1, symKey, this.ivParams!!, '3DES192|CFB|PKCS7'); //解密
               let decryptStr1 = CryptoHelper.dataBlobToStr(decryptDataBlob1, 'utf-8');
               LogUtil.error(`解密（CFB模式）,异步：${decryptStr1}`);
 
               let encryptDataBlob2 = DES.encryptSync(dataBlob, symKey, this.ivParams!!, '3DES192|CFB|PKCS7'); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密（CFB模式）,同步：${encryptStr2}`);
               let decryptDataBlob2 = DES.decryptSync(encryptDataBlob2, symKey, this.ivParams!!, '3DES192|CFB|PKCS7'); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
               LogUtil.error(`解密（CFB模式）,同步：${decryptStr2}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`加密（CFB模式）,异步：${encryptStr1}\n\n解密（CFB模式）,异步：${decryptStr1}\n\n加密（CFB模式）,同步：${encryptStr2}\n\n解密（CFB模式）,同步：${decryptStr2}`);
             })
 
           Blank().layoutWeight(1)
@@ -149,18 +168,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

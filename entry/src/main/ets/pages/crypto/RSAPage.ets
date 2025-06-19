@@ -58,7 +58,6 @@ struct Index {
             .onClick(async () => {
               let pubKeyStr = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDUpsnavHoapoKtOOM9NKqTt6BpPe07ZzxhMcLAm5dtFQ6zRyJwT3czHGnh1BM2FATvLTDGLkmKc/Ww27//lFbrbqBE19R/5y8UPRpbUdACZ28yqzdiaquovUndhTH/CnLzcPM7VnWO0gp3/kbg5WizkZtUTRHL+Nu4OHbbesO1wIDAQAB"; //base64字符串密钥
               let priKeyStr = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMNSmydq8ehqmgq044z00qpO3oGk97TtnPGExwsCbl20VDrNHInBPdzMcaeHUEzYUBO8tMMYuSYpz9bDbv/+UVutuoETX1H/nLxQ9GltR0AJnbzKrN2Jqq6i9Sd2FMf8KcvNw8ztWdY7SCnf+RuDlaLORm1RNEcv427g4dtt6w7XAgMBAAECgYANvgsii9i3VIDADhgQe80ypFftYTD4btti9seWU7Z2K1Ddzj6axpjWpx+7/L4+md2Qde915pBoSfrQjnGJ21fX7vpqOVdDWS7lseYfM50z8ZMpZewxJNBkSGYQEazMYDfyCFMjZmB4guf/uu0B2JN/YtA8Ed7JJlkXmVLh4ReYSQJBAOIhzozpcIuGOBjylQdN+MokiL14gnAh6hiwnusD9JlTSJbQonUXkhikaf0WphxBVPSngZDdi3FYla/CDUAScBMCQQDdHwsJZ1oShtbJltaUCEsJHTWLwYm8V8tTOpHGJU8/u1mBK3pVZlwnfzzrj2oLl5iBpMHF197TPNi5gjrjM6atAkA/4pMrBixQjqu8iJQHy0R1P1sORER9j2dGcGeFN8nbo0bHrMuozu7sXU7APKzTILXypHwbRCvH6uHnFKiPqGXXAkAUsjEgQjImBcTYvWt8E4Kiab93QzgXDsiTE6pNN3TBbFGmS2F52MjLUZdsHNI6H4hAqiEQ2XGbp9hJFK1aUp1JAkEAjP4fbqrAUjGiG+EbjEffV625kACb6q9Wz+vbspMPqcr5TU2AxxSW65Yilq4pKYq8O+qXnVdOpX7DjrWA1kg2JA=="; //base64字符串密钥
-
               let keyPair1 = await RSA.getConvertKeyPair(pubKeyStr, priKeyStr, 'base64');
               let keyPair2 = RSA.getConvertKeyPairSync(pubKeyStr, priKeyStr, 'base64');
               LogUtil.error(`获取转换的密钥成功拉~~~~~~~`);
@@ -70,16 +69,20 @@ struct Index {
               let keyPair1 = await RSA.generateKeyPair(); //生成密钥
               let dataBlob = CryptoHelper.strToDataBlob(this.str1, 'utf-8'); //待加密数据
               let encryptDataBlob = await RSA.encrypt(dataBlob, keyPair1.pubKey); //加密
+              let encryptStr = CryptoHelper.dataBlobToStr(encryptDataBlob, 'utf-8');
+              LogUtil.error(`加密，异步：${encryptStr}`);
               let decryptDataBlob = await RSA.decrypt(encryptDataBlob, keyPair1.priKey); //解密
               let decryptStr = CryptoHelper.dataBlobToStr(decryptDataBlob, 'utf-8');
-              LogUtil.error(`加解密，异步：${decryptStr}`);
+              LogUtil.error(`解密，异步：${decryptStr}`);
 
               let keyPair2 = RSA.generateKeyPairSync('RSA2048|PRIMES_2'); //生成密钥
               let dataBlob2 = CryptoHelper.strToDataBlob(this.str1, 'utf-8'); //待加密数据
               let encryptDataBlob2 = RSA.encryptSync(dataBlob2, keyPair2.pubKey, 'RSA2048|PKCS1'); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`加密，同步：${encryptStr2}`);
               let decryptDataBlob2 = RSA.decryptSync(encryptDataBlob2, keyPair2.priKey, 'RSA2048|PKCS1'); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
-              LogUtil.error(`加解密，同步：${decryptStr2}`);
+              LogUtil.error(`解密，同步：${decryptStr2}`);
               ToastUtil.showToast("请查看Log日志");
             })
           Button("分段加解密，异步/同步")
@@ -88,16 +91,20 @@ struct Index {
               let keyPair1 = await RSA.generateKeyPair("RSA1024|PRIMES_2"); //生成密钥
               let dataBlob = CryptoHelper.strToDataBlob(this.str2, 'utf-8'); //待加密数据
               let encryptDataBlob = await RSA.encryptSegment(dataBlob, keyPair1.pubKey, 'RSA2048|PKCS1'); //加密
+              let encryptStr = CryptoHelper.dataBlobToStr(encryptDataBlob, 'utf-8');
+              LogUtil.error(`分段加密，异步：${encryptStr}`);
               let decryptDataBlob = await RSA.decryptSegment(encryptDataBlob, keyPair1.priKey, 'RSA2048|PKCS1'); //解密
               let decryptStr = CryptoHelper.dataBlobToStr(decryptDataBlob, 'utf-8');
-              LogUtil.error(`分段加解密，异步：${decryptStr}`);
+              LogUtil.error(`分段解密，异步：${decryptStr}`);
 
               let keyPair2 = RSA.generateKeyPairSync(); //生成密钥
               let dataBlob2 = CryptoHelper.strToDataBlob(this.str3, 'utf-8'); //待加密数据
               let encryptDataBlob2 = RSA.encryptSegmentSync(dataBlob2, keyPair2.pubKey); //加密
+              let encryptStr2 = CryptoHelper.dataBlobToStr(encryptDataBlob2, 'utf-8');
+              LogUtil.error(`分段加密，同步：${encryptStr2}`);
               let decryptDataBlob2 = RSA.decryptSegmentSync(encryptDataBlob2, keyPair2.priKey); //解密
               let decryptStr2 = CryptoHelper.dataBlobToStr(decryptDataBlob2, 'utf-8');
-              LogUtil.error(`分段加解密，同步：${decryptStr2}`);
+              LogUtil.error(`分段解密，同步：${decryptStr2}`);
               ToastUtil.showToast("请查看Log日志");
             })
           Button("签名与验签，异步/同步")

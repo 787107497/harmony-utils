@@ -6,6 +6,7 @@ import { CryptoHelper } from '@pura/harmony-utils/src/main/ets/crypto/CryptoHelp
 import { LogUtil, ToastUtil } from '@pura/harmony-utils';
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { TitleBarView } from '../../component/TitleBarView';
+import { Utils } from '../../utils/Utils';
 
 /**
  * SM2加解密
@@ -52,7 +53,7 @@ struct Index {
               LogUtil.error(`pubKeyStr1: ${pubKeyStr}`);
               let priKeyStr = CryptoHelper.dataBlobToStr(priKey.getEncoded(), 'hex'); //将私钥转换成16进制字符串。
               LogUtil.error(`priKeyStr1: ${priKeyStr}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`pubKeyStr1: ${pubKeyStr}\n\npriKeyStr1: ${priKeyStr}`);
             })
           Button("生成密钥，同步")
             .btnStyle()
@@ -64,7 +65,7 @@ struct Index {
               LogUtil.error(`pubKeyStr2: ${pubKeyStr}`);
               let priKeyStr = CryptoHelper.dataBlobToStr(priKey.getEncoded(), 'base64'); //将私钥转换成base64符符串。
               LogUtil.error(`priKeyStr2: ${priKeyStr}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`pubKeyStr2: ${pubKeyStr}\n\npriKeyStr2: ${priKeyStr}`);
             })
           Button("获取转换的密钥，异步")
             .btnStyle()
@@ -78,7 +79,7 @@ struct Index {
               LogUtil.error(`pubKeyStr3: ${pubKeyStr3}`);
               let priKeyStr3 = CryptoHelper.dataBlobToStr(priKey.getEncoded(), 'hex'); //将私钥转换成16进制字符串。
               LogUtil.error(`priKeyStr3: ${priKeyStr3}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`pubKeyStr3: ${pubKeyStr3}\n\npriKeyStr3: ${priKeyStr3}`);
             })
           Button("获取转换的密钥，同步")
             .btnStyle()
@@ -92,7 +93,7 @@ struct Index {
               LogUtil.error(`pubKeyStr4: ${pubKeyStr4}`);
               let priKeyStr4 = CryptoHelper.dataBlobToStr(priKey.getEncoded(), 'base64'); //将私钥转换成base64符符串。
               LogUtil.error(`priKeyStr4: ${priKeyStr4}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`pubKeyStr4: ${pubKeyStr4}\n\npriKeyStr4: ${priKeyStr4}`);
             })
           Button("转换SM2公钥")
             .btnStyle()
@@ -102,7 +103,7 @@ struct Index {
               let pubKey = SM2.getSM2PubKey(pubKeyStr); //将16进制的C1C2C3格式的SM2公钥转换为鸿蒙所需的ASN.1格式公钥
               let pubKeyStr1 = CryptoHelper.dataBlobToStr(pubKey.getEncoded(), 'hex'); //将公钥转换成16进制字符串。
               LogUtil.error(`转换后的公钥: ${pubKeyStr1}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`转换后的公钥: ${pubKeyStr1}`);
             })
           Button("转换SM2私钥")
             .btnStyle()
@@ -111,7 +112,7 @@ struct Index {
               let priKey = SM2.getSM2PriKey(priKeyStr);
               let priKeyStr1 = CryptoHelper.dataBlobToStr(priKey.getEncoded(), 'hex'); //将私钥转换成base64符符串。
               LogUtil.error(`转换后的私钥: ${priKeyStr1}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`转换后的私钥: ${priKeyStr1}`);
             })
           Button("转换SM2密文")
             .btnStyle()
@@ -119,13 +120,11 @@ struct Index {
               let msg = "鸿蒙技术交流QQ群：1029219059"; //待加密字符串
               let msgDataBlob = CryptoHelper.strToDataBlob(msg, 'utf-8');
               let encryptDataBlob = SM2.encryptSync(msgDataBlob, this.keyPair!.pubKey); //加密
-
               let c1c2c3Str = SM2.getCipherTextSpec(encryptDataBlob, 0); //转换密文
               LogUtil.error(`C1C2C3密文: ${c1c2c3Str}`);
-
               let c1c3c2Str = SM2.getCipherTextSpec(encryptDataBlob, 1); //转换密文
               LogUtil.error(`C1C3C2密文: ${c1c3c2Str}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`C1C2C3密文: ${c1c2c3Str}\n\nC1C3C2密文: ${c1c3c2Str}`);
             })
           Button("加解密，异步")
             .btnStyle()
@@ -133,10 +132,12 @@ struct Index {
               let msg = "鸿蒙技术交流QQ群：1029219059"; //待加密字符串
               let msgDataBlob = CryptoHelper.strToDataBlob(msg, 'utf-8');
               let encryptDataBlob = await SM2.encrypt(msgDataBlob, this.keyPair!.pubKey); //加密
+              let encryptStr = CryptoHelper.dataBlobToStr(encryptDataBlob, 'utf-8');
+              LogUtil.error(`加密后: ${encryptStr}`);
               let decryptDataBlob = await SM2.decrypt(encryptDataBlob, this.keyPair!.priKey); //解密
-              let decryptMsg = CryptoHelper.dataBlobToStr(decryptDataBlob, 'utf-8');
-              LogUtil.error(`加解密后: ${decryptMsg}`);
-              ToastUtil.showToast("请查看Log日志");
+              let decryptStr = CryptoHelper.dataBlobToStr(decryptDataBlob, 'utf-8');
+              LogUtil.error(`加解密后: ${decryptStr}`);
+              Utils.showSheetText(`加密后: ${encryptStr}\n\n加解密后: ${decryptStr}`);
             })
           Button("加解密，同步")
             .btnStyle()
@@ -144,10 +145,12 @@ struct Index {
               let msg = "harmony-utils，一款高效的HarmonyOS工具包，封装了常用工具类，提供一系列简单易用的方法。帮助开发者快速构建鸿蒙应用。"; //待加密字符串
               let msgDataBlob = CryptoHelper.strToDataBlob(msg, 'utf-8');
               let encryptDataBlob = SM2.encryptSync(msgDataBlob, this.keyPair!.pubKey); //加密
+              let encryptStr = CryptoHelper.dataBlobToStr(encryptDataBlob, 'utf-8');
+              LogUtil.error(`加密后: ${encryptStr}`);
               let decryptDataBlob = SM2.decryptSync(encryptDataBlob, this.keyPair!.priKey); //解密
-              let decryptMsg = CryptoHelper.dataBlobToStr(decryptDataBlob, 'utf-8');
-              LogUtil.error(`加解密后: ${decryptMsg}`);
-              ToastUtil.showToast("请查看Log日志");
+              let decryptStr = CryptoHelper.dataBlobToStr(decryptDataBlob, 'utf-8');
+              LogUtil.error(`加解密后: ${decryptStr}`);
+              Utils.showSheetText(`加密后: ${encryptStr}\n\n加解密后: ${decryptStr}`);
             })
           Button("签名与验签，异步")
             .btnStyle()
@@ -159,7 +162,7 @@ struct Index {
               LogUtil.error(`签名，异步: ${signStr}`);
               let verify = await SM2.verify(dataBlob, signDataBlob, this.keyPair!.pubKey);
               LogUtil.error(`验签，异步: ${verify}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`签名，异步: ${signStr}\n\n验签，异步: ${verify}`);
             })
           Button("签名与验签，同步")
             .btnStyle()
@@ -171,7 +174,7 @@ struct Index {
               LogUtil.error(`签名，同步: ${signStr}`);
               let verify =  SM2.verifySync(dataBlob, signDataBlob, this.keyPair!.pubKey);
               LogUtil.error(`验签，同步: ${verify}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`签名，同步: ${signStr}\n\n验签，同步: ${verify}`);
             })
 
           Button("分段签名与分段验签，异步")
@@ -184,7 +187,7 @@ struct Index {
               LogUtil.error(`分段签名，异步: ${signStr}`);
               let verify = await SM2.verifySegment(data, signDataBlob, this.keyPair!.pubKey);
               LogUtil.error(`分段验签，异步: ${verify}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`分段签名，异步: ${signStr}\n\n分段验签，异步: ${verify}`);
             })
           Button("分段签名与分段验签，同步")
             .btnStyle()
@@ -196,8 +199,9 @@ struct Index {
               LogUtil.error(`分段签名，同步: ${signStr}`);
               let verify = SM2.verifySegmentSync(data, signDataBlob, this.keyPair!.pubKey);
               LogUtil.error(`分段验签，同步: ${verify}`);
-              ToastUtil.showToast("请查看Log日志");
+              Utils.showSheetText(`分段签名，同步: ${signStr}\n\n分段验签，同步: ${verify}`);
             })
+
           Blank().layoutWeight(1)
         }
         .margin({ top: 5, bottom: 5 })
@@ -216,18 +220,4 @@ struct Index {
 function btnStyle() {
   .width('90%')
   .margin({ top: 10, bottom: 5 })
-}
-
-@Styles
-function textStyle() {
-  .width('95%')
-  .padding(10)
-  .shadow(ShadowStyle.OUTER_DEFAULT_XS)
-  .margin({ top: 5, bottom: 10 })
-  .border({
-    width: 1,
-    color: Color.Grey,
-    radius: 10,
-    style: BorderStyle.Dashed
-  })
 }

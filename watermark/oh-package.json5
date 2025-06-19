@@ -1,0 +1,25 @@
+{
+  "name": "@nutpi/watermark",
+  "version": "1.0.0",
+  "description": "WaterMark，水印功能",
+  "author": "桃花镇童长老",
+  "homepage": "https://gitee.com/tongyuyan",
+  "repository": "https://gitee.com/tongyuyan/harmony-utils",
+  "main": "Index.ets",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "dynamicDependencies": {},
+  "keywords": [
+    "WaterMark",
+    "watermark",
+    "HarmonyOS",
+    "openharmony"
+  ],
+  "tags": [
+    "WaterMark",
+    "watermark",
+    "HarmonyOS",
+    "openharmony"
+  ]
+}
