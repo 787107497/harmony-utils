@@ -4,7 +4,7 @@
 
 [picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
 是[harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
-拆分出来的一个子库，包含PhotoHelper、PickerUtil、ScanUtil。   
+拆分出来的一个子库，包含PickerUtil、PhotoHelper、ScanUtil。   
 主要解决：当使用 harmony-utils 三方库且未使用picker能力时，隐私政策中无需声明相机权限与储存权限。
 
 ## 🌞下载安装

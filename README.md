@@ -3,6 +3,9 @@
 [harmony-utils](https://gitee.com/tongyuyan/harmony-utils/tree/master/harmony_utils)
 一款功能丰富且极易上手的HarmonyOS工具库，借助众多实用工具类，致力于助力开发者迅速构建鸿蒙应用。其封装的工具涵盖了APP、设备、屏幕、授权、通知、线程间通信、弹框、吐司、生物认证、用户首选项、拍照、相册、扫码、文件、日志，异常捕获、字符、字符串、数字、集合、日期、随机、base64、加密、解密、JSON等一系列的功能和操作，能够满足各种不同的开发需求。
 
+[picker_utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fpicker_utils)
+是harmony-utils拆分出来的一个子库，包含PickerUtil、PhotoHelper、ScanUtil。
+
 [harmony-dialog](https://gitee.com/tongyuyan/harmony-utils/tree/master/harmony_dialog)
 一款极为简单易用的零侵入弹窗，仅需一行代码即可轻松实现，无论在何处都能够轻松弹出。其涵盖了
 AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、TextInputDialog、TextAreaDialog、BottomSheetDialog、ActionSheetDialog、TextPickerDialog、DatePickerDialog、CustomDialog、BindSheet、LoadingDialog、LoadingProgress、Toast、ToastTip
@@ -11,6 +14,9 @@ AlertDialog、TipsDialog、ConfirmDialog、SelectDialog、CustomContentDialog、
 [harmony-web](https://gitee.com/tongyuyan/harmony-utils/tree/master/harmony_web)
 是一款基于鸿蒙 WebView 打造的功能强大且极易上手的库，它不仅轻巧灵便、灵活度极高，还提供了一系列针对鸿蒙 WebView
 的问题解决方案，助力开发者轻松应对各类开发挑战。
+
+[harmony-speech](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Fharmony-speech)
+语音合成、语音识别、朗读控件 等相关工具库。
 
 [SpinKit](https://gitee.com/tongyuyan/harmony-utils/tree/master/spinkit) 是一个适用于OpenHarmony/HarmonyOS的加载动画库。
 
