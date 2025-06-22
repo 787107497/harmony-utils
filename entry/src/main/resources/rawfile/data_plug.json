@@ -18,7 +18,7 @@
     "desc": "EventBus 消息总线，支持Sticky，支持跨APP广播。",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/eventbus/src/main/ets/EventBus.ets",
     "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/plug/EventBusPage.ets",
-    "url": "pages/plug/ChinaAreaPage"
+    "url": "pages/plug/EventBusPage"
   },
   {
     "name": "china_area",

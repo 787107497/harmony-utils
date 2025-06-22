@@ -14,8 +14,9 @@
     "@pura/harmony-dialog": "file:../harmony_dialog",
     "@pura/harmony-web": "file:../harmony_web",
     "@pura/spinkit": "file:../spinkit",
+    "@nutpi/eventbus": "file:../eventbus",
     "@pura/mime-types": "file:../mime_types",
-    "@nutpi/china_area": "file:../china_area"
+    "@nutpi/china_area": "file:../china_area",
 //    "@pura/harmony-utils": "file:./libs/harmony_utils.har",
   }
 }

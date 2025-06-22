@@ -1,8 +1,8 @@
-# china_area
+# EventBus
 
 ## 🏆简介与推荐
 
-[china_area](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Fchina_area) 中国区域数据，省市县三级数据。
+[EventBus](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Feventbus) 消息总线，支持Sticky，支持跨APP广播。
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
 一款功能丰富且极易上手的HarmonyOS工具库，借助众多实用工具类，致力于助力开发者迅速构建鸿蒙应用。
@@ -12,18 +12,63 @@
 
 ## 🌞下载安装
 
-`ohpm i @nutpi/china_area`
+`ohpm i @nutpi/eventbus`
 OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 
-## 📚API详解 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/plug/ChinaAreaPage.ets)
+## 📚API详解
 
-| AreaHelper方法                               | 介绍            |
-|:-------------------------------------------|:--------------|
-| getAreaStrSync<br>getAreaStr               | 获取省市县的JSON字符串 |
-| getAreaSync<br>getArea                     | 获取省市县的数据      |
-| getCityByNameSync<br>getCityByName         | 根据省名获取下面的市    |
-| getDistrictByNameSync<br>getDistrictByName | 根据市名获取下面的区县   |
+| EventBus方法   | 介绍       |
+|:-------------|:---------|
+| on           | 注册事件监听   |
+| once         | 注册单次事件监听 |
+| off          | 注销事件监听   |
+| offAll       | 注销所有事件监听 |
+| post         | 发布普通消息   |
+| postSticky   | 发布粘性消息   |
+| postApp      | 发布跨App消息 |
+| getSticky    | 获取粘性事件数据 |
+| removeSticky | 移除粘性事件   |
+
+## 📚示例代码
+
+```
+//注册事件监听
+EventBus.on('id', (id: string) => {
+  ToastUtil.showToast(`ID: ${id}`);
+});
+
+//注册单次事件监听
+EventBus.once('id', (id: string) => {
+  ToastUtil.showToast(`单次ID: ${id}`);
+});
+
+
+//发布普通消息
+EventBus.post('id', '100001200');
+
+//发布粘性消息
+EventBus.postSticky('id', '100001201');
+
+//发布跨App消息
+EventBus.postApp('id', '100001202');
+
+
+//获取粘性事件数据
+let sticky = EventBus.getSticky('id');
+ToastUtil.showToast(`粘性事件数据：${sticky}`);
+
+//移除粘性事件
+EventBus.removeSticky('id');
+ToastUtil.showToast(`移除粘性事件成功！`);
+
+
+//注销事件监听
+EventBus.off('id');
+
+//注销所有事件监听
+EventBus.offAll();
+```
 
 ## 🍎沟通与交流🙏
 
