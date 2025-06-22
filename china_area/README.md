@@ -20,10 +20,46 @@ OpenHarmony ohpm
 
 | AreaHelper方法                               | 介绍            |
 |:-------------------------------------------|:--------------|
-| getAreaStrSync<br>getAreaStr               | 获取省市县的JSON字符串 |
+| getAreaStrSync<br/>getAreaStr              | 获取省市县的JSON字符串 |
 | getAreaSync<br>getArea                     | 获取省市县的数据      |
 | getCityByNameSync<br>getCityByName         | 根据省名获取下面的市    |
 | getDistrictByNameSync<br>getDistrictByName | 根据市名获取下面的区县   |
+
+## 📚示例代码
+
+```
+//获取省市县的JSON字符串
+let txtStr = await AreaHelper.getAreaStr();
+let areaList = JSONUtil.jsonToArray<AreaEntity>(txtStr);
+
+
+//获取省市县的数据
+let areas = AreaHelper.getAreaSync();
+
+
+//根据省名获取下面的市
+let citys = await AreaHelper.getCityByName("安徽省");
+
+
+//根据市名获取下面的区县
+let list = AreaHelper.getDistrictByNameSync("合肥市");
+
+
+//配合‘@pura/harmony-dialog’的\nshowTextPickerDialog()方法使用
+let data = AreaHelper.getAreaSync();
+DialogHelper.showTextPickerDialog({
+  title: "请选择",
+  range: data,
+  onChange: (value: string | string[], index: number | number[]) => {
+    LogUtil.error(`value: ${value} --- index: ${index}`);
+  },
+  onAction: (action: number, dialogId: string, value: string | string[]) => {
+    if (action === DialogAction.SURE) {
+      DialogHelper.showToast(`已选择：${value}`);
+    }
+  }
+});
+```
 
 ## 🍎沟通与交流🙏
 

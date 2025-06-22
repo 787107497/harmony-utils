@@ -61,9 +61,9 @@ OpenHarmony ohpm
 | transitionInRight | InRight动画 |
 
 
-## 📚使用说明与示例代码 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
+## 📚示例代码 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/index/DialogPage.ets)
 
- ```
+```
     //简单初始化（1.0.8版本及以后）
     //必须在UIAbility的onCreate方法里初始化context。
     DialogHelper.setDefaultConfig((config) => {

@@ -14,6 +14,13 @@
     "url": "pages/spinkit/SpinKitPage"
   },
   {
+    "name": "EventBus",
+    "desc": "EventBus 消息总线，支持Sticky，支持跨APP广播。",
+    "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/eventbus/src/main/ets/EventBus.ets",
+    "example": "https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/plug/EventBusPage.ets",
+    "url": "pages/plug/ChinaAreaPage"
+  },
+  {
     "name": "china_area",
     "desc": "china_area 中国区域数据，省市县三级数据。",
     "code": "https://gitee.com/tongyuyan/harmony-utils/blob/master/china_area/src/main/ets/AreaHelper.ets",

@@ -7,11 +7,11 @@ import { JSON } from '@kit.ArkTS';
 import { DialogAction, DialogHelper } from '@pura/harmony-dialog';
 
 /**
- * @nutpi/china_area，使用案例
+ * @nutpi/eventbus，使用案例
  */
 @Entry
 @ComponentV2
-export struct ChinaAreaPage {
+export struct EventBusPage {
   private scroller: Scroller = new Scroller();
   @Local describe: DescribeBean = router.getParams() as DescribeBean;
   @Local txtStr: string = "";

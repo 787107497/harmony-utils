@@ -59,7 +59,8 @@
     "pages/spinkit/SpinKit2",
     "pages/plug/ArkWebPage",
     "pages/plug/ChinaAreaPage",
-    "pages/plug/MimeTypesPage"
+    "pages/plug/MimeTypesPage",
+    "pages/plug/EventBusPage"
   ],
   "window": {
     "designWidth": 750,
