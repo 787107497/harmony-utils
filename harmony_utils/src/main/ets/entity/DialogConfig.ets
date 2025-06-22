@@ -49,7 +49,7 @@ export class DialogConfig {
   height?: Dimension; //设置弹窗背板的高度。
 
   enableHoverMode: boolean = false; //是否响应悬停态。默认值：false，默认不响应。<API14+>
-  hoverModeArea: HoverModeAreaType = HoverModeAreaType.BOTTOM_SCREEN; //设置悬停态下弹窗的默认展示区域。默认值：HoverModeAreaType.BOTTOM_SCREEN。<API14+>
+  hoverModeArea?: HoverModeAreaType = AppUtil.isApiSupported(14) ? HoverModeAreaType.BOTTOM_SCREEN : undefined; //设置悬停态下弹窗的默认展示区域。默认值：HoverModeAreaType.BOTTOM_SCREEN。<API14+>
   levelMode?: LevelMode = AppUtil.isApiSupported(15) ? LevelMode.OVERLAY : undefined; //设置弹窗显示层级。默认值：LevelMode.OVERLAY。当且仅当showInSubWindow属性设置为false时生效。<API15+>
   immersiveMode?: ImmersiveMode = AppUtil.isApiSupported(18) ? ImmersiveMode.DEFAULT : undefined; //设置页面内弹窗蒙层效果。默认值：ImmersiveMode.DEFAULT。当且仅当levelMode属性设置为LevelMode.EMBEDDED时生效。<API15+>
 

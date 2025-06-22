@@ -148,6 +148,9 @@ export class EventBusCore {
   }
 
 
+  /**
+   * 跨APP广播
+   */
   private initBroadcast() {
     let subscribeInfo: commonEventManager.CommonEventSubscribeInfo = {
       events: ['event'], //订阅事件

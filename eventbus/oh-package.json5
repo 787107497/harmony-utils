@@ -1,7 +1,7 @@
 {
   "name": "@nutpi/eventbus",
   "version": "1.0.0",
-  "description": "EventBus消息总线，支持Sticky，支持跨APP广播",
+  "description": "EventBus 消息总线，支持Sticky，支持跨APP广播",
   "author": "桃花镇童长老",
   "homepage": "https://gitee.com/tongyuyan",
   "repository": "https://gitee.com/tongyuyan/harmony-utils",
@@ -13,18 +13,16 @@
   "keywords": [
     "EventBus",
     "eventbus",
-    "eventbus",
+    "事件总线",
     "Sticky",
-    "消息总线",
     "HarmonyOS",
-    "openharmony"
+    "openharmony",
   ],
   "tags": [
     "EventBus",
     "eventbus",
-    "eventbus",
+    "事件总线",
     "Sticky",
-    "消息总线",
     "HarmonyOS",
     "openharmony"
   ]
