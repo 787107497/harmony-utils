@@ -1,29 +1,32 @@
-# china_area
+# EventBus
 
 ## 🏆简介与推荐
 
-[china_area](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Fchina_area) 中国区域数据，省市县三级数据。
+[EventBus](https://ohpm.openharmony.cn/#/cn/detail/@nutpi%2Feventbus) 消息总线，支持Sticky，支持跨APP广播。
 
 [harmony-utils](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-utils)
 一款功能丰富且极易上手的HarmonyOS工具库，借助众多实用工具类，致力于助力开发者迅速构建鸿蒙应用。
 
-[harmony-dialog](https://ohpm.openharmony.cn/#/cn/detail/@pura%2Fharmony-dialog)
-一款极为简单易用的零侵入弹窗，仅需一行代码即可轻松实现，无论在何处都能够轻松弹出。
 
 ## 🌞下载安装
 
-`ohpm i @nutpi/china_area`
+`ohpm i @nutpi/eventbus`
 OpenHarmony ohpm
 环境配置等更多内容，请参考[如何安装 OpenHarmony ohpm 包](https://ohpm.openharmony.cn/#/cn/help/downloadandinstall)
 
 ## 📚API详解 [使用案例](https://gitee.com/tongyuyan/harmony-utils/blob/master/entry/src/main/ets/pages/plug/ChinaAreaPage.ets)
 
-| AreaHelper方法                               | 介绍            |
-|:-------------------------------------------|:--------------|
-| getAreaStrSync<br>getAreaStr               | 获取省市县的JSON字符串 |
-| getAreaSync<br>getArea                     | 获取省市县的数据      |
-| getCityByNameSync<br>getCityByName         | 根据省名获取下面的市    |
-| getDistrictByNameSync<br>getDistrictByName | 根据市名获取下面的区县   |
+| EventBus方法   | 介绍       |
+|:-------------|:---------|
+| post         | 发布普通消息   |
+| postSticky   | 发布粘性消息   |
+| postApp      | 发布跨App消息 |
+| getSticky    | 获取粘性事件数据 |
+| removeSticky | 移除粘性事件   |
+| on           | 注册事件监听   |
+| once         | 注册单次事件监听 |
+| off          | 注销事件监听   |
+| offAll       | 注销所有事件监听 |
 
 ## 🍎沟通与交流🙏
 

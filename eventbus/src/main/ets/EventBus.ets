@@ -29,7 +29,7 @@ export class EventBus {
   /**
    * 注销事件监听
    * @param eventName 事件名
-   * @param handler 监听回调
+   * @param handler 监听回调；不传handler，注销eventName的所有事件监听
    */
   static off(eventName: string, handler?: Function): void {
     EventBusCore.getInstance().off(eventName, handler);

@@ -102,10 +102,14 @@ export class EmitterUtil {
   /**
    * 取消事件订阅，支持取消指定事件回调
    * @param eventId 事件ID，string类型的eventId不支持空字符串。
-   * @param callback 取消该事件的回调处理函数。
+   * @param callback 取消该事件的回调处理函数。不传callback，取消事件ID为eventId的所有订阅
    */
-  static off<T>(eventId: string | number, callback: Callback<emitter.GenericEventData<T>>) {
-    emitter.off(eventId.toString(), callback);
+  static off<T>(eventId: string | number, callback?: Callback<emitter.GenericEventData<T>>) {
+    if (callback) {
+      emitter.off(eventId.toString(), callback);
+    } else {
+      emitter.off(eventId.toString()); //取消事件ID为eventId的所有订阅
+    }
   }
 
 
