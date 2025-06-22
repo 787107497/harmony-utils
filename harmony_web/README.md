@@ -37,7 +37,7 @@ OpenHarmony ohpm
 | init               | 初始化                   |
 | prepareForPageLoad | 预连接url，在加载url之前调用此API |
 
-## 📚使用说明与示例代码
+## 📚示例代码
 
 ```
 @Entry
