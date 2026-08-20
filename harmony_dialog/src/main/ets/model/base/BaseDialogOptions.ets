@@ -47,6 +47,5 @@ export interface BaseDialogOptions {
   levelMode?: LevelMode; //设置弹窗显示层级。默认值：LevelMode.OVERLAY。当且仅当showInSubWindow属性设置为false时生效。<API15+>
   levelUniqueId?: number; //设置页面级弹窗需要显示的层级下的节点uniqueId。取值范围：大于等于0的数字。当且仅当levelMode属性设置为LevelMode.EMBEDDED时生效。<API15+>
   immersiveMode?: ImmersiveMode; //设置页面内弹窗蒙层效果。默认值：ImmersiveMode.DEFAULT。当且仅当levelMode属性设置为LevelMode.EMBEDDED时生效。<API15+>
-  levelOrder?: LevelOrder; //设置弹窗显示的顺序。默认值：LevelOrder.clamp(0)。不支持动态刷新顺序。<API18+>
 
 }
