@@ -114,8 +114,7 @@ export class DialogUtil {
       hoverModeArea: options.hoverModeArea,
       levelMode: options.levelMode,
       levelUniqueId: options.levelUniqueId,
-      immersiveMode: options.immersiveMode,
-      levelOrder: options.levelOrder
+      immersiveMode: options.immersiveMode
     });
   }
 
