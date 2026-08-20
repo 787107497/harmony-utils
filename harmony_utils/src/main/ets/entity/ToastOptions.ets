@@ -22,6 +22,7 @@ import { promptAction } from '@kit.ArkUI';
  * since: 2024/08/18
  */
 export class ToastOptions {
+  uiContext?: UIContext; //UI上下文。IME/Extension 无主窗口时可传入组件 getUIContext()。
   duration?: number; //显示时长(1500ms-10000ms)
   alignment?: Alignment; //对齐方式。默认值：undefined，默认底部偏上位置。
   bottom?: string | number; //设置弹窗底部边框距离导航条的高度，ToastShowMode.TOP_MOST模式下，软键盘拉起时，如果bottom值过小，toast要被软键盘遮挡时，会自动避让至距离软键盘80vp处。ToastShowMode.DEFAULT模式下，软键盘拉起时，会上移软键盘的高度。默认值：80vp。说明：当底部没有导航条时，bottom为设置弹窗底部边框距离窗口底部的高度。设置对齐方式alignment后，bottom不生效。

@@ -92,6 +92,18 @@ export class AppUtil {
   }
 
   /**
+   * 安全获取UIContext。IME/Extension 无 windowStage 时返回 undefined，不抛异常。
+   */
+  static tryGetUIContext(): UIContext | undefined {
+    try {
+      return AppUtil.tryGetMainWindow()?.getUIContext();
+    } catch (err) {
+      LogUtil.error(err);
+      return undefined;
+    }
+  }
+
+  /**
    * 获取WindowStage
    * @returns
    */
@@ -100,10 +112,31 @@ export class AppUtil {
   }
 
   /**
-   * 获取主窗口
+   * 获取主窗口。Ability 路径与原先一致：存在 windowStage 时调用 getMainWindowSync。
+   * IME/Extension 无 windowStage，不可直接解引用 getMainWindowSync。
    */
   static getMainWindow(): window.Window {
-    return AppUtil.getContext().windowStage.getMainWindowSync();
+    const windowStage = AppUtil.getContext().windowStage;
+    if (!windowStage) {
+      throw new Error('AppUtil.getMainWindow: windowStage is undefined');
+    }
+    return windowStage.getMainWindowSync();
+  }
+
+  /**
+   * 安全获取主窗口。IME/Extension 无 windowStage 时返回 undefined，不访问 getMainWindowSync。
+   */
+  static tryGetMainWindow(): window.Window | undefined {
+    try {
+      const windowStage = AppUtil.getContext().windowStage;
+      if (!windowStage) {
+        return undefined;
+      }
+      return windowStage.getMainWindowSync();
+    } catch (err) {
+      LogUtil.error(err);
+      return undefined;
+    }
   }
 
 

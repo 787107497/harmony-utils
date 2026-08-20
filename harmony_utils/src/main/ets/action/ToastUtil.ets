@@ -16,6 +16,8 @@
 import promptAction from '@ohos.promptAction';
 import { ToastConfig } from '../entity/ToastConfig';
 import { ToastOptions } from '../entity/ToastOptions';
+import { AppUtil } from '../utils/AppUtil';
+import { LogUtil } from '../utils/LogUtil';
 
 
 /**
@@ -43,12 +45,7 @@ export class ToastUtil {
    * @param options (显示时长、距离屏幕底部的位置、是否显示在应用之上)
    */
   static showToast(message: string | Resource, options: ToastOptions = new ToastOptions()) {
-    if (message || (typeof message === 'string' && message.length > 0)) {
-      options = ToastUtil.initToastDefault(options, 0);
-      let toastOptions = options as promptAction.ShowToastOptions;
-      toastOptions.message = message;
-      promptAction.showToast(toastOptions);
-    }
+    ToastUtil.showInner(message, options, 0);
   }
 
 
@@ -58,12 +55,7 @@ export class ToastUtil {
    * @param options (距离屏幕底部的位置、是否显示在应用之上)
    */
   static showShort(message: string | Resource, options: ToastOptions = new ToastOptions()) {
-    if (message || (typeof message === 'string' && message.length > 0)) {
-      options = ToastUtil.initToastDefault(options, 1);
-      let toastOptions = options as promptAction.ShowToastOptions;
-      toastOptions.message = message;
-      promptAction.showToast(toastOptions);
-    }
+    ToastUtil.showInner(message, options, 1);
   }
 
 
@@ -73,11 +65,26 @@ export class ToastUtil {
    * @param options (距离屏幕底部的位置、是否显示在应用之上)
    */
   static showLong(message: string | Resource, options: ToastOptions = new ToastOptions()) {
+    ToastUtil.showInner(message, options, 2);
+  }
+
+  /**
+   * 弹出 toast。Ability 优先走 UIContext；IME/Extension 无主窗口时回退 promptAction.showToast。
+   */
+  private static showInner(message: string | Resource, options: ToastOptions, type: number) {
     if (message || (typeof message === 'string' && message.length > 0)) {
-      options = ToastUtil.initToastDefault(options, 2);
-      let toastOptions = options as promptAction.ShowToastOptions;
-      toastOptions.message = message;
-      promptAction.showToast(toastOptions);
+      try {
+        options = ToastUtil.initToastDefault(options, type);
+        let toastOptions = options as promptAction.ShowToastOptions;
+        toastOptions.message = message;
+        if (options.uiContext) {
+          options.uiContext.getPromptAction().showToast(toastOptions);
+        } else {
+          promptAction.showToast(toastOptions);
+        }
+      } catch (err) {
+        LogUtil.error(err);
+      }
     }
   }
 
@@ -93,6 +100,8 @@ export class ToastUtil {
     } else {
       options.duration = options.duration ?? ToastUtil.defaultConfig.duration;
     }
+    // IME/Extension 无 windowStage，不可走 AppUtil.getUIContext() → getMainWindowSync。
+    options.uiContext = options.uiContext ?? ToastUtil.resolveUIContext();
     options.alignment = options.alignment ?? ToastUtil.defaultConfig.alignment;
     options.bottom = options.bottom ?? ToastUtil.defaultConfig.bottom;
     options.offset = options.offset ?? ToastUtil.defaultConfig.offset;
@@ -106,5 +115,10 @@ export class ToastUtil {
     return options;
   }
 
-
+  /**
+   * 安全获取 UIContext。无 windowStage 或 getMainWindowSync 不可用时返回 undefined。
+   */
+  private static resolveUIContext(): UIContext | undefined {
+    return AppUtil.tryGetUIContext();
+  }
 }
